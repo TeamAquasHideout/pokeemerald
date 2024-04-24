@@ -480,7 +480,7 @@ static const struct WindowTemplate sCancelButtonWindowTemplate =
     .width = 6,
     .height = 2,
     .paletteNum = 3,
-    .baseBlock = 0x1C7,
+    .baseBlock = 0x207,
 };
 static const struct WindowTemplate sCancelButtonWindowTemplate_equal =
 {
@@ -501,7 +501,7 @@ static const struct WindowTemplate sMultiCancelButtonWindowTemplate =
     .width = 6,
     .height = 2,
     .paletteNum = 3,
-    .baseBlock = 0x1C7,
+    .baseBlock = 0x207,
 };
 static const struct WindowTemplate sMultiCancelButtonWindowTemplate_equal =
 {
