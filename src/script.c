@@ -468,3 +468,11 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize)
         scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
     InitRamScript(script, scriptSize, MAP_GROUP(UNDEFINED), MAP_NUM(UNDEFINED), NO_OBJECT);
 }
+
+void AutoSave(void)
+{
+    ScriptContext_Stop();
+    AutoSaveDoSave();
+    FlagSet(FLAG_TEMP_F);
+    ScriptContext_Enable();
+}
