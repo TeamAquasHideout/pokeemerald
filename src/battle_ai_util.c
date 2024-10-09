@@ -4017,3 +4017,11 @@ bool32 AI_ShouldSpicyExtract(u32 battlerAtk, u32 battlerAtkPartner, u32 move, st
          && AI_IsFaster(battlerAtk, battlerAtkPartner, TRUE)
          && HasMoveWithCategory(battlerAtkPartner, DAMAGE_CATEGORY_PHYSICAL));
 }
+
+bool32 HasViableAIScore(u32 move, u32 battlerAtk, u32 battlerDef, u16 minimumScore)
+{
+    if (gBattleStruct->aiFinalScore[battlerAtk][battlerDef][move] >= minimumScore)
+        return TRUE;
+
+    return FALSE;
+}
