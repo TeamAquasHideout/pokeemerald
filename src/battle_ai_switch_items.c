@@ -952,7 +952,9 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
             if ((AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
               || AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0))
                 && aiMove != MOVE_NONE
-                && gMovesInfo[aiMove].power != 0)
+                && (gMovesInfo[aiMove].power != 0
+                  || HasViableAIScore(moveIndex, battler, opposingBattler, 100)
+                  || HasViableAIScore(moveIndex, battler, opposingPartner, 100)))
                     return FALSE;
         }
     }
@@ -963,7 +965,8 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
             aiMove = gBattleMons[battler].moves[moveIndex];
             if (AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
               && aiMove != MOVE_NONE
-              && gMovesInfo[aiMove].power != 0)
+              && (gMovesInfo[aiMove].power != 0
+                || HasViableAIScore(moveIndex, battler, opposingBattler, 100)))
                 return FALSE;
         }
     }

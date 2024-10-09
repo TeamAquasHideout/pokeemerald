@@ -1091,6 +1091,10 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 if (moveType == TYPE_GROUND)
                     RETURN_SCORE_MINUS(20);
                 break;
+            case ABILITY_GOOD_AS_GOLD:
+                if (IS_MOVE_STATUS(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
             } // def ability checks
 
             // target partner ability checks & not attacking partner
