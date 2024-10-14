@@ -109,7 +109,10 @@
     "PitArenaSpiderCave",
     "PitArenaWhiteBark",
     "PitRestFloor",
-    "PitBossArena"
+    "PitBossArena",
+    "PitArenaWater02",
+    "PitArenaSnow02",
+    "PitArenaMine02"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
