@@ -287,6 +287,7 @@ bool8 (*const gFieldEffectScriptFuncs[])(u8 **, u32 *) =
     FieldEffectCmd_loadgfx_callnative,
     FieldEffectCmd_loadtiles_callnative,
     FieldEffectCmd_loadfadedpal_callnative,
+    FieldEffectCmd_loadfadedpal_callnative_TallGrass,
 };
 
 static const struct OamData sOam_64x64 =
@@ -768,6 +769,14 @@ bool8 FieldEffectCmd_loadfadedpal_callnative(u8 **script, u32 *val)
     return TRUE;
 }
 
+bool8 FieldEffectCmd_loadfadedpal_callnative_TallGrass(u8 **script, u32 *val)
+{
+    (*script)++;
+    FieldEffectScript_LoadFadedPalette_TallGrass(script);
+    FieldEffectScript_CallNative(script, val);
+    return TRUE;
+}
+
 u32 FieldEffectScript_ReadWord(u8 **script)
 {
     return (*script)[0]
@@ -789,6 +798,42 @@ void FieldEffectScript_LoadFadedPalette(u8 **script)
     struct SpritePalette *palette = (struct SpritePalette *)FieldEffectScript_ReadWord(script);
     LoadSpritePalette(palette);
     UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(palette->tag));
+    (*script) += 4;
+}
+
+void FieldEffectScript_LoadFadedPalette_TallGrass(u8 **script)
+{
+    int palId = 0;
+    struct SpritePalette *palettes = (struct SpritePalette *)FieldEffectScript_ReadWord(script);
+
+    //dynamically change TallGrass subsprites based on tileset
+    switch (GetCurrentMapConstant())
+    {
+        case MAP_PIT_ARENA_DIRT_PATH:
+        case MAP_PIT_ARENA_WATER:
+            palId = TALL_GRASS_WATER;
+            break;
+        case MAP_PIT_ARENA_WHITE_BARK:
+            palId = TALL_GRASS_WHITE_BARK;
+            break;
+        case MAP_PIT_ARENA_DESERT:
+            palId = TALL_GRASS_DESERT;
+            break;
+        case MAP_PIT_ARENA_SNOW:
+            palId = TALL_GRASS_SNOW;
+            break;
+        case MAP_PIT_ARENA_MUSHROOM_WOODS:
+            palId = TALL_GRASS_MUSHROOM_WOODS;
+            break;
+        case MAP_PIT_ARENA_BEACH:
+            palId = TALL_GRASS_BEACH;
+            break;
+        default:
+            palId = TALL_GRASS_VANILLA;
+            break;
+    }
+    LoadSpritePalette(&palettes[palId]);
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(palettes[palId].tag));
     (*script) += 4;
 }
 
