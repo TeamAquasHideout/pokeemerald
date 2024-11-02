@@ -1079,7 +1079,31 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warpMetatileId = METATILE_PitArenaWhiteBark_WHITEBARK_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
         DEFAULT_RANDOM_MAP_COORDS
-    },                   
+    },       
+    {
+        .mapConstant = MAP_PIT_ARENA_WATER02,
+        .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_WATER,
+        .dest_x = 9,
+        .dest_y = 10,
+        .warp_x = 9,
+        .warp_y = 11,
+    },          
+    {
+        .mapConstant = MAP_PIT_ARENA_SNOW02,
+        .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        DEFAULT_RANDOM_MAP_COORDS
+    },      
+    {
+        .mapConstant = MAP_PIT_ARENA_MINE02,
+        .warpMetatileId = METATILE_PitArenaMine_MINE_TOP_CAVE_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_CAVE,
+        .dest_x = 13,
+        .dest_y = 13,
+        .warp_x = 15,
+        .warp_y = 14,
+    },    
 };
 
 void WarpToRandomPitArena(void)

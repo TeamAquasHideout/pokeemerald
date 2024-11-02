@@ -414,7 +414,8 @@
 #define METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE  0x02C
 
 // gTileset_PitArenaMine
-#define METATILE_PitArenaMine_MINE_WARP_ACTIVE  0x059
+#define METATILE_PitArenaMine_MINE_TOP_CAVE_WARP_ACTIVE  0x019
+#define METATILE_PitArenaMine_MINE_WARP_ACTIVE           0x059
 
 // gTileset_PitArenaMushroomWoods
 #define METATILE_PitArenaMushroomWoods_MUSHROOM_WARP_ACTIVE  0x006
