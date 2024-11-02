@@ -18,6 +18,7 @@
 #include "task.h"
 #include "field_player_avatar.h"
 #include "event_data.h"
+#include "script.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 #define PAL_TAG_REFLECTION_OFFSET 0x2000 // reflection tag value is paletteTag + 0x2000
@@ -417,7 +418,30 @@ u32 FldEff_TallGrass(void)
     s16 x = gFieldEffectArguments[0];
     s16 y = gFieldEffectArguments[1];
     SetSpritePosToOffsetMapCoords(&x, &y, 8, 8);
-    spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS], x, y, 0);
+
+    //dynamically change TallGrass subsprites based on tileset
+    switch (GetCurrentMapConstant())
+    {
+        case MAP_PIT_ARENA_WHITE_BARK:
+        case MAP_PIT_ARENA_DIRT_PATH:
+        case MAP_PIT_ARENA_MUSHROOM_WOODS:
+        case MAP_PIT_ARENA_WATER:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_WATER], x, y, 0);
+            break;
+        case MAP_PIT_ARENA_DESERT:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_DESERT], x, y, 0);
+            break;
+        case MAP_PIT_ARENA_SNOW:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_SNOW], x, y, 0);
+            break;
+        case MAP_PIT_ARENA_BEACH:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_BEACH], x, y, 0);
+            break;
+        default:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS], x, y, 0);
+            break;
+    }
+    
     if (spriteId != MAX_SPRITES)
     {
         struct Sprite *sprite = &gSprites[spriteId];

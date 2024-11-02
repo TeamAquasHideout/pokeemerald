@@ -1108,9 +1108,16 @@ static const struct sRandomMap sRandomMapArray[] = {
 
 void WarpToRandomPitArena(void)
 {
-    u16 index = Random() % RANDOM_MAP_COUNT;
+    u16 index;
+    u16 indexCurrentMap = VarGet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY);
 
-    //return default map if randomization is turned off
+    do
+    {
+        index = Random() % RANDOM_MAP_COUNT;
+    }
+    while (index == indexCurrentMap); //don't roll the current map again
+
+     //return default map if randomization is turned off
     if (!FlagGet(FLAG_RANDOM_MAPS))
         index = 0;
     
@@ -1136,6 +1143,16 @@ u16 GetRandomMapTerrain(void)
         return sRandomMapArray[currentIndex].battleTerrainId;
     }
     return BATTLE_TERRAIN_CAVE;
+}
+
+u16 GetCurrentMapConstant(void)
+{
+    u16 currentIndex = VarGet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY);
+    if(currentIndex != 0xFF)
+    {
+        return sRandomMapArray[currentIndex].mapConstant;
+    }
+    return MAP_PIT_ARENA;
 }
 
 struct RandomMonEncounters {
