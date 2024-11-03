@@ -908,4 +908,7 @@ void DebugTestRandomness(void);
 u16 GetRandomSpeciesFlattenedCurve(void);
 u16 GetAverageEVsFromParty(void);
 void ForceIncrementMonLevel(struct Pokemon *mon);
+u16 GetRandomValidMovesCount(void);
+u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum);
+extern const u16 gRandomValidMoves[];
 #endif // GUARD_POKEMON_H
