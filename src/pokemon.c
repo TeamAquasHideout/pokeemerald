@@ -65,6 +65,7 @@
 #include "config/general.h"
 #include "field_screen_effect.h"
 #include "script.h"
+#include "pit.h"
 #include "wild_encounter.h"
 
 #define FRIENDSHIP_EVO_THRESHOLD ((P_FRIENDSHIP_EVO_THRESHOLD >= GEN_8) ? 160 : 220)

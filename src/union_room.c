@@ -33,6 +33,7 @@
 #include "random.h"
 #include "save_location.h"
 #include "script.h"
+#include "pit.h"
 #include "script_pokemon_util.h"
 #include "sound.h"
 #include "start_menu.h"

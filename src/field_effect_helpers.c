@@ -19,6 +19,7 @@
 #include "field_player_avatar.h"
 #include "event_data.h"
 #include "script.h"
+#include "pit.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 #define PAL_TAG_REFLECTION_OFFSET 0x2000 // reflection tag value is paletteTag + 0x2000

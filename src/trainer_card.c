@@ -33,6 +33,7 @@
 #include "constants/trainers.h"
 #include "constants/union_room.h"
 #include "script.h"
+#include "pit.h"
 
 enum {
     WIN_MSG,

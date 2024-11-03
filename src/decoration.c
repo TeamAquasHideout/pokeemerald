@@ -24,6 +24,7 @@
 #include "palette.h"
 #include "player_pc.h"
 #include "script.h"
+#include "pit.h"
 #include "secret_base.h"
 #include "sound.h"
 #include "string_util.h"

@@ -23,6 +23,7 @@
 #include "pokemon.h"
 #include "safari_zone.h"
 #include "script.h"
+#include "pit.h"
 #include "secret_base.h"
 #include "sound.h"
 #include "start_menu.h"

@@ -13,6 +13,7 @@
 #include "metatile_behavior.h"
 #include "overworld.h"
 #include "script.h"
+#include "pit.h"
 #include "secret_base.h"
 #include "sound.h"
 #include "task.h"

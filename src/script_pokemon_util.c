@@ -20,6 +20,7 @@
 #include "pokemon_storage_system.h"
 #include "random.h"
 #include "script.h"
+#include "pit.h"
 #include "sprite.h"
 #include "string_util.h"
 #include "tv.h"

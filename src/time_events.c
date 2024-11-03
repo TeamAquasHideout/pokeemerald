@@ -7,6 +7,7 @@
 #include "overworld.h"
 #include "rtc.h"
 #include "script.h"
+#include "pit.h"
 #include "task.h"
 
 static u32 GetMirageRnd(void)

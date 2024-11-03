@@ -4,6 +4,7 @@
 #include "field_camera.h"
 #include "field_effect.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "task.h"
 #include "constants/field_effects.h"

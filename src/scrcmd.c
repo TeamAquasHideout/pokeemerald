@@ -37,6 +37,7 @@
 #include "rotating_tile_puzzle.h"
 #include "rtc.h"
 #include "script.h"
+#include "pit.h"
 #include "script_menu.h"
 #include "script_movement.h"
 #include "script_pokemon_util.h"

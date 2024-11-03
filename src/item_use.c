@@ -33,6 +33,7 @@
 #include "pokeblock.h"
 #include "pokemon.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "strings.h"
 #include "string_util.h"

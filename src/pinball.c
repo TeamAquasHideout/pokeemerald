@@ -12,6 +12,7 @@
 #include "pinball.h"
 #include "random.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"

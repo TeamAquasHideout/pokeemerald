@@ -15,6 +15,7 @@
 #include "random.h"
 #include "rotating_gate.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "strings.h"
@@ -30,6 +31,7 @@
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
 #include "script.h"
+#include "pit.h"
 
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5

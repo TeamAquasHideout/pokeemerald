@@ -5,6 +5,7 @@
 #include "fldeff.h"
 #include "party_menu.h"
 #include "script.h"
+#include "pit.h"
 #include "string_util.h"
 #include "task.h"
 #include "constants/event_objects.h"

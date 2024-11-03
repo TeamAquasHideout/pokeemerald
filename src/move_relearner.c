@@ -20,6 +20,7 @@
 #include "palette.h"
 #include "pokemon_summary_screen.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "string_util.h"

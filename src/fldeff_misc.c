@@ -2,6 +2,7 @@
 #include "gpu_regs.h"
 #include "palette.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "task.h"
 #include "strings.h"

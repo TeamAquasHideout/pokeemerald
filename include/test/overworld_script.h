@@ -24,6 +24,7 @@
 #define GUARD_TEST_OVERWORLD_SCRIPT
 
 #include "script.h"
+#include "pit.h"
 #include "test/test.h"
 
 #define OVERWORLD_SCRIPT(...) \

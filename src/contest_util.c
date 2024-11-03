@@ -29,6 +29,7 @@
 #include "save.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "pit.h"
 #include "script_menu.h"
 #include "sound.h"
 #include "string_util.h"

@@ -16,6 +16,7 @@
 #include "palette.h"
 #include "pokemon.h"
 #include "script.h"
+#include "pit.h"
 #include "string_util.h"
 #include "strings.h"
 #include "text.h"

@@ -7,6 +7,7 @@
 #include "pokeblock.h"
 #include "safari_zone.h"
 #include "script.h"
+#include "pit.h"
 #include "string_util.h"
 #include "tv.h"
 #include "constants/game_stat.h"

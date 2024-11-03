@@ -6,6 +6,7 @@
 #include "overworld.h"
 #include "random.h"
 #include "script.h"
+#include "pit.h"
 #include "constants/weather.h"
 #include "constants/songs.h"
 #include "sound.h"

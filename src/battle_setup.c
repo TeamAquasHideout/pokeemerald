@@ -7,6 +7,7 @@
 #include "task.h"
 #include "safari_zone.h"
 #include "script.h"
+#include "pit.h"
 #include "event_data.h"
 #include "metatile_behavior.h"
 #include "field_player_avatar.h"

@@ -12,6 +12,7 @@
 #include "malloc.h"
 #include "palette.h"
 #include "script.h"
+#include "pit.h"
 #include "battle_setup.h"
 #include "constants/event_objects.h"
 #include "constants/battle_frontier.h"

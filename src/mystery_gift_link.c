@@ -6,6 +6,7 @@
 #include "link_rfu.h"
 #include "overworld.h"
 #include "script.h"
+#include "pit.h"
 #include "battle_tower.h"
 #include "mystery_event_script.h"
 #include "mystery_gift.h"

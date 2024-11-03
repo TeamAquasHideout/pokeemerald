@@ -20,6 +20,7 @@
 #include "union_room.h"
 #include "mystery_gift.h"
 #include "script.h"
+#include "pit.h"
 #include "script_pokemon_util.h"
 #include "sound.h"
 #include "start_menu.h"

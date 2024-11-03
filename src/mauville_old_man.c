@@ -8,6 +8,7 @@
 #include "text.h"
 #include "easy_chat.h"
 #include "script.h"
+#include "pit.h"
 #include "random.h"
 #include "event_scripts.h"
 #include "task.h"

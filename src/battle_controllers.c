@@ -27,6 +27,7 @@
 #include "constants/abilities.h"
 #include "constants/songs.h"
 #include "script.h"
+#include "pit.h"
 
 static EWRAM_DATA u8 sLinkSendTaskId = 0;
 static EWRAM_DATA u8 sLinkReceiveTaskId = 0;

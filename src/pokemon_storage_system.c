@@ -30,6 +30,7 @@
 #include "pokemon_summary_screen.h"
 #include "pokemon_storage_system.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "string_util.h"
 #include "strings.h"

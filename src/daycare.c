@@ -14,6 +14,7 @@
 #include "menu.h"
 #include "international_string_util.h"
 #include "script.h"
+#include "pit.h"
 #include "strings.h"
 #include "task.h"
 #include "window.h"

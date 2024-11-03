@@ -30,6 +30,7 @@
 #include "random.h"
 #include "region_map.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"

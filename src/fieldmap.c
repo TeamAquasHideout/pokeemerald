@@ -11,6 +11,7 @@
 #include "palette.h"
 #include "pokenav.h"
 #include "script.h"
+#include "pit.h"
 #include "secret_base.h"
 #include "trainer_hill.h"
 #include "tv.h"

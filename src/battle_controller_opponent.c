@@ -42,6 +42,7 @@
 #include "event_data.h"
 #include "constants/event_objects.h"
 #include "script.h"
+#include "pit.h"
 
 static void OpponentHandleLoadMonSprite(u32 battler);
 static void OpponentHandleSwitchInAnim(u32 battler);

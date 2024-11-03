@@ -6,6 +6,7 @@
 #include "pokeblock.h"
 #include "event_data.h"
 #include "script.h"
+#include "pit.h"
 #include "random.h"
 #include "string_util.h"
 #include "item.h"

@@ -22,6 +22,7 @@
 #include "pokemon.h"
 #include "pokemon_storage_system.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"

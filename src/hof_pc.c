@@ -4,6 +4,7 @@
 #include "palette.h"
 #include "overworld.h"
 #include "script.h"
+#include "pit.h"
 #include "script_menu.h"
 #include "task.h"
 #include "constants/rgb.h"

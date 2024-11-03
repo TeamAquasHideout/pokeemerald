@@ -4,6 +4,7 @@
 #include "pokedex.h"
 #include "constants/items.h"
 #include "script.h"
+#include "pit.h"
 #include "decompress.h"
 #include "task.h"
 #include "palette.h"

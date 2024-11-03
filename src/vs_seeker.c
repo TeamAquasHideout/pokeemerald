@@ -5,6 +5,7 @@
 #include "event_scripts.h"
 #include "event_data.h"
 #include "script.h"
+#include "pit.h"
 #include "event_object_lock.h"
 #include "field_specials.h"
 #include "item.h"

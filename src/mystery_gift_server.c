@@ -1,6 +1,7 @@
 #include "global.h"
 #include "malloc.h"
 #include "script.h"
+#include "pit.h"
 #include "mystery_gift.h"
 #include "mystery_gift_server.h"
 #include "mystery_gift_link.h"

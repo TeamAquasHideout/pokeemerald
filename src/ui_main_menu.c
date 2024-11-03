@@ -23,6 +23,7 @@
 #include "party_menu.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "string_util.h"
 #include "strings.h"

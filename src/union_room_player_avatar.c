@@ -4,6 +4,7 @@
 #include "field_player_avatar.h"
 #include "fieldmap.h"
 #include "script.h"
+#include "pit.h"
 #include "task.h"
 #include "union_room.h"
 #include "constants/event_objects.h"

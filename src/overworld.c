@@ -49,6 +49,7 @@
 #include "save.h"
 #include "save_location.h"
 #include "script.h"
+#include "pit.h"
 #include "script_pokemon_util.h"
 #include "secret_base.h"
 #include "sound.h"

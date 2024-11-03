@@ -9,6 +9,7 @@
 #include "overworld.h"
 #include "palette.h"
 #include "script.h"
+#include "pit.h"
 #include "script_movement.h"
 #include "sound.h"
 #include "sprite.h"

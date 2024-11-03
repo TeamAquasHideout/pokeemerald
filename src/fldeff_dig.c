@@ -8,6 +8,7 @@
 #include "overworld.h"
 #include "party_menu.h"
 #include "script.h"
+#include "pit.h"
 #include "sprite.h"
 #include "constants/field_effects.h"
 

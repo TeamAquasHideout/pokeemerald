@@ -48,6 +48,7 @@
 #include "event_data.h"
 #include "field_weather.h"
 #include "script.h"
+#include "pit.h"
 
 static void ChangeMoveDisplayMode(u32 battler);
 #include "menu.h"

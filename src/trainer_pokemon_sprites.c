@@ -9,6 +9,7 @@
 #include "pokemon.h"
 #include "constants/trainers.h"
 #include "script.h"
+#include "pit.h"
 
 #define PICS_COUNT 8
 

@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "menu_helpers.h"
 #include "script.h"
+#include "pit.h"
 #include "constants/songs.h"
 #include "sound.h"
 #include "string_util.h"

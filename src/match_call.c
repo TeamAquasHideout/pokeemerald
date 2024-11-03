@@ -20,6 +20,7 @@
 #include "region_map.h"
 #include "rtc.h"
 #include "script.h"
+#include "pit.h"
 #include "script_movement.h"
 #include "sound.h"
 #include "string_util.h"

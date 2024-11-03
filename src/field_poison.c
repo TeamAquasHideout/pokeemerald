@@ -11,6 +11,7 @@
 #include "party_menu.h"
 #include "pokenav.h"
 #include "script.h"
+#include "pit.h"
 #include "string_util.h"
 #include "strings.h"
 #include "task.h"

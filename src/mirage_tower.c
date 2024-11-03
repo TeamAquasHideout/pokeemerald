@@ -12,6 +12,7 @@
 #include "palette.h"
 #include "palette_util.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"

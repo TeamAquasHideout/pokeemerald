@@ -18,6 +18,7 @@
 #include "digit_obj_util.h"
 #include "save.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "string_util.h"

@@ -47,6 +47,7 @@
 #include "region_map.h"
 #include "rtc.h"
 #include "script.h"
+#include "pit.h"
 #include "script_pokemon_util.h"
 #include "sound.h"
 #include "strings.h"

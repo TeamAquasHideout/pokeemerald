@@ -19,6 +19,7 @@
 #include "recorded_battle.h"
 #include "util.h"
 #include "script.h"
+#include "pit.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_move_effects.h"

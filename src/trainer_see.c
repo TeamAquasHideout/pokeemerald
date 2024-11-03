@@ -6,6 +6,7 @@
 #include "field_player_avatar.h"
 #include "pokemon.h"
 #include "script.h"
+#include "pit.h"
 #include "script_movement.h"
 #include "sprite.h"
 #include "task.h"

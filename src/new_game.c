@@ -5,6 +5,7 @@
 #include "roamer.h"
 #include "pokemon_size_record.h"
 #include "script.h"
+#include "pit.h"
 #include "lottery_corner.h"
 #include "play_time.h"
 #include "mauville_old_man.h"

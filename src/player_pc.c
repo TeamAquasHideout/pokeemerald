@@ -22,6 +22,7 @@
 #include "party_menu.h"
 #include "player_pc.h"
 #include "script.h"
+#include "pit.h"
 #include "sound.h"
 #include "sprite.h"
 #include "string_util.h"

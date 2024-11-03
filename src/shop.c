@@ -26,6 +26,7 @@
 #include "party_menu.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "pit.h"
 #include "shop.h"
 #include "sound.h"
 #include "sprite.h"

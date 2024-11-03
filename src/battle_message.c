@@ -36,6 +36,7 @@
 #include "event_data.h"
 #include "constants/event_objects.h"
 #include "script.h"
+#include "pit.h"
 #include "random.h"
 
 struct BattleWindowText
