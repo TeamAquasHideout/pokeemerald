@@ -1,5 +1,6 @@
 {
   "group_order": [
+    "gMapGroup_ThePit",
     "gMapGroup_TownsAndRoutes",
     "gMapGroup_IndoorLittleroot",
     "gMapGroup_IndoorOldale",
@@ -35,6 +36,29 @@
     "gMapGroup_IndoorRoute119",
     "gMapGroup_IndoorRoute124"
   ],
+
+  "gMapGroup_ThePit" : [
+    "PitArena",
+    "PitEntrance",
+    "PitRestFloor",
+    "PitBossArena",
+    "PitWildEncounterFloor",
+    "PitArenaWater",
+    "PitArenaDesert",
+    "PitArenaSnow",
+    "PitArenaBeach",
+    "PitArenaDeepForest",
+    "PitArenaDirtPath",
+    "PitArenaMushroomWoods",
+    "PitArenaSpiderWoods",
+    "PitArenaUnderwater",
+    "PitArenaMine",
+    "PitArenaWhiteBark",
+    "PitArenaWater02",
+    "PitArenaSnow02",
+    "PitArenaMine02"
+  ],
+
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
     "SlateportCity",
@@ -93,27 +117,8 @@
     "Underwater_Route129",
     "Underwater_Route105",
     "Underwater_Route125",
-    "PitArena",
-    "PitEntrance",
-    "PitArenaWater",
-    "PitArenaDesert",
-    "PitArenaSnow",
-    "PitArenaBeach",
-    "PitArenaDeepForest",
-    "PitArenaDirtPath",
     "PitArenaClouds",
-    "PitArenaMushroomWoods",
-    "PitArenaSpiderWoods",
-    "PitArenaUnderwater",
-    "PitArenaMine",
-    "PitArenaSpiderCave",
-    "PitArenaWhiteBark",
-    "PitRestFloor",
-    "PitBossArena",
-    "PitWildEncounterFloor",
-    "PitArenaWater02",
-    "PitArenaSnow02",
-    "PitArenaMine02"
+    "PitArenaSpiderCave"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
