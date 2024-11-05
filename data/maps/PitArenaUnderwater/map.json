@@ -5,7 +5,7 @@
   "music": "MUS_ABANDONED_SHIP",
   "region_map_section": "MAPSEC_PIT_FLOORS",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
+  "weather": "WEATHER_UNDERWATER",
   "map_type": "MAP_TYPE_NONE",
   "allow_cycling": false,
   "allow_escaping": false,

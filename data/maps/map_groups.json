@@ -36,8 +36,7 @@
     "gMapGroup_IndoorRoute119",
     "gMapGroup_IndoorRoute124"
   ],
-
-  "gMapGroup_ThePit" : [
+  "gMapGroup_ThePit": [
     "PitArena",
     "PitEntrance",
     "PitRestFloor",
@@ -58,7 +57,6 @@
     "PitArenaSnow02",
     "PitArenaMine02"
   ],
-
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
     "SlateportCity",
