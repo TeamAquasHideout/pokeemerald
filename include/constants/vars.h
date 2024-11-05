@@ -237,7 +237,7 @@
 #define VAR_SOOTOPOLIS_WALLACE_STATE                     0x40D8
 #define VAR_HAS_TALKED_TO_SEAFLOOR_CAVERN_ENTRANCE_GRUNT 0x40D9
 #define VAR_REGISTER_BIRCH_STATE                         0x40DA
-#define VAR_AVATAR_POKEMON_CHOICE                                0x40DB // Unused Var
+#define VAR_AVATAR_POKEMON_CHOICE                        0x40DB // Unused Var
 #define VAR_UNUSED_0x40DC                                0x40DC // Unused Var
 #define VAR_GIFT_PICHU_SLOT                              0x40DD
 #define VAR_GIFT_UNUSED_1                                0x40DE // Var is written to, but never read
@@ -265,15 +265,15 @@
 #define VAR_ROXANNE_CALL_STEP_COUNTER                    0x40F4
 #define VAR_SCOTT_BF_CALL_STEP_COUNTER                   0x40F5
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
-#define VAR_PIT_FLOOR                                0x40F7 // Unused Var
-#define VAR_REWARD_STATE                                0x40F8 // Unused Var
-#define VAR_FINAL_FLOOR                                0x40F9 // Unused Var
-#define VAR_LAST_FLOOR_TRAINER_NUMBER                                0x40FA // Unused Var
-#define VAR_BATTLE_SPEED                                0x40FB // Unused Var
-#define VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY                                0x40FC // Unused Var
-#define VAR_CURRENT_BOSS                                0x40FD // Unused Var
-#define VAR_CURRENT_OVERWORLD_ENCOUNTER_INDEX                                0x40FE // Unused Var
-#define VAR_OVERWORLD_MON_SPECIES                                0x40FF // Unused Var
+#define VAR_PIT_FLOOR                                    0x40F7 // Unused Var
+#define VAR_REWARD_STATE                                 0x40F8 // Unused Var
+#define VAR_FINAL_FLOOR                                  0x40F9 // Unused Var
+#define VAR_LAST_FLOOR_TRAINER_NUMBER                    0x40FA // Unused Var
+#define VAR_BATTLE_SPEED                                 0x40FB // Unused Var
+#define VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY               0x40FC // Unused Var
+#define VAR_CURRENT_BOSS                                 0x40FD // Unused Var
+#define VAR_CURRENT_OVERWORLD_ENCOUNTER_INDEX            0x40FE // Unused Var
+#define VAR_OVERWORLD_MON_SPECIES                        0x40FF // Unused Var
 
 #define VARS_END                                         0x40FF
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)
@@ -301,7 +301,7 @@
 #define VAR_CONTEST_CATEGORY          0x8011
 #define VAR_MON_BOX_ID                0x8012
 #define VAR_MON_BOX_POS               0x8013
-#define VAR_TRAINER_NUM             0x8014
+#define VAR_TRAINER_NUM               0x8014
 #define VAR_TRAINER_BATTLE_OPPONENT_A 0x8015 // Alias of gTrainerBattleOpponent_A
 
 #define SPECIAL_VARS_END              0x8015
