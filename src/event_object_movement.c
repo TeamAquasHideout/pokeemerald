@@ -2219,7 +2219,7 @@ static bool32 IsFollowerVisible(void)
         return FALSE;
 
     return !(TestPlayerAvatarFlags(FOLLOWER_INVISIBLE_FLAGS)
-            || MetatileBehavior_IsSurfableWaterOrUnderwater(gObjectEvents[gPlayerAvatar.objectEventId].previousMetatileBehavior)
+            //|| MetatileBehavior_IsSurfableWaterOrUnderwater(gObjectEvents[gPlayerAvatar.objectEventId].previousMetatileBehavior)
             || MetatileBehavior_IsForcedMovementTile(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior));
 }
 
