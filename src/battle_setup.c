@@ -751,6 +751,11 @@ u8 BattleSetup_GetTerrainId(void)
     return GetRandomMapTerrain();
 }
 
+u8 BattleSetup_GetWeatherId(void)
+{
+    return GetRandomMapWeather();
+}
+
 static u8 GetBattleTransitionTypeByMap(void)
 {
     u16 tileBehavior;
