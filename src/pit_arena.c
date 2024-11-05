@@ -38,6 +38,8 @@
 #include "menu.h"
 #include "gpu_regs.h"
 #include "constants/weather.h"
+#include "global.fieldmap.h"
+#include "tilesets.h"
 
 
 //
@@ -634,6 +636,36 @@ u16 GetCurrentMapConstant(void)
         return sRandomMapArray[currentIndex].mapConstant;
     }
     return MAP_PIT_ARENA;
+}
+
+u16 GetPrimaryTilesetIdCurrentMap(void)
+{
+    if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitWaterTheme)
+        return TILESET_WATER;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaWhiteBark)
+        return TILESET_WHITE_BARK;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaDesert)
+        return TILESET_DESERT;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaSnow)
+        return TILESET_SNOW;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaBeach)
+        return TILESET_BEACH;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaDirtPath)
+        return TILESET_DIRT_PATH;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaMushroomWoods)
+        return TILESET_MUSHROOM_WOODS;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaSpiderWoods)
+        return TILESET_SPIDER_WOODS;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaUnderwater)
+        return TILESET_UNDERWATER;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaMine)
+        return TILESET_MINE;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaDeepForest)
+        return TILESET_DEEP_FOREST;
+    else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaClouds)
+        return TILESET_CLOUDS;
+    else
+        return TILESET_VANILLA;
 }
 
 

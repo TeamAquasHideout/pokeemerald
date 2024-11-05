@@ -14,6 +14,7 @@ const u8 *GetRandomBossEncounterBossAceText(void);
 u16 GetRandomMapTerrain(void);
 u32 GetRandomMapWeather(void);
 u16 GetCurrentMapConstant(void);
+u16 GetPrimaryTilesetIdCurrentMap(void);
 void CreateOverworldHUD(void);
 void SetMapWeather(void);
 void SetMapWeatherAtRandom(void);
@@ -57,4 +58,22 @@ enum {
     AVATAR_PHOEBE,
     AVATAR_POKEMON_CHOICE,
 };
+
+enum TilesetsPrimary
+{
+    TILESET_VANILLA,
+    TILESET_WHITE_BARK,
+    TILESET_DIRT_PATH,
+    TILESET_MUSHROOM_WOODS,
+    TILESET_WATER,
+    TILESET_DESERT,
+    TILESET_SNOW,
+    TILESET_BEACH,
+    TILESET_SPIDER_WOODS,
+    TILESET_UNDERWATER,
+    TILESET_MINE,
+    TILESET_DEEP_FOREST,
+    TILESET_CLOUDS,
+};
+
 #endif // GUARD_PIT_H
