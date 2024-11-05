@@ -7920,7 +7920,7 @@ static void Task_ChooseMonForMoveRelearner(u8 taskId)
 
 static void CB2_ChooseMonForMoveRelearner(void)
 {
-    u16 *dummyMoves[40]; //dummy var because the pointer's result doesn't matter here. The function only returns TRUE/FALSE.
+    u16 *dummyMoves[40] = {0}; //dummy var because the pointer's result doesn't matter here. The function only returns TRUE/FALSE.
 
     gSpecialVar_0x8004 = GetCursorSelectionMonId();
     if (gSpecialVar_0x8004 >= PARTY_SIZE)
@@ -7941,7 +7941,7 @@ static void CB2_ChooseMonForMoveRelearner(void)
                 break;
 #endif
             case TUTOR_STATE_PREEVO_MOVES:
-                gSpecialVar_0x8005 = GetPreEvoMoves(&gPlayerParty[gSpecialVar_0x8004], dummyMoves, FALSE); //sMoveRelearnerStruct->movesToLearn
+                gSpecialVar_0x8005 = GetPreEvoMoves(&gPlayerParty[gSpecialVar_0x8004], *dummyMoves, FALSE); //sMoveRelearnerStruct->movesToLearn
                 break;
         }
     }
