@@ -690,62 +690,74 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .species = SPECIES_ABRA,
         .flagId = 0,
         .monScript = PitEncounter_Mover,
+        .alreadyUsedScript = PitEncounter_Mover_alreadyUsed,
     },
     {
         .species = SPECIES_JIRACHI,
         .flagId = 1,
         .monScript = PitEncounter_GrantWishChoiceItem,
+        .alreadyUsedScript = PitEncounter_GrantWishChoiceItem_alreadyUsed,
     },
     {
         .species = SPECIES_SHEDINJA,
         .flagId = 2,
         .monScript = PitEncounter_ReviveOneMon,
+        .alreadyUsedScript = PitEncounter_ReviveOneMon_alreadyUsed,
     },
     {
         .species = SPECIES_CHANSEY,
         .flagId = 3,
         .monScript = PitEncounter_HealOneMon,
+        .alreadyUsedScript = PitEncounter_HealOneMon_alreadyUsed,
         //.monScript = PitEncounter_LuckyEggDrop,
     },
     {
         .species = SPECIES_MEOWTH,
         .flagId = 4,
         .monScript = PitEncounter_AmuletCoinDrop,
+        .alreadyUsedScript = PitEncounter_AmuletCoinDrop_alreadyUsed,
     },
     {
         .species = SPECIES_DELIBIRD,
         .flagId = 5,
         .monScript = PitEncounter_Present,
+        .alreadyUsedScript = PitEncounter_Present_alreadyUsed,
     },
     {
         .species = SPECIES_GHOLDENGO,
         .flagId = 6,
         .monScript = PitEncounter_NuggetDrop,
+        .alreadyUsedScript = PitEncounter_NuggetDrop_alreadyUsed,
     },
     {
         .species = SPECIES_ZIGZAGOON,
         .flagId = 7,
         .monScript = PitEncounter_WonderTrade,
+        .alreadyUsedScript = PitEncounter_WonderTrade_alreadyUsed,
     },
     {
         .species = SPECIES_MILTANK,
         .flagId = 8,
         .monScript = PitEncounter_MooMooMilkDrop,
+        .alreadyUsedScript = PitEncounter_MooMooMilkDrop_alreadyUsed,
     },
     {
         .species = SPECIES_CHIMECHO,
         .flagId = 9,
         .monScript = PitEncounter_CureAllStatus,
+        .alreadyUsedScript = PitEncounter_CureAllStatus_alreadyUsed,
     },
     {
         .species = SPECIES_MUNCHLAX,
         .flagId = 10,
         .monScript = PitEncounter_LeftoversDrop,
+        .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
     },
     {
         .species = SPECIES_EEVEE,
         .flagId = 11,
         .monScript = PitEncounter_RareCandyDrop,
+        .alreadyUsedScript = PitEncounter_RareCandyDrop_alreadyUsed,
     },
 };
 
@@ -841,7 +853,8 @@ void CallRandomMonEncounterScript(void)
 {
     if(FlagGet(FLAG_USED_RANDOM_ENCOUNTER_THIS_FLOOR))
     {
-        ScriptContext_SetupScript(PitEncounter_Common_AlreadyUsedEffect); // Can Swap for a Mon Specific Post Script From the Struct if we want
+        //ScriptContext_SetupScript(PitEncounter_Common_AlreadyUsedEffect); // Can Swap for a Mon Specific Post Script From the Struct if we want
+        ScriptContext_SetupScript(sRandomEncounterArray[VarGet(VAR_CURRENT_OVERWORLD_ENCOUNTER_INDEX)].alreadyUsedScript);
     }
     else
     {

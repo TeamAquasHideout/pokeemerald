@@ -26,6 +26,102 @@ PitEncounter_Common_AfterUse::
 	setflag FLAG_USED_RANDOM_ENCOUNTER_THIS_FLOOR
 	return
 
+PitEncounter_Mover_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_Common_AlreadyUsedEffect_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_Mover_alreadyUsed_Text:
+	.string "Abra!$"
+
+PitEncounter_HealOneMon_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_HealOneMon_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_HealOneMon_alreadyUsed_Text:
+	.string "Chansey!$"
+
+PitEncounter_GrantWishChoiceItem_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_GrantWishChoiceItem_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_GrantWishChoiceItem_alreadyUsed_Text:
+	.string "Jirachi!$"
+
+PitEncounter_ReviveOneMon_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_ReviveOneMon_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_ReviveOneMon_alreadyUsed_Text:
+	.string "Shedinja!$"
+
+PitEncounter_AmuletCoinDrop_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_AmuletCoinDrop_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_AmuletCoinDrop_alreadyUsed_Text:
+	.string "Meowth!$"
+
+PitEncounter_Present_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_Present_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_Present_alreadyUsed_Text:
+	.string "Delibird!$"
+
+PitEncounter_NuggetDrop_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_NuggetDrop_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_NuggetDrop_alreadyUsed_Text:
+	.string "Gholdengo$"
+
+PitEncounter_WonderTrade_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_WonderTrade_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_WonderTrade_alreadyUsed_Text:
+	.string "Ziggie!$"
+
+PitEncounter_MooMooMilkDrop_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_MooMooMilkDrop_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_MooMooMilkDrop_alreadyUsed_Text:
+	.string "Miltank!$"
+
+PitEncounter_CureAllStatus_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_CureAllStatus_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_CureAllStatus_alreadyUsed_Text:
+	.string "Chimecho!$"
+
+PitEncounter_LeftoversDrop_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_LeftoversDrop_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_LeftoversDrop_alreadyUsed_Text:
+	.string "Munchlax!$"
+
+PitEncounter_RareCandyDrop_alreadyUsed::
+	faceplayer
+	msgbox PitEncounter_RareCandyDrop_alreadyUsed_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_RareCandyDrop_alreadyUsed_Text:
+	.string "Eevee!!$"
+
 
 @ Heal Single Pokemon
 PitEncounter_HealOneMon::
@@ -40,6 +136,7 @@ PitEncounter_HealOneMon_Text:
 	.string "Chansey wants to heal one of your\nparty members.$"
 PitEncounter_HealOneMon_Text2:
 	.string "Your Pokémon was healed.$"
+
 
 @ Choose a choice item
 PitEncounter_GrantWishChoiceItem::
@@ -71,6 +168,7 @@ PitEncounter_GrantWishChoiceItem_Scarf:
 	.string "Choice Scarf$"
 PitEncounter_GrantWishChoiceItem_Specs:
 	.string "Choice Specs$"
+
 
 @ Revive Single Pokemon
 PitEncounter_ReviveOneMon::

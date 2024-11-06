@@ -664,5 +664,18 @@ extern const u8 PitEncounter_RareCandyDrop[];
 extern const u8 PitEncounter_GrantWishChoiceItem[];
 extern const u8 PitEncounter_Present[];
 extern const u8 PitEncounter_LeftoversDrop[];
+extern const u8 PitEncounter_Mover_alreadyUsed[];
+extern const u8 PitEncounter_HealOneMon_alreadyUsed[];
+extern const u8 PitEncounter_ReviveOneMon_alreadyUsed[];
+extern const u8 PitEncounter_LuckyEggDrop_alreadyUsed[];
+extern const u8 PitEncounter_AmuletCoinDrop_alreadyUsed[];
+extern const u8 PitEncounter_NuggetDrop_alreadyUsed[];
+extern const u8 PitEncounter_WonderTrade_alreadyUsed[];
+extern const u8 PitEncounter_MooMooMilkDrop_alreadyUsed[];
+extern const u8 PitEncounter_CureAllStatus_alreadyUsed[];
+extern const u8 PitEncounter_RareCandyDrop_alreadyUsed[];
+extern const u8 PitEncounter_GrantWishChoiceItem_alreadyUsed[];
+extern const u8 PitEncounter_Present_alreadyUsed[];
+extern const u8 PitEncounter_LeftoversDrop_alreadyUsed[];
 
 #endif // GUARD_EVENT_SCRIPTS_H
