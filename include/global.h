@@ -537,7 +537,8 @@ struct SaveBlock2
              u16 modeXP:2;
              u16 optionsRandomMaps:1;
              u16 optionsRandomMusic:1;
-             u16 filler_9912:6;
+             u16 randomBattleWeather:2;
+             u16 filler_9912:4;
              u8 randomBossEncounters[2];
              u8 randomMonEncounters[2];
              u8 playerGfxType;

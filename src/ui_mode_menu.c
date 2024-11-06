@@ -37,22 +37,25 @@
 #include "config/general.h"
 
 //defines
-#define MODE_SINGLES    0
-#define MODE_DOUBLES    1
+#define MODE_SINGLES     0
+#define MODE_DOUBLES     1
 #define MODE_MIXED_SINGLES_AND_DOUBLES    2
-#define RANDOM_MONS     0
-#define RANDOM_ALL      1
-#define XP_75           0
-#define XP_50           1
-#define XP_NONE         2
-#define ACTIVE          0
-#define INACTIVE        1
-#define YES             0
-#define NO              1
-#define MEGAS_ON        0
-#define MEGAS_OFF       1
-#define HEAL_FLOORS_5   0
-#define HEAL_FLOORS_10  1
+#define RANDOM_MONS      0
+#define RANDOM_ALL       1
+#define XP_75            0
+#define XP_50            1
+#define XP_NONE          2
+#define ACTIVE           0
+#define INACTIVE         1
+#define YES              0
+#define NO               1
+#define MEGAS_ON         0
+#define MEGAS_OFF        1
+#define HEAL_FLOORS_5    0
+#define HEAL_FLOORS_10   1
+#define RANDOM_B_WEATHER 0
+#define OW_B_WEATHER     1
+#define NO_B_WEATHER     2
 
 
 // This code is based on Ghoulslash's excellent UI tutorial:
@@ -107,11 +110,12 @@ enum MenuItems_Difficulty
 
 enum MenuItems_Randomizer
 {
+    MENUITEM_RAND_B_WEATHER,
     MENUITEM_RAND_MOVES,
     MENUITEM_RAND_ABILITIES,
     MENUITEM_RAND_BASE_STATS,
     MENUITEM_RAND_TYPES,
-    //MENUITEM_RAND_EVOS,
+    MENUITEM_RAND_EVOS,
     MENUITEM_RAND_CANCEL,
     MENUITEM_RAND_COUNT,
 };
@@ -302,11 +306,12 @@ static void DrawChoices_3MonsOnly(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_SaveDeletion(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
+static void DrawChoices_RandBattleWeather(int selection, int y);
 static void DrawChoices_RandMoves(int selection, int y);
 static void DrawChoices_RandAbilities(int selection, int y);
 static void DrawChoices_RandStats(int selection, int y);
 static void DrawChoices_RandTypes(int selection, int y);
-//static void DrawChoices_RandEvos(int selection, int y);
+static void DrawChoices_RandEvos(int selection, int y);
 static void DrawChoices_XPMode(int selection, int y);
 static void DrawChoices_StatChanger(int selection, int y);
 static void DrawChoices_Legendaries(int selection, int y);
@@ -355,11 +360,12 @@ struct Menu_Rand //MENU_RAND
     int (*processInput)(int selection);
 } static const sItemFunctionsRand[MENUITEM_RAND_COUNT] =
 {
-    [MENUITEM_RAND_MOVES]      = {DrawChoices_RandMoves,     ProcessInput_Options_Two},
-    [MENUITEM_RAND_ABILITIES]  = {DrawChoices_RandAbilities, ProcessInput_Options_Two},
-    [MENUITEM_RAND_BASE_STATS] = {DrawChoices_RandStats,     ProcessInput_Options_Two},
-    [MENUITEM_RAND_TYPES]      = {DrawChoices_RandTypes,     ProcessInput_Options_Two},
-    //[MENUITEM_RAND_EVOS]       = {DrawChoices_RandEvos,      ProcessInput_Options_Two},
+    [MENUITEM_RAND_B_WEATHER]  = {DrawChoices_RandBattleWeather,    ProcessInput_Options_Three},
+    [MENUITEM_RAND_MOVES]      = {DrawChoices_RandMoves,            ProcessInput_Options_Two},
+    [MENUITEM_RAND_ABILITIES]  = {DrawChoices_RandAbilities,        ProcessInput_Options_Two},
+    [MENUITEM_RAND_BASE_STATS] = {DrawChoices_RandStats,            ProcessInput_Options_Two},
+    [MENUITEM_RAND_TYPES]      = {DrawChoices_RandTypes,            ProcessInput_Options_Two},
+    [MENUITEM_RAND_EVOS]       = {DrawChoices_RandEvos,             ProcessInput_Options_Two},
     [MENUITEM_RAND_CANCEL]     = {NULL, NULL},
 };
 
@@ -391,6 +397,7 @@ static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
 static const u8 sText_SaveDeletion[] = _("SAVE DELETION");
 static const u8 sText_DoubleCash[]   = _("DOUBLE CASH");
 
+static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
 static const u8 sText_Moves[]        = _("MOVES");
 static const u8 sText_Abilities[]    = _("ABILITIES");
 static const u8 sText_BaseStats[]    = _("BASE STATS");
@@ -427,11 +434,12 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
 
 static const u8 *const sModeMenuItemsNamesRand[MENUITEM_RAND_COUNT] =
 {
+    [MENUITEM_RAND_B_WEATHER]  = sText_B_Weather,
     [MENUITEM_RAND_MOVES]      = sText_Moves,
     [MENUITEM_RAND_ABILITIES]  = sText_Abilities,
     [MENUITEM_RAND_BASE_STATS] = sText_BaseStats,
     [MENUITEM_RAND_TYPES]      = sText_Types,
-    //[MENUITEM_RAND_EVOS]       = sText_Evos,
+    [MENUITEM_RAND_EVOS]       = sText_Evos,
     [MENUITEM_RAND_CANCEL]     = sText_Cancel,
 };
 
@@ -494,11 +502,12 @@ static bool8 CheckConditions(int selection)
         case MENU_RAND:
             switch(selection)
             {
+                case MENUITEM_RAND_B_WEATHER:     return TRUE;
                 case MENUITEM_RAND_MOVES:         return TRUE;
                 case MENUITEM_RAND_ABILITIES:     return TRUE;
                 case MENUITEM_RAND_BASE_STATS:    return TRUE;
                 case MENUITEM_RAND_TYPES:         return TRUE;
-                //case MENUITEM_RAND_EVOS:          return TRUE;
+                case MENUITEM_RAND_EVOS:          return TRUE;
                 case MENUITEM_RAND_CANCEL:        return TRUE;
                 case MENUITEM_RAND_COUNT:         return TRUE;
                 default:                          return FALSE;
@@ -521,8 +530,8 @@ static const u8 sText_Empty[]                   = _("");
 static const u8 sText_Desc_Save[]               = _("Save your settings.");
 static const u8 sText_Desc_CancelPreset[]       = _("Cancel and return without setting\na preset.");
 static const u8 sText_Desc_SavePreset[]         = _("Save preset and overwrite current\nmode choice.");
-static const u8 sText_Desc_NormalMode[]         = _("Normal mode uses 50% XP share.");
-static const u8 sText_Desc_HardMode[]           = _("Hard mode uses 75% XP share.");
+static const u8 sText_Desc_NormalMode[]         = _("Normal mode settings are used as\nintended by the devs.");
+static const u8 sText_Desc_HardMode[]           = _("Hard mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for Normal Mode below.");
 static const u8 sText_Desc_Defaults_Hard[]      = _("Sets all options for Hard Mode below.");
 static const u8 sText_Desc_Defaults_Custom[]    = _("Is shown when manually changing\nmode settings.");
@@ -555,6 +564,9 @@ static const u8 sText_Desc_SaveDeletion_On[]    = _("Your save state will be del
 static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your save state will not be deleted\nwhen fainting.");
 static const u8 sText_Desc_DoubleCash_On[]      = _("Doubles the amount of money\nreceived after winning a battle.");
 static const u8 sText_Desc_DoubleCash_Off[]     = _("Sets the default amount of money\nreceived after winning a battle.");
+static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
+static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
+static const u8 sText_Desc_RandBWeather_Off[]   = _("Weather during battles is turned off.");
 static const u8 sText_Desc_RandMoves_On[]       = _("Randomizes the move learnsets.");
 static const u8 sText_Desc_RandMoves_Off[]      = _("Keeps the default move learnsets.");
 static const u8 sText_Desc_RandAbilities_On[]   = _("Randomizes the ability options.");
@@ -591,11 +603,12 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
 
 static const u8 *const sModeMenuItemDescriptionsRand[MENUITEM_RAND_COUNT][3] =
 {
+    [MENUITEM_RAND_B_WEATHER]     = {sText_Desc_RandBWeather_On,   sText_Desc_RandBWeather_OW,    sText_Desc_RandBWeather_Off},
     [MENUITEM_RAND_MOVES]         = {sText_Desc_RandMoves_On,      sText_Desc_RandMoves_Off,      sText_Empty},
     [MENUITEM_RAND_ABILITIES]     = {sText_Desc_RandAbilities_On,  sText_Desc_RandAbilities_Off,  sText_Empty},
     [MENUITEM_RAND_BASE_STATS]    = {sText_Desc_RandStats_On,      sText_Desc_RandStats_Off,      sText_Empty},
     [MENUITEM_RAND_TYPES]         = {sText_Desc_RandTypes_On,      sText_Desc_RandTypes_Off,      sText_Empty},
-    //[MENUITEM_RAND_EVOS]          = {sText_Desc_RandEvos_On,       sText_Desc_RandEvos_Off,       sText_Empty},
+    [MENUITEM_RAND_EVOS]          = {sText_Desc_RandEvos_On,       sText_Desc_RandEvos_Off,       sText_Empty},
     [MENUITEM_RAND_CANCEL]        = {sText_Desc_Save,              sText_Empty,                   sText_Empty},
 };
 
@@ -805,11 +818,12 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
         //randomizer settings
+        sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = (gSaveBlock2Ptr->randomBattleWeather);
         sOptions->sel_rand[MENUITEM_RAND_MOVES]         = !(gSaveBlock2Ptr->randomMoves);
         sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = !(gSaveBlock2Ptr->randomAbilities);
         sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = !(gSaveBlock2Ptr->randomBST);
         sOptions->sel_rand[MENUITEM_RAND_TYPES]         = !(gSaveBlock2Ptr->randomType);
-        //sOptions->sel_rand[MENUITEM_RAND_EVOS]          = gSaveBlock2Ptr->randomEvos;
+        sOptions->sel_rand[MENUITEM_RAND_EVOS]          = !(gSaveBlock2Ptr->randomEvos);
         gMain.state++;
         break;
     case 7:
@@ -877,8 +891,8 @@ static void ModeMenu_VBlankCB(void)
 //Header Window
 //static const u8 sText_TopBar_Run[] = _("CHOOSE GAME MODE");
 static const u8 sText_TopBar_Run[]        = _("RUN SETTINGS");
-static const u8 sText_TopBar_Diff[]       = _("DIFFICULTY SETTINGS");
-static const u8 sText_TopBar_Rand[]       = _("RANDOMIZER SETTINGS");
+static const u8 sText_TopBar_Diff[]       = _("DIFFICULTY");
+static const u8 sText_TopBar_Rand[]       = _("RANDOMIZER");
 static const u8 sText_TopBar_Select[]     = _("{SELECT_BUTTON} PRESETS");
 static const u8 sText_TopBar_Right[]      = _("PAGE");
 static const u8 gText_SmallDot[]          = _("·");
@@ -1329,11 +1343,12 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
     gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
 
     //randomizer settings
-    gSaveBlock2Ptr->randomMoves      = !(sOptions->sel_rand[MENUITEM_RAND_MOVES]);
-    gSaveBlock2Ptr->randomAbilities  = !(sOptions->sel_rand[MENUITEM_RAND_ABILITIES]);
-    gSaveBlock2Ptr->randomBST        = !(sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]);
-    gSaveBlock2Ptr->randomType       = !(sOptions->sel_rand[MENUITEM_RAND_TYPES]);
-    //gSaveBlock2Ptr->randomEvos       = sOptions->sel_rand[MENUITEM_RAND_EVOS];
+    gSaveBlock2Ptr->randomBattleWeather    = !(sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]);
+    gSaveBlock2Ptr->randomMoves            = !(sOptions->sel_rand[MENUITEM_RAND_MOVES]);
+    gSaveBlock2Ptr->randomAbilities        = !(sOptions->sel_rand[MENUITEM_RAND_ABILITIES]);
+    gSaveBlock2Ptr->randomBST              = !(sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]);
+    gSaveBlock2Ptr->randomType             = !(sOptions->sel_rand[MENUITEM_RAND_TYPES]);
+    gSaveBlock2Ptr->randomEvos             = !(sOptions->sel_rand[MENUITEM_RAND_EVOS]);
 
 
     //set flags/vars
@@ -1387,6 +1402,9 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
     else
         FlagSet(FLAG_MEGAS);
     #endif
+
+    // Battle weather
+    VarSet(VAR_PIT_RANDOM_B_WEATHER, sOptions->sel_diff[MENUITEM_RAND_B_WEATHER]);
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gTasks[taskId].func = Task_ModeMenuWaitFadeAndExitGracefully;
@@ -1563,6 +1581,9 @@ static const u8 sText_Choice_Yes[]          = _("YES");
 static const u8 sText_Choice_No[]           = _("NO");
 static const u8 sText_HealFloors_5[]        = _("5FLRS");
 static const u8 sText_HealFloors_10[]       = _("10FLRS");
+static const u8 sText_B_Weather_On[]        = _("YES");
+static const u8 sText_B_Weather_Map[]       = _("MAP");
+static const u8 sText_B_Weather_Off[]       = _("NO");
 
 /*static void DrawChoices_Autosave(int selection, int y)
 {
@@ -1702,6 +1723,17 @@ static void DrawChoices_Megas(int selection, int y)
 }
 #endif
 
+static void DrawChoices_RandBattleWeather(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_RAND_B_WEATHER);
+    u8 styles[3] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_B_Weather_On, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_B_Weather_Map, GetStringRightAlignXOffset(FONT_NORMAL, sText_B_Weather_Map, 198 - 35), y, styles[1], active);
+    DrawModeMenuChoice(sText_B_Weather_Off, GetStringRightAlignXOffset(FONT_NORMAL, sText_B_Weather_Off, 198), y, styles[2], active);
+}
+
 static void DrawChoices_RandMoves(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_MOVES);
@@ -1742,7 +1774,7 @@ static void DrawChoices_RandTypes(int selection, int y)
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
-/*static void DrawChoices_RandEvos(int selection, int y)
+static void DrawChoices_RandEvos(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_EVOS);
     u8 styles[2] = {0};
@@ -1750,7 +1782,7 @@ static void DrawChoices_RandTypes(int selection, int y)
 
     DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
-}*/
+}
 
 static void DrawChoices_PresetsMode(int selection, int y)
 {
@@ -1825,6 +1857,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = NO;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
+    sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
     sOptions->sel_rand[MENUITEM_RAND_MOVES]         = NO;
     sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = NO;
     sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = NO;
