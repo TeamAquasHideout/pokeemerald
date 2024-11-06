@@ -661,5 +661,8 @@ extern const u8 PitEncounter_WonderTrade[];
 extern const u8 PitEncounter_MooMooMilkDrop[];
 extern const u8 PitEncounter_CureAllStatus[];
 extern const u8 PitEncounter_RareCandyDrop[];
+extern const u8 PitEncounter_GrantWishChoiceItem[];
+extern const u8 PitEncounter_Present[];
+extern const u8 PitEncounter_LeftoversDrop[];
 
 #endif // GUARD_EVENT_SCRIPTS_H

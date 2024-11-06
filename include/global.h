@@ -528,6 +528,7 @@ struct SaveBlock2
              u16 optionsFollowMonsOff:1;
              u16 modeCashRewards:2;
              u16 mode3MonsOnly:1;
+             // end of u16
              u16 randomMoves:1;
              u16 randomAbilities:1;
              u16 randomBST:1;
@@ -539,6 +540,7 @@ struct SaveBlock2
              u16 optionsRandomMusic:1;
              u16 randomBattleWeather:2;
              u16 filler_9912:4;
+             //end of u16
              u8 randomBossEncounters[2];
              u8 randomMonEncounters[2];
              u8 playerGfxType;

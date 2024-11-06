@@ -681,6 +681,7 @@ struct RandomMonEncounters {
     u16 species;
     u16 flagId; // id into gSaveBlock2Ptr->randomMonEncounters not normal flags
     const u8 *monScript;
+    const u8 *alreadyUsedScript;
 };
 
 #define RANDOM_ENCOUNTER_COUNT ARRAY_COUNT(sRandomEncounterArray)
@@ -693,7 +694,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
     {
         .species = SPECIES_JIRACHI,
         .flagId = 1,
-        .monScript = PitEncounter_HealOneMon,
+        .monScript = PitEncounter_GrantWishChoiceItem,
     },
     {
         .species = SPECIES_SHEDINJA,
@@ -703,7 +704,8 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
     {
         .species = SPECIES_CHANSEY,
         .flagId = 3,
-        .monScript = PitEncounter_LuckyEggDrop,
+        .monScript = PitEncounter_HealOneMon,
+        //.monScript = PitEncounter_LuckyEggDrop,
     },
     {
         .species = SPECIES_MEOWTH,
@@ -713,26 +715,36 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
     {
         .species = SPECIES_DELIBIRD,
         .flagId = 5,
+        .monScript = PitEncounter_Present,
+    },
+    {
+        .species = SPECIES_GHOLDENGO,
+        .flagId = 6,
         .monScript = PitEncounter_NuggetDrop,
     },
     {
         .species = SPECIES_ZIGZAGOON,
-        .flagId = 6,
+        .flagId = 7,
         .monScript = PitEncounter_WonderTrade,
     },
     {
         .species = SPECIES_MILTANK,
-        .flagId = 7,
+        .flagId = 8,
         .monScript = PitEncounter_MooMooMilkDrop,
     },
     {
         .species = SPECIES_CHIMECHO,
-        .flagId = 8,
+        .flagId = 9,
         .monScript = PitEncounter_CureAllStatus,
     },
     {
         .species = SPECIES_MUNCHLAX,
-        .flagId = 9,
+        .flagId = 10,
+        .monScript = PitEncounter_LeftoversDrop,
+    },
+    {
+        .species = SPECIES_EEVEE,
+        .flagId = 11,
         .monScript = PitEncounter_RareCandyDrop,
     },
 };

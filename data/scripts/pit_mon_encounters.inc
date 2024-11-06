@@ -29,29 +29,71 @@ PitEncounter_Common_AfterUse::
 
 @ Heal Single Pokemon
 PitEncounter_HealOneMon::
+	msgbox PitEncounter_HealOneMon_Text, MSGBOX_DEFAULT
 	call PitEncounter_ChooseMonScript
 	callnative HealPlayerPokemon
+	call PitEncounter_Common_AfterUse
+	msgbox PitEncounter_HealOneMon_Text2, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_HealOneMon_Text:
+	.string "Chansey wants to heal one of your\nparty members.$"
+PitEncounter_HealOneMon_Text2:
+	.string "Your Pokémon was healed.$"
+
+@ Choose a choice item
+PitEncounter_GrantWishChoiceItem::
+	msgbox PitEncounter_GrantWishChoiceItem_Text, MSGBOX_DEFAULT
+	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
+	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEncounter_GrantWishChoiceItem_Band, PitEncounter_GrantWishChoiceItem_Scarf, PitEncounter_GrantWishChoiceItem_Specs
+	goto_if_eq VAR_RESULT, 0, PitEncounter_GrantWishChoiceItem_0
+	goto_if_eq VAR_RESULT, 1, PitEncounter_GrantWishChoiceItem_1
+	goto_if_eq VAR_RESULT, 2, PitEncounter_GrantWishChoiceItem_2
+PitEncounter_GrantWishChoiceItem_End:
 	call PitEncounter_Common_AfterUse
 	release
 	end
 
+PitEncounter_GrantWishChoiceItem_0:
+	giveitem ITEM_CHOICE_BAND, 1
+	goto PitEncounter_GrantWishChoiceItem_End
+PitEncounter_GrantWishChoiceItem_1:
+	giveitem ITEM_CHOICE_SCARF, 1
+	goto PitEncounter_GrantWishChoiceItem_End
+PitEncounter_GrantWishChoiceItem_2:
+	giveitem ITEM_CHOICE_SPECS, 1
+	goto PitEncounter_GrantWishChoiceItem_End
+PitEncounter_GrantWishChoiceItem_Text:
+	.string "Jirachi grants you a wish!\nChoose wisely!$"
+PitEncounter_GrantWishChoiceItem_Band:
+	.string "Choice Band$"
+PitEncounter_GrantWishChoiceItem_Scarf:
+	.string "Choice Scarf$"
+PitEncounter_GrantWishChoiceItem_Specs:
+	.string "Choice Specs$"
+
 @ Revive Single Pokemon
 PitEncounter_ReviveOneMon::
+	msgbox PitEncounter_ReviveOneMon_Text, MSGBOX_DEFAULT
 	call PitEncounter_ChooseMonScript
 	callnative CheckMonFainted
 	goto_if_eq VAR_RESULT, 0, PitEncounter_ReviveMonNotFainted
 	callnative HealPlayerPokemon
 	call PitEncounter_Common_AfterUse
+	msgbox PitEncounter_ReviveOneMon_Text2, MSGBOX_DEFAULT
 	release
 	end
+PitEncounter_ReviveOneMon_Text:
+	.string "Shedinja wants to save a lost soul!$"
+PitEncounter_ReviveOneMon_Text2:
+	.string "Your Pokémon was revived.$"
 
 PitEncounter_ReviveMonNotFainted::
 	msgbox PitEncounter_ReviveMonNotFainted_Text, MSGBOX_DEFAULT
 	release
 	end
-
 PitEncounter_ReviveMonNotFainted_Text:
-	.string "Invalid mon.$"
+	.string "This Pokémon can't be revived.$"
 
 
 @ Give Lucky Egg Item
@@ -65,24 +107,73 @@ PitEncounter_LuckyEggDrop::
 
 @ Give Amulet Coin Item
 PitEncounter_AmuletCoinDrop::
+	msgbox PitEncounter_AmuletCoinDrop_Text, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_AMULET_COIN, 1
 	call PitEncounter_Common_AfterUse
 	release
 	end
+PitEncounter_AmuletCoinDrop_Text:
+	.string "Meowth, that's right!$"
+
+
+@ Give Present
+PitEncounter_Present::
+	msgbox PitEncounter_Present_Text, MSGBOX_DEFAULT
+	msgbox PitEncounter_Present_YesNo, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PitEncounter_Present_NoThanks
+	call PitEncounter_Common_AfterUse
+	random 5
+	switch VAR_RESULT
+	case 0, PitEncounter_Present_Jackpot
+	case 1, PitEncounter_Present_Prize
+	case 2, PitEncounter_Present_Prize
+	case 3, PitEncounter_Present_Prize
+	case 4, PitEncounter_Present_Loss
+PitEncounter_Present_End:
+	release
+	end
+PitEncounter_Present_Text:
+	.string "Delibird is holding a present\nwith a skull painted on it.$"
+PitEncounter_Present_YesNo:
+	.string "Do you want to take it?$"
+
+PitEncounter_Present_Jackpot:
+	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
+	giveitem ITEM_MAX_REVIVE, 1
+	goto PitEncounter_Present_End
+
+PitEncounter_Present_Prize:
+	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
+	giveitem ITEM_REVIVE, 1
+	goto PitEncounter_Present_End
+
+PitEncounter_Present_Loss:
+	goto Debug_EventScript_InflictStatus1_Party_Poison
+
+PitEncounter_Present_NoThanks:
+	msgbox PitEncounter_Present_NoThanks_Text, MSGBOX_DEFAULT
+	goto PitEncounter_Present_End
+PitEncounter_Present_NoThanks_Text:
+	.string "Whatever you like.$"
 
 
 @ Give Nugget Item
 PitEncounter_NuggetDrop::
+	msgbox PitEncounter_NuggetDrop_Text, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_NUGGET, 1
 	call PitEncounter_Common_AfterUse
 	release
 	end
+PitEncounter_NuggetDrop_Text:
+	.string "Gholdengo just lost a Nugget.\nQuick, take it!$"
 
 
 @ Wonder Trade NPC
 PitEncounter_WonderTrade::
+	msgbox PitEncounter_WonderTrade_Text, MSGBOX_DEFAULT
+	msgbox PitEncounter_WonderTrade_YesNo, MSGBOX_YESNO
 	checkmoney 500
 	goto_if_eq VAR_RESULT, FALSE, PitEncounter_Mover_NotEnoughMoney
 	removemoney 500
@@ -92,39 +183,56 @@ PitEncounter_WonderTrade::
 	call EventScript_DoWonderTrade
 	release
 	end
+PitEncounter_WonderTrade_Text:
+	.string "Zigzagoon offers you a Wonder Trade\n incl. a Rare Candy for ¥500.$"
+PitEncounter_WonderTrade_YesNo:
+	.string "Do you accept?.$"
 
 
 @ Give MooMooMilk Item
 PitEncounter_MooMooMilkDrop::
+	msgbox PitEncounter_MooMooMilkDrop_Text, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_MOOMOO_MILK, 3
 	call PitEncounter_Common_AfterUse
 	release
 	end
+PitEncounter_MooMooMilkDrop_Text:
+	.string "Miltank offers you a fresh bottle\nof milk.$"
 
 
 @ Give RareCandy Item
 PitEncounter_RareCandyDrop::
+	msgbox PitEncounter_RareCandyDrop_Text, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_RARE_CANDY, 3
 	call PitEncounter_Common_AfterUse
 	release
 	end
+PitEncounter_RareCandyDrop_Text:
+	.string "Eevee loves evolving!\nTake this so you can evolve, too!.$"
 
 
 @ Cure All Mons Status
 PitEncounter_CureAllStatus::
+	msgbox PitEncounter_CureAllStatus_Text, MSGBOX_DEFAULT
 	callnative HealAllStatus
+	msgbox PitEncounter_CureAllStatus_Cured, MSGBOX_DEFAULT
 	call PitEncounter_Common_AfterUse
 	release
 	end
+PitEncounter_CureAllStatus_Text:
+	.string "Chimecho boosts out an enchanting\nhealing sound!$"
+PitEncounter_CureAllStatus_Cured:
+	.string "All status conditions have been\ncured.$"
 
 
 @ Skip Floor NPC
 PitEncounter_Mover::
 	lock
 	faceplayer
-	message PitEncounter_NPCMoverOpen
+	msgbox PitEncounter_NPCMoverOpen, MSGBOX_DEFAULT
+	message PitEncounter_NPCMoverOpen2
 	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEncounter_NPCMover2, PitEncounter_NPCMover3, PitShop_ShopNPC_Option8
 	goto_if_eq VAR_RESULT, 0, PitEncounter_MoverSkip2
 	goto_if_eq VAR_RESULT, 1, PitEncounter_MoverSkip3
@@ -134,7 +242,8 @@ EndOfMoverScript::
 	end
 
 PitEncounter_NPCMoverOpen:
-	.string "I have a special offer for you!\n"
+	.string "Abra has a special offer for you!\pIt can teleport you away.$"
+PitEncounter_NPCMoverOpen2:
 	.string "Free Rare Candy Included With Purchase!$"
 
 PitEncounter_MoverSkip2::
@@ -162,6 +271,19 @@ PitEncounter_MoverSkip3::
 	goto PitArena_Warp
 	release
 	end
+
+
+@ Give Leftovers Item
+PitEncounter_LeftoversDrop::
+	msgbox PitEncounter_LeftoversDrop_Text, MSGBOX_DEFAULT
+	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
+	giveitem ITEM_LEFTOVERS, 1
+	call PitEncounter_Common_AfterUse
+	release
+	end
+PitEncounter_LeftoversDrop_Text:
+	.string "Munchlax loves you!\pIt even wants to share its Leftovers\nwith you.$"
+
 
 PitEncounter_Mover_NotEnoughMoney:
 	msgbox PitEncounter_NPCMoverNotEnoughMoneyText, MSGBOX_DEFAULT
