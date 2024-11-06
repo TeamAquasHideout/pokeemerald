@@ -2494,6 +2494,34 @@ const u16 gRandomValidMoves[] =
     MOVE_EERIE_SPELL,
     #endif
 };
+
+
+
+//
+//		Random Battle Weathers
+//
+
+//tx_randomizer_and_challenges
+#define RANDOM_BATTLE_WEATHER_COUNT ARRAY_COUNT(sRandomBattleWeathers)
+static const u16 sRandomBattleWeathers[] =
+{
+    WEATHER_NONE,
+    WEATHER_RAIN,
+    WEATHER_SANDSTORM,
+    WEATHER_DROUGHT,
+    WEATHER_SNOW,
+};
+
+u16 GetRandomBattleWeather(void)
+{
+    u16 battleWeather;
+
+    battleWeather = (Random() % (RANDOM_BATTLE_WEATHER_COUNT - 1));
+    battleWeather = sRandomBattleWeathers[battleWeather];
+    return battleWeather;
+}
+
+
 //**********************
 
 u16 GetRandomValidMovesCount(void)

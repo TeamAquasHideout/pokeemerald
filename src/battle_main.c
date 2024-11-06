@@ -4064,7 +4064,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         }
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
-    case FIRST_TURN_EVENTS_OVERWORLD_WEATHER:
+    case FIRST_TURN_EVENTS_OVERWORLD_WEATHER: //ABILITYEFFECT_SWITCH_IN_WEATHER sets battle weather
         if (!gBattleStruct->overworldWeatherDone
          && AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, 0, 0, ABILITYEFFECT_SWITCH_IN_WEATHER, 0) != 0)
         {

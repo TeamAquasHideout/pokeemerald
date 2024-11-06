@@ -48,6 +48,7 @@
 #include "constants/trainers.h"
 #include "constants/weather.h"
 #include "constants/pokemon.h"
+#include "pit.h"
 
 /*
 NOTE: The data and functions in this file up until (but not including) sSoundMovesTable
@@ -4093,6 +4094,12 @@ static void ChooseStatBoostAnimation(u32 battler)
 #undef ANIM_STAT_ACC
 #undef ANIM_STAT_EVASION
 
+enum WeatherOptions {
+    ALL_RANDOM,
+    OW_BASED,
+    NONE,
+};
+
 u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg)
 {
     u32 effect = 0;
@@ -4100,6 +4107,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     u32 side;
     u32 i, j;
     u32 partner;
+    u16 weather;
     struct Pokemon *mon;
 
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
@@ -4275,9 +4283,24 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         break;
     case ABILITYEFFECT_SWITCH_IN_WEATHER:
         gBattleScripting.battler = battler;
+
+        //get weather value based on current randomizer settings
+        switch (VarGet(VAR_PIT_RANDOM_B_WEATHER)) 
+        {
+            case ALL_RANDOM:
+                weather = GetRandomBattleWeather();
+                break;
+            case OW_BASED:
+                weather = gWeatherPtr->currWeather;
+                break;
+            default:
+                weather = WEATHER_NONE;
+                break;
+        }
+
         if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
         {
-            switch (GetCurrentWeather())
+            switch (weather)
             {
             case WEATHER_RAIN:
             case WEATHER_RAIN_THUNDERSTORM:
@@ -4337,7 +4360,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         }
         if (effect != 0)
         {
-            gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
+            gBattleCommunication[MULTISTRING_CHOOSER] = weather;
             BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
         }
         break;

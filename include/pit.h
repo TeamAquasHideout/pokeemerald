@@ -13,6 +13,7 @@ const u8 *GetRandomBossEncounterBossDefeatText(void);
 const u8 *GetRandomBossEncounterBossAceText(void);
 u16 GetRandomMapTerrain(void);
 u32 GetRandomMapWeather(void);
+u16 GetRandomBattleWeather(void);
 u16 GetCurrentMapConstant(void);
 u16 GetPrimaryTilesetIdCurrentMap(void);
 void CreateOverworldHUD(void);
