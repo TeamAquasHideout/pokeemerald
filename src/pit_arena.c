@@ -1102,100 +1102,789 @@ struct RandomBossEncounters {
 #define RANDOM_BOSS_ENCOUNTER_COUNT ARRAY_COUNT(sRandomBossEncounterArray)
 static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
     {
-        .graphicsId = OBJ_EVENT_GFX_ARCHIE,
-        .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
+        .graphicsId = OBJ_EVENT_GFX_NORMAN,
+        .trainerPic = TRAINER_PIC_LEADER_NORMAN,
         .flagId = 0,
-        .bossName = COMPOUND_STRING("Archie"),
-        .bossApproachText =  COMPOUND_STRING("You've made it quite far...\n"
-                                            "But your run ends here!$"),
-        .bossLoseText =     COMPOUND_STRING("Well... That went about as\n"
-                                            "well as dry land.$"),
-        .bossAceText =      COMPOUND_STRING("You have proven yourself worthy!\p"
-                                            "But I have one more trick\n"
-                                            "up my sleeve.\p"
-                                            "Welcome the GOD OF THE SEAS...$"),
+        .bossName = COMPOUND_STRING("Norman"),
+        .bossApproachText =  COMPOUND_STRING("I lost to my own child...\p"
+                                            "I rethought everything about myself,\n"
+                                            "so now there's no way I can lose!\p"
+                                            "You'd better give it your best shot!$"),
+        .bossLoseText =     COMPOUND_STRING("You went all out and earned that\n"
+                                            "victory... You're a wonderful Trainer!\p"
+                                            "I want my kid to learn from you.$"),
+        .bossAceText =      COMPOUND_STRING("I'm giving this everything I've got!$"),
+#ifdef GEN_3_MODE
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 4, 252, 252, 0),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SLAKING,
+                            .heldItem = ITEM_CHOICE_BAND,
+                            .ability = 0,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_DOUBLE-EDGE, MOVE_SHADOW_BALL, MOVE_HYPER_BEAM, MOVE_EARTHQUAKE}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SLAKING,
+                            .heldItem = ITEM_CHOICE_BAND,
+                            .ability = 0,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_DOUBLE-EDGE, MOVE_EARTHQUAKE, MOVE_NIGHT_SLASH, MOVE_ROCK_SLIDE}
+                        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SLAKING,
+                            .heldItem = ITEM_CHOICE_BAND,
+                            .ability = 0,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_DOUBLE_EDGE, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_KNOCK_OFF}
+                        },
+#endif
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_WINONA,
+        .trainerPic = TRAINER_PIC_LEADER_WINONA,
+        .flagId = 1,
+        .bossName = COMPOUND_STRING("Winona"),
+        .bossApproachText =  COMPOUND_STRING("I have become one with bird Pokémon\n"
+                                            "and have soared the skies...\p"
+                                            "However grueling the battle, we have\n"
+                                            "triumphed with grace...\p"
+                                            "Witness the elegant choreography of my\n"
+                                            "Pokémon and I!$"),
+        .bossLoseText =     COMPOUND_STRING("Your devotion... That's what brought\n"
+                                            "you victory. It's praiseworthy.$"),
+        .bossAceText =      COMPOUND_STRING("I will seize the wind!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                            .lvl = 100,
+                            .species = SPECIES_ALTARIA,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_LONELY,
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FLY}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_ALTARIA,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROOST}
+        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_ALTARIA,
+                            .heldItem = ITEM_ALTARIANITE,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROOST}
+                        },
+#endif
+
+    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_KOGA,
+//        .trainerPic = TRAINER_PIC_KOGA,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Koga"),
+//        .bossApproachText =  COMPOUND_STRING("Fwahahaha! A fool like you dares to\n"
+//                                            "challenge me?\p"
+//                                            "Very well, I shall show you true terror\n"
+//                                            "as a ninja master!\p"
+//                                            "Despair as you feel the creeping horror\n"
+//                                            "of Poison-type Pokemon!$"),
+//        .bossLoseText =     COMPOUND_STRING("...If I am not strong enough to defeat\n"
+//                                            "you now, there is but one thing to do.\p"
+//                                            "I must hone my skills for our next\n"
+//                                            "encounter.$"),
+//        .bossAceText =      COMPOUND_STRING("Fwahaha! Prepare yourselves!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_CROBAT,
+//                            .heldItem = ITEM_CHOICE_BAND,
+//                            .ability = 0,
+//                            .nature = NATURE_JOLLY,
+//                            .moves = {MOVE_SLUDGE_BOMB, MOVE_AERIAL_ACE, MOVE_SHADOW_BALL, MOVE_FACADE}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_CROBAT,
+//                            .heldItem = ITEM_CHOICE_BAND,
+//                            .ability = 2,
+//                            .nature = NATURE_JOLLY,
+//                            .moves = {MOVE_CROSS_POISON, MOVE_X_SCISSOR, MOVE_BRAVE_BIRD, MOVE_FACADE}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_CROBAT,
+//                            .heldItem = ITEM_CHOICE_BAND,
+//                            .ability = 2,
+//                            .nature = NATURE_JOLLY,
+//                            .moves = {MOVE_CROSS_POISON, MOVE_LEECH_LIFE, MOVE_BRAVE_BIRD, MOVE_FACADE}
+//                        },
+//#endif
+//
+//    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_GIOVANNI,
+//        .trainerPic = TRAINER_PIC_GIOVANNI,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Giovanni"),
+//        .bossApproachText =  COMPOUND_STRING("For your insolence, you will feel a world\n"
+//                                            "of pain!$"),
+//        .bossLoseText =     COMPOUND_STRING("I'll tell you this now... No matter how\n"
+//                                            "strong you are, someday you'll lose.$"),
+//        .bossAceText =      COMPOUND_STRING("You're in for a world of pain!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_NIDOKING,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_JOLLY,
+//                            .moves = {MOVE_EARTHQUAKE, MOVE_MEGAHORN, MOVE_SLUDGE_BOMB, MOVE_ROCK_SLIDE}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_NIDOKING,
+//                            .heldItem = ITEM_LIFE_ORB,
+//                            .ability = 2,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_FLAMETHROWER, MOVE_EARTH_POWER, MOVE_SLUDGE_BOMB, MOVE_ICE_BEAM}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_NIDOKING,
+//                            .heldItem = ITEM_LIFE_ORB,
+//                            .ability = 2,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_FLAMETHROWER, MOVE_EARTH_POWER, MOVE_SLUDGE_BOMB, MOVE_ICE_BEAM}
+//                        },
+//#endif
+//
+//    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_BROCK,
+//        .trainerPic = TRAINER_PIC_BROCK,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Brock"),
+//        .bossApproachText =  COMPOUND_STRING("I'm Brock! I'm an expert of Rock-type\n"
+//                                            "Pokémon!\p"
+//                                            "My Pokémon are impervious to most\n"
+//                                            "physical attacks.\p"
+//                                            "You'll have a hard time inflicting any\n"
+//                                            "damage!$"),
+//        .bossLoseText =     COMPOUND_STRING("That was a really great battle!\p"
+//                                            "I compliment you on your victory!$"),
+//        .bossAceText =      COMPOUND_STRING("Show me what you got!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+//                            .lvl = 100,
+//                            .species = SPECIES_STEELIX,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_IMPISH,
+//                            .moves = {MOVE_EARTHQUAKE, MOVE_TOXIC, MOVE_ROCK_SLIDE, MOVE_REST}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 0, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+//                            .lvl = 100,
+//                            .species = SPECIES_STEELIX,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_IMPISH,
+//                            .moves = {MOVE_EARTHQUAKE, MOVE_GYRO_BALL, MOVE_ROCK_SLIDE, MOVE_CURSE}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 0, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+//                            .lvl = 100,
+//                            .species = SPECIES_STEELIX,
+//                            .heldItem = ITEM_STEELIXITE,
+//                            .ability = 0,
+//                            .nature = NATURE_IMPISH,
+//                            .moves = {MOVE_EARTHQUAKE, MOVE_GYRO_BALL, MOVE_ROCK_SLIDE, MOVE_CURSE}
+//                        },
+//#endif
+//
+//    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_BUGSY,
+//        .trainerPic = TRAINER_PIC_BUGSY,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Bugsy"),
+//        .bossApproachText =  COMPOUND_STRING("I never lose when it comes to Bug-type\n"
+//                                            "Pokémon.\p"
+//                                            "Let me demonstrate what I've learned\n"
+//                                            "from my studies.$"),
+//        .bossLoseText =     COMPOUND_STRING("I never lose when it comes to Bug-type\n"
+//                                            "Pokémon.\p"
+//                                            "I'm so embarrassed to have said that.\p"
+//                                            "I'll start my studies of other Pokémon\n"
+//                                            "over from the beginning, too.\p"
+//                                            "I'm truly grateful that you made me\n"
+//                                            "realize I need to do that.$"),
+//        .bossAceText =      COMPOUND_STRING("All right, let's do this!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_SCIZOR,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_ADAMANT,
+//                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_SCIZOR,
+//                            .heldItem = ITEM_LIFE_ORB,
+//                            .ability = 1,
+//                            .nature = NATURE_ADAMANT,
+//                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUPERPOWER, MOVE_BULLET_PUNCH, MOVE_PURSUIT}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_SCIZOR,
+//                            .heldItem = ITEM_SCIZORITE,
+//                            .ability = 1,
+//                            .nature = NATURE_ADAMANT,
+//                            .moves = {MOVE_SWORDS_DANCE, MOVE_KNOCK_OFF, MOVE_BULLET_PUNCH, MOVE_TRAILBLAZE}
+//                        },
+//#endif
+//
+//    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_AGATHA,
+//        .trainerPic = TRAINER_PIC_AGATHA,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Agatha"),
+//        .bossApproachText =  COMPOUND_STRING("So you've come! It's not in my character\n"
+//                                            "to lose.\p"
+//                                            "Give this battle everything you've got!$"),
+//        .bossLoseText =     COMPOUND_STRING("Not bad!$"),
+//        .bossAceText =      COMPOUND_STRING("Put your back into it!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_GENGAR,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = LEVITATE,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_THUNDERBOLT, MOVE_FIRE_PUNCH, MOVE_ICE_PUNCH, MOVE_HYPNOSIS}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_GENGAR,
+//                            .heldItem = ITEM_BLACK_SLUDGE,
+//                            .ability = LEVITATE,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_NASTY_PLOT}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_GENGAR,
+//                            .heldItem = ITEM_GENGARITE,
+//                            .ability = CURSED_BODY,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_NASTY_PLOT}
+//                        },
+//#endif
+//
+//    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_STEVEN,
+        .trainerPic = TRAINER_PIC_STEVEN,
+        .flagId = 2,
+        .bossName = COMPOUND_STRING("Steven"),
+        .bossApproachText =  COMPOUND_STRING("What has awoken in you because of your\n"
+                                            "journey?\p"
+                                            "I want you to hit me with it all! Now\n"
+                                            "bring it!!$"),
+        .bossLoseText =     COMPOUND_STRING("Congratulations! The feelings you have\n"
+                                            "for your Pokémon…\p"
+                                            "And the Pokémon that responded to\n"
+                                            "those feelings with all their might...\p"
+                                            "They came together as one and created\n"
+                                            "an even greater power.\p"
+                                            "And thus, you were able to grasp\n"
+                                            "victory!$"),
+        .bossAceText =      COMPOUND_STRING("Steel yourselves!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_METAGROSS,
+                            .heldItem = ITEM_CHOICE_BAND,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_DOUBLE-EDGE, MOVE_ROCK_SLIDE}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_METAGROSS,
+                            .heldItem = ITEM_CHOICE_BAND,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ICE_PUNCH, MOVE_PURSUIT}
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_METAGROSS,
+                            .heldItem = ITEM_METAGROSSITE,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ICE_PUNCH, MOVE_ROCK_SLIDE}
+                        },
+#endif
+
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAXIE,
+        .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
+        .flagId = 3,
+        .bossName = COMPOUND_STRING("Maxie"),
+        .bossApproachText =  COMPOUND_STRING("Clear out of the way! Don't you dare\n"
+                                            "interfere!$"),
+        .bossLoseText =     COMPOUND_STRING("You've really done it...\p"
+                                            "You've shown a power that exceeds that\n"
+                                            "of the great Maxie!$"),
+        .bossAceText =      COMPOUND_STRING("I shall educate you!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                            .lvl = 100,
+                            .species = SPECIES_GROUDON,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_NAIVE,
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_OVERHEAT, MOVE_ROCK_SLIDE}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_GROUDON,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_FIRE_PUNCH, MOVE_STONE_EDGE}
+                        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_GROUDON,
+                            .heldItem = ITEM_RED_ORB,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_FIRE_PUNCH, MOVE_STONE_EDGE}
+                        },
+#endif
+
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_ARCHIE,
+        .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
+        .flagId = 4,
+        .bossName = COMPOUND_STRING("Archie"),
+        .bossApproachText =  COMPOUND_STRING("I have waited so long for this day to\n"
+                                            "come...\p"
+                                            "For the realization of my dream, you\n"
+                                            "must disappear now!$"),
+        .bossLoseText =     COMPOUND_STRING("I commend you. I must recognize that\n"
+                                            "you are truly gifted.$"),
+        .bossAceText =      COMPOUND_STRING("It's the road's end for you!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_KYOGRE,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_LIQUIDATION, MOVE_THUNDER, MOVE_ORIGIN_PULSE, MOVE_ICE_BEAM}
+                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
                         },
-    },
-    {
-        .graphicsId = OBJ_EVENT_GFX_MAXIE,
-        .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
-        .flagId = 1,
-        .bossName = COMPOUND_STRING("Maxie"),
-        .bossApproachText =  COMPOUND_STRING("You've made it quite far...\n"
-                                            "But your run ends here!$"),
-        .bossLoseText =     COMPOUND_STRING("Well... That went about as\n"
-                                            "well as the ocean.$"),
-        .bossAceText =      COMPOUND_STRING("You have proven yourself worthy!\p"
-                                            "But I have one more trick\n"
-                                            "up my sleeve.\p"
-                                            "Welcome the GOD OF THE EARTH...$"),
+#elif GEN_5_MODE
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 4, 252, 252, 0),
+                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_GROUDON,
+                            .species = SPECIES_KYOGRE,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_LIQUIDATION, MOVE_THUNDER, MOVE_ORIGIN_PULSE, MOVE_ICE_BEAM}
+                            .moves = {MOVE_CALM_MIND, MOVE_SCALD, MOVE_THUNDER, MOVE_ICE_BEAM}
+        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .lvl = 100,
+                            .species = SPECIES_KYOGRE,
+                            .heldItem = ITEM_BLUE_ORB,
+                            .ability = 0,
+                            .nature = NATURE_MODEST,
+                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
                         },
+#endif
+
     },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_ERIKA,
+//        .trainerPic = TRAINER_PIC_ERIKA,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Erika"),
+//        .bossApproachText =  COMPOUND_STRING("My name is Erika, and I love Grass-type\n"
+//                                            "Pokemon.\p"
+//                                            "I have been training myself on not only\n"
+//                                            "flower arrangement but also battles.\p"
+//                                            "I shall not lose.$"),
+//        .bossLoseText =     COMPOUND_STRING("It would make me verry happy if I could\n"
+//                                            "battle with you again.$"),
+//        .bossAceText =      COMPOUND_STRING("I shall not lose!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+//                            .lvl = 100,
+//                            .species = SPECIES_VILEPLUME,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_LONELY,
+//                            .moves = {MOVE_SLEEP_POWDER, MOVE_SWORDS_DANCE, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_VILEPLUME,
+//                            .heldItem = ITEM_BLACK_SLUDGE,
+//                            .ability = 2,
+//                            .nature = NATURE_MODEST,
+//                            .moves = {MOVE_SLEEP_POWDER, MOVE_LEECH_SEED, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_VILEPLUME,
+//                            .heldItem = ITEM_BLACK_SLUDGE,
+//                            .ability = 2,
+//                            .nature = NATURE_MODEST,
+//                            .moves = {MOVE_SLEEP_POWDER, MOVE_STRENGTH_SAP, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+//                        },
+//#endif
+//
+//    },
+
     {
         .graphicsId = OBJ_EVENT_GFX_WATTSON,
         .trainerPic = TRAINER_PIC_LEADER_WATTSON,
-        .flagId = 2,
-        .bossName = COMPOUND_STRING("Watson"),
-        .bossApproachText =  COMPOUND_STRING("You've made it quite far...\n"
-                                            "But your run ends here!$"),
-        .bossLoseText =     COMPOUND_STRING("Well... That went about as\n"
-                                            "well as the ground.$"),
-        .bossAceText =      COMPOUND_STRING("You have proven yourself worthy!\p"
-                                            "But I have one more trick\n"
-                                            "up my sleeve.\p"
-                                            "Welcome the GOD OF THE LIGHTNING...$"),
+        .flagId = 5,
+        .bossName = COMPOUND_STRING("Wattson"),
+        .bossApproachText =  COMPOUND_STRING("Wahahahaha! Good things come to those\n"
+                                            "who laugh!\p"
+                                            "I'm going to have a fun Pokemon battle\n"
+                                            "and laugh even more!$"),
+        .bossLoseText =     COMPOUND_STRING("Wahahahah! That was a great victory!\n"
+                                            "I'm so impressed by the way you battle\n"
+                                            "that I can't help but laugh!$"),
+        .bossAceText =      COMPOUND_STRING("Wahahahah! Now, this is amusing!$"),
+#ifdef GEN_3_MODE
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 4, 252, 252, 0),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_MANECTRIC,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_MODEST,
-                            .moves = {MOVE_LIQUIDATION, MOVE_THUNDER, MOVE_ORIGIN_PULSE, MOVE_ICE_BEAM}
+                            .nature = NATURE_TIMID,
+                            .moves = {MOVE_THUNDERBOLT, MOVE_THUNDER, MOVE_CRUNCH, MOVE_DOUBLE_TEAM}
                         },
-    },
-    {
-        .graphicsId = OBJ_EVENT_GFX_NORMAN,
-        .trainerPic = TRAINER_PIC_LEADER_NORMAN,
-        .flagId = 3,
-        .bossName = COMPOUND_STRING("Norman"),
-        .bossApproachText =  COMPOUND_STRING("You've made it quite far...\n"
-                                            "But your run ends here!$"),
-        .bossLoseText =     COMPOUND_STRING("Well... That went about as\n"
-                                            "well as the ground.$"),
-        .bossAceText =      COMPOUND_STRING("You have proven yourself worthy!\p"
-                                            "But I have one more trick\n"
-                                            "up my sleeve.\p"
-                                            "Welcome the GOD OF THE LIGHTNING...$"),
+#elif GEN_5_MODE
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 4, 252, 252, 0),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_SLAKING,
+                            .species = SPECIES_MANECTRIC,
+                            .heldItem = ITEM_EXPERT_BELT,
+                            .ability = 1,
+                            .nature = NATURE_TIMID,
+                            .moves = {MOVE_THUNDERBOLT, MOVE_FLAMETHROWER, MOVE_SIGNAL_BEAM, MOVE_DOUBLE_TEAM}
+        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+                            .lvl = 100,
+                            .species = SPECIES_MANECTRIC,
+                            .heldItem = ITEM_MANECTITE,
+                            .ability = 1,
+                            .nature = NATURE_TIMID,
+                            .moves = {MOVE_THUNDERBOLT, MOVE_FLAMETHROWER, MOVE_SIGNAL_BEAM, MOVE_DOUBLE_TEAM}
+                        },
+#endif
+
+    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_SABRINA,
+//        .trainerPic = TRAINER_PIC_SABRINA,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Sabrina"),
+//        .bossApproachText =  COMPOUND_STRING("Three years ago I had a vision of\n"
+//                                            "battling you.\p"
+//                                            "Since you wish it, I will show you my\n"
+//                                            "psychic powers!$"),
+//        .bossLoseText =     COMPOUND_STRING("Your victory... It's exactly as I\n"
+//                                            "foresaw actually.\p"
+//                                            "But I wanted to turn that future on its\n"
+//                                            "head with my conviction as a Trainer!$"),
+//        .bossAceText =      COMPOUND_STRING("I'll hold nothing back!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_ALAKAZAM,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_CALM_MIND, MOVE_PSYCHIC, MOVE_FIRE_PUNCH, MOVE_RECOVER}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_ALAKAZAM,
+//                            .heldItem = ITEM_LIFE_ORB,
+//                            .ability = 2,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_PSYCHIC, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_ENERGY_BALL}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_ALAKAZAM,
+//                            .heldItem = ITEM_ALAKAZITE,
+//                            .ability = 2,
+//                            .nature = NATURE_TIMID,
+//                            .moves = {MOVE_PSYCHIC, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_ENERGY_BALL}
+//                        },
+//#endif
+//
+//    },
+
+    {
+        .graphicsId = OBJ_EVENT_GFX_GLACIA,
+        .trainerPic = TRAINER_PIC_ELITE_FOUR_GLACIA,
+        .flagId = 6,
+        .bossName = COMPOUND_STRING("Glacia"),
+        .bossApproachText =  COMPOUND_STRING("Welcome, my name is Glacia.\p"
+                                            "I've traveled from afar so that I may\n"
+                                            "hone my icy skills.\p"
+                                            "It would please me to no end if I could\n"
+                                            "go all out against you!$"),
+        .bossLoseText =     COMPOUND_STRING("You and your Pokemon... How hot your\n"
+                                            "spirits burn!\p"
+                                            "It's no surprise that my icy skills\n"
+                                            "failed to harm you.$"),
+        .bossAceText =      COMPOUND_STRING("Careful you don't freeze up!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .lvl = 100,
+                            .species = SPECIES_WALREIN,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_MODEST,
-                            .moves = {MOVE_LIQUIDATION, MOVE_THUNDER, MOVE_ORIGIN_PULSE, MOVE_ICE_BEAM}
+                            .nature = NATURE_CALM,
+                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
                         },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .lvl = 100,
+                            .species = SPECIES_WALREIN,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_CALM,
+                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
+        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .lvl = 100,
+                            .species = SPECIES_WALREIN,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_CALM,
+                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
+                        },
+#endif
+
+    },
+//    {
+//        .graphicsId = OBJ_EVENT_GFX_LANCE,
+//        .trainerPic = TRAINER_PIC_LANCE,
+//        .flagId = 0,
+//        .bossName = COMPOUND_STRING("Lance"),
+//        .bossApproachText =  COMPOUND_STRING("There's no need for words now.\p"
+//                                            "We will battle to determine who is the\n"
+//                                            "stronger of the two of us.\p"
+//                                            "I, Lance the Dragon-type master,\n"
+//                                            "accept your challenge!$"),
+//        .bossLoseText =     COMPOUND_STRING("I'm sure you already know this, but\n"
+//                                            "dragons are legendary creatures!\p"
+//                                            "That's why I won't lose next time!$"),
+//        .bossAceText =      COMPOUND_STRING("Here we come!$"),
+//#ifdef GEN_3_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+//                            .lvl = 100,
+//                            .species = SPECIES_DRAGONITE,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 0,
+//                            .nature = NATURE_LONELY,
+//                            .moves = {MOVE_DRAGON_DANCE, MOVE_AERIAL_ACE, MOVE_EARTHQUAKE, MOVE_ICE_BEAM}
+//                        },
+//#elif GEN_5_MODE
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_DRAGONITE,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 2,
+//                            .nature = NATURE_ADAMANT,
+//                            .moves = {MOVE_DRAGON_DANCE, MOVE_EXTREME_SPEED, MOVE_EARTHQUAKE, MOVE_OUTRAGE}
+//#else
+//        .trainerAce =   {
+//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+//                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+//                            .lvl = 100,
+//                            .species = SPECIES_DRAGONITE,
+//                            .heldItem = ITEM_LEFTOVERS,
+//                            .ability = 2,
+//                            .nature = NATURE_ADAMANT,
+//                            .moves = {MOVE_DRAGON_DANCE, MOVE_EXTREME_SPEED, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE}
+//                        },
+//#endif
+//
+//    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SIDNEY,
+        .trainerPic = TRAINER_PIC_ELITE_FOUR_SIDNEY,
+        .flagId = 7,
+        .bossName = COMPOUND_STRING("Sidney"),
+        .bossApproachText =  COMPOUND_STRING("Welcome, challenger! Call me Sidney. I\n"
+                                            "like that look you're giving me.\p"
+                                            "You and me, let's enjoy a battle that\n"
+                                            "can only be staged here!$"),
+        .bossLoseText =     COMPOUND_STRING("You've got what it takes to go far!\p"
+                                            "Now, go on to the next room and enjoy\n"
+                                            "your next battle!$"),
+        .bossAceText =      COMPOUND_STRING("Don't let up!$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_ABSOL,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM, MOVE_SHADOW_BALL, MOVE_STRENGTH}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_ABSOL,
+                            .heldItem = ITEM_LIFE_ORB,
+                            .ability = 1,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUCKER_PUNCH, MOVE_SUPERPOWER, MOVE_NIGHT_SLASH}
+        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_ABSOL,
+                            .heldItem = ITEM_ABSOLITE,
+                            .ability = 1,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUCKER_PUNCH, MOVE_PLAY_ROUGH, MOVE_KNOCK_OFF}
+                        },
+#endif
+
     },
 };
 
