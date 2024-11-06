@@ -260,22 +260,6 @@ void SetRandomTrainersMixedDoubles(void)
     }
 }
 
-void SetMapWeather(void)
-{
-    SetWeather(GetRandomMapWeather());
-    DoCurrentWeather();
-}
-
-void SetMapWeatherAtRandom(void)
-{
-    u8 rand = Random() % 10;
-    
-    if (rand < 2) //20% chance for map weather
-    {
-        SetMapWeather();
-    }
-}
-
 void CheckFloorCleared()
 {
     u16 iterator = 0;
@@ -451,6 +435,7 @@ struct sRandomMap {
     u16 warpMetatileId;
     u16 battleTerrainId;
     u16 weatherId;
+    u16 weatherChance;
     u16 dest_x;
     u16 dest_y;
     u16 warp_x;
@@ -463,98 +448,93 @@ struct sRandomMap {
                                             .warp_x = 9,    \
                                             .warp_y = 9,
 
+#define WEATHER(x, y)   .weatherId = WEATHER_##x, \
+                        .weatherChance = y
+
 #define RANDOM_MAP_COUNT    ARRAY_COUNT(sRandomMapArray)
 static const struct sRandomMap sRandomMapArray[] = {
     {
         .mapConstant = MAP_PIT_ARENA,
         .warpMetatileId = METATILE_Cave_FLOOR_COMPLETE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        .weatherId = WEATHER_NONE,
+        WEATHER(NONE, 0),
         DEFAULT_RANDOM_MAP_COORDS
     },     
     {
         .mapConstant = MAP_PIT_ARENA_BEACH,
         .warpMetatileId = METATILE_PitArenaBeach_BEACH_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
-        .weatherId = WEATHER_DROUGHT,
+        WEATHER(RAIN, 10),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_WATER,
         .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_WATER,
-        .weatherId = WEATHER_SUNNY,
+        WEATHER(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_DESERT,
         .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
-        .weatherId = WEATHER_SANDSTORM,
+        WEATHER(SANDSTORM, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_SNOW,
         .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        .weatherId = WEATHER_SNOW,
+        WEATHER(SNOW, 90),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_MUSHROOM_WOODS,
         .warpMetatileId = METATILE_PitArenaMushroomWoods_MUSHROOM_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-#ifndef PIT_GEN_3_MODE //no fog in Gen 3!
-        .weatherId = WEATHER_FOG_HORIZONTAL,
-#else
-        .weatherId = WEATHER_RAIN,
-#endif
+        WEATHER(FOG_HORIZONTAL, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },        
     {
         .mapConstant = MAP_PIT_ARENA_DIRT_PATH,
         .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        .weatherId = WEATHER_RAIN,
+        WEATHER(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS,
         .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-        .weatherId = WEATHER_RAIN,
+        WEATHER(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_UNDERWATER,
         .warpMetatileId = METATILE_PitArenaUnderwater_UNDERWATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_UNDERWATER,
-        .weatherId = WEATHER_UNDERWATER_BUBBLES,
+        WEATHER(UNDERWATER_BUBBLES, 100),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_MINE,
         .warpMetatileId = METATILE_PitArenaMine_MINE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        .weatherId = WEATHER_NONE,
+        WEATHER(NONE, 0),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_WHITE_BARK,
         .warpMetatileId = METATILE_PitArenaWhiteBark_WHITEBARK_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-#ifndef PIT_GEN_3_MODE //no fog in Gen 3!
-        .weatherId = WEATHER_FOG_HORIZONTAL,
-#else
-        .weatherId = WEATHER_RAIN,
-#endif
+        WEATHER(FOG_HORIZONTAL, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },       
     {
         .mapConstant = MAP_PIT_ARENA_WATER02,
         .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_WATER,
-        .weatherId = WEATHER_SUNNY,
+        WEATHER(RAIN, 50),
         .dest_x = 9,
         .dest_y = 10,
         .warp_x = 9,
@@ -564,14 +544,14 @@ static const struct sRandomMap sRandomMapArray[] = {
         .mapConstant = MAP_PIT_ARENA_SNOW02,
         .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        .weatherId = WEATHER_SNOW,
+        WEATHER(SNOW, 90),
         DEFAULT_RANDOM_MAP_COORDS
     },      
     {
         .mapConstant = MAP_PIT_ARENA_MINE02,
         .warpMetatileId = METATILE_PitArenaMine_MINE_TOP_CAVE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        .weatherId = WEATHER_NONE,
+        WEATHER(NONE, 0),
         .dest_x = 13,
         .dest_y = 13,
         .warp_x = 15,
@@ -626,6 +606,29 @@ u32 GetRandomMapWeather(void)
         return sRandomMapArray[currentIndex].weatherId;
     }
     return B_WEATHER_NONE;
+}
+
+void SetMapWeather(void)
+{
+    SetWeather(GetRandomMapWeather());
+    DoCurrentWeather();
+}
+
+void SetMapWeatherAtRandom(void)
+{
+    u16 currentChance = 0;
+   
+    u16 currentIndex = VarGet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY);
+    if(currentIndex != 0xFF)
+    {
+        currentChance = sRandomMapArray[currentIndex].weatherChance;
+    }
+
+    u8 rand = Random() % 100;
+    if (rand < currentChance)
+    {
+        SetMapWeather();
+    }
 }
 
 u16 GetCurrentMapConstant(void)
