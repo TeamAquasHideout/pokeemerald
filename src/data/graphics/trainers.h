@@ -289,6 +289,27 @@ const u32 gTrainerPalette_Cynthia[] = INCBIN_U32("graphics/trainers/front_pics/c
 const u32 gTrainerBackPalette_Steven[] = INCBIN_U32("graphics/trainers/back_pics/steven.gbapal.lz");
 const u32 gTrainerBackPalette_Cynthia[] = INCBIN_U32("graphics/trainers/back_pics/cynthia.gbapal.lz");
 
+const u32 gTrainerFrontPic_Agatha[] = INCBIN_U32("graphics/trainers/front_pics/elite_four_agatha_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Agatha[] = INCBIN_U32("graphics/trainers/palettes/elite_four_agatha.gbapal.lz");
+
+const u32 gTrainerFrontPic_Lance[] = INCBIN_U32("graphics/trainers/front_pics/elite_four_lance_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Lance[] = INCBIN_U32("graphics/trainers/palettes/elite_four_lance.gbapal.lz");
+
+const u32 gTrainerFrontPic_Brock[] = INCBIN_U32("graphics/trainers/front_pics/leader_brock_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Brock[] = INCBIN_U32("graphics/trainers/palettes/leader_brock.gbapal.lz");
+
+const u32 gTrainerFrontPic_Erika[] = INCBIN_U32("graphics/trainers/front_pics/leader_erika_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Erika[] = INCBIN_U32("graphics/trainers/palettes/leader_erika.gbapal.lz");
+
+const u32 gTrainerFrontPic_Koga[] = INCBIN_U32("graphics/trainers/front_pics/leader_koga_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Koga[] = INCBIN_U32("graphics/trainers/palettes/leader_koga.gbapal.lz");
+
+const u32 gTrainerFrontPic_Giovanni[] = INCBIN_U32("graphics/trainers/front_pics/leader_giovanni_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Giovanni[] = INCBIN_U32("graphics/trainers/palettes/leader_giovanni.gbapal.lz");
+
+const u32 gTrainerFrontPic_Sabrina[] = INCBIN_U32("graphics/trainers/front_pics/leader_sabrina_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Sabrina[] = INCBIN_U32("graphics/trainers/palettes/leader_sabrina.gbapal.lz");
+
 const u32 gTrainerFrontPic_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.4bpp.lz");
 const u32 gTrainerPalette_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.gbapal.lz");
 
@@ -432,6 +453,13 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(OAK, Oak),
     TRAINER_SPRITE(LYRA, Lyra),
     TRAINER_SPRITE(ETHAN, Ethan),
+    TRAINER_SPRITE(AGATHA, Agatha),
+    TRAINER_SPRITE(BROCK, Brock),
+    TRAINER_SPRITE(ERIKA, Erika),
+    TRAINER_SPRITE(GIOVANNI, Giovanni),
+    TRAINER_SPRITE(KOGA, Koga),
+    TRAINER_SPRITE(LANCE, Lance),
+    TRAINER_SPRITE(SABRINA, Sabrina),
 };
 
 static const union AnimCmd sAnimCmd_Hoenn[] =

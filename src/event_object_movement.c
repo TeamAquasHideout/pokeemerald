@@ -2623,6 +2623,8 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
     const struct SubspriteTable *subspriteTables;
     const struct ObjectEventGraphicsInfo *graphicsInfo;
 
+    DebugPrintf("objectEventId = %d", objectEventId);
+
     for (i = 0; i < ARRAY_COUNT(gLinkPlayerObjectEvents); i++)
     {
         if (gLinkPlayerObjectEvents[i].active && objectEventId == gLinkPlayerObjectEvents[i].objEventId)
@@ -2640,6 +2642,8 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
 
     if (objectEvent->graphicsId == OBJ_EVENT_GFX_ZIGZAGOON_2)
         objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_GFX_MON_BASE);
+
+    DebugPrintf("objectEvent->graphicsId = %d", objectEvent->graphicsId);
     
     subspriteTables = NULL;
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
