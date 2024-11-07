@@ -1971,7 +1971,6 @@ void SetRandomBossEncounter(void)
         
     do {
         u16 index = Random() % RANDOM_BOSS_ENCOUNTER_COUNT;
-        DebugPrintf("index = %d", index);
         if(BossEncounterFlagGet(index))
         {
             reroll = TRUE;
@@ -1980,7 +1979,6 @@ void SetRandomBossEncounter(void)
         {
             reroll = FALSE;
             BossEncounterFlagSet(index);
-            DebugPrintf("graphicsId = %d", sRandomBossEncounterArray[index].graphicsId);
             VarSet(VAR_OBJ_GFX_ID_F, sRandomBossEncounterArray[index].graphicsId);
             VarSet(VAR_CURRENT_BOSS, index);
             FlagClear(FLAG_BOSS_ENCOUNTER);

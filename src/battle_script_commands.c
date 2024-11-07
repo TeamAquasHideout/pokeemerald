@@ -14291,7 +14291,6 @@ static void Cmd_tryswapitems(void)
                                   | (B_TRAINERS_KNOCK_OFF_ITEMS == TRUE ? BATTLE_TYPE_TRAINER : 0)
                                   ))))
     {
-        DebugPrintf("tryswapitems failInstr"); //wiz1989
         gBattlescriptCurrInstr = cmd->failInstr;
     }
     else
@@ -14331,8 +14330,6 @@ static void Cmd_tryswapitems(void)
         else
         {
             u16 oldItemAtk, *newItemAtk;
-
-            DebugPrintf("allow swap"); //wiz1989
 
             newItemAtk = &gBattleStruct->changedItems[gBattlerAttacker];
             oldItemAtk = gBattleMons[gBattlerAttacker].item;
