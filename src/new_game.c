@@ -114,6 +114,9 @@ static void InitPlayerTrainerId(void)
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
 }
 
+#define ON  0
+#define OFF 1
+
 // L=A isnt set here for some reason.
 void SetDefaultOptions(void)
 {
@@ -130,8 +133,8 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->regionMapZoom = FALSE;
         gSaveBlock2Ptr->optionsFollowMonsOff = FALSE;
         gSaveBlock2Ptr->optionsAutosave = 1;
-        gSaveBlock2Ptr->optionsRandomMaps = 0;
-        gSaveBlock2Ptr->optionsRandomMusic = 0;
+        gSaveBlock2Ptr->optionsRandomMaps = ON;
+        gSaveBlock2Ptr->optionsRandomMusic = ON;
     }
     
     //game modes
@@ -163,13 +166,16 @@ void SetDefaultOptions(void)
     else
         FlagClear(FLAG_FOLLOWERS_OFF);
 
-    if (gSaveBlock2Ptr->optionsRandomMaps)
+    if (gSaveBlock2Ptr->optionsRandomMaps == ON)
         FlagSet(FLAG_RANDOM_MAPS);
     else
         FlagClear(FLAG_RANDOM_MAPS);
 
     VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
 }
+
+#undef ON  0
+#undef OFF 1
 
 static void ClearPokedexFlags(void)
 {
