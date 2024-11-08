@@ -1201,8 +1201,12 @@ u16 GetSpeciesRandomNotSeeded(u16 species)
 
 u16 GetRandomMove(u16 move, u16 species)
 {
-    u16 val = RandomSeededModulo2(move + species, GetRandomValidMovesCount());
+    u16 val = RandomSeededModulo2((Random() % GetRandomValidMovesCount()) + move + species, GetRandomValidMovesCount());
     u16 final = gRandomValidMoves[val];
+
+    DebugPrintf("move = %d", move);
+    DebugPrintf("species = %d", species);
+    DebugPrintf("GetRandomMove = %d", final);
     return final;
 }
 const u8 *GetMoveName(u16 moveId)
@@ -2818,13 +2822,17 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
     {
         reroll = FALSE;
 
+        DebugPrintf("randomAbilities = %d", gSaveBlock2Ptr->randomAbilities);
         //randomize species to determine ability
-        if(FlagGet(FLAG_RANDOM_MODE))
+        if(gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
         {
             species = GetSpeciesRandomSeeded(species);
             if ((gSpeciesInfo[species].abilities[1] == ABILITY_NONE) && (abilityNum == 1))
                 abilityNum = 0;
+            DebugPrintf("species = %d", species);
         }
+
+        DebugPrintf("species = %d", species);
 
         if (abilityNum < NUM_ABILITY_SLOTS)
             gLastUsedAbility = gSpeciesInfo[species].abilities[abilityNum];
@@ -2845,7 +2853,7 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
         }
 
         //check if ability is valid
-        if(FlagGet(FLAG_RANDOM_MODE))
+        if(gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
         {
             //DebugPrintf("check for invalid abilities");
             for (i=0; i < INVALID_ABILITIES_COUNT; i++)
@@ -2868,7 +2876,7 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
         }
     } while (reroll);
 
-    //DebugPrintf("gLastUsedAbility = %d", gLastUsedAbility);
+    DebugPrintf("gLastUsedAbility = %d", gLastUsedAbility);
     return gLastUsedAbility;
 }
 
@@ -2912,7 +2920,7 @@ u8 GetTypeBySpecies(u16 species, u8 typeNum)
     else
         type = gSpeciesInfo[species].types[1];
 
-    if (!gSaveBlock2Ptr->randomType)
+    if (gSaveBlock2Ptr->randomType == OPTIONS_OFF)
         return type;
 
     type = sOneTypeChallengeValidTypes[RandomSeededModulo2(type + typeNum + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2)];

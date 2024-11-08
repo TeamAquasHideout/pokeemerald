@@ -4285,7 +4285,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         gBattleScripting.battler = battler;
 
         //get weather value based on current randomizer settings
-        switch (VarGet(VAR_PIT_RANDOM_B_WEATHER)) 
+        switch (gSaveBlock2Ptr->randomBattleWeather) 
         {
             case ALL_RANDOM:
                 weather = GetRandomBattleWeather();

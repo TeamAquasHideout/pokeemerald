@@ -30,6 +30,8 @@ struct RandomTrainerNPC
 
 #define MAX_RANDOM_TRAINERS 4
 #define BOSS_FLOOR_RATE 25
+#define OPTIONS_ON  0
+#define OPTIONS_OFF 1
 
 //Autosave defines
 #define SAVE_NO         0

@@ -140,38 +140,44 @@ void SetDefaultOptions(void)
     //game modes
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
     {
+        //run settings
         gSaveBlock2Ptr->modeDefault = 0;
         gSaveBlock2Ptr->modeBattleMode = 2;
-        gSaveBlock2Ptr->modeNoCaseChoice = 1;
-        gSaveBlock2Ptr->modeSaveDeletion = 1;
+        gSaveBlock2Ptr->mode3MonsOnly = OFF;
+        gSaveBlock2Ptr->modeNoCaseChoice = OFF;
+
+        //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
-        gSaveBlock2Ptr->modeStatChanger = 0;
-        gSaveBlock2Ptr->modeCashRewards = 1;
-        gSaveBlock2Ptr->mode3MonsOnly = 1;
-        gSaveBlock2Ptr->modeLegendaries = 0;
-        gSaveBlock2Ptr->modeDuplicates = 1;
-        gSaveBlock2Ptr->modeMegas = 1;
+        gSaveBlock2Ptr->modeSaveDeletion = OFF;
+        gSaveBlock2Ptr->modeStatChanger = ON;
+        gSaveBlock2Ptr->modeCashRewards = OFF;
         gSaveBlock2Ptr->modeHealFloors10 = 0;
+        gSaveBlock2Ptr->modeLegendaries = ON;
+        gSaveBlock2Ptr->modeMegas = OFF;
+
+        //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather
-        gSaveBlock2Ptr->randomMoves = 0;
-        gSaveBlock2Ptr->randomAbilities = 0;
-        gSaveBlock2Ptr->randomBST = 0;
-        gSaveBlock2Ptr->randomType = 0;
-        gSaveBlock2Ptr->randomEvos = 0;
+        gSaveBlock2Ptr->randomMoves = OFF;
+        gSaveBlock2Ptr->randomAbilities = OFF;
+        gSaveBlock2Ptr->randomBST = OFF;
+        gSaveBlock2Ptr->randomType = OFF;
+        gSaveBlock2Ptr->randomEvos = OFF;
     }
 
-    //set flags/vars
-    if (gSaveBlock2Ptr->optionsFollowMonsOff)
-        FlagSet(FLAG_FOLLOWERS_OFF);
-    else
-        FlagClear(FLAG_FOLLOWERS_OFF);
+    //set options flags/vars --> game mode flags/vars will be set from the ui_mode_menu
+    VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
 
     if (gSaveBlock2Ptr->optionsRandomMaps == ON)
         FlagSet(FLAG_RANDOM_MAPS);
     else
         FlagClear(FLAG_RANDOM_MAPS);
 
-    VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
+    //optionsRandomMusic is used without an additional flag
+    
+    if (gSaveBlock2Ptr->optionsFollowMonsOff)
+        FlagSet(FLAG_FOLLOWERS_OFF);
+    else
+        FlagClear(FLAG_FOLLOWERS_OFF);
 }
 
 #undef ON  0

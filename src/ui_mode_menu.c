@@ -819,11 +819,11 @@ static void ModeMenu_SetupCB(void)
         #endif
         //randomizer settings
         sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = (gSaveBlock2Ptr->randomBattleWeather);
-        sOptions->sel_rand[MENUITEM_RAND_MOVES]         = !(gSaveBlock2Ptr->randomMoves);
-        sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = !(gSaveBlock2Ptr->randomAbilities);
-        sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = !(gSaveBlock2Ptr->randomBST);
-        sOptions->sel_rand[MENUITEM_RAND_TYPES]         = !(gSaveBlock2Ptr->randomType);
-        sOptions->sel_rand[MENUITEM_RAND_EVOS]          = !(gSaveBlock2Ptr->randomEvos);
+        sOptions->sel_rand[MENUITEM_RAND_MOVES]         = (gSaveBlock2Ptr->randomMoves);
+        sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = (gSaveBlock2Ptr->randomAbilities);
+        sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = (gSaveBlock2Ptr->randomBST);
+        sOptions->sel_rand[MENUITEM_RAND_TYPES]         = (gSaveBlock2Ptr->randomType);
+        sOptions->sel_rand[MENUITEM_RAND_EVOS]          = (gSaveBlock2Ptr->randomEvos);
         gMain.state++;
         break;
     case 7:
@@ -1333,25 +1333,26 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
 
     //difficulty settings
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
+    gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
     gSaveBlock2Ptr->modeStatChanger  = sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER];
+    gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
     gSaveBlock2Ptr->modeHealFloors10 = sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS];
     gSaveBlock2Ptr->modeLegendaries  = sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES];
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
     #endif
-    gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
-    gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
 
     //randomizer settings
-    gSaveBlock2Ptr->randomBattleWeather    = !(sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]);
-    gSaveBlock2Ptr->randomMoves            = !(sOptions->sel_rand[MENUITEM_RAND_MOVES]);
-    gSaveBlock2Ptr->randomAbilities        = !(sOptions->sel_rand[MENUITEM_RAND_ABILITIES]);
-    gSaveBlock2Ptr->randomBST              = !(sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]);
-    gSaveBlock2Ptr->randomType             = !(sOptions->sel_rand[MENUITEM_RAND_TYPES]);
-    gSaveBlock2Ptr->randomEvos             = !(sOptions->sel_rand[MENUITEM_RAND_EVOS]);
+    gSaveBlock2Ptr->randomBattleWeather    = (sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]);
+    gSaveBlock2Ptr->randomMoves            = (sOptions->sel_rand[MENUITEM_RAND_MOVES]);
+    gSaveBlock2Ptr->randomAbilities        = (sOptions->sel_rand[MENUITEM_RAND_ABILITIES]);
+    gSaveBlock2Ptr->randomBST              = (sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]);
+    gSaveBlock2Ptr->randomType             = (sOptions->sel_rand[MENUITEM_RAND_TYPES]);
+    gSaveBlock2Ptr->randomEvos             = (sOptions->sel_rand[MENUITEM_RAND_EVOS]);
 
 
     //set flags/vars
+    //####################### run settings #######################
     if (sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_DOUBLES)
         FlagSet(FLAG_DOUBLES_MODE);
     else if(sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_MIXED_SINGLES_AND_DOUBLES)
@@ -1364,12 +1365,19 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
         FlagClear(FLAG_DOUBLES_MODE);
         FlagClear(FLAG_MIXED_DOUBLES_MODE);
     }
-        
-    /*if (sOptions->sel_run[MENUITEM_RUN_RANDOMIZER] == RANDOM_ALL)
-        FlagSet(FLAG_RANDOM_MODE);
+    
+    if (sOptions->sel_diff[MENUITEM_RUN_3_MONS_ONLY] == XP_NONE)
+        FlagSet(FLAG_NO_EXP_MODE);
     else
-        FlagClear(FLAG_RANDOM_MODE);*/
+        FlagClear(FLAG_NO_EXP_MODE);
+    
+    if (sOptions->sel_diff[MENUITEM_RUN_NO_CASE_CHOICE] == XP_NONE)
+        FlagSet(FLAG_NO_EXP_MODE);
+    else
+        FlagClear(FLAG_NO_EXP_MODE);
 
+
+    //####################### difficulty settings #######################
     if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_NONE)
         FlagSet(FLAG_NO_EXP_MODE);
     else
@@ -1377,24 +1385,24 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
 
     if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_50)
         FlagSet(FLAG_XPSHARE_50);
-    else
+    else if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_75)
         FlagClear(FLAG_XPSHARE_50);
     
+    //MENUITEM_DIFF_SAVE_DELETION
+
     if (sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER] == ACTIVE)
         FlagSet(FLAG_STAT_CHANGER);
     else
         FlagClear(FLAG_STAT_CHANGER);
 
+    // MENUITEM_DIFF_DOUBLE_CASH is handled directly from the saveblock data modeCashRewards
+
+    // MENUITEM_DIFF_HEALFLOORS is handled directly from the saveblock data modeHealFloors10
+
     if (sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES] == NO)
         FlagSet(FLAG_NO_LEGENDARIES);
     else
         FlagClear(FLAG_NO_LEGENDARIES);
-
-    /*
-    if (sOptions->sel_run[MENUITEM_RUN_DUPLICATES] == NO)
-        FlagSet(FLAG_NO_DUPLICATES);
-    else
-        FlagClear(FLAG_NO_DUPLICATES);*/
 
     #ifdef PIT_GEN_9_MODE
     if (sOptions->sel_diff[MENUITEM_DIFF_MEGAS] == MEGAS_OFF)
@@ -1403,9 +1411,12 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
         FlagSet(FLAG_MEGAS);
     #endif
 
-    // Battle weather
-    VarSet(VAR_PIT_RANDOM_B_WEATHER, sOptions->sel_diff[MENUITEM_RAND_B_WEATHER]);
 
+    //####################### randomizer settings #######################
+    //all randomizer settings are handled without VARs/FLAGs directly from the saveblock
+
+
+    //finish task
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gTasks[taskId].func = Task_ModeMenuWaitFadeAndExitGracefully;
 }

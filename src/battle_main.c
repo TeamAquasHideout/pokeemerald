@@ -1967,16 +1967,20 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     bool32 noMoveSet = TRUE;
     u32 j;
 
-    if(FlagGet(FLAG_RANDOM_MODE))
+    DebugPrintf("CustomTrainerPartyAssignMoves");
+    DebugPrintf("species = %S", gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].speciesName);
+
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (!isPlayer)
         {
-            //for (j = 0; j < MAX_MON_MOVES; j++)
-            //{
-            //    u16 move = GetRandomMove(partyEntry->moves[j], partyEntry->species);
-            //    SetMonData(mon, MON_DATA_MOVE1 + j, &move);
-            //    SetMonData(mon, MON_DATA_PP1 + j, &gMovesInfo[move].pp);
-            //}
+            for (j = 0; j < MAX_MON_MOVES; j++)
+            {
+               u16 move = GetRandomMove(partyEntry->moves[j], partyEntry->species);
+               DebugPrintf("move = %S", gMovesInfo[move].name);
+               SetMonData(mon, MON_DATA_MOVE1 + j, &move);
+               SetMonData(mon, MON_DATA_PP1 + j, &gMovesInfo[move].pp);
+            }
             return;
         }
     }
@@ -2268,6 +2272,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u8 retVal;
+    DebugPrintf("trainerNum = %d, %S", trainerNum, gTrainers[trainerNum].trainerName);
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
     gSpecialVar_TrainerNumber = trainerNum;

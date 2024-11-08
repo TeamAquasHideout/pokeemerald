@@ -5509,7 +5509,7 @@ u16 ItemIdToBattleMoveIdRandom(u16 item)
 
 u16 ItemIdToBattleMoveId(u16 item)
 {
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         return ItemIdToBattleMoveIdRandom(item);
     }

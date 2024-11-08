@@ -1849,7 +1849,7 @@ void CalculateMonStats(struct Pokemon *mon)
 
     SetMonData(mon, MON_DATA_LEVEL, &level);
 
-    if(gSaveBlock2Ptr->randomBST)
+    if(gSaveBlock2Ptr->randomBST == OPTIONS_ON)
     {
         bst = (gSpeciesInfo[species].baseHP + gSpeciesInfo[species].baseAttack + gSpeciesInfo[species].baseDefense + gSpeciesInfo[species].baseSpAttack + gSpeciesInfo[species].baseSpDefense + gSpeciesInfo[species].baseSpeed) - 70;
         bst *= 1000;
@@ -2149,7 +2149,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon)
     s32 i;
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
 
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         GiveBoxMonInitialMovesetRandom(boxMon);
         return;
@@ -2245,7 +2245,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
 
     if (learnset[sLearningMoveTableID].level == level)
     {
-        if(FlagGet(FLAG_RANDOM_MODE))
+        if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
             gMoveToLearn = gRandomValidMoves[Random() % GetRandomValidMovesCount()];
         else
             gMoveToLearn = learnset[sLearningMoveTableID].move;
@@ -5155,7 +5155,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
         SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
     }
 
-    if (gSaveBlock2Ptr->randomEvos && (targetSpecies != SPECIES_NONE))
+    if (gSaveBlock2Ptr->randomEvos == OPTIONS_ON && (targetSpecies != SPECIES_NONE))
     {
         targetSpecies = GetSpeciesRandomNotSeeded(targetSpecies);
     }
@@ -5816,7 +5816,7 @@ static const u16 sUniversalMoves[] =
 
 u8 CanLearnTeachableMove(u16 species, u16 move)
 {
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         species = GetSpeciesRandomSeeded(species + move);
         if(species % 4)
@@ -5927,7 +5927,7 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
                 for (k = 0; k < numMoves && moves[k] != learnset[i].move; k++)
                     ;
             
-                if(FlagGet(FLAG_RANDOM_MODE))
+                if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                 {
                     if (k == numMoves)
                         moves[numMoves++] = GetRandomMove(learnset[i].move, species);
@@ -5952,7 +5952,7 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
 
     for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
-        if (FlagGet(FLAG_RANDOM_MODE))
+        if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
             moves[numMoves++] = GetRandomMove(Random(), species);
         else
             moves[numMoves++] = learnset[i].move;
@@ -7033,7 +7033,7 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
         while (learnset[sLearningMoveTableID].level == 0 || learnset[sLearningMoveTableID].level == level)
         {
         
-            if(FlagGet(FLAG_RANDOM_MODE))
+            if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                 gMoveToLearn = GetRandomMove(Random(), species);
             else
                 gMoveToLearn = learnset[sLearningMoveTableID].move;
