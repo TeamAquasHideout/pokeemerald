@@ -2094,16 +2094,16 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 {
                     CreateMon(&party[i], partyData[j].species, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
-                else if (monLevel == 100)
+                else if (monLevel == 100 || monLevel % 25 == 0)
                 {
-                    // = fully evolved mons for every trainer from Floor 100 on
+                    // = fully evolved mons for every trainer from Floor 100 on and for bosses!
                     u16 newSpecies = GetRandomSpeciesFlattenedCurve();
                     const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
                     while (evolutions != NULL)
                     {
                         newSpecies = evolutions[0].targetSpecies;
                         evolutions = GetSpeciesEvolutions(newSpecies);
-                        //DebugPrintf("Evolved: %d", newSpecies);
+                        DebugPrintf("Evolved: %d", newSpecies);
                     }
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
