@@ -449,6 +449,7 @@ static void DrawTopBarText(void)
     //create navigation dots
     for (i = 0; i < MENU_COUNT; i++)
     {
+        DebugPrintf("i = %d", i); //the menu won't load without this line!!!
         if (i == sOptions->submenu)
             StringAppend(pageDots, gText_LargeDot);
         else
