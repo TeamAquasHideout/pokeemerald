@@ -13,6 +13,7 @@ const u8 *GetRandomBossEncounterBossDefeatText(void);
 const u8 *GetRandomBossEncounterBossAceText(void);
 u16 GetRandomMapTerrain(void);
 u32 GetRandomMapWeather(void);
+u16 GetRandomBattleWeather(void);
 u16 GetCurrentMapConstant(void);
 u16 GetPrimaryTilesetIdCurrentMap(void);
 void CreateOverworldHUD(void);
@@ -29,6 +30,8 @@ struct RandomTrainerNPC
 
 #define MAX_RANDOM_TRAINERS 4
 #define BOSS_FLOOR_RATE 25
+#define OPTIONS_ON  0
+#define OPTIONS_OFF 1
 
 //Autosave defines
 #define SAVE_NO         0

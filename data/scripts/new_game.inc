@@ -282,7 +282,6 @@ EventScript_ResetAllMapFlags::
 	setflag FLAG_MOVER_OBJECT
 	setflag FLAG_END_GAME_STATUE
 	setflag FLAG_BOSS_ENCOUNTER
-	clearflag FLAG_RANDOM_MODE
 	clearflag FLAG_DOUBLES_MODE
 	clearflag FLAG_FLOOR_100
 	clearflag FLAG_MIXED_DOUBLES_MODE

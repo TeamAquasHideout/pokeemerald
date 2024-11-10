@@ -29,6 +29,7 @@
 #include "bw_summary_screen.h"
 #include "config/decap.h"
 #include "script_pokemon_util.h"
+#include "pit.h"
 
 static bool8 CheckPyramidBagHasItem(u16 itemId, u16 count);
 static bool8 CheckPyramidBagHasSpace(u16 itemId, u16 count);
@@ -906,7 +907,8 @@ const u8 *ItemId_GetNameRandom(u16 itemId)
 
 const u8 *ItemId_GetName(u16 itemId)
 {
-    if(FlagGet(FLAG_RANDOM_MODE))
+    DebugPrintf("itemId = %d", itemId);
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         return ItemId_GetNameRandom(itemId);
     }
@@ -972,8 +974,10 @@ const u8 *ItemId_GetDescriptionRandom(u16 itemId)
 
 const u8 *ItemId_GetDescription(u16 itemId)
 {   
-    if(FlagGet(FLAG_RANDOM_MODE))
+    DebugPrintf("itemId = %d", itemId);
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
     {
+        DebugPrintf("Desc randomItem");
         return ItemId_GetDescriptionRandom(itemId);
     }
 
@@ -995,7 +999,7 @@ const u8 *ItemId_GetTMData(u16 itemId)
     const u8 *str;
     const u8 colors[3] = {10,  1,  2};
 
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         move = &gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)];
     }

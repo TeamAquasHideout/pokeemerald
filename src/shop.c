@@ -762,7 +762,7 @@ static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, s
             if (IsTM(item))
             {
                 u16 move = 0;
-                if(FlagGet(FLAG_RANDOM_MODE))
+                if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                 {
                     move = GetRandomMove(item, gItemsInfo[item].secondaryId);
                 }

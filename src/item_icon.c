@@ -8,6 +8,7 @@
 #include "item.h"
 #include "event_data.h"
 #include "battle_main.h"
+#include "pit.h"
 
 // EWRAM vars
 EWRAM_DATA u8 *gItemIconDecompressionBuffer = NULL;
@@ -166,7 +167,7 @@ const void *GetItemIconPic(u16 itemId)
         return gItemIcon_ReturnToFieldArrow; // Use last icon, the "return to field" arrow
     if (itemId >= ITEMS_COUNT)
         return gItemsInfo[0].iconPic;
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {
@@ -190,7 +191,7 @@ const void *GetItemIconPalette(u16 itemId)
         return gItemIconPalette_ReturnToFieldArrow;
     if (itemId >= ITEMS_COUNT)
         return gItemsInfo[0].iconPalette;
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {

@@ -112,7 +112,14 @@
 #define TRAINER_PIC_OAK               	  94
 #define TRAINER_PIC_ETHAN              	  95
 #define TRAINER_PIC_LYRA               	  96
-#define TRAINER_PIC_COUNT                 97
+#define TRAINER_PIC_AGATHA                97
+#define TRAINER_PIC_BROCK                 98
+#define TRAINER_PIC_ERIKA                 99
+#define TRAINER_PIC_GIOVANNI              100
+#define TRAINER_PIC_KOGA            	  101
+#define TRAINER_PIC_LANCE                 102
+#define TRAINER_PIC_SABRINA               103
+#define TRAINER_PIC_COUNT                 104
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0

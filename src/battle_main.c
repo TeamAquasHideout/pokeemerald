@@ -1967,16 +1967,20 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     bool32 noMoveSet = TRUE;
     u32 j;
 
-    if(FlagGet(FLAG_RANDOM_MODE))
+    DebugPrintf("CustomTrainerPartyAssignMoves");
+    DebugPrintf("species = %S", gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].speciesName);
+
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (!isPlayer)
         {
-            //for (j = 0; j < MAX_MON_MOVES; j++)
-            //{
-            //    u16 move = GetRandomMove(partyEntry->moves[j], partyEntry->species);
-            //    SetMonData(mon, MON_DATA_MOVE1 + j, &move);
-            //    SetMonData(mon, MON_DATA_PP1 + j, &gMovesInfo[move].pp);
-            //}
+            for (j = 0; j < MAX_MON_MOVES; j++)
+            {
+               u16 move = GetRandomMoveNotSeeded(partyEntry->moves[j], partyEntry->species);
+               DebugPrintf("move = %S", gMovesInfo[move].name);
+               SetMonData(mon, MON_DATA_MOVE1 + j, &move);
+               SetMonData(mon, MON_DATA_PP1 + j, &gMovesInfo[move].pp);
+            }
             return;
         }
     }
@@ -2090,16 +2094,16 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 {
                     CreateMon(&party[i], partyData[j].species, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
-                else if (monLevel == 100)
+                else if (monLevel == 100 || monLevel % 25 == 0)
                 {
-                    // = fully evolved mons for every trainer from Floor 100 on
+                    // = fully evolved mons for every trainer from Floor 100 on and for bosses!
                     u16 newSpecies = GetRandomSpeciesFlattenedCurve();
                     const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
                     while (evolutions != NULL)
                     {
                         newSpecies = evolutions[0].targetSpecies;
                         evolutions = GetSpeciesEvolutions(newSpecies);
-                        //DebugPrintf("Evolved: %d", newSpecies);
+                        DebugPrintf("Evolved: %d", newSpecies);
                     }
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
@@ -2268,6 +2272,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u8 retVal;
+
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
     gSpecialVar_TrainerNumber = trainerNum;
@@ -4064,7 +4069,7 @@ static void TryDoEventsBeforeFirstTurn(void)
         }
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
-    case FIRST_TURN_EVENTS_OVERWORLD_WEATHER:
+    case FIRST_TURN_EVENTS_OVERWORLD_WEATHER: //ABILITYEFFECT_SWITCH_IN_WEATHER sets battle weather
         if (!gBattleStruct->overworldWeatherDone
          && AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, 0, 0, ABILITYEFFECT_SWITCH_IN_WEATHER, 0) != 0)
         {

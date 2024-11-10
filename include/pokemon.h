@@ -893,6 +893,7 @@ u16 PickRandomStarterForOneTypeChallenge(u16 *speciesList, u8 starterId);
 u16 PickRandomStarter(u16 *speciesList, u8 starterId);
 u8 GetTypeBySpecies(u16 species, u8 typeNum);
 u16 GetRandomMove(u16 input_move, u16 species);
+u16 GetRandomMoveNotSeeded(u16 move, u16 species);
 u8 GetRandomType(void);
 u8 EvolutionBlockedByEvoLimit(u16 species);
 u16 GetSpeciesRandomSeeded(u16 species);
