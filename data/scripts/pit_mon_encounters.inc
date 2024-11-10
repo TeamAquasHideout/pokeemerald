@@ -79,8 +79,13 @@ PitEncounter_NuggetDrop_alreadyUsed::
 	msgbox PitEncounter_NuggetDrop_alreadyUsed_Text, MSGBOX_DEFAULT
 	release
 	end
+#ifdef PIT_GEN_9_MODE
 PitEncounter_NuggetDrop_alreadyUsed_Text:
 	.string "Gholdengo$"
+#else
+PitEncounter_NuggetDrop_alreadyUsed_Text:
+	.string "Sableye$"
+#endif
 
 PitEncounter_WonderTrade_alreadyUsed::
 	faceplayer
@@ -264,9 +269,13 @@ PitEncounter_NuggetDrop::
 	call PitEncounter_Common_AfterUse
 	release
 	end
+#ifdef PIT_GEN_9_MODE
 PitEncounter_NuggetDrop_Text:
 	.string "Gholdengo just lost a Nugget.\nQuick, take it!$"
-
+#else
+PitEncounter_NuggetDrop_Text:
+	.string "Sableye just lost a Nugget.\nQuick, take it!$"
+#endif
 
 @ Wonder Trade NPC
 PitEncounter_WonderTrade::

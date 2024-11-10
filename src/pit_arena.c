@@ -723,12 +723,21 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .monScript = PitEncounter_Present,
         .alreadyUsedScript = PitEncounter_Present_alreadyUsed,
     },
+#if (GEN_LATEST == GEN_9)
     {
         .species = SPECIES_GHOLDENGO,
         .flagId = 6,
         .monScript = PitEncounter_NuggetDrop,
         .alreadyUsedScript = PitEncounter_NuggetDrop_alreadyUsed,
     },
+#else
+    {
+        .species = SPECIES_SABLEYE,
+        .flagId = 6,
+        .monScript = PitEncounter_NuggetDrop,
+        .alreadyUsedScript = PitEncounter_NuggetDrop_alreadyUsed,
+    },
+#endif
     {
         .species = SPECIES_ZIGZAGOON,
         .flagId = 7,
@@ -1142,7 +1151,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "victory... You're a wonderful Trainer!\p"
                                             "I want my kid to learn from you.$"),
         .bossAceText =      COMPOUND_STRING("I'm giving this everything I've got!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1153,7 +1162,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_JOLLY,
                             .moves = {MOVE_DOUBLE-EDGE, MOVE_SHADOW_BALL, MOVE_HYPER_BEAM, MOVE_EARTHQUAKE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1191,7 +1200,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("Your devotion... That's what brought\n"
                                             "you victory. It's praiseworthy.$"),
         .bossAceText =      COMPOUND_STRING("I will seize the wind!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
@@ -1202,7 +1211,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_LONELY,
                             .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FLY}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1243,7 +1252,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "I must hone my skills for our next\n"
                                             "encounter.$"),
         .bossAceText =      COMPOUND_STRING("Fwahaha! Prepare yourselves!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1254,7 +1263,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_JOLLY,
                             .moves = {MOVE_SLUDGE_BOMB, MOVE_AERIAL_ACE, MOVE_SHADOW_BALL, MOVE_FACADE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1288,7 +1297,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("I'll tell you this now... No matter how\n"
                                             "strong you are, someday you'll lose.$"),
         .bossAceText =      COMPOUND_STRING("You're in for a world of pain!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1299,7 +1308,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_JOLLY,
                             .moves = {MOVE_EARTHQUAKE, MOVE_MEGAHORN, MOVE_SLUDGE_BOMB, MOVE_ROCK_SLIDE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1337,7 +1346,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("That was a really great battle!\p"
                                             "I compliment you on your victory!$"),
         .bossAceText =      COMPOUND_STRING("Show me what you got!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
@@ -1348,7 +1357,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_IMPISH,
                             .moves = {MOVE_EARTHQUAKE, MOVE_TOXIC, MOVE_ROCK_SLIDE, MOVE_REST}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 0, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
@@ -1389,7 +1398,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 //                                            "I'm truly grateful that you made me\n"
 //                                            "realize I need to do that.$"),
 //        .bossAceText =      COMPOUND_STRING("All right, let's do this!$"),
-//#ifdef GEN_3_MODE
+//#if (GEN_LATEST == GEN_3)
 //        .trainerAce =   {
 //                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
 //                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -1400,7 +1409,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 //                            .nature = NATURE_ADAMANT,
 //                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
 //                        },
-//#elif GEN_5_MODE
+//#elif (GEN_LATEST == GEN_5)
 //        .trainerAce =   {
 //                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
 //                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -1434,7 +1443,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "Give this battle everything you've got!$"),
         .bossLoseText =     COMPOUND_STRING("Not bad!$"),
         .bossAceText =      COMPOUND_STRING("Put your back into it!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1445,7 +1454,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_TIMID,
                             .moves = {MOVE_THUNDERBOLT, MOVE_FIRE_PUNCH, MOVE_ICE_PUNCH, MOVE_HYPNOSIS}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1487,7 +1496,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "And thus, you were able to grasp\n"
                                             "victory!$"),
         .bossAceText =      COMPOUND_STRING("Steel yourselves!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -1498,7 +1507,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_ADAMANT,
                             .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_DOUBLE-EDGE, MOVE_ROCK_SLIDE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -1533,7 +1542,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "You've shown a power that exceeds that\n"
                                             "of the great Maxie!$"),
         .bossAceText =      COMPOUND_STRING("I shall educate you!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
@@ -1544,7 +1553,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_NAIVE,
                             .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_OVERHEAT, MOVE_ROCK_SLIDE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -1580,7 +1589,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("I commend you. I must recognize that\n"
                                             "you are truly gifted.$"),
         .bossAceText =      COMPOUND_STRING("It's the road's end for you!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
@@ -1591,7 +1600,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_MODEST,
                             .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
@@ -1628,7 +1637,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("It would make me verry happy if I could\n"
                                             "battle with you again.$"),
         .bossAceText =      COMPOUND_STRING("I shall not lose!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
@@ -1639,7 +1648,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_LONELY,
                             .moves = {MOVE_SLEEP_POWDER, MOVE_SWORDS_DANCE, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
@@ -1676,7 +1685,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "I'm so impressed by the way you battle\n"
                                             "that I can't help but laugh!$"),
         .bossAceText =      COMPOUND_STRING("Wahahahah! Now, this is amusing!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1687,7 +1696,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_TIMID,
                             .moves = {MOVE_THUNDERBOLT, MOVE_THUNDER, MOVE_CRUNCH, MOVE_DOUBLE_TEAM}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1725,7 +1734,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "But I wanted to turn that future on its\n"
                                             "head with my conviction as a Trainer!$"),
         .bossAceText =      COMPOUND_STRING("I'll hold nothing back!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1736,7 +1745,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_TIMID,
                             .moves = {MOVE_CALM_MIND, MOVE_PSYCHIC, MOVE_FIRE_PUNCH, MOVE_RECOVER}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
@@ -1775,7 +1784,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "It's no surprise that my icy skills\n"
                                             "failed to harm you.$"),
         .bossAceText =      COMPOUND_STRING("Careful you don't freeze up!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
@@ -1786,7 +1795,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_CALM,
                             .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
@@ -1825,7 +1834,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "dragons are legendary creatures!\p"
                                             "That's why I won't lose next time!$"),
         .bossAceText =      COMPOUND_STRING("Here we come!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
@@ -1836,7 +1845,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_LONELY,
                             .moves = {MOVE_DRAGON_DANCE, MOVE_AERIAL_ACE, MOVE_EARTHQUAKE, MOVE_ICE_BEAM}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1873,7 +1882,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "Now, go on to the next room and enjoy\n"
                                             "your next battle!$"),
         .bossAceText =      COMPOUND_STRING("Don't let up!$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
@@ -1884,7 +1893,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_JOLLY,
                             .moves = {MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM, MOVE_SHADOW_BALL, MOVE_STRENGTH}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
