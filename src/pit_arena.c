@@ -448,8 +448,8 @@ struct sRandomMap {
                                             .warp_x = 9,    \
                                             .warp_y = 9,
 
-#define WEATHER(x, y)   .weatherId = WEATHER_##x, \
-                        .weatherChance = y
+#define WEATHER_CHANCE(x, y)    .weatherId = WEATHER_##x, \
+                                .weatherChance = y
 
 #define RANDOM_MAP_COUNT    ARRAY_COUNT(sRandomMapArray)
 static const struct sRandomMap sRandomMapArray[] = {
@@ -457,84 +457,84 @@ static const struct sRandomMap sRandomMapArray[] = {
         .mapConstant = MAP_PIT_ARENA,
         .warpMetatileId = METATILE_Cave_FLOOR_COMPLETE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        WEATHER(NONE, 0),
+        WEATHER_CHANCE(NONE, 0),
         DEFAULT_RANDOM_MAP_COORDS
     },     
     {
         .mapConstant = MAP_PIT_ARENA_BEACH,
         .warpMetatileId = METATILE_PitArenaBeach_BEACH_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
-        WEATHER(RAIN, 10),
+        WEATHER_CHANCE(RAIN, 10),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_WATER,
         .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_WATER,
-        WEATHER(RAIN, 50),
+        WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_DESERT,
         .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
-        WEATHER(SANDSTORM, 80),
+        WEATHER_CHANCE(SANDSTORM, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_SNOW,
         .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        WEATHER(SNOW, 90),
+        WEATHER_CHANCE(SNOW, 90),
         DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_MUSHROOM_WOODS,
         .warpMetatileId = METATILE_PitArenaMushroomWoods_MUSHROOM_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-        WEATHER(FOG_HORIZONTAL, 80),
+        WEATHER_CHANCE(FOG_HORIZONTAL, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },        
     {
         .mapConstant = MAP_PIT_ARENA_DIRT_PATH,
         .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        WEATHER(RAIN, 50),
+        WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS,
         .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-        WEATHER(RAIN, 50),
+        WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_UNDERWATER,
         .warpMetatileId = METATILE_PitArenaUnderwater_UNDERWATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_UNDERWATER,
-        WEATHER(UNDERWATER_BUBBLES, 100),
+        WEATHER_CHANCE(UNDERWATER_BUBBLES, 100),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_MINE,
         .warpMetatileId = METATILE_PitArenaMine_MINE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        WEATHER(NONE, 0),
+        WEATHER_CHANCE(FOG_HORIZONTAL, 15),
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
         .mapConstant = MAP_PIT_ARENA_WHITE_BARK,
         .warpMetatileId = METATILE_PitArenaWhiteBark_WHITEBARK_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
-        WEATHER(FOG_HORIZONTAL, 80),
+        WEATHER_CHANCE(FOG_HORIZONTAL, 80),
         DEFAULT_RANDOM_MAP_COORDS
     },       
     {
         .mapConstant = MAP_PIT_ARENA_WATER02,
         .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_WATER,
-        WEATHER(RAIN, 50),
+        WEATHER_CHANCE(RAIN, 50),
         .dest_x = 9,
         .dest_y = 10,
         .warp_x = 9,
@@ -544,14 +544,14 @@ static const struct sRandomMap sRandomMapArray[] = {
         .mapConstant = MAP_PIT_ARENA_SNOW02,
         .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
-        WEATHER(SNOW, 90),
+        WEATHER_CHANCE(SNOW, 90),
         DEFAULT_RANDOM_MAP_COORDS
     },      
     {
         .mapConstant = MAP_PIT_ARENA_MINE02,
         .warpMetatileId = METATILE_PitArenaMine_MINE_TOP_CAVE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
-        WEATHER(NONE, 0),
+        WEATHER_CHANCE(FOG_HORIZONTAL, 15),
         .dest_x = 13,
         .dest_y = 13,
         .warp_x = 15,
