@@ -50,3 +50,10 @@ prefabs.json
 /pokeemerald-*.png
 /pokeemerald_agbcc-*.png
 src/data/map_group_count.h
+tools/poryscript/command_config.json
+tools/poryscript/command_config.json:Zone.Identifier
+tools/poryscript/font_config.json
+tools/poryscript/font_config.json:Zone.Identifier
+tools/poryscript/poryscript
+tools/poryscript/poryscript:Zone.Identifier
+install-devkitpro-pacman
