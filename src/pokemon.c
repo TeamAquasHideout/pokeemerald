@@ -5953,7 +5953,7 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
     for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            moves[numMoves++] = GetRandomMove(Random(), species);
+            moves[numMoves++] = GetRandomMoveNotSeeded(learnset[i].move, species);
         else
             moves[numMoves++] = learnset[i].move;
     }
@@ -7034,7 +7034,7 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
         {
         
             if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-                gMoveToLearn = GetRandomMove(Random(), species);
+                gMoveToLearn = GetRandomMoveNotSeeded(learnset[sLearningMoveTableID].move, species);
             else
                 gMoveToLearn = learnset[sLearningMoveTableID].move;
 

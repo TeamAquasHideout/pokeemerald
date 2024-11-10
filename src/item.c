@@ -907,7 +907,7 @@ const u8 *ItemId_GetNameRandom(u16 itemId)
 
 const u8 *ItemId_GetName(u16 itemId)
 {
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(FlagGet(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)) //wiz1989
     {
         return ItemId_GetNameRandom(itemId);
     }
@@ -973,7 +973,7 @@ const u8 *ItemId_GetDescriptionRandom(u16 itemId)
 
 const u8 *ItemId_GetDescription(u16 itemId)
 {   
-    if(FlagGet(FLAG_RANDOM_MODE))
+    if(FlagGet(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)) //wiz1989
     {
         return ItemId_GetDescriptionRandom(itemId);
     }

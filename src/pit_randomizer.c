@@ -1201,14 +1201,28 @@ u16 GetSpeciesRandomNotSeeded(u16 species)
 
 u16 GetRandomMove(u16 move, u16 species)
 {
-    u16 val = RandomSeededModulo2((Random() % GetRandomValidMovesCount()) + move + species, GetRandomValidMovesCount());
+    u16 val = RandomSeededModulo2(move + species, GetRandomValidMovesCount());
     u16 final = gRandomValidMoves[val];
 
+    DebugPrintf("GetRandomMove");
     DebugPrintf("move = %d", move);
     DebugPrintf("species = %d", species);
     DebugPrintf("GetRandomMove = %d", final);
     return final;
 }
+
+u16 GetRandomMoveNotSeeded(u16 move, u16 species)
+{
+    u16 val = RandomSeededModulo2((Random() % GetRandomValidMovesCount()) + move + species, GetRandomValidMovesCount());
+    u16 final = gRandomValidMoves[val];
+
+    DebugPrintf("GetRandomMoveNotSeeded");
+    DebugPrintf("move = %d", move);
+    DebugPrintf("species = %d", species);
+    DebugPrintf("GetRandomMove = %d", final);
+    return final;
+}
+
 const u8 *GetMoveName(u16 moveId)
 {
     return gMovesInfo[moveId].name;
@@ -2822,17 +2836,13 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
     {
         reroll = FALSE;
 
-        DebugPrintf("randomAbilities = %d", gSaveBlock2Ptr->randomAbilities);
         //randomize species to determine ability
         if(gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
         {
             species = GetSpeciesRandomSeeded(species);
             if ((gSpeciesInfo[species].abilities[1] == ABILITY_NONE) && (abilityNum == 1))
                 abilityNum = 0;
-            DebugPrintf("species = %d", species);
         }
-
-        DebugPrintf("species = %d", species);
 
         if (abilityNum < NUM_ABILITY_SLOTS)
             gLastUsedAbility = gSpeciesInfo[species].abilities[abilityNum];
