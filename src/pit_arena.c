@@ -386,7 +386,7 @@ static const struct PitAvatarInfo sPitAvatars[] = {
         .mugshotId = AVATAR_POKEMON_CHOICE,
         .graphicsId = 0xFFFF,
         .trainerFrontPicId = 0xFFFF,
-        .trainerBackPicId = TRAINER_BACK_PIC_BRENDAN,
+        .trainerBackPicId = TRAINER_BACK_PIC_DUMMY,
     },
 
 };

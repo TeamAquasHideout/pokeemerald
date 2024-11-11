@@ -35,6 +35,7 @@
 #include "confetti_util.h"
 #include "main_menu.h"
 #include "constants/rgb.h"
+#include "pit.h"
 
 #define HALL_OF_FAME_MAX_TEAMS 30
 #define TAG_CONFETTI 1001
@@ -691,7 +692,22 @@ static void Task_Hof_DisplayPlayer(u8 taskId)
     ShowBg(0);
     ShowBg(1);
     ShowBg(3);
-    gTasks[taskId].tPlayerSpriteID = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 120, 72, 6, TAG_NONE);
+    u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+    if (facilityClass == 0xFFFF)
+    {
+        gTasks[taskId].tPlayerSpriteID = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+                    FALSE, 
+                    0, 
+                    TRUE, 
+                    120, 
+                    72,
+                    6, 
+                    TAG_NONE);
+    }
+    else
+    {
+        gTasks[taskId].tPlayerSpriteID = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId_Debug(gSaveBlock2Ptr->playerGender, TRUE), TRUE, 120, 72, 6, TAG_NONE);
+    }
     AddWindow(&sHof_WindowTemplate);
     LoadWindowGfx(1, 2, 0x21D, BG_PLTT_ID(13));
     LoadPalette(GetTextWindowPalette(1), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
@@ -760,8 +776,12 @@ static void Task_Hof_HandleExit(u8 taskId)
                 FreeAndDestroyMonPicSprite(spriteId);
             }
         }
+        u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+        if (facilityClass != 0xFFFF)
+            FreeAndDestroyTrainerPicSprite(gTasks[taskId].tPlayerSpriteID);
+        else
+            FreeAndDestroyMonPicSprite(gTasks[taskId].tPlayerSpriteID);
 
-        FreeAndDestroyTrainerPicSprite(gTasks[taskId].tPlayerSpriteID);
         HideBg(0);
         HideBg(1);
         HideBg(3);

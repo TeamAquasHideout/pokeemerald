@@ -134,6 +134,7 @@
 #define TRAINER_BACK_PIC_PHOEBE                	9
 #define TRAINER_BACK_PIC_ETHAN                 	10
 #define TRAINER_BACK_PIC_LYRA                	11
+#define TRAINER_BACK_PIC_DUMMY                	12
 
 #define FACILITY_CLASS_HIKER                 0x0
 #define FACILITY_CLASS_AQUA_GRUNT_M          0x1

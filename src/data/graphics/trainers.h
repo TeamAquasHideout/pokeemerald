@@ -340,6 +340,9 @@ const u32 gTrainerBackPalette_Phoebe[] = INCBIN_U32("graphics/trainers/back_pics
 const u32 gTrainerBackPicPalette_Red[] = INCBIN_U32("graphics/trainers/back_pics/red.gbapal.lz");
 const u32 gTrainerBackPicPalette_Leaf[] = INCBIN_U32("graphics/trainers/back_pics/leaf.gbapal.lz");
 
+const u8 gTrainerBackPic_Dummy[]    = INCBIN_U8("graphics/trainers/back_pics/dummy.4bpp");
+const u32 gTrainerBackPalette_Dummy[] = INCBIN_U32("graphics/trainers/back_pics/dummy.gbapal.lz");
+
 // The first two parameters invoke a front pic and palette by
 // calling a "TRAINER_PIC" constant (e.g. TRAINER_PIC_HIKER), and
 // gTrainerFrontPic/gTrainerPalette pointers, (e.g "gTrainerFrontPic_Hiker" and "gTrainerPalette_Hiker").
@@ -614,6 +617,16 @@ const struct SpriteFrameImage gTrainerBackPicTable_Ethan[] =
     {gTrainerBackPic_Ethan + TRAINER_PIC_SIZE * 3, TRAINER_PIC_SIZE},
 };
 
+
+const struct SpriteFrameImage gTrainerBackPicTable_Dummy[] =
+{
+    {gTrainerBackPic_Dummy + TRAINER_PIC_SIZE * 0, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Dummy + TRAINER_PIC_SIZE * 1, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Dummy + TRAINER_PIC_SIZE * 2, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Dummy + TRAINER_PIC_SIZE * 3, TRAINER_PIC_SIZE},
+};
+
+
 // .backPic goes functionally unused, since none of these pics are compressed
 // and the place they would get extracted to gets overwritten later anyway
 // the casts are so they'll play nice with the strict struct definition
@@ -640,4 +653,5 @@ const struct TrainerBacksprite gTrainerBacksprites[] =
     TRAINER_BACK_SPRITE(OAK,    4, Oak, BackPalette_Oak, Hoenn),
     TRAINER_BACK_SPRITE(LYRA,   4, Lyra, BackPalette_Lyra, Hoenn),
     TRAINER_BACK_SPRITE(ETHAN,  4, Ethan, BackPalette_Ethan, Hoenn),
+    TRAINER_BACK_SPRITE(DUMMY,  4, Dummy, BackPalette_Dummy, Hoenn),
 };

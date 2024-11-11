@@ -51,6 +51,7 @@
 #include "ui_mode_menu.h"
 #include "ui_outfits.h"
 #include "ui_main_menu.h"
+#include "trainer_pokemon_sprites.h"
 
 /*
     Full Screen Start Menu
@@ -538,8 +539,12 @@ static void DestroyCursor()
         DestroySprite(&gSprites[sStartMenuDataPtr->cursorSpriteId]);
     sStartMenuDataPtr->cursorSpriteId = SPRITE_NONE;
 
-    DestroySpriteAndFreeResources(&gSprites[sStartMenuDataPtr->mugshotSpriteId]);
-    sStartMenuDataPtr->mugshotSpriteId = SPRITE_NONE;
+    u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+    if (facilityClass != 0xFFFF)
+        DestroySpriteAndFreeResources(&gSprites[sStartMenuDataPtr->mugshotSpriteId]);
+    else
+        FreeAndDestroyMonPicSprite(sStartMenuDataPtr->mugshotSpriteId);
+    sStartMenuDataPtr->mugshotSpriteId = SPRITE_NONE;    
 }
 
 struct SpriteCordsStruct {
@@ -1016,7 +1021,21 @@ static bool8 StartMenuFull_DoGfxSetup(void) // base UI loader from Ghouls UI She
         //CreateGreyedMenuBoxes();
         CreateIconBox();
         CreateCursor();
-        sStartMenuDataPtr->mugshotSpriteId = CreateMugshotExternal();
+        u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+        if (facilityClass == 0xFFFF)
+        {
+            sStartMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+                        FALSE, 
+                        0, 
+                        TRUE, 
+                        40, 
+                        111,
+                        15, 
+                        TAG_NONE);
+        }
+        else
+            sStartMenuDataPtr->mugshotSpriteId = CreateMugshotExternal();
+
         CreatePartyMonIcons();
         StartMenu_DisplayHP();
         CreatePartyMonStatuses();
@@ -1151,7 +1170,9 @@ static bool8 StartMenuFull_LoadGraphics(void) // Load the Tilesets, Tilemaps, Sp
         LoadCompressedSpriteSheet(&sSpriteSheet_StatusIcons);
         LoadCompressedSpritePalette(&sSpritePalette_StatusIcons);
 
-        LoadMugshotIconGraphics();
+        u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+        if (facilityClass != 0xFFFF)
+            LoadMugshotIconGraphics();
 
         //LoadCompressedSpriteSheet(&sSpriteSheet_GreyMenuButtonMap);
         //LoadCompressedSpriteSheet(&sSpriteSheet_GreyMenuButtonDex);

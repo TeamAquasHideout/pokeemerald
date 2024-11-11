@@ -44,6 +44,7 @@
 #include "mystery_event_menu.h"
 #include "mystery_gift_menu.h"
 #include "link.h"
+#include "trainer_pokemon_sprites.h"
 
 /*
  * 
@@ -897,17 +898,37 @@ static void MainMenu_InitWindows(void) // Init Text Windows
 //      Mugshot Functions
 //
 static void CreateMugshot()
-{
-    sMainMenuDataPtr->mugshotSpriteId = CreateSprite(&sSpriteTemplate_Mugshot, 48, 56, 1);
-    gSprites[sMainMenuDataPtr->mugshotSpriteId].invisible = FALSE;
-    StartSpriteAnim(&gSprites[sMainMenuDataPtr->mugshotSpriteId], 0);
-    gSprites[sMainMenuDataPtr->mugshotSpriteId].oam.priority = 0;
+{   
+    u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+    if (facilityClass == 0xFFFF)
+    {
+        sMainMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+                    FALSE, 
+                    0, 
+                    TRUE, 
+                    48,
+                    56,
+                    15, 
+                    TAG_NONE);
+    }
+    else
+    {
+        sMainMenuDataPtr->mugshotSpriteId = CreateSprite(&sSpriteTemplate_Mugshot, 48, 56, 1);
+        gSprites[sMainMenuDataPtr->mugshotSpriteId].invisible = FALSE;
+        StartSpriteAnim(&gSprites[sMainMenuDataPtr->mugshotSpriteId], 0);
+        gSprites[sMainMenuDataPtr->mugshotSpriteId].oam.priority = 0;
+    }
+    
     return;
 }
 
 static void DestroyMugshot()
 {
-    DestroySpriteAndFreeResources(&gSprites[sMainMenuDataPtr->mugshotSpriteId]);
+    u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+    if (facilityClass == 0xFFFF)
+        FreeAndDestroyMonPicSprite(sMainMenuDataPtr->mugshotSpriteId);
+    else
+        DestroySpriteAndFreeResources(&gSprites[sMainMenuDataPtr->mugshotSpriteId]);
     sMainMenuDataPtr->mugshotSpriteId = SPRITE_NONE;
 }
 
