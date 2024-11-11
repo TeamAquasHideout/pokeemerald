@@ -1141,9 +1141,8 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
     {
         .graphicsId = OBJ_EVENT_GFX_NORMAN,
         .trainerPic = TRAINER_PIC_LEADER_NORMAN,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Norman"),
-        .bossApproachText =  COMPOUND_STRING("I lost to my own child...\p"
+        .bossApproachText =  COMPOUND_STRING("I lost...\p"
                                             "I rethought everything about myself,\n"
                                             "so now there's no way I can lose!\p"
                                             "You'd better give it your best shot!$"),
@@ -1186,10 +1185,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_WINONA,
         .trainerPic = TRAINER_PIC_LEADER_WINONA,
-        //.flagId = 1,
         .bossName = COMPOUND_STRING("Winona"),
         .bossApproachText =  COMPOUND_STRING("I have become one with bird Pokémon\n"
                                             "and have soared the skies...\p"
@@ -1234,12 +1233,11 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROOST}
                         },
 #endif
-
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_KOGA,
         .trainerPic = TRAINER_PIC_KOGA,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Koga"),
         .bossApproachText =  COMPOUND_STRING("Fwahahaha! A fool like you dares to\n"
                                             "challenge me?\p"
@@ -1287,10 +1285,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_GIOVANNI,
         .trainerPic = TRAINER_PIC_GIOVANNI,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Giovanni"),
         .bossApproachText =  COMPOUND_STRING("For your insolence, you will feel a world\n"
                                             "of pain!$"),
@@ -1332,14 +1330,12 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
    },
+
    {
         .graphicsId = OBJ_EVENT_GFX_BROCK,
         .trainerPic = TRAINER_PIC_BROCK,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Brock"),
-        .bossApproachText =  COMPOUND_STRING("I'm Brock! I'm an expert of Rock-type\n"
-                                            "Pokémon!\p"
-                                            "My Pokémon are impervious to most\n"
+        .bossApproachText =  COMPOUND_STRING("My Pokémon are impervious to most\n"
                                             "physical attacks.\p"
                                             "You'll have a hard time inflicting any\n"
                                             "damage!$"),
@@ -1381,62 +1377,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
-//    {
-//        .graphicsId = OBJ_EVENT_GFX_BUGSY,
-//        .trainerPic = TRAINER_PIC_BUGSY,
-//        //.flagId = 0,
-//        .bossName = COMPOUND_STRING("Bugsy"),
-//        .bossApproachText =  COMPOUND_STRING("I never lose when it comes to Bug-type\n"
-//                                            "Pokémon.\p"
-//                                            "Let me demonstrate what I've learned\n"
-//                                            "from my studies.$"),
-//        .bossLoseText =     COMPOUND_STRING("I never lose when it comes to Bug-type\n"
-//                                            "Pokémon.\p"
-//                                            "I'm so embarrassed to have said that.\p"
-//                                            "I'll start my studies of other Pokémon\n"
-//                                            "over from the beginning, too.\p"
-//                                            "I'm truly grateful that you made me\n"
-//                                            "realize I need to do that.$"),
-//        .bossAceText =      COMPOUND_STRING("All right, let's do this!$"),
-//#if (GEN_LATEST == GEN_3)
-//        .trainerAce =   {
-//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
-//                            .lvl = 100,
-//                            .species = SPECIES_SCIZOR,
-//                            .heldItem = ITEM_LEFTOVERS,
-//                            .ability = 0,
-//                            .nature = NATURE_ADAMANT,
-//                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
-//                        },
-//#elif (GEN_LATEST == GEN_5)
-//        .trainerAce =   {
-//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
-//                            .lvl = 100,
-//                            .species = SPECIES_SCIZOR,
-//                            .heldItem = ITEM_LIFE_ORB,
-//                            .ability = 1,
-//                            .nature = NATURE_ADAMANT,
-//                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUPERPOWER, MOVE_BULLET_PUNCH, MOVE_PURSUIT}
-//                        },
-//#else
-//        .trainerAce =   {
-//                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-//                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
-//                            .lvl = 100,
-//                            .species = SPECIES_SCIZOR,
-//                            .heldItem = ITEM_SCIZORITE,
-//                            .ability = 1,
-//                            .nature = NATURE_ADAMANT,
-//                            .moves = {MOVE_SWORDS_DANCE, MOVE_KNOCK_OFF, MOVE_BULLET_PUNCH, MOVE_TRAILBLAZE}
-//                        },
-//#endif
-//    },
+
     {
         .graphicsId = OBJ_EVENT_GFX_AGATHA,
         .trainerPic = TRAINER_PIC_AGATHA,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Agatha"),
         .bossApproachText =  COMPOUND_STRING("So you've come! It's not in my character\n"
                                             "to lose.\p"
@@ -1478,10 +1422,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_STEVEN,
         .trainerPic = TRAINER_PIC_STEVEN,
-        //.flagId = 2,
         .bossName = COMPOUND_STRING("Steven"),
         .bossApproachText =  COMPOUND_STRING("What has awoken in you because of your\n"
                                             "journey?\p"
@@ -1531,10 +1475,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_MAXIE,
         .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
-        //.flagId = 3,
         .bossName = COMPOUND_STRING("Maxie"),
         .bossApproachText =  COMPOUND_STRING("Clear out of the way! Don't you dare\n"
                                             "interfere!$"),
@@ -1577,10 +1521,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_ARCHIE,
         .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
-        //.flagId = 4,
         .bossName = COMPOUND_STRING("Archie"),
         .bossApproachText =  COMPOUND_STRING("I have waited so long for this day to\n"
                                             "come...\p"
@@ -1624,10 +1568,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_ERIKA,
         .trainerPic = TRAINER_PIC_ERIKA,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Erika"),
         .bossApproachText =  COMPOUND_STRING("My name is Erika, and I love Grass-type\n"
                                             "Pokemon.\p"
@@ -1672,10 +1616,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_WATTSON,
         .trainerPic = TRAINER_PIC_LEADER_WATTSON,
-        //.flagId = 5,
         .bossName = COMPOUND_STRING("Wattson"),
         .bossApproachText =  COMPOUND_STRING("Wahahahaha! Good things come to those\n"
                                             "who laugh!\p"
@@ -1720,10 +1664,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_SABRINA,
         .trainerPic = TRAINER_PIC_SABRINA,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Sabrina"),
         .bossApproachText =  COMPOUND_STRING("Three years ago I had a vision of\n"
                                             "battling you.\p"
@@ -1769,10 +1713,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_GLACIA,
         .trainerPic = TRAINER_PIC_ELITE_FOUR_GLACIA,
-        //.flagId = 6,
         .bossName = COMPOUND_STRING("Glacia"),
         .bossApproachText =  COMPOUND_STRING("Welcome, my name is Glacia.\p"
                                             "I've traveled from afar so that I may\n"
@@ -1818,12 +1762,11 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
                         },
 #endif
-
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_LANCE,
         .trainerPic = TRAINER_PIC_LANCE,
-        //.flagId = 0,
         .bossName = COMPOUND_STRING("Lance"),
         .bossApproachText =  COMPOUND_STRING("There's no need for words now.\p"
                                             "We will battle to determine who is the\n"
@@ -1869,10 +1812,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
     {
         .graphicsId = OBJ_EVENT_GFX_SIDNEY,
         .trainerPic = TRAINER_PIC_ELITE_FOUR_SIDNEY,
-        //.flagId = 7,
         .bossName = COMPOUND_STRING("Sidney"),
         .bossApproachText =  COMPOUND_STRING("Welcome, challenger! Call me Sidney. I\n"
                                             "like that look you're giving me.\p"
@@ -1916,7 +1859,6 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .moves = {MOVE_SWORDS_DANCE, MOVE_SUCKER_PUNCH, MOVE_PLAY_ROUGH, MOVE_KNOCK_OFF}
                         },
 #endif
-
     },
 };
 
