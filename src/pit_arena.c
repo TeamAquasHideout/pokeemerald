@@ -2256,3 +2256,11 @@ void LevelUpParty(void)
     }
     return;
 }
+
+void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
+{
+    gSaveBlock2Ptr->statsKOs++;
+
+    if (VarGet(VAR_PIT_FLOOR) > gSaveBlock2Ptr->statsHighscore)
+        gSaveBlock2Ptr->statsHighscore = VarGet(VAR_PIT_FLOOR);
+}

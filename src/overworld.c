@@ -1571,6 +1571,7 @@ void CB2_WhiteOut(void)
     if (++gMain.state >= 120)
     {
         FlagSet(FLAG_RUN_ENDED_SCREEN);
+        UpdateRunningStats();
         GameClear();
         return;
         FieldClearVBlankHBlankCallbacks();

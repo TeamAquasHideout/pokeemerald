@@ -545,8 +545,14 @@ struct SaveBlock2
              u8 randomMonEncounters[2];
              u8 playerGfxType;
     /*0x98*/ struct Time localTimeOffset;
-    /*0xA0*/ struct Time lastBerryTreeUpdate;
-    /*0xA8*/ u32 gcnLinkFlags; // Read by Pokémon Colosseum/XD
+    // #### running stats for The Pit - START ####
+    /*0xA0*/ u16 statsKOs;
+             u16 statsRevives;
+             u16 statsHighscore;
+             u16 statsClears;
+             u16 statsPadding1;
+             u16 statsPadding2;
+    // #### running stats for The Pit - END ####
     /*0xAC*/ u32 encryptionKey;
     /*0xB0*/ struct PlayersApprentice playerApprentice;
     /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];

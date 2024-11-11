@@ -19,6 +19,7 @@ u16 GetPrimaryTilesetIdCurrentMap(void);
 void CreateOverworldHUD(void);
 void SetMapWeather(void);
 void SetMapWeatherAtRandom(void);
+void UpdateRunningStats(void);
 
 struct RandomTrainerNPC 
 {
