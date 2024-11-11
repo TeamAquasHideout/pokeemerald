@@ -2274,3 +2274,9 @@ void IncrementStatsRunRevives(void)
 {
     gSaveBlock2Ptr->statsRunRevives++;
 }
+
+void ResetRunStats(void)
+{
+    gSaveBlock2Ptr->statsRunKOs = 0;
+    gSaveBlock2Ptr->statsRunRevives = 0;
+}

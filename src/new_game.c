@@ -239,6 +239,7 @@ void NewGameInitData(void)
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     SavePokedexFlags();
+    ResetRunStats();
     //ResetPokedex();
     ClearFrontierRecord();
     ClearSav1();

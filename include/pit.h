@@ -22,6 +22,7 @@ void SetMapWeatherAtRandom(void);
 void UpdateRunningStats(void);
 void IncrementStatsRunKOs(void);
 void IncrementStatsRunRevives(void);
+void ResetRunStats(void);
 
 struct RandomTrainerNPC 
 {
