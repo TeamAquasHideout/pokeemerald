@@ -1245,7 +1245,7 @@ u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
     return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
-u8 GetPlayerAvatarGraphicsId()
+u16 GetPlayerAvatarGraphicsId()
 {
     return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }

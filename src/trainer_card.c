@@ -362,6 +362,7 @@ static void CB2_TrainerCard(void)
 static void CloseTrainerCard(u8 taskId)
 {
     SetMainCallback2(sData->callback2);
+    ResetSpriteData();
     FreeAllWindowBuffers();
     FREE_AND_SET_NULL(sData);
     DestroyTask(taskId);
@@ -1885,6 +1886,18 @@ static void CreateTrainerCardTrainerPic(void)
 {
 
     u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
+    if (facilityClass == 0xFFFF)
+    {
+        CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+                    FALSE, 
+                    0, 
+                    TRUE, 
+                    180,
+                    72,
+                    15, 
+                    TAG_NONE);
+        return;
+    }
 
     if (InUnionRoom() == TRUE && gReceivedRemoteLinkPlayers == 1)
     {
