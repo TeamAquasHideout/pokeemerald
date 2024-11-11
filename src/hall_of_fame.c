@@ -36,6 +36,7 @@
 #include "main_menu.h"
 #include "constants/rgb.h"
 #include "pit.h"
+#include "ui_trainer_stats.h"
 
 #define HALL_OF_FAME_MAX_TEAMS 30
 #define TAG_CONFETTI 1001
@@ -128,7 +129,7 @@ static const struct BgTemplate sHof_BgTemplates[] =
     },
     {
         .bg = 3,
-        .charBaseIndex = 0,
+        .charBaseIndex = 1,
         .mapBaseIndex = 29,
         .screenSize = 0,
         .paletteMode = 0,
@@ -357,6 +358,7 @@ static void VBlankCB_HallOfFame(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
+    ChangeBgY(3, 128, BG_COORD_SUB); // This controls the scrolling of the scroll bg, remove it to stop scrolling
 }
 
 static void CB2_HallOfFame(void)
@@ -613,11 +615,11 @@ static void Task_Hof_TryDisplayAnotherMon(u8 taskId)
     }
     else
     {
-        sHofFadePalettes |= (0x10000 << gSprites[gTasks[taskId].tMonSpriteId(currPokeID)].oam.paletteNum);
+        //sHofFadePalettes |= (0x10000 << gSprites[gTasks[taskId].tMonSpriteId(currPokeID)].oam.paletteNum);
         if (gTasks[taskId].tDisplayedMonId < PARTY_SIZE - 1 && currMon[1].species != SPECIES_NONE) // there is another Pokémon to display
         {
             gTasks[taskId].tDisplayedMonId++;
-            BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
+            //BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
             gSprites[gTasks[taskId].tMonSpriteId(currPokeID)].oam.priority = 1;
             gTasks[taskId].func = Task_Hof_DisplayMon;
         }
@@ -665,7 +667,7 @@ static void Task_Hof_DoConfetti(u8 taskId)
             if (gTasks[taskId].tMonSpriteId(i) != SPRITE_NONE)
                 gSprites[gTasks[taskId].tMonSpriteId(i)].oam.priority = 1;
         }
-        BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
+        //BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
         FillWindowPixelBuffer(0, PIXEL_FILL(0));
         CopyWindowToVram(0, COPYWIN_FULL);
         gTasks[taskId].tFrameCount = 7;
@@ -677,7 +679,7 @@ static void Task_Hof_WaitToDisplayPlayer(u8 taskId)
 {
     if (gTasks[taskId].tFrameCount >= 16)
     {
-        gTasks[taskId].func = Task_Hof_DisplayPlayer;
+        gTasks[taskId].func = Task_Hof_HandlePaletteOnExit;
     }
     else
     {
@@ -756,9 +758,12 @@ static void Task_Hof_ExitOnKeyPressed(u8 taskId)
 
 static void Task_Hof_HandlePaletteOnExit(u8 taskId)
 {
-    CpuCopy16(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
-    BeginNormalPaletteFade(PALETTES_ALL, 8, 0, 0x10, RGB_BLACK);
-    gTasks[taskId].func = Task_Hof_HandleExit;
+    if (JOY_NEW(A_BUTTON))
+    {
+        CpuCopy16(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
+        BeginNormalPaletteFade(PALETTES_ALL, 2, 0, 0x10, RGB_BLACK);
+        gTasks[taskId].func = Task_Hof_HandleExit;
+    }
 }
 
 static void Task_Hof_HandleExit(u8 taskId)
@@ -776,11 +781,6 @@ static void Task_Hof_HandleExit(u8 taskId)
                 FreeAndDestroyMonPicSprite(spriteId);
             }
         }
-        u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
-        if (facilityClass != 0xFFFF)
-            FreeAndDestroyTrainerPicSprite(gTasks[taskId].tPlayerSpriteID);
-        else
-            FreeAndDestroyMonPicSprite(gTasks[taskId].tPlayerSpriteID);
 
         HideBg(0);
         HideBg(1);
@@ -794,12 +794,8 @@ static void Task_Hof_HandleExit(u8 taskId)
         TRY_FREE_AND_SET_NULL(sHofGfxPtr);
         TRY_FREE_AND_SET_NULL(sHofMonPtr);
 
-        if(FlagGet(FLAG_RUN_ENDED_SCREEN))
-        {
-            SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
-        }
-        else
-            StartCredits();
+        TrainerStats_Init(CB2_ReturnToFullScreenStartMenu, STATS_MODE_HALL_OF_FAME);
+
     }
 }
 
@@ -1008,8 +1004,8 @@ static void Task_HofPC_PrintMonInfo(u8 taskId)
 
     currMonID = gTasks[taskId].tMonSpriteId(gTasks[taskId].tCurrMonId);
     gSprites[currMonID].oam.priority = 0;
-    sHofFadePalettes = (0x10000 << gSprites[currMonID].oam.paletteNum) ^ PALETTES_OBJECTS;
-    BlendPalettesUnfaded(sHofFadePalettes, 0xC, RGB(16, 29, 24));
+    //sHofFadePalettes = (0x10000 << gSprites[currMonID].oam.paletteNum) ^ PALETTES_OBJECTS;
+    //BlendPalettesUnfaded(sHofFadePalettes, 0xC, RGB(16, 29, 24));
 
     currMon = &savedTeams->mon[gTasks[taskId].tCurrMonId];
     if (currMon->species != SPECIES_EGG)
@@ -1409,6 +1405,10 @@ static void InitHofBgs(void)
     ChangeBgY(3, 0, BG_COORD_SET);
 }
 
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
+
 static bool8 LoadHofBgs(void)
 {
     switch (sHofGfxPtr->state)
@@ -1420,20 +1420,30 @@ static bool8 LoadHofBgs(void)
         if (FreeTempTileDataBuffersIfPossible())
             return TRUE;
         break;
-    case 2:
+    case 3:
+        ResetTempTileDataBuffers();
+        DecompressAndCopyTileDataToVram(3, sScrollBgTiles, 0, 0, 0);
+        break;
+    case 4:
+        if (FreeTempTileDataBuffersIfPossible())
+            return TRUE;
+        LZDecompressWram(sScrollBgTilemap, sHofGfxPtr->tilemap2);
+        LoadPalette(sScrollBgPalette, 16, 32);
+        break;
+    case 5:
         FillBgTilemapBufferRect_Palette0(1, 1, 0, 0, 0x20, 2);
         FillBgTilemapBufferRect_Palette0(1, 0, 0, 3, 0x20, 0xB);
         FillBgTilemapBufferRect_Palette0(1, 1, 0, 0xE, 0x20, 6);
-        FillBgTilemapBufferRect_Palette0(3, 2, 0, 0, 0x20, 0x20);
+        //FillBgTilemapBufferRect_Palette0(3, 2, 0, 0, 0x20, 0x20);
 
         CopyBgTilemapBufferToVram(1);
         CopyBgTilemapBufferToVram(3);
         break;
-    case 3:
+    case 6:
         InitStandardTextBoxWindows();
         InitTextBoxGfxAndPrinters();
         break;
-    case 4:
+    case 7:
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON);
         ShowBg(0);
         ShowBg(1);

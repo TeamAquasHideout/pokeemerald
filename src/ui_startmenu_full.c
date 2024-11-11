@@ -52,6 +52,7 @@
 #include "ui_outfits.h"
 #include "ui_main_menu.h"
 #include "trainer_pokemon_sprites.h"
+#include "ui_trainer_stats.h"
 
 /*
     Full Screen Start Menu
@@ -1398,11 +1399,7 @@ void Task_OpenTrainerCardFromStartMenu(u8 taskId)
         StartMenuFull_FreeResources();
         PlayRainStoppingSoundEffect();
         CleanupOverworldWindowsAndTilemaps();
-
-        if (FlagGet(FLAG_SYS_FRONTIER_PASS))
-            ShowFrontierPass(CB2_ReturnToFullScreenStartMenu);
-        else
-            ShowPlayerTrainerCard(CB2_ReturnToFullScreenStartMenu);
+        TrainerStats_Init(CB2_ReturnToFullScreenStartMenu, STATS_MODE_TRAINER_CARD);
     }
 }
 

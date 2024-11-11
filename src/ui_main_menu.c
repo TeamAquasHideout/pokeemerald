@@ -691,6 +691,9 @@ static bool8 MainMenu_DoGfxSetup(void)
         break;
     case 6:
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 16, 0, RGB_BLACK);
+        ShowBg(0);
+        ShowBg(1);
+        ShowBg(2);
         gMain.state++;
         break;
     default:
