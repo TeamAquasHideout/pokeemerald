@@ -511,8 +511,8 @@ static const u8 sText_Money1x[]          = _("Money: 1x");
 static const u8 sText_Money2x[]          = _("Money: 2x");
 static const u8 sText_Money12x[]          = _("Money: 1/2x");
 
-static const u8 sText_PitStp5x[]          = _("Pit Stop: 5x");
-static const u8 sText_PitStp10x[]          = _("Pit Stop: 10x");
+static const u8 sText_PitStp5x[]          = _("Pit Stop: 5 fl.");
+static const u8 sText_PitStp10x[]          = _("Pit Stop: 10 fl.");
 
 static const u8 sText_BattleMode_Singles[]  = _("Singles");
 static const u8 sText_BattleMode_Doubles[]  = _("Doubles");
