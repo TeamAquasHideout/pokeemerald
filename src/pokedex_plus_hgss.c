@@ -8816,9 +8816,9 @@ static bool8 IsSpeciesInParty(u16 species)
     u16 species_party;
 
     for (i = 0; i < PARTY_SIZE; i++)
-    {
+    {            
         species_party = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
-        if (gSpeciesInfo[species_party].natDexNum == species && species_party != SPECIES_NONE)
+        if (species_party == species && species_party != SPECIES_NONE)
             return TRUE;
     }
     
