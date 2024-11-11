@@ -538,7 +538,7 @@ static const u8 sText_SkipChoice[]           = _("Skip Choice");
 
 #define SETTINGS_X_POS 20
 #define SETTINGS_Y_START_POS 5
-#define SETTINGS_Y_DIFFERENCE 16
+#define SETTINGS_Y_DIFFERENCE 15
 #define SETTINGS2_Y_DIFFERENCE 12
 
 #define RANDOMIZER_X_POS 20
