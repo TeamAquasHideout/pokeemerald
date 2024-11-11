@@ -1410,7 +1410,7 @@ void Task_OpenPokenavStartMenu(u8 taskId)
         StartMenuFull_FreeResources();
 		PlayRainStoppingSoundEffect();
 		CleanupOverworldWindowsAndTilemaps();
-        OutfitsMenu_Init(CB2_ReturnToFullScreenStartMenu);
+        OutfitsMenu_Init(CB2_ReturnToFullScreenStartMenu, OUTFITS_NORMAL_AVATAR_MENU);
     }
 }
 
