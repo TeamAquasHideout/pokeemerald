@@ -907,7 +907,6 @@ const u8 *ItemId_GetNameRandom(u16 itemId)
 
 const u8 *ItemId_GetName(u16 itemId)
 {
-    DebugPrintf("itemId = %d", itemId);
     if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         return ItemId_GetNameRandom(itemId);
@@ -974,10 +973,8 @@ const u8 *ItemId_GetDescriptionRandom(u16 itemId)
 
 const u8 *ItemId_GetDescription(u16 itemId)
 {   
-    DebugPrintf("itemId = %d", itemId);
     if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
     {
-        DebugPrintf("Desc randomItem");
         return ItemId_GetDescriptionRandom(itemId);
     }
 

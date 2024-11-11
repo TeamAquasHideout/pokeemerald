@@ -1967,9 +1967,6 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     bool32 noMoveSet = TRUE;
     u32 j;
 
-    DebugPrintf("CustomTrainerPartyAssignMoves");
-    DebugPrintf("species = %S", gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].speciesName);
-
     if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (!isPlayer)
@@ -1977,7 +1974,6 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
             for (j = 0; j < MAX_MON_MOVES; j++)
             {
                u16 move = GetRandomMoveNotSeeded(partyEntry->moves[j], partyEntry->species);
-               DebugPrintf("move = %S", gMovesInfo[move].name);
                SetMonData(mon, MON_DATA_MOVE1 + j, &move);
                SetMonData(mon, MON_DATA_PP1 + j, &gMovesInfo[move].pp);
             }
@@ -2103,7 +2099,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     {
                         newSpecies = evolutions[0].targetSpecies;
                         evolutions = GetSpeciesEvolutions(newSpecies);
-                        DebugPrintf("Evolved: %d", newSpecies);
                     }
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }

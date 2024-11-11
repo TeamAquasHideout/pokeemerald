@@ -3996,10 +3996,7 @@ static void Cmd_tryfaintmon(void)
          && !IsBattlerAlive(battler))
         {
             if (GetBattlerSide(battler) == B_SIDE_PLAYER)
-            {
-                DebugPrintf("Faint 2");
                 IncrementStatsRunKOs();
-            }
             gHitMarker |= HITMARKER_FAINTED(battler);
             BattleScriptPush(cmd->nextInstr);
             gBattlescriptCurrInstr = faintScript;
