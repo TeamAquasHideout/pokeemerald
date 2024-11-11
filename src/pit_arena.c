@@ -2259,8 +2259,18 @@ void LevelUpParty(void)
 
 void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
 {
-    gSaveBlock2Ptr->statsKOs++;
+    gSaveBlock2Ptr->statsAllAttempts++;
 
-    if (VarGet(VAR_PIT_FLOOR) > gSaveBlock2Ptr->statsHighscore)
-        gSaveBlock2Ptr->statsHighscore = VarGet(VAR_PIT_FLOOR);
+    if (VarGet(VAR_PIT_FLOOR) > gSaveBlock2Ptr->statsAllHighscore)
+        gSaveBlock2Ptr->statsAllHighscore = VarGet(VAR_PIT_FLOOR);
+}
+
+void IncrementStatsRunKOs(void)
+{
+    gSaveBlock2Ptr->statsRunKOs++;
+}
+
+void IncrementStatsRunRevives(void)
+{
+    gSaveBlock2Ptr->statsRunRevives++;
 }

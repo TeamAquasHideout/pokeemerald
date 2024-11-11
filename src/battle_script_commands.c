@@ -66,6 +66,7 @@
 #include "constants/pokemon.h"
 #include "config/battle.h"
 #include "data/battle_move_effects.h"
+#include "pit.h"
 
 // table to avoid ugly powing on gba (courtesy of doesnt)
 // this returns (i^2.5)/4
@@ -3970,6 +3971,8 @@ static void Cmd_tryfaintmon(void)
         if (gHitMarker & HITMARKER_FAINTED(battler))
         {
             BattleScriptPop();
+            if (GetBattlerSide(cmd->battler) == B_SIDE_PLAYER)
+                IncrementStatsRunKOs();
             gBattlescriptCurrInstr = cmd->instr;
         }
         else
@@ -3978,7 +3981,7 @@ static void Cmd_tryfaintmon(void)
         }
     }
     else
-    {
+    {            
         if (cmd->battler == BS_ATTACKER)
         {
             destinyBondBattler = gBattlerTarget;
@@ -3992,6 +3995,11 @@ static void Cmd_tryfaintmon(void)
         if (!(gAbsentBattlerFlags & gBitTable[battler])
          && !IsBattlerAlive(battler))
         {
+            if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+            {
+                DebugPrintf("Faint 2");
+                IncrementStatsRunKOs();
+            }
             gHitMarker |= HITMARKER_FAINTED(battler);
             BattleScriptPush(cmd->nextInstr);
             gBattlescriptCurrInstr = faintScript;

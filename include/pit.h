@@ -20,6 +20,8 @@ void CreateOverworldHUD(void);
 void SetMapWeather(void);
 void SetMapWeatherAtRandom(void);
 void UpdateRunningStats(void);
+void IncrementStatsRunKOs(void);
+void IncrementStatsRunRevives(void);
 
 struct RandomTrainerNPC 
 {

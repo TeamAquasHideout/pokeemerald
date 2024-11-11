@@ -546,11 +546,11 @@ struct SaveBlock2
              u8 playerGfxType;
     /*0x98*/ struct Time localTimeOffset;
     // #### running stats for The Pit - START ####
-    /*0xA0*/ u16 statsKOs;
-             u16 statsRevives;
-             u16 statsHighscore;
-             u16 statsClears;
-             u16 statsPadding1;
+    /*0xA0*/ u16 statsAllAttempts;
+             u16 statsRunRevives;
+             u16 statsAllHighscore;
+             u16 statsAllClears;
+             u16 statsRunKOs;
              u16 statsPadding2;
     // #### running stats for The Pit - END ####
     /*0xAC*/ u32 encryptionKey;
