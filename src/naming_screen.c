@@ -29,6 +29,7 @@
 #include "main.h"
 #include "constants/event_objects.h"
 #include "constants/rgb.h"
+#include "decompress.h"
 
 enum {
     INPUT_NONE,
@@ -156,6 +157,7 @@ struct NamingScreenData
     u8 tilemapBuffer1[0x800];
     u8 tilemapBuffer2[0x800];
     u8 tilemapBuffer3[0x800];
+    u8 tilemapBuffer4[0x800];
     u8 textBuffer[16];
     u8 tileBuffer[0x600];
     u8 state;
@@ -246,7 +248,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .baseBlock = 0x0C8
     },
     [WIN_TEXT_ENTRY] = {
-        .bg = 3,
+        .bg = 0,
         .tilemapLeft = 8,
         .tilemapTop = 6,
         .width = 17,
@@ -255,7 +257,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .baseBlock = 0x030
     },
     [WIN_TEXT_ENTRY_BOX] = {
-        .bg = 3,
+        .bg = 0,
         .tilemapLeft = 8,
         .tilemapTop = 4,
         .width = 17,
@@ -269,7 +271,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .tilemapTop = 0,
         .width = DISPLAY_TILE_WIDTH,
         .height = 2,
-        .paletteNum = 11,
+        .paletteNum = 10,
         .baseBlock = 0x074
     },
     DUMMY_WIN_TEMPLATE
@@ -415,6 +417,10 @@ void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGende
     }
 }
 
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles2.bin.lz");
+static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
+
 static void CB2_LoadNamingScreen(void)
 {
     switch (gMain.state)
@@ -446,12 +452,31 @@ static void CB2_LoadNamingScreen(void)
         gMain.state++;
         break;
     case 6:
-        LoadGfx();
+        ResetTempTileDataBuffers();
+        DecompressAndCopyTileDataToVram(3, sScrollBgTiles, 0, 0, 0);
         gMain.state++;
         break;
     case 7:
+        if (FreeTempTileDataBuffersIfPossible() != TRUE)
+        {
+            LZDecompressWram(sScrollBgTilemap, sNamingScreen->tilemapBuffer4);
+            LoadPalette(sScrollBgPalette, (16 * 7), 32);
+            gMain.state++;
+        }
+        break;
+    case 8:
+        gMain.state++;
+    case 9:
+        LoadGfx();
+        ScheduleBgCopyTilemapToVram(1);
+        ScheduleBgCopyTilemapToVram(2);
+        ScheduleBgCopyTilemapToVram(3);
+        gMain.state++;
+        break;
+    case 10:
         CreateSprites();
         UpdatePaletteFade();
+        DrawBgTilemap(3, sScrollBgTilemap);
         NamingScreen_ShowBgs();
         gMain.state++;
         break;
@@ -527,11 +552,12 @@ static void NamingScreen_InitBGs(void)
 
     SetBgTilemapBuffer(1, sNamingScreen->tilemapBuffer1);
     SetBgTilemapBuffer(2, sNamingScreen->tilemapBuffer2);
-    SetBgTilemapBuffer(3, sNamingScreen->tilemapBuffer3);
+    SetBgTilemapBuffer(0, sNamingScreen->tilemapBuffer3);
+    SetBgTilemapBuffer(3, sNamingScreen->tilemapBuffer4);
 
     FillBgTilemapBufferRect_Palette0(1, 0, 0, 0, 0x20, 0x20);
     FillBgTilemapBufferRect_Palette0(2, 0, 0, 0, 0x20, 0x20);
-    FillBgTilemapBufferRect_Palette0(3, 0, 0, 0, 0x20, 0x20);
+    FillBgTilemapBufferRect_Palette0(0, 0, 0, 0, 0x20, 0x20);
 }
 
 static void CreateNamingScreenTask(void)
@@ -619,7 +645,7 @@ static u8 CurrentPageToKeyboardId(void)
 
 static bool8 MainState_FadeIn(void)
 {
-    DrawBgTilemap(3, gNamingScreenBackground_Tilemap);
+    //DrawBgTilemap(3, gNamingScreenBackground_Tilemap);
     sNamingScreen->currentPage = KBPAGE_LETTERS_UPPER;
     DrawBgTilemap(2, gNamingScreenKeyboardLower_Tilemap);
     DrawBgTilemap(1, gNamingScreenKeyboardUpper_Tilemap);
@@ -1720,20 +1746,22 @@ static void HandleDpadMovement(struct Task *task)
 
 static void DrawNormalTextEntryBox(void)
 {
-    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], PIXEL_FILL(1));
-    AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL, sNamingScreen->template->title, 8, 1, 0, 0);
+    const u8 colors[3] = {0,  1,  2}; 
+    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], PIXEL_FILL(0));
+    AddTextPrinterParameterized4(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL, 8, 1, 0, 0, colors, 0, sNamingScreen->template->title);
     PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 }
 
 static void DrawMonTextEntryBox(void)
 {
     u8 buffer[64];
-
+    const u8 colors[3] = {0,  1,  2}; 
     u8 *end = StringCopy(buffer, GetSpeciesName(sNamingScreen->monSpecies));
     WrapFontIdToFit(buffer, end, FONT_NORMAL, 128 - 64);
     StringAppendN(end, sNamingScreen->template->title, 15);
-    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], PIXEL_FILL(1));
-    AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL, buffer, 8, 1, 0, 0);
+    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], PIXEL_FILL(0));
+    //AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL, buffer, 8, 1, 0, 0);
+    AddTextPrinterParameterized4(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX], FONT_NORMAL, 8, 1, 0, 0, colors, 0, buffer);
     PutWindowTilemap(sNamingScreen->windows[WIN_TEXT_ENTRY_BOX]);
 }
 
@@ -1885,7 +1913,7 @@ static void LoadGfx(void)
     LZ77UnCompWram(gNamingScreenMenu_Gfx, sNamingScreen->tileBuffer);
     LoadBgTiles(1, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
     LoadBgTiles(2, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
-    LoadBgTiles(3, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
+    //LoadBgTiles(3, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
     LoadSpriteSheets(sSpriteSheets);
     LoadSpritePalettes(sSpritePalettes);
 }
@@ -1921,7 +1949,7 @@ static void DrawTextEntry(void)
     u8 maxChars = sNamingScreen->template->maxChars;
     u16 x = sNamingScreen->inputCharBaseXPos - 0x40;
 
-    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY], PIXEL_FILL(1));
+    FillWindowPixelBuffer(sNamingScreen->windows[WIN_TEXT_ENTRY], PIXEL_FILL(0));
 
     for (i = 0; i < maxChars; i++)
     {
@@ -1929,7 +1957,8 @@ static void DrawTextEntry(void)
         temp[1] = gText_ExpandedPlaceholder_Empty[0];
         extraWidth = (IsWideLetter(temp[0]) == TRUE) ? 2 : 0;
 
-        AddTextPrinterParameterized(sNamingScreen->windows[WIN_TEXT_ENTRY], FONT_NORMAL, temp, i * 8 + x + extraWidth, 1, TEXT_SKIP_DRAW, NULL);
+        const u8 colors[3] = {0,  1,  2}; 
+        AddTextPrinterParameterized4(sNamingScreen->windows[WIN_TEXT_ENTRY], FONT_NORMAL, i * 8 + x + extraWidth, 1, 0, 0, colors, 0, temp);
     }
 
     TryDrawGenderIcon();
@@ -2015,9 +2044,9 @@ static void DrawKeyboardPageOnDeck(void)
 
 static void PrintControls(void)
 {
-    const u8 color[3] = { TEXT_DYNAMIC_COLOR_6, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY };
+    const u8 color[3] = { 11, TEXT_COLOR_WHITE, TEXT_COLOR_DARK_GRAY };
 
-    FillWindowPixelBuffer(sNamingScreen->windows[WIN_BANNER], PIXEL_FILL(15));
+    FillWindowPixelBuffer(sNamingScreen->windows[WIN_BANNER], PIXEL_FILL(11));
     AddTextPrinterParameterized3(sNamingScreen->windows[WIN_BANNER], FONT_SMALL, 2, 1, color, 0, gText_MoveOkBack);
     PutWindowTilemap(sNamingScreen->windows[WIN_BANNER]);
     CopyWindowToVram(sNamingScreen->windows[WIN_BANNER], COPYWIN_FULL);
@@ -2053,6 +2082,7 @@ static void VBlankCB_NamingScreen(void)
     SetGpuRegBits(REG_OFFSET_BG1CNT, sNamingScreen->bg1Priority);
     SetGpuReg(REG_OFFSET_BG2CNT, GetGpuReg(REG_OFFSET_BG2CNT) & 0xFFFC);
     SetGpuRegBits(REG_OFFSET_BG2CNT, sNamingScreen->bg2Priority);
+    ChangeBgY(3, 128, BG_COORD_SUB); // This controls the scrolling of the scroll bg, remove it to stop scrolling
 }
 
 static void NamingScreen_ShowBgs(void)

@@ -45,6 +45,7 @@
 #include "mystery_gift_menu.h"
 #include "link.h"
 #include "trainer_pokemon_sprites.h"
+#include "ui_outfits.h"
 
 /*
  * 
@@ -504,7 +505,7 @@ void Task_OpenMainMenu(u8 taskId)
         {                //  where the UI is initialized by swapping a task func with this one 
             case HAS_NO_SAVED_GAME:
             default:
-                SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
+                OutfitsMenu_Init(CB2_InitTitleScreen, OUTFITS_NO_SAVE_AVATAR_MENU);
                 DestroyTask(taskId);
                 return;
             case HAS_SAVED_GAME:       

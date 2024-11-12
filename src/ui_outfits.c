@@ -44,6 +44,8 @@
 #include "mystery_event_menu.h"
 #include "mystery_gift_menu.h"
 #include "link.h"
+#include "naming_screen.h"
+#include "random.h"
 
 /*
  * 
@@ -58,6 +60,7 @@ struct OutfitsMenuResources
     u16 iconMonSpriteIds[6];
     u16 mugshotSpriteId[12];
     u8 sSelectedOption;
+    u8 returnMode;
 };
 
 enum WindowIds
@@ -652,7 +655,7 @@ void Task_OpenOutfitsMenu(u8 taskId)
     if (!gPaletteFade.active)
     {   
         CleanupOverworldWindowsAndTilemaps();
-        OutfitsMenu_Init(CB2_InitTitleScreen); // if need to bail go to title screen
+        OutfitsMenu_Init(CB2_InitTitleScreen, OUTFITS_NORMAL_AVATAR_MENU); // if need to bail go to title screen
         DestroyTask(taskId);
     }
 }
@@ -660,7 +663,7 @@ void Task_OpenOutfitsMenu(u8 taskId)
 //
 //  Setup Menu Functions
 //
-void OutfitsMenu_Init(MainCallback callback)
+void OutfitsMenu_Init(MainCallback callback, u8 mode)
 {
     u32 i = 0;
     if ((sOutfitsMenuDataPtr = AllocZeroed(sizeof(struct OutfitsMenuResources))) == NULL)
@@ -668,6 +671,8 @@ void OutfitsMenu_Init(MainCallback callback)
         SetMainCallback2(callback);
         return;
     }
+
+    sOutfitsMenuDataPtr->returnMode = mode;
 
     sOutfitsMenuDataPtr->gfxLoadState = 0;
     sOutfitsMenuDataPtr->savedCallback = callback;
@@ -760,7 +765,16 @@ static void Task_OutfitsMenuTurnOff(u8 taskId)
         SetGpuReg(REG_OFFSET_BLDCNT, 0);
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
         SetGpuReg(REG_OFFSET_BLDY, 0);
-        SetMainCallback2(sOutfitsMenuDataPtr->savedCallback);
+        if (sOutfitsMenuDataPtr->returnMode == OUTFITS_NORMAL_AVATAR_MENU)
+        {
+            SetMainCallback2(sOutfitsMenuDataPtr->savedCallback);
+        }
+        else
+        {
+            NewGameBirchSpeech_SetDefaultPlayerName(Random() % 19);
+            DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_NewGameBirchSpeech_FromNewMainMenu);        
+        }
+        
         OutfitsMenu_FreeResources();
         DestroyTask(taskId);
     }

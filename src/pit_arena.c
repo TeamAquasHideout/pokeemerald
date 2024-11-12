@@ -2179,7 +2179,6 @@ void InitTrainerIdAndNameData()
     SeedRngWithRtc();
     trainerId = (Random() << 16) | Random();
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
-    NewGameBirchSpeech_SetDefaultPlayerName(Random() % 19);
 }
 
 void BufferMapFloorString()
