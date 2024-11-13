@@ -1321,14 +1321,14 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     }
 
     // Print Badge Numbers if You Have Them
-    for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
-    {
-        if (FlagGet(i))
-            badgeCount++;
-    } 
-    ConvertIntToDecimalStringN(gStringVar1, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
-    StringExpandPlaceholders(gStringVar4, sText_Badges);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 32 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    //for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
+    //{
+    //    if (FlagGet(i))
+    //        badgeCount++;
+    //} 
+    //ConvertIntToDecimalStringN(gStringVar1, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
+    //StringExpandPlaceholders(gStringVar4, sText_Badges);
+   // AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 32 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
 
     // Print Player Name
     AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 2 + (8 * 3), colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
