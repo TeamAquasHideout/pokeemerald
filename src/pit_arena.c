@@ -2255,3 +2255,11 @@ void LevelUpParty(void)
     }
     return;
 }
+
+void Check3MonMode(void)
+{
+    if(gSaveBlock2Ptr->mode3MonsOnly)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
