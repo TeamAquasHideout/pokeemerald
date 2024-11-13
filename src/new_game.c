@@ -180,8 +180,8 @@ void SetDefaultOptions(void)
         FlagClear(FLAG_FOLLOWERS_OFF);
 }
 
-#undef ON  0
-#undef OFF 1
+#undef ON
+#undef OFF
 
 static void ClearPokedexFlags(void)
 {
