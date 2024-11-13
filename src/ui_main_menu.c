@@ -48,6 +48,7 @@
 #include "ui_outfits.h"
 #include "ui_mode_menu.h"
 #include "ui_options_menu.h"
+#include "new_game.h"
 
 /*
  * 
@@ -530,6 +531,7 @@ void Task_OpenMainMenu(u8 taskId)
                 if(sAlreadySelectedAvatar != 1)
                 {
                     sAlreadySelectedAvatar = 1;
+                    SetDefaultOptions();
                     OutfitsMenu_Init(CB2_InitTitleScreen, OUTFITS_NO_SAVE_AVATAR_MENU);
                     DestroyTask(taskId);
                     return;

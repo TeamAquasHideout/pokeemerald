@@ -4,7 +4,7 @@ PitEntrance_MapScripts::
 
 PitArena_Entrance:
 	goto_if_set FLAG_PIT_STARTED, PitArena_EntranceEnd
-	callnative SetDefaultOptions
+	callnative SetOnMapLoadDefaultOptions
 	setvar VAR_PIT_FLOOR, 0
 	setflag FLAG_PIT_STARTED
 	setflag	FLAG_DEFEATED_RUSTBORO_GYM
