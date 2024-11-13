@@ -257,8 +257,8 @@ struct ModeMenu
     u8 sel_diff[MENUITEM_DIFF_COUNT];
     u8 sel_rand[MENUITEM_RAND_COUNT];
     u8 sel_presets[MENUITEM_PRESET_COUNT];
-    u32 menuCursor[MENU_COUNT + 1];
-    u32 visibleCursor[MENU_COUNT + 1];
+    s8 menuCursor[MENU_COUNT + 1];
+    s8 visibleCursor[MENU_COUNT + 1];
     u8 arrowTaskId;
     u8 gfxLoadState;
 };
@@ -625,7 +625,7 @@ static const u8 *const sModeMenuItemDescriptionsPresets[MENUITEM_PRESET_COUNT][3
 
 static const u8 *const OptionTextDescription(void)
 {
-    u8 menuItem = sOptions->menuCursor[sOptions->submenu];;
+    u8 menuItem = sOptions->menuCursor[sOptions->submenu];
     u8 selection;
 
     switch (sOptions->submenu)
@@ -681,13 +681,10 @@ static u8 MenuItemCancel(void)
 
 static u8 MenuItemPresetsSave(void)
 {
-    switch (sOptions->submenu)
-    {
-        case MENU_PRESETS:
-            return MENUITEM_PRESET_SAVE;
-        default:
-            return 99;
-    }
+    if (sOptions->submenu == MENU_PRESETS)
+        return MENUITEM_PRESET_SAVE;
+    else
+        return 0;
 }
 
 static u8 MenuItemPresetsCancel(void)
