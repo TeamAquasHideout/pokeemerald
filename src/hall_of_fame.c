@@ -404,6 +404,9 @@ static bool8 InitHallOfFameScreen(void)
         UpdatePaletteFade();
         if (!gPaletteFade.active)
         {
+            //Delete Save file
+            if (gSaveBlock2Ptr->modeSaveDeletion == OPTIONS_ON)
+                ClearSaveData();
             SetMainCallback2(CB2_HallOfFame);
             PlayBGM(MUS_HALL_OF_FAME);
             return FALSE;

@@ -36,6 +36,7 @@
 #include "ui_birch_case.h"
 #include "config/general.h"
 #include "main_menu.h"
+#include "pit.h"
 
 //defines
 #define MODE_SINGLES     0
@@ -57,6 +58,7 @@
 #define RANDOM_B_WEATHER 0
 #define OW_B_WEATHER     1
 #define NO_B_WEATHER     2
+
 
 
 // This code is based on Ghoulslash's excellent UI tutorial:
@@ -346,7 +348,7 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
     [MENUITEM_DIFF_SAVE_DELETION] = {DrawChoices_SaveDeletion, ProcessInput_Options_Two},
     [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
-    [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Two},
+    [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
     [MENUITEM_DIFF_HEALFLOORS]    = {DrawChoices_HealFloors,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_LEGENDARIES]   = {DrawChoices_Legendaries,  ProcessInput_Options_Two},
     #ifdef PIT_GEN_9_MODE
@@ -396,7 +398,7 @@ static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
 static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
 static const u8 sText_SaveDeletion[] = _("SAVE DELETION");
-static const u8 sText_DoubleCash[]   = _("DOUBLE CASH");
+static const u8 sText_DoubleCash[]   = _("CASH RATE");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
 static const u8 sText_Moves[]        = _("MOVES");
@@ -563,8 +565,9 @@ static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party
 static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe random Birch Case options.");
 static const u8 sText_Desc_SaveDeletion_On[]    = _("Your save state will be deleted\nwhen fainting.");
 static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your save state will not be deleted\nwhen fainting.");
-static const u8 sText_Desc_DoubleCash_On[]      = _("Doubles the amount of money\nreceived after winning a battle.");
-static const u8 sText_Desc_DoubleCash_Off[]     = _("Sets the default amount of money\nreceived after winning a battle.");
+static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after winning a battle.");
+static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after winning a battle.");
+static const u8 sText_Desc_DoubleCash_05x[]     = _("Halves the amount of money\nreceived after winning a battle.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
 static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
 static const u8 sText_Desc_RandBWeather_Off[]   = _("Weather during battles is turned off.");
@@ -593,7 +596,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None},
     [MENUITEM_DIFF_SAVE_DELETION] = {sText_Desc_SaveDeletion_On,  sText_Desc_SaveDeletion_Off,  sText_Empty},
     [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty},
-    [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_On,    sText_Desc_DoubleCash_Off,    sText_Empty},
+    [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
     [MENUITEM_DIFF_HEALFLOORS]    = {sText_Desc_HealFloors_5,     sText_Desc_HealFloors_10,     sText_Empty},
     [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty},
     #ifdef PIT_GEN_9_MODE
@@ -1586,6 +1589,9 @@ static const u8 sText_HealFloors_10[]       = _("10FLRS");
 static const u8 sText_B_Weather_On[]        = _("YES");
 static const u8 sText_B_Weather_Map[]       = _("MAP");
 static const u8 sText_B_Weather_Off[]       = _("NO");
+static const u8 sText_Cash_1x[]             = _("1x");
+static const u8 sText_Cash_2x[]             = _("2x");
+static const u8 sText_Cash_05x[]            = _(".5x");
 
 /*static void DrawChoices_Autosave(int selection, int y)
 {
@@ -1634,11 +1640,12 @@ static void DrawChoices_SaveDeletion(int selection, int y)
 static void DrawChoices_DoubleCash(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_DIFF_DOUBLE_CASH);
-    u8 styles[2] = {0};
+    u8 styles[3] = {0};
     styles[selection] = 1;
 
-    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+    DrawModeMenuChoice(sText_Cash_1x, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Cash_2x, GetStringRightAlignXOffset(FONT_NORMAL, sText_Cash_2x, 198 - 41), y, styles[1], active);
+    DrawModeMenuChoice(sText_Cash_05x, GetStringRightAlignXOffset(FONT_NORMAL, sText_Cash_05x, 198), y, styles[2], active);
 }
 
 static void DrawChoices_HealFloors(int selection, int y)
@@ -1856,7 +1863,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = NO;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = NO;
     //difficulty settings
-    sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = NO;
+    sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;

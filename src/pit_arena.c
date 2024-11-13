@@ -2263,3 +2263,27 @@ void Check3MonMode(void)
     else
         VarSet(VAR_TEMP_A, 0);
 }
+
+void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
+{
+    gSaveBlock2Ptr->statsAllAttempts++;
+
+    if (VarGet(VAR_PIT_FLOOR) > gSaveBlock2Ptr->statsAllHighscore)
+        gSaveBlock2Ptr->statsAllHighscore = VarGet(VAR_PIT_FLOOR);
+}
+
+void IncrementStatsRunKOs(void)
+{
+    gSaveBlock2Ptr->statsRunKOs++;
+}
+
+void IncrementStatsRunRevives(void)
+{
+    gSaveBlock2Ptr->statsRunRevives++;
+}
+
+void ResetRunStats(void)
+{
+    gSaveBlock2Ptr->statsRunKOs = 0;
+    gSaveBlock2Ptr->statsRunRevives = 0;
+}

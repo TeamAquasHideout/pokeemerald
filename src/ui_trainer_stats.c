@@ -511,8 +511,8 @@ static const u8 sText_Money1x[]          = _("Money: 1x");
 static const u8 sText_Money2x[]          = _("Money: 2x");
 static const u8 sText_Money12x[]          = _("Money: 1/2x");
 
-static const u8 sText_PitStp5x[]          = _("Pit Stop: 5x");
-static const u8 sText_PitStp10x[]          = _("Pit Stop: 10x");
+static const u8 sText_PitStp5x[]          = _("Pit Stop: 5 fl.");
+static const u8 sText_PitStp10x[]          = _("Pit Stop: 10 fl.");
 
 static const u8 sText_BattleMode_Singles[]  = _("Singles");
 static const u8 sText_BattleMode_Doubles[]  = _("Doubles");
@@ -525,10 +525,11 @@ static const u8 sText_Randomizer_Types[]     = _("Types");
 static const u8 sText_Randomizer_Evos[]     = _("Evos");
 static const u8 sText_Randomizer_Weather[]     = _("Weather");
 
-static const u8 sText_Stat_KOs[]     		= _("KOs:            {STR_VAR_1}");
-static const u8 sText_Stat_Revives[]     	= _("Revives:      {STR_VAR_1}");
-static const u8 sText_Stat_Highscore[]     	= _("Highscore:   {STR_VAR_1}");
-static const u8 sText_Stat_Clears[]     	= _("Clears:        {STR_VAR_1}");
+static const u8 sText_Stat_KOs[]     		= _("Run KOs:");
+static const u8 sText_Stat_Revives[]     	= _("Run Revives:");
+static const u8 sText_Stat_Highscore[]     	= _("Highscore:");
+static const u8 sText_Stat_Clears[]     	= _("Pit Clears:");
+static const u8 sText_Stat_Attempts[]     	= _("Pit Attempts:");
 
 static const u8 sText_Legends[]           = _("Legends");
 static const u8 sText_StatEdit[]           = _("Stat Edit");
@@ -547,6 +548,7 @@ static const u8 sText_SkipChoice[]           = _("Skip Choice");
 #define RANDOMIZER_Y_DIFFERENCE 12
 
 #define STATS_X_START_POS 140
+#define STATS_X_RIGHT_POS 197
 #define STATS_Y_START_POS 92
 #define STATS_Y_DIFFERENCE 10
 
@@ -665,7 +667,7 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, 100, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_3MonMode);
 
 
-	// Skip Choice
+	// Skip Mon Choice
     if(!gSaveBlock2Ptr->modeNoCaseChoice)
     	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, 100, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
 	else
@@ -714,25 +716,35 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 	else
 		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, RANDOMIZER_X_POS + RANDOMIZER_X_DIFFERENCE, RANDOMIZER_Y_START_POS + (RANDOMIZER_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Randomizer_Weather);
 
-	// KOS
-	ConvertIntToDecimalStringN(gStringVar1, 153, STR_CONV_MODE_RIGHT_ALIGN, 5);
+	// RUN KOS
+	ConvertIntToDecimalStringN(gStringVar1, gSaveBlock2Ptr->statsRunKOs, STR_CONV_MODE_RIGHT_ALIGN, 5);
     StringExpandPlaceholders(gStringVar4, sText_Stat_KOs);
 	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_START_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 0), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_RIGHT_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 0), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);
 
-	// REVIVES
-	ConvertIntToDecimalStringN(gStringVar1, 30, STR_CONV_MODE_RIGHT_ALIGN, 5);
+	// RUN REVIVES
+	ConvertIntToDecimalStringN(gStringVar1, gSaveBlock2Ptr->statsRunRevives, STR_CONV_MODE_RIGHT_ALIGN, 5);
     StringExpandPlaceholders(gStringVar4, sText_Stat_Revives);
 	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_START_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 1), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_RIGHT_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 1), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);
 
 	// HIGHSCORE
-	ConvertIntToDecimalStringN(gStringVar1, 104, STR_CONV_MODE_RIGHT_ALIGN, 5);
+	ConvertIntToDecimalStringN(gStringVar1, gSaveBlock2Ptr->statsAllHighscore, STR_CONV_MODE_RIGHT_ALIGN, 5);
     StringExpandPlaceholders(gStringVar4, sText_Stat_Highscore);
 	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_START_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 2), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_RIGHT_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 2), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);
+
+    // PIT ATTEMPTS
+	ConvertIntToDecimalStringN(gStringVar1, gSaveBlock2Ptr->statsAllAttempts, STR_CONV_MODE_RIGHT_ALIGN, 5);
+    StringExpandPlaceholders(gStringVar4, sText_Stat_Attempts);
+	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_START_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_RIGHT_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);
 
 	// CLEARS
-	ConvertIntToDecimalStringN(gStringVar1, 12, STR_CONV_MODE_RIGHT_ALIGN, 5);
+	/*ConvertIntToDecimalStringN(gStringVar1, gSaveBlock2Ptr->statsAllClears, STR_CONV_MODE_RIGHT_ALIGN, 5);
     StringExpandPlaceholders(gStringVar4, sText_Stat_Clears);
 	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_START_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, STATS_X_RIGHT_POS, STATS_Y_START_POS + (STATS_Y_DIFFERENCE * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);*/
 
 
     // Print Map Name In Header

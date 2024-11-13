@@ -1203,11 +1203,6 @@ u16 GetRandomMove(u16 move, u16 species)
 {
     u16 val = RandomSeededModulo2(move + species, GetRandomValidMovesCount());
     u16 final = gRandomValidMoves[val];
-
-    DebugPrintf("GetRandomMove");
-    DebugPrintf("move = %d", move);
-    DebugPrintf("species = %d", species);
-    DebugPrintf("GetRandomMove = %d", final);
     return final;
 }
 
@@ -1215,11 +1210,6 @@ u16 GetRandomMoveNotSeeded(u16 move, u16 species)
 {
     u16 val = RandomSeededModulo2((Random() % GetRandomValidMovesCount()) + move + species, GetRandomValidMovesCount());
     u16 final = gRandomValidMoves[val];
-
-    DebugPrintf("GetRandomMoveNotSeeded");
-    DebugPrintf("move = %d", move);
-    DebugPrintf("species = %d", species);
-    DebugPrintf("GetRandomMove = %d", final);
     return final;
 }
 
@@ -2886,7 +2876,6 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
         }
     } while (reroll);
 
-    DebugPrintf("gLastUsedAbility = %d", gLastUsedAbility);
     return gLastUsedAbility;
 }
 

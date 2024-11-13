@@ -4196,6 +4196,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                             if (dataUnsigned > GetMonData(mon, MON_DATA_MAX_HP, NULL))
                                 dataUnsigned = GetMonData(mon, MON_DATA_MAX_HP, NULL);
                             SetMonData(mon, MON_DATA_HP, &dataUnsigned);
+                            if (effectFlags & (ITEM4_REVIVE >> 2))
+                                IncrementStatsRunRevives();
                             retVal = FALSE;
                         }
                         effectFlags &= ~(ITEM4_REVIVE >> 2);

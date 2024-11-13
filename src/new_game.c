@@ -150,7 +150,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeXP = 0;
         gSaveBlock2Ptr->modeSaveDeletion = OFF;
         gSaveBlock2Ptr->modeStatChanger = ON;
-        gSaveBlock2Ptr->modeCashRewards = OFF;
+        gSaveBlock2Ptr->modeCashRewards = CASH_1X;
         gSaveBlock2Ptr->modeHealFloors10 = 0;
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
@@ -239,13 +239,14 @@ void NewGameInitData(void)
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
     SavePokedexFlags();
+    ResetRunStats();
     //ResetPokedex();
     ClearFrontierRecord();
     ClearSav1();
     ClearSav3();
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
-    gSaveBlock2Ptr->gcnLinkFlags = 0;
+    //gSaveBlock2Ptr->gcnLinkFlags = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     //ClearPokedexFlags();

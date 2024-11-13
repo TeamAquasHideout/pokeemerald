@@ -98,8 +98,113 @@ COMMON_DATA u16 gSaveAttemptStatus = 0;
 
 EWRAM_DATA struct SaveSector gSaveDataBuffer = {0}; // Buffer used for reading/writing sectors
 
+//game stats
 EWRAM_DATA u8 saveDexSeen[NUM_DEX_FLAG_BYTES];
 EWRAM_DATA u8 saveDexCaught[NUM_DEX_FLAG_BYTES];
+EWRAM_DATA u16 statsAllAttempts;
+EWRAM_DATA u16 statsAllHighscore;
+EWRAM_DATA u16 statsAllClears;
+//game modes & options
+EWRAM_DATA u8 modeDefault;
+EWRAM_DATA u8 modeBattleMode;
+EWRAM_DATA u8 modeNoCaseChoice;
+EWRAM_DATA u8 modeSaveDeletion;
+EWRAM_DATA u8 modeStatChanger;
+EWRAM_DATA u8 modeLegendaries;
+EWRAM_DATA u8 modeDuplicates;
+EWRAM_DATA u8 optionsAutosave;
+EWRAM_DATA u8 modeMegas;
+EWRAM_DATA u8 optionsFollowMonsOff;
+EWRAM_DATA u8 modeCashRewards;
+EWRAM_DATA u8 mode3MonsOnly;
+EWRAM_DATA u8 randomMoves;
+EWRAM_DATA u8 randomAbilities;
+EWRAM_DATA u8 randomBST;
+EWRAM_DATA u8 randomType;
+EWRAM_DATA u8 randomEvos;
+EWRAM_DATA u8 modeHealFloors10;
+EWRAM_DATA u8 modeXP;
+EWRAM_DATA u8 optionsRandomMaps;
+EWRAM_DATA u8 optionsRandomMusic;
+EWRAM_DATA u8 randomBattleWeather;
+//vanilla game options
+EWRAM_DATA u8 optionsButtonMode;
+EWRAM_DATA u8 optionsTextSpeed;
+EWRAM_DATA u16 optionsWindowFrameType;
+EWRAM_DATA u8 optionsSound;
+EWRAM_DATA u8 optionsBattleStyle;
+EWRAM_DATA u8 optionsBattleSceneOff;
+
+
+void SaveOverallStatsAndSettings(void)
+{
+    statsAllAttempts = gSaveBlock2Ptr->statsAllAttempts;
+    statsAllHighscore = gSaveBlock2Ptr->statsAllHighscore;
+    statsAllClears = gSaveBlock2Ptr->statsAllClears;
+    modeDefault = gSaveBlock2Ptr->modeDefault;
+    modeBattleMode = gSaveBlock2Ptr->modeBattleMode;
+    modeNoCaseChoice = gSaveBlock2Ptr->modeNoCaseChoice;
+    modeSaveDeletion = gSaveBlock2Ptr->modeSaveDeletion;
+    modeStatChanger = gSaveBlock2Ptr->modeStatChanger;
+    modeLegendaries = gSaveBlock2Ptr->modeLegendaries;
+    modeDuplicates = gSaveBlock2Ptr->modeDuplicates;
+    optionsAutosave = gSaveBlock2Ptr->optionsAutosave;
+    modeMegas = gSaveBlock2Ptr->modeMegas;
+    optionsFollowMonsOff = gSaveBlock2Ptr->optionsFollowMonsOff;
+    modeCashRewards = gSaveBlock2Ptr->modeCashRewards;
+    mode3MonsOnly = gSaveBlock2Ptr->mode3MonsOnly;
+    randomMoves = gSaveBlock2Ptr->randomMoves;
+    randomAbilities = gSaveBlock2Ptr->randomAbilities;
+    randomBST = gSaveBlock2Ptr->randomBST;
+    randomType = gSaveBlock2Ptr->randomType;
+    randomEvos = gSaveBlock2Ptr->randomEvos;
+    modeHealFloors10 = gSaveBlock2Ptr->modeHealFloors10;
+    modeXP = gSaveBlock2Ptr->modeXP;
+    optionsRandomMaps = gSaveBlock2Ptr->optionsRandomMaps;
+    optionsRandomMusic = gSaveBlock2Ptr->optionsRandomMusic;
+    randomBattleWeather = gSaveBlock2Ptr->randomBattleWeather;
+    optionsButtonMode = gSaveBlock2Ptr->optionsButtonMode;
+    optionsTextSpeed = gSaveBlock2Ptr->optionsTextSpeed;
+    optionsWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
+    optionsSound = gSaveBlock2Ptr->optionsSound;
+    optionsBattleStyle = gSaveBlock2Ptr->optionsBattleStyle;
+    optionsBattleSceneOff = gSaveBlock2Ptr->optionsBattleSceneOff;
+}
+
+void ReloadOverallStatsAndSettings(void)
+{
+    gSaveBlock2Ptr->statsAllAttempts = statsAllAttempts;
+    gSaveBlock2Ptr->statsAllHighscore = statsAllHighscore;
+    gSaveBlock2Ptr->statsAllClears = statsAllClears;
+    gSaveBlock2Ptr->modeDefault = modeDefault;
+    gSaveBlock2Ptr->modeBattleMode = modeBattleMode;
+    gSaveBlock2Ptr->modeNoCaseChoice = modeNoCaseChoice;
+    gSaveBlock2Ptr->modeSaveDeletion = modeSaveDeletion;
+    gSaveBlock2Ptr->modeStatChanger = modeStatChanger;
+    gSaveBlock2Ptr->modeLegendaries = modeLegendaries;
+    gSaveBlock2Ptr->modeDuplicates = modeDuplicates;
+    gSaveBlock2Ptr->optionsAutosave = optionsAutosave;
+    gSaveBlock2Ptr->modeMegas = modeMegas;
+    gSaveBlock2Ptr->optionsFollowMonsOff = optionsFollowMonsOff;
+    gSaveBlock2Ptr->modeCashRewards = modeCashRewards;
+    gSaveBlock2Ptr->mode3MonsOnly = mode3MonsOnly;
+    gSaveBlock2Ptr->randomMoves = randomMoves;
+    gSaveBlock2Ptr->randomAbilities = randomAbilities;
+    gSaveBlock2Ptr->randomBST = randomBST;
+    gSaveBlock2Ptr->randomType = randomType;
+    gSaveBlock2Ptr->randomEvos = randomEvos;
+    gSaveBlock2Ptr->modeHealFloors10 = modeHealFloors10;
+    gSaveBlock2Ptr->modeXP = modeXP;
+    gSaveBlock2Ptr->optionsRandomMaps = optionsRandomMaps;
+    gSaveBlock2Ptr->optionsRandomMusic = optionsRandomMusic;
+    gSaveBlock2Ptr->randomBattleWeather = randomBattleWeather;
+    gSaveBlock2Ptr->optionsButtonMode = optionsButtonMode;
+    gSaveBlock2Ptr->optionsTextSpeed = optionsTextSpeed;
+    gSaveBlock2Ptr->optionsWindowFrameType = optionsWindowFrameType;
+    gSaveBlock2Ptr->optionsSound = optionsSound;
+    gSaveBlock2Ptr->optionsBattleStyle = optionsBattleStyle;
+    gSaveBlock2Ptr->optionsBattleSceneOff = optionsBattleSceneOff;
+}
 
 void SavePokedexFlags2(void)
 {
@@ -125,7 +230,9 @@ void ReloadPokedexFlags2(void)
 void ClearSaveData(void)
 {
     u16 i;
+
     SavePokedexFlags2();
+    SaveOverallStatsAndSettings();
     // Clear the full save two sectors at a time
     for (i = 0; i < SECTORS_COUNT / 2; i++)
     {
@@ -133,6 +240,7 @@ void ClearSaveData(void)
         EraseFlashSector(i + SECTORS_COUNT / 2);
     }
     ReloadPokedexFlags2();
+    ReloadOverallStatsAndSettings();
 }
 
 void Save_ResetSaveCounters(void)
