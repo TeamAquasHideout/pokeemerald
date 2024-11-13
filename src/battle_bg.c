@@ -942,6 +942,17 @@ void LoadBattleTextboxAndBackground(void)
         DrawMainBattleBackground();
 }
 
+
+void LoadBattleTextbox(void)
+{
+    LZDecompressVram(gBattleTextboxTiles, (void *)(BG_CHAR_ADDR(0)));
+    CopyToBgTilemapBuffer(0, gBattleTextboxTilemap, 0, 0);
+    CopyBgTilemapBufferToVram(0);
+    LoadCompressedPalette(gBattleTextboxPalette, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
+    LoadBattleMenuWindowGfx();
+}
+
+
 static void DrawLinkBattleParticipantPokeballs(u8 taskId, u8 multiplayerId, u8 bgId, u8 destX, u8 destY)
 {
     s32 i;

@@ -77,6 +77,10 @@ static const u16 sUnusedPal3[]  = INCBIN_U16("graphics/evolution_scene/unused_3.
 static const u16 sUnusedPal4[] = INCBIN_U16("graphics/evolution_scene/unused_4.gbapal");
 static const u16 sBgAnim_Pal[] = INCBIN_U16("graphics/evolution_scene/bg_anim.gbapal");
 
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles3.bin.lz");
+static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
+
 static const u8 sText_ShedinjaJapaneseName[] = _("ヌケニン");
 
 // The below table is used by Task_UpdateBgPalette to control the speed at which the bg color updates.
@@ -240,7 +244,12 @@ void EvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, bool8 canStopEvo, u
     gBattleTerrain = BATTLE_TERRAIN_PLAIN;
 
     InitBattleBgsVideo();
-    LoadBattleTextboxAndBackground();
+    SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
+    LoadBattleTextbox();
+    LZDecompressVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
+    LZDecompressVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
+    LoadPalette(sScrollBgPalette,  32, 32);
+    SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     ResetSpriteData();
     ScanlineEffect_Stop();
     ResetTasks();
@@ -340,13 +349,18 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     gBattle_BG1_Y = 0;
     gBattle_BG2_X = 0;
     gBattle_BG2_Y = 0;
-    gBattle_BG3_X = 256;
+    gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
 
     gBattleTerrain = BATTLE_TERRAIN_PLAIN;
 
     InitBattleBgsVideo();
-    LoadBattleTextboxAndBackground();
+    SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
+    LoadBattleTextbox();
+    LZDecompressVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
+    LZDecompressVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
+    LoadPalette(sScrollBgPalette,  32, 32);
+    SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     ResetSpriteData();
     FreeAllSpritePalettes();
     gReservedSpritePaletteCount = 4;
@@ -398,7 +412,7 @@ static void CB2_TradeEvolutionSceneLoadGraphics(void)
         gBattle_BG1_Y = 0;
         gBattle_BG2_X = 0;
         gBattle_BG2_Y = 0;
-        gBattle_BG3_X = 256;
+        gBattle_BG3_X = 0;
         gBattle_BG3_Y = 0;
         gMain.state++;
         break;
@@ -516,7 +530,7 @@ void TradeEvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, u8 preEvoSprit
     gBattle_BG1_Y = 0;
     gBattle_BG2_X = 0;
     gBattle_BG2_Y = 0;
-    gBattle_BG3_X = 256;
+    gBattle_BG3_X = 0;
     gBattle_BG3_Y = 0;
 
     gTextFlags.useAlternateDownArrow = TRUE;
@@ -1473,8 +1487,7 @@ static void VBlankCB_EvolutionScene(void)
     SetGpuReg(REG_OFFSET_BG1VOFS, gBattle_BG1_Y);
     SetGpuReg(REG_OFFSET_BG2HOFS, gBattle_BG2_X);
     SetGpuReg(REG_OFFSET_BG2VOFS, gBattle_BG2_Y);
-    SetGpuReg(REG_OFFSET_BG3HOFS, gBattle_BG3_X);
-    SetGpuReg(REG_OFFSET_BG3VOFS, gBattle_BG3_Y);
+    ChangeBgY(3, 128, BG_COORD_SUB); // This controls the scrolling of the scroll bg, remove it to stop scrolling
 
     LoadOam();
     ProcessSpriteCopyRequests();
@@ -1490,8 +1503,7 @@ static void VBlankCB_TradeEvolutionScene(void)
     SetGpuReg(REG_OFFSET_BG1VOFS, gBattle_BG1_Y);
     SetGpuReg(REG_OFFSET_BG2HOFS, gBattle_BG2_X);
     SetGpuReg(REG_OFFSET_BG2VOFS, gBattle_BG2_Y);
-    SetGpuReg(REG_OFFSET_BG3HOFS, gBattle_BG3_X);
-    SetGpuReg(REG_OFFSET_BG3VOFS, gBattle_BG3_Y);
+    ChangeBgY(3, 128, BG_COORD_SUB); // This controls the scrolling of the scroll bg, remove it to stop scrolling
 
     LoadOam();
     ProcessSpriteCopyRequests();
@@ -1702,6 +1714,7 @@ static void RestoreBgAfterAnim(void)
     gBattle_BG2_X = 0;
     SetBgAttribute(1, BG_ATTR_PRIORITY, GetBattleBgTemplateData(1, 5));
     SetBgAttribute(2, BG_ATTR_PRIORITY, GetBattleBgTemplateData(2, 5));
+    SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_BG3_ON | DISPCNT_BG0_ON | DISPCNT_OBJ_1D_MAP);
     Free(sBgAnimPal);
 }
