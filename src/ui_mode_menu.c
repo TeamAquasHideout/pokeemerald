@@ -35,6 +35,7 @@
 #include "constants/flags.h"
 #include "ui_birch_case.h"
 #include "config/general.h"
+#include "main_menu.h"
 
 //defines
 #define MODE_SINGLES     0
@@ -254,8 +255,8 @@ struct ModeMenu
     u8 sel_diff[MENUITEM_DIFF_COUNT];
     u8 sel_rand[MENUITEM_RAND_COUNT];
     u8 sel_presets[MENUITEM_PRESET_COUNT];
-    int menuCursor[MENU_COUNT];
-    int visibleCursor[MENU_COUNT];
+    u32 menuCursor[MENU_COUNT + 1];
+    u32 visibleCursor[MENU_COUNT + 1];
     u8 arrowTaskId;
     u8 gfxLoadState;
 };
@@ -671,7 +672,7 @@ static u8 MenuItemCancel(void)
         case MENU_RAND:
             return MENUITEM_RAND_CANCEL;
         default:
-            return 99;
+            return 0;
     }
 }
 
@@ -1425,7 +1426,8 @@ static void Task_ModeMenuWaitFadeAndExitGracefully(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        BirchCase_Init(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+        SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
+        //BirchCase_Init(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         ModeMenu_FreeResources();
         DestroyTask(taskId);
     }

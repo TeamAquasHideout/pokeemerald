@@ -71,12 +71,10 @@ PitEntrance_MsgModeMenu:
 
 PitEntrance_StartBag::
 	lockall
-	msgbox PitEntrance_ModeMenu, MSGBOX_AUTOCLOSE
-	waitmessage
 PitEntrace_ModeMenu::
 	setflag FLAG_CASE_STARTER_MODE
 	callnative InitTrainerIdAndNameData
-	callnative CallModeMenu
+	callnative StartNewPokeballCaseUI
 	waitstate
 	clearflag FLAG_CASE_STARTER_MODE
 	removeobject 1
