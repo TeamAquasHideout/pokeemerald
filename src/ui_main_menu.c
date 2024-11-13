@@ -654,6 +654,11 @@ void LoadHardModePresets(void)
     
 }
 
+void LoadCustomModePresets(void)
+{
+
+}
+
 
 static void Task_MainMenuTurnOff(u8 taskId)
 {
@@ -675,24 +680,24 @@ static void Task_MainMenuTurnOff(u8 taskId)
             if (sNewGameSelectedOption == 0)
             {
                 gTasks[taskId].func = Task_OpenModeMenu;
+                MainMenu_FreeResources();
+                return;
             }
             if (sNewGameSelectedOption == 1)
             {
                 LoadNormalModePresets();
-                SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
             if (sNewGameSelectedOption == 2)
             {
                 LoadHardModePresets();
-                SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
         }
-        else
-        {
-            SetMainCallback2(sMainMenuDataPtr->savedCallback);
-            DestroyTask(taskId);
-        }
+
+        SetMainCallback2(sMainMenuDataPtr->savedCallback);
         MainMenu_FreeResources();
+        DestroyTask(taskId);
     }
 }
 
@@ -1423,6 +1428,15 @@ static void Task_MainNewGameMenu(u8 taskId)
     if (JOY_NEW(A_BUTTON)) // If Pressed A go to thing you pressed A on
     {   
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_MainMenuTurnOff;
+        sSelectedOption = HW_WIN_CONTINUE;
+    }
+    if (JOY_NEW(START_BUTTON))
+    {
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        LoadCustomModePresets();
+        sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+        sNewGameSelectedOption = 0xFF;
         gTasks[taskId].func = Task_MainMenuTurnOff;
         sSelectedOption = HW_WIN_CONTINUE;
     }
