@@ -1930,6 +1930,8 @@ void SetRandomBossEncounter(void)
         {
             reroll = FALSE;
             BossEncounterFlagSet(index);
+            ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS);
+            ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS_DOUBLES);
             VarSet(VAR_OBJ_GFX_ID_F, sRandomBossEncounterArray[index].graphicsId);
             VarSet(VAR_CURRENT_BOSS, index);
             FlagClear(FLAG_BOSS_ENCOUNTER);
