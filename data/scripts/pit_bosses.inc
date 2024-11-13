@@ -96,6 +96,7 @@ PlayerEastMovement:
 
 Pit_EndGameStatue222::
 	lockall
+	callnative ClearAllRandomBossEncounters
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitStatueNoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT
