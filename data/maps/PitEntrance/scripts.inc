@@ -4,7 +4,7 @@ PitEntrance_MapScripts::
 
 PitArena_Entrance:
 	goto_if_set FLAG_PIT_STARTED, PitArena_EntranceEnd
-	callnative SetDefaultOptions
+	callnative SetOnMapLoadDefaultOptions
 	setvar VAR_PIT_FLOOR, 0
 	setflag FLAG_PIT_STARTED
 	setflag	FLAG_DEFEATED_RUSTBORO_GYM
@@ -71,12 +71,10 @@ PitEntrance_MsgModeMenu:
 
 PitEntrance_StartBag::
 	lockall
-	msgbox PitEntrance_ModeMenu, MSGBOX_AUTOCLOSE
-	waitmessage
 PitEntrace_ModeMenu::
 	setflag FLAG_CASE_STARTER_MODE
 	callnative InitTrainerIdAndNameData
-	callnative CallModeMenu
+	callnative StartNewPokeballCaseUI
 	waitstate
 	clearflag FLAG_CASE_STARTER_MODE
 	removeobject 1

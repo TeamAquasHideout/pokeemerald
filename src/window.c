@@ -13,7 +13,6 @@ EWRAM_DATA struct Window gWindows[WINDOWS_MAX] = {0};
 EWRAM_DATA static struct Window* sWindowPtr = NULL;
 EWRAM_DATA static u16 sWindowSize = 0;
 
-static u32 GetNumActiveWindowsOnBg(u32 bgId);
 static u32 GetNumActiveWindowsOnBg8Bit(u32 bgId);
 
 static const struct WindowTemplate sDummyWindowTemplate = DUMMY_WIN_TEMPLATE;
@@ -580,7 +579,7 @@ u32 GetWindowAttribute(u32 windowId, u32 attributeId)
     }
 }
 
-static u32 GetNumActiveWindowsOnBg(u32 bgId)
+u32 GetNumActiveWindowsOnBg(u32 bgId)
 {
     u32 windowsNum = 0;
     s32 i;

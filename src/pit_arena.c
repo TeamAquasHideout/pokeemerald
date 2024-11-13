@@ -1930,6 +1930,8 @@ void SetRandomBossEncounter(void)
         {
             reroll = FALSE;
             BossEncounterFlagSet(index);
+            ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS);
+            ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS_DOUBLES);
             VarSet(VAR_OBJ_GFX_ID_F, sRandomBossEncounterArray[index].graphicsId);
             VarSet(VAR_CURRENT_BOSS, index);
             FlagClear(FLAG_BOSS_ENCOUNTER);
@@ -2240,7 +2242,7 @@ void RemovePartyPokemon(void)
 
 void LevelUpParty(void)
 {   
-    if(!(FlagGet(FLAG_NO_EXP_MODE)))
+    if(!((gSaveBlock2Ptr->modeXP == 2)))
         return;
 
     if(VarGet(VAR_PIT_FLOOR) <= 5)
@@ -2254,6 +2256,14 @@ void LevelUpParty(void)
         MonTryLearningNewMove(mon, TRUE);
     }
     return;
+}
+
+void Check3MonMode(void)
+{
+    if(gSaveBlock2Ptr->mode3MonsOnly)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
 }
 
 void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion

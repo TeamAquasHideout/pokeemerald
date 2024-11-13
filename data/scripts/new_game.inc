@@ -282,16 +282,8 @@ EventScript_ResetAllMapFlags::
 	setflag FLAG_MOVER_OBJECT
 	setflag FLAG_END_GAME_STATUE
 	setflag FLAG_BOSS_ENCOUNTER
-	clearflag FLAG_DOUBLES_MODE
-	clearflag FLAG_FLOOR_100
-	clearflag FLAG_MIXED_DOUBLES_MODE
-	clearflag FLAG_HARD_MODE
-	clearflag FLAG_NO_EXP_MODE
-	setflag FLAG_NO_DUPLICATES
-	setvar B_BATTLE_SPEED, 1
 	callnative ClearAllRandomEncounters
 	callnative ClearAllRandomBossEncounters
 	call EventScript_ResetAllBerries
-	setvar VAR_AVATAR_POKEMON_CHOICE, SPECIES_MUDKIP
 	end
 

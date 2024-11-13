@@ -120,8 +120,6 @@ static void InitPlayerTrainerId(void)
 // L=A isnt set here for some reason.
 void SetDefaultOptions(void)
 {
-    int i, counter;
-
     //options
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
     {
@@ -163,7 +161,10 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->randomType = OFF;
         gSaveBlock2Ptr->randomEvos = OFF;
     }
+}
 
+void SetOnMapLoadDefaultOptions(void)
+{
     //set options flags/vars --> game mode flags/vars will be set from the ui_mode_menu
     VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
 
@@ -173,15 +174,14 @@ void SetDefaultOptions(void)
         FlagClear(FLAG_RANDOM_MAPS);
 
     //optionsRandomMusic is used without an additional flag
-    
     if (gSaveBlock2Ptr->optionsFollowMonsOff)
         FlagSet(FLAG_FOLLOWERS_OFF);
     else
         FlagClear(FLAG_FOLLOWERS_OFF);
 }
 
-#undef ON  0
-#undef OFF 1
+#undef ON
+#undef OFF
 
 static void ClearPokedexFlags(void)
 {

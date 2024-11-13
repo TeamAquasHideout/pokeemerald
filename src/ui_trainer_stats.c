@@ -587,11 +587,11 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 
 	// Exp
 	u8 expMode = 0;
-	if (FlagGet(FLAG_NO_EXP_MODE))
+	if ((gSaveBlock2Ptr->modeXP == 2))
         expMode = 2;
 	else
 	{
-		if (FlagGet(FLAG_XPSHARE_50))
+		if (gSaveBlock2Ptr->modeXP == 1)
 			expMode = 1;
 		else
 			expMode = 0;

@@ -771,8 +771,9 @@ static void Task_OutfitsMenuTurnOff(u8 taskId)
         }
         else
         {
-            NewGameBirchSpeech_SetDefaultPlayerName(Random() % 19);
-            DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_NewGameBirchSpeech_FromNewMainMenu);        
+            gMain.savedCallback = CB2_ReinitMainMenu;
+            NewGameBirchSpeech_SetDefaultPlayerName(Random() % 19);     
+            DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_InitOptionMenu);        
         }
         
         OutfitsMenu_FreeResources();

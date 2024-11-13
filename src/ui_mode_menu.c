@@ -35,6 +35,7 @@
 #include "constants/flags.h"
 #include "ui_birch_case.h"
 #include "config/general.h"
+#include "main_menu.h"
 #include "pit.h"
 
 //defines
@@ -256,8 +257,8 @@ struct ModeMenu
     u8 sel_diff[MENUITEM_DIFF_COUNT];
     u8 sel_rand[MENUITEM_RAND_COUNT];
     u8 sel_presets[MENUITEM_PRESET_COUNT];
-    int menuCursor[MENU_COUNT];
-    int visibleCursor[MENU_COUNT];
+    u32 menuCursor[MENU_COUNT + 1];
+    u32 visibleCursor[MENU_COUNT + 1];
     u8 arrowTaskId;
     u8 gfxLoadState;
 };
@@ -674,7 +675,7 @@ static u8 MenuItemCancel(void)
         case MENU_RAND:
             return MENUITEM_RAND_CANCEL;
         default:
-            return 99;
+            return 0;
     }
 }
 
@@ -1368,29 +1369,7 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
         FlagClear(FLAG_DOUBLES_MODE);
         FlagClear(FLAG_MIXED_DOUBLES_MODE);
     }
-    
-    if (sOptions->sel_diff[MENUITEM_RUN_3_MONS_ONLY] == XP_NONE)
-        FlagSet(FLAG_NO_EXP_MODE);
-    else
-        FlagClear(FLAG_NO_EXP_MODE);
-    
-    if (sOptions->sel_diff[MENUITEM_RUN_NO_CASE_CHOICE] == XP_NONE)
-        FlagSet(FLAG_NO_EXP_MODE);
-    else
-        FlagClear(FLAG_NO_EXP_MODE);
 
-
-    //####################### difficulty settings #######################
-    if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_NONE)
-        FlagSet(FLAG_NO_EXP_MODE);
-    else
-        FlagClear(FLAG_NO_EXP_MODE);
-
-    if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_50)
-        FlagSet(FLAG_XPSHARE_50);
-    else if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_75)
-        FlagClear(FLAG_XPSHARE_50);
-    
     //MENUITEM_DIFF_SAVE_DELETION
 
     if (sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER] == ACTIVE)
@@ -1428,7 +1407,8 @@ static void Task_ModeMenuWaitFadeAndExitGracefully(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        BirchCase_Init(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+        SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
+        //BirchCase_Init(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         ModeMenu_FreeResources();
         DestroyTask(taskId);
     }

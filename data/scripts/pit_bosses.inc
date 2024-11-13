@@ -28,8 +28,17 @@ PitBoss_CommonAfterBattleScript::
 PitBoss_NoAutoSave::
 	lock
 	callnative BufferMapFloorString
+	callnative Check3MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
 	callnative SetRandomGiveMonRewardEncounters
 	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
+	waitstate
+	release
+	end
+
+PitBoss_3MonMode::
+	callnative BufferMapFloorString
+	warpteleport MAP_PIT_REST_FLOOR, 9, 9
 	waitstate
 	release
 	end
@@ -87,6 +96,7 @@ PlayerEastMovement:
 
 Pit_EndGameStatue222::
 	lockall
+	callnative ClearAllRandomBossEncounters
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitStatueNoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT

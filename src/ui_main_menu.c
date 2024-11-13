@@ -46,6 +46,9 @@
 #include "link.h"
 #include "trainer_pokemon_sprites.h"
 #include "ui_outfits.h"
+#include "ui_mode_menu.h"
+#include "ui_options_menu.h"
+#include "new_game.h"
 
 /*
  * 
@@ -65,7 +68,6 @@ struct MainMenuResources
 enum WindowIds
 {
     WINDOW_HEADER,
-    WINDOW_MIDDLE,
 };
 
 enum {
@@ -76,6 +78,13 @@ enum {
     HW_WIN_MYSTERY_EVENT,
     HW_WIN_MYSTERY_BOTH,
 };
+
+enum {
+    HW_WIN_CUSTOM,
+    HW_WIN_NORMAL,
+    HW_WIN_HARD,
+};
+
 
 enum Colors
 {
@@ -103,20 +112,25 @@ enum
 static EWRAM_DATA struct MainMenuResources *sMainMenuDataPtr = NULL;
 static EWRAM_DATA u8 *sBg1TilemapBuffer = NULL;
 static EWRAM_DATA u8 *sBg2TilemapBuffer = NULL;
+static EWRAM_DATA u8 *sBg3TilemapBuffer = NULL;
 static EWRAM_DATA u8 sSelectedOption = {0};
+static EWRAM_DATA u8 sNewGameSelectedOption = {0};
 static EWRAM_DATA u8 menuType = {0};
+static EWRAM_DATA u8 sAlreadySelectedAvatar = {0};
 
 //==========STATIC=DEFINES==========//
 static void MainMenu_RunSetup(void);
 static bool8 MainMenu_DoGfxSetup(void);
 static bool8 MainMenu_InitBgs(void);
 static void MainMenu_FadeAndBail(void);
-static bool8 MainMenu_LoadGraphics(void);
+static bool8 MainMenu_LoadGraphics(u8 reload);
 static void MainMenu_InitWindows(void);
 static void PrintToWindow(u8 windowId, u8 colorIdx);
 static void Task_MainMenuWaitFadeIn(u8 taskId);
 static void Task_MainMenuMain(u8 taskId);
 static void MainMenu_InitializeGPUWindows(void);
+static bool8 NewGame_LoadGraphics(u8 fromMainMenu);
+static void Task_MainNewGameMenu(u8 taskId);
 
 static void CreateMugshot();
 static void DestroyMugshot();
@@ -125,6 +139,8 @@ static void DestroyIconShadow();
 static u32 GetHPEggCyclePercent(u32 partyIndex);
 static void CreatePartyMonIcons();
 static void DestroyMonIcons();
+static void PrintNewGameToWindow(u8 windowId, u8 colorIdx);
+static void MoveNewGameHWindowsWithInput(void);
 
 
 //==========Background and Window Data==========//
@@ -133,21 +149,27 @@ static const struct BgTemplate sMainMenuBgTemplates[] =
     {
         .bg = 0,                // Text Background
         .charBaseIndex = 0,
-        .mapBaseIndex = 31,
+        .mapBaseIndex = 22,
         .priority = 0
     }, 
     {
         .bg = 1,                // Main Background
         .charBaseIndex = 3,
         .mapBaseIndex = 30,
-        .priority = 2
+        .priority = 1
     },
     {
         .bg = 2,                // Scroll Background
         .charBaseIndex = 2,
         .mapBaseIndex = 28,
         .priority = 2
-    }
+    },
+    {
+        .bg = 3,                // Main Background
+        .charBaseIndex = 3,
+        .mapBaseIndex = 31,
+        .priority = 1
+    },
 };
 
 static const struct WindowTemplate sMainMenuWindowTemplates[] = 
@@ -155,23 +177,12 @@ static const struct WindowTemplate sMainMenuWindowTemplates[] =
     [WINDOW_HEADER] = // Prints the Map and Playtime
     {
         .bg = 0,            // which bg to print text on
-        .tilemapLeft = 10,  // position from left (per 8 pixels)
-        .tilemapTop = 1,    // position from top (per 8 pixels)
-        .width = 18,        // width (per 8 pixels)
-        .height = 2,        // height (per 8 pixels)
+        .tilemapLeft = 0,  // position from left (per 8 pixels)
+        .tilemapTop = 0,    // position from top (per 8 pixels)
+        .width = 30,        // width (per 8 pixels)
+        .height = 20,        // height (per 8 pixels)
         .paletteNum = 0,    // palette index to use for text
         .baseBlock = 1,     // tile start in VRAM
-    },
-
-    [WINDOW_MIDDLE] = // Prints the name, dex number, and badges
-    {
-        .bg = 0,                   // which bg to print text on
-        .tilemapLeft = 8,          // position from left (per 8 pixels)
-        .tilemapTop = 4,           // position from top (per 8 pixels)
-        .width = 18,               // width (per 8 pixels)
-        .height = 7,               // height (per 8 pixels)
-        .paletteNum = 0,           // palette index to use for text
-        .baseBlock = 1 + (18 * 2), // tile start in VRAM
     },
     DUMMY_WIN_TEMPLATE
 };
@@ -198,6 +209,13 @@ static const struct HWWindowPosition HWinCoords[6] =
     [HW_WIN_MYSTERY_BOTH]    = {{7, 233},   {135, 154}},
 };
 
+static const struct HWWindowPosition HWinNewGameCoords[6] = 
+{
+    [HW_WIN_CUSTOM]        = {{7, 233},   {7, 40},},
+    [HW_WIN_NORMAL]        = {{7, 233},   {40, 70},},
+    [HW_WIN_HARD]          = {{7, 233},   {70, 100},},
+};
+
 
 //
 //  Graphic and Tilemap Pointers for Bgs and Mughsots
@@ -205,6 +223,11 @@ static const struct HWWindowPosition HWinCoords[6] =
 static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.4bpp.lz");
 static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.bin.lz");
 static const u16 sMainBgPalette[] = INCBIN_U16("graphics/ui_main_menu/main_tiles.gbapal");
+
+static const u32 sNewGameBgTiles[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.4bpp.lz");
+static const u32 sNewGameBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.bin.lz");
+static const u32 sNewGameTextBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_text_tiles.bin.lz");
+static const u16 sNewGameBgPalette[] = INCBIN_U16("graphics/ui_main_menu/new_game_menu_tiles.gbapal");
 
 static const u32 sMainBgTilesFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.4bpp.lz");
 static const u32 sMainBgTilemapFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.bin.lz");
@@ -505,13 +528,20 @@ void Task_OpenMainMenu(u8 taskId)
         {                //  where the UI is initialized by swapping a task func with this one 
             case HAS_NO_SAVED_GAME:
             default:
-                OutfitsMenu_Init(CB2_InitTitleScreen, OUTFITS_NO_SAVE_AVATAR_MENU);
-                DestroyTask(taskId);
-                return;
+                if(sAlreadySelectedAvatar != 1)
+                {
+                    sAlreadySelectedAvatar = 1;
+                    SetDefaultOptions();
+                    OutfitsMenu_Init(CB2_InitTitleScreen, OUTFITS_NO_SAVE_AVATAR_MENU);
+                    DestroyTask(taskId);
+                    return;
+                }
+                menuType = HAS_SAVED_GAME;
+                break;
             case HAS_SAVED_GAME:       
             case HAS_MYSTERY_GIFT:
             case HAS_MYSTERY_EVENTS:
-                menuType = data[0];
+                menuType = HAS_SAVED_GAME;
                 break;
         }
         CleanupOverworldWindowsAndTilemaps();
@@ -534,6 +564,7 @@ void MainMenu_Init(MainCallback callback)
     //DebugTestRandomness();
     sMainMenuDataPtr->gfxLoadState = 0;
     sMainMenuDataPtr->savedCallback = callback;
+    sNewGameSelectedOption = 0xFF;
     for(i = 0; i < 6; i++)
     {
         sMainMenuDataPtr->iconBoxSpriteIds[i] = SPRITE_NONE;
@@ -574,13 +605,14 @@ static void MainMenu_VBlankCB(void)
 //
 static void MainMenu_FreeResources(void)
 {
-    try_free(sMainMenuDataPtr);
-    try_free(sBg1TilemapBuffer);
-    try_free(sBg2TilemapBuffer);
     FreeAllWindowBuffers();
     DestroyMugshot();
     DestroyIconShadow();
     DestroyMonIcons();
+    try_free(sMainMenuDataPtr);
+    try_free(sBg1TilemapBuffer);
+    try_free(sBg2TilemapBuffer);
+    try_free(sBg3TilemapBuffer);
     DmaClearLarge16(3, (void *)VRAM, VRAM_SIZE, 0x1000);
 }
 
@@ -605,8 +637,30 @@ static void MainMenu_FadeAndBail(void)
 static void Task_MainMenuWaitFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active)
-        gTasks[taskId].func = Task_MainMenuMain;
+    {
+        if(sAlreadySelectedAvatar == 1)
+            gTasks[taskId].func = Task_MainNewGameMenu;
+        else
+            gTasks[taskId].func = Task_MainMenuMain;
+    }
+        
 }
+
+void LoadNormalModePresets(void)
+{
+
+}
+
+void LoadHardModePresets(void)
+{
+    
+}
+
+void LoadCustomModePresets(void)
+{
+
+}
+
 
 static void Task_MainMenuTurnOff(u8 taskId)
 {
@@ -622,6 +676,27 @@ static void Task_MainMenuTurnOff(u8 taskId)
         SetGpuReg(REG_OFFSET_BLDCNT, 0);
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
         SetGpuReg(REG_OFFSET_BLDY, 0);
+
+        if (sNewGameSelectedOption != 0xFF)
+        {
+            if (sNewGameSelectedOption == 0)
+            {
+                gTasks[taskId].func = Task_OpenModeMenu;
+                MainMenu_FreeResources();
+                return;
+            }
+            if (sNewGameSelectedOption == 1)
+            {
+                LoadNormalModePresets();
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+            }
+            if (sNewGameSelectedOption == 2)
+            {
+                LoadHardModePresets();
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+            }
+        }
+
         SetMainCallback2(sMainMenuDataPtr->savedCallback);
         MainMenu_FreeResources();
         DestroyTask(taskId);
@@ -658,6 +733,13 @@ static bool8 MainMenu_DoGfxSetup(void)
         ResetSpriteData();
         ResetTasks();
         MainMenu_InitializeGPUWindows();
+        if(sAlreadySelectedAvatar == 1)
+        {
+            sNewGameSelectedOption = 0;
+            MoveNewGameHWindowsWithInput();
+            SetGpuReg(REG_OFFSET_WIN1H, 0);
+            SetGpuReg(REG_OFFSET_WIN1V, 0);
+        }
         gMain.state++;
         break;
     case 2:
@@ -673,19 +755,35 @@ static bool8 MainMenu_DoGfxSetup(void)
         }
         break;
     case 3:
-        if (MainMenu_LoadGraphics() == TRUE)
-            gMain.state++;
+        if(sAlreadySelectedAvatar == 0)
+        {
+            if (MainMenu_LoadGraphics(FALSE) == TRUE)
+                gMain.state++;
+        }
+        else
+        {
+            if (NewGame_LoadGraphics(FALSE) == TRUE)
+                gMain.state++;
+        }
         break;
     case 4:
-        LoadMessageBoxAndBorderGfx();
+        LoadMessageBoxAndBorderGfxOverride();
         MainMenu_InitWindows();
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
-        PrintToWindow(WINDOW_HEADER, FONT_WHITE);
-        CreateIconShadow();
-        CreatePartyMonIcons();
-        CreateMugshot();
+        if(sAlreadySelectedAvatar == 0)
+            PrintToWindow(WINDOW_HEADER, FONT_WHITE);
+        else
+            PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
+
+        if(sAlreadySelectedAvatar == 0)
+        {
+            CreateIconShadow();
+            CreatePartyMonIcons();
+            CreateMugshot();
+        }
+
         CreateTask(Task_MainMenuWaitFadeIn, 0);
         BlendPalettes(0xFFFFFFFF, 16, RGB_BLACK);
         gMain.state++;
@@ -695,6 +793,8 @@ static bool8 MainMenu_DoGfxSetup(void)
         ShowBg(0);
         ShowBg(1);
         ShowBg(2);
+        if(sAlreadySelectedAvatar == 1)
+            ShowBg(3);
         gMain.state++;
         break;
     default:
@@ -725,9 +825,17 @@ static bool8 MainMenu_InitBgs(void)
     SetBgTilemapBuffer(2, sBg2TilemapBuffer);
     ScheduleBgCopyTilemapToVram(2);
 
+    sBg3TilemapBuffer = Alloc(0x800);
+    if (sBg3TilemapBuffer == NULL)
+        return FALSE;
+    memset(sBg3TilemapBuffer, 0, 0x800);
+    SetBgTilemapBuffer(3, sBg3TilemapBuffer);
+    ScheduleBgCopyTilemapToVram(3);
+
     ShowBg(0);
     ShowBg(1);
     ShowBg(2);
+    HideBg(3);
     return TRUE;
 }
 
@@ -748,7 +856,7 @@ static void MainMenu_InitializeGPUWindows(void) // This function creates the win
                 break;
         }
 
-    SetGpuReg(REG_OFFSET_WININ, (WININ_WIN1_BG0 | WININ_WIN1_BG2) | (WININ_WIN0_BG_ALL | WININ_WIN0_OBJ)); // Set Win 0 Active everywhere, Win 1 active on everything except bg 1 
+    SetGpuReg(REG_OFFSET_WININ, (WININ_WIN1_BG0 | WININ_WIN1_BG2 | WININ_WIN1_BG3) | (WININ_WIN0_BG_ALL | WININ_WIN0_OBJ)); // Set Win 0 Active everywhere, Win 1 active on everything except bg 1 
     SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL);                                                                     // where the main tiles are so the window hides whats behind it
     SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ);   // Set Darken Effect on things not in the window on bg 0, 1, and sprite layer
     SetGpuReg(REG_OFFSET_BLDY, 7);  // Set Level of Darken effect, can be changed 0-16
@@ -759,6 +867,14 @@ static void MoveHWindowsWithInput(void) // Update GPU windows after selection is
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinCoords[sSelectedOption].winh.left, HWinCoords[sSelectedOption].winh.right));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[sSelectedOption].winv.left, HWinCoords[sSelectedOption].winv.right));
 }
+
+
+static void MoveNewGameHWindowsWithInput(void) // Update GPU windows after selection is changed
+{
+    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinNewGameCoords[sNewGameSelectedOption].winh.left, HWinNewGameCoords[sNewGameSelectedOption].winh.right));
+    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinNewGameCoords[sNewGameSelectedOption].winv.left, HWinNewGameCoords[sNewGameSelectedOption].winv.right));
+}
+
 
 void LoadMugshotIconGraphics(void)
 {
@@ -812,7 +928,74 @@ void LoadMugshotIconGraphics(void)
     }
 }
 
-static bool8 MainMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, spritesheets, and palettes
+
+static bool8 NewGame_LoadGraphics(u8 fromMainMenu) // Load all the tilesets, tilemaps, spritesheets, and palettes
+{
+    switch (sMainMenuDataPtr->gfxLoadState)
+    {
+    case 0:
+        ResetTempTileDataBuffers();
+        DecompressAndCopyTileDataToVram(1, sNewGameBgTiles, 0, 0, 0);
+        sMainMenuDataPtr->gfxLoadState++;
+        break;
+    case 1:
+        if (FreeTempTileDataBuffersIfPossible() != TRUE)
+        {
+            LZDecompressWram(sNewGameBgTilemap, sBg1TilemapBuffer);
+            sMainMenuDataPtr->gfxLoadState++;
+        }
+        break;
+    case 2:
+        if(fromMainMenu)
+        {
+            sMainMenuDataPtr->gfxLoadState++;
+            break;
+        }
+        ResetTempTileDataBuffers();
+        DecompressAndCopyTileDataToVram(2, sScrollBgTiles, 0, 0, 0);
+        sMainMenuDataPtr->gfxLoadState++;
+        break;
+    case 3:
+        if(fromMainMenu)
+        {
+            sMainMenuDataPtr->gfxLoadState++;
+            break;
+        }
+        if (FreeTempTileDataBuffersIfPossible() != TRUE)
+        {
+            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            sMainMenuDataPtr->gfxLoadState++;
+        }
+        break;
+    case 4:
+        LoadPalette(sNewGameBgPalette, 0, 32);
+        if(fromMainMenu)
+        {
+            sMainMenuDataPtr->gfxLoadState++;
+            break;
+        }
+        LoadPalette(sScrollBgPalette, 16, 32);
+        sMainMenuDataPtr->gfxLoadState++;
+        break;
+    case 5:
+        if (FreeTempTileDataBuffersIfPossible() != TRUE)
+        {
+            LZDecompressWram(sNewGameTextBgTilemap, sBg3TilemapBuffer);
+            sMainMenuDataPtr->gfxLoadState++;
+        }
+        break;
+    default:
+        ScheduleBgCopyTilemapToVram(1);
+        ScheduleBgCopyTilemapToVram(3);
+        if(fromMainMenu)
+            ScheduleBgCopyTilemapToVram(2);
+        sMainMenuDataPtr->gfxLoadState = 0;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 MainMenu_LoadGraphics(u8 reload) // Load all the tilesets, tilemaps, spritesheets, and palettes
 {
     switch (sMainMenuDataPtr->gfxLoadState)
     {
@@ -843,11 +1026,21 @@ static bool8 MainMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, spr
         }
         break;
     case 2:
+        if(reload)
+        {
+            sMainMenuDataPtr->gfxLoadState++;
+            break;
+        }
         ResetTempTileDataBuffers();
         DecompressAndCopyTileDataToVram(2, sScrollBgTiles, 0, 0, 0);
         sMainMenuDataPtr->gfxLoadState++;
         break;
     case 3:
+        if(reload)
+        {
+            sMainMenuDataPtr->gfxLoadState++;
+            break;
+        }
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
             LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
@@ -855,7 +1048,6 @@ static bool8 MainMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, spr
         }
         break;
     case 4:
-    {
         LoadMugshotIconGraphics();
         if(gSaveBlock2Ptr->playerGender == MALE)
         {
@@ -870,7 +1062,6 @@ static bool8 MainMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, spr
             LoadPalette(sMainBgPaletteFem, 0, 32);
         }
         LoadPalette(sScrollBgPalette, 16, 32);
-    }
         sMainMenuDataPtr->gfxLoadState++;
         break;
     default:
@@ -889,10 +1080,6 @@ static void MainMenu_InitWindows(void) // Init Text Windows
     FillWindowPixelBuffer(WINDOW_HEADER, 0);
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);
-
-    FillWindowPixelBuffer(WINDOW_MIDDLE, 0);
-    PutWindowTilemap(WINDOW_MIDDLE);
-    CopyWindowToVram(WINDOW_MIDDLE, 3);
 }
 
 
@@ -934,6 +1121,12 @@ static void DestroyMugshot()
     else
         DestroySpriteAndFreeResources(&gSprites[sMainMenuDataPtr->mugshotSpriteId]);
     sMainMenuDataPtr->mugshotSpriteId = SPRITE_NONE;
+}
+
+
+static void HideShowMugshot(u8 visible)
+{
+    gSprites[sMainMenuDataPtr->mugshotSpriteId].invisible = visible;
 }
 
 u16 CreateMugshotExternal()
@@ -988,6 +1181,16 @@ static void DestroyIconShadow()
         sMainMenuDataPtr->iconBoxSpriteIds[i] = SPRITE_NONE;
     }
 }
+
+static void HideShowIconShadows(u8 visible)
+{
+    u8 i = 0;
+    for(i = 0; i < gPlayerPartyCount; i++)
+    {
+        gSprites[sMainMenuDataPtr->iconBoxSpriteIds[i]].invisible = visible;
+    }
+}
+
 
 static u32 GetHPEggCyclePercent(u32 partyIndex) // Random HP function from psf's hack written by Rioluwott
 {
@@ -1062,6 +1265,17 @@ static void DestroyMonIcons()
 }
 
 
+static void HideShowIcons(u8 visible)
+{
+    u8 i = 0;
+    for(i = 0; i < gPlayerPartyCount; i++)
+    {
+        gSprites[sMainMenuDataPtr->iconMonSpriteIds[i]].invisible = visible;
+    }
+}
+
+
+
 //
 //  Print The Text For Dex Num, Badges, Name, Playtime, Location
 //
@@ -1076,7 +1290,6 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     u32 i = 0;
 
     FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
-    FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
 
     // Print Map Name In Header
     withoutPrefixPtr = &(mapDisplayHeader[3]);
@@ -1087,13 +1300,13 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     BufferMapFloorString();
     StringCopy(gStringVar2, mapDisplayHeader);
     StringExpandPlaceholders(mapDisplayHeader, gStringVar2);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, withoutPrefixPtr, 10 * 8), 1, 0, 0, colors, 0xFF, mapDisplayHeader);
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, withoutPrefixPtr, 10 * 8) + (8 * 10), 1 + (8), 0, 0, colors, 0xFF, mapDisplayHeader);
 
     // Print Playtime In Header
     playTimePtr = ConvertIntToDecimalStringN(gStringVar4, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
     *playTimePtr = 0xF0;
     ConvertIntToDecimalStringN(playTimePtr + 1, gSaveBlock2Ptr->playTimeMinutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, (104 - 12) + GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, (6*8)), 1, 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, (104 - 12) + GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, (6*8)) + (8 * 10), 1 + (8), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
 
     // Print Dex Numbers if You Have It
     if (FlagGet(FLAG_SYS_POKEDEX_GET) == TRUE)
@@ -1104,28 +1317,197 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
             dexCount = GetHoennPokedexCount(FLAG_GET_CAUGHT);
         ConvertIntToDecimalStringN(gStringVar1, dexCount, STR_CONV_MODE_RIGHT_ALIGN, 4);
         StringExpandPlaceholders(gStringVar4, sText_DexNum);
-        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_NORMAL, 8 + 8, 16 + 2, 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 8 + 8 + (8 * 8), 16 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
     }
 
     // Print Badge Numbers if You Have Them
-    for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
-    {
-        if (FlagGet(i))
-            badgeCount++;
-    } 
-    ConvertIntToDecimalStringN(gStringVar1, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
-    StringExpandPlaceholders(gStringVar4, sText_Badges);
-    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_NORMAL, 16, 32 + 2, 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+    //for (i = FLAG_BADGE01_GET; i < FLAG_BADGE01_GET + NUM_BADGES; i++)
+    //{
+    //    if (FlagGet(i))
+    //        badgeCount++;
+    //} 
+    //ConvertIntToDecimalStringN(gStringVar1, badgeCount, STR_CONV_MODE_LEADING_ZEROS, 1);
+    //StringExpandPlaceholders(gStringVar4, sText_Badges);
+   // AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 32 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
 
     // Print Player Name
-    AddTextPrinterParameterized3(WINDOW_MIDDLE, FONT_NORMAL, 16, 2, colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 2 + (8 * 3), colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
 
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);
-    PutWindowTilemap(WINDOW_MIDDLE);
-    CopyWindowToVram(WINDOW_MIDDLE, 3);
 }
 
+
+//
+//  Print The Text For Dex Num, Badges, Name, Playtime, Location
+//
+static const u8 sText_NewGame_Button_Custom[] = _("Custom");
+static const u8 sText_NewGame_Button_Normal[] = _("Normal");
+static const u8 sText_NewGame_Button_Hard[] = _("Hard");
+
+static const u8 sText_NewGame_Text_Custom[] = _(" Custom Mode lets you choose your own \n ruleset to play with.");
+static const u8 sText_NewGame_Text_Normal[] = _(" Normal Mode is not too difficult, \n a fun way to play through The Pit.");
+static const u8 sText_NewGame_Text_Hard[] = _(" Hard Mode is a bit of a challenge, \n less Exp and harder trainers await you.");
+
+static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
+{
+    const u8 colors[3] = {0,  5,  3}; 
+    const u8 colors2[3] = {0,  6,  7}; 
+    u32 i = 0;
+
+    FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Custom, 14 * 8) + 64, 18, 0, 0, colors, 0xFF, sText_NewGame_Button_Custom);
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Normal, 14 * 8) + 64, 50, 0, 0, colors, 0xFF, sText_NewGame_Button_Normal);
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Hard, 14 * 8) + 64, 82, 0, 0, colors, 0xFF, sText_NewGame_Button_Hard);
+
+    if (sNewGameSelectedOption == 0)
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Custom);
+    else if(sNewGameSelectedOption == 1)
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Normal);
+    else
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Hard);
+
+    PutWindowTilemap(WINDOW_HEADER);
+    CopyWindowToVram(WINDOW_HEADER, 3);
+}
+
+
+static void Task_ReloadMainMenu(u8 taskId)
+{
+    switch (gMain.state)
+    {
+    case 0:
+        HideBg(0);
+        HideBg(1);
+        HideBg(3);
+        sNewGameSelectedOption = 0xFF;
+        SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinCoords[sSelectedOption].winh.left, HWinCoords[sSelectedOption].winh.right));  // Set Window 0 width/height Which defines the not darkened space
+        SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[sSelectedOption].winv.left, HWinCoords[sSelectedOption].winv.right));
+        switch(menuType)
+        {
+            case HAS_SAVED_GAME:    // The three Window 1 states either block out the mystery buttons both, just the mystery event, or nothing. 
+                SetGpuReg(REG_OFFSET_WIN1H,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_BOTH].winh.left, HWinCoords[HW_WIN_MYSTERY_BOTH].winh.right));
+                SetGpuReg(REG_OFFSET_WIN1V,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_BOTH].winv.left, HWinCoords[HW_WIN_MYSTERY_BOTH].winv.right));
+                break;   
+            case HAS_MYSTERY_GIFT:
+                SetGpuReg(REG_OFFSET_WIN1H,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_EVENT].winh.left, HWinCoords[HW_WIN_MYSTERY_EVENT].winh.right));
+                SetGpuReg(REG_OFFSET_WIN1V,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_EVENT].winv.left, HWinCoords[HW_WIN_MYSTERY_EVENT].winv.right));
+                break;
+        }
+        memset(sBg1TilemapBuffer, 0, 0x800);
+        gMain.state++;
+        break;
+    case 1:
+        if (MainMenu_LoadGraphics(TRUE) == TRUE)
+        {
+            ScheduleBgCopyTilemapToVram(1);
+            gMain.state++;
+        }
+        break;
+    case 2:
+        HideShowMugshot(FALSE);
+        HideShowIconShadows(FALSE);
+        HideShowIcons(FALSE);
+        PrintToWindow(WINDOW_HEADER, FONT_WHITE);
+        ShowBg(0);
+        ShowBg(1);
+        ShowBg(2);
+        gMain.state++;
+        break;
+    default:
+        gTasks[taskId].func = Task_MainMenuMain;
+        gMain.state = 0;
+        return;
+    }
+    return;
+    
+}
+
+
+static void Task_MainNewGameMenu(u8 taskId)
+{
+    if (JOY_NEW(A_BUTTON)) // If Pressed A go to thing you pressed A on
+    {   
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_MainMenuTurnOff;
+        sSelectedOption = HW_WIN_CONTINUE;
+    }
+    if (JOY_NEW(START_BUTTON))
+    {
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        LoadCustomModePresets();
+        sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+        sNewGameSelectedOption = 0xFF;
+        gTasks[taskId].func = Task_MainMenuTurnOff;
+        sSelectedOption = HW_WIN_CONTINUE;
+    }
+    if (JOY_NEW(B_BUTTON) && (sAlreadySelectedAvatar == 0)) // If Pressed A go to thing you pressed A on
+    {
+        gMain.state = 0;
+        gTasks[taskId].func = Task_ReloadMainMenu;
+        return;
+    }
+    if (JOY_NEW(DPAD_UP))
+    {
+        if (sNewGameSelectedOption == 0)
+            sNewGameSelectedOption = 2;
+        else
+            sNewGameSelectedOption--;
+        MoveNewGameHWindowsWithInput();
+        PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
+    }
+    if (JOY_NEW(DPAD_DOWN))
+    {
+        if (sNewGameSelectedOption == 2)
+            sNewGameSelectedOption = 0;
+        else
+            sNewGameSelectedOption++;
+        MoveNewGameHWindowsWithInput();
+        PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
+    }
+}
+
+static void Task_LoadNewGameMenu(u8 taskId)
+{
+    switch (gMain.state)
+    {
+    case 0:
+        HideBg(1);
+        HideBg(0);
+        HideShowMugshot(TRUE);
+        HideShowIconShadows(TRUE);
+        HideShowIcons(TRUE);
+        memset(sBg1TilemapBuffer, 0, 0x800);
+        sNewGameSelectedOption = 0;
+        gMain.state++;
+        break;
+    case 1:
+        SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinNewGameCoords[0].winh.left, HWinNewGameCoords[0].winh.right));  // Set Window 0 width/height Which defines the not darkened space
+        SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinNewGameCoords[0].winv.left, HWinNewGameCoords[0].winv.right));
+        SetGpuReg(REG_OFFSET_WIN1H, 0);
+        SetGpuReg(REG_OFFSET_WIN1V, 0);
+        if (NewGame_LoadGraphics(TRUE) == TRUE)
+        {
+            gMain.state++;
+        }
+        break;
+    case 2:
+        PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
+        ShowBg(0);
+        ShowBg(1);
+        ShowBg(2);
+        ShowBg(3);
+        gMain.state++;
+        break;
+    default:
+        gTasks[taskId].func = Task_MainNewGameMenu;
+        gMain.state = 0;
+        return;
+    }
+    return;
+    
+}
 
 //
 //  Main Input Control Task
@@ -1135,7 +1517,7 @@ static void Task_MainMenuMain(u8 taskId)
     if (JOY_NEW(A_BUTTON)) // If Pressed A go to thing you pressed A on
     {
         PlaySE(SE_SELECT);
-        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        
         switch(sSelectedOption)
         {
             case HW_WIN_CONTINUE:
@@ -1143,9 +1525,9 @@ static void Task_MainMenuMain(u8 taskId)
                 sSelectedOption = HW_WIN_CONTINUE;
                 break;
             case HW_WIN_NEW_GAME:
-                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
-                sSelectedOption = HW_WIN_CONTINUE;
-                break;
+                gTasks[taskId].func = Task_LoadNewGameMenu;
+                gMain.state = 0;
+                return;
             case HW_WIN_OPTIONS:
                 gMain.savedCallback = CB2_ReinitMainMenu;
                 sMainMenuDataPtr->savedCallback = CB2_InitOptionMenu;
@@ -1163,6 +1545,7 @@ static void Task_MainMenuMain(u8 taskId)
                 sSelectedOption = HW_WIN_CONTINUE;
                 break;
         }
+        BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
         gTasks[taskId].func = Task_MainMenuTurnOff;
     }
 

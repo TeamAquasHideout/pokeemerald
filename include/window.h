@@ -75,6 +75,7 @@ void BlitBitmapRectToWindow4BitTo8Bit(u32 windowId, const u8 *pixels, u16 srcX, 
 void CopyWindowToVram8Bit(u32 windowId, u8 mode);
 u32 WindowWidthPx(u32 windowId);
 u32 WindowTemplateWidthPx(const struct WindowTemplate *template);
+u32 GetNumActiveWindowsOnBg(u32 bgId);
 
 extern struct Window gWindows[];
 extern void *gWindowBgTilemapBuffers[];

@@ -4285,7 +4285,7 @@ static void Cmd_getexp(void)
     case 0: // check if should receive exp at all
         if (GetBattlerSide(gBattlerFainted) != B_SIDE_OPPONENT
             || IsAiVsAiBattle()
-            || !BattleTypeAllowsExp() || FlagGet(FLAG_NO_EXP_MODE))
+            || !BattleTypeAllowsExp() || (gSaveBlock2Ptr->modeXP == 2))
         {
             gBattleScripting.getexpState = 6; // goto last case
         }
@@ -4365,7 +4365,7 @@ static void Cmd_getexp(void)
             else
             {
                 *exp = calculatedExp;
-                if(FlagGet(FLAG_XPSHARE_50))
+                if(gSaveBlock2Ptr->modeXP == 1)
                     gBattleStruct->expShareExpValue = (calculatedExp / 2);
                 else
                     gBattleStruct->expShareExpValue = 3 * (calculatedExp / 4);
