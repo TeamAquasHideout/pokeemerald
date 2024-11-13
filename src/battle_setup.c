@@ -1585,6 +1585,7 @@ static const u8 *const sArchieFinalDefeat[1] =
     gText_ArchieFinalDefeat,
 };
 
+#define RANDOM_TRAINER_APPROACH_TEXTS_COUNT ARRAY_COUNT(sRandomTrainerApproachTexts)
 static const u8 *const sRandomTrainerApproachTexts[79] =
 {
     gText_TylerApproach,
@@ -1668,6 +1669,7 @@ static const u8 *const sRandomTrainerApproachTexts[79] =
     gText_OneTwoThreeApproach,
 };
 
+#define RANDOM_TRAINER_DEFEAT_TEXTS_COUNT ARRAY_COUNT(sRandomTrainerDefeatTexts)
 static const u8 *const sRandomTrainerDefeatTexts[77] =
 {
     gText_TylerDefeat,
@@ -1749,6 +1751,15 @@ static const u8 *const sRandomTrainerDefeatTexts[77] =
     gText_GriffinDefeat,
 };
 
+u8 getNumberOfApproachTexts(void)
+{
+    return RANDOM_TRAINER_APPROACH_TEXTS_COUNT;
+}
+
+u8 getNumberOfDefeatTexts(void)
+{
+    return RANDOM_TRAINER_DEFEAT_TEXTS_COUNT;
+}
 
 static const u8 *GetIntroSpeechOfApproachingTrainer(void)
 {
