@@ -1370,17 +1370,6 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
         FlagClear(FLAG_MIXED_DOUBLES_MODE);
     }
 
-    //####################### difficulty settings #######################
-    if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_NONE)
-        FlagSet(FLAG_NO_EXP_MODE);
-    else
-        FlagClear(FLAG_NO_EXP_MODE);
-
-    if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_50)
-        FlagSet(FLAG_XPSHARE_50);
-    else if (sOptions->sel_diff[MENUITEM_DIFF_XPMODE] == XP_75)
-        FlagClear(FLAG_XPSHARE_50);
-    
     //MENUITEM_DIFF_SAVE_DELETION
 
     if (sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER] == ACTIVE)

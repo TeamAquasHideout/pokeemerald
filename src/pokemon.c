@@ -7100,7 +7100,7 @@ void TrySpecialOverworldEvo(void)
 void TryLevelUpOverworldEvo(void)
 {
     u8 i;
-    if(!(FlagGet(FLAG_NO_EXP_MODE)))
+    if(!((gSaveBlock2Ptr->modeXP == 2)))
         return;
 
     for (i = 0; i < PARTY_SIZE; i++)

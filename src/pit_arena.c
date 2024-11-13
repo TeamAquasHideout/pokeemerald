@@ -2240,7 +2240,7 @@ void RemovePartyPokemon(void)
 
 void LevelUpParty(void)
 {   
-    if(!(FlagGet(FLAG_NO_EXP_MODE)))
+    if(!((gSaveBlock2Ptr->modeXP == 2)))
         return;
 
     if(VarGet(VAR_PIT_FLOOR) <= 5)
