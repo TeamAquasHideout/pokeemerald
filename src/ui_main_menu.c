@@ -1317,7 +1317,7 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
             dexCount = GetHoennPokedexCount(FLAG_GET_CAUGHT);
         ConvertIntToDecimalStringN(gStringVar1, dexCount, STR_CONV_MODE_RIGHT_ALIGN, 4);
         StringExpandPlaceholders(gStringVar4, sText_DexNum);
-        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 8 + 8 + (8 * 8), 16 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 18 + (8 * 8), 16 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
     }
 
     // Print Badge Numbers if You Have Them
@@ -1331,7 +1331,7 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
    // AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 32 + 2 + (8 * 3), 0, 0, colors, TEXT_SKIP_DRAW, gStringVar4);
 
     // Print Player Name
-    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 16 + (8 * 8), 2 + (8 * 3), colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 18 + (8 * 8), 2 + (8 * 3), colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
 
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);
@@ -1352,7 +1352,7 @@ static const u8 sText_NewGame_Text_Hard[] = _(" Hard Mode is a bit of a challeng
 static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
 {
     const u8 colors[3] = {0,  5,  3}; 
-    const u8 colors2[3] = {0,  6,  7}; 
+    const u8 colors2[3] = {0,  8,  5}; 
     u32 i = 0;
 
     FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
@@ -1362,11 +1362,11 @@ static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
     AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Hard, 14 * 8) + 64, 82, 0, 0, colors, 0xFF, sText_NewGame_Button_Hard);
 
     if (sNewGameSelectedOption == 0)
-        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Custom);
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Custom);
     else if(sNewGameSelectedOption == 1)
-        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Normal);
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Normal);
     else
-        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120, 0, 0, colors2, 0xFF, sText_NewGame_Text_Hard);
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Hard);
 
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);

@@ -304,7 +304,7 @@ static void Task_TrainerStatsTurnOff(u8 taskId)
         
 		if (sTrainerStatsDataPtr->returnMode == STATS_MODE_HALL_OF_FAME)
 		{
-			if(FlagGet(FLAG_RUN_ENDED_SCREEN))
+			if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
 			{
 				SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
 			}

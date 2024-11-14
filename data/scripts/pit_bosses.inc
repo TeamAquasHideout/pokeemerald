@@ -19,6 +19,10 @@ PitBoss_CommonScriptDoubles::
 PitBoss_CommonAfterBattleScript::
 	clearflag FLAG_START_BOSS_ENCOUNTER
 	goto_if_eq VAR_PIT_FLOOR, 100, PitBoss_FinalBossAfterBattle
+	callnative Check50FloorMode
+	goto_if_eq VAR_TEMP_A, 0, PitBoss_ContinueAfterBattleScript
+	goto_if_eq VAR_PIT_FLOOR, 50, PitBoss_FinalBossAfterBattle
+PitBoss_ContinueAfterBattleScript::
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitBoss_NoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT
