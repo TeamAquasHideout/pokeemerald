@@ -1230,6 +1230,23 @@ static void PrintSaveConfirmToWindow()
     CopyWindowToVram(WINDOW_BOTTOM_BAR, COPYWIN_FULL);
 }
 
+//
+//  Confirm Save Dialogue Printer
+//
+static const u8 sText_SavingNow[] = _("Saving...");
+static void PrintSaveHappening(void)
+{
+    u8 sConfirmTextColors[] = {TEXT_COLOR_TRANSPARENT, 2, 3};
+    u8 x = 100;
+    u8 y = 0;
+    
+    FillWindowPixelBuffer(WINDOW_BOTTOM_BAR, PIXEL_FILL(5));
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, 1, x, y, 0, 0, sConfirmTextColors, 0xFF, sText_SavingNow);
+    PutWindowTilemap(WINDOW_BOTTOM_BAR);
+    CopyWindowToVram(WINDOW_BOTTOM_BAR, COPYWIN_FULL);
+}
+
+
 
 //
 //  Print Time, Location, Day of Week and Time Indicator
@@ -1447,9 +1464,15 @@ void Task_HandleSaveConfirmation(u8 taskId)
     if(JOY_NEW(A_BUTTON)) //confirm and leave
     {
         PlaySE(SE_SELECT);
-        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-        gTasks[taskId].func = Task_ReturnToFieldOnSave;
-        gFieldCallback = SaveStartCallback_FullStartMenu;
+        //BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        PrintSaveHappening();
+        AutoSaveDoSaveCallback();
+        gTasks[taskId].func = Task_StartMenuFullMain;
+        FillWindowPixelBuffer(WINDOW_BOTTOM_BAR, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+        PutWindowTilemap(WINDOW_BOTTOM_BAR);
+        CopyWindowToVram(WINDOW_BOTTOM_BAR, COPYWIN_FULL);
+        PlaySE(SE_SELECT);
+        //gFieldCallback = SaveStartCallback_FullStartMenu;
         return;
     }
     if(JOY_NEW(B_BUTTON)) // back to normal Menu Control
