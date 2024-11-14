@@ -2115,8 +2115,9 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             {
                 item = GetRandomHeldItemOpponent();
                 
+#ifdef PIT_GEN_9_MODE
                 //overwrite with Mega Stones
-                if (FlagGet(FLAG_MEGAS))
+                if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                 {
                     u16 odds;
                     odds = (Random() % 100);
@@ -2129,6 +2130,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             item = megaStone;
                     }
                 }
+#endif
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &item);
             }

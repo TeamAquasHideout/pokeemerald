@@ -201,7 +201,7 @@ static void GenerateRandomSpeciesForCase(void)
             do
             {
                 rerollMon = FALSE;
-                if (FlagGet(FLAG_NO_LEGENDARIES) || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
+                if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
                 {
                     while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 10)
                     {
@@ -254,7 +254,7 @@ static void GenerateRandomSpeciesForCase(void)
         else
         {
             //reroll in case any legendaries, mythics or ultra beasts are determined
-            if (FlagGet(FLAG_NO_LEGENDARIES) || (sRolledLegendAlready && (Random() % 20)))
+            if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 20)))
             {
                 while ((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) && counter < 1000)
                 {

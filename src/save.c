@@ -108,6 +108,7 @@ EWRAM_DATA u16 statsAllClears;
 EWRAM_DATA u8 modeDefault;
 EWRAM_DATA u8 modeBattleMode;
 EWRAM_DATA u8 modeNoCaseChoice;
+EWRAM_DATA u8 mode50Floors;
 EWRAM_DATA u8 modeSaveDeletion;
 EWRAM_DATA u8 modeStatChanger;
 EWRAM_DATA u8 modeLegendaries;

@@ -28,6 +28,7 @@
 #include "data.h"
 #include "gba/types.h"
 #include "constants/global.h"
+#include "pit.h"
 
 // This file's functions.
 static u8 GetWonderTradeOT(u8 *name);
@@ -93,7 +94,7 @@ static u32 ReturnRandomSpecies()
         {
             rerollMon = FALSE;
             //reroll in case any legendaries, mythics or ultra beasts are determined
-            if (FlagGet(FLAG_NO_LEGENDARIES))
+            if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
             {
                 while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies()) && counter < 10)
                 {
@@ -142,7 +143,7 @@ static u32 ReturnRandomSpecies()
     else
     {
         //reroll in case any legendaries, mythics or ultra beasts are determined
-        if (FlagGet(FLAG_NO_LEGENDARIES))
+        if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
         {
             while ((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) && counter < 100)
             {

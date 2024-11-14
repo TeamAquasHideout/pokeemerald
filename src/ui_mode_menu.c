@@ -38,28 +38,6 @@
 #include "main_menu.h"
 #include "pit.h"
 
-//defines
-#define MODE_SINGLES     0
-#define MODE_DOUBLES     1
-#define MODE_MIXED_SINGLES_AND_DOUBLES    2
-#define RANDOM_MONS      0
-#define RANDOM_ALL       1
-#define XP_75            0
-#define XP_50            1
-#define XP_NONE          2
-#define ACTIVE           0
-#define INACTIVE         1
-#define YES              0
-#define NO               1
-#define MEGAS_ON         0
-#define MEGAS_OFF        1
-#define HEAL_FLOORS_5    0
-#define HEAL_FLOORS_10   1
-#define RANDOM_B_WEATHER 0
-#define OW_B_WEATHER     1
-#define NO_B_WEATHER     2
-
-
 
 // This code is based on Ghoulslash's excellent UI tutorial:
 // https://www.pokecommunity.com/showpost.php?p=10441093
@@ -565,9 +543,9 @@ static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party
 static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe random Birch Case options.");
 static const u8 sText_Desc_SaveDeletion_On[]    = _("Your save state will be deleted\nwhen fainting.");
 static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your save state will not be deleted\nwhen fainting.");
-static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after winning a battle.");
-static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after winning a battle.");
-static const u8 sText_Desc_DoubleCash_05x[]     = _("Halves the amount of money\nreceived after winning a battle.");
+static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
+static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
+static const u8 sText_Desc_DoubleCash_05x[]     = _("EXTRA HARD! Halves the amount of\nmoney received after a battle.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
 static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
 static const u8 sText_Desc_RandBWeather_Off[]   = _("Weather during battles is turned off.");
@@ -1323,7 +1301,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
 }
 
-static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
+static void Task_ModeMenuSave(u8 taskId)
 {
     //write in saveblock
     //run settings
@@ -1356,39 +1334,19 @@ static void Task_ModeMenuSave(u8 taskId) // ToDo: add missing flags handling
     //####################### run settings #######################
     if (sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_DOUBLES)
         FlagSet(FLAG_DOUBLES_MODE);
-    else if(sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_MIXED_SINGLES_AND_DOUBLES)
+    else if(sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_MIXED)
     {
-        FlagSet(FLAG_MIXED_DOUBLES_MODE);
         FlagClear(FLAG_DOUBLES_MODE);
     }
     else
     {
         FlagClear(FLAG_DOUBLES_MODE);
-        FlagClear(FLAG_MIXED_DOUBLES_MODE);
     }
 
-    //MENUITEM_DIFF_SAVE_DELETION
-
-    if (sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER] == ACTIVE)
+    if (sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER] == OPTIONS_ON)
         FlagSet(FLAG_STAT_CHANGER);
     else
         FlagClear(FLAG_STAT_CHANGER);
-
-    // MENUITEM_DIFF_DOUBLE_CASH is handled directly from the saveblock data modeCashRewards
-
-    // MENUITEM_DIFF_HEALFLOORS is handled directly from the saveblock data modeHealFloors10
-
-    if (sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES] == NO)
-        FlagSet(FLAG_NO_LEGENDARIES);
-    else
-        FlagClear(FLAG_NO_LEGENDARIES);
-
-    #ifdef PIT_GEN_9_MODE
-    if (sOptions->sel_diff[MENUITEM_DIFF_MEGAS] == MEGAS_OFF)
-        FlagClear(FLAG_MEGAS);
-    else
-        FlagSet(FLAG_MEGAS);
-    #endif
 
 
     //####################### randomizer settings #######################
@@ -1845,37 +1803,38 @@ static void ApplyPresets(void)
 
     //general defaults:
     //run settings
-    sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED_SINGLES_AND_DOUBLES;
-    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = NO;
-    sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = NO;
+    sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
+    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     //difficulty settings
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
-    sOptions->sel_rand[MENUITEM_RAND_MOVES]         = NO;
-    sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = NO;
-    sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = NO;
-    sOptions->sel_rand[MENUITEM_RAND_TYPES]         = NO;
+    sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_OFF;
+    sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = OPTIONS_OFF;
+    sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = OPTIONS_OFF;
+    sOptions->sel_rand[MENUITEM_RAND_TYPES]         = OPTIONS_OFF;
+    sOptions->sel_rand[MENUITEM_RAND_EVOS]          = OPTIONS_OFF;
 
     switch(sOptions->sel_presets[MENUITEM_PRESET_MODE])
     {
         case PRESET_NORMAL:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
-            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = NO;
-            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = ACTIVE;
-            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = YES;
+            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
             #ifdef PIT_GEN_9_MODE
-            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = MEGAS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_OFF;
             #endif
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
-            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = YES;
-            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = INACTIVE;
-            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = NO;
+            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             #ifdef PIT_GEN_9_MODE
-            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = MEGAS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
             #endif
             break;
         default:

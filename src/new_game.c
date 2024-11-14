@@ -140,10 +140,10 @@ void SetDefaultOptions(void)
     {
         //run settings
         gSaveBlock2Ptr->modeDefault = 0;
-        gSaveBlock2Ptr->modeBattleMode = 2;
+        gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
-        gSaveBlock2Ptr->mode50Floors = 0;
+        gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
@@ -166,19 +166,20 @@ void SetDefaultOptions(void)
 
 void SetOnMapLoadDefaultOptions(void)
 {
-    //set options flags/vars --> game mode flags/vars will be set from the ui_mode_menu
+    //set options flags/vars, because all flags/vars are cleared after the intro menus
     VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
 
     if (gSaveBlock2Ptr->optionsRandomMaps == ON)
         FlagSet(FLAG_RANDOM_MAPS);
-    else
-        FlagClear(FLAG_RANDOM_MAPS);
 
-    //optionsRandomMusic is used without an additional flag
     if (gSaveBlock2Ptr->optionsFollowMonsOff)
         FlagSet(FLAG_FOLLOWERS_OFF);
-    else
-        FlagClear(FLAG_FOLLOWERS_OFF);
+
+    if (gSaveBlock2Ptr->modeBattleMode == MODE_DOUBLES)
+        FlagSet(FLAG_DOUBLES_MODE);
+
+    if (gSaveBlock2Ptr->modeStatChanger == ON)
+        FlagSet(FLAG_STAT_CHANGER);
 }
 
 #undef ON

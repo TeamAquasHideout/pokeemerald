@@ -48,18 +48,18 @@
 #define FLAG_RANDOM_MODE     0x22 // this is currently no longer used after mode menu overhaul
 #define FLAG_DOUBLES_MODE    0x23 // Unused Flag
 #define FLAG_HARD_MODE       0x24 // this is currently no longer used after mode menu overhaul
-#define FLAG_NO_LEGENDARIES  0x25 // Unused Flag
-#define FLAG_NO_DUPLICATES   0x26 // Unused Flag
-#define FLAG_XPSHARE_50      0x27 // Unused Flag
+#define FLAG_NO_LEGENDARIES  0x25 // this is currently no longer used after mode menu overhaul
+#define FLAG_NO_DUPLICATES   0x26 // this is currently no longer used after mode menu overhaul
+#define FLAG_XPSHARE_50      0x27 // this is currently no longer used after mode menu overhaul
 #define FLAG_STAT_CHANGER    0x28 // Unused Flag
 #define FLAG_SAVING_FIELD_EFFECT    0x29 // Unused Flag
 #define FLAG_AUTO_SAVE    	 0x2A // Unused Flag
 #define FLAG_STAT_EDIT_PAID  0x2B // Unused Flag - Used to handle the stat editor for the IV merchant
 #define FLAG_END_AUDIO_EARLY 0x2C // Unused Flag
 #define FLAG_FRLG_PLAYER     0x2D // Unused Flag
-#define FLAG_MEGAS           0x2E // Unused Flag
+#define FLAG_MEGAS           0x2E // this is currently no longer used after mode menu overhaul
 #define FLAG_FLOOR_100       0x2F // Unused Flag
-#define FLAG_MIXED_DOUBLES_MODE    0x30 // Unused Flag
+#define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031     0x31 // Unused Flag
 #define FLAG_TM_SHOP         0x32 // Unused Flag
 #define FLAG_RANDOM_MAPS     0x33 // Unused Flag

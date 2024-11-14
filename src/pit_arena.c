@@ -137,7 +137,7 @@ void SetRandomTrainers(void)
     u16 trainerCount = 0;
     u16 trainers[4] = {0, 0, 0, 0};
 
-    if(FlagGet(FLAG_MIXED_DOUBLES_MODE))
+    if(gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
     {
         SetRandomTrainersMixedDoubles();
         return;
@@ -2274,7 +2274,7 @@ void Check50FloorMode(void)
         VarSet(VAR_TEMP_A, 0);
 }
 
-void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
+void UpdateRunningStats(void)
 {
     gSaveBlock2Ptr->statsAllAttempts++;
 
