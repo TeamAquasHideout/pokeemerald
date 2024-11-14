@@ -145,6 +145,7 @@ void SaveOverallStatsAndSettings(void)
     modeDefault = gSaveBlock2Ptr->modeDefault;
     modeBattleMode = gSaveBlock2Ptr->modeBattleMode;
     modeNoCaseChoice = gSaveBlock2Ptr->modeNoCaseChoice;
+    mode50Floors = gSaveBlock2Ptr->mode50Floors;
     modeSaveDeletion = gSaveBlock2Ptr->modeSaveDeletion;
     modeStatChanger = gSaveBlock2Ptr->modeStatChanger;
     modeLegendaries = gSaveBlock2Ptr->modeLegendaries;
@@ -180,6 +181,7 @@ void ReloadOverallStatsAndSettings(void)
     gSaveBlock2Ptr->modeDefault = modeDefault;
     gSaveBlock2Ptr->modeBattleMode = modeBattleMode;
     gSaveBlock2Ptr->modeNoCaseChoice = modeNoCaseChoice;
+    gSaveBlock2Ptr->mode50Floors = mode50Floors;
     gSaveBlock2Ptr->modeSaveDeletion = modeSaveDeletion;
     gSaveBlock2Ptr->modeStatChanger = modeStatChanger;
     gSaveBlock2Ptr->modeLegendaries = modeLegendaries;

@@ -69,6 +69,7 @@ enum MenuItems_Run
     MENUITEM_RUN_BATTLEMODE,
     MENUITEM_RUN_3_MONS_ONLY,
     MENUITEM_RUN_NO_CASE_CHOICE,
+    MENUITEM_RUN_50_FLOORS,
     //MENUITEM_RUN_DUPLICATES,
     MENUITEM_RUN_CANCEL,
     MENUITEM_RUN_COUNT,
@@ -284,6 +285,7 @@ static void ReDrawAll(void);
 static void DrawChoices_BattleMode(int selection, int y);
 //static void DrawChoices_Randomizer(int selection, int y);
 static void DrawChoices_3MonsOnly(int selection, int y);
+static void DrawChoices_50Floors(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_SaveDeletion(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
@@ -313,6 +315,7 @@ struct Menu_Run //MENU_RUN
     [MENUITEM_RUN_BATTLEMODE]     = {DrawChoices_BattleMode,   ProcessInput_Options_Three},
     [MENUITEM_RUN_3_MONS_ONLY]    = {DrawChoices_3MonsOnly,    ProcessInput_Options_Two},
     [MENUITEM_RUN_NO_CASE_CHOICE] = {DrawChoices_NoCaseChoice, ProcessInput_Options_Two},
+    [MENUITEM_RUN_50_FLOORS]      = {DrawChoices_50Floors,     ProcessInput_Options_Two},
     //[MENUITEM_RUN_DUPLICATES]     = {DrawChoices_Duplicates,  ProcessInput_Options_Two},
     [MENUITEM_RUN_CANCEL]         = {NULL, NULL},
 };
@@ -377,6 +380,7 @@ static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
 static const u8 sText_SaveDeletion[] = _("SAVE DELETION");
 static const u8 sText_DoubleCash[]   = _("CASH RATE");
+static const u8 sText_50Floors[]     = _("50 FLOORS");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
 static const u8 sText_Moves[]        = _("MOVES");
@@ -395,6 +399,7 @@ static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
     [MENUITEM_RUN_BATTLEMODE]     = sText_BattleMode,
     [MENUITEM_RUN_3_MONS_ONLY]    = sText_3MonsOnly,
     [MENUITEM_RUN_NO_CASE_CHOICE] = sText_NoCaseChoice,
+    [MENUITEM_RUN_50_FLOORS]      = sText_50Floors,
     //[MENUITEM_RUN_DUPLICATES]   = sText_Duplicates,
     [MENUITEM_RUN_CANCEL]         = sText_Cancel,
 };
@@ -459,6 +464,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_RUN_BATTLEMODE:     return TRUE;
                 case MENUITEM_RUN_3_MONS_ONLY:    return TRUE;
                 case MENUITEM_RUN_NO_CASE_CHOICE: return TRUE;
+                case MENUITEM_RUN_50_FLOORS:      return TRUE;
                 //case MENUITEM_RUN_DUPLICATES:     return TRUE;
                 case MENUITEM_RUN_CANCEL:         return TRUE;
                 case MENUITEM_RUN_COUNT:          return TRUE;
@@ -546,6 +552,8 @@ static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your save state will not be
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_05x[]     = _("EXTRA HARD! Halves the amount of\nmoney received after a battle.");
+static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
+static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
 static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
 static const u8 sText_Desc_RandBWeather_Off[]   = _("Weather during battles is turned off.");
@@ -565,6 +573,7 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
     [MENUITEM_RUN_BATTLEMODE]     = {sText_Desc_BattleMode_Singles,  sText_Desc_BattleMode_Doubles,  sText_Desc_BattleMode_Mix},
     [MENUITEM_RUN_3_MONS_ONLY]    = {sText_Desc_3Mons_On,            sText_Desc_3Mons_Off,           sText_Empty},
     [MENUITEM_RUN_NO_CASE_CHOICE] = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
+    [MENUITEM_RUN_50_FLOORS]      = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
     //[MENUITEM_RUN_DUPLICATES]     = {sText_Desc_Duplicates_On,       sText_Desc_Duplicates_Off,      sText_Empty},
     [MENUITEM_RUN_CANCEL]         = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
 };
@@ -780,12 +789,11 @@ static void ModeMenu_SetupCB(void)
         break;
     case 6:
         //run settings
-        //sOptions->sel_run[MENUITEM_RUN_AUTOSAVE]        = gSaveBlock2Ptr->optionsAutosave;
         sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = gSaveBlock2Ptr->modeBattleMode;
         sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = gSaveBlock2Ptr->mode3MonsOnly;
         sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = gSaveBlock2Ptr->modeNoCaseChoice;
+        sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = !(gSaveBlock2Ptr->mode50Floors);
         //sOptions->sel_run[MENUITEM_RUN_DUPLICATES]      = gSaveBlock2Ptr->modeDuplicates;
-        //sOptions->sel_run[MENUITEM_RUN_RANDOMIZER]      = gSaveBlock2Ptr->modeRandomizer;
         //difficulty settings
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
         sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = gSaveBlock2Ptr->modeSaveDeletion;
@@ -797,12 +805,12 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
         //randomizer settings
-        sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = (gSaveBlock2Ptr->randomBattleWeather);
-        sOptions->sel_rand[MENUITEM_RAND_MOVES]         = (gSaveBlock2Ptr->randomMoves);
-        sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = (gSaveBlock2Ptr->randomAbilities);
-        sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = (gSaveBlock2Ptr->randomBST);
-        sOptions->sel_rand[MENUITEM_RAND_TYPES]         = (gSaveBlock2Ptr->randomType);
-        sOptions->sel_rand[MENUITEM_RAND_EVOS]          = (gSaveBlock2Ptr->randomEvos);
+        sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = gSaveBlock2Ptr->randomBattleWeather;
+        sOptions->sel_rand[MENUITEM_RAND_MOVES]         = gSaveBlock2Ptr->randomMoves;
+        sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = gSaveBlock2Ptr->randomAbilities;
+        sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]    = gSaveBlock2Ptr->randomBST;
+        sOptions->sel_rand[MENUITEM_RAND_TYPES]         = gSaveBlock2Ptr->randomType;
+        sOptions->sel_rand[MENUITEM_RAND_EVOS]          = gSaveBlock2Ptr->randomEvos;
         gMain.state++;
         break;
     case 7:
@@ -1308,6 +1316,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeBattleMode   = sOptions->sel_run[MENUITEM_RUN_BATTLEMODE];
     gSaveBlock2Ptr->mode3MonsOnly    = sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY];
     gSaveBlock2Ptr->modeNoCaseChoice = sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE];
+    gSaveBlock2Ptr->mode50Floors     = !(sOptions->sel_run[MENUITEM_RUN_50_FLOORS]);
     //gSaveBlock2Ptr->modeDuplicates   = sOptions->sel_run[MENUITEM_RUN_DUPLICATES];
 
     //difficulty settings
@@ -1322,12 +1331,12 @@ static void Task_ModeMenuSave(u8 taskId)
     #endif
 
     //randomizer settings
-    gSaveBlock2Ptr->randomBattleWeather    = (sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]);
-    gSaveBlock2Ptr->randomMoves            = (sOptions->sel_rand[MENUITEM_RAND_MOVES]);
-    gSaveBlock2Ptr->randomAbilities        = (sOptions->sel_rand[MENUITEM_RAND_ABILITIES]);
-    gSaveBlock2Ptr->randomBST              = (sOptions->sel_rand[MENUITEM_RAND_BASE_STATS]);
-    gSaveBlock2Ptr->randomType             = (sOptions->sel_rand[MENUITEM_RAND_TYPES]);
-    gSaveBlock2Ptr->randomEvos             = (sOptions->sel_rand[MENUITEM_RAND_EVOS]);
+    gSaveBlock2Ptr->randomBattleWeather    = sOptions->sel_rand[MENUITEM_RAND_B_WEATHER];
+    gSaveBlock2Ptr->randomMoves            = sOptions->sel_rand[MENUITEM_RAND_MOVES];
+    gSaveBlock2Ptr->randomAbilities        = sOptions->sel_rand[MENUITEM_RAND_ABILITIES];
+    gSaveBlock2Ptr->randomBST              = sOptions->sel_rand[MENUITEM_RAND_BASE_STATS];
+    gSaveBlock2Ptr->randomType             = sOptions->sel_rand[MENUITEM_RAND_TYPES];
+    gSaveBlock2Ptr->randomEvos             = sOptions->sel_rand[MENUITEM_RAND_EVOS];
 
 
     //set flags/vars
@@ -1571,6 +1580,16 @@ static void DrawChoices_NoCaseChoice(int selection, int y)
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
+static void DrawChoices_50Floors(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_RUN_50_FLOORS);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+
 static void DrawChoices_SaveDeletion(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_DIFF_SAVE_DELETION);
@@ -1806,6 +1825,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
     //difficulty settings
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
