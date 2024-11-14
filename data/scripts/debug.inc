@@ -195,7 +195,7 @@ Debug_EventScript_Script_6::
 Debug_EventScript_Script_7::
 	setflag FLAG_FLOOR_CLEARED
 	callnative SetWarpTileActive
-	setvar VAR_PIT_FLOOR, 24
+	setvar VAR_PIT_FLOOR, 49
 	additem ITEM_RARE_CANDY, 99
 	special DrawWholeMapView
 	end

@@ -645,7 +645,7 @@ static void Task_Hof_PaletteFadeAndPrintWelcomeText(u8 taskId)
     }
 
     HallOfFame_PrintWelcomeText(0, 15);
-    if(!FlagGet(FLAG_RUN_ENDED_SCREEN))
+    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors))))
         PlaySE(SE_APPLAUSE);
     gTasks[taskId].tFrameCount = 400;
     gTasks[taskId].func = Task_Hof_DoConfetti;
@@ -653,7 +653,7 @@ static void Task_Hof_PaletteFadeAndPrintWelcomeText(u8 taskId)
 
 static void Task_Hof_DoConfetti(u8 taskId)
 {
-    if ((gTasks[taskId].tFrameCount != 0) && !FlagGet(FLAG_RUN_ENDED_SCREEN))
+    if ((gTasks[taskId].tFrameCount != 0) && !(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors))))
     {
         gTasks[taskId].tFrameCount--;
 
@@ -719,7 +719,7 @@ static void Task_Hof_DisplayPlayer(u8 taskId)
     gTasks[taskId].tFrameCount = 60;
     gTasks[taskId].func = Task_Hof_WaitAndPrintPlayerInfo;
     DrawDialogueFrame(0, FALSE);
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN))
+    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LostRunChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
     else
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LeagueChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);        
@@ -741,7 +741,7 @@ static void Task_Hof_WaitAndPrintPlayerInfo(u8 taskId)
         FillBgTilemapBufferRect_Palette0(0, 0, 0, 0, 0x20, 0x20);
         HallOfFame_PrintPlayerInfo(1, 2);
         DrawDialogueFrame(0, FALSE);
-        if(FlagGet(FLAG_RUN_ENDED_SCREEN))
+        if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
             AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LostRunChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
         else
             AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LeagueChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);        
@@ -967,7 +967,7 @@ static void Task_HofPC_DrawSpritesPrintText(u8 taskId)
 
     BlendPalettes(PALETTES_OBJECTS, 0xC, RGB(16, 29, 24));
 
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN))
+    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
     {
         ConvertIntToDecimalStringN(gStringVar1, VarGet(VAR_PIT_FLOOR), STR_CONV_MODE_LEFT_ALIGN, 3);
         //StringExpandPlaceholders(gStringVar4, gText_LostRunNumber);
@@ -1143,7 +1143,7 @@ static void HallOfFame_PrintWelcomeText(u8 unusedPossiblyWindowId, u8 unused2)
 {
     FillWindowPixelBuffer(0, PIXEL_FILL(0));
     PutWindowTilemap(0);
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (VarGet(VAR_PIT_FLOOR) <= 100))
+    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_LostRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_LostRunHOF);
     else
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_WonRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_WonRunHOF);

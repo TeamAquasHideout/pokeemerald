@@ -514,7 +514,7 @@ static const u8 sDebugText_Util_Script_3[] = _("Advance To Archie");
 static const u8 sDebugText_Util_Script_4[] = _("Change Outfit");
 static const u8 sDebugText_Util_Script_5[] = _("Floor 10 (Move Tutor)");
 static const u8 sDebugText_Util_Script_6[] = _("Give 3 Lvl 100s");
-static const u8 sDebugText_Util_Script_7[] = _("Floor 25 (+ Candy)");
+static const u8 sDebugText_Util_Script_7[] = _("Floor 50 (+ Candy)");
 static const u8 sDebugText_Util_Script_8[] = _("Blank");
 // Util Menu
 static const u8 sDebugText_Util_FlyToMap[] =                 _("Fly to map…{CLEAR_TO 110}{RIGHT_ARROW}");

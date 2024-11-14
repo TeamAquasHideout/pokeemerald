@@ -1604,7 +1604,7 @@ static void Task_PCMainMenu(u8 taskId)
             DestroyTask(taskId);
             break;
         default:
-            if (((task->tInput == OPTION_WITHDRAW) && (CountPartyMons() == PARTY_SIZE)) && (VarGet(VAR_PIT_FLOOR) > 0))
+            if (((task->tInput == OPTION_WITHDRAW) && (CountPartyMons() == PARTY_SIZE)) || (VarGet(VAR_PIT_FLOOR) > 0))
             {
                 // Can't withdraw
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));

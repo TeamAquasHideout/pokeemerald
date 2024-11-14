@@ -143,6 +143,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeBattleMode = 2;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
+        gSaveBlock2Ptr->mode50Floors = 0;
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;

@@ -2266,6 +2266,14 @@ void Check3MonMode(void)
         VarSet(VAR_TEMP_A, 0);
 }
 
+void Check50FloorMode(void)
+{
+    if(gSaveBlock2Ptr->mode50Floors)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
 void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
 {
     gSaveBlock2Ptr->statsAllAttempts++;
