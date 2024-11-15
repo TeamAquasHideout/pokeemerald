@@ -679,7 +679,7 @@ u16 GetPrimaryTilesetIdCurrentMap(void)
 
 struct RandomMonEncounters {
     u16 species;
-    u16 flagId; // id into gSaveBlock2Ptr->randomMonEncounters not normal flags
+    u16 flagId; // id into gSaveBlock1Ptr->randomMonEncounters not normal flags
     const u8 *monScript;
     const u8 *alreadyUsedScript;
 };
@@ -772,7 +772,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
 
 u8 *GetEncounterFlagPointer(u16 id)
 {
-    return &gSaveBlock2Ptr->randomMonEncounters[id / 8];
+    return &gSaveBlock1Ptr->randomMonEncounters[id / 8];
 }
 
 u8 EncounterFlagSet(u16 id)
@@ -1128,7 +1128,7 @@ void TrySetRandomMusic(void)
 struct RandomBossEncounters {
     u16 graphicsId;
     u16 trainerPic;
-    u16 flagId; // id into gSaveBlock2Ptr->randomBossEncounters not normal flags
+    u16 flagId; // id into gSaveBlock1Ptr->randomBossEncounters not normal flags
     const u8 *bossName;
     const u8 *bossApproachText;
     const u8 *bossLoseText;
@@ -1864,7 +1864,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 
 u8 *GetBossEncounterFlagPointer(u16 id)
 {
-    return &gSaveBlock2Ptr->randomBossEncounters[id / 8];
+    return &gSaveBlock1Ptr->randomBossEncounters[id / 8];
 }
 
 u8 BossEncounterFlagSet(u16 id)

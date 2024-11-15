@@ -196,9 +196,6 @@ struct Pokedex
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
     /*0x0C*/ u32 unknown3;
-#if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2 == FALSE
-    /*0x10*/ u8 filler[0x68]; // Previously Dex Flags, feel free to remove.
-#endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2
 };
 
 struct PokemonJumpRecords
@@ -498,6 +495,9 @@ struct RankingHall2P
 
 struct SaveBlock2
 {
+    /*0x18*/ struct Pokedex pokedex;
+    /*0x98*/ struct Time localTimeOffset;
+    /*0xAC*/ u32 encryptionKey;
     /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
     /*0x08*/ u8 playerGender; // MALE, FEMALE
     /*0x09*/ u8 specialSaveWarpFlags;
@@ -506,6 +506,8 @@ struct SaveBlock2
     /*0x10*/ u8 playTimeMinutes;
     /*0x11*/ u8 playTimeSeconds;
     /*0x12*/ u8 playTimeVBlanks;
+             u8 playerGfxType;
+
     /*0x13*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
     /*0x14*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/INSTANT]
              u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
@@ -514,9 +516,10 @@ struct SaveBlock2
              u16 optionsBattleSceneOff:1; // whether battle animations are disabled
              u16 regionMapZoom:1; // whether the map is zoomed in
              u16 padding1:4;  // uncommented because its free padding space
-             u16 padding2:15; // uncommented because its free padding space
+            // end of u16
              u16 mode50Floors:1;
-    /*0x18*/ struct Pokedex pokedex;
+             u16 padding2:15; // uncommented because its free padding space
+            // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
              u16 modeNoCaseChoice:1;
@@ -542,10 +545,7 @@ struct SaveBlock2
              u16 randomBattleWeather:2;
              u16 filler_9912:4;
              //end of u16
-             u8 randomBossEncounters[2];
-             u8 randomMonEncounters[2];
-             u8 playerGfxType;
-    /*0x98*/ struct Time localTimeOffset;
+
     // #### running stats for The Pit - START ####
     /*0xA0*/ u16 statsAllAttempts;
              u16 statsRunRevives;
@@ -554,20 +554,7 @@ struct SaveBlock2
              u16 statsRunKOs;
              u16 statsPadding2;
     // #### running stats for The Pit - END ####
-    /*0xAC*/ u32 encryptionKey;
-    /*0xB0*/ struct PlayersApprentice playerApprentice;
-    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
-    /*0x1EC*/ struct BerryCrush berryCrush;
-#if FREE_POKEMON_JUMP == FALSE
-    /*0x1FC*/ struct PokemonJumpRecords pokeJump;
-#endif //FREE_POKEMON_JUMP
-    /*0x20C*/ struct BerryPickingResults berryPick;
-#if FREE_RECORD_MIXING_HALL_RECORDS == FALSE
-    /*0x21C*/ struct RankingHall1P hallRecords1P[HALL_FACILITIES_COUNT][FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-#endif //FREE_RECORD_MIXING_HALL_RECORDS
-    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
-    /*0x64C*/ struct BattleFrontier frontier;
+
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -1125,6 +1112,12 @@ struct SaveBlock1
 #endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3???
+   /*0x64C*/ struct BattleFrontier frontier;
+    /*0xB0*/ struct PlayersApprentice playerApprentice;
+    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
+    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
+    u8 randomBossEncounters[2];
+    u8 randomMonEncounters[2];
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;

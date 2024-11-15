@@ -83,15 +83,15 @@ void CallBattlePalaceFunction(void)
 
 static void InitPalaceChallenge(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
     u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
 
-    gSaveBlock2Ptr->frontier.challengeStatus = 0;
-    gSaveBlock2Ptr->frontier.curChallengeBattleNum = 0;
-    gSaveBlock2Ptr->frontier.challengePaused = FALSE;
-    gSaveBlock2Ptr->frontier.disableRecordBattle = FALSE;
-    if (!(gSaveBlock2Ptr->frontier.winStreakActiveFlags & sWinStreakFlags[battleMode][lvlMode]))
-        gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] = 0;
+    gSaveBlock1Ptr->frontier.challengeStatus = 0;
+    gSaveBlock1Ptr->frontier.curChallengeBattleNum = 0;
+    gSaveBlock1Ptr->frontier.challengePaused = FALSE;
+    gSaveBlock1Ptr->frontier.disableRecordBattle = FALSE;
+    if (!(gSaveBlock1Ptr->frontier.winStreakActiveFlags & sWinStreakFlags[battleMode][lvlMode]))
+        gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] = 0;
 
     SetDynamicWarp(0, gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE);
     gTrainerBattleOpponent_A = 0;
@@ -99,41 +99,41 @@ static void InitPalaceChallenge(void)
 
 static void GetPalaceData(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
     u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
 
     switch (gSpecialVar_0x8005)
     {
     case PALACE_DATA_PRIZE:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.palacePrize;
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.palacePrize;
         break;
     case PALACE_DATA_WIN_STREAK:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode];
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode];
         break;
     case PALACE_DATA_WIN_STREAK_ACTIVE:
-        gSpecialVar_Result = ((gSaveBlock2Ptr->frontier.winStreakActiveFlags & sWinStreakFlags[battleMode][lvlMode]) != 0);
+        gSpecialVar_Result = ((gSaveBlock1Ptr->frontier.winStreakActiveFlags & sWinStreakFlags[battleMode][lvlMode]) != 0);
         break;
     }
 }
 
 static void SetPalaceData(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
     u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
 
     switch (gSpecialVar_0x8005)
     {
     case PALACE_DATA_PRIZE:
-        gSaveBlock2Ptr->frontier.palacePrize = gSpecialVar_0x8006;
+        gSaveBlock1Ptr->frontier.palacePrize = gSpecialVar_0x8006;
         break;
     case PALACE_DATA_WIN_STREAK:
-        gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] = gSpecialVar_0x8006;
+        gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] = gSpecialVar_0x8006;
         break;
     case PALACE_DATA_WIN_STREAK_ACTIVE:
         if (gSpecialVar_0x8006)
-            gSaveBlock2Ptr->frontier.winStreakActiveFlags |= sWinStreakFlags[battleMode][lvlMode];
+            gSaveBlock1Ptr->frontier.winStreakActiveFlags |= sWinStreakFlags[battleMode][lvlMode];
         else
-            gSaveBlock2Ptr->frontier.winStreakActiveFlags &= sWinStreakMasks[battleMode][lvlMode];
+            gSaveBlock1Ptr->frontier.winStreakActiveFlags &= sWinStreakMasks[battleMode][lvlMode];
         break;
     }
 }
@@ -141,11 +141,11 @@ static void SetPalaceData(void)
 static void GetPalaceCommentId(void)
 {
     u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
-    if (gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < 50)
+    if (gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < 50)
         gSpecialVar_Result = Random() % 3;
-    else if (gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < 99)
+    else if (gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < 99)
         gSpecialVar_Result = 3;
     else
         gSpecialVar_Result = 4;
@@ -165,45 +165,45 @@ static void BufferOpponentIntroSpeech(void)
 
 static void IncrementPalaceStreak(void)
 {
-    u8 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u8 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
     u8 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
 
-    if (gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < MAX_STREAK)
+    if (gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] < MAX_STREAK)
     {
-        gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode]++;
+        gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode]++;
 
         // Whatever GF planned to do here, they messed up big time.
-        if (gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][(lvlMode > gSaveBlock2Ptr->frontier.palaceRecordWinStreaks[battleMode][lvlMode]) ? 1 : 0])
-            gSaveBlock2Ptr->frontier.palaceRecordWinStreaks[battleMode][lvlMode] = gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode];
+        if (gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][(lvlMode > gSaveBlock1Ptr->frontier.palaceRecordWinStreaks[battleMode][lvlMode]) ? 1 : 0])
+            gSaveBlock1Ptr->frontier.palaceRecordWinStreaks[battleMode][lvlMode] = gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode];
     }
 }
 
 static void SavePalaceChallenge(void)
 {
     ClearEnemyPartyAfterChallenge();
-    gSaveBlock2Ptr->frontier.challengeStatus = gSpecialVar_0x8005;
+    gSaveBlock1Ptr->frontier.challengeStatus = gSpecialVar_0x8005;
     VarSet(VAR_TEMP_CHALLENGE_STATUS, 0);
-    gSaveBlock2Ptr->frontier.challengePaused = TRUE;
+    gSaveBlock1Ptr->frontier.challengePaused = TRUE;
     SaveGameFrontier();
 }
 
 static void SetRandomPalacePrize(void)
 {
     u32 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
-    if (gSaveBlock2Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] > 41)
-        gSaveBlock2Ptr->frontier.palacePrize = sBattlePalaceLatePrizes[Random() % ARRAY_COUNT(sBattlePalaceLatePrizes)];
+    if (gSaveBlock1Ptr->frontier.palaceWinStreaks[battleMode][lvlMode] > 41)
+        gSaveBlock1Ptr->frontier.palacePrize = sBattlePalaceLatePrizes[Random() % ARRAY_COUNT(sBattlePalaceLatePrizes)];
     else
-        gSaveBlock2Ptr->frontier.palacePrize = sBattlePalaceEarlyPrizes[Random() % ARRAY_COUNT(sBattlePalaceEarlyPrizes)];
+        gSaveBlock1Ptr->frontier.palacePrize = sBattlePalaceEarlyPrizes[Random() % ARRAY_COUNT(sBattlePalaceEarlyPrizes)];
 }
 
 static void GivePalacePrize(void)
 {
-    if (AddBagItem(gSaveBlock2Ptr->frontier.palacePrize, 1) == TRUE)
+    if (AddBagItem(gSaveBlock1Ptr->frontier.palacePrize, 1) == TRUE)
     {
-        CopyItemName(gSaveBlock2Ptr->frontier.palacePrize, gStringVar1);
-        gSaveBlock2Ptr->frontier.palacePrize = 0;
+        CopyItemName(gSaveBlock1Ptr->frontier.palacePrize, gStringVar1);
+        gSaveBlock1Ptr->frontier.palacePrize = 0;
         gSpecialVar_Result = TRUE;
     }
     else
