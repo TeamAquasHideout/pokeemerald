@@ -25,6 +25,16 @@
 #define MAP_PIT_ARENA_WATER02        (16 | (0 << 8))
 #define MAP_PIT_ARENA_SNOW02         (17 | (0 << 8))
 #define MAP_PIT_ARENA_MINE02         (18 | (0 << 8))
+#define MAP_PIT_ARENA_BEACH02        (19 | (0 << 8))
+#define MAP_PIT_ARENA_BEACH03        (20 | (0 << 8))
+#define MAP_PIT_ARENA_BEACH04        (21 | (0 << 8))
+#define MAP_PIT_ARENA_DEEP_FOREST02  (22 | (0 << 8))
+#define MAP_PIT_ARENA_WHITE_BARK02   (23 | (0 << 8))
+#define MAP_PIT_ARENA_SNOW03         (24 | (0 << 8))
+#define MAP_PIT_ARENA_DESERT02       (25 | (0 << 8))
+#define MAP_PIT_ARENA_DIRT_PATH02    (26 | (0 << 8))
+#define MAP_PIT_ARENA_UNDERWATER02   (27 | (0 << 8))
+#define MAP_PIT_ARENA_MINE03         (28 | (0 << 8))
 
 // gMapGroup_TownsAndRoutes
 #define MAP_PETALBURG_CITY        (0 | (1 << 8))

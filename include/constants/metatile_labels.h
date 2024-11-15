@@ -407,6 +407,9 @@
 // gTileset_PitArenaBeach
 #define METATILE_PitArenaBeach_BEACH_WARP_ACTIVE  0x019
 
+// gTileset_PitArenaDeepForest
+#define METATILE_PitArenaDeepForest_DEEP_FOREST_WARP_ACTIVE  0x035
+
 // gTileset_PitArenaDesert
 #define METATILE_PitArenaDesert_DESERT_WARP_ACTIVE  0x006
 

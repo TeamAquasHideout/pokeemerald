@@ -1126,3 +1126,23 @@ EventScript_End:
 	.include "data/maps/PitArenaSnow02/scripts.inc"
 
 	.include "data/maps/PitArenaMine02/scripts.inc"
+
+	.include "data/maps/PitArenaBeach02/scripts.inc"
+
+	.include "data/maps/PitArenaBeach03/scripts.inc"
+
+	.include "data/maps/PitArenaBeach04/scripts.inc"
+
+	.include "data/maps/PitArenaDeepForest02/scripts.inc"
+
+	.include "data/maps/PitArenaWhiteBark02/scripts.inc"
+
+	.include "data/maps/PitArenaSnow03/scripts.inc"
+
+	.include "data/maps/PitArenaDesert02/scripts.inc"
+
+	.include "data/maps/PitArenaDirtPath02/scripts.inc"
+
+	.include "data/maps/PitArenaUnderwater02/scripts.inc"
+
+	.include "data/maps/PitArenaMine03/scripts.inc"
