@@ -4620,6 +4620,106 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PitArenaMine02/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaMine02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH02",
+      "name": "PitArenaBeach02_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaBeach02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeach02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH03",
+      "name": "PitArenaBeach03_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaBeach03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeach03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH04",
+      "name": "PitArenaBeach04_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaBeach04/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeach04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DEEP_FOREST02",
+      "name": "PitArenaDeepForest02_Layout",
+      "width": 36,
+      "height": 36,
+      "primary_tileset": "gTileset_PitArenaDeepForest",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDeepForest02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDeepForest02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_WHITE_BARK02",
+      "name": "PitArenaWhiteBark02_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaWhiteBark",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaWhiteBark02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaWhiteBark02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_SNOW03",
+      "name": "PitArenaSnow03_Layout",
+      "width": 26,
+      "height": 26,
+      "primary_tileset": "gTileset_PitArenaSnow",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaSnow03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaSnow03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DESERT02",
+      "name": "PitArenaDesert02_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaDesert",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDesert02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDesert02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DIRT_PATH02",
+      "name": "PitArenaDirtPath02_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaDirtPath",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDirtPath02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDirtPath02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_UNDERWATER02",
+      "name": "PitArenaUnderwater02_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaUnderwater",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaUnderwater02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaUnderwater02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_MINE03",
+      "name": "PitArenaMine03_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaMine",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaMine03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaMine03/map.bin"
     }
   ]
 }
