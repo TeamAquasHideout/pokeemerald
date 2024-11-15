@@ -675,7 +675,6 @@ static void LoadDefaultSettings(void)
 
 void LoadNormalModePresets(void)
 {
-    DebugPrintf("LoadNormalModePresets");
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
@@ -690,9 +689,9 @@ void LoadNormalModePresets(void)
 
 void LoadHardModePresets(void)
 {
-    DebugPrintf("LoadHardModePresets");
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeXP              = XP_50;
+    gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_ON;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     FlagClear(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
