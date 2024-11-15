@@ -654,6 +654,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
     //difficulty settings
+    gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
     gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_5;
     //randomizer settings
@@ -670,7 +671,6 @@ void LoadNormalModePresets(void)
     DebugPrintf("LoadNormalModePresets");
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeXP              = XP_75;
-    gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
     FlagSet(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
@@ -686,7 +686,6 @@ void LoadHardModePresets(void)
     DebugPrintf("LoadHardModePresets");
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeXP              = XP_50;
-    gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_ON;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     FlagClear(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;

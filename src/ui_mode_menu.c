@@ -1827,6 +1827,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
     //difficulty settings
+    sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
@@ -1841,7 +1842,6 @@ static void ApplyPresets(void)
     {
         case PRESET_NORMAL:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
-            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
             #ifdef PIT_GEN_9_MODE
@@ -1850,7 +1850,6 @@ static void ApplyPresets(void)
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
-            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             #ifdef PIT_GEN_9_MODE
