@@ -37,6 +37,7 @@
 #include "constants/rgb.h"
 #include "pit.h"
 #include "ui_trainer_stats.h"
+#include "load_save.h"
 
 #define HALL_OF_FAME_MAX_TEAMS 30
 #define TAG_CONFETTI 1001
@@ -407,7 +408,10 @@ static bool8 InitHallOfFameScreen(void)
         {
             //Delete Save file
             if (gSaveBlock2Ptr->modeSaveDeletion == OPTIONS_ON)
-                ClearSaveData();
+            {
+                ClearSav1();
+                ClearSav3();
+            }
             SetMainCallback2(CB2_HallOfFame);
             PlayBGM(MUS_HALL_OF_FAME);
             return FALSE;

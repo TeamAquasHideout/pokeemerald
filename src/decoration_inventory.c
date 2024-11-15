@@ -12,14 +12,14 @@ EWRAM_DATA struct DecorationInventory gDecorationInventories[DECORCAT_COUNT] = {
 
 void SetDecorationInventoriesPointers(void)
 {
-    SET_DECOR_INV(DECORCAT_DESK, gSaveBlock1Ptr->decorationDesks);
-    SET_DECOR_INV(DECORCAT_CHAIR, gSaveBlock1Ptr->decorationChairs);
-    SET_DECOR_INV(DECORCAT_PLANT, gSaveBlock1Ptr->decorationPlants);
-    SET_DECOR_INV(DECORCAT_ORNAMENT, gSaveBlock1Ptr->decorationOrnaments);
-    SET_DECOR_INV(DECORCAT_MAT, gSaveBlock1Ptr->decorationMats);
-    SET_DECOR_INV(DECORCAT_POSTER, gSaveBlock1Ptr->decorationPosters);
-    SET_DECOR_INV(DECORCAT_DOLL, gSaveBlock1Ptr->decorationDolls);
-    SET_DECOR_INV(DECORCAT_CUSHION, gSaveBlock1Ptr->decorationCushions);
+    SET_DECOR_INV(DECORCAT_DESK, gSaveBlock2Ptr->decorationDesks);
+    SET_DECOR_INV(DECORCAT_CHAIR, gSaveBlock2Ptr->decorationChairs);
+    SET_DECOR_INV(DECORCAT_PLANT, gSaveBlock2Ptr->decorationPlants);
+    SET_DECOR_INV(DECORCAT_ORNAMENT, gSaveBlock2Ptr->decorationOrnaments);
+    SET_DECOR_INV(DECORCAT_MAT, gSaveBlock2Ptr->decorationMats);
+    SET_DECOR_INV(DECORCAT_POSTER, gSaveBlock2Ptr->decorationPosters);
+    SET_DECOR_INV(DECORCAT_DOLL, gSaveBlock2Ptr->decorationDolls);
+    SET_DECOR_INV(DECORCAT_CUSHION, gSaveBlock2Ptr->decorationCushions);
     InitDecorationContextItems();
 }
 

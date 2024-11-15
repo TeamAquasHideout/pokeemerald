@@ -58,30 +58,6 @@ static void ResetMiniGamesRecords(void);
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
 
-EWRAM_DATA u8 newGameDexSeen[NUM_DEX_FLAG_BYTES];
-EWRAM_DATA u8 newGameDexCaught[NUM_DEX_FLAG_BYTES];
-
-void SavePokedexFlags(void)
-{
-    u16 i;
-    for (i = 0; i < NUM_DEX_FLAG_BYTES; i++)
-    {
-        newGameDexCaught[i] = gSaveBlock1Ptr->dexCaught[i];
-        newGameDexSeen[i] = gSaveBlock1Ptr->dexSeen[i];
-    }
-}
-
-void ReloadPokedexFlags(void)
-{
-    u16 i;
-    for (i = 0; i < NUM_DEX_FLAG_BYTES; i++)
-    {
-        gSaveBlock1Ptr->dexCaught[i] = newGameDexCaught[i];
-        gSaveBlock1Ptr->dexSeen[i] = newGameDexSeen[i];
-    }
-}
-
-
 static const struct ContestWinner sContestWinnerPicDummy =
 {
     .monName = _(""),
@@ -187,8 +163,8 @@ void SetOnMapLoadDefaultOptions(void)
 static void ClearPokedexFlags(void)
 {
     //gUnusedPokedexU8 = 0;
-    //memset(&gSaveBlock1Ptr->dexCaught, 0, sizeof(gSaveBlock1Ptr->dexCaught));
-    //memset(&gSaveBlock1Ptr->dexSeen, 0, sizeof(gSaveBlock1Ptr->dexSeen));
+    //memset(&gSaveBlock2Ptr->dexCaught, 0, sizeof(gSaveBlock2Ptr->dexCaught));
+    //memset(&gSaveBlock2Ptr->dexSeen, 0, sizeof(gSaveBlock2Ptr->dexSeen));
 }
 
 void ClearAllContestWinnerPics(void)
@@ -239,7 +215,6 @@ void NewGameInitData(void)
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
-    SavePokedexFlags();
     ResetRunStats();
     //ResetPokedex();
     ClearFrontierRecord();
@@ -266,8 +241,6 @@ void NewGameInitData(void)
     InitLotadSizeRecord();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
-
-    ReloadPokedexFlags();
     
     // Poke Storage Stuff
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
