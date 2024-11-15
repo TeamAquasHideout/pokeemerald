@@ -57,22 +57,12 @@
 
 // PC main menu options
 enum {
-#if OW_PC_MOVE_ORDER <= GEN_3
     OPTION_WITHDRAW,
     OPTION_DEPOSIT,
     OPTION_MOVE_MONS,
-#elif OW_PC_MOVE_ORDER >= GEN_4 && OW_PC_MOVE_ORDER <= GEN_6_XY
-    OPTION_DEPOSIT,
-    OPTION_WITHDRAW,
-    OPTION_MOVE_MONS,
-#elif OW_PC_MOVE_ORDER >= GEN_7
-    OPTION_MOVE_MONS,
-    OPTION_DEPOSIT,
-    OPTION_WITHDRAW,
-#endif
-    OPTION_MOVE_ITEMS,
     OPTION_EXIT,
-    OPTIONS_COUNT
+    OPTIONS_COUNT,
+    OPTION_MOVE_ITEMS,
 };
 
 // IDs for messages to print with PrintMessage
@@ -905,7 +895,6 @@ struct {
     [OPTION_WITHDRAW]   = {gText_WithdrawPokemon, gText_WithdrawMonDescription},
     [OPTION_DEPOSIT]    = {gText_DepositPokemon,  gText_DepositMonDescription},
     [OPTION_MOVE_MONS]  = {gText_MovePokemon,     gText_MoveMonDescription},
-    [OPTION_MOVE_ITEMS] = {gText_MoveItems,       gText_MoveItemsDescription},
     [OPTION_EXIT]       = {gText_SeeYa,           gText_SeeYaDescription}
 };
 
@@ -915,7 +904,7 @@ static const struct WindowTemplate sWindowTemplate_MainMenu =
     .tilemapLeft = 1,
     .tilemapTop = 1,
     .width = 17,
-    .height = 10,
+    .height = 8,
     .paletteNum = 15,
     .baseBlock = 0x1,
 };
@@ -1604,7 +1593,7 @@ static void Task_PCMainMenu(u8 taskId)
             DestroyTask(taskId);
             break;
         default:
-            if (((task->tInput == OPTION_WITHDRAW) && (CountPartyMons() == PARTY_SIZE)) || (VarGet(VAR_PIT_FLOOR) > 0))
+            if (((task->tInput == OPTION_WITHDRAW) && (CountPartyMons() >= 1)) && (VarGet(VAR_PIT_FLOOR) > 0))
             {
                 // Can't withdraw
                 FillWindowPixelBuffer(0, PIXEL_FILL(1));
@@ -1673,7 +1662,7 @@ void ShowPokemonStorageSystemPC(void)
 {
     u8 taskId = CreateTask(Task_PCMainMenu, 80);
     gTasks[taskId].tState = 0;
-    gTasks[taskId].tSelectedOption = 0;
+    gTasks[taskId].tSelectedOption = VarGet(VAR_TEMP_B);
     LockPlayerFieldControls();
 }
 
@@ -2322,7 +2311,7 @@ static void Task_PokeStorageMain(u8 taskId)
             sStorage->state = MSTATE_MOVE_CURSOR;
             break;
         case INPUT_SHOW_PARTY:
-            if (sStorage->boxOption != OPTION_MOVE_MONS && sStorage->boxOption != OPTION_MOVE_ITEMS)
+            if (1)
             {
                 PrintMessage(MSG_WHICH_ONE_WILL_TAKE);
                 sStorage->state = MSTATE_WAIT_MSG;
@@ -2840,7 +2829,7 @@ static void Task_WithdrawMon(u8 taskId)
     switch (sStorage->state)
     {
     case 0:
-        if (CalculatePlayerPartyCount() == PARTY_SIZE)
+        if (CalculatePlayerPartyCount() >= 1)
         {
             PrintMessage(MSG_PARTY_FULL);
             sStorage->state = 1;
@@ -6495,6 +6484,25 @@ static void SetPlacedMonData(u8 boxId, u8 position)
         gPlayerParty[position] = sStorage->movingMon;
         if (&gPlayerParty[position] == GetFirstLiveMon())
             gFollowerSteps = 0;
+
+        u32 data = 5;
+        SetMonData(&gPlayerParty[position], MON_DATA_LEVEL, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_HP_EV, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_ATK_EV, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_DEF_EV, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_SPEED_EV, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_SPATK_EV, &data);
+        data = 0;
+        SetMonData(&gPlayerParty[position], MON_DATA_SPDEF_EV, &data);
+        SetMonData(&gPlayerParty[position],
+               MON_DATA_EXP,
+               &gExperienceTables[gSpeciesInfo[GetMonData(&gPlayerParty[position], MON_DATA_SPECIES)].growthRate][5]);
+        DebugPrintf("Set Placed Mon %d", 1);
     }
     else
     {
@@ -6741,78 +6749,10 @@ static bool32 AtLeastThreeUsableMons(void)
 
 static s8 RunCanReleaseMon(void)
 {
-    u16 i;
-    u16 knownMoves;
-
     if (sStorage->releaseStatusResolved)
         return sStorage->canReleaseMon;
-
-    switch (sStorage->releaseCheckState)
-    {
-    case 0:
-        // Check party for other Pokémon that know any restricted
-        // moves the release Pokémon knows
-        for (i = 0; i < PARTY_SIZE; i++)
-        {
-            // Make sure party Pokémon isn't the one we're releasing first
-            if (sStorage->releaseBoxId != TOTAL_BOXES_COUNT || sStorage->releaseBoxPos != i)
-            {
-                knownMoves = GetMonData(&gPlayerParty[i], MON_DATA_KNOWN_MOVES, (u8 *)sStorage->restrictedMoveList);
-                sStorage->restrictedReleaseMonMoves &= ~(knownMoves);
-            }
-        }
-        if (sStorage->restrictedReleaseMonMoves == 0)
-        {
-            // No restricted moves on release Pokémon that
-            // aren't resolved by the party, it can be released.
-            sStorage->releaseStatusResolved = TRUE;
-            sStorage->canReleaseMon = TRUE;
-        }
-        else
-        {
-            // Release Pokémon has restricted moves not resolved by the party.
-            // Continue and check the PC next
-            sStorage->releaseCheckBoxId = 0;
-            sStorage->releaseCheckBoxPos = 0;
-            sStorage->releaseCheckState++;
-        }
-        break;
-    case 1:
-        // Check PC for other Pokémon that know any restricted
-        // moves the release Pokémon knows
-        for (i = 0; i < IN_BOX_COUNT; i++)
-        {
-            knownMoves = GetAndCopyBoxMonDataAt(sStorage->releaseCheckBoxId, sStorage->releaseCheckBoxPos, MON_DATA_KNOWN_MOVES, (u8 *)sStorage->restrictedMoveList);
-            if (knownMoves != 0 && !(sStorage->releaseBoxId == sStorage->releaseCheckBoxId
-                                  && sStorage->releaseBoxPos == sStorage->releaseCheckBoxPos))
-            {
-                // Found PC Pokémon with restricted move, clear move from list
-                sStorage->restrictedReleaseMonMoves &= ~(knownMoves);
-                if (sStorage->restrictedReleaseMonMoves == 0)
-                {
-                    // No restricted moves on release Pokémon that
-                    // aren't resolved, it can be released.
-                    sStorage->releaseStatusResolved = TRUE;
-                    sStorage->canReleaseMon = TRUE;
-                    break;
-                }
-            }
-            if (++sStorage->releaseCheckBoxPos >= IN_BOX_COUNT)
-            {
-                sStorage->releaseCheckBoxPos = 0;
-                if (++sStorage->releaseCheckBoxId >= TOTAL_BOXES_COUNT)
-                {
-                    // Checked every Pokémon in the PC, release Pokémon is
-                    // the sole owner of at least one restricted move.
-                    // It cannot be released.
-                    sStorage->releaseStatusResolved = TRUE;
-                    sStorage->canReleaseMon = FALSE;
-                }
-            }
-        }
-        break;
-    }
-
+    sStorage->releaseStatusResolved = TRUE;
+    sStorage->canReleaseMon = TRUE;
     return -1;
 }
 

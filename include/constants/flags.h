@@ -88,7 +88,7 @@
 #define FLAG_UNUSED_0x04A    0x4A // Unused Flag
 #define FLAG_UNUSED_0x04B    0x4B // Unused Flag
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
-#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
+#define FLAG_LOAD_FROM_TEMP_HOF    0x4D // Unused Flag
 #define FLAG_USED_RANDOM_ENCOUNTER_THIS_FLOOR    0x4E // Unused Flag
 #define FLAG_DONT_RANDOMIZE_NEXT_ITEM    0x4F // Unused Flag
 

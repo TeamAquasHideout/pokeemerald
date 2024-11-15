@@ -724,6 +724,18 @@ static const struct SpriteFrameImage sPicTable_Lance[] = {
     overworld_frame(gObjectEventPic_Lance, 2, 4, 2),
 };
 
+static const struct SpriteFrameImage sPicTable_PitPC[] = {
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+    overworld_frame(gObjectEventPic_PitPC, 2, 4, 0),
+};
+
 static const struct SpriteFrameImage sPicTable_Sabrina[] = {
     overworld_frame(gObjectEventPic_Sabrina, 2, 4, 0),
     overworld_frame(gObjectEventPic_Sabrina, 2, 4, 1),

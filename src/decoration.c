@@ -520,14 +520,14 @@ void InitDecorationContextItems(void)
 
     if (sDecorationContext.isPlayerRoom == FALSE)
     {
-        sDecorationContext.items = gSaveBlock1Ptr->secretBases[0].decorations;
-        sDecorationContext.pos = gSaveBlock1Ptr->secretBases[0].decorationPositions;
+        sDecorationContext.items = gSaveBlock2Ptr->secretBases[0].decorations;
+        sDecorationContext.pos = gSaveBlock2Ptr->secretBases[0].decorationPositions;
     }
 
     if (sDecorationContext.isPlayerRoom == TRUE)
     {
-        sDecorationContext.items = gSaveBlock1Ptr->playerRoomDecorations;
-        sDecorationContext.pos = gSaveBlock1Ptr->playerRoomDecorationPositions;
+        sDecorationContext.items = gSaveBlock2Ptr->playerRoomDecorations;
+        sDecorationContext.pos = gSaveBlock2Ptr->playerRoomDecorationPositions;
     }
 }
 
@@ -582,8 +582,8 @@ static void InitDecorationActionsWindow(void)
 void DoSecretBaseDecorationMenu(u8 taskId)
 {
     InitDecorationActionsWindow();
-    sDecorationContext.items = gSaveBlock1Ptr->secretBases[0].decorations;
-    sDecorationContext.pos = gSaveBlock1Ptr->secretBases[0].decorationPositions;
+    sDecorationContext.items = gSaveBlock2Ptr->secretBases[0].decorations;
+    sDecorationContext.pos = gSaveBlock2Ptr->secretBases[0].decorationPositions;
     sDecorationContext.size = DECOR_MAX_SECRET_BASE;
     sDecorationContext.isPlayerRoom = FALSE;
     gTasks[taskId].func = HandleDecorationActionsMenuInput;
@@ -592,8 +592,8 @@ void DoSecretBaseDecorationMenu(u8 taskId)
 void DoPlayerRoomDecorationMenu(u8 taskId)
 {
     InitDecorationActionsWindow();
-    sDecorationContext.items = gSaveBlock1Ptr->playerRoomDecorations;
-    sDecorationContext.pos = gSaveBlock1Ptr->playerRoomDecorationPositions;
+    sDecorationContext.items = gSaveBlock2Ptr->playerRoomDecorations;
+    sDecorationContext.pos = gSaveBlock2Ptr->playerRoomDecorationPositions;
     sDecorationContext.size = DECOR_MAX_PLAYERS_HOUSE;
     sDecorationContext.isPlayerRoom = TRUE;
     gTasks[taskId].func = HandleDecorationActionsMenuInput;
@@ -1079,11 +1079,11 @@ static void IdentifyOwnedDecorationsCurrentlyInUseInternal(u8 taskId)
 
     for (i = 0; i < ARRAY_COUNT(sSecretBaseItemsIndicesBuffer); i++)
     {
-        if (gSaveBlock1Ptr->secretBases[0].decorations[i] != DECOR_NONE)
+        if (gSaveBlock2Ptr->secretBases[0].decorations[i] != DECOR_NONE)
         {
             for (j = 0; j < gDecorationInventories[sCurDecorationCategory].size; j++)
             {
-                if (gCurDecorationItems[j] == gSaveBlock1Ptr->secretBases[0].decorations[i])
+                if (gCurDecorationItems[j] == gSaveBlock2Ptr->secretBases[0].decorations[i])
                 {
                     for (k = 0; k < count && sSecretBaseItemsIndicesBuffer[k] != j + 1; k++)
                         ;
@@ -1102,11 +1102,11 @@ static void IdentifyOwnedDecorationsCurrentlyInUseInternal(u8 taskId)
     count = 0;
     for (i = 0; i < ARRAY_COUNT(sPlayerRoomItemsIndicesBuffer); i++)
     {
-        if (gSaveBlock1Ptr->playerRoomDecorations[i] != DECOR_NONE)
+        if (gSaveBlock2Ptr->playerRoomDecorations[i] != DECOR_NONE)
         {
             for (j = 0; j < gDecorationInventories[sCurDecorationCategory].size; j++)
             {
-                if (gCurDecorationItems[j] == gSaveBlock1Ptr->playerRoomDecorations[i] && IsDecorationIndexInSecretBase(j + 1) != TRUE)
+                if (gCurDecorationItems[j] == gSaveBlock2Ptr->playerRoomDecorations[i] && IsDecorationIndexInSecretBase(j + 1) != TRUE)
                 {
                     for (k = 0; k < count && sPlayerRoomItemsIndicesBuffer[k] != j + 1; k++);
                     if (k == count)

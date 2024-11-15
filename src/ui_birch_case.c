@@ -624,8 +624,10 @@ void BirchCase_Init(MainCallback callback)
     // initialize stuff
     sBirchCaseDataPtr->gfxLoadState = 0;
     sBirchCaseDataPtr->savedCallback = callback;
-
     sBirchCaseDataPtr->handSpriteId = SPRITE_NONE;
+
+    if(gPlayerPartyCount == 1)
+        sBirchCaseDataPtr->monState++;
 
     for(i=0; i < 9; i++)
     {

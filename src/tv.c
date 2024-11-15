@@ -1467,22 +1467,22 @@ static void InterviewAfter_BravoTrainerBattleTowerProfile(void)
     show->bravoTrainerTower.kind = TVSHOW_BRAVO_TRAINER_BATTLE_TOWER_PROFILE;
     show->bravoTrainerTower.active = TRUE;
     StringCopy(show->bravoTrainerTower.playerName, gSaveBlock2Ptr->playerName);
-    StringCopy(show->bravoTrainerTower.opponentName, gSaveBlock2Ptr->frontier.towerInterview.opponentName);
-    show->bravoTrainerTower.species = gSaveBlock2Ptr->frontier.towerInterview.playerSpecies;
-    show->bravoTrainerTower.defeatedSpecies = gSaveBlock2Ptr->frontier.towerInterview.opponentSpecies;
-    show->bravoTrainerTower.numFights = GetCurrentBattleTowerWinStreak(gSaveBlock2Ptr->frontier.towerLvlMode, 0);
-    show->bravoTrainerTower.wonTheChallenge = gSaveBlock2Ptr->frontier.towerBattleOutcome;
-    if (gSaveBlock2Ptr->frontier.towerLvlMode == FRONTIER_LVL_50)
+    StringCopy(show->bravoTrainerTower.opponentName, gSaveBlock1Ptr->frontier.towerInterview.opponentName);
+    show->bravoTrainerTower.species = gSaveBlock1Ptr->frontier.towerInterview.playerSpecies;
+    show->bravoTrainerTower.defeatedSpecies = gSaveBlock1Ptr->frontier.towerInterview.opponentSpecies;
+    show->bravoTrainerTower.numFights = GetCurrentBattleTowerWinStreak(gSaveBlock1Ptr->frontier.towerLvlMode, 0);
+    show->bravoTrainerTower.wonTheChallenge = gSaveBlock1Ptr->frontier.towerBattleOutcome;
+    if (gSaveBlock1Ptr->frontier.towerLvlMode == FRONTIER_LVL_50)
         show->bravoTrainerTower.btLevel = FRONTIER_MAX_LEVEL_50;
     else
         show->bravoTrainerTower.btLevel = FRONTIER_MAX_LEVEL_OPEN;
     show->bravoTrainerTower.interviewResponse = gSpecialVar_0x8004;
     StorePlayerIdInNormalShow(show);
     show->bravoTrainerTower.playerLanguage = gGameLanguage;
-    if (show->bravoTrainerTower.playerLanguage == LANGUAGE_JAPANESE || gSaveBlock2Ptr->frontier.towerInterview.opponentLanguage == LANGUAGE_JAPANESE)
+    if (show->bravoTrainerTower.playerLanguage == LANGUAGE_JAPANESE || gSaveBlock1Ptr->frontier.towerInterview.opponentLanguage == LANGUAGE_JAPANESE)
         show->bravoTrainerTower.opponentLanguage = LANGUAGE_JAPANESE;
     else
-        show->bravoTrainerTower.opponentLanguage = gSaveBlock2Ptr->frontier.towerInterview.opponentLanguage;
+        show->bravoTrainerTower.opponentLanguage = gSaveBlock1Ptr->frontier.towerInterview.opponentLanguage;
 }
 
 void TryPutSmartShopperOnAir(void)
@@ -1848,7 +1848,7 @@ void TryPutTodaysRivalTrainerOnAir(void)
             if (FlagGet(sGoldSymbolFlags[i]) == TRUE)
                 show->rivalTrainer.nGoldSymbols++;
         }
-        show->rivalTrainer.battlePoints = gSaveBlock2Ptr->frontier.battlePoints;
+        show->rivalTrainer.battlePoints = gSaveBlock1Ptr->frontier.battlePoints;
         StringCopy(show->rivalTrainer.playerName, gSaveBlock2Ptr->playerName);
         StorePlayerIdInRecordMixShow(show);
         show->rivalTrainer.language = gGameLanguage;
@@ -1970,7 +1970,7 @@ static void SecretBaseVisit_CalculateDecorationData(TVShow *show)
     // Count (and save) the unique decorations in the base
     for (i = 0, n = 0; i < DECOR_MAX_SECRET_BASE; i++)
     {
-        decoration = gSaveBlock1Ptr->secretBases[0].decorations[i];
+        decoration = gSaveBlock2Ptr->secretBases[0].decorations[i];
         if (decoration != DECOR_NONE)
         {
             // Search for an empty spot to save decoration
@@ -2392,8 +2392,8 @@ void TryPutFrontierTVShowOnAir(u16 winStreak, u8 facilityAndMode)
             show->frontier.species2 = GetMonData(&gPlayerParty[1], MON_DATA_SPECIES, NULL);
             break;
         case FRONTIER_SHOW_TOWER_LINK_MULTIS:
-            show->frontier.species1 = GetMonData(&gSaveBlock1Ptr->playerParty[gSaveBlock2Ptr->frontier.selectedPartyMons[0] - 1], MON_DATA_SPECIES, NULL);
-            show->frontier.species2 = GetMonData(&gSaveBlock1Ptr->playerParty[gSaveBlock2Ptr->frontier.selectedPartyMons[1] - 1], MON_DATA_SPECIES, NULL);
+            show->frontier.species1 = GetMonData(&gSaveBlock1Ptr->playerParty[gSaveBlock1Ptr->frontier.selectedPartyMons[0] - 1], MON_DATA_SPECIES, NULL);
+            show->frontier.species2 = GetMonData(&gSaveBlock1Ptr->playerParty[gSaveBlock1Ptr->frontier.selectedPartyMons[1] - 1], MON_DATA_SPECIES, NULL);
             break;
         }
         StorePlayerIdInRecordMixShow(show);
@@ -2424,10 +2424,10 @@ void TryPutSecretBaseSecretsOnAir(void)
             show->secretBaseSecrets.flags = VarGet(VAR_SECRET_BASE_LOW_TV_FLAGS) + (VarGet(VAR_SECRET_BASE_HIGH_TV_FLAGS) << 16);
             StorePlayerIdInRecordMixShow(show);
             show->secretBaseSecrets.language = gGameLanguage;
-            if (show->secretBaseSecrets.language == LANGUAGE_JAPANESE || gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language == LANGUAGE_JAPANESE)
+            if (show->secretBaseSecrets.language == LANGUAGE_JAPANESE || gSaveBlock2Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language == LANGUAGE_JAPANESE)
                 show->secretBaseSecrets.baseOwnersNameLanguage = LANGUAGE_JAPANESE;
             else
-                show->secretBaseSecrets.baseOwnersNameLanguage = gSaveBlock1Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language;
+                show->secretBaseSecrets.baseOwnersNameLanguage = gSaveBlock2Ptr->secretBases[VarGet(VAR_CURRENT_SECRET_BASE)].language;
         }
     }
 }

@@ -848,19 +848,19 @@ void CallBattlePyramidFunction(void)
 static void InitPyramidChallenge(void)
 {
     bool32 isCurrent;
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
-    gSaveBlock2Ptr->frontier.challengeStatus = 0;
-    gSaveBlock2Ptr->frontier.curChallengeBattleNum = 0;
-    gSaveBlock2Ptr->frontier.challengePaused = FALSE;
+    gSaveBlock1Ptr->frontier.challengeStatus = 0;
+    gSaveBlock1Ptr->frontier.curChallengeBattleNum = 0;
+    gSaveBlock1Ptr->frontier.challengePaused = FALSE;
     if (lvlMode != FRONTIER_LVL_50)
-        isCurrent = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
+        isCurrent = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
     else
-        isCurrent = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
+        isCurrent = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
 
     if (!isCurrent)
     {
-        gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] = 0;
+        gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] = 0;
         InitPyramidBagItems(lvlMode);
     }
 
@@ -871,67 +871,67 @@ static void InitPyramidChallenge(void)
 
 static void GetBattlePyramidData(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
     switch (gSpecialVar_0x8005)
     {
     case PYRAMID_DATA_PRIZE:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.pyramidPrize;
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.pyramidPrize;
         break;
     case PYRAMID_DATA_WIN_STREAK:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode];
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode];
         break;
     case PYRAMID_DATA_WIN_STREAK_ACTIVE:
         if (lvlMode != FRONTIER_LVL_50)
-            gSpecialVar_Result = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
+            gSpecialVar_Result = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
         else
-            gSpecialVar_Result = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
+            gSpecialVar_Result = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
         break;
     case PYRAMID_DATA_WIN_STREAK_50:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_50];
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_50];
         break;
     case PYRAMID_DATA_WIN_STREAK_OPEN:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_OPEN];
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_OPEN];
         break;
     case PYRAMID_DATA_WIN_STREAK_ACTIVE_50:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_50;
         break;
     case PYRAMID_DATA_WIN_STREAK_ACTIVE_OPEN:
-        gSpecialVar_Result = gSaveBlock2Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
+        gSpecialVar_Result = gSaveBlock1Ptr->frontier.winStreakActiveFlags & STREAK_PYRAMID_OPEN;
         break;
     }
 }
 
 static void SetBattlePyramidData(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
     switch (gSpecialVar_0x8005)
     {
     case PYRAMID_DATA_PRIZE:
-        gSaveBlock2Ptr->frontier.pyramidPrize = gSpecialVar_0x8006;
+        gSaveBlock1Ptr->frontier.pyramidPrize = gSpecialVar_0x8006;
         break;
     case PYRAMID_DATA_WIN_STREAK:
-        gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] = gSpecialVar_0x8006;
+        gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] = gSpecialVar_0x8006;
         break;
     case PYRAMID_DATA_WIN_STREAK_ACTIVE:
         if (lvlMode != FRONTIER_LVL_50)
         {
             if (gSpecialVar_0x8006)
-                gSaveBlock2Ptr->frontier.winStreakActiveFlags |= STREAK_PYRAMID_OPEN;
+                gSaveBlock1Ptr->frontier.winStreakActiveFlags |= STREAK_PYRAMID_OPEN;
             else
-                gSaveBlock2Ptr->frontier.winStreakActiveFlags &= ~(STREAK_PYRAMID_OPEN);
+                gSaveBlock1Ptr->frontier.winStreakActiveFlags &= ~(STREAK_PYRAMID_OPEN);
         }
         else
         {
             if (gSpecialVar_0x8006)
-                gSaveBlock2Ptr->frontier.winStreakActiveFlags |= STREAK_PYRAMID_50;
+                gSaveBlock1Ptr->frontier.winStreakActiveFlags |= STREAK_PYRAMID_50;
             else
-                gSaveBlock2Ptr->frontier.winStreakActiveFlags &= ~(STREAK_PYRAMID_50);
+                gSaveBlock1Ptr->frontier.winStreakActiveFlags &= ~(STREAK_PYRAMID_50);
         }
         break;
     case PYRAMID_DATA_TRAINER_FLAGS:
-        gSaveBlock2Ptr->frontier.pyramidTrainerFlags = gSpecialVar_0x8006;
+        gSaveBlock1Ptr->frontier.pyramidTrainerFlags = gSpecialVar_0x8006;
         break;
     }
 }
@@ -939,29 +939,29 @@ static void SetBattlePyramidData(void)
 static void SavePyramidChallenge(void)
 {
     ClearEnemyPartyAfterChallenge();
-    gSaveBlock2Ptr->frontier.challengeStatus = gSpecialVar_0x8005;
+    gSaveBlock1Ptr->frontier.challengeStatus = gSpecialVar_0x8005;
     VarSet(VAR_TEMP_CHALLENGE_STATUS, 0);
-    gSaveBlock2Ptr->frontier.challengePaused = TRUE;
+    gSaveBlock1Ptr->frontier.challengePaused = TRUE;
     SaveMapView();
     TrySavingData(SAVE_LINK);
 }
 
 static void SetBattlePyramidPrize(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] > 41)
-        gSaveBlock2Ptr->frontier.pyramidPrize = sLongStreakRewardItems[Random() % ARRAY_COUNT(sLongStreakRewardItems)];
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] > 41)
+        gSaveBlock1Ptr->frontier.pyramidPrize = sLongStreakRewardItems[Random() % ARRAY_COUNT(sLongStreakRewardItems)];
     else
-        gSaveBlock2Ptr->frontier.pyramidPrize = sShortStreakRewardItems[Random() % ARRAY_COUNT(sShortStreakRewardItems)];
+        gSaveBlock1Ptr->frontier.pyramidPrize = sShortStreakRewardItems[Random() % ARRAY_COUNT(sShortStreakRewardItems)];
 }
 
 static void GiveBattlePyramidPrize(void)
 {
-    if (AddBagItem(gSaveBlock2Ptr->frontier.pyramidPrize, 1) == TRUE)
+    if (AddBagItem(gSaveBlock1Ptr->frontier.pyramidPrize, 1) == TRUE)
     {
-        CopyItemName(gSaveBlock2Ptr->frontier.pyramidPrize, gStringVar1);
-        gSaveBlock2Ptr->frontier.pyramidPrize = 0;
+        CopyItemName(gSaveBlock1Ptr->frontier.pyramidPrize, gStringVar1);
+        gSaveBlock1Ptr->frontier.pyramidPrize = 0;
         gSpecialVar_Result = TRUE;
     }
     else
@@ -974,10 +974,10 @@ static void SeedPyramidFloor(void)
 {
     int i;
 
-    for (i = 0; i < (int)ARRAY_COUNT(gSaveBlock2Ptr->frontier.pyramidRandoms); i++)
-        gSaveBlock2Ptr->frontier.pyramidRandoms[i] = Random();
+    for (i = 0; i < (int)ARRAY_COUNT(gSaveBlock1Ptr->frontier.pyramidRandoms); i++)
+        gSaveBlock1Ptr->frontier.pyramidRandoms[i] = Random();
 
-    gSaveBlock2Ptr->frontier.pyramidTrainerFlags = 0;
+    gSaveBlock1Ptr->frontier.pyramidTrainerFlags = 0;
 }
 
 static void SetPickupItem(void)
@@ -986,16 +986,16 @@ static void SetPickupItem(void)
     int itemIndex;
     int rand;
     u8 id;
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
-    u32 floor = gSaveBlock2Ptr->frontier.curChallengeBattleNum;
-    u32 round = (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE) % TOTAL_PYRAMID_ROUNDS;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
+    u32 floor = gSaveBlock1Ptr->frontier.curChallengeBattleNum;
+    u32 round = (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE) % TOTAL_PYRAMID_ROUNDS;
 
     if (round >= TOTAL_PYRAMID_ROUNDS)
         round = TOTAL_PYRAMID_ROUNDS - 1;
 
     id = GetPyramidFloorTemplateId();
     itemIndex = (gSpecialVar_LastTalked - sPyramidFloorTemplates[id].numTrainers) - 1;
-    rand = gSaveBlock2Ptr->frontier.pyramidRandoms[itemIndex / 2];
+    rand = gSaveBlock1Ptr->frontier.pyramidRandoms[itemIndex / 2];
     SeedRng2(rand);
 
     for (i = 0; i < itemIndex + 1; i++)
@@ -1084,7 +1084,7 @@ static void ShowPostBattleHintText(void)
             textIndex = sPyramidFloorTemplates[id].numTrainers;
             for (i = 0; i < MAX_PYRAMID_TRAINERS; i++)
             {
-                if (gBitTable[i] & gSaveBlock2Ptr->frontier.pyramidTrainerFlags)
+                if (gBitTable[i] & gSaveBlock1Ptr->frontier.pyramidTrainerFlags)
                     textIndex--;
             }
             i = 1;
@@ -1114,12 +1114,12 @@ static void ShowPostBattleHintText(void)
 
 static void UpdatePyramidWinStreak(void)
 {
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
 
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] < 999)
-        gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode]++;
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] > gSaveBlock2Ptr->frontier.pyramidRecordStreaks[lvlMode])
-        gSaveBlock2Ptr->frontier.pyramidRecordStreaks[lvlMode] = gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode];
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] < 999)
+        gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode]++;
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] > gSaveBlock1Ptr->frontier.pyramidRecordStreaks[lvlMode])
+        gSaveBlock1Ptr->frontier.pyramidRecordStreaks[lvlMode] = gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode];
 }
 
 static void GetInBattlePyramid(void)
@@ -1132,7 +1132,7 @@ static void UpdatePyramidLightRadius(void)
     switch (gSpecialVar_0x8006)
     {
     case PYRAMID_LIGHT_SET_RADIUS:
-        gSaveBlock2Ptr->frontier.pyramidLightRadius = gSpecialVar_0x8005;
+        gSaveBlock1Ptr->frontier.pyramidLightRadius = gSpecialVar_0x8005;
         break;
     case PYRAMID_LIGHT_INCR_RADIUS:
         switch (gSpecialVar_Result)
@@ -1140,8 +1140,8 @@ static void UpdatePyramidLightRadius(void)
         case 0:
             if (!gPaletteFade.active)
             {
-                if (gSaveBlock2Ptr->frontier.pyramidLightRadius >= 120)
-                    gSaveBlock2Ptr->frontier.pyramidLightRadius = 120;
+                if (gSaveBlock1Ptr->frontier.pyramidLightRadius >= 120)
+                    gSaveBlock1Ptr->frontier.pyramidLightRadius = 120;
                 else
                     PlaySE(gSpecialVar_0x8007);
                 gSpecialVar_Result++;
@@ -1151,10 +1151,10 @@ static void UpdatePyramidLightRadius(void)
             if (gSpecialVar_0x8005 != 0)
             {
                 gSpecialVar_0x8005--;
-                gSaveBlock2Ptr->frontier.pyramidLightRadius++;
-                if (gSaveBlock2Ptr->frontier.pyramidLightRadius > 120)
+                gSaveBlock1Ptr->frontier.pyramidLightRadius++;
+                if (gSaveBlock1Ptr->frontier.pyramidLightRadius > 120)
                 {
-                    gSaveBlock2Ptr->frontier.pyramidLightRadius = 120;
+                    gSaveBlock1Ptr->frontier.pyramidLightRadius = 120;
                     gSpecialVar_Result++;
                 }
                 WriteBattlePyramidViewScanlineEffectBuffer();
@@ -1181,7 +1181,7 @@ static void ClearPyramidPartyHeldItems(void)
     {
         for (j = 0; j < MAX_FRONTIER_PARTY_SIZE; j++)
         {
-            if (gSaveBlock2Ptr->frontier.selectedPartyMons[j] != 0 && gSaveBlock2Ptr->frontier.selectedPartyMons[j] - 1 == i)
+            if (gSaveBlock1Ptr->frontier.selectedPartyMons[j] != 0 && gSaveBlock1Ptr->frontier.selectedPartyMons[j] - 1 == i)
                 SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &item);
         }
     }
@@ -1196,7 +1196,7 @@ static void Task_SetPyramidFloorPalette(u8 taskId)
 {
     if (gPaletteFade.active)
     {
-        CpuCopy16(gBattlePyramidFloor_Pal[gSaveBlock2Ptr->frontier.curChallengeBattleNum], &gPlttBufferUnfaded[BG_PLTT_ID(6)], PLTT_SIZE_4BPP);
+        CpuCopy16(gBattlePyramidFloor_Pal[gSaveBlock1Ptr->frontier.curChallengeBattleNum], &gPlttBufferUnfaded[BG_PLTT_ID(6)], PLTT_SIZE_4BPP);
         DestroyTask(taskId);
     }
 }
@@ -1213,7 +1213,7 @@ static void RestorePyramidPlayerParty(void)
 
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
-        int partyIndex = gSaveBlock2Ptr->frontier.selectedPartyMons[i] - 1;
+        int partyIndex = gSaveBlock1Ptr->frontier.selectedPartyMons[i] - 1;
         for (j = 0; j < FRONTIER_PARTY_SIZE; j++)
         {
             if (GetMonData(&gSaveBlock1Ptr->playerParty[partyIndex], MON_DATA_SPECIES, NULL) == GetMonData(&gPlayerParty[j], MON_DATA_SPECIES, NULL))
@@ -1236,7 +1236,7 @@ static void RestorePyramidPlayerParty(void)
     }
 
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
-        gSaveBlock2Ptr->frontier.selectedPartyMons[i] = gSelectedOrderFromParty[i];
+        gSaveBlock1Ptr->frontier.selectedPartyMons[i] = gSelectedOrderFromParty[i];
 }
 
 static u8 GetPostBattleDirectionHintTextIndex(int *hintType, u8 minDistanceForExitHint, u8 defaultHintType)
@@ -1315,12 +1315,12 @@ static u8 GetPostBattleDirectionHintTextIndex(int *hintType, u8 minDistanceForEx
 
 u16 LocalIdToPyramidTrainerId(u8 localId)
 {
-    return gSaveBlock2Ptr->frontier.trainerIds[localId - 1];
+    return gSaveBlock1Ptr->frontier.trainerIds[localId - 1];
 }
 
 bool8 GetBattlePyramidTrainerFlag(u8 eventId)
 {
-    return gSaveBlock2Ptr->frontier.pyramidTrainerFlags & gBitTable[gObjectEvents[eventId].localId - 1];
+    return gSaveBlock1Ptr->frontier.pyramidTrainerFlags & gBitTable[gObjectEvents[eventId].localId - 1];
 }
 
 void MarkApproachingPyramidTrainersAsBattled(void)
@@ -1339,8 +1339,8 @@ static void MarkPyramidTrainerAsBattled(u16 trainerId)
 
     for (i = 0; i < MAX_PYRAMID_TRAINERS; i++)
     {
-        if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
-            gSaveBlock2Ptr->frontier.pyramidTrainerFlags |= gBitTable[i];
+        if (gSaveBlock1Ptr->frontier.trainerIds[i] == trainerId)
+            gSaveBlock1Ptr->frontier.pyramidTrainerFlags |= gBitTable[i];
     }
 
     gObjectEvents[gSelectedObjectEvent].movementType = MOVEMENT_TYPE_WANDER_AROUND;
@@ -1393,8 +1393,8 @@ void GenerateBattlePyramidWildMon(void)
     u8 name[POKEMON_NAME_LENGTH + 1];
     int i, j;
     u32 id;
-    u32 lvl = gSaveBlock2Ptr->frontier.lvlMode;
-    u16 round = (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvl] / 7) % TOTAL_PYRAMID_ROUNDS;
+    u32 lvl = gSaveBlock1Ptr->frontier.lvlMode;
+    u16 round = (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvl] / 7) % TOTAL_PYRAMID_ROUNDS;
     const struct BattlePyramidRequirement *reqs = &sBattlePyramidRequirementsByRound[round];
     u16 species;
     u32 bstLim;
@@ -1550,7 +1550,7 @@ void GenerateBattlePyramidWildMon(void)
         Free(abilities);
     }
 
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[gSaveBlock2Ptr->frontier.lvlMode] >= 140)
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[gSaveBlock1Ptr->frontier.lvlMode] >= 140)
     {
         id = (Random() % 17) + 15;
         for (i = 0; i < NUM_STATS; i++)
@@ -1566,8 +1566,8 @@ void GenerateBattlePyramidWildMon(void)
     int i;
     const struct PyramidWildMon *wildMons;
     u32 id;
-    u32 lvl = gSaveBlock2Ptr->frontier.lvlMode;
-    u16 round = (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvl] / FRONTIER_STAGES_PER_CHALLENGE) % TOTAL_PYRAMID_ROUNDS;
+    u32 lvl = gSaveBlock1Ptr->frontier.lvlMode;
+    u16 round = (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvl] / FRONTIER_STAGES_PER_CHALLENGE) % TOTAL_PYRAMID_ROUNDS;
 
     if (round >= TOTAL_PYRAMID_ROUNDS)
         round = TOTAL_PYRAMID_ROUNDS - 1;
@@ -1621,9 +1621,9 @@ void GenerateBattlePyramidWildMon(void)
 
     // UB: Reading outside the array as lvl was used for mon level instead of frontier lvl mode.
     #ifndef UBFIX
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvl] >= 140)
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvl] >= 140)
     #else
-    if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[gSaveBlock2Ptr->frontier.lvlMode] >= 140)
+    if (gSaveBlock1Ptr->frontier.pyramidWinStreaks[gSaveBlock1Ptr->frontier.lvlMode] >= 140)
     #endif
     {
         id = (Random() % 17) + 15;
@@ -1661,7 +1661,7 @@ void PausePyramidChallenge(void)
     if (InBattlePyramid())
     {
         RestorePyramidPlayerParty();
-        gSaveBlock2Ptr->frontier.challengeStatus = CHALLENGE_STATUS_PAUSED;
+        gSaveBlock1Ptr->frontier.challengeStatus = CHALLENGE_STATUS_PAUSED;
         VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
         LoadPlayerParty();
     }
@@ -1709,9 +1709,9 @@ static u16 GetUniqueTrainerId(u8 objectEventId)
 {
     int i;
     u16 trainerId;
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
-    u32 challengeNum = gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE;
-    u32 floor = gSaveBlock2Ptr->frontier.curChallengeBattleNum;
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
+    u32 challengeNum = gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE;
+    u32 floor = gSaveBlock1Ptr->frontier.curChallengeBattleNum;
     if (floor == FRONTIER_STAGES_PER_CHALLENGE)
     {
         do
@@ -1719,7 +1719,7 @@ static u16 GetUniqueTrainerId(u8 objectEventId)
             trainerId = GetRandomScaledFrontierTrainerId(challengeNum + 1, floor);
             for (i = 0; i < objectEventId; i++)
             {
-                if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
+                if (gSaveBlock1Ptr->frontier.trainerIds[i] == trainerId)
                     break;
             }
         } while (i != objectEventId);
@@ -1731,7 +1731,7 @@ static u16 GetUniqueTrainerId(u8 objectEventId)
             trainerId = GetRandomScaledFrontierTrainerId(challengeNum, floor);
             for (i = 0; i < objectEventId; i++)
             {
-                if (gSaveBlock2Ptr->frontier.trainerIds[i] == trainerId)
+                if (gSaveBlock1Ptr->frontier.trainerIds[i] == trainerId)
                     break;
             }
         } while (i != objectEventId);
@@ -1800,7 +1800,7 @@ void LoadBattlePyramidObjectEventTemplates(void)
     u8 entranceSquareId, exitSquareId;
 
     for (i = 0; i < MAX_PYRAMID_TRAINERS; i++)
-        gSaveBlock2Ptr->frontier.trainerIds[i] = 0xFFFF;
+        gSaveBlock1Ptr->frontier.trainerIds[i] = 0xFFFF;
 
     id = GetPyramidFloorTemplateId();
     GetPyramidEntranceAndExitSquareIds(&entranceSquareId, &exitSquareId);
@@ -1855,13 +1855,13 @@ void LoadBattlePyramidFloorObjectEventScripts(void)
 
 static void GetPyramidEntranceAndExitSquareIds(u8 *entranceSquareId, u8 *exitSquareId)
 {
-    *entranceSquareId = gSaveBlock2Ptr->frontier.pyramidRandoms[3] % NUM_PYRAMID_FLOOR_SQUARES;
-    *exitSquareId = gSaveBlock2Ptr->frontier.pyramidRandoms[0] % NUM_PYRAMID_FLOOR_SQUARES;
+    *entranceSquareId = gSaveBlock1Ptr->frontier.pyramidRandoms[3] % NUM_PYRAMID_FLOOR_SQUARES;
+    *exitSquareId = gSaveBlock1Ptr->frontier.pyramidRandoms[0] % NUM_PYRAMID_FLOOR_SQUARES;
 
     if (*entranceSquareId == *exitSquareId)
     {
-        *entranceSquareId = (gSaveBlock2Ptr->frontier.pyramidRandoms[3] + 1 ) % NUM_PYRAMID_FLOOR_SQUARES;
-        *exitSquareId = (gSaveBlock2Ptr->frontier.pyramidRandoms[0] + NUM_PYRAMID_FLOOR_SQUARES - 1) % NUM_PYRAMID_FLOOR_SQUARES;
+        *entranceSquareId = (gSaveBlock1Ptr->frontier.pyramidRandoms[3] + 1 ) % NUM_PYRAMID_FLOOR_SQUARES;
+        *exitSquareId = (gSaveBlock1Ptr->frontier.pyramidRandoms[0] + NUM_PYRAMID_FLOOR_SQUARES - 1) % NUM_PYRAMID_FLOOR_SQUARES;
     }
 }
 
@@ -1876,7 +1876,7 @@ static void SetPyramidObjectPositionsUniformly(u8 objType)
     u8 *floorLayoutOffsets = AllocZeroed(NUM_PYRAMID_FLOOR_SQUARES);
 
     GetPyramidFloorLayoutOffsets(floorLayoutOffsets);
-    squareId = gSaveBlock2Ptr->frontier.pyramidRandoms[2] % NUM_PYRAMID_FLOOR_SQUARES;
+    squareId = gSaveBlock1Ptr->frontier.pyramidRandoms[2] % NUM_PYRAMID_FLOOR_SQUARES;
     if (objType == OBJ_TRAINERS)
     {
         numObjects = sPyramidFloorTemplates[id].numTrainers;
@@ -1896,18 +1896,18 @@ static void SetPyramidObjectPositionsUniformly(u8 objType)
             {
                 if (bits & 1)
                 {
-                    if (!(gBitTable[squareId] & gSaveBlock2Ptr->frontier.pyramidRandoms[3]))
+                    if (!(gBitTable[squareId] & gSaveBlock1Ptr->frontier.pyramidRandoms[3]))
                         bits |= 2;
                 }
                 else
                 {
-                    if (gBitTable[squareId] & gSaveBlock2Ptr->frontier.pyramidRandoms[3])
+                    if (gBitTable[squareId] & gSaveBlock1Ptr->frontier.pyramidRandoms[3])
                         bits |= 2;
                 }
                 if (++squareId >= NUM_PYRAMID_FLOOR_SQUARES)
                     squareId = 0;
 
-                if (squareId == gSaveBlock2Ptr->frontier.pyramidRandoms[2] % NUM_PYRAMID_FLOOR_SQUARES)
+                if (squareId == gSaveBlock1Ptr->frontier.pyramidRandoms[2] % NUM_PYRAMID_FLOOR_SQUARES)
                 {
                     if (bits & 1)
                         bits |= 6;
@@ -2046,7 +2046,7 @@ static bool8 TrySetPyramidObjectEventPositionInSquare(u8 objType, u8 *floorLayou
 {
     int x, y;
 
-    if (gSaveBlock2Ptr->frontier.pyramidRandoms[0] & 1)
+    if (gSaveBlock1Ptr->frontier.pyramidRandoms[0] & 1)
     {
         for (y = 7; y > -1; y--)
         {
@@ -2107,7 +2107,7 @@ static bool8 TrySetPyramidObjectEventPositionAtCoords(u8 objType, u8 x, u8 y, u8
             {
                 i = GetUniqueTrainerId(objectEventId);
                 floorEvents[objectEventId].graphicsId = GetBattleFacilityTrainerGfxId(i);
-                gSaveBlock2Ptr->frontier.trainerIds[objectEventId] = i;
+                gSaveBlock1Ptr->frontier.trainerIds[objectEventId] = i;
             }
             return FALSE;
         }
@@ -2119,7 +2119,7 @@ static bool8 TrySetPyramidObjectEventPositionAtCoords(u8 objType, u8 x, u8 y, u8
 static void GetPyramidFloorLayoutOffsets(u8 *layoutOffsets)
 {
     int i;
-    int rand = (gSaveBlock2Ptr->frontier.pyramidRandoms[0]) | (gSaveBlock2Ptr->frontier.pyramidRandoms[1] << 16);
+    int rand = (gSaveBlock1Ptr->frontier.pyramidRandoms[0]) | (gSaveBlock1Ptr->frontier.pyramidRandoms[1] << 16);
     u8 id = GetPyramidFloorTemplateId();
 
     for (i = 0; i < NUM_PYRAMID_FLOOR_SQUARES; i++)
@@ -2128,7 +2128,7 @@ static void GetPyramidFloorLayoutOffsets(u8 *layoutOffsets)
         rand >>= 3;
         if (i == 7)
         {
-            rand = (gSaveBlock2Ptr->frontier.pyramidRandoms[2]) | (gSaveBlock2Ptr->frontier.pyramidRandoms[3] << 16);
+            rand = (gSaveBlock1Ptr->frontier.pyramidRandoms[2]) | (gSaveBlock1Ptr->frontier.pyramidRandoms[3] << 16);
             rand >>= 8;
         }
     }
@@ -2137,8 +2137,8 @@ static void GetPyramidFloorLayoutOffsets(u8 *layoutOffsets)
 static u8 GetPyramidFloorTemplateId(void)
 {
     int i;
-    int rand = gSaveBlock2Ptr->frontier.pyramidRandoms[3] % 100;
-    int floor = gSaveBlock2Ptr->frontier.curChallengeBattleNum;
+    int rand = gSaveBlock1Ptr->frontier.pyramidRandoms[3] % 100;
+    int floor = gSaveBlock1Ptr->frontier.curChallengeBattleNum;
 
     for (i = sFloorTemplateOffsets[floor]; i < ARRAY_COUNT(sPyramidFloorTemplateOptions); i++)
     {
@@ -2168,8 +2168,8 @@ static void InitPyramidBagItems(u8 lvlMode)
 
     for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
     {
-        gSaveBlock2Ptr->frontier.pyramidBag.itemId[lvlMode][i] = ITEM_NONE;
-        gSaveBlock2Ptr->frontier.pyramidBag.quantity[lvlMode][i] = ITEM_NONE;
+        gSaveBlock1Ptr->frontier.pyramidBag.itemId[lvlMode][i] = ITEM_NONE;
+        gSaveBlock1Ptr->frontier.pyramidBag.quantity[lvlMode][i] = ITEM_NONE;
     }
 
     AddPyramidBagItem(ITEM_HYPER_POTION, 1);
@@ -2180,8 +2180,8 @@ u16 GetBattlePyramidPickupItemId(void)
 {
     int rand;
     u32 i;
-    u32 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
-    int round = (gSaveBlock2Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE);
+    u32 lvlMode = gSaveBlock1Ptr->frontier.lvlMode;
+    int round = (gSaveBlock1Ptr->frontier.pyramidWinStreaks[lvlMode] / FRONTIER_STAGES_PER_CHALLENGE);
 
     if (round >= TOTAL_PYRAMID_ROUNDS)
         round = TOTAL_PYRAMID_ROUNDS - 1;

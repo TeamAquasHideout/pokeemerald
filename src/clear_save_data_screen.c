@@ -104,7 +104,7 @@ static void Task_ClearSaveDataScreenYesNoChoice(u8 taskId)
 
 static void Task_ClearSaveData(u8 taskId)
 {
-    ClearSaveData();
+    //ClearSaveData();
     DestroyTask(taskId);
     SetMainCallback2(CB2_FadeAndDoReset);
 }

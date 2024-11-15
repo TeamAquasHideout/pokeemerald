@@ -196,9 +196,6 @@ struct Pokedex
     /*0x04*/ u32 unownPersonality; // set when you first see Unown
     /*0x08*/ u32 spindaPersonality; // set when you first see Spinda
     /*0x0C*/ u32 unknown3;
-#if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2 == FALSE
-    /*0x10*/ u8 filler[0x68]; // Previously Dex Flags, feel free to remove.
-#endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK2
 };
 
 struct PokemonJumpRecords
@@ -496,82 +493,6 @@ struct RankingHall2P
     //u8 padding;
 };
 
-struct SaveBlock2
-{
-    /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
-    /*0x08*/ u8 playerGender; // MALE, FEMALE
-    /*0x09*/ u8 specialSaveWarpFlags;
-    /*0x0A*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
-    /*0x0E*/ u16 playTimeHours;
-    /*0x10*/ u8 playTimeMinutes;
-    /*0x11*/ u8 playTimeSeconds;
-    /*0x12*/ u8 playTimeVBlanks;
-    /*0x13*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
-    /*0x14*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/INSTANT]
-             u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
-             u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
-             u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
-             u16 optionsBattleSceneOff:1; // whether battle animations are disabled
-             u16 regionMapZoom:1; // whether the map is zoomed in
-             u16 padding1:4;  // uncommented because its free padding space
-             u16 padding2:15; // uncommented because its free padding space
-             u16 mode50Floors:1;
-    /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u16 modeDefault:2;
-             u16 modeBattleMode:2;
-             u16 modeNoCaseChoice:1;
-             u16 modeSaveDeletion:1;
-             u16 modeStatChanger:1;
-             u16 modeLegendaries:1;
-             u16 modeDuplicates:1;
-             u16 optionsAutosave:2;
-             u16 modeMegas:1;
-             u16 optionsFollowMonsOff:1;
-             u16 modeCashRewards:2;
-             u16 mode3MonsOnly:1;
-             // end of u16
-             u16 randomMoves:1;
-             u16 randomAbilities:1;
-             u16 randomBST:1;
-             u16 randomType:1;
-             u16 randomEvos:1;
-             u16 modeHealFloors10:1;
-             u16 modeXP:2;
-             u16 optionsRandomMaps:1;
-             u16 optionsRandomMusic:1;
-             u16 randomBattleWeather:2;
-             u16 filler_9912:4;
-             //end of u16
-             u8 randomBossEncounters[2];
-             u8 randomMonEncounters[2];
-             u8 playerGfxType;
-    /*0x98*/ struct Time localTimeOffset;
-    // #### running stats for The Pit - START ####
-    /*0xA0*/ u16 statsAllAttempts;
-             u16 statsRunRevives;
-             u16 statsAllHighscore;
-             u16 statsAllClears;
-             u16 statsRunKOs;
-             u16 statsPadding2;
-    // #### running stats for The Pit - END ####
-    /*0xAC*/ u32 encryptionKey;
-    /*0xB0*/ struct PlayersApprentice playerApprentice;
-    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
-    /*0x1EC*/ struct BerryCrush berryCrush;
-#if FREE_POKEMON_JUMP == FALSE
-    /*0x1FC*/ struct PokemonJumpRecords pokeJump;
-#endif //FREE_POKEMON_JUMP
-    /*0x20C*/ struct BerryPickingResults berryPick;
-#if FREE_RECORD_MIXING_HALL_RECORDS == FALSE
-    /*0x21C*/ struct RankingHall1P hallRecords1P[HALL_FACILITIES_COUNT][FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-    /*0x57C*/ struct RankingHall2P hallRecords2P[FRONTIER_LVL_MODE_COUNT][HALL_RECORDS_COUNT]; // From record mixing.
-#endif //FREE_RECORD_MIXING_HALL_RECORDS
-    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
-    /*0x64C*/ struct BattleFrontier frontier;
-}; // sizeof=0xF2C
-
-extern struct SaveBlock2 *gSaveBlock2Ptr;
-
 struct SecretBaseParty
 {
     u32 personality[PARTY_SIZE];
@@ -600,6 +521,93 @@ struct SecretBase
     /*0x1ACE*/ //u8 padding[2];
     /*0x1AD0*/ struct SecretBaseParty party;
 };
+
+
+struct SaveBlock2
+{
+    // Pokedex
+    /*0x18*/ struct Pokedex pokedex;
+    /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
+    /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];
+
+    /*0x98*/ struct Time localTimeOffset;
+    /*0xAC*/ u32 encryptionKey;
+    /*0x00*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
+    /*0x08*/ u8 playerGender; // MALE, FEMALE
+    /*0x09*/ u8 specialSaveWarpFlags;
+    /*0x0A*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
+    /*0x0E*/ u16 playTimeHours;
+    /*0x10*/ u8 playTimeMinutes;
+    /*0x11*/ u8 playTimeSeconds;
+    /*0x12*/ u8 playTimeVBlanks;
+             u8 playerGfxType;
+
+    /*0x13*/ u8 optionsButtonMode;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
+    /*0x14*/ u16 optionsTextSpeed:3; // OPTIONS_TEXT_SPEED_[SLOW/MID/FAST/INSTANT]
+             u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
+             u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
+             u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
+             u16 optionsBattleSceneOff:1; // whether battle animations are disabled
+             u16 regionMapZoom:1; // whether the map is zoomed in
+             u16 padding1:4;  // uncommented because its free padding space
+            // end of u16
+             u16 mode50Floors:1;
+             u16 padding2:15; // uncommented because its free padding space
+            // end of u16
+    /*0x90*/ u16 modeDefault:2;
+             u16 modeBattleMode:2;
+             u16 modeNoCaseChoice:1;
+             u16 modeSaveDeletion:1;
+             u16 modeStatChanger:1;
+             u16 modeLegendaries:1;
+             u16 modeDuplicates:1;
+             u16 optionsAutosave:2;
+             u16 modeMegas:1;
+             u16 optionsFollowMonsOff:1;
+             u16 modeCashRewards:2;
+             u16 mode3MonsOnly:1;
+             // end of u16
+             u16 randomMoves:1;
+             u16 randomAbilities:1;
+             u16 randomBST:1;
+             u16 randomType:1;
+             u16 randomEvos:1;
+             u16 modeHealFloors10:1;
+             u16 modeXP:2;
+             u16 optionsRandomMaps:1;
+             u16 optionsRandomMusic:1;
+             u16 randomBattleWeather:2;
+             u16 filler_9912:4;
+             //end of u16
+
+    // #### running stats for The Pit - START ####
+    /*0xA0*/ u16 statsAllAttempts;
+             u16 statsRunRevives;
+             u16 statsAllHighscore;
+             u16 statsAllClears;
+             u16 statsRunKOs;
+             u16 statsPadding2;
+    // #### running stats for The Pit - END ####
+
+            u32 extraPitPadding[8];
+
+    // #### Secret Bases for The Pit - START ####
+    /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];
+    /*0x271C*/ u8 playerRoomDecorations[DECOR_MAX_PLAYERS_HOUSE];
+    /*0x2728*/ u8 playerRoomDecorationPositions[DECOR_MAX_PLAYERS_HOUSE];
+    /*0x2734*/ u8 decorationDesks[10];
+    /*0x273E*/ u8 decorationChairs[10];
+    /*0x2748*/ u8 decorationPlants[10];
+    /*0x2752*/ u8 decorationOrnaments[30];
+    /*0x2770*/ u8 decorationMats[30];
+    /*0x278E*/ u8 decorationPosters[10];
+    /*0x2798*/ u8 decorationDolls[40];
+    /*0x27C0*/ u8 decorationCushions[10];
+
+}; // sizeof=0xF2C
+
+extern struct SaveBlock2 *gSaveBlock2Ptr;
+
 
 #include "constants/game_stat.h"
 #include "global.fieldmap.h"
@@ -1057,17 +1065,6 @@ struct SaveBlock1
     /*0x139C*/ u16 vars[VARS_COUNT];
     /*0x159C*/ u32 gameStats[NUM_GAME_STATS];
     /*0x169C*/ struct BerryTree berryTrees[BERRY_TREES_COUNT];
-    /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];
-    /*0x271C*/ u8 playerRoomDecorations[DECOR_MAX_PLAYERS_HOUSE];
-    /*0x2728*/ u8 playerRoomDecorationPositions[DECOR_MAX_PLAYERS_HOUSE];
-    /*0x2734*/ u8 decorationDesks[10];
-    /*0x273E*/ u8 decorationChairs[10];
-    /*0x2748*/ u8 decorationPlants[10];
-    /*0x2752*/ u8 decorationOrnaments[30];
-    /*0x2770*/ u8 decorationMats[30];
-    /*0x278E*/ u8 decorationPosters[10];
-    /*0x2798*/ u8 decorationDolls[40];
-    /*0x27C0*/ u8 decorationCushions[10];
     /*0x27CC*/ TVShow tvShows[TV_SHOWS_COUNT];
     /*0x27CA*/ //u8 padding4[2];
     /*0x2B50*/ PokeNews pokeNews[POKE_NEWS_COUNT];
@@ -1106,8 +1103,6 @@ struct SaveBlock1
 #if FREE_MYSTERY_GIFT == FALSE
     /*0x322C*/ struct MysteryGiftSave mysteryGift;
 #endif //FREE_MYSTERY_GIFT
-    /*0x3???*/ u8 dexSeen[NUM_DEX_FLAG_BYTES];
-    /*0x3???*/ u8 dexCaught[NUM_DEX_FLAG_BYTES];
 #if FREE_TRAINER_HILL == FALSE
     /*0x3???*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
 #endif //FREE_TRAINER_HILL
@@ -1125,6 +1120,12 @@ struct SaveBlock1
 #endif //FREE_TRAINER_HILL
     /*0x3???*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3???
+   /*0x64C*/ struct BattleFrontier frontier;
+    /*0xB0*/ struct PlayersApprentice playerApprentice;
+    /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
+    /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
+    u8 randomBossEncounters[2];
+    u8 randomMonEncounters[2];
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;

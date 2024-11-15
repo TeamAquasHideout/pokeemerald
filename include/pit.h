@@ -23,6 +23,7 @@ void UpdateRunningStats(void);
 void IncrementStatsRunKOs(void);
 void IncrementStatsRunRevives(void);
 void ResetRunStats(void);
+void SaveTempHofData(void);
 u8 getNumberOfApproachTexts(void);
 u8 getNumberOfDefeatTexts(void);
 

@@ -556,6 +556,95 @@ static const struct sRandomMap sRandomMapArray[] = {
         .dest_y = 13,
         .warp_x = 15,
         .warp_y = 14,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH02,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(RAIN, 10),
+        DEFAULT_RANDOM_MAP_COORDS
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH03,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(RAIN, 10),
+        DEFAULT_RANDOM_MAP_COORDS
+    },    
+     {
+        .mapConstant = MAP_PIT_ARENA_BEACH04,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(RAIN, 10),
+        DEFAULT_RANDOM_MAP_COORDS
+    },       
+    {
+        .mapConstant = MAP_PIT_ARENA_DEEP_FOREST,
+        .warpMetatileId = METATILE_PitArenaDeepForest_DEEP_FOREST_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 18,
+        .dest_y = 17,
+        .warp_x = 18,
+        .warp_y = 18,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_DEEP_FOREST02,
+        .warpMetatileId = METATILE_PitArenaDeepForest_DEEP_FOREST_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 18,
+        .dest_y = 17,
+        .warp_x = 18,
+        .warp_y = 18,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_WHITE_BARK02,
+        .warpMetatileId = METATILE_PitArenaWhiteBark_WHITEBARK_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 80),
+        .dest_x = 10,
+        .dest_y = 9,
+        .warp_x = 10,
+        .warp_y = 10,
+    },   
+     {
+        .mapConstant = MAP_PIT_ARENA_SNOW03,
+        .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(SNOW, 90),
+        .dest_x = 12,
+        .dest_y = 11,
+        .warp_x = 12,
+        .warp_y = 12,
+    },    
+    {
+        .mapConstant = MAP_PIT_ARENA_DESERT02,
+        .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(SANDSTORM, 80),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_DIRT_PATH02,
+        .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_UNDERWATER02,
+        .warpMetatileId = METATILE_PitArenaUnderwater_UNDERWATER_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_UNDERWATER,
+        WEATHER_CHANCE(UNDERWATER_BUBBLES, 100),
+        DEFAULT_RANDOM_MAP_COORDS
+    },    
+    {
+        .mapConstant = MAP_PIT_ARENA_MINE02,
+        .warpMetatileId = METATILE_PitArenaMine_MINE_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_CAVE,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 15),
+        DEFAULT_RANDOM_MAP_COORDS
     },    
 };
 
@@ -679,7 +768,7 @@ u16 GetPrimaryTilesetIdCurrentMap(void)
 
 struct RandomMonEncounters {
     u16 species;
-    u16 flagId; // id into gSaveBlock2Ptr->randomMonEncounters not normal flags
+    u16 flagId; // id into gSaveBlock1Ptr->randomMonEncounters not normal flags
     const u8 *monScript;
     const u8 *alreadyUsedScript;
 };
@@ -772,7 +861,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
 
 u8 *GetEncounterFlagPointer(u16 id)
 {
-    return &gSaveBlock2Ptr->randomMonEncounters[id / 8];
+    return &gSaveBlock1Ptr->randomMonEncounters[id / 8];
 }
 
 u8 EncounterFlagSet(u16 id)
@@ -1128,7 +1217,7 @@ void TrySetRandomMusic(void)
 struct RandomBossEncounters {
     u16 graphicsId;
     u16 trainerPic;
-    u16 flagId; // id into gSaveBlock2Ptr->randomBossEncounters not normal flags
+    u16 flagId; // id into gSaveBlock1Ptr->randomBossEncounters not normal flags
     const u8 *bossName;
     const u8 *bossApproachText;
     const u8 *bossLoseText;
@@ -1864,7 +1953,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 
 u8 *GetBossEncounterFlagPointer(u16 id)
 {
-    return &gSaveBlock2Ptr->randomBossEncounters[id / 8];
+    return &gSaveBlock1Ptr->randomBossEncounters[id / 8];
 }
 
 u8 BossEncounterFlagSet(u16 id)
@@ -2260,7 +2349,7 @@ void LevelUpParty(void)
 
 void Check3MonMode(void)
 {
-    if(gSaveBlock2Ptr->mode3MonsOnly)
+    if(gSaveBlock2Ptr->mode3MonsOnly == 0)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);

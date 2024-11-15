@@ -58,30 +58,6 @@ static void ResetMiniGamesRecords(void);
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
 
-EWRAM_DATA u8 newGameDexSeen[NUM_DEX_FLAG_BYTES];
-EWRAM_DATA u8 newGameDexCaught[NUM_DEX_FLAG_BYTES];
-
-void SavePokedexFlags(void)
-{
-    u16 i;
-    for (i = 0; i < NUM_DEX_FLAG_BYTES; i++)
-    {
-        newGameDexCaught[i] = gSaveBlock1Ptr->dexCaught[i];
-        newGameDexSeen[i] = gSaveBlock1Ptr->dexSeen[i];
-    }
-}
-
-void ReloadPokedexFlags(void)
-{
-    u16 i;
-    for (i = 0; i < NUM_DEX_FLAG_BYTES; i++)
-    {
-        gSaveBlock1Ptr->dexCaught[i] = newGameDexCaught[i];
-        gSaveBlock1Ptr->dexSeen[i] = newGameDexSeen[i];
-    }
-}
-
-
 static const struct ContestWinner sContestWinnerPicDummy =
 {
     .monName = _(""),
@@ -188,8 +164,8 @@ void SetOnMapLoadDefaultOptions(void)
 static void ClearPokedexFlags(void)
 {
     //gUnusedPokedexU8 = 0;
-    //memset(&gSaveBlock1Ptr->dexCaught, 0, sizeof(gSaveBlock1Ptr->dexCaught));
-    //memset(&gSaveBlock1Ptr->dexSeen, 0, sizeof(gSaveBlock1Ptr->dexSeen));
+    //memset(&gSaveBlock2Ptr->dexCaught, 0, sizeof(gSaveBlock2Ptr->dexCaught));
+    //memset(&gSaveBlock2Ptr->dexSeen, 0, sizeof(gSaveBlock2Ptr->dexSeen));
 }
 
 void ClearAllContestWinnerPics(void)
@@ -205,10 +181,10 @@ void ClearAllContestWinnerPics(void)
 
 static void ClearFrontierRecord(void)
 {
-    CpuFill32(0, &gSaveBlock2Ptr->frontier, sizeof(gSaveBlock2Ptr->frontier));
+    CpuFill32(0, &gSaveBlock1Ptr->frontier, sizeof(gSaveBlock1Ptr->frontier));
 
-    gSaveBlock2Ptr->frontier.opponentNames[0][0] = EOS;
-    gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
+    gSaveBlock1Ptr->frontier.opponentNames[0][0] = EOS;
+    gSaveBlock1Ptr->frontier.opponentNames[1][0] = EOS;
 }
 
 static void WarpToTruck(void)
@@ -240,7 +216,6 @@ void NewGameInitData(void)
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
-    SavePokedexFlags();
     ResetRunStats();
     //ResetPokedex();
     ClearFrontierRecord();
@@ -286,7 +261,6 @@ void NewGameInitData(void)
     InitDewfordTrend();
     ResetFanClub();
     ResetLotteryCorner();
-    ReloadPokedexFlags();
     WarpToTruck();
     RunScriptImmediately(EventScript_ResetAllMapFlags);
     ResetMiniGamesRecords();
@@ -303,8 +277,5 @@ void NewGameInitData(void)
 
 static void ResetMiniGamesRecords(void)
 {
-    CpuFill16(0, &gSaveBlock2Ptr->berryCrush, sizeof(struct BerryCrush));
-    SetBerryPowder(&gSaveBlock2Ptr->berryCrush.berryPowderAmount, 0);
-    ResetPokemonJumpRecords();
-    CpuFill16(0, &gSaveBlock2Ptr->berryPick, sizeof(struct BerryPickingResults));
+
 }

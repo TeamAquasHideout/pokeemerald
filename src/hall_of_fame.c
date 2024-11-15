@@ -37,6 +37,7 @@
 #include "constants/rgb.h"
 #include "pit.h"
 #include "ui_trainer_stats.h"
+#include "load_save.h"
 
 #define HALL_OF_FAME_MAX_TEAMS 30
 #define TAG_CONFETTI 1001
@@ -68,6 +69,7 @@ struct HofGfx
 
 static EWRAM_DATA u32 sHofFadePalettes = 0;
 static EWRAM_DATA struct HallofFameTeam *sHofMonPtr = NULL;
+static EWRAM_DATA struct HallofFameTeam *sTempHofMonPtr = NULL;
 static EWRAM_DATA struct HofGfx *sHofGfxPtr = NULL;
 
 static void ClearVramOamPltt_LoadHofPal(void);
@@ -406,7 +408,10 @@ static bool8 InitHallOfFameScreen(void)
         {
             //Delete Save file
             if (gSaveBlock2Ptr->modeSaveDeletion == OPTIONS_ON)
-                ClearSaveData();
+            {
+                ClearSav1();
+                ClearSav3();
+            }
             SetMainCallback2(CB2_HallOfFame);
             PlayBGM(MUS_HALL_OF_FAME);
             return FALSE;
@@ -443,6 +448,22 @@ void CB2_DoHallOfFameScreenDontSaveData(void)
     }
 }
 
+void SaveTempHofData(void)
+{
+    for (u8 i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
+        {
+            VarSet(VAR_TEMP_2 + i, GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG));
+        }
+        else
+        {
+            VarSet(VAR_TEMP_2 + i, 0);
+        }
+    }
+    FlagSet(FLAG_LOAD_FROM_TEMP_HOF);
+}
+
 static void Task_Hof_InitMonData(u8 taskId)
 {
     u16 i, j;
@@ -452,17 +473,31 @@ static void Task_Hof_InitMonData(u8 taskId)
     for (i = 0; i < PARTY_SIZE; i++)
     {
         u8 nickname[POKEMON_NAME_LENGTH + 1];
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
-        {
-            sHofMonPtr->mon[i].species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
-            sHofMonPtr->mon[i].tid = GetMonData(&gPlayerParty[i], MON_DATA_OT_ID);
-            sHofMonPtr->mon[i].isShiny = GetMonData(&gPlayerParty[i], MON_DATA_IS_SHINY);
-            sHofMonPtr->mon[i].personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
-            sHofMonPtr->mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
-            GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nickname);
-            for (j = 0; j < POKEMON_NAME_LENGTH; j++)
-                sHofMonPtr->mon[i].nickname[j] = nickname[j];
-            gTasks[taskId].tMonNumber++;
+        
+        if (((!FlagGet(FLAG_LOAD_FROM_TEMP_HOF)) && (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))) || (FlagGet(FLAG_LOAD_FROM_TEMP_HOF) && (VarGet(VAR_TEMP_2 + i) != 0)))
+        {   
+            if (FlagGet(FLAG_LOAD_FROM_TEMP_HOF))
+            {
+                sHofMonPtr->mon[i].species = VarGet(VAR_TEMP_2 + i);
+                sHofMonPtr->mon[i].tid = 0;
+                sHofMonPtr->mon[i].isShiny = FALSE;
+                sHofMonPtr->mon[i].personality = 0;
+                sHofMonPtr->mon[i].lvl = 0;
+                sHofMonPtr->mon[i].nickname[0] = EOS;
+            }
+            else
+            {
+                sHofMonPtr->mon[i].species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+                sHofMonPtr->mon[i].tid = GetMonData(&gPlayerParty[i], MON_DATA_OT_ID);
+                sHofMonPtr->mon[i].isShiny = GetMonData(&gPlayerParty[i], MON_DATA_IS_SHINY);
+                sHofMonPtr->mon[i].personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
+                sHofMonPtr->mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+                GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nickname);
+                for (j = 0; j < POKEMON_NAME_LENGTH; j++)
+                    sHofMonPtr->mon[i].nickname[j] = nickname[j];
+                gTasks[taskId].tMonNumber++;
+            }
+            
         }
         else
         {
@@ -474,6 +509,8 @@ static void Task_Hof_InitMonData(u8 taskId)
             sHofMonPtr->mon[i].nickname[0] = EOS;
         }
     }
+
+    FlagClear(FLAG_LOAD_FROM_TEMP_HOF);
 
     sHofFadePalettes = 0;
     gTasks[taskId].tDisplayedMonId = 0;

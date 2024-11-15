@@ -109,22 +109,40 @@ Pit_EndGameStatue222::
 	callnative AutoSave
 PitStatueNoAutoSave:
 	msgbox Pit_EndGameStatue_Text2, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, Pit_EndGameStatue2
+	goto_if_eq VAR_RESULT, YES, Pit_EndGameStatue2
 	special HealPlayerParty
-	removeobject 2
-	setflag FLAG_FLOOR_CLEARED
-	callnative SetWarpTileActive
-	special DrawWholeMapView
+	callnative BufferMapFloorString
+	callnative Check3MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
+	callnative SetRandomGiveMonRewardEncounters
+	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
+	waitstate
 	release
 	end
 
 Pit_EndGameStatue2::
+	msgbox Pit_EndGameStatue_TextSaveTeam, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PitStatue_AccessPC
+Pit_EndGameStatue5::
 	msgbox Pit_EndGameStatue_Text3, MSGBOX_AUTOCLOSE 
 	fadescreen FADE_TO_BLACK
 	special GameClear
 	waitstate
 	release
 	end
+
+PitStatue_AccessPC::
+	playse SE_PC_ON
+	setvar VAR_TEMP_B, 1
+	callnative SaveTempHofData
+	special ShowPokemonStorageSystemPC
+	waitstate
+	goto Pit_EndGameStatue5
+	end
+
+Pit_EndGameStatue_TextSaveTeam:
+	.string "Do you want to save your Winning Team?$"
+
 
 Pit_EndGameStatue_Text1:
 	.string "Congratulations, you have.\n"
@@ -134,7 +152,8 @@ Pit_EndGameStatue_Text1:
 	.string "pleasant.$"
 
 Pit_EndGameStatue_Text2:
-	.string "Do you want to keep going?$"
+	.string "Return to the Pit Entrance? (YES)\n"
+	.string "Or keep traversing lower?   (NO).$"
 
 Pit_EndGameStatue_Text3:
 	.string "Well, thanks for playing!$"
