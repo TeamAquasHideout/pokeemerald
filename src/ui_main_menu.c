@@ -550,6 +550,13 @@ void Task_OpenMainMenu(u8 taskId)
     }
 }
 
+void TrainerStats_OpenMainMenu(void)
+{
+    menuType = HAS_SAVED_GAME;
+    CleanupOverworldWindowsAndTilemaps();
+    MainMenu_Init(CB2_InitTitleScreen); // if need to bail go to title screen
+}
+
 //
 //  Setup Menu Functions
 //

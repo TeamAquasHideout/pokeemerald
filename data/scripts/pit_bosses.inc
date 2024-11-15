@@ -153,7 +153,7 @@ Pit_EndGameStatue_Text1:
 
 Pit_EndGameStatue_Text2:
 	.string "Return to the Pit Entrance? (YES)\n"
-	.string "Or keep going (NO).$"
+	.string "Or keep traversing lower?   (NO).$"
 
 Pit_EndGameStatue_Text3:
 	.string "Well, thanks for playing!$"
