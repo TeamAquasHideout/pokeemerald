@@ -10698,6 +10698,7 @@ u16 GetBattleFormChangeTargetSpecies(u32 battler, u16 method)
     const struct FormChange *formChanges = GetSpeciesFormChanges(species);
     struct Pokemon *mon = &GetBattlerParty(battler)[gBattlerPartyIndexes[battler]];
     u16 heldItem;
+    bool8 megaRayquaza = FALSE;
 
     if (formChanges != NULL)
     {
@@ -10715,8 +10716,12 @@ u16 GetBattleFormChangeTargetSpecies(u32 battler, u16 method)
                     if (heldItem == formChanges[i].param1)
                         targetSpecies = formChanges[i].targetSpecies;
                     break;
-                case FORM_CHANGE_BATTLE_MEGA_EVOLUTION_MOVE:
-                    if(FlagGet(FLAG_MEGAS) || GetBattlerSide(battler) == B_SIDE_PLAYER)
+                case FORM_CHANGE_BATTLE_MEGA_EVOLUTION_MOVE: //Mega Rayquaza rule
+#ifdef PIT_GEN_9_MODE
+                    if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
+                        megaRayquaza = TRUE;
+#endif
+                    if(megaRayquaza || GetBattlerSide(battler) == B_SIDE_PLAYER)
                     {
                         if (gBattleMons[battler].moves[0] == formChanges[i].param1
                         || gBattleMons[battler].moves[1] == formChanges[i].param1

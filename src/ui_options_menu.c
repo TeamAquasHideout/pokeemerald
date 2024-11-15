@@ -130,8 +130,8 @@ struct OptionsMenu
     u16 submenu;
     u8 sel_pit[MENUITEM_PIT_COUNT];
     u8 sel_van[MENUITEM_VANILLA_COUNT];
-    int menuCursor[MENU_COUNT + 1];
-    int visibleCursor[MENU_COUNT + 1];
+    s8 menuCursor[MENU_COUNT + 1];
+    s8 visibleCursor[MENU_COUNT + 1];
     u8 arrowTaskId;
     u8 gfxLoadState;
 };
