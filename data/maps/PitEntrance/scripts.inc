@@ -395,3 +395,13 @@ PitEntrance_Text_Rules::
 PitEntrance_Text_Discord:
 	.string "To talk about the hack join our server.\n"
 	.string "Discord: https://discord.gg/3b83g96NTW$"
+
+
+PitEntrance_AccessPC::
+	lock
+	playse SE_PC_ON
+	setvar VAR_TEMP_B, 0
+	special ShowPokemonStorageSystemPC
+	waitstate
+	release
+	end

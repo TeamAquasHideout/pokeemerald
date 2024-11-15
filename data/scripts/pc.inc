@@ -37,6 +37,7 @@ EventScript_AccessPokemonStorage::
 	call_if_unset FLAG_SYS_PC_LANETTE, EventScript_AccessSomeonesPC
 	call_if_set FLAG_SYS_PC_LANETTE, EventScript_AccessLanettesPC
 	msgbox gText_StorageSystemOpened, MSGBOX_DEFAULT
+	setvar VAR_TEMP_B, 0
 	special ShowPokemonStorageSystemPC
 	waitstate
 	goto EventScript_PCMainMenu
@@ -68,6 +69,7 @@ EventScript_AccessHallOfFame::
 EventScript_AccessPokemonBoxLink::
 	playse SE_PC_LOGIN
 	msgbox gText_StorageSystemOpened, MSGBOX_DEFAULT
+	setvar VAR_TEMP_B, 0
 	special ShowPokemonStorageSystemPC
 	waitstate
 	goto EventScript_TurnOffPC

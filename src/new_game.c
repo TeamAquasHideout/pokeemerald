@@ -266,6 +266,8 @@ void NewGameInitData(void)
     InitLotadSizeRecord();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
+
+    ReloadPokedexFlags();
     
     // Poke Storage Stuff
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
@@ -285,7 +287,6 @@ void NewGameInitData(void)
     InitDewfordTrend();
     ResetFanClub();
     ResetLotteryCorner();
-    ReloadPokedexFlags();
     WarpToTruck();
     RunScriptImmediately(EventScript_ResetAllMapFlags);
     ResetMiniGamesRecords();
