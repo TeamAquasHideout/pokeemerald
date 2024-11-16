@@ -33,6 +33,7 @@ const u8 GetRandomTrainerEncounterTrainerClass(void);
 
 struct RandomTrainerNPC 
 {
+    u16 arrayElement;
     u16 gfxid;
     u16 objectflag;
     u16 trainerflag;

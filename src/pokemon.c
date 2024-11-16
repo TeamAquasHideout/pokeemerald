@@ -6290,7 +6290,7 @@ u16 GetAverageEVsFromParty(void)
     }
 
     averageEVs = totalEVs/CalculatePlayerPartyCount();
-    DebugPrintf("party size = %d, averageEVs = %d", CalculatePlayerPartyCount(), averageEVs);
+    //DebugPrintf("party size = %d, averageEVs = %d", CalculatePlayerPartyCount(), averageEVs);
 
     return averageEVs;
 }

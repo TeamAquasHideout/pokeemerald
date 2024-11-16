@@ -49,18 +49,18 @@
 //general structs for the object events
 const struct RandomTrainerNPC RandomNPCTrainers[MAX_RANDOM_TRAINERS] = 
 {
-    [0] = {VAR_OBJ_GFX_ID_0, FLAG_TRAINER_0, TRAINER_RANDOM_BATTLE_0, VAR_TRAINER_0_DEFEAT_TEXT},
-    [1] = {VAR_OBJ_GFX_ID_1, FLAG_TRAINER_1, TRAINER_RANDOM_BATTLE_1, VAR_TRAINER_1_DEFEAT_TEXT},
-    [2] = {VAR_OBJ_GFX_ID_2, FLAG_TRAINER_2, TRAINER_RANDOM_BATTLE_2, VAR_TRAINER_2_DEFEAT_TEXT},
-    [3] = {VAR_OBJ_GFX_ID_3, FLAG_TRAINER_3, TRAINER_RANDOM_BATTLE_3, VAR_TRAINER_3_DEFEAT_TEXT},
+    [0] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_0, VAR_OBJ_GFX_ID_0, FLAG_TRAINER_0, TRAINER_RANDOM_BATTLE_0, VAR_TRAINER_0_DEFEAT_TEXT},
+    [1] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_1, VAR_OBJ_GFX_ID_1, FLAG_TRAINER_1, TRAINER_RANDOM_BATTLE_1, VAR_TRAINER_1_DEFEAT_TEXT},
+    [2] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_2, VAR_OBJ_GFX_ID_2, FLAG_TRAINER_2, TRAINER_RANDOM_BATTLE_2, VAR_TRAINER_2_DEFEAT_TEXT},
+    [3] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_3, VAR_OBJ_GFX_ID_3, FLAG_TRAINER_3, TRAINER_RANDOM_BATTLE_3, VAR_TRAINER_3_DEFEAT_TEXT},
 };
 
 const struct RandomTrainerNPC RandomNPCTrainers_Doubles[MAX_RANDOM_TRAINERS] = 
 {
-    [0] = {VAR_OBJ_GFX_ID_0, FLAG_TRAINER_4, TRAINER_RANDOM_BATTLE_4, VAR_TRAINER_4_DEFEAT_TEXT},
-    [1] = {VAR_OBJ_GFX_ID_1, FLAG_TRAINER_5, TRAINER_RANDOM_BATTLE_5, VAR_TRAINER_5_DEFEAT_TEXT},
-    [2] = {VAR_OBJ_GFX_ID_2, FLAG_TRAINER_6, TRAINER_RANDOM_BATTLE_6, VAR_TRAINER_6_DEFEAT_TEXT},
-    [3] = {VAR_OBJ_GFX_ID_3, FLAG_TRAINER_7, TRAINER_RANDOM_BATTLE_7, VAR_TRAINER_7_DEFEAT_TEXT},
+    [0] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_0, VAR_OBJ_GFX_ID_0, FLAG_TRAINER_4, TRAINER_RANDOM_BATTLE_4, VAR_TRAINER_4_DEFEAT_TEXT},
+    [1] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_1, VAR_OBJ_GFX_ID_1, FLAG_TRAINER_5, TRAINER_RANDOM_BATTLE_5, VAR_TRAINER_5_DEFEAT_TEXT},
+    [2] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_2, VAR_OBJ_GFX_ID_2, FLAG_TRAINER_6, TRAINER_RANDOM_BATTLE_6, VAR_TRAINER_6_DEFEAT_TEXT},
+    [3] = {VAR_PIT_TRAINER_ARRAY_ELEMENT_3, VAR_OBJ_GFX_ID_3, FLAG_TRAINER_7, TRAINER_RANDOM_BATTLE_7, VAR_TRAINER_7_DEFEAT_TEXT},
 };
 
 //specific structs for the trainers
@@ -74,7 +74,7 @@ struct RandomTrainerClasses {
     u8 gender;
 };
 
-#define RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT ARRAY_COUNT(sRandomTrainerEncounterArray)
+#define RANDOM_TRAINER_ENCOUNTER_COUNT ARRAY_COUNT(sRandomTrainerEncounterArray)
 static const struct RandomTrainerClasses sRandomTrainerEncounterArray[] = {
     {
         .graphicsId = OBJ_EVENT_GFX_WOMAN_2,
@@ -491,15 +491,10 @@ static const u8 gRandomTrainerNamesF[][10] =
 //functions
 u16 GetLastSpokenVarObjTrainerArrayElement(void)
 {
-    u16 i;
-
-    for (i = 0; i < RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT; i++)
-    {
-        if (ReturnLastSpokenVarObjGfxId() == sRandomTrainerEncounterArray[i].graphicsId)
-            return i;
-    }
-
-    return 0;
+    if(gSpecialVar_LastTalked > 4) // > 4 = Doubles
+        return VarGet(RandomNPCTrainers_Doubles[gSpecialVar_LastTalked - 5].arrayElement);
+    else
+        return VarGet(RandomNPCTrainers[gSpecialVar_LastTalked - 1].arrayElement);
 }
 
 u16 ReturnLastSpokenVarObjGfxId()
@@ -576,7 +571,7 @@ void SetRandomTrainers(void)
     u16 iterator = 0;
     u16 trainerCount = 0;
     u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
-    u16 gfxId;
+    u16 gfxId, randomTrainerId;
 
     if(gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
     {
@@ -599,10 +594,12 @@ void SetRandomTrainers(void)
         trainers[newTrainer] = TRUE;
 
         //set trainer data for scripts handling
-        gfxId = sRandomTrainerEncounterArray[Random() % RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT].graphicsId;
-        DebugPrintf("graphicsId = %d", gfxId);
+        randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
+        gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+        //DebugPrintf("randomTrainerId = %d, graphicsId = %d", randomTrainerId, gfxId);
         if(FlagGet(FLAG_DOUBLES_MODE))
         {
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].arrayElement, randomTrainerId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag);
@@ -610,6 +607,7 @@ void SetRandomTrainers(void)
         }
         else
         {
+            VarSet(RandomNPCTrainers[newTrainer].arrayElement, randomTrainerId);
             VarSet(RandomNPCTrainers[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag);
@@ -654,7 +652,7 @@ void SetRandomTrainersMixedDoubles(void)
     u16 iterator = 0;
     u16 trainerCount = ReturnNumberOfTrainersForFloor();
     u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
-    u16 gfxId;
+    u16 gfxId, randomTrainerId;
 
     VarSet(VAR_LAST_FLOOR_TRAINER_NUMBER, trainerCount);
 
@@ -691,10 +689,12 @@ void SetRandomTrainersMixedDoubles(void)
 
         trainers[newTrainer] = TRUE;
 
-        gfxId = sRandomTrainerEncounterArray[Random() % RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT].graphicsId;
-        DebugPrintf("graphicsId = %d", gfxId);
+        randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
+        gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+        //DebugPrintf("randomTrainerId = %d, graphicsId = %d", randomTrainerId, gfxId);
         if(Random() % 2)
         {
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].arrayElement, randomTrainerId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag); 
@@ -702,6 +702,7 @@ void SetRandomTrainersMixedDoubles(void)
         }
         else
         {
+            VarSet(RandomNPCTrainers[newTrainer].arrayElement, randomTrainerId);
             VarSet(RandomNPCTrainers[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag); 
@@ -742,7 +743,7 @@ u16 ReturnTrainersRemaining()
 
 u16 GetRandomTrainerEncounterTrainerPic(void)
 {
-    DebugPrintf("trainerPic = %d", sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerPic);
+    //DebugPrintf("trainerPic = %d", sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerPic);
     return sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerPic;
 }
 
