@@ -3,6 +3,7 @@
 
 #include "constants/moves.h"
 #include "constants/trainers.h"
+#include "pit.h"
 
 #define MAX_TRAINER_ITEMS 4
 
@@ -198,7 +199,8 @@ static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
 
 static inline const u8 GetTrainerClassFromId(u16 trainerId)
 {
-    return gTrainers[SanitizeTrainerId(trainerId)].trainerClass;
+    return GetRandomTrainerEncounterTrainerClass();
+    //return gTrainers[SanitizeTrainerId(trainerId)].trainerClass;
 }
 
 static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)

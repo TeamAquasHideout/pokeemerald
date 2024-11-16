@@ -540,7 +540,7 @@ static const u8 sText_Stat_Highscore[]     	= _("Highscore:");
 static const u8 sText_Stat_Clears[]     	= _("Pit Clears:");
 static const u8 sText_Stat_Attempts[]     	= _("Pit Attempts:");
 
-static const u8 sText_Legends[]           = _("Legends");
+static const u8 sText_Legends[]           = _("Legendaries");
 static const u8 sText_StatEdit[]           = _("Stat Edit");
 static const u8 sText_Megas[]           = _("Megas");
 static const u8 sText_3MonMode[]           = _("3 Mon Mode");

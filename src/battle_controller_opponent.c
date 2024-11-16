@@ -472,7 +472,7 @@ static u32 OpponentGetTrainerPicId(u32 battlerId)
     u32 trainerPicId;
 
     if(!FlagGet(FLAG_START_BOSS_ENCOUNTER))
-        trainerPicId = ObjectEventToTrainerPic[ReturnLastSpokenVarObjGfxId()];
+        trainerPicId = GetRandomTrainerEncounterTrainerPic();
     else
         trainerPicId = GetRandomBossEncounterTrainerPic();
 

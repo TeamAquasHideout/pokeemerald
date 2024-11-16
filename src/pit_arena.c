@@ -46,6 +46,7 @@
 // 	Random Trainer Floor Generation Code
 //
 
+//general structs for the object events
 const struct RandomTrainerNPC RandomNPCTrainers[MAX_RANDOM_TRAINERS] = 
 {
     [0] = {VAR_OBJ_GFX_ID_0, FLAG_TRAINER_0, TRAINER_RANDOM_BATTLE_0, VAR_TRAINER_0_DEFEAT_TEXT},
@@ -62,9 +63,448 @@ const struct RandomTrainerNPC RandomNPCTrainers_Doubles[MAX_RANDOM_TRAINERS] =
     [3] = {VAR_OBJ_GFX_ID_3, FLAG_TRAINER_7, TRAINER_RANDOM_BATTLE_7, VAR_TRAINER_7_DEFEAT_TEXT},
 };
 
+//specific structs for the trainers
+#define MALE    0
+#define FEMALE  1
+
+struct RandomTrainerClasses {
+    u16 graphicsId;
+    u16 trainerPic;
+    u16 trainerClass;
+    u8 gender;
+};
+
+#define RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT ARRAY_COUNT(sRandomTrainerEncounterArray)
+static const struct RandomTrainerClasses sRandomTrainerEncounterArray[] = {
+    {
+        .graphicsId = OBJ_EVENT_GFX_WOMAN_2,
+        .trainerPic = TRAINER_PIC_AROMA_LADY,
+        .trainerClass = TRAINER_CLASS_AROMA_LADY,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_GIRL_3,
+        .trainerPic = TRAINER_PIC_BATTLE_GIRL,
+        .trainerClass = TRAINER_CLASS_BATTLE_GIRL,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_BEAUTY,
+        .trainerPic = TRAINER_PIC_BEAUTY,
+        .trainerClass = TRAINER_CLASS_BEAUTY,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_5,
+        .trainerPic = TRAINER_PIC_BIRD_KEEPER,
+        .trainerClass = TRAINER_CLASS_BIRD_KEEPER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_BLACK_BELT,
+        .trainerPic = TRAINER_PIC_BLACK_BELT,
+        .trainerClass = TRAINER_CLASS_BLACK_BELT,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_BUG_CATCHER,
+        .trainerPic = TRAINER_PIC_BUG_CATCHER,
+        .trainerClass = TRAINER_CLASS_BUG_CATCHER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MANIAC,
+        .trainerPic = TRAINER_PIC_BUG_MANIAC,
+        .trainerClass = TRAINER_CLASS_BUG_MANIAC,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_CAMPER,
+        .trainerPic = TRAINER_PIC_CAMPER,
+        .trainerClass = TRAINER_CLASS_CAMPER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MANIAC,
+        .trainerPic = TRAINER_PIC_COLLECTOR,
+        .trainerClass = TRAINER_CLASS_COLLECTOR,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_WOMAN_5,
+        .trainerPic = TRAINER_PIC_COOLTRAINER_F,
+        .trainerClass = TRAINER_CLASS_COOLTRAINER,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_3,
+        .trainerPic = TRAINER_PIC_COOLTRAINER_M,
+        .trainerClass = TRAINER_CLASS_COOLTRAINER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_3,
+        .trainerPic = TRAINER_PIC_DRAGON_TAMER,
+        .trainerClass = TRAINER_CLASS_DRAGON_TAMER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_EXPERT_F,
+        .trainerPic = TRAINER_PIC_EXPERT_F,
+        .trainerClass = TRAINER_CLASS_EXPERT,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_EXPERT_M,
+        .trainerPic = TRAINER_PIC_EXPERT_M,
+        .trainerClass = TRAINER_CLASS_EXPERT,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_FISHERMAN,
+        .trainerPic = TRAINER_PIC_FISHERMAN,
+        .trainerClass = TRAINER_CLASS_FISHERMAN,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_GENTLEMAN,
+        .trainerPic = TRAINER_PIC_GENTLEMAN,
+        .trainerClass = TRAINER_CLASS_GENTLEMAN,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_5,
+        .trainerPic = TRAINER_PIC_GUITARIST,
+        .trainerClass = TRAINER_CLASS_GUITARIST,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_HEX_MANIAC,
+        .trainerPic = TRAINER_PIC_HEX_MANIAC,
+        .trainerClass = TRAINER_CLASS_HEX_MANIAC,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_HIKER,
+        .trainerPic = TRAINER_PIC_HIKER,
+        .trainerClass = TRAINER_CLASS_HIKER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_5,
+        .trainerPic = TRAINER_PIC_KINDLER,
+        .trainerClass = TRAINER_CLASS_KINDLER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_WOMAN_2,
+        .trainerPic = TRAINER_PIC_LADY,
+        .trainerClass = TRAINER_CLASS_LADY,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_LASS,
+        .trainerPic = TRAINER_PIC_LASS,
+        .trainerClass = TRAINER_CLASS_LASS,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_NINJA_BOY,
+        .trainerPic = TRAINER_PIC_NINJA_BOY,
+        .trainerClass = TRAINER_CLASS_NINJA_BOY,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_WOMAN_5,
+        .trainerPic = TRAINER_PIC_PARASOL_LADY,
+        .trainerClass = TRAINER_CLASS_PARASOL_LADY,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_PICNICKER,
+        .trainerPic = TRAINER_PIC_PICNICKER,
+        .trainerClass = TRAINER_CLASS_PICNICKER,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_WOMAN_2,
+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_F,
+        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MAN_4,
+        .trainerPic = TRAINER_PIC_POKEMON_BREEDER_M,
+        .trainerClass = TRAINER_CLASS_PKMN_BREEDER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_PICNICKER,
+        .trainerPic = TRAINER_PIC_POKEMON_RANGER_F,
+        .trainerClass = TRAINER_CLASS_PKMN_RANGER,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_CAMPER,
+        .trainerPic = TRAINER_PIC_POKEMON_RANGER_M,
+        .trainerClass = TRAINER_CLASS_PKMN_RANGER,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_POKEFAN_F,
+        .trainerPic = TRAINER_PIC_POKEFAN_F,
+        .trainerClass = TRAINER_CLASS_POKEFAN,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_POKEFAN_M,
+        .trainerPic = TRAINER_PIC_POKEFAN_M,
+        .trainerClass = TRAINER_CLASS_POKEFAN,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_MANIAC,
+        .trainerPic = TRAINER_PIC_POKEMANIAC,
+        .trainerClass = TRAINER_CLASS_POKEMANIAC,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_LASS,
+        .trainerPic = TRAINER_PIC_PSYCHIC_F,
+        .trainerClass = TRAINER_CLASS_PSYCHIC,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_PSYCHIC_M,
+        .trainerPic = TRAINER_PIC_PSYCHIC_M,
+        .trainerClass = TRAINER_CLASS_PSYCHIC,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_RICH_BOY,
+        .trainerPic = TRAINER_PIC_RICH_BOY,
+        .trainerClass = TRAINER_CLASS_RICH_BOY,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_HIKER,
+        .trainerPic = TRAINER_PIC_RUIN_MANIAC,
+        .trainerClass = TRAINER_CLASS_RUIN_MANIAC,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SAILOR,
+        .trainerPic = TRAINER_PIC_SAILOR,
+        .trainerClass = TRAINER_CLASS_SAILOR,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_GIRL_3,
+        .trainerPic = TRAINER_PIC_SCHOOL_KID_F,
+        .trainerClass = TRAINER_CLASS_SCHOOL_KID,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SCHOOL_KID_M,
+        .trainerPic = TRAINER_PIC_SCHOOL_KID_M,
+        .trainerClass = TRAINER_CLASS_SCHOOL_KID,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SWIMMER_F,
+        .trainerPic = TRAINER_PIC_SWIMMER_F,
+        .trainerClass = TRAINER_CLASS_SWIMMER_F,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SWIMMER_M,
+        .trainerPic = TRAINER_PIC_SWIMMER_M,
+        .trainerClass = TRAINER_CLASS_SWIMMER_M,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F,
+        .trainerPic = TRAINER_PIC_CYCLING_TRIATHLETE_F,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_CYCLING_TRIATHLETE_M,
+        .trainerPic = TRAINER_PIC_CYCLING_TRIATHLETE_M,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_RUNNING_TRIATHLETE_F,
+        .trainerPic = TRAINER_PIC_RUNNING_TRIATHLETE_F,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_RUNNING_TRIATHLETE_M,
+        .trainerPic = TRAINER_PIC_RUNNING_TRIATHLETE_M,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SWIMMER_F,
+        .trainerPic = TRAINER_PIC_SWIMMING_TRIATHLETE_F,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_SWIMMER_M,
+        .trainerPic = TRAINER_PIC_SWIMMING_TRIATHLETE_M,
+        .trainerClass = TRAINER_CLASS_TRIATHLETE,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_TUBER_F,
+        .trainerPic = TRAINER_PIC_TUBER_F,
+        .trainerClass = TRAINER_CLASS_TUBER_F,
+        .gender = FEMALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_TUBER_M,
+        .trainerPic = TRAINER_PIC_TUBER_M,
+        .trainerClass = TRAINER_CLASS_TUBER_M,
+        .gender = MALE,
+    },
+    {
+        .graphicsId = OBJ_EVENT_GFX_YOUNGSTER,
+        .trainerPic = TRAINER_PIC_YOUNGSTER,
+        .trainerClass = TRAINER_CLASS_YOUNGSTER,
+        .gender = MALE,
+    },
+};
+
+#define TRAINER_NAME_COUNT_M ARRAY_COUNT(gRandomTrainerNamesM)
+static const u8 gRandomTrainerNamesM[][10] =
+{
+    _("Sawyer"), 
+    _("Marcel"), 
+    _("Alberto"), 
+    _("Ed"), 
+    _("Declan"), 
+    _("Frederick"), 
+    _("Matt"), 
+    _("Zander"), 
+    _("Felix"), 
+    _("Dusty"), 
+    _("Chip"), 
+    _("Foster"), 
+    _("Jake"), 
+    _("John"), 
+    _("Steve"), 
+    _("Paul"), 
+    _("Smith"), 
+    _("Blake"), 
+    _("Ben"), 
+    _("Shane"), 
+    _("Hagan"), 
+    _("Hayden"), 
+    _("Ian"), 
+    _("Nick"), 
+    _("Leo"), 
+    _("Kai"), 
+    _("Nolan"), 
+    _("Owen"), 
+    _("Eli"), 
+    _("Finn"), 
+    _("Jace"), 
+    _("Carter"), 
+    _("Cole"), 
+    _("Micah"), 
+    _("Landon"), 
+    _("Ryder"), 
+    _("Miles"), 
+    _("Logan"), 
+    _("Luke"), 
+    _("Max"), 
+    _("Jay"), 
+    _("Zane"), 
+    _("Noah"), 
+    _("Wyatt"), 
+    _("Tate"), 
+    _("Ryan"), 
+    _("Levi"), 
+    _("Jack"), 
+    _("Ethan"), 
+    _("Cyrus"), 
+};
+
+#define TRAINER_NAME_COUNT_F ARRAY_COUNT(gRandomTrainerNamesF)
+static const u8 gRandomTrainerNamesF[][10] =
+{
+    _("Rose"), 
+    _("Gabby"), 
+    _("Brittney"), 
+    _("Gwen"), 
+    _("Mary"), 
+    _("Wendy"), 
+    _("Keira"), 
+    _("Jennifer"), 
+    _("Hope"), 
+    _("Shannon"), 
+    _("Caroline"), 
+    _("Julie"), 
+    _("Shay"), 
+    _("Jess"), 
+    _("Katy"), 
+    _("Catherine"), 
+    _("Sandy"), 
+    _("Hannah"), 
+    _("Emily"), 
+    _("Sadie"), 
+    _("Sabrina"), 
+    _("Sherry"), 
+    _("Carrie"), 
+    _("Rachel"), 
+    _("Mia"), 
+    _("Zoe"), 
+    _("Luna"), 
+    _("Lila"), 
+    _("Piper"), 
+    _("Ella"), 
+    _("Ruby"), 
+    _("Chloe"), 
+    _("Aria"), 
+    _("Grace"), 
+    _("Ava"), 
+    _("Lily"), 
+    _("Lucy"), 
+    _("Stella"), 
+    _("Hazel"), 
+    _("Sadie"), 
+    _("Willow"), 
+    _("Jade"), 
+    _("Ellie"), 
+    _("Violet"), 
+    _("Ivy"), 
+    _("Faith"), 
+    _("Clara"), 
+    _("Anna"), 
+    _("Lola"), 
+    _("Iris"), 
+};
+
+//functions
+u16 GetLastSpokenVarObjTrainerArrayElement(void)
+{
+    u16 i;
+
+    for (i = 0; i < RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT; i++)
+    {
+        if (ReturnLastSpokenVarObjGfxId() == sRandomTrainerEncounterArray[i].graphicsId)
+            return i;
+    }
+
+    return 0;
+}
+
 u16 ReturnLastSpokenVarObjGfxId()
 {   
-    if(gSpecialVar_LastTalked > 4)
+    if(gSpecialVar_LastTalked > 4) // > 4 = Doubles
         return VarGet(RandomNPCTrainers_Doubles[gSpecialVar_LastTalked - 5].gfxid);
     else
         return VarGet(RandomNPCTrainers[gSpecialVar_LastTalked - 1].gfxid);
@@ -135,7 +575,8 @@ void SetRandomTrainers(void)
 {
     u16 iterator = 0;
     u16 trainerCount = 0;
-    u16 trainers[4] = {0, 0, 0, 0};
+    u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
+    u16 gfxId;
 
     if(gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
     {
@@ -150,32 +591,37 @@ void SetRandomTrainers(void)
     // Handle Random Trainers That Are Spawned
     for (iterator = 0; iterator < trainerCount; iterator++)
     {
-        u16 newTrainer = (Random() % 4);
-        while(trainers[newTrainer])
+        u16 newTrainer = Random() % MAX_RANDOM_TRAINERS;
+        while(trainers[newTrainer]) //reroll to guarantee randomized trainer positions in the maps
         {
-            newTrainer = (Random() % 4);
+            newTrainer = Random() % MAX_RANDOM_TRAINERS;
         }
-        trainers[newTrainer] = 1;
+        trainers[newTrainer] = TRUE;
+
+        //set trainer data for scripts handling
+        gfxId = sRandomTrainerEncounterArray[Random() % RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT].graphicsId;
+        DebugPrintf("graphicsId = %d", gfxId);
         if(FlagGet(FLAG_DOUBLES_MODE))
         {
-            VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, (Random() % 53) + 5);
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
-            ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag); 
-            FlagClear(RandomNPCTrainers_Doubles[newTrainer].objectflag); 
+            ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag);
+            FlagClear(RandomNPCTrainers_Doubles[newTrainer].objectflag);
         }
         else
         {
-            VarSet(RandomNPCTrainers[newTrainer].gfxid, (Random() % 53) + 5);
+            VarSet(RandomNPCTrainers[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
-            ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag); 
-            FlagClear(RandomNPCTrainers[newTrainer].objectflag); 
+            ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag);
+            FlagClear(RandomNPCTrainers[newTrainer].objectflag);
         }
         
     }
 
-    // Handle Random Trainer Objects That Aren't Spawned
-    for (iterator = 0; iterator < 4; iterator++)
+    //handle random trainer objects that aren't spawned
+    for (iterator = 0; iterator < MAX_RANDOM_TRAINERS; iterator++)
     {
+        //valid trainer objects that were not activated
         if (!trainers[iterator])
         {
             if(FlagGet(FLAG_DOUBLES_MODE))
@@ -189,6 +635,7 @@ void SetRandomTrainers(void)
                 SetTrainerFlag(RandomNPCTrainers[iterator].trainerflag);
             }
         }
+        //invalid trainer objects
         if(FlagGet(FLAG_DOUBLES_MODE))
         {
             FlagSet(RandomNPCTrainers[iterator].objectflag);
@@ -206,12 +653,13 @@ void SetRandomTrainersMixedDoubles(void)
 {
     u16 iterator = 0;
     u16 trainerCount = ReturnNumberOfTrainersForFloor();
-    u16 trainers[4] = {0, 0, 0, 0};
+    u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
+    u16 gfxId;
 
     VarSet(VAR_LAST_FLOOR_TRAINER_NUMBER, trainerCount);
 
-    // Handle Random Trainer Objects That Aren't Spawned
-    for (iterator = 0; iterator < 4; iterator++)
+    // init all trainer objects with set flags
+    for (iterator = 0; iterator < MAX_RANDOM_TRAINERS; iterator++)
     {
         FlagSet(RandomNPCTrainers_Doubles[iterator].objectflag);
         SetTrainerFlag(RandomNPCTrainers_Doubles[iterator].trainerflag);
@@ -224,14 +672,14 @@ void SetRandomTrainersMixedDoubles(void)
     // Handle Random Trainers That Are Spawned
     for (iterator = 0; iterator < trainerCount; iterator++)
     {
-        u16 newTrainer = (Random() % 4);
+        u16 newTrainer = Random() % MAX_RANDOM_TRAINERS;
         u8 reroll = FALSE;
 
-        while(trainers[newTrainer] || reroll)
+        while (trainers[newTrainer] || reroll)
         {
-            newTrainer = (Random() % 4);
+            newTrainer = (Random() % MAX_RANDOM_TRAINERS);
 
-            if(trainers[newTrainer] == 1)
+            if(trainers[newTrainer] == TRUE)
             {
                 reroll = TRUE;
             }
@@ -241,18 +689,20 @@ void SetRandomTrainersMixedDoubles(void)
             }
         }
 
-        trainers[newTrainer] = 1;
+        trainers[newTrainer] = TRUE;
 
+        gfxId = sRandomTrainerEncounterArray[Random() % RANDOM_TRAINERCLASSES_ENCOUNTER_COUNT].graphicsId;
+        DebugPrintf("graphicsId = %d", gfxId);
         if(Random() % 2)
         {
-            VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, (Random() % 53) + 5);
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers_Doubles[newTrainer].objectflag); 
         }
         else
         {
-            VarSet(RandomNPCTrainers[newTrainer].gfxid, (Random() % 53) + 5);
+            VarSet(RandomNPCTrainers[newTrainer].gfxid, gfxId);
             VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers[newTrainer].objectflag); 
@@ -264,14 +714,14 @@ void CheckFloorCleared()
 {
     u16 iterator = 0;
     u16 trainerDefeated = 0;
-    for (iterator = 0; iterator < 8; iterator++)
+    for (iterator = 0; iterator < MAX_TRAINER_OBJECTS; iterator++)
     {
-        if(iterator > 3)
+        if(iterator >= MAX_RANDOM_TRAINERS) //doubles
             trainerDefeated = (u8) FlagGet(TRAINER_FLAGS_START + RandomNPCTrainers_Doubles[iterator - 4].trainerflag) + trainerDefeated;
         else
             trainerDefeated = (u8) FlagGet(TRAINER_FLAGS_START + RandomNPCTrainers[iterator].trainerflag) + trainerDefeated;
     }
-    if (trainerDefeated == 8)
+    if (trainerDefeated == MAX_TRAINER_OBJECTS)
         FlagSet(FLAG_FLOOR_CLEARED);
     return;
 }
@@ -280,14 +730,34 @@ u16 ReturnTrainersRemaining()
 {
     u16 iterator = 0;
     u16 trainerDefeated = 0;
-    for (iterator = 0; iterator < 8; iterator++)
+    for (iterator = 0; iterator < MAX_TRAINER_OBJECTS; iterator++)
     {
-        if(iterator > 3)
+        if(iterator >= MAX_RANDOM_TRAINERS) //doubles
             trainerDefeated = (u8) FlagGet(TRAINER_FLAGS_START + RandomNPCTrainers_Doubles[iterator - 4].trainerflag) + trainerDefeated;
         else
             trainerDefeated = (u8) FlagGet(TRAINER_FLAGS_START + RandomNPCTrainers[iterator].trainerflag) + trainerDefeated;
     }
-    return 8 - trainerDefeated;
+    return MAX_TRAINER_OBJECTS - trainerDefeated;
+}
+
+u16 GetRandomTrainerEncounterTrainerPic(void)
+{
+    DebugPrintf("trainerPic = %d", sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerPic);
+    return sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerPic;
+}
+
+#define SEED_TRAINER_NAME (trainerId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x + (100 * gSaveBlock1Ptr->pos.y))
+const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId)
+{
+    if (sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].gender == MALE)
+        return gRandomTrainerNamesM[RandomSeededModulo2(SEED_TRAINER_NAME, TRAINER_NAME_COUNT_M)];
+    else
+        return gRandomTrainerNamesF[RandomSeededModulo2(SEED_TRAINER_NAME, TRAINER_NAME_COUNT_F)];
+}
+
+const u8 GetRandomTrainerEncounterTrainerClass(void)
+{
+    return sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerClass;
 }
 
 
