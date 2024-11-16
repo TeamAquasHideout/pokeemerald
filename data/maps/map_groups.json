@@ -65,7 +65,11 @@
     "PitArenaDesert02",
     "PitArenaDirtPath02",
     "PitArenaUnderwater02",
-    "PitArenaMine03"
+    "PitArenaMine03",
+    "PitArenaDirtPath03",
+    "PitArenaMushroomWoods02",
+    "PitArenaSpiderWoods02",
+    "PitArenaSnow04"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",

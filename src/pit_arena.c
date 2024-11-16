@@ -645,7 +645,39 @@ static const struct sRandomMap sRandomMapArray[] = {
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
         WEATHER_CHANCE(FOG_HORIZONTAL, 15),
         DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_DIRT_PATH03,
+        .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
     },    
+    {
+        .mapConstant = MAP_PIT_ARENA_MUSHROOM_WOODS02,
+        .warpMetatileId = METATILE_PitArenaMushroomWoods_MUSHROOM_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 80),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS02,
+        .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },    
+    {
+        .mapConstant = MAP_PIT_ARENA_SNOW04,
+        .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(SNOW, 90),
+        .dest_x = 9,
+        .dest_y = 16,
+        .warp_x = 9,
+        .warp_y = 17,
+    },    
+    
 };
 
 void WarpToRandomPitArena(void)
