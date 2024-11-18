@@ -119,7 +119,23 @@
 #define TRAINER_PIC_KOGA            	  101
 #define TRAINER_PIC_LANCE                 102
 #define TRAINER_PIC_SABRINA               103
-#define TRAINER_PIC_COUNT                 104
+//added FRLG trainers
+#define TRAINER_PIC_BIKER                 104
+#define TRAINER_PIC_BURGLAR               105
+#define TRAINER_PIC_CHANNELER             106
+#define TRAINER_PIC_CRUSH_GIRL            107
+#define TRAINER_PIC_CUE_BALL              108
+#define TRAINER_PIC_ENGINEER              109
+#define TRAINER_PIC_GAMER                 110
+#define TRAINER_PIC_JUGGLER               111
+#define TRAINER_PIC_PAINTER               112
+#define TRAINER_PIC_ROCKER                113
+#define TRAINER_PIC_ROCKET_GRUNT_F        114
+#define TRAINER_PIC_ROCKET_GRUNT_M        115
+#define TRAINER_PIC_SCIENTIST             116
+#define TRAINER_PIC_SUPER_NERD            117
+#define TRAINER_PIC_TAMER                 118
+#define TRAINER_PIC_COUNT                 119
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -367,7 +383,22 @@
 #define TRAINER_CLASS_PIKE_QUEEN     0x3f
 #define TRAINER_CLASS_PYRAMID_KING   0x40
 #define TRAINER_CLASS_RS_PROTAG      0x41
-#define TRAINER_CLASS_COUNT          0x42
+//additional FRLG classes
+#define TRAINER_CLASS_BIKER          0x42
+#define TRAINER_CLASS_BURGLAR        0x43
+#define TRAINER_CLASS_CHANNELER      0x44
+#define TRAINER_CLASS_CRUSH_GIRL     0x45
+#define TRAINER_CLASS_CUE_BALL       0x46
+#define TRAINER_CLASS_ENGINEER       0x47
+#define TRAINER_CLASS_GAMER          0x48
+#define TRAINER_CLASS_JUGGLER        0x49
+#define TRAINER_CLASS_PAINTER        0x4a
+#define TRAINER_CLASS_ROCKER         0x4b
+#define TRAINER_CLASS_TEAM_ROCKET    0x4c
+#define TRAINER_CLASS_SCIENTIST      0x4d
+#define TRAINER_CLASS_SUPER_NERD     0x4e
+#define TRAINER_CLASS_TAMER          0x4f
+#define TRAINER_CLASS_COUNT          0x50
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

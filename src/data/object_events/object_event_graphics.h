@@ -164,6 +164,15 @@ const u32 gObjectEventPic_Brock[] = INCBIN_U32("graphics/object_events/pics/peop
 const u32 gObjectEventPic_Agatha[] = INCBIN_U32("graphics/object_events/pics/people/agatha.4bpp");
 const u32 gObjectEventPic_Lance[] = INCBIN_U32("graphics/object_events/pics/people/lance.4bpp");
 const u32 gObjectEventPic_PitPC[] = INCBIN_U32("graphics/object_events/pics/misc/pit_pc.4bpp");
+//additional FRLG trainers
+const u32 gObjectEventPic_Biker[] = INCBIN_U32("graphics/object_events/pics/people/frlg/biker.4bpp");
+const u32 gObjectEventPic_Channeler[] = INCBIN_U32("graphics/object_events/pics/people/frlg/channeler.4bpp");
+const u32 gObjectEventPic_Rocker[] = INCBIN_U32("graphics/object_events/pics/people/frlg/rocker.4bpp");
+const u32 gObjectEventPic_RocketMemberF[] = INCBIN_U32("graphics/object_events/pics/people/frlg/rocket_f.4bpp");
+const u32 gObjectEventPic_RocketMemberM[] = INCBIN_U32("graphics/object_events/pics/people/frlg/rocket_m.4bpp");
+const u32 gObjectEventPic_Scientist[] = INCBIN_U32("graphics/object_events/pics/people/frlg/scientist.4bpp");
+const u32 gObjectEventPic_SuperNerd[] = INCBIN_U32("graphics/object_events/pics/people/frlg/super_nerd.4bpp");
+//
 const u32 gObjectEventPic_RubySapphireLittleBoy[] = INCBIN_U32("graphics/object_events/pics/people/rs_little_boy.4bpp");
 const u32 gObjectEventPic_HotSpringsOldWoman[] = INCBIN_U32("graphics/object_events/pics/people/hot_springs_old_woman.4bpp");
 const u32 gObjectEventPic_LatiasLatios[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/latias_latios.4bpp");
@@ -378,6 +387,9 @@ const u16 gObjectEventPal_Oak[] = INCBIN_U16("graphics/object_events/pics/people
 const u16 gObjectEventPal_Lyra[] = INCBIN_U16("graphics/object_events/pics/people/lyra.gbapal");
 const u16 gObjectEventPal_Ethan[] = INCBIN_U16("graphics/object_events/pics/people/ethan.gbapal");
 const u16 gObjectEventPal_PitPC[] = INCBIN_U16("graphics/object_events/pics/misc/pit_pc.gbapal");
+const u16 gObjectEventPal_Blue[] = INCBIN_U16("graphics/object_events/palettes/npc_blue.gbapal");
+const u16 gObjectEventPal_Pink[] = INCBIN_U16("graphics/object_events/palettes/npc_pink.gbapal");
+const u16 gObjectEventPal_White[] = INCBIN_U16("graphics/object_events/palettes/npc_white.gbapal");
 const u16 gObjectEventPal_BirthIslandStone[] = INCBIN_U16("graphics/object_events/palettes/birth_island_stone.gbapal");
 const u32 gObjectEventPic_BirthIslandStone[] = INCBIN_U32("graphics/object_events/pics/misc/birth_island_stone.4bpp");
 const u16 gObjectEventPal_Deoxys[] = INCBIN_U16("graphics/object_events/palettes/deoxys.gbapal");
@@ -389,7 +401,6 @@ const u32 gObjectEventPic_Noland[] = INCBIN_U32("graphics/object_events/pics/peo
 const u32 gObjectEventPic_Lucy[] = INCBIN_U32("graphics/object_events/pics/people/frontier_brains/lucy.4bpp");
 const u32 gObjectEventPic_Brandon[] = INCBIN_U32("graphics/object_events/pics/people/frontier_brains/brandon.4bpp");
 const u32 gObjectEventPic_PokeBall[] = INCBIN_U32("graphics/object_events/pics/misc/ball_poke.4bpp");
-
 const u32 gObjectEventPic_DeoxysOld[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/deoxys.4bpp");
 const u32 gObjectEventPic_MewOld[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/mew.4bpp");
 const u32 gObjectEventPic_DusclopsOld[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/dusclops.4bpp");

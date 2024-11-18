@@ -313,6 +313,54 @@ const u32 gTrainerPalette_Sabrina[] = INCBIN_U32("graphics/trainers/palettes/lea
 const u32 gTrainerFrontPic_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.4bpp.lz");
 const u32 gTrainerPalette_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.gbapal.lz");
 
+//additional FRLG trainers
+const u32 gTrainerFrontPic_Biker[] = INCBIN_U32("graphics/trainers/front_pics/biker_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Biker[] = INCBIN_U32("graphics/trainers/palettes/biker.gbapal.lz");
+
+const u32 gTrainerFrontPic_Burglar[] = INCBIN_U32("graphics/trainers/front_pics/burglar_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Burglar[] = INCBIN_U32("graphics/trainers/palettes/burglar.gbapal.lz");
+
+const u32 gTrainerFrontPic_Channeler[] = INCBIN_U32("graphics/trainers/front_pics/channeler_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Channeler[] = INCBIN_U32("graphics/trainers/palettes/channeler.gbapal.lz");
+
+const u32 gTrainerFrontPic_CrushGirl[] = INCBIN_U32("graphics/trainers/front_pics/crush_girl_front_pic.4bpp.lz");
+const u32 gTrainerPalette_CrushGirl[] = INCBIN_U32("graphics/trainers/palettes/crush_girl.gbapal.lz");
+
+const u32 gTrainerFrontPic_CueBall[] = INCBIN_U32("graphics/trainers/front_pics/cue_ball_front_pic.4bpp.lz");
+const u32 gTrainerPalette_CueBall[] = INCBIN_U32("graphics/trainers/palettes/cue_ball.gbapal.lz");
+
+const u32 gTrainerFrontPic_Engineer[] = INCBIN_U32("graphics/trainers/front_pics/engineer_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Engineer[] = INCBIN_U32("graphics/trainers/palettes/engineer.gbapal.lz");
+
+const u32 gTrainerFrontPic_Gamer[] = INCBIN_U32("graphics/trainers/front_pics/gamer_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Gamer[] = INCBIN_U32("graphics/trainers/palettes/gamer.gbapal.lz");
+
+const u32 gTrainerFrontPic_Juggler[] = INCBIN_U32("graphics/trainers/front_pics/juggler_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Juggler[] = INCBIN_U32("graphics/trainers/palettes/juggler.gbapal.lz");
+
+const u32 gTrainerFrontPic_Painter[] = INCBIN_U32("graphics/trainers/front_pics/painter_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Painter[] = INCBIN_U32("graphics/trainers/palettes/painter.gbapal.lz");
+
+const u32 gTrainerFrontPic_Rocker[] = INCBIN_U32("graphics/trainers/front_pics/rocker_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Rocker[] = INCBIN_U32("graphics/trainers/palettes/rocker.gbapal.lz");
+
+const u32 gTrainerFrontPic_RocketGruntF[] = INCBIN_U32("graphics/trainers/front_pics/rocket_grunt_f_front_pic.4bpp.lz");
+const u32 gTrainerPalette_RocketGruntF[] = INCBIN_U32("graphics/trainers/palettes/rocket_grunt_f.gbapal.lz");
+
+const u32 gTrainerFrontPic_RocketGruntM[] = INCBIN_U32("graphics/trainers/front_pics/rocket_grunt_m_front_pic.4bpp.lz");
+const u32 gTrainerPalette_RocketGruntM[] = INCBIN_U32("graphics/trainers/palettes/rocket_grunt_m.gbapal.lz");
+
+const u32 gTrainerFrontPic_Scientist[] = INCBIN_U32("graphics/trainers/front_pics/scientist_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Scientist[] = INCBIN_U32("graphics/trainers/palettes/scientist.gbapal.lz");
+
+const u32 gTrainerFrontPic_SuperNerd[] = INCBIN_U32("graphics/trainers/front_pics/super_nerd_front_pic.4bpp.lz");
+const u32 gTrainerPalette_SuperNerd[] = INCBIN_U32("graphics/trainers/palettes/super_nerd.gbapal.lz");
+
+const u32 gTrainerFrontPic_Tamer[] = INCBIN_U32("graphics/trainers/front_pics/tamer_front_pic.4bpp.lz");
+const u32 gTrainerPalette_Tamer[] = INCBIN_U32("graphics/trainers/palettes/tamer.gbapal.lz");
+
+
+//playable characters
 const u32 gTrainerFrontPic_Ethan[] = INCBIN_U32("graphics/trainers/front_pics/ethan.4bpp.lz");
 const u32 gTrainerPalette_Ethan[] = INCBIN_U32("graphics/trainers/front_pics/ethan.gbapal.lz");
 const u32 gTrainerFrontPic_Lyra[] = INCBIN_U32("graphics/trainers/front_pics/lyra.4bpp.lz");
@@ -463,6 +511,22 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(KOGA, Koga),
     TRAINER_SPRITE(LANCE, Lance),
     TRAINER_SPRITE(SABRINA, Sabrina),
+    //additional FRLG trainers
+    TRAINER_SPRITE(BIKER, Biker),
+    TRAINER_SPRITE(BURGLAR, Burglar),
+    TRAINER_SPRITE(CHANNELER, Channeler),
+    TRAINER_SPRITE(CRUSH_GIRL, CrushGirl),
+    TRAINER_SPRITE(CUE_BALL, CueBall),
+    TRAINER_SPRITE(ENGINEER, Engineer),
+    TRAINER_SPRITE(GAMER, Gamer),
+    TRAINER_SPRITE(JUGGLER, Juggler),
+    TRAINER_SPRITE(PAINTER, Painter),
+    TRAINER_SPRITE(ROCKER, Rocker),
+    TRAINER_SPRITE(ROCKET_GRUNT_F, RocketGruntF),
+    TRAINER_SPRITE(ROCKET_GRUNT_M, RocketGruntM),
+    TRAINER_SPRITE(SCIENTIST, Scientist),
+    TRAINER_SPRITE(SUPER_NERD, SuperNerd),
+    TRAINER_SPRITE(TAMER, Tamer),
 };
 
 static const union AnimCmd sAnimCmd_Hoenn[] =
