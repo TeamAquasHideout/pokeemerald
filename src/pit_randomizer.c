@@ -1523,7 +1523,6 @@ static const u16 sRandomHeldValidItems[] =
     ITEM_ROCKY_HELMET,
 #endif
 #ifdef PIT_GEN_9_MODE
-    ITEM_AMULET_COIN,
     ITEM_ASSAULT_VEST,
     ITEM_SAFETY_GOGGLES,
     ITEM_WEAKNESS_POLICY,
@@ -1673,10 +1672,8 @@ u16 RandomItemId(u16 itemId)
                 itemId = sRandomConsumableValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_CONSUMABLE_ITEM_COUNT)];
             else if(randomItemCategory < 900)
                 itemId = sRandomHeldValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_HELD_ITEM_COUNT)];
-            else if(randomItemCategory < 997)
-                itemId = sRandomBerryValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_BERRY_ITEM_COUNT)];
             else
-                itemId = ITEM_NUGGET;
+                itemId = sRandomBerryValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_BERRY_ITEM_COUNT)];
         }
         //check for reroll
         for (i = 0; i < RANDOM_ITEM_REROLL_COUNT; i++)
