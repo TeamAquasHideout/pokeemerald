@@ -830,9 +830,10 @@ void SetRandomTrainers(void)
     u16 iterator = 0;
     u16 trainerCount = 0;
     u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
-    u16 gfxId, randomTrainerId;
+    u16 gfxId, randomTrainerId, k;
+    u8 rerollTrainerId = FALSE;
 
-    DebugPrintf("random trainers Count: %d", RANDOM_TRAINER_ENCOUNTER_COUNT);
+    //DebugPrintf("random trainers Count: %d", RANDOM_TRAINER_ENCOUNTER_COUNT);
 
     if(gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
     {
@@ -855,8 +856,18 @@ void SetRandomTrainers(void)
         trainers[newTrainer] = TRUE;
 
         //set trainer data for scripts handling
-        randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
-        gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+        do //reroll so there are no object events duplicates on field
+        {
+            rerollTrainerId = FALSE;
+            randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
+            gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+            for (k = 0; k < MAX_RANDOM_TRAINERS; k++)
+            {
+                if (gfxId == VarGet(RandomNPCTrainers_Doubles[newTrainer].gfxid) ||
+                  gfxId == VarGet(RandomNPCTrainers[newTrainer].gfxid))
+                    rerollTrainerId = TRUE;
+            }
+        } while (rerollTrainerId);  
         //DebugPrintf("randomTrainerId = %d, graphicsId = %d", randomTrainerId, gfxId);
         if(FlagGet(FLAG_DOUBLES_MODE))
         {
@@ -873,8 +884,7 @@ void SetRandomTrainers(void)
             VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag);
             FlagClear(RandomNPCTrainers[newTrainer].objectflag);
-        }
-        
+        }      
     }
 
     //handle random trainer objects that aren't spawned
@@ -913,7 +923,8 @@ void SetRandomTrainersMixedDoubles(void)
     u16 iterator = 0;
     u16 trainerCount = ReturnNumberOfTrainersForFloor();
     u16 trainers[MAX_RANDOM_TRAINERS] = {0, 0, 0, 0};
-    u16 gfxId, randomTrainerId;
+    u16 gfxId, randomTrainerId, k;
+    u8 rerollTrainerId = FALSE;
 
     VarSet(VAR_LAST_FLOOR_TRAINER_NUMBER, trainerCount);
 
@@ -950,8 +961,18 @@ void SetRandomTrainersMixedDoubles(void)
 
         trainers[newTrainer] = TRUE;
 
-        randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
-        gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+        do //reroll so there are no object events duplicates on field
+        {
+            rerollTrainerId = FALSE;
+            randomTrainerId = Random() % RANDOM_TRAINER_ENCOUNTER_COUNT;
+            gfxId = sRandomTrainerEncounterArray[randomTrainerId].graphicsId;
+            for (k = 0; k < MAX_RANDOM_TRAINERS; k++)
+            {
+                if (gfxId == VarGet(RandomNPCTrainers_Doubles[newTrainer].gfxid) ||
+                  gfxId == VarGet(RandomNPCTrainers[newTrainer].gfxid))
+                    rerollTrainerId = TRUE;
+            }
+        } while (rerollTrainerId);  
         //DebugPrintf("randomTrainerId = %d, graphicsId = %d", randomTrainerId, gfxId);
         if(Random() % 2)
         {
