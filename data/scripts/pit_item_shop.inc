@@ -980,6 +980,7 @@ PitArena_Mart_TMs_100:
 	.2byte ITEM_TM76
 	.2byte ITEM_TM86
 	.2byte ITEM_TM36
+	.2byte ITEM_NONE
     release
 	end
 
@@ -1023,7 +1024,7 @@ PitArena_Mart_TMs_200:
 	.2byte ITEM_TM01
 	.2byte ITEM_TM87
 	.2byte ITEM_TM207
-	.2byte ITEM_TM171
+	@.2byte ITEM_TM171 @Tera Blast
 	.2byte ITEM_TM18
 	.2byte ITEM_TM221
 	.2byte ITEM_TM166
