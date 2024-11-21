@@ -39,6 +39,11 @@
 #define MAP_PIT_ARENA_MUSHROOM_WOODS02 (30 | (0 << 8))
 #define MAP_PIT_ARENA_SPIDER_WOODS02   (31 | (0 << 8))
 #define MAP_PIT_ARENA_SNOW04           (32 | (0 << 8))
+#define MAP_PIT_ARENA_WATER03          (33 | (0 << 8))
+#define MAP_PIT_ARENA_WATER04          (34 | (0 << 8))
+#define MAP_PIT_ARENA_DIRT_PATH04      (35 | (0 << 8))
+#define MAP_PIT_ARENA_DESERT03         (36 | (0 << 8))
+#define MAP_PIT_ARENA_DESERT04         (37 | (0 << 8))
 
 // gMapGroup_TownsAndRoutes
 #define MAP_PETALBURG_CITY        (0 | (1 << 8))

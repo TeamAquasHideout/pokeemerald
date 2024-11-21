@@ -4760,6 +4760,56 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PitArenaSnow04/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaSnow04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_WATER03",
+      "name": "PitArenaWater03_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitWaterTheme",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaWater03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaWater03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_WATER04",
+      "name": "PitArenaWater04_Layout",
+      "width": 26,
+      "height": 26,
+      "primary_tileset": "gTileset_PitWaterTheme",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaWater04/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaWater04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DIRT_PATH04",
+      "name": "PitArenaDirtPath04_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaDirtPath",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDirtPath04/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDirtPath04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DESERT03",
+      "name": "PitArenaDesert03_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaDesert",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDesert03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDesert03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_DESERT04",
+      "name": "PitArenaDesert04_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaDesert",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaDesert04/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaDesert04/map.bin"
     }
   ]
 }
