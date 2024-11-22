@@ -517,6 +517,10 @@ static const struct SpriteFrameImage sPicTable_Ethan[] = {
     overworld_ascending_frames(gObjectEventPic_Ethan, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_Nate[] = {
+    overworld_ascending_frames(gObjectEventPic_Nate, 2, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_Glacia[] = {
     overworld_frame(gObjectEventPic_Glacia, 2, 4, 0),
     overworld_frame(gObjectEventPic_Glacia, 2, 4, 1),

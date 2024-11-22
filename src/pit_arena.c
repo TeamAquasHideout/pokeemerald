@@ -1139,6 +1139,12 @@ static const struct PitAvatarInfo sPitAvatars[] = {
     },
 
     {
+        .mugshotId = AVATAR_NATE,
+        .graphicsId = OBJ_EVENT_GFX_NATE,
+        .trainerFrontPicId = TRAINER_PIC_ELITE_FOUR_PHOEBE, //front pic not used in game
+        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+    },
+    {
         .mugshotId = AVATAR_POKEMON_CHOICE,
         .graphicsId = 0xFFFF,
         .trainerFrontPicId = 0xFFFF,
