@@ -119,23 +119,24 @@
 #define TRAINER_PIC_KOGA            	  101
 #define TRAINER_PIC_LANCE                 102
 #define TRAINER_PIC_SABRINA               103
+#define TRAINER_PIC_VALERIE               104
 //added FRLG trainers
-#define TRAINER_PIC_BIKER                 104
-#define TRAINER_PIC_BURGLAR               105
-#define TRAINER_PIC_CHANNELER             106
-#define TRAINER_PIC_CRUSH_GIRL            107
-#define TRAINER_PIC_CUE_BALL              108
-#define TRAINER_PIC_ENGINEER              109
-#define TRAINER_PIC_GAMER                 110
-#define TRAINER_PIC_JUGGLER               111
-#define TRAINER_PIC_PAINTER               112
-#define TRAINER_PIC_ROCKER                113
-#define TRAINER_PIC_ROCKET_GRUNT_F        114
-#define TRAINER_PIC_ROCKET_GRUNT_M        115
-#define TRAINER_PIC_SCIENTIST             116
-#define TRAINER_PIC_SUPER_NERD            117
-#define TRAINER_PIC_TAMER                 118
-#define TRAINER_PIC_COUNT                 119
+#define TRAINER_PIC_BIKER                 105
+#define TRAINER_PIC_BURGLAR               106
+#define TRAINER_PIC_CHANNELER             107
+#define TRAINER_PIC_CRUSH_GIRL            108
+#define TRAINER_PIC_CUE_BALL              109
+#define TRAINER_PIC_ENGINEER              110
+#define TRAINER_PIC_GAMER                 111
+#define TRAINER_PIC_JUGGLER               112
+#define TRAINER_PIC_PAINTER               113
+#define TRAINER_PIC_ROCKER                114
+#define TRAINER_PIC_ROCKET_GRUNT_F        115
+#define TRAINER_PIC_ROCKET_GRUNT_M        116
+#define TRAINER_PIC_SCIENTIST             117
+#define TRAINER_PIC_SUPER_NERD            118
+#define TRAINER_PIC_TAMER                 119
+#define TRAINER_PIC_COUNT                 120
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -398,7 +399,9 @@
 #define TRAINER_CLASS_SCIENTIST      0x4d
 #define TRAINER_CLASS_SUPER_NERD     0x4e
 #define TRAINER_CLASS_TAMER          0x4f
-#define TRAINER_CLASS_COUNT          0x50
+//more
+#define TRAINER_CLASS_PIT_BOSS       0x50
+#define TRAINER_CLASS_COUNT          0x51
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

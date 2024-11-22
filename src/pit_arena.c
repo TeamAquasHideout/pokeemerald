@@ -1040,7 +1040,10 @@ const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId)
 
 const u8 GetRandomTrainerEncounterTrainerClass(void)
 {
-    return sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerClass;
+    if (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS || gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES)
+        return TRAINER_CLASS_PIT_BOSS;
+    else
+        return sRandomTrainerEncounterArray[GetLastSpokenVarObjTrainerArrayElement()].trainerClass;
 }
 
 
@@ -2676,7 +2679,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM, MOVE_SHADOW_BALL, MOVE_STRENGTH}
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM, MOVE_SHADOW_BALL, MOVE_BITE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2702,6 +2705,28 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+#if (GEN_LATEST == GEN_9)
+    {
+        .graphicsId = OBJ_EVENT_GFX_VALERIE,
+        .trainerPic = TRAINER_PIC_VALERIE,
+        .bossName = COMPOUND_STRING("Valerie"),
+        .bossApproachText = COMPOUND_STRING("xxxxx!$"),
+        .bossLoseText =     COMPOUND_STRING("That was truly a captivating battle.\p"
+                                            "I might just be captivated by you.$"),
+        .bossAceText =      COMPOUND_STRING("I hope that you will find things worth\n"
+                                            "smiling about tomorrow..$"),
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(116, 252, 0, 140, 0, 0),
+                            .lvl = 100,
+                            .species = SPECIES_MAWILE,
+                            .heldItem = ITEM_MAWILITE,
+                            .ability = 1, //Intimidate
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_PLAY_ROUGH, MOVE_KNOCK_OFF, MOVE_IRON_HEAD}
+                        },
+    },
+#endif
 };
 
 u8 *GetBossEncounterFlagPointer(u16 id)
@@ -2764,6 +2789,7 @@ void SetRandomBossEncounter(void)
         
     do {
         u16 index = Random() % RANDOM_BOSS_ENCOUNTER_COUNT;
+        //index = 15; //test
         if(BossEncounterFlagGet(index))
         {
             reroll = TRUE;
@@ -2780,7 +2806,6 @@ void SetRandomBossEncounter(void)
             return;
         }
     } while (reroll);
-
 }
 
 const struct TrainerMon *GetRandomBossEncounterAcePokemon(void)

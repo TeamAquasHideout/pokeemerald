@@ -396,6 +396,8 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     TRAINER_CLASS(SCIENTIST, "SCIENTIST"),
     TRAINER_CLASS(SUPER_NERD, "SUPER NERD"),
     TRAINER_CLASS(TAMER, "TAMER"),
+    //more
+    TRAINER_CLASS(PIT_BOSS, "PIT BOSS"),
 };
 
 static void (* const sTurnActionsFuncsTable[])(void) =
@@ -2146,6 +2148,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     }
                 }
 #endif
+                if(isAcePokemon)
+                    item = partyData[j].heldItem;
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &item);
             }

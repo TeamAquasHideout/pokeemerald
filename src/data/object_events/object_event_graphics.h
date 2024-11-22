@@ -163,6 +163,8 @@ const u32 gObjectEventPic_Koga[] = INCBIN_U32("graphics/object_events/pics/peopl
 const u32 gObjectEventPic_Brock[] = INCBIN_U32("graphics/object_events/pics/people/brock.4bpp");
 const u32 gObjectEventPic_Agatha[] = INCBIN_U32("graphics/object_events/pics/people/agatha.4bpp");
 const u32 gObjectEventPic_Lance[] = INCBIN_U32("graphics/object_events/pics/people/lance.4bpp");
+const u16 gObjectEventPal_Valerie[] = INCBIN_U16("graphics/object_events/palettes/valerie.gbapal");
+const u32 gObjectEventPic_Valerie[] = INCBIN_U32("graphics/object_events/pics/people/valerie.4bpp");
 const u32 gObjectEventPic_PitPC[] = INCBIN_U32("graphics/object_events/pics/misc/pit_pc.4bpp");
 //additional FRLG trainers
 const u32 gObjectEventPic_Biker[] = INCBIN_U32("graphics/object_events/pics/people/frlg/biker.4bpp");

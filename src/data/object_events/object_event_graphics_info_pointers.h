@@ -261,6 +261,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Giovanni;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Koga;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lance;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Sabrina;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Valerie;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PitPC;
 //additional FRLG trainers
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Biker;
@@ -520,6 +521,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_KOGA] =                     &gObjectEventGraphicsInfo_Koga,
     [OBJ_EVENT_GFX_LANCE] =                    &gObjectEventGraphicsInfo_Lance,
     [OBJ_EVENT_GFX_SABRINA] =                  &gObjectEventGraphicsInfo_Sabrina,
+    [OBJ_EVENT_GFX_VALERIE] =                  &gObjectEventGraphicsInfo_Valerie,
     [OBJ_EVENT_GFX_PIT_PC] =                   &gObjectEventGraphicsInfo_PitPC,
     //additional FRLG trainers
     [OBJ_EVENT_GFX_BIKER] =                    &gObjectEventGraphicsInfo_Biker,
