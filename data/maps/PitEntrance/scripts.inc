@@ -408,6 +408,7 @@ PitEntrance_AccessPC::
 
 PitEntrance_SecretBaseShop::
 	lock
+	faceplayer
 	message gText_HowMayIServeYou
 	waitmessage
 	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_SecretBaseShop_Dolls_Text, PitEntrance_SecretBaseShop_Plants_Text, PitEntrance_SecretBaseShop_Mats_Text, PitEntrance_SecretBaseShop_Posters_Text, PitEntrance_SecretBaseShop_Cushions_Text, PitEntrance_SecretBaseShop_Desks_Text, PitEntrance_SecretBaseShop_Chairs_Text, PitEntrance_SecretBaseShop_Misc_Text
@@ -645,3 +646,51 @@ PitEntrance_SecretBaseShop_Cushions:
 	.2byte 0
 	release
 	end
+
+
+PitEntrance_Pinball_NPC::
+	lock
+	faceplayer
+	message gText_HowMayIServeYou
+	waitmessage
+	dynmultichoice 22, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_Pinball_ModeMeowth_Text, PitEntrance_Pinball_ModeDiglett_Text, PitEntrance_Pinball_ModeSeel_Text, PitEntrance_Pinball_ModeGengar_Text
+	closemessage
+	copyvar VAR_TEMP_9, VAR_RESULT
+	setflag FLAG_BUY_FROM_MART
+	goto_if_eq VAR_RESULT, 0, PitEntrance_Pinball_ModeMeowth
+	goto_if_eq VAR_RESULT, 1, PitEntrance_Pinball_ModeDiglett
+	goto_if_eq VAR_RESULT, 2, PitEntrance_Pinball_ModeSeel
+	goto_if_eq VAR_RESULT, 3, PitEntrance_Pinball_ModeGengar
+PitEntrance_Pinball_CommonEnd::
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+PitEntrance_Pinball_ModeMeowth_Text::
+	.string "Meowth$"
+PitEntrance_Pinball_ModeDiglett_Text::
+	.string "Diglett$"
+PitEntrance_Pinball_ModeSeel_Text::
+	.string "Seel$"
+PitEntrance_Pinball_ModeGengar_Text::
+	.string "Gengar$"
+
+PitEntrance_Pinball_ModeMeowth::
+	callnative PlayMeowthPinballGame
+	waitstate
+	goto PitEntrance_Pinball_CommonEnd
+
+PitEntrance_Pinball_ModeDiglett::
+	callnative PlayDiglettPinballGame
+	waitstate
+	goto PitEntrance_Pinball_CommonEnd
+
+PitEntrance_Pinball_ModeSeel::
+	callnative PlaySeelPinballGame
+	waitstate
+	goto PitEntrance_Pinball_CommonEnd
+
+PitEntrance_Pinball_ModeGengar::
+	callnative PlayGengarPinballGame
+	waitstate
+	goto PitEntrance_Pinball_CommonEnd
