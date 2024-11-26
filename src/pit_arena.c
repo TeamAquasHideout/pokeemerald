@@ -645,7 +645,70 @@ static const struct sRandomMap sRandomMapArray[] = {
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
         WEATHER_CHANCE(FOG_HORIZONTAL, 15),
         DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_DIRT_PATH03,
+        .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
     },    
+    {
+        .mapConstant = MAP_PIT_ARENA_MUSHROOM_WOODS02,
+        .warpMetatileId = METATILE_PitArenaMushroomWoods_MUSHROOM_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 80),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS02,
+        .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },    
+    {
+        .mapConstant = MAP_PIT_ARENA_SNOW04,
+        .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(SNOW, 90),
+        .dest_x = 9,
+        .dest_y = 16,
+        .warp_x = 9,
+        .warp_y = 17,
+    },   
+    {
+        .mapConstant = MAP_PIT_ARENA_WATER03,
+        .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_WATER,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_WATER04,
+        .warpMetatileId = METATILE_PitWaterTheme_WATER_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_WATER,
+        WEATHER_CHANCE(RAIN, 50),
+        .dest_x = 13,
+        .dest_y = 12,
+        .warp_x = 13,
+        .warp_y = 13,
+    },  
+    {
+        .mapConstant = MAP_PIT_ARENA_DIRT_PATH04,
+        .warpMetatileId = METATILE_PitArenaDirtPath_DIRT_PATH_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },      
+    {
+        .mapConstant = MAP_PIT_ARENA_DESERT03,
+        .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(SANDSTORM, 80),
+        DEFAULT_RANDOM_MAP_COORDS
+    },  
+    
 };
 
 void WarpToRandomPitArena(void)
