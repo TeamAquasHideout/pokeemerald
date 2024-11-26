@@ -137,7 +137,7 @@ void SetRandomTrainers(void)
     u16 trainerCount = 0;
     u16 trainers[4] = {0, 0, 0, 0};
 
-    if(FlagGet(FLAG_MIXED_DOUBLES_MODE))
+    if(gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
     {
         SetRandomTrainersMixedDoubles();
         return;
@@ -159,14 +159,14 @@ void SetRandomTrainers(void)
         if(FlagGet(FLAG_DOUBLES_MODE))
         {
             VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, (Random() % 53) + 5);
-            VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % 77);
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers_Doubles[newTrainer].objectflag); 
         }
         else
         {
             VarSet(RandomNPCTrainers[newTrainer].gfxid, (Random() % 53) + 5);
-            VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % 77);
+            VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers[newTrainer].objectflag); 
         }
@@ -246,14 +246,14 @@ void SetRandomTrainersMixedDoubles(void)
         if(Random() % 2)
         {
             VarSet(RandomNPCTrainers_Doubles[newTrainer].gfxid, (Random() % 53) + 5);
-            VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % 77);
+            VarSet(RandomNPCTrainers_Doubles[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers_Doubles[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers_Doubles[newTrainer].objectflag); 
         }
         else
         {
             VarSet(RandomNPCTrainers[newTrainer].gfxid, (Random() % 53) + 5);
-            VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % 77);
+            VarSet(RandomNPCTrainers[newTrainer].defeatTextVar, Random() % getNumberOfDefeatTexts());
             ClearTrainerFlag(RandomNPCTrainers[newTrainer].trainerflag); 
             FlagClear(RandomNPCTrainers[newTrainer].objectflag); 
         }
@@ -2363,7 +2363,7 @@ void Check50FloorMode(void)
         VarSet(VAR_TEMP_A, 0);
 }
 
-void UpdateRunningStats(void) //important: check for implementation of modeSaveDeletion
+void UpdateRunningStats(void)
 {
     gSaveBlock2Ptr->statsAllAttempts++;
 

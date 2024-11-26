@@ -653,19 +653,60 @@ static void Task_MainMenuWaitFadeIn(u8 taskId)
         
 }
 
+static void LoadDefaultSettings(void)
+{
+    //run settings
+    gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
+    gSaveBlock2Ptr->mode3MonsOnly       = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
+    gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
+    //difficulty settings
+    gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
+    gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_5;
+    //randomizer settings
+    gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
+    gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomAbilities     = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomBST           = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomType          = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomEvos          = OPTIONS_OFF;
+}
+
 void LoadNormalModePresets(void)
 {
+    DebugPrintf("LoadNormalModePresets");
+    LoadDefaultSettings();
+    gSaveBlock2Ptr->modeXP              = XP_75;
+    gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
+    FlagSet(FLAG_STAT_CHANGER);
+    gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
+    #ifdef PIT_GEN_9_MODE
+    gSaveBlock2Ptr->modeMegas           = OPTIONS_OFF;
+    #endif
 
+    FlagClear(FLAG_DOUBLES_MODE);
 }
 
 void LoadHardModePresets(void)
 {
-    
+    DebugPrintf("LoadHardModePresets");
+    LoadDefaultSettings();
+    gSaveBlock2Ptr->modeXP              = XP_50;
+    gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
+    FlagClear(FLAG_STAT_CHANGER);
+    gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
+    #ifdef PIT_GEN_9_MODE
+    gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
+    #endif
+
+    FlagClear(FLAG_DOUBLES_MODE);
 }
 
 void LoadCustomModePresets(void)
 {
-
+    DebugPrintf("LoadCustomModePresets");
+    //is this required at all?
 }
 
 

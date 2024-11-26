@@ -24,6 +24,8 @@ void IncrementStatsRunKOs(void);
 void IncrementStatsRunRevives(void);
 void ResetRunStats(void);
 void SaveTempHofData(void);
+u8 getNumberOfApproachTexts(void);
+u8 getNumberOfDefeatTexts(void);
 
 struct RandomTrainerNPC 
 {
@@ -36,12 +38,23 @@ struct RandomTrainerNPC
 #define MAX_RANDOM_TRAINERS 4
 #define BOSS_FLOOR_RATE 25
 
-//fixed value defines
+//fixed value defines for game modes and options
 #define OPTIONS_ON       0
 #define OPTIONS_OFF      1
 #define CASH_1X          0
 #define CASH_2X          1
 #define CASH_05X         2
+#define MODE_SINGLES     0
+#define MODE_DOUBLES     1
+#define MODE_MIXED       2
+#define HEAL_FLOORS_5    0
+#define HEAL_FLOORS_10   1
+#define RANDOM_B_WEATHER 0
+#define OW_B_WEATHER     1
+#define NO_B_WEATHER     2
+#define XP_75            0
+#define XP_50            1
+#define XP_NONE          2
 
 //Autosave defines
 #define SAVE_NO         0
