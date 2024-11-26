@@ -6502,6 +6502,7 @@ static void SetPlacedMonData(u8 boxId, u8 position)
         SetMonData(&gPlayerParty[position],
                MON_DATA_EXP,
                &gExperienceTables[gSpeciesInfo[GetMonData(&gPlayerParty[position], MON_DATA_SPECIES)].growthRate][5]);
+        CalculateMonStats(&gPlayerParty[position]);
         DebugPrintf("Set Placed Mon %d", 1);
     }
     else

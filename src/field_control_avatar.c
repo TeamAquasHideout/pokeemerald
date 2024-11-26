@@ -102,7 +102,7 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     {
         if (GetPlayerSpeed() != PLAYER_SPEED_FASTEST)
         {
-            if (newKeys & START_BUTTON && FlagGet(FLAG_PIT_ENTERED))
+            if (newKeys & START_BUTTON)
                 input->pressedStartButton = TRUE;
             if (newKeys & SELECT_BUTTON)
                 input->pressedSelectButton = TRUE;
@@ -263,6 +263,26 @@ static bool8 TryStartInteractionScript(struct MapPosition *position, u16 metatil
 
 static const u8 *GetInteractionScript(struct MapPosition *position, u8 metatileBehavior, u8 direction)
 {
+
+    const struct BgEvent *bgEvent4 = GetBackgroundEventAtPosition(&gMapHeader, position->x - MAP_OFFSET, position->y - MAP_OFFSET, position->elevation);
+    if (bgEvent4 != NULL)
+    {
+        if (bgEvent4->kind == BG_EVENT_SECRET_BASE)
+        {
+            gSpecialVar_0x8004 = bgEvent4->bgUnion.secretBaseId;
+            if (TrySetCurSecretBase())
+                return SecretBase_EventScript_CheckEntrance;
+            else
+            {
+                gSpecialVar_Result = TRUE;
+                VarSet(VAR_CURRENT_SECRET_BASE, 0);
+                return SecretBase_EventScript_Enter;
+            }
+            
+        }
+    }
+
+
     const u8 *script = GetInteractedObjectEventScript(position, metatileBehavior, direction);
     if (script != NULL)
         return script;

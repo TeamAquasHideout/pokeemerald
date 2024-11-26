@@ -4426,8 +4426,8 @@
       "name": "PitEntrance_Layout",
       "width": 20,
       "height": 20,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Cave",
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BattlePyramid",
       "border_filepath": "data/layouts/PitEntrance/border.bin",
       "blockdata_filepath": "data/layouts/PitEntrance/map.bin"
     },

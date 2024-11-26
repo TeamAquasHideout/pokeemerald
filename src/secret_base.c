@@ -291,7 +291,7 @@ static u8 GetSecretBaseTypeInFrontOfPlayer_(void)
     if (behavior == MB_SECRET_BASE_SPOT_SHRUB || behavior == MB_SECRET_BASE_SPOT_SHRUB_OPEN)
         return SECRET_BASE_SHRUB;
 
-    return 0;
+    return SECRET_BASE_TREE;
 }
 
 void GetSecretBaseTypeInFrontOfPlayer(void)

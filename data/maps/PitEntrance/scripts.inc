@@ -405,3 +405,243 @@ PitEntrance_AccessPC::
 	waitstate
 	release
 	end
+
+PitEntrance_SecretBaseShop::
+	lock
+	message gText_HowMayIServeYou
+	waitmessage
+	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_SecretBaseShop_Dolls_Text, PitEntrance_SecretBaseShop_Plants_Text, PitEntrance_SecretBaseShop_Mats_Text, PitEntrance_SecretBaseShop_Posters_Text, PitEntrance_SecretBaseShop_Cushions_Text, PitEntrance_SecretBaseShop_Desks_Text, PitEntrance_SecretBaseShop_Chairs_Text, PitEntrance_SecretBaseShop_Misc_Text
+	closemessage
+	copyvar VAR_TEMP_9, VAR_RESULT
+	setflag FLAG_BUY_FROM_MART
+	goto_if_eq VAR_RESULT, 0, PitEntrance_SecretBaseShop_Dolls_Shop
+	goto_if_eq VAR_RESULT, 1, PitEntrance_SecretBaseShop_Plants_Shop
+	goto_if_eq VAR_RESULT, 2, PitEntrance_SecretBaseShop_Mats_Shop
+	goto_if_eq VAR_RESULT, 3, PitEntrance_SecretBaseShop_Posters_Shop
+	goto_if_eq VAR_RESULT, 4, PitEntrance_SecretBaseShop_Cushions_Shop
+	goto_if_eq VAR_RESULT, 5, PitEntrance_SecretBaseShop_Desks_Shop
+	goto_if_eq VAR_RESULT, 6, PitEntrance_SecretBaseShop_Chairs_Shop
+	goto_if_eq VAR_RESULT, 7, PitEntrance_SecretBaseShop_Misc_Shop
+PitEntrance_SecretBaseShop_CommonEnd::
+	clearflag FLAG_BUY_FROM_MART
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+PitEntrance_SecretBaseShop_Dolls_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Dolls
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Plants_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Plants
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Mats_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Mats
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Posters_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Posters
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Cushions_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Cushions
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Desks_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Desks
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Chairs_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Chairs
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+PitEntrance_SecretBaseShop_Misc_Shop::
+	pokemartdecoration2 PitEntrance_SecretBaseShop_Misc
+	goto PitEntrance_SecretBaseShop_CommonEnd
+
+
+PitEntrance_SecretBaseShop_Desks_Text:
+	.string "Desks$"
+PitEntrance_SecretBaseShop_Chairs_Text:
+	.string "Chairs$"
+PitEntrance_SecretBaseShop_Plants_Text:
+	.string "Plants$"
+PitEntrance_SecretBaseShop_Misc_Text:
+	.string "Misc$"
+PitEntrance_SecretBaseShop_Mats_Text:
+	.string "Mats$"
+PitEntrance_SecretBaseShop_Posters_Text:
+	.string "Posters$"
+PitEntrance_SecretBaseShop_Dolls_Text:
+	.string "Dolls$"
+PitEntrance_SecretBaseShop_Cushions_Text:
+	.string "Cushions$"
+
+	.align 2
+PitEntrance_SecretBaseShop_Desks:
+	.2byte DECOR_SMALL_DESK      
+	.2byte DECOR_POKEMON_DESK    
+	.2byte DECOR_HEAVY_DESK      
+	.2byte DECOR_RAGGED_DESK     
+	.2byte DECOR_COMFORT_DESK    
+	.2byte DECOR_PRETTY_DESK     
+	.2byte DECOR_BRICK_DESK      
+	.2byte DECOR_CAMP_DESK       
+	.2byte DECOR_HARD_DESK    
+	.2byte 0
+	release
+	end 
+
+	.align 2
+PitEntrance_SecretBaseShop_Chairs:  
+	.2byte DECOR_SMALL_CHAIR     
+	.2byte DECOR_POKEMON_CHAIR   
+	.2byte DECOR_HEAVY_CHAIR     
+	.2byte DECOR_PRETTY_CHAIR    
+	.2byte DECOR_COMFORT_CHAIR   
+	.2byte DECOR_RAGGED_CHAIR    
+	.2byte DECOR_BRICK_CHAIR     
+	.2byte DECOR_CAMP_CHAIR      
+	.2byte DECOR_HARD_CHAIR    
+	.2byte 0
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Plants:  
+	.2byte DECOR_RED_PLANT       
+	.2byte DECOR_TROPICAL_PLANT  
+	.2byte DECOR_PRETTY_FLOWERS  
+	.2byte DECOR_COLORFUL_PLANT  
+	.2byte DECOR_BIG_PLANT       
+	.2byte DECOR_GORGEOUS_PLANT  
+	.2byte 0
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Misc:
+	.2byte DECOR_RED_BRICK       
+	.2byte DECOR_YELLOW_BRICK    
+	.2byte DECOR_BLUE_BRICK      
+	.2byte DECOR_RED_BALLOON     
+	.2byte DECOR_BLUE_BALLOON    
+	.2byte DECOR_YELLOW_BALLOON  
+	.2byte DECOR_RED_TENT        
+	.2byte DECOR_BLUE_TENT       
+	.2byte DECOR_SOLID_BOARD     
+	.2byte DECOR_SLIDE           
+	.2byte DECOR_FENCE_LENGTH    
+	.2byte DECOR_FENCE_WIDTH     
+	.2byte DECOR_TIRE            
+	.2byte DECOR_STAND           
+	.2byte DECOR_MUD_BALL        
+	.2byte DECOR_BREAKABLE_DOOR  
+	.2byte DECOR_SAND_ORNAMENT   
+	.2byte DECOR_SILVER_SHIELD   
+	.2byte DECOR_GOLD_SHIELD     
+	.2byte DECOR_GLASS_ORNAMENT  
+	.2byte DECOR_TV              
+	.2byte DECOR_ROUND_TV        
+	.2byte DECOR_CUTE_TV      
+	.2byte 0   
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Mats:
+	.2byte DECOR_GLITTER_MAT     
+	.2byte DECOR_JUMP_MAT        
+	.2byte DECOR_SPIN_MAT        
+	.2byte DECOR_C_LOW_NOTE_MAT  
+	.2byte DECOR_D_NOTE_MAT      
+	.2byte DECOR_E_NOTE_MAT      
+	.2byte DECOR_F_NOTE_MAT      
+	.2byte DECOR_G_NOTE_MAT      
+	.2byte DECOR_A_NOTE_MAT      
+	.2byte DECOR_B_NOTE_MAT      
+	.2byte DECOR_C_HIGH_NOTE_MAT 
+	.2byte DECOR_SURF_MAT        
+	.2byte DECOR_THUNDER_MAT     
+	.2byte DECOR_FIRE_BLAST_MAT  
+	.2byte DECOR_POWDER_SNOW_MAT 
+	.2byte DECOR_ATTRACT_MAT     
+	.2byte DECOR_FISSURE_MAT     
+	.2byte DECOR_SPIKES_MAT      
+	.2byte 0
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Posters:
+	.2byte DECOR_BALL_POSTER     
+	.2byte DECOR_GREEN_POSTER    
+	.2byte DECOR_RED_POSTER      
+	.2byte DECOR_BLUE_POSTER     
+	.2byte DECOR_CUTE_POSTER     
+	.2byte DECOR_PIKA_POSTER     
+	.2byte DECOR_LONG_POSTER     
+	.2byte DECOR_SEA_POSTER      
+	.2byte DECOR_SKY_POSTER      
+	.2byte DECOR_KISS_POSTER     
+	.2byte 0
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Dolls:
+	.2byte DECOR_PICHU_DOLL      
+	.2byte DECOR_PIKACHU_DOLL    
+	.2byte DECOR_MARILL_DOLL     
+	.2byte DECOR_TOGEPI_DOLL     
+	.2byte DECOR_CYNDAQUIL_DOLL  
+	.2byte DECOR_CHIKORITA_DOLL  
+	.2byte DECOR_TOTODILE_DOLL   
+	.2byte DECOR_JIGGLYPUFF_DOLL 
+	.2byte DECOR_MEOWTH_DOLL     
+	.2byte DECOR_CLEFAIRY_DOLL   
+	.2byte DECOR_DITTO_DOLL      
+	.2byte DECOR_SMOOCHUM_DOLL   
+	.2byte DECOR_TREECKO_DOLL    
+	.2byte DECOR_TORCHIC_DOLL    
+	.2byte DECOR_MUDKIP_DOLL     
+	.2byte DECOR_DUSKULL_DOLL    
+	.2byte DECOR_WYNAUT_DOLL     
+	.2byte DECOR_BALTOY_DOLL     
+	.2byte DECOR_KECLEON_DOLL    
+	.2byte DECOR_AZURILL_DOLL    
+	.2byte DECOR_SKITTY_DOLL     
+	.2byte DECOR_SWABLU_DOLL     
+	.2byte DECOR_GULPIN_DOLL     
+	.2byte DECOR_LOTAD_DOLL      
+	.2byte DECOR_SEEDOT_DOLL     
+	.2byte DECOR_SNORLAX_DOLL    
+	.2byte DECOR_RHYDON_DOLL     
+	.2byte DECOR_LAPRAS_DOLL     
+	.2byte DECOR_VENUSAUR_DOLL   
+	.2byte DECOR_CHARIZARD_DOLL  
+	.2byte DECOR_BLASTOISE_DOLL  
+	.2byte DECOR_WAILMER_DOLL    
+	.2byte DECOR_REGIROCK_DOLL   
+	.2byte DECOR_REGICE_DOLL     
+	.2byte DECOR_REGISTEEL_DOLL  
+	.2byte 0
+	release
+	end
+
+	.align 2
+PitEntrance_SecretBaseShop_Cushions:
+	.2byte DECOR_PIKA_CUSHION    
+	.2byte DECOR_ROUND_CUSHION   
+	.2byte DECOR_KISS_CUSHION    
+	.2byte DECOR_ZIGZAG_CUSHION  
+	.2byte DECOR_SPIN_CUSHION    
+	.2byte DECOR_DIAMOND_CUSHION 
+	.2byte DECOR_BALL_CUSHION    
+	.2byte DECOR_GRASS_CUSHION   
+	.2byte DECOR_FIRE_CUSHION    
+	.2byte DECOR_WATER_CUSHION   
+	.2byte 0
+	release
+	end

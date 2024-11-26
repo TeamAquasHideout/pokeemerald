@@ -614,23 +614,6 @@ void Task_ShowStartMenu(u8 taskId)
 
 void ShowStartMenu(void)
 {
-    if (!IsOverworldLinkActive())
-    {
-        FreezeObjectEvents();
-        PlayerFreeze();
-        StopPlayerAvatar();
-    }
-    else{
-        CreateStartMenuTask(Task_ShowStartMenu);
-        LockPlayerFieldControls();
-        return;
-    }
-    if (GetSafariZoneFlag() || InBattlePyramid() || InBattlePike() || InUnionRoom() || InMultiPartnerRoom())
-    {
-        CreateStartMenuTask(Task_ShowStartMenu);
-        LockPlayerFieldControls();
-        return;
-    }
     BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
     CreateTask(Task_OpenStartMenuFullScreen, 0);
     LockPlayerFieldControls();
