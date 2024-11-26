@@ -3200,7 +3200,7 @@ static void GetBattlerNick(u32 battler, u8 *dst)
     GetBattlerNick(battler, text);                                    \
     toCpy = text;
 
-#define TRAINER_NAME_COUNT 50
+/*#define TRAINER_NAME_COUNT 50
 static const u8 gRandomTrainerNamesM[][50] =
 {
     _("Sawyer"), 
@@ -3315,11 +3315,11 @@ static const u8 gArchieNamesM[] = _("Archie");
 
 static const u16 ObjectEventToGender [] =
 {
-    [OBJ_EVENT_GFX_NINJA_BOY]   =    MALE,
-    [OBJ_EVENT_GFX_TWIN]        =    MALE,
-    [OBJ_EVENT_GFX_BOY_1]       =    MALE,
-    [OBJ_EVENT_GFX_GIRL_1]      =    FEMALE,
-    [OBJ_EVENT_GFX_BOY_2]       =    MALE,
+    [OBJ_EVENT_GFX_NINJA_BOY]   =   MALE,
+    [OBJ_EVENT_GFX_TWIN]        =   MALE,
+    [OBJ_EVENT_GFX_BOY_1]       =   MALE,
+    [OBJ_EVENT_GFX_GIRL_1]      =   FEMALE,
+    [OBJ_EVENT_GFX_BOY_2]       =   MALE,
     [OBJ_EVENT_GFX_GIRL_2]      =   FEMALE,
     [OBJ_EVENT_GFX_LITTLE_BOY]  =   MALE,
     [OBJ_EVENT_GFX_LITTLE_GIRL] =   FEMALE,
@@ -3369,7 +3369,7 @@ static const u16 ObjectEventToGender [] =
     [OBJ_EVENT_GFX_CYCLING_TRIATHLETE_M]  =        MALE,
     [OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F] =        FEMALE,
     [OBJ_EVENT_GFX_ARCHIE]  =        MALE,
-};
+};*/
 
 static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text, u8 multiplayerId, u8 battler)
 {
@@ -3417,9 +3417,8 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
     }
     else
     {
-        #define SEED_TRAINER_NAME (trainerId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x + (100 * gSaveBlock1Ptr->pos.y))
-        if(!FlagGet(FLAG_START_BOSS_ENCOUNTER))
-            toCpy = ObjectEventToGender[ReturnLastSpokenVarObjGfxId()] == MALE ? gRandomTrainerNamesM[RandomSeededModulo2(SEED_TRAINER_NAME, TRAINER_NAME_COUNT)] : gRandomTrainerNamesF[RandomSeededModulo2(SEED_TRAINER_NAME, TRAINER_NAME_COUNT)];
+        if (!FlagGet(FLAG_START_BOSS_ENCOUNTER))
+            toCpy = GetRandomTrainerEncounterTrainerName(trainerId);
         else
             toCpy = GetRandomBossEncounterBossName();
     }

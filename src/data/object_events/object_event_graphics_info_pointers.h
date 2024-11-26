@@ -236,6 +236,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RubySapphir
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RubySapphireMay;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lugia;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoOh;
+
 // Begin pokemon event objects
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PokeBall;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Follower;
@@ -253,6 +254,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Cynthia;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Oak;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lyra;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Ethan;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Nate;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Agatha;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Brock;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Erika;
@@ -260,7 +262,16 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Giovanni;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Koga;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lance;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Sabrina;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Valerie;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PitPC;
+//additional FRLG trainers
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Biker;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Channeler;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rocker;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RocketMemberF;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RocketMemberM;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Scientist;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SuperNerd;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -511,7 +522,18 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_KOGA] =                     &gObjectEventGraphicsInfo_Koga,
     [OBJ_EVENT_GFX_LANCE] =                    &gObjectEventGraphicsInfo_Lance,
     [OBJ_EVENT_GFX_SABRINA] =                  &gObjectEventGraphicsInfo_Sabrina,
-    [OBJ_EVENT_GFX_PIT_PC] =                  &gObjectEventGraphicsInfo_PitPC,
+    [OBJ_EVENT_GFX_VALERIE] =                  &gObjectEventGraphicsInfo_Valerie,
+    [OBJ_EVENT_GFX_PIT_PC] =                   &gObjectEventGraphicsInfo_PitPC,
+    //additional FRLG trainers
+    [OBJ_EVENT_GFX_BIKER] =                    &gObjectEventGraphicsInfo_Biker,
+    [OBJ_EVENT_GFX_CHANNELER] =                &gObjectEventGraphicsInfo_Channeler,
+    [OBJ_EVENT_GFX_ROCKER] =                   &gObjectEventGraphicsInfo_Rocker,
+    [OBJ_EVENT_GFX_ROCKET_MEMBER_F] =          &gObjectEventGraphicsInfo_RocketMemberF,
+    [OBJ_EVENT_GFX_ROCKET_MEMBER_M] =          &gObjectEventGraphicsInfo_RocketMemberM,
+    [OBJ_EVENT_GFX_SCIENTIST] =                &gObjectEventGraphicsInfo_Scientist,
+    [OBJ_EVENT_GFX_SUPER_NERD] =               &gObjectEventGraphicsInfo_SuperNerd,
+    //more
+    [OBJ_EVENT_GFX_NATE] =                     &gObjectEventGraphicsInfo_Nate,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

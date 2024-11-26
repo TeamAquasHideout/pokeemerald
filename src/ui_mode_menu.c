@@ -542,7 +542,7 @@ static const u8 sText_Desc_Duplicates_Off[]     = _("Birch Case can't hold dupli
 static const u8 sText_Desc_Megas_On[]           = _("Trainer Pokémon have a 40% chance\nto mega evolve if possible.");
 static const u8 sText_Desc_Megas_Off[]          = _("Trainer Pokémon can never mega\nevolve.");
 static const u8 sText_Desc_HealFloors_5[]       = _("Get a rest stop to heal every\n5 floors.");
-static const u8 sText_Desc_HealFloors_10[]      = _("Get a rest stop to heal every\n10 floors.");
+static const u8 sText_Desc_HealFloors_10[]      = _("SUPER HARD! Get a rest stop to heal\nevery 10 floors.");
 static const u8 sText_Desc_3Mons_On[]           = _("Party size will never increase and\nremain at three (incl. trainers).");
 static const u8 sText_Desc_3Mons_Off[]          = _("Party size will increase by one\nevery 25 floors.");
 static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party\nand will be given random species.");
@@ -551,7 +551,7 @@ static const u8 sText_Desc_SaveDeletion_On[]    = _("Your save state will be del
 static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your save state will not be deleted\nwhen fainting.");
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
-static const u8 sText_Desc_DoubleCash_05x[]     = _("EXTRA HARD! Halves the amount of\nmoney received after a battle.");
+static const u8 sText_Desc_DoubleCash_05x[]     = _("SUPER HARD! Halves the amount of\nmoney received after a battle.");
 static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
 static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
@@ -1850,6 +1850,7 @@ static void ApplyPresets(void)
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
+            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             #ifdef PIT_GEN_9_MODE

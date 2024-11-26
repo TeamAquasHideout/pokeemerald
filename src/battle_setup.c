@@ -1766,9 +1766,9 @@ static const u8 *GetIntroSpeechOfApproachingTrainer(void)
     if(FlagGet(FLAG_START_BOSS_ENCOUNTER))
         return ReturnEmptyStringIfNull(GetRandomBossEncounterBossApproachText());
     if (gApproachingTrainerId == 0)
-        return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % 79]);
+        return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % getNumberOfApproachTexts()]);
     else
-        return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % 79]);
+        return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % getNumberOfApproachTexts()]);
 }
 
 u16 GetPitDefeatTextIndex(u16 trainerID)
@@ -1816,7 +1816,7 @@ const u8 *GetTrainerWonSpeech(void)
 {
     if(FlagGet(FLAG_START_BOSS_ENCOUNTER))
         return ReturnEmptyStringIfNull(GetRandomBossEncounterBossApproachText());
-    return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % 70]);
+    return ReturnEmptyStringIfNull(sRandomTrainerApproachTexts[Random() % getNumberOfApproachTexts()]);
 }
 
 static const u8 *GetTrainerCantBattleSpeech(void)

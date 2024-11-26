@@ -381,6 +381,23 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     TRAINER_CLASS(PIKE_QUEEN, "PIKE QUEEN"),
     TRAINER_CLASS(PYRAMID_KING, "PYRAMID KING"),
     TRAINER_CLASS(RS_PROTAG, "{PKMN} TRAINER"),
+    //additional FRLG classes
+    TRAINER_CLASS(BIKER, "BIKER"),
+    TRAINER_CLASS(BURGLAR, "BURGLAR"),
+    TRAINER_CLASS(CHANNELER, "CHANNELER"),
+    TRAINER_CLASS(CRUSH_GIRL, "CRUSH GIRL"),
+    TRAINER_CLASS(CUE_BALL, "CUE BALL"),
+    TRAINER_CLASS(ENGINEER, "ENGINEER"),
+    TRAINER_CLASS(GAMER, "GAMER"),
+    TRAINER_CLASS(JUGGLER, "JUGGLER"),
+    TRAINER_CLASS(PAINTER, "PAINTER"),
+    TRAINER_CLASS(ROCKER, "ROCKER"),
+    TRAINER_CLASS(TEAM_ROCKET, "TEAM ROCKET"),
+    TRAINER_CLASS(SCIENTIST, "SCIENTIST"),
+    TRAINER_CLASS(SUPER_NERD, "SUPER NERD"),
+    TRAINER_CLASS(TAMER, "TAMER"),
+    //more
+    TRAINER_CLASS(PIT_BOSS, "PIT BOSS"),
 };
 
 static void (* const sTurnActionsFuncsTable[])(void) =
@@ -2131,6 +2148,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     }
                 }
 #endif
+                if(isAcePokemon)
+                    item = partyData[j].heldItem;
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &item);
             }

@@ -517,6 +517,10 @@ static const struct SpriteFrameImage sPicTable_Ethan[] = {
     overworld_ascending_frames(gObjectEventPic_Ethan, 2, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_Nate[] = {
+    overworld_ascending_frames(gObjectEventPic_Nate, 2, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_Glacia[] = {
     overworld_frame(gObjectEventPic_Glacia, 2, 4, 0),
     overworld_frame(gObjectEventPic_Glacia, 2, 4, 1),
@@ -747,6 +751,47 @@ static const struct SpriteFrameImage sPicTable_Sabrina[] = {
     overworld_frame(gObjectEventPic_Sabrina, 2, 4, 2),
     overworld_frame(gObjectEventPic_Sabrina, 2, 4, 2),
 };
+
+static const struct SpriteFrameImage sPicTable_Valerie[] = {
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Valerie, 4, 4, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_Biker[] = {
+    overworld_ascending_frames(gObjectEventPic_Biker, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Channeler[] = {
+    overworld_ascending_frames(gObjectEventPic_Channeler, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Rocker[] = {
+    overworld_ascending_frames(gObjectEventPic_Rocker, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_RocketMemberF[] = {
+    overworld_ascending_frames(gObjectEventPic_RocketMemberF, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_RocketMemberM[] = {
+    overworld_ascending_frames(gObjectEventPic_RocketMemberM, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Scientist[] = {
+    overworld_ascending_frames(gObjectEventPic_Scientist, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_SuperNerd[] = {
+    overworld_ascending_frames(gObjectEventPic_SuperNerd, 2, 4),
+};
+
 
 static const struct SpriteFrameImage sPicTable_SSTidal[] = {
     obj_frame_tiles(gObjectEventPic_SSTidal),

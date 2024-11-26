@@ -1,6 +1,7 @@
 #ifndef GUARD_PIT_H
 #define GUARD_PIT_H
 
+u16 GetLastSpokenVarObjTrainerArrayElement(void);
 u16 ReturnLastSpokenVarObjGfxId();
 void BufferMapFloorString();
 void WarpToRandomPitArena(void);
@@ -26,9 +27,13 @@ void ResetRunStats(void);
 void SaveTempHofData(void);
 u8 getNumberOfApproachTexts(void);
 u8 getNumberOfDefeatTexts(void);
+u16 GetRandomTrainerEncounterTrainerPic(void);
+const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId);
+const u8 GetRandomTrainerEncounterTrainerClass(void);
 
 struct RandomTrainerNPC 
 {
+    u16 arrayElement;
     u16 gfxid;
     u16 objectflag;
     u16 trainerflag;
@@ -36,6 +41,7 @@ struct RandomTrainerNPC
 };
 
 #define MAX_RANDOM_TRAINERS 4
+#define MAX_TRAINER_OBJECTS 8
 #define BOSS_FLOOR_RATE 25
 
 //fixed value defines for game modes and options
@@ -82,6 +88,7 @@ enum {
     AVATAR_CYNTHIA,
     AVATAR_OAK,
     AVATAR_PHOEBE,
+    AVATAR_NATE,
     AVATAR_POKEMON_CHOICE,
 };
 

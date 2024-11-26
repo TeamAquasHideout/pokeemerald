@@ -3,6 +3,7 @@
 
 #include "constants/moves.h"
 #include "constants/trainers.h"
+#include "pit.h"
 
 #define MAX_TRAINER_ITEMS 4
 
@@ -154,6 +155,7 @@ extern const struct SpriteFrameImage gTrainerBackPicTable_Phoebe[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Oak[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Lyra[];
 extern const struct SpriteFrameImage gTrainerBackPicTable_Ethan[];
+extern const struct SpriteFrameImage gTrainerBackPicTable_Nate[];
 
 extern const union AffineAnimCmd *const gAffineAnims_BattleSpritePlayerSide[];
 extern const union AffineAnimCmd *const gAffineAnims_BattleSpriteOpponentSide[];
@@ -198,7 +200,8 @@ static inline const struct Trainer *GetTrainerStructFromId(u16 trainerId)
 
 static inline const u8 GetTrainerClassFromId(u16 trainerId)
 {
-    return gTrainers[SanitizeTrainerId(trainerId)].trainerClass;
+    return GetRandomTrainerEncounterTrainerClass();
+    //return gTrainers[SanitizeTrainerId(trainerId)].trainerClass;
 }
 
 static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)
