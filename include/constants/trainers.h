@@ -137,7 +137,9 @@
 #define TRAINER_PIC_SUPER_NERD            118
 #define TRAINER_PIC_TAMER                 119
 #define TRAINER_PIC_NATE                  120
-#define TRAINER_PIC_COUNT                 121
+#define TRAINER_PIC_BUGSY                 121
+#define TRAINER_PIC_BRUNO                 122
+#define TRAINER_PIC_COUNT                 123
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0

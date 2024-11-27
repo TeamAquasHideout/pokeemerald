@@ -313,6 +313,12 @@ const u32 gTrainerPalette_Sabrina[] = INCBIN_U32("graphics/trainers/palettes/lea
 const u32 gTrainerFrontPic_Valerie[] = INCBIN_U32("graphics/trainers/front_pics/valerie.4bpp.lz");
 const u32 gTrainerPalette_Valerie[] = INCBIN_U32("graphics/trainers/palettes/valerie.gbapal.lz");
 
+const u32 gTrainerFrontPic_Bugsy[] = INCBIN_U32("graphics/trainers/front_pics/bugsy.4bpp.lz");
+const u32 gTrainerPalette_Bugsy[] = INCBIN_U32("graphics/trainers/palettes/bugsy.gbapal.lz");
+
+const u32 gTrainerFrontPic_Bruno[] = INCBIN_U32("graphics/trainers/front_pics/bruno.4bpp.lz");
+const u32 gTrainerPalette_Bruno[] = INCBIN_U32("graphics/trainers/palettes/bruno.gbapal.lz");
+
 const u32 gTrainerFrontPic_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.4bpp.lz");
 const u32 gTrainerPalette_Oak[] = INCBIN_U32("graphics/trainers/front_pics/oak.gbapal.lz");
 
@@ -522,6 +528,8 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(LANCE, Lance),
     TRAINER_SPRITE(SABRINA, Sabrina),
     TRAINER_SPRITE(VALERIE, Valerie),
+    TRAINER_SPRITE(BUGSY, Bugsy),
+    TRAINER_SPRITE(BRUNO, Bruno),
     //additional FRLG trainers
     TRAINER_SPRITE(BIKER, Biker),
     TRAINER_SPRITE(BURGLAR, Burglar),

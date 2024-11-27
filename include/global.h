@@ -1124,7 +1124,7 @@ struct SaveBlock1
     /*0xB0*/ struct PlayersApprentice playerApprentice;
     /*0xDC*/ struct Apprentice apprentices[APPRENTICE_COUNT];
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
-    u8 randomBossEncounters[2];
+    u8 randomBossEncounters[3];
     u8 randomMonEncounters[2];
 };
 

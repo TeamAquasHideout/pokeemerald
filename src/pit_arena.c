@@ -2000,7 +2000,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("You went all out and earned that\n"
                                             "victory... You're a wonderful Trainer!\p"
                                             "I want my kid to learn from you.$"),
-        .bossAceText =      COMPOUND_STRING("I'm giving this everything I've got!$"),
+        .bossAceText =      COMPOUND_STRING("I'm giving this everything I've got!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2049,7 +2049,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "Pokémon and I!$"),
         .bossLoseText =     COMPOUND_STRING("Your devotion... That's what brought\n"
                                             "you victory. It's praiseworthy.$"),
-        .bossAceText =      COMPOUND_STRING("I will seize the wind!$"),
+        .bossAceText =      COMPOUND_STRING("I will seize the wind!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2100,7 +2100,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "you now, there is but one thing to do.\p"
                                             "I must hone my skills for our next\n"
                                             "encounter.$"),
-        .bossAceText =      COMPOUND_STRING("Fwahaha! Prepare yourselves!$"),
+        .bossAceText =      COMPOUND_STRING("Fwahaha! Prepare yourselves!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2145,7 +2145,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "of pain!$"),
         .bossLoseText =     COMPOUND_STRING("I'll tell you this now... No matter how\n"
                                             "strong you are, someday you'll lose.$"),
-        .bossAceText =      COMPOUND_STRING("You're in for a world of pain!$"),
+        .bossAceText =      COMPOUND_STRING("You're in for a world of pain!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2192,7 +2192,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "damage!$"),
         .bossLoseText =     COMPOUND_STRING("That was a really great battle!\p"
                                             "I compliment you on your victory!$"),
-        .bossAceText =      COMPOUND_STRING("Show me what you got!$"),
+        .bossAceText =      COMPOUND_STRING("Show me what you got!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2237,7 +2237,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "to lose.\p"
                                             "Give this battle everything you've got!$"),
         .bossLoseText =     COMPOUND_STRING("Not bad!$"),
-        .bossAceText =      COMPOUND_STRING("Put your back into it!$"),
+        .bossAceText =      COMPOUND_STRING("Put your back into it!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2290,7 +2290,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "an even greater power.\p"
                                             "And thus, you were able to grasp\n"
                                             "victory!$"),
-        .bossAceText =      COMPOUND_STRING("Steel yourselves!$"),
+        .bossAceText =      COMPOUND_STRING("Steel yourselves!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2336,7 +2336,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("You've really done it...\p"
                                             "You've shown a power that exceeds that\n"
                                             "of the great Maxie!$"),
-        .bossAceText =      COMPOUND_STRING("I shall educate you!$"),
+        .bossAceText =      COMPOUND_STRING("I shall educate you!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2383,7 +2383,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "must disappear now!$"),
         .bossLoseText =     COMPOUND_STRING("I commend you. I must recognize that\n"
                                             "you are truly gifted.$"),
-        .bossAceText =      COMPOUND_STRING("It's the road's end for you!$"),
+        .bossAceText =      COMPOUND_STRING("It's the road's end for you!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2431,7 +2431,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "I shall not lose.$"),
         .bossLoseText =     COMPOUND_STRING("It would make me verry happy if I could\n"
                                             "battle with you again.$"),
-        .bossAceText =      COMPOUND_STRING("I shall not lose!$"),
+        .bossAceText =      COMPOUND_STRING("I shall not lose!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2479,7 +2479,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("Wahahahah! That was a great victory!\n"
                                             "I'm so impressed by the way you battle\n"
                                             "that I can't help but laugh!$"),
-        .bossAceText =      COMPOUND_STRING("Wahahahah! Now, this is amusing!$"),
+        .bossAceText =      COMPOUND_STRING("Wahahahah! Now, this is amusing!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2528,7 +2528,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "foresaw actually.\p"
                                             "But I wanted to turn that future on its\n"
                                             "head with my conviction as a Trainer!$"),
-        .bossAceText =      COMPOUND_STRING("I'll hold nothing back!$"),
+        .bossAceText =      COMPOUND_STRING("I'll hold nothing back!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2578,7 +2578,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "spirits burn!\p"
                                             "It's no surprise that my icy skills\n"
                                             "failed to harm you.$"),
-        .bossAceText =      COMPOUND_STRING("Careful you don't freeze up!$"),
+        .bossAceText =      COMPOUND_STRING("Careful you don't freeze up!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2627,7 +2627,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("I'm sure you already know this, but\n"
                                             "dragons are legendary creatures!\p"
                                             "That's why I won't lose next time!$"),
-        .bossAceText =      COMPOUND_STRING("Here we come!$"),
+        .bossAceText =      COMPOUND_STRING("Here we come!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2675,7 +2675,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossLoseText =     COMPOUND_STRING("You've got what it takes to go far!\p"
                                             "Now, go on to the next room and enjoy\n"
                                             "your next battle!$"),
-        .bossAceText =      COMPOUND_STRING("Don't let up!$"),
+        .bossAceText =      COMPOUND_STRING("Don't let up!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
@@ -2711,6 +2711,110 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
 #endif
     },
+
+    {
+        .graphicsId = OBJ_EVENT_GFX_BUGSY,
+        .trainerPic = TRAINER_PIC_BUGSY,
+        .bossName = COMPOUND_STRING("Bugsy"),
+        .bossApproachText =  COMPOUND_STRING("I never lose when it comes to Bug-type\n"
+                                            "Pokémon.\p"
+                                            "Let me demonstrate what I've learned\n"
+                                            "from my studies.$"),
+        .bossLoseText =     COMPOUND_STRING("I never lose when it comes to Bug-type\n"
+                                            "Pokémon.\p"
+                                            "I'm so embarrassed to have said that.\p"
+                                            "I'll start my studies of other Pokémon\n"
+                                            "over from the beginning, too.\p"
+                                            "I'm truly grateful that you made me\n"
+                                            "realize I need to do that.$"),
+        .bossAceText =      COMPOUND_STRING("All right, let's do this!\p$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SCIZOR,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SCIZOR,
+                            .heldItem = ITEM_LIFE_ORB,
+                            .ability = 1,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUPERPOWER, MOVE_BULLET_PUNCH, MOVE_PURSUIT}
+                        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_SCIZOR,
+                            .heldItem = ITEM_SCIZORITE,
+                            .ability = 1,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_KNOCK_OFF, MOVE_BULLET_PUNCH, MOVE_TRAILBLAZE}
+                        },
+#endif
+    },
+
+    {
+        .graphicsId = OBJ_EVENT_GFX_BRUNO,
+        .trainerPic = TRAINER_PIC_BRUNO,
+        .bossName = COMPOUND_STRING("Bruno"),
+        .bossApproachText =  COMPOUND_STRING("Through rigorous training, people and\n"
+                                            "Pokémon can become stronger.\p"
+                                            "I've lived and trained with my Fighting\n"
+                                            "type Pokémon!\p"
+                                            "We will grind you down with our superior\n"
+                                            "power! Hoo hah!$"),
+        .bossLoseText =     COMPOUND_STRING("If you have defeated me, then my job is\n"
+                                            "done. Ugh!\p"
+                                            "I may not like it, but... go! Go face your\n"
+                                            "next challenge!$"),
+        .bossAceText =      COMPOUND_STRING("Take this!\p$"),
+#ifdef GEN_3_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_MACHAMP,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 0,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULK_UP, MOVE_CROSS_CHOP, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE}
+                        },
+#elif GEN_5_MODE
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_MACHAMP,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 1,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULK_UP, MOVE_DYNAMIC_PUNCH, MOVE_STONE_EDGE, MOVE_THUNDER_PUNCH}
+                        },
+#else
+        .trainerAce =   {
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .lvl = 100,
+                            .species = SPECIES_MACHAMP,
+                            .heldItem = ITEM_LEFTOVERS,
+                            .ability = 1,
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_BULK_UP, MOVE_DYNAMIC_PUNCH, MOVE_STONE_EDGE, MOVE_KNOCK_OFF}
+                        },
+#endif
+    },
+    
 #if (GEN_LATEST == GEN_9)
     {
         .graphicsId = OBJ_EVENT_GFX_VALERIE,
@@ -2721,8 +2825,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "as a bloom, but it is strong.$"),
         .bossLoseText =     COMPOUND_STRING("That was truly a captivating battle.\p"
                                             "I might just be captivated by you.$"),
-        .bossAceText =      COMPOUND_STRING("I hope that you will find things worth\n"
-                                            "smiling about tomorrow..$"),
+        .bossAceText =      COMPOUND_STRING("I hope the sun is shining tomorrow.\p$"),
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(116, 252, 0, 140, 0, 0),
@@ -2797,7 +2900,7 @@ void SetRandomBossEncounter(void)
         
     do {
         u16 index = Random() % RANDOM_BOSS_ENCOUNTER_COUNT;
-        //index = 15; //test
+        //index = RANDOM_BOSS_ENCOUNTER_COUNT - 3; //test
         if(BossEncounterFlagGet(index))
         {
             reroll = TRUE;
