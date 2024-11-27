@@ -2716,7 +2716,9 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .graphicsId = OBJ_EVENT_GFX_VALERIE,
         .trainerPic = TRAINER_PIC_VALERIE,
         .bossName = COMPOUND_STRING("Valerie"),
-        .bossApproachText = COMPOUND_STRING("xxxxx!$"),
+        .bossApproachText = COMPOUND_STRING("I'm Valerie, a Fairy-type specialist.\p"
+                                            "The elusive fairy may appear delicate\n"
+                                            "as a bloom, but it is strong.$"),
         .bossLoseText =     COMPOUND_STRING("That was truly a captivating battle.\p"
                                             "I might just be captivated by you.$"),
         .bossAceText =      COMPOUND_STRING("I hope that you will find things worth\n"
