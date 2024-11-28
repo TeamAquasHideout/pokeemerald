@@ -178,9 +178,12 @@ const u32 gObjectEventPic_RocketMemberM[] = INCBIN_U32("graphics/object_events/p
 const u32 gObjectEventPic_Scientist[] = INCBIN_U32("graphics/object_events/pics/people/frlg/scientist.4bpp");
 const u32 gObjectEventPic_SuperNerd[] = INCBIN_U32("graphics/object_events/pics/people/frlg/super_nerd.4bpp");
 //more
-
 const u16 gObjectEventPal_Nate[] = INCBIN_U16("graphics/object_events/palettes/nate.gbapal");
 const u32 gObjectEventPic_Nate[] = INCBIN_U32("graphics/object_events/pics/people/nate.4bpp", "graphics/object_events/pics/people/nate.4bpp");
+const u16 gObjectEventPal_Rosa[] = INCBIN_U16("graphics/object_events/palettes/rosa.gbapal");
+const u32 gObjectEventPic_Rosa[] = INCBIN_U32("graphics/object_events/pics/people/rosa.4bpp", "graphics/object_events/pics/people/rosa.4bpp");
+const u16 gObjectEventPal_Lillie[] = INCBIN_U16("graphics/object_events/palettes/lillie.gbapal");
+const u32 gObjectEventPic_Lillie[] = INCBIN_U32("graphics/object_events/pics/people/lillie.4bpp", "graphics/object_events/pics/people/lillie.4bpp");
 const u32 gObjectEventPic_RubySapphireLittleBoy[] = INCBIN_U32("graphics/object_events/pics/people/rs_little_boy.4bpp");
 const u32 gObjectEventPic_HotSpringsOldWoman[] = INCBIN_U32("graphics/object_events/pics/people/hot_springs_old_woman.4bpp");
 const u32 gObjectEventPic_LatiasLatios[] = INCBIN_U32("graphics/object_events/pics/pokemon_old/latias_latios.4bpp");
