@@ -842,7 +842,7 @@ void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex)
         else
         {
             paletteIndex = PLTT_ID(paletteIndex);
-            BlendPalette(paletteIndex, 16, 12, RGB(28, 31, 28));
+            BlendPalette(paletteIndex, 16, 1, RGB(0, 0, 0)); // wiz1989: tallgrass palette fade during fog
         }
         break;
     }
