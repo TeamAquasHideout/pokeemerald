@@ -1114,9 +1114,9 @@ static const struct PitAvatarInfo sPitAvatars[] = {
 
     {
         .mugshotId = AVATAR_STEVEN,
-        .graphicsId = OBJ_EVENT_GFX_LILLIE,
-        .trainerFrontPicId = TRAINER_PIC_LILLIE,
-        .trainerBackPicId = TRAINER_BACK_PIC_LILLIE,
+        .graphicsId = OBJ_EVENT_GFX_STEVEN,
+        .trainerFrontPicId = TRAINER_PIC_STEVEN,
+        .trainerBackPicId = TRAINER_BACK_PIC_STEVEN,
     },
     {
         .mugshotId = AVATAR_CYNTHIA,
@@ -1127,9 +1127,9 @@ static const struct PitAvatarInfo sPitAvatars[] = {
 
     {
         .mugshotId = AVATAR_OAK,
-        .graphicsId = OBJ_EVENT_GFX_ROSA,
-        .trainerFrontPicId = TRAINER_PIC_ROSA,
-        .trainerBackPicId = TRAINER_BACK_PIC_ROSA,
+        .graphicsId = OBJ_EVENT_GFX_OAK,
+        .trainerFrontPicId = TRAINER_PIC_OAK,
+        .trainerBackPicId = TRAINER_BACK_PIC_OAK,
     },
     {
         .mugshotId = AVATAR_PHOEBE,

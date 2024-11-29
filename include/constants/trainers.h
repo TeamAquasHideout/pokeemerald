@@ -159,7 +159,8 @@
 #define TRAINER_BACK_PIC_NATE   				12
 #define TRAINER_BACK_PIC_ROSA                	13
 #define TRAINER_BACK_PIC_LILLIE 				14
-#define TRAINER_BACK_PIC_DUMMY                	15
+#define TRAINER_BACK_PIC_WALLY  				15
+#define TRAINER_BACK_PIC_DUMMY                	16
 
 #define FACILITY_CLASS_HIKER                 0x0
 #define FACILITY_CLASS_AQUA_GRUNT_M          0x1

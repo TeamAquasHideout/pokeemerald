@@ -414,6 +414,8 @@ const u32 gTrainerBackPalette_Rosa[] = INCBIN_U32("graphics/trainers/back_pics/d
 const u8 gTrainerBackPic_Lillie[] = INCBIN_U8("graphics/trainers/back_pics/lillie.4bpp");
 const u32 gTrainerBackPalette_Lillie[] = INCBIN_U32("graphics/trainers/back_pics/lillie.gbapal.lz");
 
+const u8 gTrainerBackPic_Wally[] = INCBIN_U8("graphics/trainers/back_pics/wally.4bpp");
+
 const u8 gTrainerBackPic_Dummy[]    = INCBIN_U8("graphics/trainers/back_pics/dummy.4bpp");
 const u32 gTrainerBackPalette_Dummy[] = INCBIN_U32("graphics/trainers/back_pics/dummy.gbapal.lz");
 
@@ -739,6 +741,14 @@ const struct SpriteFrameImage gTrainerBackPicTable_Lillie[] =
     {gTrainerBackPic_Lillie + TRAINER_PIC_SIZE * 4, TRAINER_PIC_SIZE},
 };
 
+const struct SpriteFrameImage gTrainerBackPicTable_Wally[] =
+{
+    {gTrainerBackPic_Wally + TRAINER_PIC_SIZE * 0, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Wally + TRAINER_PIC_SIZE * 1, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Wally + TRAINER_PIC_SIZE * 2, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Wally + TRAINER_PIC_SIZE * 3, TRAINER_PIC_SIZE},
+};
+
 
 const struct SpriteFrameImage gTrainerBackPicTable_Dummy[] =
 {
@@ -775,8 +785,9 @@ const struct TrainerBacksprite gTrainerBacksprites[] =
     TRAINER_BACK_SPRITE(OAK,    4, Oak, BackPalette_Oak, Hoenn),
     TRAINER_BACK_SPRITE(LYRA,   4, Lyra, BackPalette_Lyra, Hoenn),
     TRAINER_BACK_SPRITE(ETHAN,  4, Ethan, BackPalette_Ethan, Hoenn),
-    TRAINER_BACK_SPRITE(NATE,   5, Nate, BackPalette_Nate, Hoenn),
+    TRAINER_BACK_SPRITE(NATE,   5, Nate, BackPalette_Nate, Kanto),
     TRAINER_BACK_SPRITE(ROSA,   4, Rosa, BackPalette_Rosa, Hoenn),
     TRAINER_BACK_SPRITE(LILLIE, 5, Lillie, BackPalette_Lillie, Kanto),
+    TRAINER_BACK_SPRITE(WALLY,  4, Wally, Palette_Wally, Hoenn),
     TRAINER_BACK_SPRITE(DUMMY,  4, Dummy, BackPalette_Dummy, Hoenn),
 };
