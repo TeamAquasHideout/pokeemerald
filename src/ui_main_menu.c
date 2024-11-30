@@ -1224,7 +1224,7 @@ static void CreateMugshot()
     u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
     if (facilityClass == 0xFFFF)
     {
-        sMainMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+        sMainMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(gSaveBlock2Ptr->pokemonAvatarSpecies, 
                     FALSE, 
                     0, 
                     TRUE, 

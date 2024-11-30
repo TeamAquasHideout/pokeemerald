@@ -737,7 +737,7 @@ static void Task_Hof_DisplayPlayer(u8 taskId)
     u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
     if (facilityClass == 0xFFFF)
     {
-        gTasks[taskId].tPlayerSpriteID = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+        gTasks[taskId].tPlayerSpriteID = CreateMonPicSprite(gSaveBlock2Ptr->pokemonAvatarSpecies, 
                     FALSE, 
                     0, 
                     TRUE, 

@@ -604,6 +604,8 @@ struct SaveBlock2
     /*0x2798*/ u8 decorationDolls[40];
     /*0x27C0*/ u8 decorationCushions[10];
 
+             u16 pokemonAvatarSpecies;
+
 }; // sizeof=0xF2C
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;

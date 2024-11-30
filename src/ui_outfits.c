@@ -971,7 +971,7 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
-        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
+        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(gSaveBlock2Ptr->pokemonAvatarSpecies);
         if(sOutfitsMenuDataPtr->avatarPage == 0)
             CreateMugshotsPage1();
         if(sOutfitsMenuDataPtr->avatarPage == 1)
@@ -1488,7 +1488,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(sOutfitsMenuDataPtr->avatarPage == 2)
         {
-            VarSet(VAR_AVATAR_POKEMON_CHOICE, AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));
+            gSaveBlock2Ptr->pokemonAvatarSpecies = AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex);
             gSaveBlock2Ptr->playerGfxType = AVATAR_POKEMON_CHOICE;
             gSaveBlock2Ptr->playerGender = MALE;
         }

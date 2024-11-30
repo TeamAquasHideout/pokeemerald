@@ -1184,7 +1184,7 @@ u16 ReturnAvatarGraphicsId(u16 avatarId)
     if(graphicsId == 0xFFFF)
     {
         graphicsId = OBJ_EVENT_GFX_VAR_D;
-        VarSet(VAR_OBJ_GFX_ID_D, VarGet(VAR_AVATAR_POKEMON_CHOICE) + OBJ_EVENT_GFX_MON_BASE);
+        VarSet(VAR_OBJ_GFX_ID_D, gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_GFX_MON_BASE);
     }
     return graphicsId;
 }

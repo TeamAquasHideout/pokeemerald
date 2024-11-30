@@ -1881,7 +1881,7 @@ static void CreateTrainerCardTrainerPic(void)
     u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
     if (facilityClass == 0xFFFF)
     {
-        CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+        CreateMonPicSprite(gSaveBlock2Ptr->pokemonAvatarSpecies, 
                     FALSE, 
                     0, 
                     TRUE, 

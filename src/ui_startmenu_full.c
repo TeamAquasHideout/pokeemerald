@@ -1025,7 +1025,7 @@ static bool8 StartMenuFull_DoGfxSetup(void) // base UI loader from Ghouls UI She
         u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
         if (facilityClass == 0xFFFF)
         {
-            sStartMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+            sStartMenuDataPtr->mugshotSpriteId = CreateMonPicSprite(gSaveBlock2Ptr->pokemonAvatarSpecies, 
                         FALSE, 
                         0, 
                         TRUE, 

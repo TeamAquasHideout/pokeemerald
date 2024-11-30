@@ -382,7 +382,7 @@ static bool8 TrainerStats_DoGfxSetup(void)
         u16 facilityClass = ReturnAvatarTrainerFrontPicId(gSaveBlock2Ptr->playerGfxType);
         if (facilityClass == 0xFFFF)
         {
-            sTrainerStatsDataPtr->mugshotSpriteId = CreateMonPicSprite(VarGet(VAR_AVATAR_POKEMON_CHOICE), 
+            sTrainerStatsDataPtr->mugshotSpriteId = CreateMonPicSprite(gSaveBlock2Ptr->pokemonAvatarSpecies, 
                         FALSE, 
                         0, 
                         TRUE, 
