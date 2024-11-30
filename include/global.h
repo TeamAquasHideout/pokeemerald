@@ -608,6 +608,7 @@ struct SaveBlock2
              u32 secretBaseShopCoins;
               u8 giveSilverShield:4;
               u8 giveGoldShield:4;
+              u8 hasSavedOnce; 
 
 }; // sizeof=0xF2C
 

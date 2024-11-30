@@ -3454,3 +3454,16 @@ void CheckAndGiveShieldsOnVictory(void)
     VarSet(VAR_RESULT, 0);
     return;
 }
+
+void CheckIfSavedBefore(void)
+{
+    if(gSaveBlock2Ptr->hasSavedOnce == 0)
+    {
+        VarSet(VAR_RESULT, 1);
+        gSaveBlock2Ptr->hasSavedOnce = 1;
+        return;
+    }
+
+    VarSet(VAR_RESULT, 0);
+    return;
+}

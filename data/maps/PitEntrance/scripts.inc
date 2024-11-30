@@ -2,6 +2,19 @@ PitEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PitArena_Entrance
 	.byte 0
 
+
+PitEntrance_CheckForAutoSave::
+	callnative CheckIfSavedBefore
+	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_Skip
+	clearflag FLAG_SAVING_FIELD_EFFECT
+	dofieldeffect(FLDEFF_SAVING)
+	waitfieldeffect(FLDEFF_SAVING)
+	callnative AutoSave
+PitEntrance_OnFrame_CheckForAutoSave_Skip::
+	setvar VAR_TEMP_0, 1
+	end
+
+
 PitArena_Entrance:
 	goto_if_set FLAG_PIT_STARTED, PitArena_EntranceEnd
 	callnative SetOnMapLoadDefaultOptions
