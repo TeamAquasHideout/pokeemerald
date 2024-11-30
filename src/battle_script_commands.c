@@ -7771,17 +7771,21 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         lastMonLevel = party[GetTrainerPartySizeFromId(trainerId) - 1].lvl;
         trainerMoney = 500;
 
+        //double the money for boss fights
+        if(FlagGet(FLAG_START_BOSS_ENCOUNTER))
+            trainerMoney = 1000;
+
         if(gSaveBlock2Ptr->modeCashRewards == 1)
         {
-            trainerMoney = 1000;
+            trainerMoney = trainerMoney * 2;
         }
         else if(gSaveBlock2Ptr->modeCashRewards == 2)
         {
-            trainerMoney = 250;
+            trainerMoney = trainerMoney / 2;
         }
         else
         {
-            trainerMoney = 500;
+            trainerMoney = trainerMoney;
         }
 
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)

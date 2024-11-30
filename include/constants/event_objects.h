@@ -261,11 +261,15 @@
 #define OBJ_EVENT_GFX_SUPER_NERD                 255
 #define OBJ_EVENT_GFX_VALERIE                    256
 #define OBJ_EVENT_GFX_NATE                       257
+#define OBJ_EVENT_GFX_BUGSY                      258
+#define OBJ_EVENT_GFX_BRUNO                      259
+#define OBJ_EVENT_GFX_ROSA                       260
+#define OBJ_EVENT_GFX_LILLIE                     261
 
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        258
+#define NUM_OBJ_EVENT_GFX                        262
 
 
 // These are dynamic object gfx ids.
@@ -389,7 +393,7 @@
 #define OBJ_EVENT_PAL_TAG_SUBMARINE_SHADOW        0x111B
 #define OBJ_EVENT_PAL_TAG_POOCHYENA               0x111C
 #define OBJ_EVENT_PAL_TAG_RED_LEAF                0x111D
-#define OBJ_EVENT_PAL_TAG_DEOXYS                  0x111E
+#define OBJ_EVENT_PAL_TAG_BUGSY                   0x111E
 #define OBJ_EVENT_PAL_TAG_BIRTH_ISLAND_STONE      0x111F
 #define OBJ_EVENT_PAL_TAG_HO_OH                   0x1120
 #define OBJ_EVENT_PAL_TAG_LUGIA                   0x1121
@@ -409,6 +413,9 @@
 #define OBJ_EVENT_PAL_TAG_NPC_PINK                0x1135
 #define OBJ_EVENT_PAL_TAG_VALERIE                 0x1136
 #define OBJ_EVENT_PAL_TAG_NATE                    0x1137
+#define OBJ_EVENT_PAL_TAG_DEOXYS                  0x1138 //not used. switched position with BUGSY
+#define OBJ_EVENT_PAL_TAG_ROSA                    0x1139
+#define OBJ_EVENT_PAL_TAG_LILLIE                  0x1140
 
 
 #if OW_FOLLOWERS_POKEBALLS

@@ -63,7 +63,7 @@
 #define FLAG_UNUSED_0x031     0x31 // Unused Flag
 #define FLAG_TM_SHOP         0x32 // Unused Flag
 #define FLAG_RANDOM_MAPS     0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
+#define FLAG_HIDE_MOVE_TUTOR 0x34 // Unused Flag
 #define FLAG_UNUSED_0x035    0x35 // Unused Flag
 #define FLAG_UNUSED_0x036    0x36 // Unused Flag
 #define FLAG_UNUSED_0x037    0x37 // Unused Flag

@@ -137,7 +137,11 @@
 #define TRAINER_PIC_SUPER_NERD            118
 #define TRAINER_PIC_TAMER                 119
 #define TRAINER_PIC_NATE                  120
-#define TRAINER_PIC_COUNT                 121
+#define TRAINER_PIC_BUGSY                 121
+#define TRAINER_PIC_BRUNO                 122
+#define TRAINER_PIC_ROSA                  123
+#define TRAINER_PIC_LILLIE                124
+#define TRAINER_PIC_COUNT                 125
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -153,7 +157,10 @@
 #define TRAINER_BACK_PIC_ETHAN                 	10
 #define TRAINER_BACK_PIC_LYRA                	11
 #define TRAINER_BACK_PIC_NATE   				12
-#define TRAINER_BACK_PIC_DUMMY                	13
+#define TRAINER_BACK_PIC_ROSA                	13
+#define TRAINER_BACK_PIC_LILLIE 				14
+#define TRAINER_BACK_PIC_WALLY  				15
+#define TRAINER_BACK_PIC_DUMMY                	16
 
 #define FACILITY_CLASS_HIKER                 0x0
 #define FACILITY_CLASS_AQUA_GRUNT_M          0x1
