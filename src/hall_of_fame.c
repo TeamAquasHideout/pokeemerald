@@ -683,7 +683,20 @@ static void Task_Hof_PaletteFadeAndPrintWelcomeText(u8 taskId)
 
     HallOfFame_PrintWelcomeText(0, 15);
     if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors))))
+    {
         PlaySE(SE_APPLAUSE);
+    }
+    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN)) && (VarGet(VAR_PIT_FLOOR) <= 100))
+    {
+        if(gSaveBlock2Ptr->modeXP == 1) // HARD MODE
+        {
+            RecieveGoldShield();
+        }
+        else
+        {
+            RecieveSilverShield();
+        }
+    }
     gTasks[taskId].tFrameCount = 400;
     gTasks[taskId].func = Task_Hof_DoConfetti;
 }

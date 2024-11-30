@@ -187,14 +187,14 @@ const u8 DecorDesc_SAND_ORNAMENT[] = _(
         "touched.");
 
 const u8 DecorDesc_SILVER_SHIELD[] = _(
-    "Awarded for 50\n"
-        "straight wins at\n"
-        "the BATTLE TOWER.");
+    "Awarded for\n"
+        "beating The Pit\n"
+        "with Norm Exp.");
 
 const u8 DecorDesc_GOLD_SHIELD[] = _(
-    "Awarded for 100\n"
-        "straight wins at\n"
-        "the BATTLE TOWER.");
+    "Awarded for\n"
+        "beating The Pit\n"
+        "with Hard Exp.");
 
 const u8 DecorDesc_GLASS_ORNAMENT[] = _(
     "A glass replica of\n"

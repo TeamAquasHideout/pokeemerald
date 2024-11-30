@@ -412,9 +412,31 @@ PitEntrance_AccessPC::
 	release
 	end
 
+PitEntrance_Text_SecretBaseShop_GiveGoldShield:
+	.string "Oh, Hey! I have something here for you\n"
+	.string "for beating The Pit with Hard Exp.\l"
+	.string "Here is a Gold Shield Decoration!$"
+
+PitEntrance_Text_SecretBaseShop_GiveSilverShield:
+	.string "Oh, Hey! I have something here for you\n"
+	.string "for beating The Pit with Normal Exp.\l"
+	.string "Here is a Silver Shield Decoration!$"
+
+PitEntrance_SecretBaseShop_GiveGoldShield::
+	msgbox PitEntrance_Text_SecretBaseShop_GiveGoldShield, MSGBOX_DEFAULT
+	goto PitEntrance_SecretBaseShop_CheckShields
+
+PitEntrance_SecretBaseShop_GiveSilverShield::
+	msgbox PitEntrance_Text_SecretBaseShop_GiveSilverShield, MSGBOX_DEFAULT
+	goto PitEntrance_SecretBaseShop_CheckShields
+
 PitEntrance_SecretBaseShop::
 	lock
 	faceplayer
+PitEntrance_SecretBaseShop_CheckShields::
+	callnative CheckAndGiveShieldsOnVictory
+	goto_if_eq VAR_RESULT, 1, PitEntrance_SecretBaseShop_GiveSilverShield
+	goto_if_eq VAR_RESULT, 2, PitEntrance_SecretBaseShop_GiveGoldShield
 PitEntrance_SecretBaseShop_CommonRestart::
 	message gText_HowMayIServeYou
 	waitmessage

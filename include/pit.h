@@ -34,6 +34,9 @@ const u8 GetRandomTrainerEncounterTrainerClass(void);
 u16 AccessValidSpeciesArrayIndex(u16 index);
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species);
 
+void RecieveGoldShield(void);
+void RecieveSilverShield(void);
+
 struct RandomTrainerNPC 
 {
     u16 arrayElement;

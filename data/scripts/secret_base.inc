@@ -705,8 +705,8 @@ SecretBase_Text_RegistryInfo:
 	.string "may be registered.$"
 
 SecretBase_Text_BattleTowerShield:
-	.string "A shield of {STR_VAR_2} that marks winning\n"
-	.string "{STR_VAR_1} times in a row at the BATTLE TOWER.$"
+	.string "A shield of {STR_VAR_2} that marks beating\n"
+	.string "The Pit.$"
 
 SecretBase_Text_ToyTV:
 	.string "A realistic toy TV. It could be easily\n"

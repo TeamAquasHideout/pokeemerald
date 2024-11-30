@@ -40,7 +40,9 @@
 #include "constants/weather.h"
 #include "global.fieldmap.h"
 #include "tilesets.h"
-
+#include "constants/decorations.h"
+#include "decoration_inventory.h"
+#include "decoration.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -3394,4 +3396,61 @@ void ResetRunStats(void)
 {
     gSaveBlock2Ptr->statsRunKOs = 0;
     gSaveBlock2Ptr->statsRunRevives = 0;
+}
+
+
+void RecieveSilverShield(void)
+{
+    if(gSaveBlock2Ptr->giveSilverShield == 0)
+    {
+        if(!CheckHasDecoration(DECOR_SILVER_SHIELD))
+        {
+            gSaveBlock2Ptr->giveSilverShield = 1;
+            return;
+        }
+    }
+}
+
+void RecieveGoldShield(void)
+{
+    if(gSaveBlock2Ptr->giveGoldShield == 0)
+    {
+        if(!CheckHasDecoration(DECOR_GOLD_SHIELD))
+        {
+            gSaveBlock2Ptr->giveGoldShield = 1;
+            return;
+        }
+    }
+}
+
+void CheckAndGiveShieldsOnVictory(void)
+{
+    if(gSaveBlock2Ptr->giveSilverShield)
+    {
+        if(DecorationCheckSpace(DECOR_SILVER_SHIELD))
+        {
+            if(!CheckHasDecoration(DECOR_SILVER_SHIELD))
+            {
+                DecorationAdd(DECOR_SILVER_SHIELD);
+                VarSet(VAR_RESULT, 1);
+                gSaveBlock2Ptr->giveSilverShield = 0;
+                return;
+            }
+        }
+    }
+    if(gSaveBlock2Ptr->giveGoldShield)
+    {
+        if(DecorationCheckSpace(DECOR_GOLD_SHIELD))
+        {
+            if(!CheckHasDecoration(DECOR_GOLD_SHIELD))
+            {
+                DecorationAdd(DECOR_GOLD_SHIELD);
+                VarSet(VAR_RESULT, 2);
+                gSaveBlock2Ptr->giveGoldShield = 0;
+                return;
+            }
+        }
+    }
+    VarSet(VAR_RESULT, 0);
+    return;
 }

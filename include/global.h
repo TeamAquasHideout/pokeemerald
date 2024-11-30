@@ -606,6 +606,8 @@ struct SaveBlock2
 
              u16 pokemonAvatarSpecies;
              u32 secretBaseShopCoins;
+              u8 giveSilverShield:4;
+              u8 giveGoldShield:4;
 
 }; // sizeof=0xF2C
 
