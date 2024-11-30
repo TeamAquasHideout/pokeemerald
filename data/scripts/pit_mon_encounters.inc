@@ -448,10 +448,10 @@ PitGiveMonCommon_FullPartyNothingChosen::
 	release
 	end
 
-PitGiveMonCommon_GiveMonFullNothingChosen_Text1:
+PitGiveMonCommon_GiveMonFullNothingChosen_Text1::
 	.string "Your party is too full.$"
 
-PitGiveMonCommon_GiveMonFullNothingChosen_Text2:
+PitGiveMonCommon_GiveMonFullNothingChosen_Text2::
 	.string "Do you want to get rid\n"
 	.string "of a party member?$"
 

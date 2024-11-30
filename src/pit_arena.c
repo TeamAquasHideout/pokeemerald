@@ -3334,6 +3334,44 @@ void Check50FloorMode(void)
         VarSet(VAR_TEMP_A, 0);
 }
 
+void CheckNoCaseMode(void)
+{
+    if(gSaveBlock2Ptr->modeNoCaseChoice == 0)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void AddInitial3MonsNoCaseMode(void)
+{   
+    int i = 0;
+    if(gPlayerPartyCount == 1)
+        i = 1;
+    SetRandomGiveMonRewardEncounters();
+    for(; i < 3; i++)
+    {
+        u16 species = loadedEncounters[i];
+        u16 level = 5;
+        u8 evs[] = {0, 0, 0, 0, 0, 0};
+        u8 ivs[] = {31, 31, 31, 31, 31, 31};
+        u16 moves[] = {0, 0, 0, 0};
+        ScriptGiveMonParameterized(species, level, ITEM_NONE, 0, NUM_NATURES, 3, 0, (u8 *) &evs, (u8 *) &ivs, (u16 *) &moves, 0, NUMBER_OF_MON_TYPES, 0);
+    }
+}
+
+void AddNewMonNoCaseMode(void)
+{   
+    if(gPlayerPartyCount == 6)
+        return;
+    SetRandomGiveMonRewardEncounters();
+    u16 species = loadedEncounters[0];
+    u16 level = VarGet(VAR_PIT_FLOOR) <= 100 ? VarGet(VAR_PIT_FLOOR) : 100;
+    u8 evs[] = {0, 0, 0, 0, 0, 0};
+    u8 ivs[] = {31, 31, 31, 31, 31, 31};
+    u16 moves[] = {0, 0, 0, 0};
+    ScriptGiveMonParameterized(species, level, ITEM_NONE, 0, NUM_NATURES, 3, 0, (u8 *) &evs, (u8 *) &ivs, (u16 *) &moves, 0, NUMBER_OF_MON_TYPES, 0);
+}
+
 void UpdateRunningStats(void)
 {
     gSaveBlock2Ptr->statsAllAttempts++;

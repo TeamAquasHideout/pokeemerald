@@ -34,12 +34,31 @@ PitBoss_NoAutoSave::
 	callnative BufferMapFloorString
 	callnative Check3MonMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
+	callnative CheckNoCaseMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
 	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
 	waitstate
 	release
 	end
 
+PitBoss_PartyFullRemoveOne::
+	message PitGiveMonCommon_GiveMonFullNothingChosen_Text1
+	waitbuttonpress
+	msgbox PitGiveMonCommon_GiveMonFullNothingChosen_Text2, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PitBoss_NoCaseModeMode2
+	special ChoosePartyMon
+	waitstate
+	copyvar VAR_RESULT, VAR_0x8004
+	goto_if_eq VAR_RESULT, PARTY_NOTHING_CHOSEN, PitBoss_NoCaseModeMode2
+	callnative RemovePartyPokemon
+	goto PitBoss_NoCaseModeMode2
+
+PitBoss_NoCaseModeMode::
+	callnative PlayerPartyCountToResultVar
+	goto_if_eq VAR_RESULT, 6, PitBoss_PartyFullRemoveOne
+PitBoss_NoCaseModeMode2::
+	callnative AddNewMonNoCaseMode
 PitBoss_3MonMode::
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9
@@ -114,6 +133,8 @@ PitStatueNoAutoSave:
 	callnative BufferMapFloorString
 	callnative Check3MonMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
+	callnative CheckNoCaseMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
 	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
 	waitstate

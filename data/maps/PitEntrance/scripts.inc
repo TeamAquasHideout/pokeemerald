@@ -74,8 +74,14 @@ PitEntrance_StartBag::
 PitEntrace_ModeMenu::
 	setflag FLAG_CASE_STARTER_MODE
 	callnative InitTrainerIdAndNameData
+	callnative CheckNoCaseMode
+	goto_if_eq VAR_TEMP_A, 1, PitEntrace_NoCaseModeMode
 	callnative StartNewPokeballCaseUI
 	waitstate
+	goto PitEntrace_SkipOverNoCaseModeMode
+PitEntrace_NoCaseModeMode::
+	callnative AddInitial3MonsNoCaseMode
+PitEntrace_SkipOverNoCaseModeMode::
 	clearflag FLAG_CASE_STARTER_MODE
 	removeobject 1
 	setflag FLAG_STARTER_CHOICE_BAG
