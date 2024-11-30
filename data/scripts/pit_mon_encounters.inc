@@ -281,15 +281,15 @@ PitEncounter_NuggetDrop_Text:
 PitEncounter_WonderTrade::
 	msgbox PitEncounter_WonderTrade_Text, MSGBOX_DEFAULT
 	msgbox PitEncounter_WonderTrade_YesNo, MSGBOX_YESNO
-	checkmoney 500
-	goto_if_eq VAR_RESULT, FALSE, PitEncounter_Mover_NotEnoughMoney
-	removemoney 500
+	goto_if_eq VAR_RESULT, NO, PitEncounter_WonderTradeEnd
 	additem ITEM_RARE_CANDY, 1
 	removeobject 12
 	call PitEncounter_Common_AfterUse
 	call EventScript_DoWonderTrade
+PitEncounter_WonderTradeEnd::
 	release
 	end
+
 PitEncounter_WonderTrade_Text:
 	.string "Zigzagoon offers you a Wonder Trade\n incl. a Rare Candy for ¥500.$"
 PitEncounter_WonderTrade_YesNo:
@@ -354,9 +354,7 @@ PitEncounter_NPCMoverOpen2:
 	.string "Free Rare Candy Included With Purchase!$"
 
 PitEncounter_MoverSkip2::
-	checkmoney 3000
-	goto_if_eq VAR_RESULT, FALSE, PitEncounter_Mover_NotEnoughMoney
-	removemoney 3000
+	additem ITEM_RARE_CANDY, 2
 	setflag FLAG_FLOOR_CLEARED
 	call PitEncounter_Common_AfterUse
 	callnative SetWarpTileActive
@@ -367,9 +365,7 @@ PitEncounter_MoverSkip2::
 	end
 
 PitEncounter_MoverSkip3::
-	checkmoney 5000
-	goto_if_eq VAR_RESULT, FALSE, PitEncounter_Mover_NotEnoughMoney
-	removemoney 5000
+	additem ITEM_RARE_CANDY, 3
 	setflag FLAG_FLOOR_CLEARED
 	callnative SetWarpTileActive
 	call PitEncounter_Common_AfterUse
@@ -401,11 +397,11 @@ PitEncounter_NPCMoverNotEnoughMoneyText:
 	.string "Not enough money...$"
 
 PitEncounter_NPCMover2:
-	.string "Skip 2 Floors: ¥3000$"
+	.string "Skip 2 Floors$"
 PitEncounter_NPCMover3:
-	.string "Skip 3 Floors: ¥5000$"
+	.string "Skip 3 Floors$"
 PitEncounter_NPCMover4:
-	.string "Wonder Trade:   ¥500$"
+	.string "Wonder Trade$"
 
 
 
