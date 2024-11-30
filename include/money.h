@@ -35,5 +35,7 @@ u32 CalculateMoneyTextHorizontalPosition(u32 amount);
 void PrintBPMoneyAmount(u8 windowId, u8 x, u8 y, int amount, u8 speed);
 void PrintBPMoneyAmountInMoneyBox(u8 windowId, int amount, u8 speed);
 void PrintBPMoneyAmountInMoneyBoxWithBorder(u8 windowId, u16 tileStart, u8 pallete, int amount);
+void PrintMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 speed);
+void PrintBPMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 speed);
 
 #endif // GUARD_MONEY_H

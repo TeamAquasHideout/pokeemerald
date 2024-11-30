@@ -53,6 +53,7 @@
 #include "ui_main_menu.h"
 #include "trainer_pokemon_sprites.h"
 #include "ui_trainer_stats.h"
+#include "money.h"
 
 /*
     Full Screen Start Menu
@@ -1301,68 +1302,14 @@ static void PrintMapNameAndTime(void) //this code is ripped froom different part
 
     RtcCalcLocalTime();
 
-    hours = gLocalTime.hours;
-
-#if (FLAG_CLOCK_MODE != 0)
-    if (FlagGet(FLAG_CLOCK_MODE)) // true: 12-hours, false: 24-hours
+    if(VarGet(VAR_PIT_FLOOR) != 0)
     {
-        if (gLocalTime.hours < 12)
-        {
-            hours = (gLocalTime.hours == 0) ? 12 : gLocalTime.hours;
-            suffix = sText_AM;
-        }
-        else if (gLocalTime.hours == 12)
-        {
-            hours = 12;
-            if (suffix == sText_AM)
-                suffix = sText_PM;
-        }
-        else
-        {
-            hours = gLocalTime.hours - 12;
-            suffix = sText_PM;
-        }
+        PrintMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 8, 1, GetMoney(&gSaveBlock1Ptr->money), TEXT_SKIP_DRAW);
     }
-#endif
-
-    minutes = gLocalTime.minutes;
-    dayOfWeek = gLocalTime.days % 7;
-    if (hours > 999)
-        hours = 999;
-    if (minutes > 59)
-        minutes = 59;
-    width = GetStringWidth(FONT_NORMAL, gText_Colon2, 0);
-    x = 64;
-    y = 1;
-
-    if(dayOfWeek == 2) // adjust x position if dayofweek Thurs/Tues because the words are longer
-        x += 8;
-    if(dayOfWeek == 4)
-        x += 12;
-
-    totalWidth = width + 30;
-    x -= totalWidth;
-
-    str = sDayOfWeekStrings[dayOfWeek];
-
-    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NORMAL, 10, y, sTimeTextColors, TEXT_SKIP_DRAW, str); //print dayof week
-    ConvertIntToDecimalStringN(gStringVar4, hours, STR_CONV_MODE_RIGHT_ALIGN, 3);
-    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NORMAL, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gStringVar4); //these three print the time, you can put the colon to only print half the time to flash it if you want
-    x += 18;
-    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NORMAL, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gText_Colon2);
-    x += width;
-    ConvertIntToDecimalStringN(gStringVar4, minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
-    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NORMAL, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gStringVar4);
-
-#if (FLAG_CLOCK_MODE != 0)
-    if (suffix != NULL)
-    {
-        width = GetStringWidth(FONT_NORMAL, gStringVar4, 0) + 3; // CHAR_SPACE is 3 pixels wide
-        x += width;
-        StringExpandPlaceholders(gStringVar4, suffix);
-        AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NORMAL, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gStringVar4);
+    else
+    {   
+        PrintBPMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 8, 1, gSaveBlock2Ptr->secretBaseShopCoins, TEXT_SKIP_DRAW);
     }
-#endif
 
     PutWindowTilemap(WINDOW_TOP_BAR);
     CopyWindowToVram(WINDOW_TOP_BAR, COPYWIN_FULL);

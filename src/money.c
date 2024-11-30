@@ -213,6 +213,44 @@ void PrintBPMoneyAmount(u8 windowId, u8 x, u8 y, int amount, u8 speed)
     AddTextPrinterParameterized(windowId, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
 }
 
+void PrintMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 speed)
+{
+    u8 *txtPtr = gStringVar4;
+    u32 numDigits = CountDigits(amount);
+    u32 maxDigits = (numDigits > 6) ? MAX_MONEY_DIGITS: 6;
+    u32 leadingSpaces;
+    const u8 colors[] = {0, 2, 3};
+
+    ConvertIntToDecimalStringN(gStringVar1, amount, STR_CONV_MODE_LEFT_ALIGN, maxDigits);
+
+    leadingSpaces = CalculateLeadingSpacesForMoney(numDigits);
+
+    StringExpandPlaceholders(txtPtr, gText_PokedollarVar1);
+
+    if (numDigits > 8)
+        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NORMAL, 54);
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
+}
+
+void PrintBPMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 speed)
+{
+    u8 *txtPtr = gStringVar4;
+    u32 numDigits = CountDigits(amount);
+    u32 maxDigits = (numDigits > 6) ? MAX_MONEY_DIGITS: 6;
+    u32 leadingSpaces;
+    const u8 colors[] = {0, 2, 3};
+
+    ConvertIntToDecimalStringN(gStringVar1, amount, STR_CONV_MODE_LEFT_ALIGN, maxDigits);
+
+    leadingSpaces = CalculateLeadingSpacesForMoney(numDigits);
+
+    StringExpandPlaceholders(txtPtr, gText_BPVar1);
+
+    if (numDigits > 8)
+        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NORMAL, 54);
+    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
+}
+
 
 void PrintMoneyAmountInMoneyBoxWithBorder(u8 windowId, u16 tileStart, u8 pallete, int amount)
 {
