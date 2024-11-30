@@ -416,6 +416,7 @@
 #define OBJ_EVENT_PAL_TAG_DEOXYS                  0x1138 //not used. switched position with BUGSY
 #define OBJ_EVENT_PAL_TAG_ROSA                    0x1139
 #define OBJ_EVENT_PAL_TAG_LILLIE                  0x1140
+#define OBJ_EVENT_PAL_TAG_WALLY                	 0x1141
 
 
 #if OW_FOLLOWERS_POKEBALLS

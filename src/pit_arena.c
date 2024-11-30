@@ -1146,22 +1146,22 @@ static const struct PitAvatarInfo sPitAvatars[] = {
     },
     {
         .mugshotId = AVATAR_ROSA,
-        .graphicsId = OBJ_EVENT_GFX_NATE,
+        .graphicsId = OBJ_EVENT_GFX_ROSA,
         .trainerFrontPicId = TRAINER_PIC_ELITE_FOUR_PHOEBE, //front pic not used in game
-        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+        .trainerBackPicId = TRAINER_BACK_PIC_ROSA,
     },
 
     {
         .mugshotId = AVATAR_WALLY,
         .graphicsId = OBJ_EVENT_GFX_WALLY,
         .trainerFrontPicId = TRAINER_PIC_WALLY, //front pic not used in game
-        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+        .trainerBackPicId = TRAINER_BACK_PIC_WALLY,
     },
     {
         .mugshotId = AVATAR_LILLIE,
-        .graphicsId = OBJ_EVENT_GFX_NATE,
+        .graphicsId = OBJ_EVENT_GFX_LILLIE,
         .trainerFrontPicId = TRAINER_PIC_ELITE_FOUR_PHOEBE, //front pic not used in game
-        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+        .trainerBackPicId = TRAINER_BACK_PIC_LILLIE,
     },
 
     {
