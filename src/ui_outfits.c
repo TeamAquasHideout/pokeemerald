@@ -971,6 +971,7 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
+        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
         if(sOutfitsMenuDataPtr->avatarPage == 0)
             CreateMugshotsPage1();
         if(sOutfitsMenuDataPtr->avatarPage == 1)
@@ -979,9 +980,7 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         {
             SetPokemonScreenHWindows();
             CreatePokemonSprite();
-        }
-        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
-            
+        }   
         PrintToWindow();
         PrintToHeader();
         CreateTask(Task_OutfitsMenuWaitFadeIn, 0);
