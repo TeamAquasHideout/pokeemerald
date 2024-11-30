@@ -801,13 +801,20 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y)
                 STR_CONV_MODE_LEFT_ALIGN,
                 6);
         }
-
-        if (ItemId_GetImportance(itemId) && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)))
-            StringCopy(gStringVar4, gText_SoldOut);
-        else if (ItemId_GetPrice(itemId) == 0)
-            StringCopy(gStringVar4, gText_SoldOut);
+        if (sMartInfo.martType == MART_TYPE_NORMAL)
+        {
+            if (ItemId_GetImportance(itemId) && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)))
+                StringCopy(gStringVar4, gText_SoldOut);
+            else if (ItemId_GetPrice(itemId) == 0)
+                StringCopy(gStringVar4, gText_SoldOut);
+            else
+                StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);
+        }
         else
-            StringExpandPlaceholders(gStringVar4, gText_PokedollarVar1);
+        {
+            StringExpandPlaceholders(gStringVar4, gText_BPVar1);
+        }
+        
         x = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 120);
         AddTextPrinterParameterized4(windowId, FONT_NARROW, x, y, 0, 0, sShopBuyMenuTextColors[COLORID_ITEM_LIST], TEXT_SKIP_DRAW, gStringVar4);
     }
@@ -962,7 +969,11 @@ static void BuyMenuDrawGraphics(void)
     }
     BuyMenuCopyMenuBgToBg1TilemapBuffer();
     AddMoneyLabelObject(19, 11);
-    PrintMoneyAmountInMoneyBoxWithBorder(WIN_MONEY, 1, 13, GetMoney(&gSaveBlock1Ptr->money));
+    if (sMartInfo.martType == MART_TYPE_NORMAL)
+        PrintMoneyAmountInMoneyBoxWithBorder(WIN_MONEY, 1, 13, GetMoney(&gSaveBlock1Ptr->money));
+    else
+        PrintBPMoneyAmountInMoneyBoxWithBorder(WIN_MONEY, 1, 13, gSaveBlock2Ptr->secretBaseShopCoins);
+    
     ScheduleBgCopyTilemapToVram(0);
     ScheduleBgCopyTilemapToVram(1);
     ScheduleBgCopyTilemapToVram(2);
@@ -1195,11 +1206,15 @@ static void Task_BuyMenu(u8 taskId)
             else
                 sShopData->totalCost = gDecorations[itemId].price;
 
-            if (ItemId_GetImportance(itemId) && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)))
+            if (ItemId_GetImportance(itemId) && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)) && (sMartInfo.martType == MART_TYPE_NORMAL))
                 BuyMenuDisplayMessage(taskId, gText_ThatItemIsSoldOut, BuyMenuReturnToItemList);
-            else if (ItemId_GetPrice(itemId) == 0)
+            else if ((ItemId_GetPrice(itemId) == 0) && (sMartInfo.martType == MART_TYPE_NORMAL))
                 BuyMenuDisplayMessage(taskId, gText_ThatItemIsSoldOut, BuyMenuReturnToItemList);
-            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost))
+            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost) && (sMartInfo.martType == MART_TYPE_NORMAL))
+            {
+                BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
+            }
+            else if (gSaveBlock2Ptr->secretBaseShopCoins < sShopData->totalCost)
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
             }
@@ -1266,7 +1281,10 @@ static void Task_BuyHowManyDialogueInit(u8 taskId)
     BuyMenuPrintItemQuantityAndPrice(taskId);
     ScheduleBgCopyTilemapToVram(0);
 
-    maxQuantity = GetMoney(&gSaveBlock1Ptr->money) / sShopData->totalCost;
+    if (sMartInfo.martType == MART_TYPE_NORMAL)
+        maxQuantity = GetMoney(&gSaveBlock1Ptr->money) / sShopData->totalCost;
+    else
+        maxQuantity = gSaveBlock2Ptr->secretBaseShopCoins / sShopData->totalCost;
 
     if (maxQuantity > MAX_BAG_ITEM_CAPACITY)
         sShopData->maxQuantity = MAX_BAG_ITEM_CAPACITY;
@@ -1322,6 +1340,21 @@ static void BuyMenuConfirmPurchase(u8 taskId)
     CreateYesNoMenuWithCallbacksOverride(taskId, &sShopBuyMenuYesNoWindowTemplates, 1, 0, 0, 1, 13, &sShopPurchaseYesNoFuncs);
 }
 
+static void BuyMenuSubtractCoins(u8 taskId)
+{
+    IncrementGameStat(GAME_STAT_SHOPPED);
+    if (gSaveBlock2Ptr->secretBaseShopCoins < sShopData->totalCost)
+        gSaveBlock2Ptr->secretBaseShopCoins = 0;
+    else
+        gSaveBlock2Ptr->secretBaseShopCoins -= sShopData->totalCost;
+
+    PlaySE(SE_SHOP);
+    PrintBPMoneyAmountInMoneyBox(WIN_MONEY, gSaveBlock2Ptr->secretBaseShopCoins, 0);
+    gTasks[taskId].func = Task_ReturnToItemListAfterDecorationPurchase;
+}
+
+
+
 static void BuyMenuTryMakePurchase(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -1345,9 +1378,9 @@ static void BuyMenuTryMakePurchase(u8 taskId)
         if (DecorationAdd(tItemId))
         {
             if (sMartInfo.martType == MART_TYPE_DECOR)
-                BuyMenuDisplayMessage(taskId, gText_ThankYouIllSendItHome, BuyMenuSubtractMoney);
+                BuyMenuDisplayMessage(taskId, gText_ThankYouIllSendItHome, BuyMenuSubtractCoins);
             else // MART_TYPE_DECOR2
-                BuyMenuDisplayMessage(taskId, gText_ThanksIllSendItHome, BuyMenuSubtractMoney);
+                BuyMenuDisplayMessage(taskId, gText_ThanksIllSendItHome, BuyMenuSubtractCoins);
         }
         else
         {
@@ -1355,6 +1388,7 @@ static void BuyMenuTryMakePurchase(u8 taskId)
         }
     }
 }
+
 
 static void BuyMenuSubtractMoney(u8 taskId)
 {
@@ -1442,7 +1476,10 @@ static void BuyMenuPrintItemQuantityAndPrice(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     FillWindowPixelBuffer(WIN_QUANTITY_PRICE, PIXEL_FILL(1));
-    PrintMoneyAmount(WIN_QUANTITY_PRICE, CalculateMoneyTextHorizontalPosition(sShopData->totalCost), 1, sShopData->totalCost, TEXT_SKIP_DRAW);
+    if (sMartInfo.martType == MART_TYPE_NORMAL)
+        PrintMoneyAmount(WIN_QUANTITY_PRICE, CalculateMoneyTextHorizontalPosition(sShopData->totalCost), 1, sShopData->totalCost, TEXT_SKIP_DRAW);
+    else
+        PrintBPMoneyAmount(WIN_QUANTITY_PRICE, CalculateMoneyTextHorizontalPosition(sShopData->totalCost), 1, sShopData->totalCost, TEXT_SKIP_DRAW);
     ConvertIntToDecimalStringN(gStringVar1, tItemCount, STR_CONV_MODE_LEADING_ZEROS, MAX_ITEM_DIGITS);
     StringExpandPlaceholders(gStringVar4, gText_xVar1);
     BuyMenuPrint(WIN_QUANTITY_PRICE, gStringVar4, 0, 1, 0, COLORID_NORMAL);

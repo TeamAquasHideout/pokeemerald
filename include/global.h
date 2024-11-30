@@ -605,6 +605,7 @@ struct SaveBlock2
     /*0x27C0*/ u8 decorationCushions[10];
 
              u16 pokemonAvatarSpecies;
+             u32 secretBaseShopCoins;
 
 }; // sizeof=0xF2C
 

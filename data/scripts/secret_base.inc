@@ -1,14 +1,11 @@
 SecretBase_Text_TreeCanBeClimbed:
-	.string "If some vines drop down, this tree can\n"
-	.string "be climbed.$"
+	.string "Can Enter Secret Base.$"
 
 SecretBase_Text_TreeUseSecretPower:
-	.string "If some vines drop down, this tree can\n"
-	.string "be climbed.\p"
-	.string "Use the SECRET POWER?$"
+	.string "Enter Secret Base?$"
 
 SecretBase_Text_VineDroppedDown:
-	.string "A thick vine dropped down!$"
+	.string "The secret base opened up!$"
 
 SecretBase_Text_ClumpOfGrass:
 	.string "If this clump of grass can be moved,\n"
@@ -25,7 +22,6 @@ SecretBase_Text_DiscoveredSmallEntrance:
 	.include "data/text/secret_base_trainers.inc"
 
 SecretBase_EventScript_CheckEntrance::
-	msgbox SecretBase_Text_DiscoveredSmallEntrance23, MSGBOX_DEFAULT
 	special GetSecretBaseTypeInFrontOfPlayer
 	special CheckPlayerHasSecretBase
 	goto_if_eq VAR_RESULT, TRUE, SecretBase_EventScript_AlreadyHasSecretBase
@@ -77,8 +73,6 @@ SecretBase_EventScript_Tree::
 	bufferpartymonnick STR_VAR_1, VAR_RESULT
 	msgbox SecretBase_Text_TreeUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
-	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
-	closemessage
 	goto SecretBase_EventScript_TreeEnter
 	end
 

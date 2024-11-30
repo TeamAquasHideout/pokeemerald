@@ -7812,6 +7812,7 @@ static void Cmd_getmoneyreward(void)
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
             money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
         AddMoney(&gSaveBlock1Ptr->money, money);
+        gSaveBlock2Ptr->secretBaseShopCoins += 1;
     }
     else
     {

@@ -415,6 +415,7 @@ PitEntrance_AccessPC::
 PitEntrance_SecretBaseShop::
 	lock
 	faceplayer
+PitEntrance_SecretBaseShop_CommonRestart::
 	message gText_HowMayIServeYou
 	waitmessage
 	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_SecretBaseShop_Dolls_Text, PitEntrance_SecretBaseShop_Plants_Text, PitEntrance_SecretBaseShop_Mats_Text, PitEntrance_SecretBaseShop_Posters_Text, PitEntrance_SecretBaseShop_Cushions_Text, PitEntrance_SecretBaseShop_Desks_Text, PitEntrance_SecretBaseShop_Chairs_Text, PitEntrance_SecretBaseShop_Misc_Text
@@ -437,35 +438,35 @@ PitEntrance_SecretBaseShop_CommonEnd::
 
 PitEntrance_SecretBaseShop_Dolls_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Dolls
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Plants_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Plants
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Mats_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Mats
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Posters_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Posters
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Cushions_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Cushions
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Desks_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Desks
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Chairs_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Chairs
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 PitEntrance_SecretBaseShop_Misc_Shop::
 	pokemartdecoration2 PitEntrance_SecretBaseShop_Misc
-	goto PitEntrance_SecretBaseShop_CommonEnd
+	goto PitEntrance_SecretBaseShop_CommonRestart
 
 
 PitEntrance_SecretBaseShop_Desks_Text:

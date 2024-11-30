@@ -273,7 +273,7 @@ static const struct WindowTemplate sDecorationWindowTemplates[WINDOW_COUNT] =
         .tilemapTop = 1,
         .width = 13,
         .height = 18,
-        .paletteNum = 13,
+        .paletteNum = 15,
         .baseBlock = 0x0091
     },
     {
@@ -747,18 +747,21 @@ static void PrintDecorationCategoryMenuItem(u8 winid, u8 category, u8 x, u8 y, b
 {
     u8 width;
     u8 *str;
+    const u8 colors[3] = {1,  2,  3}; 
 
     width = x == 8 ? 104 : 96;
     y++;
     ColorMenuItemString(gStringVar4, disabled);
     str = StringLength(gStringVar4) + gStringVar4;
     StringCopy(str, sDecorationCategoryNames[category]);
-    AddTextPrinterParameterized(winid, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
+    //AddTextPrinterParameterized(winid, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
+    AddTextPrinterParameterized4(winid, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
     str = ConvertIntToDecimalStringN(str, GetNumOwnedDecorationsInCategory(category), STR_CONV_MODE_RIGHT_ALIGN, 2);
     *(str++) = CHAR_SLASH;
     ConvertIntToDecimalStringN(str, gDecorationInventories[category].size, STR_CONV_MODE_RIGHT_ALIGN, 2);
     x = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, width);
-    AddTextPrinterParameterized(winid, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
+    //AddTextPrinterParameterized(winid, FONT_NORMAL, gStringVar4, x, y, speed, NULL);
+    AddTextPrinterParameterized4(winid, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
 }
 
 static void ColorMenuItemString(u8 *str, bool8 disabled)
