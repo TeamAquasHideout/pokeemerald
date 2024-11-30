@@ -46,6 +46,8 @@
 #include "link.h"
 #include "naming_screen.h"
 #include "random.h"
+#include "trainer_pokemon_sprites.h"
+#include "pokemon.h"
 
 /*
  * 
@@ -58,9 +60,11 @@ struct OutfitsMenuResources
     u8 gfxLoadState;
     u16 iconBoxSpriteIds[6];
     u16 iconMonSpriteIds[6];
-    u16 mugshotSpriteId[12];
+    u16 mugshotSpriteId[8];
     u8 sSelectedOption;
     u8 returnMode;
+    u8 avatarPage;
+    u16 currentSpeciesIndex;
 };
 
 enum WindowIds
@@ -122,18 +126,23 @@ static bool8 OutfitsMenu_InitBgs(void);
 static void OutfitsMenu_FadeAndBail(void);
 static bool8 OutfitsMenu_LoadGraphics(void);
 static void OutfitsMenu_InitWindows(void);
-static void PrintToWindow(u8 windowId, u8 colorIdx);
+static void PrintToWindow();
+static void PrintToHeader();
 static void Task_OutfitsMenuWaitFadeIn(u8 taskId);
 static void Task_OutfitsMenuMain(u8 taskId);
 static void OutfitsMenu_InitializeGPUWindows(void);
 
 static void CreateMugshot();
 static void DestroyMugshot();
+static void CreateMugshotsPage1();
+static void CreateMugshotsPage2();
+void CreatePokemonSprite();
 static void CreateIconShadow();
 static void DestroyIconShadow();
 static u32 GetHPEggCyclePercent(u32 partyIndex);
 static void CreatePartyMonIcons();
 static void DestroyMonIcons();
+static void SetPokemonScreenHWindows(void);
 
 
 //==========Background and Window Data==========//
@@ -164,23 +173,23 @@ static const struct WindowTemplate sOutfitsMenuWindowTemplates[] =
     [WINDOW_HEADER] = // Prints the Map and Playtime
     {
         .bg = 0,            // which bg to print text on
-        .tilemapLeft = 10,  // position from left (per 8 pixels)
-        .tilemapTop = 1,    // position from top (per 8 pixels)
-        .width = 18,        // width (per 8 pixels)
+        .tilemapLeft = 0,  // position from left (per 8 pixels)
+        .tilemapTop = 0,    // position from top (per 8 pixels)
+        .width = 30,        // width (per 8 pixels)
         .height = 2,        // height (per 8 pixels)
-        .paletteNum = 0,    // palette index to use for text
+        .paletteNum = 15,    // palette index to use for text
         .baseBlock = 1,     // tile start in VRAM
     },
 
     [WINDOW_MIDDLE] = // Prints the name, dex number, and badges
     {
-        .bg = 0,                   // which bg to print text on
-        .tilemapLeft = 8,          // position from left (per 8 pixels)
-        .tilemapTop = 4,           // position from top (per 8 pixels)
-        .width = 18,               // width (per 8 pixels)
-        .height = 7,               // height (per 8 pixels)
-        .paletteNum = 0,           // palette index to use for text
-        .baseBlock = 1 + (18 * 2), // tile start in VRAM
+        .bg = 0,            // which bg to print text on
+        .tilemapLeft = 0,  // position from left (per 8 pixels)
+        .tilemapTop = 2,    // position from top (per 8 pixels)
+        .width = 30,        // width (per 8 pixels)
+        .height = 18,        // height (per 8 pixels)
+        .paletteNum = 15,    // palette index to use for text
+        .baseBlock = 1 + (30 * 2),     // tile start in VRAM
     },
     DUMMY_WIN_TEMPLATE
 };
@@ -199,20 +208,17 @@ struct HWWindowPosition {
 
 static const struct HWWindowPosition HWinCoords[12] = 
 {
-    [STATE_BRENDAN]        = {{0, 60},    {0, 56},},
-    [STATE_MAY]            = {{60, 120},   {0, 56},},
-    [STATE_RED]            = {{120, 180}, {0, 56},},
-    [STATE_LEAF]           = {{180, 240},   {0, 56},},
+    [STATE_BRENDAN]        = {{0, 60},    {0, 56 + 16 + 12},},
+    [STATE_MAY]            = {{60, 120},   {0, 56 + 16 + 12},},
+    [STATE_RED]            = {{120, 180}, {0, 56 + 16 + 12},},
+    [STATE_LEAF]           = {{180, 240},   {0, 56 + 16 + 12},},
 
-    [STATE_LUCAS]           = {{0, 60},      {56, 107},},
-    [STATE_DAWN]            = {{60, 120},    {56, 107},},
-    [STATE_ETHAN]           = {{120, 180},   {56, 107},},
-    [STATE_LYRA]            = {{180, 240},   {56, 107},},
+    [STATE_LUCAS]           = {{0, 60},      {56 + 16 + 12, 107 + 48 + 16},},
+    [STATE_DAWN]            = {{60, 120},    {56 + 16 + 12, 107 + 48 + 16},},
+    [STATE_ETHAN]           = {{120, 180},   {56 + 16 + 12, 107 + 48 + 16},},
+    [STATE_LYRA]            = {{180, 240},   {56 + 16 + 12, 107 + 48 + 16},},
 
-    [STATE_STEVEN]          = {{0, 60},      {107, 160},},
-    [STATE_CYNTHIA]         = {{60, 120},    {107, 160},},
-    [STATE_OAK]             = {{120, 180},   {107, 160},},
-    [STATE_PHOEBE]          = {{180, 240},   {107, 160}},
+    [STATE_STEVEN]            = {{0, 240},   {0, 160},},
 };
 
 
@@ -267,6 +273,16 @@ static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/ethan.4bp
 static const u16 sLyraMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/lyra.gbapal");
 static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lyra.4bpp.lz");
 
+static const u16 sNateMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/nate_mugshot.gbapal");
+static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/nate_mugshot.4bpp.lz");
+static const u16 sRosaMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/rosa_mugshot.gbapal");
+static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/rosa_mugshot.4bpp.lz");
+
+static const u16 sWallyMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/wally_mugshot.gbapal");
+static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/wally_mugshot.4bpp.lz");
+static const u16 sLillieMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/lillie_mugshot.gbapal");
+static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lillie_mugshot.4bpp.lz");
+
 //
 //  Sprite Data for Mugshots and Icon Shadows 
 //
@@ -284,6 +300,11 @@ static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lyra.4bpp.
 #define TAG_MUGSHOT_CYNTHIA 30021
 #define TAG_MUGSHOT_OAK 30022
 #define TAG_MUGSHOT_PHOEBE 30023
+
+#define TAG_MUGSHOT_NATE 30024
+#define TAG_MUGSHOT_ROSA 30025
+#define TAG_MUGSHOT_WALLY 30026
+#define TAG_MUGSHOT_LILLIE 30027
 
 #define TAG_ICON_BOX 30006
 static const struct OamData sOamData_Mugshot =
@@ -593,6 +614,107 @@ static const struct SpriteTemplate sSpriteTemplate_MugshotLyra =
 };
 
 
+
+static const struct CompressedSpriteSheet sSpriteSheet_NateMugshot =
+{
+    .data = sNateMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT_NATE,
+};
+
+static const struct SpritePalette sSpritePal_NateMugshot =
+{
+    .data = sNateMugshot_Pal,
+    .tag = TAG_MUGSHOT_NATE,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_MugshotNate =
+{
+    .tileTag = TAG_MUGSHOT_NATE,
+    .paletteTag = TAG_MUGSHOT_NATE,
+    .oam = &sOamData_Mugshot,
+    .anims = sSpriteAnimTable_Mugshot,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_RosaMugshot =
+{
+    .data = sRosaMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT_ROSA,
+};
+
+static const struct SpritePalette sSpritePal_RosaMugshot =
+{
+    .data = sRosaMugshot_Pal,
+    .tag = TAG_MUGSHOT_ROSA,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_MugshotRosa =
+{
+    .tileTag = TAG_MUGSHOT_ROSA,
+    .paletteTag = TAG_MUGSHOT_ROSA,
+    .oam = &sOamData_Mugshot,
+    .anims = sSpriteAnimTable_Mugshot,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_WallyMugshot =
+{
+    .data = sWallyMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT_WALLY,
+};
+
+static const struct SpritePalette sSpritePal_WallyMugshot =
+{
+    .data = sWallyMugshot_Pal,
+    .tag = TAG_MUGSHOT_WALLY,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_MugshotWally =
+{
+    .tileTag = TAG_MUGSHOT_WALLY,
+    .paletteTag = TAG_MUGSHOT_WALLY,
+    .oam = &sOamData_Mugshot,
+    .anims = sSpriteAnimTable_Mugshot,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_LillieMugshot =
+{
+    .data = sLillieMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT_LILLIE,
+};
+
+static const struct SpritePalette sSpritePal_LillieMugshot =
+{
+    .data = sLillieMugshot_Pal,
+    .tag = TAG_MUGSHOT_LILLIE,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_MugshotLillie =
+{
+    .tileTag = TAG_MUGSHOT_LILLIE,
+    .paletteTag = TAG_MUGSHOT_LILLIE,
+    .oam = &sOamData_Mugshot,
+    .anims = sSpriteAnimTable_Mugshot,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy
+};
+
+
+
+
+// Icon Box
 static const struct OamData sOamData_IconBox =
 {
     .size = SPRITE_SIZE(32x32),
@@ -676,9 +798,23 @@ void OutfitsMenu_Init(MainCallback callback, u8 mode)
 
     sOutfitsMenuDataPtr->gfxLoadState = 0;
     sOutfitsMenuDataPtr->savedCallback = callback;
-    sSelectedOption = gSaveBlock2Ptr->playerGfxType;
 
-    for(i = 0; i < 12; i++)
+    sSelectedOption = gSaveBlock2Ptr->playerGfxType % 8;
+
+    if (gSaveBlock2Ptr->playerGfxType > 15)
+    {
+        sOutfitsMenuDataPtr->avatarPage = 2;
+    }
+    else if (gSaveBlock2Ptr->playerGfxType > 7)
+    {
+        sOutfitsMenuDataPtr->avatarPage = 1;
+    }
+    else
+    {
+        sOutfitsMenuDataPtr->avatarPage = 0;
+    }
+
+    for(i = 0; i < 8; i++)
     {
         sOutfitsMenuDataPtr->mugshotSpriteId[i] = SPRITE_NONE;
     }
@@ -717,13 +853,13 @@ static void OutfitsMenu_VBlankCB(void)
 //
 static void OutfitsMenu_FreeResources(void)
 {
+    DestroyMugshot();
+    DestroyIconShadow();
+    DestroyMonIcons();
     try_free(sOutfitsMenuDataPtr);
     try_free(sBg1TilemapBuffer);
     try_free(sBg2TilemapBuffer);
     FreeAllWindowBuffers();
-    DestroyMugshot();
-    DestroyIconShadow();
-    DestroyMonIcons();
     DmaClearLarge16(3, (void *)VRAM, VRAM_SIZE, 0x1000);
 }
 
@@ -835,7 +971,19 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
-        CreateMugshot();
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+            CreateMugshotsPage1();
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+            CreateMugshotsPage2();
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            SetPokemonScreenHWindows();
+            sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
+            CreatePokemonSprite();
+        }
+            
+        PrintToWindow();
+        PrintToHeader();
         CreateTask(Task_OutfitsMenuWaitFadeIn, 0);
         BlendPalettes(0xFFFFFFFF, 16, RGB_BLACK);
         gMain.state++;
@@ -896,7 +1044,7 @@ static void OutfitsMenu_InitializeGPUWindows(void) // This function creates the 
 
     SetGpuReg(REG_OFFSET_WININ, (WININ_WIN1_BG0 | WININ_WIN1_BG2) | (WININ_WIN0_BG_ALL | WININ_WIN0_OBJ)); // Set Win 0 Active everywhere, Win 1 active on everything except bg 1 
     SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_ALL);                                                                     // where the main tiles are so the window hides whats behind it
-    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ);   // Set Darken Effect on things not in the window on bg 0, 1, and sprite layer
+    SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ);   // Set Darken Effect on things not in the window on bg 0, 1, and sprite layer
     SetGpuReg(REG_OFFSET_BLDY, 7);  // Set Level of Darken effect, can be changed 0-16
 }
 
@@ -905,6 +1053,53 @@ static void MoveHWindowsWithInput(void) // Update GPU windows after selection is
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinCoords[sSelectedOption].winh.left, HWinCoords[sSelectedOption].winh.right));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[sSelectedOption].winv.left, HWinCoords[sSelectedOption].winv.right));
 }
+
+static void SetPokemonScreenHWindows(void) // Update GPU windows after selection is changed
+{
+    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinCoords[STATE_STEVEN].winh.left, HWinCoords[STATE_STEVEN].winh.right));
+    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[STATE_STEVEN].winv.left, HWinCoords[STATE_STEVEN].winv.right));
+}
+
+void LoadSecondPageSpriteGraphics(void)
+{
+    LoadCompressedSpriteSheet(&sSpriteSheet_StevenMugshot);
+    LoadSpritePalette(&sSpritePal_StevenMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_CynthiaMugshot);
+    LoadSpritePalette(&sSpritePal_CynthiaMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_PhoebeMugshot);
+    LoadSpritePalette(&sSpritePal_PhoebeMugshot);       
+    LoadCompressedSpriteSheet(&sSpriteSheet_OakMugshot);
+    LoadSpritePalette(&sSpritePal_OakMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_NateMugshot);
+    LoadSpritePalette(&sSpritePal_NateMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_RosaMugshot);
+    LoadSpritePalette(&sSpritePal_RosaMugshot);       
+    LoadCompressedSpriteSheet(&sSpriteSheet_WallyMugshot);
+    LoadSpritePalette(&sSpritePal_WallyMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_LillieMugshot);
+    LoadSpritePalette(&sSpritePal_LillieMugshot);
+}
+
+void LoadFirstPageSpriteGraphics(void)
+{
+    LoadCompressedSpriteSheet(&sSpriteSheet_BrendanMugshot);
+    LoadSpritePalette(&sSpritePal_BrendanMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_MayMugshot);
+    LoadSpritePalette(&sSpritePal_MayMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_RedMugshot);
+    LoadSpritePalette(&sSpritePal_RedMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_LeafMugshot);
+    LoadSpritePalette(&sSpritePal_LeafMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_LucasMugshot);
+    LoadSpritePalette(&sSpritePal_LucasMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_DawnMugshot);
+    LoadSpritePalette(&sSpritePal_DawnMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_EthanMugshot);
+    LoadSpritePalette(&sSpritePal_EthanMugshot);
+    LoadCompressedSpriteSheet(&sSpriteSheet_LyraMugshot);
+    LoadSpritePalette(&sSpritePal_LyraMugshot);
+}
+
 
 static bool8 OutfitsMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, spritesheets, and palettes
 {
@@ -934,31 +1129,10 @@ static bool8 OutfitsMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, 
         break;
     case 4:
     {
-        LoadCompressedSpriteSheet(&sSpriteSheet_RedMugshot);
-        LoadSpritePalette(&sSpritePal_RedMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_LucasMugshot);
-        LoadSpritePalette(&sSpritePal_LucasMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_StevenMugshot);
-        LoadSpritePalette(&sSpritePal_StevenMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_OakMugshot);
-        LoadSpritePalette(&sSpritePal_OakMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_EthanMugshot);
-        LoadSpritePalette(&sSpritePal_EthanMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_BrendanMugshot);
-        LoadSpritePalette(&sSpritePal_BrendanMugshot);
-
-        LoadCompressedSpriteSheet(&sSpriteSheet_LeafMugshot);
-        LoadSpritePalette(&sSpritePal_LeafMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_DawnMugshot);
-        LoadSpritePalette(&sSpritePal_DawnMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_CynthiaMugshot);
-        LoadSpritePalette(&sSpritePal_CynthiaMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_PhoebeMugshot);
-        LoadSpritePalette(&sSpritePal_PhoebeMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_LyraMugshot);
-        LoadSpritePalette(&sSpritePal_LyraMugshot);
-        LoadCompressedSpriteSheet(&sSpriteSheet_MayMugshot);
-        LoadSpritePalette(&sSpritePal_MayMugshot);
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+            LoadFirstPageSpriteGraphics();
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+            LoadSecondPageSpriteGraphics();
 
         LoadPalette(sScrollBgPalette, 16, 32);
     }
@@ -977,7 +1151,7 @@ static void OutfitsMenu_InitWindows(void) // Init Text Windows
     DeactivateAllTextPrinters();
     ScheduleBgCopyTilemapToVram(0);
     
-    FillWindowPixelBuffer(WINDOW_HEADER, 0);
+    FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(1));
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);
 
@@ -997,11 +1171,12 @@ static void OutfitsMenu_InitWindows(void) // Init Text Windows
 #define MUGSHOT_X_3 150
 #define MUGSHOT_X_4 210
 
-#define MUGSHOT_Y_1 32
-#define MUGSHOT_Y_2 86
+#define MUGSHOT_Y_1 32 + 8 + 16
+#define MUGSHOT_Y_2 86 + 16 + 12
 #define MUGSHOT_Y_3 138
 
-static void CreateMugshot()
+
+static void CreateMugshotsPage1()
 {
     sOutfitsMenuDataPtr->mugshotSpriteId[0] = CreateSprite(&sSpriteTemplate_MugshotBrendan, MUGSHOT_X_1, MUGSHOT_Y_1, 1);
     sOutfitsMenuDataPtr->mugshotSpriteId[1] = CreateSprite(&sSpriteTemplate_MugshotMay,     MUGSHOT_X_2, MUGSHOT_Y_1, 1);
@@ -1012,22 +1187,52 @@ static void CreateMugshot()
     sOutfitsMenuDataPtr->mugshotSpriteId[5] = CreateSprite(&sSpriteTemplate_MugshotDawn,  MUGSHOT_X_2, MUGSHOT_Y_2, 1);
     sOutfitsMenuDataPtr->mugshotSpriteId[6] = CreateSprite(&sSpriteTemplate_MugshotEthan, MUGSHOT_X_3, MUGSHOT_Y_2, 1);
     sOutfitsMenuDataPtr->mugshotSpriteId[7] = CreateSprite(&sSpriteTemplate_MugshotLyra,  MUGSHOT_X_4, MUGSHOT_Y_2, 1);
+    return;
+}
 
-    sOutfitsMenuDataPtr->mugshotSpriteId[8] = CreateSprite(&sSpriteTemplate_MugshotSteven,  MUGSHOT_X_1, MUGSHOT_Y_3, 1);
-    sOutfitsMenuDataPtr->mugshotSpriteId[9] = CreateSprite(&sSpriteTemplate_MugshotCynthia, MUGSHOT_X_2, MUGSHOT_Y_3, 1);
-    sOutfitsMenuDataPtr->mugshotSpriteId[10] = CreateSprite(&sSpriteTemplate_MugshotOak,     MUGSHOT_X_3, MUGSHOT_Y_3, 1);
-    sOutfitsMenuDataPtr->mugshotSpriteId[11] = CreateSprite(&sSpriteTemplate_MugshotPhoebe,  MUGSHOT_X_4, MUGSHOT_Y_3, 1);
+
+static void CreateMugshotsPage2()
+{
+    sOutfitsMenuDataPtr->mugshotSpriteId[0] = CreateSprite(&sSpriteTemplate_MugshotSteven,  MUGSHOT_X_1, MUGSHOT_Y_1, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[1] = CreateSprite(&sSpriteTemplate_MugshotCynthia, MUGSHOT_X_2, MUGSHOT_Y_1, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[2] = CreateSprite(&sSpriteTemplate_MugshotOak,     MUGSHOT_X_3, MUGSHOT_Y_1, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[3] = CreateSprite(&sSpriteTemplate_MugshotPhoebe,  MUGSHOT_X_4, MUGSHOT_Y_1, 1);
+
+    sOutfitsMenuDataPtr->mugshotSpriteId[4] = CreateSprite(&sSpriteTemplate_MugshotNate, MUGSHOT_X_1, MUGSHOT_Y_2, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[5] = CreateSprite(&sSpriteTemplate_MugshotRosa,  MUGSHOT_X_2, MUGSHOT_Y_2, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[6] = CreateSprite(&sSpriteTemplate_MugshotWally, MUGSHOT_X_3, MUGSHOT_Y_2, 1);
+    sOutfitsMenuDataPtr->mugshotSpriteId[7] = CreateSprite(&sSpriteTemplate_MugshotLillie,  MUGSHOT_X_4, MUGSHOT_Y_2, 1);
     return;
 }
 
 static void DestroyMugshot()
 {
-    for(u8 i = 0; i < 12; i++)
+    if (sOutfitsMenuDataPtr->avatarPage == 2)
     {
-        DestroySprite(&gSprites[sOutfitsMenuDataPtr->mugshotSpriteId[i]]);
-        sOutfitsMenuDataPtr->mugshotSpriteId[i] = SPRITE_NONE;
+        FreeAndDestroyMonPicSprite(sOutfitsMenuDataPtr->mugshotSpriteId[0]);
+        return;
     }
-    
+        
+    for(u8 i = 0; i < 8; i++)
+    {
+        if(sOutfitsMenuDataPtr->mugshotSpriteId[i] != SPRITE_NONE)
+        {
+            DestroySpriteAndFreeResources(&gSprites[sOutfitsMenuDataPtr->mugshotSpriteId[i]]);
+            sOutfitsMenuDataPtr->mugshotSpriteId[i] = SPRITE_NONE;
+        }
+    }
+}
+
+void CreatePokemonSprite()
+{
+    sOutfitsMenuDataPtr->mugshotSpriteId[0] = CreateMonPicSprite(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex), 
+                    FALSE, 
+                    0, 
+                    TRUE, 
+                    120,
+                    80,
+                    15, 
+                    TAG_NONE);
 }
 
 //
@@ -1057,13 +1262,209 @@ static void DestroyMonIcons()
 //
 //  Print The Text For Dex Num, Badges, Name, Playtime, Location
 //
-static const u8 sText_DexNum[] = _("Dex {STR_VAR_1}");
-static const u8 sText_Badges[] = _("Badges {STR_VAR_1}");
-static void PrintToWindow(u8 windowId, u8 colorIdx)
-{
+static const u8 sText_Avatar_Brendan[] = _("Brendan");
+static const u8 sText_Avatar_May[] = _("May");
+static const u8 sText_Avatar_Red[] = _("Red");
+static const u8 sText_Avatar_Leaf[] = _("Leaf");
 
+static const u8 sText_Avatar_Lucas[] = _("Lucas");
+static const u8 sText_Avatar_Dawn[] = _("Dawn");
+static const u8 sText_Avatar_Ethan[] = _("Ethan");
+static const u8 sText_Avatar_Lyra[] = _("Lyra");
+
+static const u8 sText_Avatar_Steven[] = _("Steven");
+static const u8 sText_Avatar_Cynthia[] = _("Cynthia");
+static const u8 sText_Avatar_Oak[] = _("Oak");
+static const u8 sText_Avatar_Phoebe[] = _("Phoebe");
+
+static const u8 sText_Avatar_Nate[] = _("Nate");
+static const u8 sText_Avatar_Rosa[] = _("Rosa");
+static const u8 sText_Avatar_Wally[] = _("Wally");
+static const u8 sText_Avatar_Lillie[] = _("Lillie");
+
+static const u8 sText_Avatar_Pokemon[] = _("Pokemon");
+
+static void PrintToWindow()
+{
+    const u8 colors[3] = {0,  2,  3}; 
+    const u8 *avatarName = sText_Avatar_Pokemon;
+
+    u16 x = 92;
+
+    switch(sSelectedOption)
+    {
+        case 0:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Brendan;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Steven;
+            break;
+        case 1:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_May;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Cynthia;
+            break;
+        case 2:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Red;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Oak;
+            break;
+        case 3:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Leaf;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Phoebe;
+            break;
+        case 4:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Lucas;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Nate;
+            break;
+        case 5:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Dawn;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Rosa;
+            break;
+        case 6:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Ethan;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Wally;
+            break;
+        case 7:
+            if (sOutfitsMenuDataPtr->avatarPage == 0)
+                avatarName = sText_Avatar_Lyra;
+            if (sOutfitsMenuDataPtr->avatarPage == 1)
+                avatarName = sText_Avatar_Lillie;
+            break;
+    }
+
+    if (sOutfitsMenuDataPtr->avatarPage == 2)
+    {
+        avatarName = GetSpeciesName(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));
+    }
+
+    FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_NORMAL, x + GetStringCenterAlignXOffset(FONT_NORMAL, avatarName, (6*10)), 140 - 14, 0, 0, colors, TEXT_SKIP_DRAW, avatarName);
+
+    PutWindowTilemap(WINDOW_MIDDLE);
+    CopyWindowToVram(WINDOW_MIDDLE, 3);
 }
 
+static const u8 sText_Avatar_Choose_Avatar[] = _("Choose an Avatar: ");
+static const u8 sText_Avatar_Choose_Avatar_Buttons[] = _("{COLOR WHITE}{DPAD_LEFTRIGHT}");
+static const u8 sText_Avatar_ChangePage[]    = _("Change Page: ");
+static const u8 sText_Avatar_ChangePage_Buttons[]    = _("{COLOR WHITE}{L_BUTTON} {R_BUTTON}");
+static const u8 sLR_ButtonGfx[]      = INCBIN_U8("graphics/ui_menu/r_button2.4bpp");
+static const u8 sDPad_ButtonGfx[]         = INCBIN_U8("graphics/ui_menu/dpad_button2.4bpp");
+
+static void PrintToHeader()
+{
+    const u8 colors[3] = {1,  2,  3}; 
+    const u8 colors2[3] = {1,  3,  2}; 
+    const u8 *avatarName = sText_Avatar_Pokemon;
+
+    FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(1));
+
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 4, 0, 0, 0, colors, TEXT_SKIP_DRAW, sText_Avatar_Choose_Avatar);
+    BlitBitmapToWindow(WINDOW_HEADER, sDPad_ButtonGfx, 100, (4), 24, 8);
+
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 144, 0, 0, 0, colors, TEXT_SKIP_DRAW, sText_Avatar_ChangePage);
+    BlitBitmapToWindow(WINDOW_HEADER, sLR_ButtonGfx, 212, 4, 24, 8);
+
+    PutWindowTilemap(WINDOW_HEADER);
+    CopyWindowToVram(WINDOW_HEADER, 3);
+}
+
+static void Task_OutfitsMenu_SwapPokemonSprite(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    if(data[8] == 0)
+    {
+        DestroyMugshot();
+        FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+        PutWindowTilemap(WINDOW_MIDDLE);
+        CopyWindowToVram(WINDOW_MIDDLE, 3);
+        data[8]++;
+        return;
+    }
+
+    data[8]++;
+
+    if(data[8] > 4)
+    {
+        CreatePokemonSprite();
+        PrintToWindow();
+        data[8] = 0;
+        gTasks[taskId].func = Task_OutfitsMenuMain;
+        return;
+    }
+}
+
+static void Task_OutfitsMenu_Transition(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    if(data[8] == 0)
+    {
+        FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+        PutWindowTilemap(WINDOW_MIDDLE);
+        CopyWindowToVram(WINDOW_MIDDLE, 3);
+        data[8]++;
+        return;
+    }
+
+    if(data[8] == 1)
+    {
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+        {
+            LoadFirstPageSpriteGraphics();
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+        {
+            LoadSecondPageSpriteGraphics();
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            
+        }
+        data[8]++;
+        return;
+    }
+
+    if(data[8] == 2)
+    {
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+        {
+            MoveHWindowsWithInput();
+            CreateMugshotsPage1();
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+        {
+            MoveHWindowsWithInput();
+            CreateMugshotsPage2();
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            CreatePokemonSprite();
+            SetPokemonScreenHWindows();
+        }
+        PrintToWindow();
+        data[8] = 0;
+        gTasks[taskId].func = Task_OutfitsMenuMain;
+        return;
+    }
+}
 
 //
 //  Main Input Control Task
@@ -1074,44 +1475,181 @@ static void Task_OutfitsMenuMain(u8 taskId)
     {
         PlaySE(SE_SELECT);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
-        gSaveBlock2Ptr->playerGfxType = sSelectedOption;
-        gSaveBlock2Ptr->playerGender = sSelectedOption % 2;
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+        {
+            gSaveBlock2Ptr->playerGfxType = sSelectedOption;
+            gSaveBlock2Ptr->playerGender = sSelectedOption % 2;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+        {
+            gSaveBlock2Ptr->playerGfxType = sSelectedOption + 8;
+            gSaveBlock2Ptr->playerGender = sSelectedOption % 2;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            VarSet(VAR_AVATAR_POKEMON_CHOICE, AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));
+            gSaveBlock2Ptr->playerGfxType = AVATAR_POKEMON_CHOICE;
+            gSaveBlock2Ptr->playerGender = MALE;
+        }
+        
         gTasks[taskId].func = Task_OutfitsMenuTurnOff;
     }
 
-    if(JOY_NEW(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
+    if(JOY_NEW(L_BUTTON))
     {
-        if(sSelectedOption >= STATE_STEVEN)
-            sSelectedOption -= 8;
-        else
-            sSelectedOption += 4;
-        MoveHWindowsWithInput();
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 2;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 0;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 1;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
     }
 
-    if(JOY_NEW(DPAD_UP))
+    if(JOY_NEW(R_BUTTON))
     {
-        if(sSelectedOption <= STATE_LEAF)
-            sSelectedOption += 8;
-        else
-            sSelectedOption -= 4;
-        MoveHWindowsWithInput();
+        if(sOutfitsMenuDataPtr->avatarPage == 0)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 1;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 1)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 2;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
+
+        if(sOutfitsMenuDataPtr->avatarPage == 2)
+        {
+            DestroyMugshot();
+            sOutfitsMenuDataPtr->avatarPage = 0;
+            gTasks[taskId].func = Task_OutfitsMenu_Transition;
+            return;
+        }
     }
 
-    if(JOY_NEW(DPAD_LEFT))
+    #define UP_DOWN_SPECIES_JUMP 10
+    if(sOutfitsMenuDataPtr->avatarPage == 2)
     {
-        if((sSelectedOption == STATE_BRENDAN) || (sSelectedOption == STATE_LUCAS) || (sSelectedOption == STATE_STEVEN))
-            sSelectedOption += 3;
-        else
-            sSelectedOption -= 1;
-        MoveHWindowsWithInput();
+        if(JOY_NEW(DPAD_DOWN) || JOY_HELD(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
+        {   
+            u16 temp = 0;
+            if(sOutfitsMenuDataPtr->currentSpeciesIndex < UP_DOWN_SPECIES_JUMP)
+            {
+                temp = GetMaxNumberOfSpecies() - (UP_DOWN_SPECIES_JUMP - sOutfitsMenuDataPtr->currentSpeciesIndex);
+                sOutfitsMenuDataPtr->currentSpeciesIndex = temp;
+            }
+            else
+            {
+                sOutfitsMenuDataPtr->currentSpeciesIndex -= UP_DOWN_SPECIES_JUMP;
+            }
+
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+                sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
+            PrintToWindow();
+            gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
+            return;
+        }
+
+        if(JOY_NEW(DPAD_UP) || JOY_HELD(DPAD_UP))
+        {
+            sOutfitsMenuDataPtr->currentSpeciesIndex += UP_DOWN_SPECIES_JUMP;
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+                sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
+            PrintToWindow();
+            gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
+            return;
+        }
+
+        if(JOY_NEW(DPAD_LEFT) || JOY_HELD(DPAD_LEFT))
+        {
+            if(sOutfitsMenuDataPtr->currentSpeciesIndex == 0)
+                sOutfitsMenuDataPtr->currentSpeciesIndex = GetMaxNumberOfSpecies() - 1;
+            else
+                sOutfitsMenuDataPtr->currentSpeciesIndex--;
+
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+                sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
+            PrintToWindow();
+            gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
+            return;
+        }
+
+        if(JOY_NEW(DPAD_RIGHT) || JOY_HELD(DPAD_RIGHT))
+        {
+            sOutfitsMenuDataPtr->currentSpeciesIndex++;
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+                sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
+            PrintToWindow();
+            gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
+            return;
+        }
+    }
+    else
+    {
+        if(JOY_NEW(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
+        {
+            if(sSelectedOption > STATE_LEAF)
+                sSelectedOption -= 4;
+            else
+                sSelectedOption += 4;
+            MoveHWindowsWithInput();
+            PrintToWindow();
+        }
+
+        if(JOY_NEW(DPAD_UP))
+        {
+            if(sSelectedOption <= STATE_LEAF)
+                sSelectedOption += 4;
+            else
+                sSelectedOption -= 4;
+            MoveHWindowsWithInput();
+            PrintToWindow();
+        }
+
+        if(JOY_NEW(DPAD_LEFT))
+        {
+            if((sSelectedOption == STATE_BRENDAN) || (sSelectedOption == STATE_LUCAS))
+                sSelectedOption += 3;
+            else
+                sSelectedOption -= 1;
+            MoveHWindowsWithInput();
+            PrintToWindow();
+        }
+
+        if(JOY_NEW(DPAD_RIGHT))
+        {
+            if((sSelectedOption == STATE_LEAF) || (sSelectedOption == STATE_LYRA))
+                sSelectedOption -= 3;
+            else 
+                sSelectedOption += 1;
+            MoveHWindowsWithInput();
+            PrintToWindow();
+        }
     }
 
-    if(JOY_NEW(DPAD_RIGHT))
-    {
-        if((sSelectedOption == STATE_LEAF) || (sSelectedOption == STATE_LYRA) || (sSelectedOption == STATE_PHOEBE))
-            sSelectedOption -= 3;
-        else 
-            sSelectedOption += 1;
-        MoveHWindowsWithInput();
-    }
+
 }

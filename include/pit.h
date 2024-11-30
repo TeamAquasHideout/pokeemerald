@@ -31,6 +31,9 @@ u16 GetRandomTrainerEncounterTrainerPic(void);
 const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId);
 const u8 GetRandomTrainerEncounterTrainerClass(void);
 
+u16 AccessValidSpeciesArrayIndex(u16 index);
+u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species);
+
 struct RandomTrainerNPC 
 {
     u16 arrayElement;
@@ -89,6 +92,9 @@ enum {
     AVATAR_OAK,
     AVATAR_PHOEBE,
     AVATAR_NATE,
+    AVATAR_ROSA,
+    AVATAR_WALLY,
+    AVATAR_LILLIE,
     AVATAR_POKEMON_CHOICE,
 };
 

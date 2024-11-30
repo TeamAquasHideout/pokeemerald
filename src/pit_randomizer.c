@@ -1189,6 +1189,23 @@ static const u16 sRandomSpeciesLegendary[] =
     // SPECIES_EGG       ,
 };
 
+u16 AccessValidSpeciesArrayIndex(u16 index)
+{
+    return sRandomSpeciesLegendary[index % RANDOM_SPECIES_COUNT_LEGENDARY];
+}
+
+u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
+{   
+    for(int i = 0; i < RANDOM_SPECIES_COUNT_LEGENDARY; i++)
+    {
+        if(sRandomSpeciesLegendary[i] == species)
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+
 u16 GetSpeciesRandomSeeded(u16 species)
 {
     return sRandomSpeciesLegendary[RandomSeededModulo2(species, RANDOM_SPECIES_COUNT_LEGENDARY)];

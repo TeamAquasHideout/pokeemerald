@@ -1145,6 +1145,26 @@ static const struct PitAvatarInfo sPitAvatars[] = {
         .trainerBackPicId = TRAINER_BACK_PIC_NATE,
     },
     {
+        .mugshotId = AVATAR_ROSA,
+        .graphicsId = OBJ_EVENT_GFX_NATE,
+        .trainerFrontPicId = TRAINER_PIC_ELITE_FOUR_PHOEBE, //front pic not used in game
+        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+    },
+
+    {
+        .mugshotId = AVATAR_WALLY,
+        .graphicsId = OBJ_EVENT_GFX_WALLY,
+        .trainerFrontPicId = TRAINER_PIC_WALLY, //front pic not used in game
+        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+    },
+    {
+        .mugshotId = AVATAR_LILLIE,
+        .graphicsId = OBJ_EVENT_GFX_NATE,
+        .trainerFrontPicId = TRAINER_PIC_ELITE_FOUR_PHOEBE, //front pic not used in game
+        .trainerBackPicId = TRAINER_BACK_PIC_NATE,
+    },
+
+    {
         .mugshotId = AVATAR_POKEMON_CHOICE,
         .graphicsId = 0xFFFF,
         .trainerFrontPicId = 0xFFFF,
@@ -1164,7 +1184,6 @@ u16 ReturnAvatarGraphicsId(u16 avatarId)
     if(graphicsId == 0xFFFF)
     {
         graphicsId = OBJ_EVENT_GFX_VAR_D;
-        VarSet(VAR_AVATAR_POKEMON_CHOICE, SPECIES_LOTAD);
         VarSet(VAR_OBJ_GFX_ID_D, VarGet(VAR_AVATAR_POKEMON_CHOICE) + OBJ_EVENT_GFX_MON_BASE);
     }
     return graphicsId;

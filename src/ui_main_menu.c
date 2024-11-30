@@ -273,6 +273,16 @@ static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/ethan.4
 static const u16 sLyraMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/lyra.gbapal");
 static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lyra.4bpp.lz");
 
+static const u16 sNateMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/nate_mugshot.gbapal");
+static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/nate_mugshot.4bpp.lz");
+static const u16 sRosaMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/rosa_mugshot.gbapal");
+static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/rosa_mugshot.4bpp.lz");
+
+static const u16 sWallyMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/wally_mugshot.gbapal");
+static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/wally_mugshot.4bpp.lz");
+static const u16 sLillieMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/lillie_mugshot.gbapal");
+static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lillie_mugshot.4bpp.lz");
+
 //
 //  Sprite Data for Mugshots and Icon Shadows 
 //
@@ -462,6 +472,64 @@ static const struct SpriteTemplate sSpriteTemplate_Mugshot =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy
 };
+
+
+
+static const struct CompressedSpriteSheet sSpriteSheet_NateMugshot =
+{
+    .data = sNateMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_NateMugshot =
+{
+    .data = sNateMugshot_Pal,
+    .tag = TAG_MUGSHOT,
+};
+
+
+static const struct CompressedSpriteSheet sSpriteSheet_RosaMugshot =
+{
+    .data = sRosaMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_RosaMugshot =
+{
+    .data = sRosaMugshot_Pal,
+    .tag = TAG_MUGSHOT,
+};
+
+
+static const struct CompressedSpriteSheet sSpriteSheet_WallyMugshot =
+{
+    .data = sWallyMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_WallyMugshot =
+{
+    .data = sWallyMugshot_Pal,
+    .tag = TAG_MUGSHOT,
+};
+
+
+static const struct CompressedSpriteSheet sSpriteSheet_LillieMugshot =
+{
+    .data = sLillieMugshot_Gfx,
+    .size = 64*64*1/2,
+    .tag = TAG_MUGSHOT,
+};
+
+static const struct SpritePalette sSpritePal_LillieMugshot =
+{
+    .data = sLillieMugshot_Pal,
+    .tag = TAG_MUGSHOT,
+};
+
 
 static const struct OamData sOamData_IconBox =
 {
@@ -972,6 +1040,22 @@ void LoadMugshotIconGraphics(void)
     else if(gSaveBlock2Ptr->playerGfxType == 11){
         LoadCompressedSpriteSheet(&sSpriteSheet_PhoebeMugshot);
         LoadSpritePalette(&sSpritePal_PhoebeMugshot);
+    }
+    else if(gSaveBlock2Ptr->playerGfxType == 12) {
+        LoadCompressedSpriteSheet(&sSpriteSheet_NateMugshot);
+        LoadSpritePalette(&sSpritePal_NateMugshot);
+    }
+    else if(gSaveBlock2Ptr->playerGfxType == 13){
+        LoadCompressedSpriteSheet(&sSpriteSheet_RosaMugshot);
+        LoadSpritePalette(&sSpritePal_RosaMugshot);
+    }
+    else if(gSaveBlock2Ptr->playerGfxType == 14) {
+        LoadCompressedSpriteSheet(&sSpriteSheet_WallyMugshot);
+        LoadSpritePalette(&sSpritePal_WallyMugshot);
+    }
+    else if(gSaveBlock2Ptr->playerGfxType == 15){
+        LoadCompressedSpriteSheet(&sSpriteSheet_LillieMugshot);
+        LoadSpritePalette(&sSpritePal_LillieMugshot);
     }
 }
 
