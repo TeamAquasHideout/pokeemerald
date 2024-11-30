@@ -978,9 +978,9 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         if(sOutfitsMenuDataPtr->avatarPage == 2)
         {
             SetPokemonScreenHWindows();
-            sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
             CreatePokemonSprite();
         }
+        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(VarGet(VAR_AVATAR_POKEMON_CHOICE));
             
         PrintToWindow();
         PrintToHeader();
