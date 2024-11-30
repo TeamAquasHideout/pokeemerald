@@ -225,11 +225,14 @@ void PrintMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 spee
 
     leadingSpaces = CalculateLeadingSpacesForMoney(numDigits);
 
+    while (leadingSpaces-- > 0)
+        *(txtPtr++) = CHAR_SPACER;
+
     StringExpandPlaceholders(txtPtr, gText_PokedollarVar1);
 
     if (numDigits > 8)
-        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NORMAL, 54);
-    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
+        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NARROW, 54);
+    AddTextPrinterParameterized4(windowId, FONT_NARROW, x, y, 0, 0, colors, speed, gStringVar4);
 }
 
 void PrintBPMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 speed)
@@ -244,11 +247,14 @@ void PrintBPMoneyAmount_TransparentBg(u8 windowId, u8 x, u8 y, int amount, u8 sp
 
     leadingSpaces = CalculateLeadingSpacesForMoney(numDigits);
 
+    while (leadingSpaces-- > 0)
+        *(txtPtr++) = CHAR_SPACER;
+
     StringExpandPlaceholders(txtPtr, gText_BPVar1);
 
     if (numDigits > 8)
-        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NORMAL, 54);
-    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, 0, 0, colors, speed, gStringVar4);
+        PrependFontIdToFit(gStringVar4, txtPtr + 1 + numDigits, FONT_NARROW, 54);
+    AddTextPrinterParameterized4(windowId, FONT_NARROW, x, y, 0, 0, colors, speed, gStringVar4);
 }
 
 

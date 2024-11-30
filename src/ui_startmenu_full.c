@@ -1049,6 +1049,7 @@ static bool8 StartMenuFull_DoGfxSetup(void) // base UI loader from Ghouls UI She
         gMain.state++;
         break;
     case 7:
+        PrintMapNameAndTime();
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
         gMain.state++;
         break;
@@ -1289,26 +1290,49 @@ static void PrintMapNameAndTime(void) //this code is ripped froom different part
 
     FillWindowPixelBuffer(WINDOW_TOP_BAR, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
 
-    withoutPrefixPtr = &(mapDisplayHeader[3]);
-    GetMapName(withoutPrefixPtr, gMapHeader.regionMapSectionId, 0);
-    x = GetStringRightAlignXOffset(FONT_NARROW, withoutPrefixPtr, 80);
-    mapDisplayHeader[0] = EXT_CTRL_CODE_BEGIN;
-    mapDisplayHeader[1] = EXT_CTRL_CODE_HIGHLIGHT;
-    mapDisplayHeader[2] = TEXT_COLOR_TRANSPARENT;
+    GetMapName(gStringVar2, GetCurrentRegionMapSectionId(), 0);
     BufferMapFloorString();
-    StringCopy(gStringVar2, mapDisplayHeader);
-    StringExpandPlaceholders(mapDisplayHeader, gStringVar2);
-    AddTextPrinterParameterized(WINDOW_TOP_BAR, FONT_NARROW, mapDisplayHeader, x + 152, 1, TEXT_SKIP_DRAW, NULL); // Print Map Name
+    StringExpandPlaceholders(gStringVar3, gStringVar2);
+    AddTextPrinterParameterized4(WINDOW_TOP_BAR, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, gStringVar3, 80) + (8 * 10), 1, 0, 0, sTimeTextColors, 0xFF, gStringVar3);
 
     RtcCalcLocalTime();
+    hours = gLocalTime.hours;
+    minutes = gLocalTime.minutes;
+    dayOfWeek = gLocalTime.days % 7;
+    if (hours > 999)
+        hours = 999;
+    if (minutes > 59)
+        minutes = 59;
+    width = GetStringWidth(FONT_NARROW, gText_Colon2, 0);
+    x = 60;
+    y = 1;
+
+    if(dayOfWeek == 2) // adjust x position if dayofweek Thurs/Tues because the words are longer
+        x += 2;
+    if(dayOfWeek == 4)
+        x += 8;
+
+    totalWidth = width + 30;
+    x -= totalWidth;
+
+    str = sDayOfWeekStrings[dayOfWeek];
+
+    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NARROW, 8, y, sTimeTextColors, TEXT_SKIP_DRAW, str); //print dayof week
+    ConvertIntToDecimalStringN(gStringVar4, hours, STR_CONV_MODE_RIGHT_ALIGN, 3);
+    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NARROW, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gStringVar4); //these three print the time, you can put the colon to only print half the time to flash it if you want
+    x += 16;
+    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NARROW, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gText_Colon2);
+    x += width;
+    ConvertIntToDecimalStringN(gStringVar4, minutes, STR_CONV_MODE_LEADING_ZEROS, 2);
+    AddTextPrinterParameterized3(WINDOW_TOP_BAR, FONT_NARROW, x, y, sTimeTextColors, TEXT_SKIP_DRAW, gStringVar4);
 
     if(VarGet(VAR_PIT_FLOOR) != 0)
     {
-        PrintMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 8, 1, GetMoney(&gSaveBlock1Ptr->money), TEXT_SKIP_DRAW);
+        PrintMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 150 + CalculateMoneyTextHorizontalPosition(GetMoney(&gSaveBlock1Ptr->money)), 1, GetMoney(&gSaveBlock1Ptr->money), TEXT_SKIP_DRAW);
     }
     else
     {   
-        PrintBPMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 8, 1, gSaveBlock2Ptr->secretBaseShopCoins, TEXT_SKIP_DRAW);
+        PrintBPMoneyAmount_TransparentBg(WINDOW_TOP_BAR, 150 + CalculateMoneyTextHorizontalPosition(gSaveBlock2Ptr->secretBaseShopCoins), 1, gSaveBlock2Ptr->secretBaseShopCoins, TEXT_SKIP_DRAW);
     }
 
     PutWindowTilemap(WINDOW_TOP_BAR);
@@ -1542,19 +1566,6 @@ static void Task_StartMenuFullMain(u8 taskId)
         PrintSaveConfirmToWindow();
         gTasks[taskId].func = Task_HandleSaveConfirmation;
     }
-
-#if (FLAG_CLOCK_MODE != 0)
-    if (JOY_NEW(SELECT_BUTTON)) // switch between clock modes
-    {
-        if (FlagGet(FLAG_CLOCK_MODE))
-            FlagClear(FLAG_CLOCK_MODE);
-        else
-            FlagSet(FLAG_CLOCK_MODE);
-
-        PrintMapNameAndTime();
-        PlaySE(SE_SUCCESS);
-    }
-#endif
 
     if(gTasks[taskId].sFrameToSecondTimer >= 60) // every 60 frames update the time
     {

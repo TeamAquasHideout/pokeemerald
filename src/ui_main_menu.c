@@ -1423,15 +1423,10 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
 
     // Print Map Name In Header
-    withoutPrefixPtr = &(mapDisplayHeader[3]);
-    GetMapName(withoutPrefixPtr, GetCurrentRegionMapSectionId(), 0);
-    mapDisplayHeader[0] = EXT_CTRL_CODE_BEGIN;
-    mapDisplayHeader[1] = EXT_CTRL_CODE_HIGHLIGHT;
-    mapDisplayHeader[2] = TEXT_COLOR_TRANSPARENT;
+    GetMapName(gStringVar2, GetCurrentRegionMapSectionId(), 0);
     BufferMapFloorString();
-    StringCopy(gStringVar2, mapDisplayHeader);
-    StringExpandPlaceholders(mapDisplayHeader, gStringVar2);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, withoutPrefixPtr, 10 * 8) + (8 * 10), 1 + (8), 0, 0, colors, 0xFF, mapDisplayHeader);
+    StringExpandPlaceholders(gStringVar3, gStringVar2);
+    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, gStringVar3, 80) + (8 * 10), 1 + (8), 0, 0, colors, 0xFF, gStringVar3);
 
     // Print Playtime In Header
     playTimePtr = ConvertIntToDecimalStringN(gStringVar4, gSaveBlock2Ptr->playTimeHours, STR_CONV_MODE_LEFT_ALIGN, 3);
