@@ -223,6 +223,7 @@ static const struct ListMenuTemplate sRegistryListMenuTemplate =
 static void ClearSecretBase(struct SecretBase *secretBase)
 {
     u16 i;
+    gSaveBlock2Ptr->savedSecretBaseId = 0;
     CpuFastFill16(0, secretBase, sizeof(struct SecretBase));
     for (i = 0; i < PLAYER_NAME_LENGTH; i++)
         secretBase->trainerName[i] = EOS;

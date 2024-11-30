@@ -268,12 +268,20 @@ static const u8 *GetInteractionScript(struct MapPosition *position, u8 metatileB
     if (bgEvent4 != NULL)
     {
         if (bgEvent4->kind == BG_EVENT_SECRET_BASE)
-        {
-            gSpecialVar_0x8004 = bgEvent4->bgUnion.secretBaseId;
-            if (TrySetCurSecretBase())
-                return SecretBase_EventScript_CheckEntrance;
+        {   
+            if(gSaveBlock2Ptr->savedSecretBaseId == 0)
+            {
+                gSpecialVar_0x8004 = GetRandomSecretBaseID();
+                if (TrySetCurSecretBase())
+                {   
+                    gSaveBlock2Ptr->savedSecretBaseId = gSpecialVar_0x8004;
+                    return SecretBase_EventScript_CheckEntrance;
+                }
+            }
             else
             {
+                gSpecialVar_0x8004 = gSaveBlock2Ptr->savedSecretBaseId;
+                TrySetCurSecretBase();
                 gSpecialVar_Result = TRUE;
                 VarSet(VAR_CURRENT_SECRET_BASE, 0);
                 return SecretBase_EventScript_Enter;

@@ -68,6 +68,7 @@
 #include "pit.h"
 #include "wild_encounter.h"
 #include "script_pokemon_util.h"
+#include "constants/secret_bases.h"
 
 
 //
@@ -2538,7 +2539,7 @@ u16 GetRandomBattleWeather(void)
 {
     u16 battleWeather;
 
-    battleWeather = (Random() % (RANDOM_BATTLE_WEATHER_COUNT - 1));
+    battleWeather = (Random() % (RANDOM_BATTLE_WEATHER_COUNT));
     battleWeather = sRandomBattleWeathers[battleWeather];
     return battleWeather;
 }
@@ -2950,4 +2951,100 @@ u8 GetTypeEffectivenessRandom(u8 type)
 	//
     //return sTypeEffectivenessList[type];
 	return TYPE_NONE;
+}
+
+
+//
+//  Secret Base Randomizer
+//
+#define RANDOM_SECRET_BASE_COUNT ARRAY_COUNT(sRandomSecretBase)
+const u16 sRandomSecretBase[] = 
+{
+	SECRET_BASE_RED_CAVE1_1   ,
+	SECRET_BASE_RED_CAVE1_2   ,
+	SECRET_BASE_RED_CAVE1_3   ,
+	SECRET_BASE_RED_CAVE2_1   ,
+	SECRET_BASE_RED_CAVE2_2   ,
+	SECRET_BASE_RED_CAVE2_3   ,
+	SECRET_BASE_RED_CAVE3_1   ,
+	SECRET_BASE_RED_CAVE3_2   ,
+	SECRET_BASE_RED_CAVE3_3   ,
+	SECRET_BASE_RED_CAVE4_1   ,
+	SECRET_BASE_RED_CAVE4_2   ,
+	SECRET_BASE_RED_CAVE4_3   ,
+	SECRET_BASE_BROWN_CAVE1_1 ,
+	SECRET_BASE_BROWN_CAVE1_2 ,
+	SECRET_BASE_BROWN_CAVE1_3 ,
+	SECRET_BASE_BROWN_CAVE2_1 ,
+	SECRET_BASE_BROWN_CAVE2_2 ,
+	SECRET_BASE_BROWN_CAVE2_3 ,
+	SECRET_BASE_BROWN_CAVE3_1 ,
+	SECRET_BASE_BROWN_CAVE3_2 ,
+	SECRET_BASE_BROWN_CAVE3_3 ,
+	SECRET_BASE_BROWN_CAVE4_1 ,
+	SECRET_BASE_BROWN_CAVE4_2 ,
+	SECRET_BASE_BROWN_CAVE4_3 ,
+	SECRET_BASE_BLUE_CAVE1_1  ,
+	SECRET_BASE_BLUE_CAVE1_2  ,
+	SECRET_BASE_BLUE_CAVE1_3  ,
+	SECRET_BASE_BLUE_CAVE2_1  ,
+	SECRET_BASE_BLUE_CAVE2_2  ,
+	SECRET_BASE_BLUE_CAVE2_3  ,
+	SECRET_BASE_BLUE_CAVE3_1  ,
+	SECRET_BASE_BLUE_CAVE3_2  ,
+	SECRET_BASE_BLUE_CAVE3_3  ,
+	SECRET_BASE_BLUE_CAVE4_1  ,
+	SECRET_BASE_BLUE_CAVE4_2  ,
+	SECRET_BASE_BLUE_CAVE4_3  ,
+	SECRET_BASE_YELLOW_CAVE1_1,
+	SECRET_BASE_YELLOW_CAVE1_2,
+	SECRET_BASE_YELLOW_CAVE1_3,
+	SECRET_BASE_YELLOW_CAVE2_1,
+	SECRET_BASE_YELLOW_CAVE2_2,
+	SECRET_BASE_YELLOW_CAVE2_3,
+	SECRET_BASE_YELLOW_CAVE3_1,
+	SECRET_BASE_YELLOW_CAVE3_2,
+	SECRET_BASE_YELLOW_CAVE3_3,
+	SECRET_BASE_YELLOW_CAVE4_1,
+	SECRET_BASE_YELLOW_CAVE4_2,
+	SECRET_BASE_YELLOW_CAVE4_3,
+	SECRET_BASE_TREE1_1       ,
+	SECRET_BASE_TREE1_2       ,
+	SECRET_BASE_TREE1_3       ,
+	SECRET_BASE_TREE1_4       ,
+	SECRET_BASE_TREE2_1       ,
+	SECRET_BASE_TREE2_2       ,
+	SECRET_BASE_TREE2_3       ,
+	SECRET_BASE_TREE2_4       ,
+	SECRET_BASE_TREE3_1       ,
+	SECRET_BASE_TREE3_2       ,
+	SECRET_BASE_TREE3_3       ,
+	SECRET_BASE_TREE4_1       ,
+	SECRET_BASE_TREE4_2       ,
+	SECRET_BASE_TREE4_3       ,
+	SECRET_BASE_SHRUB1_1      ,
+	SECRET_BASE_SHRUB1_2      ,
+	SECRET_BASE_SHRUB1_3      ,
+	SECRET_BASE_SHRUB1_4      ,
+	SECRET_BASE_SHRUB2_1      ,
+	SECRET_BASE_SHRUB2_2      ,
+	SECRET_BASE_SHRUB2_3      ,
+	SECRET_BASE_SHRUB3_1      ,
+	SECRET_BASE_SHRUB3_2      ,
+	SECRET_BASE_SHRUB3_3      ,
+	SECRET_BASE_SHRUB4_1      ,
+	SECRET_BASE_SHRUB4_2      ,
+	SECRET_BASE_SHRUB4_3      ,
+};
+
+u16 GetRandomSecretBaseID(void)
+{
+    u16 secretBaseId = gSaveBlock2Ptr->savedSecretBaseId;
+
+    while(secretBaseId == gSaveBlock2Ptr->savedSecretBaseId)
+    {
+        secretBaseId = (Random() % RANDOM_SECRET_BASE_COUNT);
+        secretBaseId = sRandomSecretBase[secretBaseId];
+    }
+    return secretBaseId;
 }

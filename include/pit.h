@@ -37,6 +37,8 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species);
 void RecieveGoldShield(void);
 void RecieveSilverShield(void);
 
+u16 GetRandomSecretBaseID(void);
+
 struct RandomTrainerNPC 
 {
     u16 arrayElement;

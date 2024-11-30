@@ -27,12 +27,12 @@ SecretBase_EventScript_CheckEntrance::
 	goto_if_eq VAR_RESULT, TRUE, SecretBase_EventScript_AlreadyHasSecretBase
 	setfieldeffectargument 0, 0
 	buffermovename STR_VAR_2, MOVE_SECRET_POWER
-	goto_if_eq VAR_0x8007, SECRET_BASE_RED_CAVE, SecretBase_EventScript_Cave
-	goto_if_eq VAR_0x8007, SECRET_BASE_BROWN_CAVE, SecretBase_EventScript_Cave
-	goto_if_eq VAR_0x8007, SECRET_BASE_BLUE_CAVE, SecretBase_EventScript_Cave
-	goto_if_eq VAR_0x8007, SECRET_BASE_YELLOW_CAVE, SecretBase_EventScript_Cave
+	goto_if_eq VAR_0x8007, SECRET_BASE_RED_CAVE, SecretBase_EventScript_Tree
+	goto_if_eq VAR_0x8007, SECRET_BASE_BROWN_CAVE, SecretBase_EventScript_Tree
+	goto_if_eq VAR_0x8007, SECRET_BASE_BLUE_CAVE, SecretBase_EventScript_Tree
+	goto_if_eq VAR_0x8007, SECRET_BASE_YELLOW_CAVE, SecretBase_EventScript_Tree
 	goto_if_eq VAR_0x8007, SECRET_BASE_TREE, SecretBase_EventScript_Tree
-	goto_if_eq VAR_0x8007, SECRET_BASE_SHRUB, SecretBase_EventScript_Shrub
+	goto_if_eq VAR_0x8007, SECRET_BASE_SHRUB, SecretBase_EventScript_Tree
 	end
 
 SecretBase_Text_DiscoveredSmallEntrance23:
@@ -192,6 +192,7 @@ SecretBase_EventScript_AlreadyHasSecretBase::
 	special MoveOutOfSecretBaseFromOutside
 	closemessage
 	fadescreenswapbuffers FADE_FROM_BLACK
+	goto SecretBase_EventScript_CheckEntrance
 	msgbox SecretBase_Text_MovingCompletedUseSecretPower, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, SecretBase_EventScript_CancelOnEntrance
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
