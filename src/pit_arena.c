@@ -1187,6 +1187,7 @@ u16 ReturnAvatarGraphicsId(u16 avatarId)
     {
         graphicsId = OBJ_EVENT_GFX_VAR_D;
         VarSet(VAR_OBJ_GFX_ID_D, gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_GFX_MON_BASE);
+        TryCreatePokemonAvatarSpriteBob();
     }
     return graphicsId;
 }
@@ -1207,6 +1208,65 @@ void SetPlayerAvatar(void)
     gSaveBlock2Ptr->playerGender  = VarGet(VAR_RESULT) % 2;
 }
 
+void TryCreatePokemonAvatarSpriteBob(void)
+{   
+    if(!(FuncIsActiveTask(Task_CreatePokemonAvatarBob) || FuncIsActiveTask(Task_PokemonAvatar_HandleBob)))
+        CreateTask(Task_CreatePokemonAvatarBob, 0);
+}
+
+void Task_CreatePokemonAvatarBob(u8 taskId)
+{
+    if(gMain.callback2 == CB2_Overworld)
+    {
+        gTasks[taskId].func = Task_PokemonAvatar_HandleBob;
+    }
+}
+
+#define STEP_FRAME_DURATION 6
+void Task_PokemonAvatar_HandleBob(u8 taskId)
+{
+    struct ObjectEvent *playerObj = &gObjectEvents[gPlayerAvatar.objectEventId];
+    struct Sprite *playerSprite = &gSprites[playerObj->spriteId];
+    u8 movementActionId = playerObj->movementActionId;
+    s16 *data = gTasks[taskId].data;
+
+    switch(movementActionId)
+    {
+        case MOVEMENT_ACTION_WALK_FAST_DOWN:  
+        case MOVEMENT_ACTION_WALK_FAST_UP:    
+        case MOVEMENT_ACTION_WALK_FAST_LEFT:  
+        case MOVEMENT_ACTION_WALK_FAST_RIGHT: 
+        case MOVEMENT_ACTION_WALK_NORMAL_DOWN:  
+        case MOVEMENT_ACTION_WALK_NORMAL_UP:    
+        case MOVEMENT_ACTION_WALK_NORMAL_LEFT:  
+        case MOVEMENT_ACTION_WALK_NORMAL_RIGHT: 
+            break;
+        default:
+            playerSprite->y2 = 1;
+            data[0] = 0;
+            return;
+    }
+
+    if(data[0] == 0)
+    {
+        playerSprite->y2 = 1;
+    }
+
+    if(data[0] == STEP_FRAME_DURATION)
+    {
+        playerSprite->y2 -= 1;
+    }
+
+    if(data[0] == (STEP_FRAME_DURATION * 2))
+    {
+        playerSprite->y2 += 1;
+        data[0] = 0;
+        return;
+    }
+
+    data[0]++;
+
+}
 
 
 //

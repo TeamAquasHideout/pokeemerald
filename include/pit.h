@@ -38,6 +38,9 @@ void RecieveGoldShield(void);
 void RecieveSilverShield(void);
 
 u16 GetRandomSecretBaseID(void);
+void TryCreatePokemonAvatarSpriteBob(void);
+void Task_CreatePokemonAvatarBob(u8 taskId);
+void Task_PokemonAvatar_HandleBob(u8 taskId);
 
 struct RandomTrainerNPC 
 {
