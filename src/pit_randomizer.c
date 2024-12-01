@@ -438,7 +438,7 @@ static const u16 sRandomSpeciesLegendary[] =
     SPECIES_ARON              ,
     SPECIES_LAIRON            ,
     SPECIES_AGGRON            ,
-    // SPECIES_CASTFORM          ,
+    SPECIES_CASTFORM          ,
     SPECIES_VOLBEAT           ,
     SPECIES_ILLUMISE          ,
     SPECIES_LILEEP            ,
@@ -465,7 +465,7 @@ static const u16 sRandomSpeciesLegendary[] =
     SPECIES_JIRACHI           ,
     SPECIES_DEOXYS            ,
     SPECIES_CHIMECHO          ,
-#ifdef PIT_GEN_5_MODE
+#ifndef PIT_GEN_3_MODE
     SPECIES_TURTWIG           ,
     SPECIES_GROTLE            ,
     SPECIES_TORTERRA          ,
