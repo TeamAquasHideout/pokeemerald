@@ -8923,7 +8923,6 @@ bool8 isDexCompleted(u8 mode)
         baseSpeciesHandled[SpeciesToNationalPokedexNum(i)] = TRUE;
         for (k = 0; k < maxSpeciesPit; k++)
         {
-            increment++;
             //leave this loop if a match was found
             if (SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(k)) == SpeciesToNationalPokedexNum(i))
                 break;
