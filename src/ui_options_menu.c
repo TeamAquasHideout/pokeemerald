@@ -38,6 +38,7 @@ enum MenuIds
 // Menu items
 enum MenuItems_Pit
 {
+    MENUITEM_PIT_BATTLESPEED,
     MENUITEM_PIT_AUTOSAVE,
     MENUITEM_PIT_RANDOM_MAPS,
     MENUITEM_PIT_RANDOM_MUSIC,
@@ -169,6 +170,7 @@ static u8 MenuItemCancel(void);
 static void DrawDescriptionText(void);
 static void DrawOptionsMenuChoice(const u8 *text, u8 x, u8 y, u8 style, bool8 active);
 static void ReDrawAll(void);
+static void DrawChoices_BattleSpeed(int selection, int y);
 static void DrawChoices_TextSpeed(int selection, int y);
 static void DrawChoices_Autosave(int selection, int y);
 static void DrawChoices_RandomMaps(int selection, int y);
@@ -223,9 +225,10 @@ struct Menu_Pit// MENU_PIT
     int (*processInput)(int selection);
 } static const sItemFunctionsPit[MENUITEM_PIT_COUNT] =
 {
+    [MENUITEM_PIT_BATTLESPEED]  = {DrawChoices_BattleSpeed, ProcessInput_Options_Four},
     [MENUITEM_PIT_AUTOSAVE]     = {DrawChoices_Autosave,    ProcessInput_Options_Three},
     [MENUITEM_PIT_RANDOM_MAPS]  = {DrawChoices_RandomMaps,  ProcessInput_Options_Two},
-    [MENUITEM_PIT_RANDOM_MUSIC] = {DrawChoices_RandomMusic,  ProcessInput_Options_Two},
+    [MENUITEM_PIT_RANDOM_MUSIC] = {DrawChoices_RandomMusic, ProcessInput_Options_Two},
     [MENUITEM_PIT_FOLLOWMONS]   = {DrawChoices_FollowMons,  ProcessInput_Options_Two},
     [MENUITEM_PIT_CANCEL]       = {NULL, NULL},
 };
@@ -246,6 +249,7 @@ struct Menu_Vanilla// MENU_VANILLA
 
 // Menu left side option names text
 
+static const u8 sText_Battlespeed[] = _("BATTLE SPEED");
 static const u8 sText_Autosave[]    = _("AUTOSAVE");
 static const u8 sText_RandomMaps[]  = _("RANDOM MAPS");
 static const u8 sText_RandomMusic[] = _("RANDOM MUSIC");
@@ -254,6 +258,7 @@ static const u8 sText_Cancel[]      = _("SAVE & LEAVE");
 
 static const u8 *const sOptionsMenuItemsNamesPit[MENUITEM_PIT_COUNT] =
 {
+    [MENUITEM_PIT_BATTLESPEED]  = sText_Battlespeed,
     [MENUITEM_PIT_AUTOSAVE]     = sText_Autosave,
     [MENUITEM_PIT_RANDOM_MAPS]  = sText_RandomMaps,
     [MENUITEM_PIT_RANDOM_MUSIC] = sText_RandomMusic,
@@ -292,9 +297,10 @@ static bool8 CheckConditions(int selection)
         case MENU_PIT:
             switch(selection)
             {
+                case MENUITEM_PIT_BATTLESPEED:     return TRUE;
+                case MENUITEM_PIT_AUTOSAVE:        return TRUE;
                 case MENUITEM_PIT_RANDOM_MAPS:     return TRUE;
                 case MENUITEM_PIT_RANDOM_MUSIC:    return TRUE;
-                case MENUITEM_PIT_AUTOSAVE:        return TRUE;
                 case MENUITEM_PIT_FOLLOWMONS:      return TRUE;
                 case MENUITEM_PIT_CANCEL:          return TRUE;
                 case MENUITEM_PIT_COUNT:           return TRUE;
@@ -319,7 +325,8 @@ static bool8 CheckConditions(int selection)
 // Descriptions
 static const u8 sText_Empty[]                   = _("");
 static const u8 sText_Desc_Save[]               = _("Save your settings.");
-static const u8 sText_Desc_TextSpeed[]          = _("Choose one of the four text-display\nspeeds.");
+static const u8 sText_Desc_TextSpeed[]          = _("Choose one of the three text-display\nspeeds.");
+static const u8 sText_Desc_BattleSpeed[]        = _("Choose one of the four battle speeds\nto accelerate overall gameplay.");
 static const u8 sText_Desc_Autosave_Off[]       = _("Autosave is inactive.");
 static const u8 sText_Desc_Autosave_5[]         = _("Autosave is executed every\nfive floors during warping.");
 static const u8 sText_Desc_Autosave_On[]        = _("Autosave is executed every\nfloor during warping.");
@@ -340,13 +347,14 @@ static const u8 sText_Desc_ButtonMode_LR[]      = _("On some screens the L and R
 static const u8 sText_Desc_ButtonMode_LA[]      = _("The L button acts as another A\nbutton for one-handed play.");
 static const u8 sText_Desc_FrameType[]          = _("Choose the frame surrounding the\nwindows.");
 
-static const u8 *const sOptionsMenuItemDescriptionsPit[MENUITEM_PIT_COUNT][3] =
+static const u8 *const sOptionsMenuItemDescriptionsPit[MENUITEM_PIT_COUNT][4] =
 {
-    [MENUITEM_PIT_AUTOSAVE]     = {sText_Desc_Autosave_Off,         sText_Desc_Autosave_5,      sText_Desc_Autosave_On},
-    [MENUITEM_PIT_RANDOM_MAPS]  = {sText_Desc_RandomMaps_On,        sText_Desc_RandomMaps_Off,  sText_Empty},
-    [MENUITEM_PIT_RANDOM_MUSIC] = {sText_Desc_RandomMusic_Off,      sText_Desc_RandomMusic_On,  sText_Empty},
-    [MENUITEM_PIT_FOLLOWMONS]   = {sText_Desc_FollowMon_On,         sText_Desc_FollowMon_Off,   sText_Empty},
-    [MENUITEM_PIT_CANCEL]       = {sText_Desc_Save,                 sText_Empty,                sText_Empty},
+    [MENUITEM_PIT_BATTLESPEED]  = {sText_Desc_BattleSpeed,          sText_Desc_BattleSpeed,     sText_Desc_BattleSpeed,  sText_Desc_BattleSpeed},
+    [MENUITEM_PIT_AUTOSAVE]     = {sText_Desc_Autosave_Off,         sText_Desc_Autosave_5,      sText_Desc_Autosave_On,  sText_Empty},
+    [MENUITEM_PIT_RANDOM_MAPS]  = {sText_Desc_RandomMaps_On,        sText_Desc_RandomMaps_Off,  sText_Empty,             sText_Empty},
+    [MENUITEM_PIT_RANDOM_MUSIC] = {sText_Desc_RandomMusic_Off,      sText_Desc_RandomMusic_On,  sText_Empty,             sText_Empty},
+    [MENUITEM_PIT_FOLLOWMONS]   = {sText_Desc_FollowMon_On,         sText_Desc_FollowMon_Off,   sText_Empty,             sText_Empty},
+    [MENUITEM_PIT_CANCEL]       = {sText_Desc_Save,                 sText_Empty,                sText_Empty,             sText_Empty},
 };
 
 static const u8 *const sOptionsMenuItemDescriptionsVan[MENUITEM_VANILLA_COUNT][3] =
@@ -687,6 +695,7 @@ void CB2_InitOptionsMenu(void)
         break;
     case 6:
         sOptions->sel_van[MENUITEM_VANILLA_TEXTSPEED]   = gSaveBlock2Ptr->optionsTextSpeed - 1; //ignore SLOW
+        sOptions->sel_pit[MENUITEM_PIT_BATTLESPEED]     = gSaveBlock2Ptr->optionsBattleSpeed;
         sOptions->sel_pit[MENUITEM_PIT_AUTOSAVE]        = gSaveBlock2Ptr->optionsAutosave;
         sOptions->sel_pit[MENUITEM_PIT_RANDOM_MAPS]     = gSaveBlock2Ptr->optionsRandomMaps;
         sOptions->sel_pit[MENUITEM_PIT_RANDOM_MUSIC]    = gSaveBlock2Ptr->optionsRandomMusic;
@@ -897,6 +906,7 @@ static void Task_OptionsMenuSave(u8 taskId)
 {
     //write in saveblock
     //pit settings
+    gSaveBlock2Ptr->optionsBattleSpeed      = sOptions->sel_pit[MENUITEM_PIT_BATTLESPEED];
     gSaveBlock2Ptr->optionsAutosave         = sOptions->sel_pit[MENUITEM_PIT_AUTOSAVE];
     gSaveBlock2Ptr->optionsRandomMaps       = sOptions->sel_pit[MENUITEM_PIT_RANDOM_MAPS];
     gSaveBlock2Ptr->optionsRandomMusic      = sOptions->sel_pit[MENUITEM_PIT_RANDOM_MUSIC];
@@ -911,6 +921,7 @@ static void Task_OptionsMenuSave(u8 taskId)
 
 
     //set flags/VARs
+    VarSet(VAR_BATTLE_SPEED, sOptions->sel_pit[MENUITEM_PIT_BATTLESPEED]);
     VarSet(VAR_PIT_AUTOSAVE, sOptions->sel_pit[MENUITEM_PIT_AUTOSAVE]);
 
     if (sOptions->sel_pit[MENUITEM_PIT_FOLLOWMONS] == TRUE)
@@ -1144,6 +1155,10 @@ static const u8 sText_LR[]                  = _("LR");
 static const u8 sText_L_A[]                 = _("L=A");
 static const u8 sText_FrameType[]           = _("TYPE");
 static const u8 sText_FrameTypeNumber[]     = _("");
+static const u8 sText_1x[]                  = _("1x");
+static const u8 sText_2x[]                  = _("2x");
+static const u8 sText_3x[]                  = _("3x");
+static const u8 sText_4x[]                  = _("4x");
 
 static void DrawChoices_TextSpeed(int selection, int y)
 {
@@ -1158,6 +1173,21 @@ static void DrawChoices_TextSpeed(int selection, int y)
     DrawOptionsMenuChoice(sText_Mid, 104, y, styles[0], active);
     DrawOptionsMenuChoice(sText_Fast, xMid, y, styles[1], active);
     DrawOptionsMenuChoice(sText_Instant, GetStringRightAlignXOffset(1, sText_Instant, 198), y, styles[2], active);
+}
+
+static void DrawChoices_BattleSpeed(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_PIT_BATTLESPEED);
+    u8 styles[4] = {0};
+    int xSpacer;
+
+    styles[selection] = 1;
+    xSpacer = (GetStringRightAlignXOffset(1, sText_4x, 198) - 104) / 3;
+
+    DrawOptionsMenuChoice(sText_1x, 104, y, styles[0], active);
+    DrawOptionsMenuChoice(sText_2x, 104 + xSpacer, y, styles[1], active);
+    DrawOptionsMenuChoice(sText_3x, 104 + 2 * xSpacer, y, styles[2], active);
+    DrawOptionsMenuChoice(sText_4x, GetStringRightAlignXOffset(1, sText_4x, 198), y, styles[3], active);
 }
 
 static void DrawChoices_Autosave(int selection, int y)

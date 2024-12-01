@@ -67,6 +67,13 @@ struct RandomTrainerNPC
 #define XP_75            0
 #define XP_50            1
 #define XP_NONE          2
+#define BATTLESPEED_1X   0
+#define BATTLESPEED_2X   1
+#define BATTLESPEED_3X   2
+#define BATTLESPEED_4X   3
+#define AUTOSAVE_OFF     0
+#define AUTOSAVE_5F      1
+#define AUTOSAVE_ON      2
 
 //Autosave defines
 #define SAVE_NO         0
