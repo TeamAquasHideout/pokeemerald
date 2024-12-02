@@ -1489,7 +1489,10 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warpMetatileId = METATILE_PitArenaMine_MINE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
         WEATHER_CHANCE(FOG_HORIZONTAL, 15),
-        DEFAULT_RANDOM_MAP_COORDS
+        .dest_x = 15,
+        .dest_y = 13,
+        .warp_x = 15,
+        .warp_y = 14,
     },  
     {
         .mapConstant = MAP_PIT_ARENA_DIRT_PATH03,
