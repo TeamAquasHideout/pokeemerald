@@ -3003,8 +3003,14 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
 //	Type Randomizer
 //
 
+#if (GEN_LATEST >= GEN_6)
+    #define VALID_TYPES_COUNT RANDOM_MON_TYPES - 2 // ignore Stellar
+#else
+    #define VALID_TYPES_COUNT RANDOM_MON_TYPES - 1
+#endif
+
 #define RANDOM_TYPE_COUNT ARRAY_COUNT(sOneTypeChallengeValidTypes)
-static const u8  sOneTypeChallengeValidTypes[RANDOM_MON_TYPES - 1] =
+static const u8  sOneTypeChallengeValidTypes[VALID_TYPES_COUNT] =
 {
     TYPE_NORMAL   ,
     TYPE_FIGHTING ,
