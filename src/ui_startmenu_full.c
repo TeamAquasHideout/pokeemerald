@@ -1069,13 +1069,13 @@ static bool8 StartMenuFull_DoGfxSetup(void) // base UI loader from Ghouls UI She
 
 static void StartMenuFull_FreeResources(void) // Clear Everything if Leaving
 {
-    try_free(sStartMenuDataPtr);
-    try_free(sBg1TilemapBuffer);
-    try_free(sBg2TilemapBuffer);
     DestroyCursor();
     DestroyIconBoxs();
     DestroyMonIcons();
     DestroyStatusSprites();
+    try_free(sStartMenuDataPtr);
+    try_free(sBg1TilemapBuffer);
+    try_free(sBg2TilemapBuffer);
     //DestroyGreyMenuBoxes();
     FreeAllWindowBuffers();    
 }

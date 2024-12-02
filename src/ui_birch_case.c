@@ -735,13 +735,13 @@ static bool8 BirchCaseDoGfxSetup(void)
 static void BirchCaseFreeResources(void)
 {
     u8 i;
-    try_free(sBirchCaseDataPtr);
-    try_free(sBg1TilemapBuffer);
-    try_free(sBg2TilemapBuffer);
     FreeResourcesAndDestroySprite(&gSprites[sBirchCaseDataPtr->monSpriteId], sBirchCaseDataPtr->monSpriteId);
     DestroyPokeballSprites();
     DestroyHandSprite();
     FreeAllWindowBuffers();
+    try_free(sBirchCaseDataPtr);
+    try_free(sBg1TilemapBuffer);
+    try_free(sBg2TilemapBuffer);
 
     for(i = 0; i < 9; i++)
     {
