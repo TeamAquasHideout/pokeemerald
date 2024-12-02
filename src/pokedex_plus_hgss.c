@@ -8941,3 +8941,12 @@ bool8 isDexCompleted(u8 mode)
     else
         return FALSE; //DebugPrintf("Dex is not completed!");
 }
+
+// void printNatDex(void)
+// {
+//     u16 i;
+//     u16 maxSpeciesPit = GetMaxNumberOfSpecies();
+
+//     for (i = 0; i < maxSpeciesPit; i++)
+//         DebugPrintf("i=%d, %d, %S, %d", i, SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(i)), gSpeciesInfo[AccessValidSpeciesArrayIndex(i)].speciesName, AccessValidSpeciesArrayIndex(i));
+// }
