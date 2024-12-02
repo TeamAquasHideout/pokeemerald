@@ -2156,7 +2156,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_DOUBLE-EDGE, MOVE_SHADOW_BALL, MOVE_HYPER_BEAM, MOVE_EARTHQUAKE}
+                            .moves = {MOVE_DOUBLE_EDGE, MOVE_SHADOW_BALL, MOVE_HYPER_BEAM, MOVE_EARTHQUAKE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2167,7 +2167,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_DOUBLE-EDGE, MOVE_EARTHQUAKE, MOVE_NIGHT_SLASH, MOVE_ROCK_SLIDE}
+                            .moves = {MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_NIGHT_SLASH, MOVE_ROCK_SLIDE}
                         },
 #else
         .trainerAce =   {
@@ -2446,7 +2446,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_DOUBLE-EDGE, MOVE_ROCK_SLIDE}
+                            .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_DOUBLE_EDGE, MOVE_ROCK_SLIDE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
