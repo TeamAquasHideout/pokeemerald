@@ -106,7 +106,8 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
         gSaveBlock2Ptr->regionMapZoom = FALSE;
         gSaveBlock2Ptr->optionsFollowMonsOff = FALSE;
-        gSaveBlock2Ptr->optionsAutosave = 1;
+        gSaveBlock2Ptr->optionsBattleSpeed = BATTLESPEED_2X;
+        gSaveBlock2Ptr->optionsAutosave = AUTOSAVE_5F;
         gSaveBlock2Ptr->optionsRandomMaps = ON;
         gSaveBlock2Ptr->optionsRandomMusic = ON;
     }

@@ -8895,3 +8895,49 @@ static bool8 IsSpeciesInParty(u16 species)
     
     return FALSE;
 }
+
+// mode = FLAG_GET_SEEN / FLAG_GET_CAUGHT
+bool8 isDexCompleted(u8 mode)
+{
+    u16 i, k;
+    u16 maxSpecies = NUM_SPECIES;
+    u16 maxSpeciesPit = GetMaxNumberOfSpecies();
+    u16 invalidSpecies = 0;
+    u8 baseSpeciesHandled[NATIONAL_DEX_COUNT] = {0};
+
+    //don't run any checks if National Dex completion is below 90% and consider this always incomplete!
+    //reasoning: below calculations are pretty quick for a high dex completion ratio but take A LOT of time for an empty dex
+    if (GetNationalPokedexCount(mode) < NATIONAL_DEX_COUNT * 0.9)
+        return FALSE;
+
+    //calculate amount of invalid Pit species
+    for (i = SPECIES_BULBASAUR; i < maxSpecies; i++)
+    {
+        //skip iteration if
+        // -flag is already set
+        // -no species is returned
+        // -base species was already checked
+        if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(i), mode) || SpeciesToNationalPokedexNum(i) == NATIONAL_DEX_NONE
+            || baseSpeciesHandled[SpeciesToNationalPokedexNum(i)] == TRUE)
+            continue;
+        baseSpeciesHandled[SpeciesToNationalPokedexNum(i)] = TRUE;
+        for (k = 0; k < maxSpeciesPit; k++)
+        {
+            //leave this loop if a match was found
+            if (SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(k)) == SpeciesToNationalPokedexNum(i))
+                break;
+            //increment invalid species count if loop was fully completed
+            if (k == maxSpeciesPit - 1)
+            {
+                invalidSpecies++;
+                //DebugPrintf("invalid species found: %d - %S", i, gSpeciesInfo[i].speciesName);
+            }
+        }
+    }
+    //DebugPrintf("invalidSpecies = %d", invalidSpecies);
+
+    if (GetNationalPokedexCount(mode) >= (NATIONAL_DEX_COUNT - invalidSpecies))
+        return TRUE; //DebugPrintf("Dex is completed!");
+    else
+        return FALSE; //DebugPrintf("Dex is not completed!");
+}
