@@ -62,7 +62,7 @@
       "x": 63,
       "y": 19,
       "elevation": 3,
-      "item": "ITEM_STARDUST",
+      "item": "ITEM_SHINY_DUST",
       "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_126_STARDUST"
     },
     {

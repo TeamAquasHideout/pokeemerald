@@ -611,6 +611,7 @@ struct SaveBlock2
               u8 giveGoldShield:4;
               u8 hasSavedOnce; 
              u16 savedSecretBaseId;
+              u8 hasRecievedShinyDust;
 
 }; // sizeof=0xF2C
 

@@ -2655,19 +2655,19 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_PearlString,
     },
 
-    [ITEM_STARDUST] =
+    [ITEM_SHINY_DUST] =
     {
-        .name = _("Stardust"),
-        .pluralName = _("Stardust"),
-        .price = (I_PRICE >= GEN_7) ? 3000 * TREASURE_FACTOR: 2000,
+        .name = _("Shiny Dust"),
+        .pluralName = _("Shiny Dust"),
+        .price = 0,
         .description = COMPOUND_STRING(
-            "Beautiful red sand.\n"
-            "Can be sold at a\n"
-            "high price."),
-        .pocket = POCKET_ITEMS,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .flingPower = 30,
+            "A shiny powder.\n"
+            "Can be used on a\n"
+            "Pokemon."),
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_ShinyDust,
+        .flingPower = 0,
         .iconPic = gItemIcon_Stardust,
         .iconPalette = gItemIconPalette_Star,
     },

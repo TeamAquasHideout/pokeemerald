@@ -11,9 +11,21 @@ PitEntrance_CheckForAutoSave::
 	waitfieldeffect(FLDEFF_SAVING)
 	callnative AutoSave
 PitEntrance_OnFrame_CheckForAutoSave_Skip::
+	callnative CheckAndGiveShinyDust
+	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
+	callnative CheckIfHasRecievedShinyDust
+	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
+	msgbox PitEntrance_Text_CheckIfHasRecievedShinyDust, MSGBOX_DEFAULT
+	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
+	giveitem ITEM_SHINY_DUST, 1
+	closemessage
+PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward::
 	setvar VAR_TEMP_0, 1
 	end
 
+PitEntrance_Text_CheckIfHasRecievedShinyDust:
+	.string "Congrats on filling out your Pokedex!\n"
+	.string "Here is a reward!$"
 
 PitArena_Entrance:
 	goto_if_set FLAG_PIT_STARTED, PitArena_EntranceEnd
@@ -55,6 +67,10 @@ PitEntrance_Warp::
 	additem ITEM_ETHER, 2
 	additem ITEM_ELIXIR, 1
 	additem ITEM_ESCAPE_ROPE, 1
+	callnative CheckAndGiveShinyDust
+	goto_if_eq VAR_RESULT, 0, PitEntrance_Warp_SkipShinyDust
+	additem ITEM_SHINY_DUST, 1
+PitEntrance_Warp_SkipShinyDust::
 #ifdef PIT_GEN_9_MODE
 	additem ITEM_MEGA_RING, 1
 	@additem ITEM_TERA_ORB, 1
@@ -736,3 +752,14 @@ PitEntrance_Pinball_ModeGengar::
 	callnative PlayGengarPinballGame
 	waitstate
 	goto PitEntrance_Pinball_CommonEnd
+
+PitEntrance_MakePokemonShiny_Text:
+	.string "Choose a mon to make a Shiny$"
+
+PitEntrance_MakePokemonShiny::
+	lock
+	msgbox PitEntrance_MakePokemonShiny_Text, MSGBOX_DEFAULT
+	call PitEncounter_ChooseMonScript
+	callnative MakePlayerPokemonShiny
+	release
+	end

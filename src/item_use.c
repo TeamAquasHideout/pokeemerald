@@ -1501,3 +1501,17 @@ void Task_ItemUse_CloseMessageBoxAndReturnToField_VsSeeker(u8 taskId)
 }
 
 #undef tUsingRegisteredKeyItem
+
+
+static void ItemUseOnFieldCB_ShinyDust(u8 taskId)
+{   
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(PitEntrance_MakePokemonShiny);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_ShinyDust(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_ShinyDust;
+    SetUpItemUseOnFieldCallback(taskId);
+}

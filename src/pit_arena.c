@@ -43,6 +43,8 @@
 #include "constants/decorations.h"
 #include "decoration_inventory.h"
 #include "decoration.h"
+#include "pokedex.h"
+#include "pokedex_plus_hgss.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -3526,4 +3528,32 @@ void CheckIfSavedBefore(void)
 
     VarSet(VAR_RESULT, 0);
     return;
+}
+
+void CheckIfHasRecievedShinyDust(void)
+{
+    if(gSaveBlock2Ptr->hasRecievedShinyDust == 0)
+    {
+        VarSet(VAR_RESULT, 1);
+        gSaveBlock2Ptr->hasRecievedShinyDust = 1;
+        return;
+    }
+
+    VarSet(VAR_RESULT, 0);
+    return;
+}
+
+void CheckAndGiveShinyDust(void)
+{
+    if(isDexCompleted(FLAG_GET_CAUGHT))
+        VarSet(VAR_RESULT, 1);
+    else
+        VarSet(VAR_RESULT, 0);
+    return;
+}
+
+void MakePlayerPokemonShiny(void)
+{
+    u32 shiny = TRUE;
+    SetMonData(&gPlayerParty[VarGet(VAR_0x8005)], MON_DATA_IS_SHINY, &shiny);
 }

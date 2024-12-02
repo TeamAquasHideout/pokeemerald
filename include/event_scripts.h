@@ -677,5 +677,6 @@ extern const u8 PitEncounter_RareCandyDrop_alreadyUsed[];
 extern const u8 PitEncounter_GrantWishChoiceItem_alreadyUsed[];
 extern const u8 PitEncounter_Present_alreadyUsed[];
 extern const u8 PitEncounter_LeftoversDrop_alreadyUsed[];
+extern const u8 PitEntrance_MakePokemonShiny[];
 
 #endif // GUARD_EVENT_SCRIPTS_H

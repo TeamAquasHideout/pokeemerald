@@ -407,7 +407,7 @@ static const u16 sFavorLadyAcceptedItems_Shiny[] =
     ITEM_WHITE_FLUTE,
     ITEM_NUGGET,
     ITEM_SUN_STONE,
-    ITEM_STARDUST,
+    ITEM_SHINY_DUST,
     ITEM_STAR_PIECE,
     ITEM_PEARL,
     ITEM_BIG_PEARL,
@@ -444,7 +444,7 @@ static const u16 sFavorLadyAcceptedItems_Pointy[] =
     ITEM_DURIN_BERRY,
     ITEM_PETAYA_BERRY,
     ITEM_SALAC_BERRY,
-    ITEM_STARDUST,
+    ITEM_SHINY_DUST,
     ITEM_STAR_PIECE,
     ITEM_NONE
 };
