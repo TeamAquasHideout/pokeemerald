@@ -570,7 +570,6 @@ static const u16 sRandomSpeciesLegendary[] =
     SPECIES_DUSCLOPS,
     SPECIES_TROPIUS,
     SPECIES_CHIMECHO,
-#ifndef PIT_GEN_3_MODE
     SPECIES_ABSOL,
     SPECIES_WYNAUT,
     SPECIES_SNORUNT,
@@ -599,6 +598,7 @@ static const u16 sRandomSpeciesLegendary[] =
     SPECIES_RAYQUAZA,
     SPECIES_JIRACHI,
     SPECIES_DEOXYS_NORMAL,
+#ifndef PIT_GEN_3_MODE
     SPECIES_TURTWIG,
     SPECIES_GROTLE,
     SPECIES_TORTERRA,
