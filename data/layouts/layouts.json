@@ -4810,6 +4810,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PitArenaDesert04/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaDesert04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_SPIDER_WOODS03",
+      "name": "PitArenaSpiderWoods03_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaSpiderWoods",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PitArenaSpiderWoods03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaSpiderWoods03/map.bin"
     }
   ]
 }

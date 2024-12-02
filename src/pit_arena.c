@@ -1397,7 +1397,7 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warpMetatileId = METATILE_PitArenaMine_MINE_TOP_CAVE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
         WEATHER_CHANCE(FOG_HORIZONTAL, 15),
-        .dest_x = 13,
+        .dest_x = 15,
         .dest_y = 13,
         .warp_x = 15,
         .warp_y = 14,
@@ -1485,14 +1485,11 @@ static const struct sRandomMap sRandomMapArray[] = {
         DEFAULT_RANDOM_MAP_COORDS
     },    
     {
-        .mapConstant = MAP_PIT_ARENA_MINE02,
+        .mapConstant = MAP_PIT_ARENA_MINE03,
         .warpMetatileId = METATILE_PitArenaMine_MINE_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_CAVE,
         WEATHER_CHANCE(FOG_HORIZONTAL, 15),
-        .dest_x = 15,
-        .dest_y = 13,
-        .warp_x = 15,
-        .warp_y = 14,
+        DEFAULT_RANDOM_MAP_COORDS
     },  
     {
         .mapConstant = MAP_PIT_ARENA_DIRT_PATH03,
@@ -1507,14 +1504,14 @@ static const struct sRandomMap sRandomMapArray[] = {
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
         WEATHER_CHANCE(FOG_HORIZONTAL, 80),
         DEFAULT_RANDOM_MAP_COORDS
-    },  
+    },
     {
         .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS02,
         .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
         WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
-    },    
+    },
     {
         .mapConstant = MAP_PIT_ARENA_SNOW04,
         .warpMetatileId = METATILE_PitArenaSnow_SNOW_WARP_ACTIVE,
@@ -1548,14 +1545,28 @@ static const struct sRandomMap sRandomMapArray[] = {
         .battleTerrainId = BATTLE_TERRAIN_MOUNTAIN,
         WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
-    },      
+    },
     {
         .mapConstant = MAP_PIT_ARENA_DESERT03,
         .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
         WEATHER_CHANCE(SANDSTORM, 80),
         DEFAULT_RANDOM_MAP_COORDS
-    },  
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_DESERT04,
+        .warpMetatileId = METATILE_PitArenaDesert_DESERT_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(SANDSTORM, 80),
+        DEFAULT_RANDOM_MAP_COORDS
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_SPIDER_WOODS03,
+        .warpMetatileId = METATILE_PitArenaSpiderWoods_SPIDER_WOODS_WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_GRASS,
+        WEATHER_CHANCE(RAIN, 50),
+        DEFAULT_RANDOM_MAP_COORDS
+    },
     
 };
 
