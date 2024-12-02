@@ -1352,7 +1352,22 @@ static void PrintToWindow()
 
     if (sOutfitsMenuDataPtr->avatarPage == 2)
     {
-        avatarName = GetSpeciesName(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));
+        u16 dexNum = SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));  
+        StringCopy(gStringVar1, &gText_NumberClear01[0]);
+        ConvertIntToDecimalStringN(gStringVar2, dexNum, STR_CONV_MODE_LEADING_ZEROS, 4);
+        StringAppend(gStringVar1, gStringVar2);
+        StringAppend(gStringVar1, gText_Dash_Space);
+        StringCopy(gStringVar2, GetSpeciesName(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex)));
+        StringAppend(gStringVar1, gStringVar2);
+
+        FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
+
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_NORMAL, 54 + GetStringCenterAlignXOffset(FONT_NORMAL, gStringVar1, (6*22)), 140 - 14, 0, 0, colors, TEXT_SKIP_DRAW, gStringVar1);
+        
+        PutWindowTilemap(WINDOW_MIDDLE);
+        CopyWindowToVram(WINDOW_MIDDLE, 3);
+        return;
+        
     }
 
     FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));

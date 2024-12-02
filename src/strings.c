@@ -1644,6 +1644,7 @@ const u8 gText_SpAtk[] = _("SP. ATK");
 const u8 gText_SpDef[] = _("SP. DEF");
 const u8 gText_Plus[] = _("{PLUS}");
 const u8 gText_Dash[] = _("-");
+const u8 gText_Dash_Space[] = _(" - ");
 const u8 gText_FromSpace[] = _("From ");
 const u8 gText_MixingRecords[] = _("Mixing records…");
 const u8 gText_RecordMixingComplete[] = _("Record mixing completed.\nThank you for waiting.");
