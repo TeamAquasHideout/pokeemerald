@@ -1202,19 +1202,27 @@ static void Task_BuyMenu(u8 taskId)
             BuyMenuPrintCursor(tListTaskId, COLORID_GRAY_CURSOR);
 
             if (sMartInfo.martType == MART_TYPE_NORMAL)
+            {
                 sShopData->totalCost = (ItemId_GetPrice(itemId) >> IsPokeNewsActive(POKENEWS_SLATEPORT));
+            }
             else
+            {
                 sShopData->totalCost = gDecorations[itemId].price;
+            }
 
             if (ItemId_GetImportance(itemId) && (CheckBagHasItem(itemId, 1) || CheckPCHasItem(itemId, 1)) && (sMartInfo.martType == MART_TYPE_NORMAL))
+            {
                 BuyMenuDisplayMessage(taskId, gText_ThatItemIsSoldOut, BuyMenuReturnToItemList);
+            }
             else if ((ItemId_GetPrice(itemId) == 0) && (sMartInfo.martType == MART_TYPE_NORMAL))
+            {
                 BuyMenuDisplayMessage(taskId, gText_ThatItemIsSoldOut, BuyMenuReturnToItemList);
+            }
             else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData->totalCost) && (sMartInfo.martType == MART_TYPE_NORMAL))
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
             }
-            else if (gSaveBlock2Ptr->secretBaseShopCoins < sShopData->totalCost)
+            else if ((gSaveBlock2Ptr->secretBaseShopCoins < sShopData->totalCost) && !(sMartInfo.martType == MART_TYPE_NORMAL))
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
             }
