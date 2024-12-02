@@ -3004,7 +3004,7 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
 //
 
 #define RANDOM_TYPE_COUNT ARRAY_COUNT(sOneTypeChallengeValidTypes)
-static const u8  sOneTypeChallengeValidTypes[RANDOM_MON_TYPES - 2] =
+static const u8  sOneTypeChallengeValidTypes[RANDOM_MON_TYPES - 1] =
 {
     TYPE_NORMAL   ,
     TYPE_FIGHTING ,
