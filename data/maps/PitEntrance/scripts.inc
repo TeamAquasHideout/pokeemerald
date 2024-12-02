@@ -172,7 +172,7 @@ PitEntrance_EventScript_Sign::
 	msgbox PitEntrance_Text_Rules, MSGBOX_DEFAULT
 PitEntrance_EventScript_Sign_Hook::
 	message PitEntrance_Sign_Text
-	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_HardMode, PitEntrance_Sign_Option2, PitEntrance_Sign_Option6, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
+	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_GameModes, PitEntrance_Sign_Option2, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
 	closemessage
 	copyvar VAR_TEMP_9, VAR_RESULT
 	goto_if_eq VAR_RESULT, 0, PitEntrance_MoreInfo
@@ -188,6 +188,7 @@ PitEntrance_EventScript_Sign_Hook::
 
 PitEntrance_MoreInfo:
 	msgbox PitEntrance_Text_MoreInfo, MSGBOX_DEFAULT
+	msgbox PitEntrance_Text_MoreInfo2, MSGBOX_DEFAULT
 	goto PitEntrance_EventScript_Sign_Hook
 	release
 	end 
@@ -199,7 +200,7 @@ PitEntrance_BattleInfo:
 	end
 
 PitEntrance_HardModeInfo:
-	msgbox PitEntrance_Text_HardModeInfo, MSGBOX_DEFAULT
+	msgbox PitEntrance_Text_GameModeInfo, MSGBOX_DEFAULT
 	goto PitEntrance_EventScript_Sign_Hook
 	release
 	end
@@ -251,8 +252,8 @@ PitEntrance_Sign_Option5:
 	.string "Discord$"
 PitEntrance_Sign_Option6:
 	.string "Outfit$"
-PitEntrance_Sign_Option_HardMode:
-	.string "Hard Mode$"
+PitEntrance_Sign_Option_GameModes:
+	.string "Game Modes$"
 
 PitArena_ChangeAvatar::
 	lock
@@ -308,7 +309,7 @@ PitArena_NPCAvatarChange11:
 PitEntrance_Text_MoreInfo::
 	.string "In this challenge you start with 3\n"
 	.string "random Pokémon and must fight around\l"
-	.string "200 trainers in a random gauntlet.\p"
+	.string "200 trainers in a randomized gauntlet.\p"
 	.string "You and each trainer have random mons.\n"
 	.string "Trainer Pokémon levels are tied to the\l"
 	.string "floor number, with 1/100 being min/max.\p"
@@ -323,14 +324,23 @@ PitEntrance_Text_MoreInfo::
 	.string "Every 5th floor is a Heal/Shop floor\n"
 	.string "where you will be able to rest and\l"
 	.string "prepare for the next Trial.\p"
-	.string "Every 25th floor, you will receive\n"
-	.string "another random Pokémon.\p"
-	.string "And every ten floors there will be\n"
+	.string "Every ten floors there will be\n"
 	.string "a Move Tutor.\p"
+	.string "And every 25th floor there will be a\n"
+	.string "boss fight after that you will be able\l"
+	.string "to choose another random Pokémon.$"
+
+PitEntrance_Text_MoreInfo2::
 	.string "If you do manage to beat the final\n"
-	.string "trainer on Floor 100, you can choose\l"
-	.string "to keep going and see how far you can get.\p"
-	.string "Thats all the info I've got.\n"
+	.string "trainer on Floor 100, you can choose to\l"
+	.string "keep going and see how far you can get.\p"
+	.string "After a successful run you are able to\n"
+	.string "deposit one of your members in the PC\l"
+	.string "to use in a later run if you'd like.\p"
+	.string "Your Pokédex will also keep getting\n"
+	.string "filled from run to run and provides\l"
+	.string "great insights into your team members.\p"
+	.string "Thats all the info for now.\n"
 	.string "Hopefully you have fun!$"
 
 PitEntrance_Text_BattleInfo::
@@ -342,25 +352,33 @@ PitEntrance_Text_BattleInfo::
 	.string "Pokémon exist.\p"
 	.string "I'm not even really aware of it all as\n"
 	.string "I haven't played all the later games.\p"
-	.string "If you have specific question you can\n"
+	.string "If you have specific questions you can\n"
 	.string "check the Expansion Github to see what\l"
 	.string "changes they have made.$"
 
-PitEntrance_Text_HardModeInfo::
-	.string "Choosing HARD Mode in the Battle Mode\n"
-	.string "Menu will set the associated options.\p"
-	.string "Changing any of these will set the\n"
-	.string "game mode to CUSTOM and won't be\l"
-	.string "considered a HARD mode run.\p"
+PitEntrance_Text_GameModeInfo::
+	.string "This game offers a wide range of game\n"
+	.string "modes that you can choose whenever you\l"
+	.string "start a new game.\p"
+	.string "NORMAL mode will offer a challenging, but\n"
+	.string "still fair Pit experience with the basic\l"
+	.string "setup intended by the devs.\p"
 	.string "HARD mode will reduce shared XP to 50%,\n"
 	.string "won't offer Legendaries to the player,\l"
-	.string "allows trainers to have Megas in Gen 9\l"
-	.string "and gives trainers EV trained Pokémon.\p"
+	.string "allows trainers to have Megas in Gen 9\p"
+	.string "and turns off the EV/IV Changer.\p"
 	.string "Trainer EVs will be evenly distributed and\n"
 	.string "match the average EVs of your own team.\p"
-	.string "It also enables new merchant items in\n"
+	.string "Having the EV/IV Change disabled\n"
+	.string "also enables new merchant items in\l"
 	.string "the vitamins section to reset EVs for\l"
-	.string "your own Pokémon.$"
+	.string "your own Pokémon.\p"
+	.string "Additionally there are special challenge\n"
+	.string "modes like '3 Mons only' or a shorter\l"
+	.string "'50 floors' variant.\p"
+	.string "If you are into fully randomized\n"
+	.string "challenges there are also numerous\l"
+	.string "randomizer options to choose from.$"
 
 PitEntrance_Text_Credits::
 	.string "I, Archie from Team Aquas Hideout, have\n"
@@ -418,8 +436,6 @@ PitEntrance_Text_Cheats::
 	.string "same time after entering the pit.\p"
 	.string "These features can break the game\n"
 	.string "so don't report bugs if using it.$"
-
-
 
 PitEntrance_Text_Rules::
 	.string "Welcome to the Pit of 100 Trials!\n"
