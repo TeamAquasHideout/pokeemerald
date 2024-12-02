@@ -6,7 +6,10 @@ REVISION    := 0
 KEEP_TEMPS  ?= 0
 
 # `File name`.gba ('_agbcc' will be appended to the non-modern builds)
-FILE_NAME := pokeemerald
+FILE_NAME := thepit_gen9
+FILE_NAME_GEN_3 := thepit_gen3
+FILE_NAME_GEN_5 := thepit_gen5
+
 BUILD_DIR := build
 
 # Builds the ROM using a modern compiler
@@ -20,6 +23,13 @@ ANALYZE      ?= 0
 # Count unused warnings as errors. Used by RH-Hideout's repo
 UNUSED_ERROR ?= 0
 
+# Gen 3 pit mode
+PIT_GEN_3_MODE ?= 0
+# Gen 5 pit mode
+PIT_GEN_5_MODE ?= 0
+# Gen 9 pit mode
+PIT_GEN_9_MODE ?= 1
+
 ifeq (agbcc,$(MAKECMDGOALS))
   MODERN := 0
 endif
@@ -28,6 +38,14 @@ ifeq (compare,$(MAKECMDGOALS))
 endif
 ifeq (check,$(MAKECMDGOALS))
   TEST := 1
+endif
+ifeq (gen3,$(MAKECMDGOALS))
+  FILE_NAME := $(FILE_NAME_GEN_3)
+  PIT_GEN_3_MODE := 1
+endif
+ifeq (gen5,$(MAKECMDGOALS))
+  FILE_NAME := $(FILE_NAME_GEN_5)
+  PIT_GEN_5_MODE := 1
 endif
 
 # Default make rule
@@ -81,6 +99,8 @@ OBJ_DIR_NAME_TEST := $(BUILD_DIR)/test
 MODERN_ROM_NAME := $(FILE_NAME).gba
 MODERN_OBJ_DIR_NAME := $(BUILD_DIR)/modern
 MODERN_OBJ_DIR_NAME_TEST := $(BUILD_DIR)/modern-test
+GEN_3_OBJ_DIR := $(BUILD_DIR)/gen3
+GEN_5_OBJ_DIR := $(BUILD_DIR)/gen5
 
 ELF_NAME := $(ROM_NAME:.gba=.elf)
 MAP_NAME := $(ROM_NAME:.gba=.map)
@@ -88,6 +108,14 @@ MODERN_ELF_NAME := $(MODERN_ROM_NAME:.gba=.elf)
 MODERN_MAP_NAME := $(MODERN_ROM_NAME:.gba=.map)
 TESTELF = $(MODERN_ROM_NAME:.gba=-test.elf)
 HEADLESSELF = $(MODERN_ROM_NAME:.gba=-test-headless.elf)
+
+# these are just used for ensuring make clean grabs all the files
+GEN_3_ROM_NAME := $(FILE_NAME_GEN_3).gba
+GEN_3_ELF_NAME := $(FILE_NAME_GEN_3).elf
+GEN_3_MAP_NAME := $(FILE_NAME_GEN_3).map
+GEN_5_ROM_NAME := $(FILE_NAME_GEN_5).gba
+GEN_5_ELF_NAME := $(FILE_NAME_GEN_5).elf
+GEN_5_MAP_NAME := $(FILE_NAME_GEN_5).map
 
 # Pick our active variables
 ifeq ($(MODERN),0)
@@ -99,7 +127,11 @@ ifeq ($(MODERN),0)
   endif
 else
   ROM := $(MODERN_ROM_NAME)
-  ifeq ($(TEST), 0)
+  ifeq ($(PIT_GEN_3_MODE), 1)
+    OBJ_DIR := $(GEN_3_OBJ_DIR)
+  else ifeq ($(PIT_GEN_5_MODE), 1)
+    OBJ_DIR := $(GEN_5_OBJ_DIR)
+  else ifeq ($(TEST), 0)
     OBJ_DIR := $(MODERN_OBJ_DIR_NAME)
   else
     OBJ_DIR := $(MODERN_OBJ_DIR_NAME_TEST)
@@ -167,6 +199,14 @@ endif
 ifeq ($(DINFO),1)
   override CFLAGS += -g
 endif
+# set pit gen preproc defines
+ifeq ($(PIT_GEN_3_MODE), 1)
+  override CPPFLAGS += -DPIT_GEN_3_MODE=$(PIT_GEN_3_MODE)
+else ifeq ($(PIT_GEN_5_MODE), 1)
+  override CPPFLAGS += -DPIT_GEN_5_MODE=$(PIT_GEN_5_MODE)
+else
+  override CPPFLAGS += -DPIT_GEN_9_MODE=$(PIT_GEN_9_MODE)
+endif
 
 # Variable filled out in other make files
 AUTO_GEN_TARGETS :=
@@ -199,7 +239,7 @@ MAKEFLAGS += --no-print-directory
 .DELETE_ON_ERROR:
 
 RULES_NO_SCAN += libagbsyscall clean clean-assets tidy tidymodern tidynonmodern tidycheck generated clean-generated $(TESTELF)
-.PHONY: all rom agbcc modern compare check
+.PHONY: all rom agbcc modern compare check gen3 gen5 pit
 .PHONY: $(RULES_NO_SCAN)
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
@@ -269,6 +309,12 @@ $(shell mkdir -p $(SUBDIRS))
 # Pretend rules that are actually flags defer to `make all`
 modern: all
 compare: all
+gen3: all
+gen5: all
+pit:
+	$(MAKE) gen3
+	$(MAKE) gen5
+	$(MAKE) all
 # Uncomment the next line, and then comment the 4 lines after it to reenable agbcc.
 #agbcc: all
 agbcc:
@@ -317,7 +363,7 @@ clean-assets:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.rl' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 	find $(DATA_ASM_SUBDIR)/maps \( -iname 'connections.inc' -o -iname 'events.inc' -o -iname 'header.inc' \) -exec rm {} +
 
-tidy: tidynonmodern tidymodern tidycheck
+tidy: tidynonmodern tidymodern tidycheck tidygen3 tidygen5
 
 tidynonmodern:
 	rm -f $(ROM_NAME) $(ELF_NAME) $(MAP_NAME)
@@ -331,6 +377,14 @@ tidycheck:
 	rm -f $(TESTELF) $(HEADLESSELF)
 	rm -rf $(MODERN_OBJ_DIR_NAME_TEST)
 	rm -rf $(OBJ_DIR_NAME_TEST)
+
+tidygen3:
+	rm -f $(GEN_3_ROM_NAME) $(GEN_3_MAP_NAME) $(GEN_3_ELF_NAME)
+	rm -rf $(GEN_3_OBJ_DIR)
+
+tidygen5:
+	rm -f $(GEN_5_ROM_NAME) $(GEN_5_MAP_NAME) $(GEN_5_ELF_NAME)
+	rm -rf $(GEN_5_OBJ_DIR)
 
 # Other rules
 include graphics_file_rules.mk
