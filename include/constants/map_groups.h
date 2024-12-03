@@ -6,11 +6,11 @@
 //
 
 // gMapGroup_ThePit
-#define MAP_PIT_ARENA                  (0 | (0 << 8))
-#define MAP_PIT_ENTRANCE               (1 | (0 << 8))
-#define MAP_PIT_REST_FLOOR             (2 | (0 << 8))
-#define MAP_PIT_BOSS_ARENA             (3 | (0 << 8))
-#define MAP_PIT_WILD_ENCOUNTER_FLOOR   (4 | (0 << 8))
+#define MAP_PIT_ENTRANCE               (0 | (0 << 8))
+#define MAP_PIT_REST_FLOOR             (1 | (0 << 8))
+#define MAP_PIT_BOSS_ARENA             (2 | (0 << 8))
+#define MAP_PIT_WILD_ENCOUNTER_FLOOR   (3 | (0 << 8))
+#define MAP_PIT_ARENA                  (4 | (0 << 8))
 #define MAP_PIT_ARENA_WATER            (5 | (0 << 8))
 #define MAP_PIT_ARENA_DESERT           (6 | (0 << 8))
 #define MAP_PIT_ARENA_SNOW             (7 | (0 << 8))

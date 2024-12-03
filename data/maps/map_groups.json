@@ -37,11 +37,11 @@
     "gMapGroup_IndoorRoute124"
   ],
   "gMapGroup_ThePit": [
-    "PitArena",
     "PitEntrance",
     "PitRestFloor",
     "PitBossArena",
     "PitWildEncounterFloor",
+    "PitArena",
     "PitArenaWater",
     "PitArenaDesert",
     "PitArenaSnow",
