@@ -747,6 +747,8 @@ void LoadNormalModePresets(void)
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
     FlagSet(FLAG_STAT_CHANGER);
+    gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_OFF;
+    FlagClear(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_OFF;
@@ -762,6 +764,8 @@ void LoadHardModePresets(void)
     gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_ON;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     FlagClear(FLAG_STAT_CHANGER);
+    gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
+    FlagSet(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;

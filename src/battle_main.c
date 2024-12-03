@@ -2159,8 +2159,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[j], isPlayer);
             SetMonData(&party[i], MON_DATA_IVS, &(partyData[j].iv));
         
-            //set opponent EVs for HARD MODE
-            if(FlagGet(FLAG_HARD_MODE) && !isPlayer)
+            //set opponent EVs
+            if(FlagGet(FLAG_TRAINER_EVS) && !isPlayer && !isAcePokemon)
             {
                 SetMonData(&party[i], MON_DATA_HP_EV, &averageEVs);
                 SetMonData(&party[i], MON_DATA_ATK_EV, &averageEVs);
@@ -2169,7 +2169,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 SetMonData(&party[i], MON_DATA_SPDEF_EV, &averageEVs);
                 SetMonData(&party[i], MON_DATA_SPEED_EV, &averageEVs);
             }
-            else if (partyData[j].ev != NULL)
+            else if (partyData[j].ev != NULL && !isPlayer)
             {
                 SetMonData(&party[i], MON_DATA_HP_EV, &(partyData[j].ev[0]));
                 SetMonData(&party[i], MON_DATA_ATK_EV, &(partyData[j].ev[1]));

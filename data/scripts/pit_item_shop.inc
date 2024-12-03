@@ -100,7 +100,7 @@ PitShop_ShopNPCHook_Gen3IVs::
 PitArena_MartScript_Vitamins::
 	lock
 	setflag FLAG_BUY_FROM_MART
-	goto_if_set FLAG_HARD_MODE, PitArena_MartScript_Vitamins_2
+	goto_if_set FLAG_TRAINER_EVS, PitArena_MartScript_Vitamins_2
 	pokemart PitArena_Mart_Vitamins
 PitArena_MartScript_Vitamins_1:
 	goto PitShop_ShopNPCHook

@@ -126,6 +126,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeXP = 0;
         gSaveBlock2Ptr->modeSaveDeletion = OFF;
         gSaveBlock2Ptr->modeStatChanger = ON;
+        gSaveBlock2Ptr->modeTrainerEVs = OFF;
         gSaveBlock2Ptr->modeCashRewards = CASH_1X;
         gSaveBlock2Ptr->modeHealFloors10 = 0;
         gSaveBlock2Ptr->modeLegendaries = ON;
@@ -157,6 +158,9 @@ void SetOnMapLoadDefaultOptions(void)
 
     if (gSaveBlock2Ptr->modeStatChanger == ON)
         FlagSet(FLAG_STAT_CHANGER);
+    
+    if (gSaveBlock2Ptr->modeTrainerEVs == ON)
+        FlagSet(FLAG_TRAINER_EVS);
 }
 
 #undef ON

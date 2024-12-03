@@ -18142,7 +18142,7 @@ const struct Item gItemsInfo[] =
         .price = 2000,
         .description = COMPOUND_STRING(
             "An item that resets\n"
-            "all base points of\n"
+            "all EV points of\n"
             "a Pokémon."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,

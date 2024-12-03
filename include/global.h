@@ -578,7 +578,8 @@ struct SaveBlock2
              u16 optionsRandomMusic:1;
              u16 randomBattleWeather:2;
              u16 optionsBattleSpeed:2;
-             u16 filler_9912:2;
+             u16 modeTrainerEVs:1;
+             u16 filler_9912:1;
              //end of u16
 
     // #### running stats for The Pit - START ####
