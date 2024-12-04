@@ -1120,6 +1120,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
 
     if (JOY_NEW(A_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->menuCursor[sOptions->submenu] == MenuItemCancel())
             gTasks[taskId].func = Task_ModeMenuSave;
         if (sOptions->menuCursor[sOptions->submenu] == MenuItemPresetsSave())
@@ -1139,10 +1140,12 @@ static void Task_ModeMenuMainInput(u8 taskId)
     // Exit the menu when the player presses START
     else if (JOY_NEW(START_BUTTON) && sOptions->submenu != MENU_PRESETS)
     {
+        PlaySE(SE_SELECT);
         gTasks[taskId].func = Task_ModeMenuSave;
     }
     else if (JOY_REPEAT(DPAD_DOWN))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->visibleCursor[sOptions->submenu] == optionsToDraw-2) // don't advance visible cursor until scrolled to the bottom
         {
             if (++sOptions->menuCursor[sOptions->submenu] == MenuItemCount() - 1)
@@ -1169,6 +1172,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_REPEAT(DPAD_UP))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->visibleCursor[sOptions->submenu] == NUM_OPTIONS_FROM_BORDER) // don't advance visible cursor until scrolled to the bottom
         {
             if (--sOptions->menuCursor[sOptions->submenu] == 0)
@@ -1195,6 +1199,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu == MENU_RUN)
         {
             int cursor = sOptions->menuCursor[sOptions->submenu];
@@ -1266,6 +1271,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_NEW(R_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu != MENU_PRESETS)
         {
             if (sOptions->submenu == MENU_RAND)
@@ -1281,6 +1287,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_NEW(L_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu != MENU_PRESETS)
         {
             if (sOptions->submenu == MENU_RUN)
@@ -1296,6 +1303,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_NEW(SELECT_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu != MENU_PRESETS)
             sOptions->submenu = MENU_PRESETS;
         else
@@ -1308,6 +1316,7 @@ static void Task_ModeMenuMainInput(u8 taskId)
     }
     else if (JOY_NEW(B_BUTTON)) //return from Presets view
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu == MENU_PRESETS)
         {
             sOptions->submenu = MENU_RUN;

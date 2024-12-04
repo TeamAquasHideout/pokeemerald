@@ -1216,17 +1216,17 @@ static void StartMenuFull_InitWindows(void)
 //
 //  Confirm Save Dialogue Printer
 //
-static const u8 sText_ConfirmSave[] = _("Confirm Save and Return to Overworld?");
+static const u8 sText_ConfirmSave[] = _("Confirm Save?");
 static const u8 sA_ButtonGfx[]         = INCBIN_U8("graphics/ui_startmenu_full/a_button.4bpp");
 static void PrintSaveConfirmToWindow()
 {
     const u8 *str = sText_ConfirmSave;
     u8 sConfirmTextColors[] = {TEXT_COLOR_TRANSPARENT, 2, 3};
-    u8 x = 24;
+    u8 x = 92;
     u8 y = 0;
     
     FillWindowPixelBuffer(WINDOW_BOTTOM_BAR, PIXEL_FILL(5));
-    BlitBitmapToWindow(WINDOW_BOTTOM_BAR, sA_ButtonGfx, 12, 5, 8, 8);
+    BlitBitmapToWindow(WINDOW_BOTTOM_BAR, sA_ButtonGfx, 80, 5, 8, 8);
     AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, 1, x, y, 0, 0, sConfirmTextColors, 0xFF, str);
     PutWindowTilemap(WINDOW_BOTTOM_BAR);
     CopyWindowToVram(WINDOW_BOTTOM_BAR, COPYWIN_FULL);
@@ -1478,6 +1478,7 @@ static void Task_StartMenuFullMain(u8 taskId)
     }
     if (JOY_NEW(DPAD_RIGHT)) // these change the position of the selector, the actual x/y of the sprite is handled in its callback CursorCallback
     {
+        PlaySE(SE_SELECT);
         if(sStartMenuDataPtr->selector_x == 2)
             sStartMenuDataPtr->selector_x = 0;
         else
@@ -1485,6 +1486,7 @@ static void Task_StartMenuFullMain(u8 taskId)
     }
     if (JOY_NEW(DPAD_LEFT)) // these change the position of the selector, the actual x/y of the sprite is handled in its callback CursorCallback
     {
+        PlaySE(SE_SELECT);
         if(sStartMenuDataPtr->selector_x == 0)
             sStartMenuDataPtr->selector_x = 2;
         else
@@ -1492,6 +1494,7 @@ static void Task_StartMenuFullMain(u8 taskId)
     }
     if (JOY_NEW(DPAD_UP))
     {
+        PlaySE(SE_SELECT);
         if (sStartMenuDataPtr->selector_y == 0)
             sStartMenuDataPtr->selector_y = 1;
         else
@@ -1499,6 +1502,7 @@ static void Task_StartMenuFullMain(u8 taskId)
     }
     if (JOY_NEW(DPAD_DOWN))
     {
+        PlaySE(SE_SELECT);
         if (sStartMenuDataPtr->selector_y == 1)
             sStartMenuDataPtr->selector_y = 0;
         else
@@ -1563,6 +1567,7 @@ static void Task_StartMenuFullMain(u8 taskId)
 
     if(JOY_NEW(START_BUTTON)) // If start button pressed go to Save Confirmation Control Task
     {
+        PlaySE(SE_SELECT);
         PrintSaveConfirmToWindow();
         gTasks[taskId].func = Task_HandleSaveConfirmation;
     }

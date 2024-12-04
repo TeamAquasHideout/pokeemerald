@@ -1579,6 +1579,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
         if(JOY_NEW(DPAD_DOWN) || JOY_HELD(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
         {   
             u16 temp = 0;
+            PlaySE(SE_SELECT);
             if(sOutfitsMenuDataPtr->currentSpeciesIndex < UP_DOWN_SPECIES_JUMP)
             {
                 temp = GetMaxNumberOfSpecies() - (UP_DOWN_SPECIES_JUMP - sOutfitsMenuDataPtr->currentSpeciesIndex);
@@ -1598,6 +1599,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_UP) || JOY_HELD(DPAD_UP))
         {
+            PlaySE(SE_SELECT);
             sOutfitsMenuDataPtr->currentSpeciesIndex += UP_DOWN_SPECIES_JUMP;
             if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
@@ -1608,6 +1610,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_LEFT) || JOY_HELD(DPAD_LEFT))
         {
+            PlaySE(SE_SELECT);
             if(sOutfitsMenuDataPtr->currentSpeciesIndex == 0)
                 sOutfitsMenuDataPtr->currentSpeciesIndex = GetMaxNumberOfSpecies() - 1;
             else
@@ -1622,6 +1625,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_RIGHT) || JOY_HELD(DPAD_RIGHT))
         {
+            PlaySE(SE_SELECT);
             sOutfitsMenuDataPtr->currentSpeciesIndex++;
             if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
@@ -1634,6 +1638,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
     {
         if(JOY_NEW(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
         {
+            PlaySE(SE_SELECT);
             if(sSelectedOption > STATE_LEAF)
                 sSelectedOption -= 4;
             else
@@ -1644,6 +1649,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_UP))
         {
+            PlaySE(SE_SELECT);
             if(sSelectedOption <= STATE_LEAF)
                 sSelectedOption += 4;
             else
@@ -1654,6 +1660,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_LEFT))
         {
+            PlaySE(SE_SELECT);
             if((sSelectedOption == STATE_BRENDAN) || (sSelectedOption == STATE_LUCAS))
                 sSelectedOption += 3;
             else
@@ -1664,6 +1671,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(JOY_NEW(DPAD_RIGHT))
         {
+            PlaySE(SE_SELECT);
             if((sSelectedOption == STATE_LEAF) || (sSelectedOption == STATE_LYRA))
                 sSelectedOption -= 3;
             else 
