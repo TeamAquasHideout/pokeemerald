@@ -590,7 +590,8 @@ static const struct SpriteTemplate sSpriteTemplate_IconBox =
 void Task_OpenMainMenu(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    //PlayBGM(MUS_ABANDONED_SHIP);
+    if (!IsBGMPlaying())
+        PlayBGM(MUS_ABANDONED_SHIP);
     if (!gPaletteFade.active)
     {   
         switch (data[0]) // This data[0] comes from the main_menu.c Task_DisplayMainMenu, 
