@@ -80,6 +80,7 @@ enum MenuItems_Difficulty
     MENUITEM_DIFF_XPMODE,
     MENUITEM_DIFF_SAVE_DELETION,
     MENUITEM_DIFF_STAT_CHANGER,
+    MENUITEM_DIFF_TRAINER_EVS,
     MENUITEM_DIFF_DOUBLE_CASH,
     MENUITEM_DIFF_HEALFLOORS,
     MENUITEM_DIFF_LEGENDARIES,
@@ -297,6 +298,7 @@ static void DrawChoices_RandTypes(int selection, int y);
 static void DrawChoices_RandEvos(int selection, int y);
 static void DrawChoices_XPMode(int selection, int y);
 static void DrawChoices_StatChanger(int selection, int y);
+static void DrawChoices_TrainerEVs(int selection, int y);
 static void DrawChoices_Legendaries(int selection, int y);
 static void DrawChoices_Duplicates(int selection, int y);
 static void DrawChoices_Megas(int selection, int y);
@@ -329,6 +331,7 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
     [MENUITEM_DIFF_SAVE_DELETION] = {DrawChoices_SaveDeletion, ProcessInput_Options_Two},
     [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
+    [MENUITEM_DIFF_TRAINER_EVS]   = {DrawChoices_TrainerEVs,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
     [MENUITEM_DIFF_HEALFLOORS]    = {DrawChoices_HealFloors,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_LEGENDARIES]   = {DrawChoices_Legendaries,  ProcessInput_Options_Two},
@@ -371,6 +374,7 @@ static const u8 sText_BattleMode[]   = _("BATTLE MODE");
 static const u8 sText_Randomizer[]   = _("RANDOMIZER");
 static const u8 sText_XPMode[]       = _("XP MODE");
 static const u8 sText_StatChanger[]  = _("STAT CHANGER");
+static const u8 sText_TrainerEVs[]   = _("TRAINER EVS");
 static const u8 sText_Legendaries[]  = _("LEGENDARIES");
 static const u8 sText_Duplicates[]   = _("DUPLICATES");
 static const u8 sText_Megas[]        = _("TRAINER MEGAS");
@@ -409,6 +413,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     [MENUITEM_DIFF_XPMODE]        = sText_XPMode,
     [MENUITEM_DIFF_SAVE_DELETION] = sText_SaveDeletion,
     [MENUITEM_DIFF_STAT_CHANGER]  = sText_StatChanger,
+    [MENUITEM_DIFF_TRAINER_EVS]   = sText_TrainerEVs,
     [MENUITEM_DIFF_DOUBLE_CASH]   = sText_DoubleCash,
     [MENUITEM_DIFF_HEALFLOORS]    = sText_HealFloors,
     [MENUITEM_DIFF_LEGENDARIES]   = sText_Legendaries,
@@ -476,6 +481,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_XPMODE:        return TRUE;
                 case MENUITEM_DIFF_SAVE_DELETION: return TRUE;
                 case MENUITEM_DIFF_STAT_CHANGER:  return TRUE;
+                case MENUITEM_DIFF_TRAINER_EVS:   return TRUE;
                 case MENUITEM_DIFF_DOUBLE_CASH:   return TRUE;
                 case MENUITEM_DIFF_HEALFLOORS:    return TRUE;
                 case MENUITEM_DIFF_LEGENDARIES:   return TRUE;
@@ -535,6 +541,8 @@ static const u8 sText_Desc_XPMode_50[]          = _("Exp. Share gives 50% XP to 
 static const u8 sText_Desc_XPMode_None[]        = _("You won't receive any XP from battles.\nLevels are tied to the floor.");
 static const u8 sText_Desc_StatChanger_On[]     = _("Enables the EV/IV Changer\nin the party menu.");
 static const u8 sText_Desc_StatChanger_Off[]    = _("Makes the EV/IV Changer read only\nand adds an IV merchant option.");
+static const u8 sText_Desc_TrainerEVs_On[]      = _("Opponent's team EVs match the\naverage EVs of your own team.");
+static const u8 sText_Desc_TrainerEVs_Off[]     = _("Opponent's team EVs are always set\nto zero unless for boss Aces.");
 static const u8 sText_Desc_Legendaries_On[]     = _("Legendaries can be found\nin the Birch Case.");
 static const u8 sText_Desc_Legendaries_Off[]    = _("Legendaries can not be found\nin the Birch Case.");
 static const u8 sText_Desc_Duplicates_On[]      = _("Truly random. Duplicates are\npossible in the Birch Case.");
@@ -583,6 +591,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None},
     [MENUITEM_DIFF_SAVE_DELETION] = {sText_Desc_SaveDeletion_On,  sText_Desc_SaveDeletion_Off,  sText_Empty},
     [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty},
+    [MENUITEM_DIFF_TRAINER_EVS]   = {sText_Desc_TrainerEVs_On,    sText_Desc_TrainerEVs_Off,    sText_Empty},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
     [MENUITEM_DIFF_HEALFLOORS]    = {sText_Desc_HealFloors_5,     sText_Desc_HealFloors_10,     sText_Empty},
     [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty},
@@ -798,6 +807,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
         sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = gSaveBlock2Ptr->modeSaveDeletion;
         sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = gSaveBlock2Ptr->modeStatChanger;
+        sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = gSaveBlock2Ptr->modeTrainerEVs;
         sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = gSaveBlock2Ptr->modeCashRewards;
         sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = gSaveBlock2Ptr->modeHealFloors10;
         sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = gSaveBlock2Ptr->modeLegendaries;
@@ -1323,6 +1333,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
     gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
     gSaveBlock2Ptr->modeStatChanger  = sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER];
+    gSaveBlock2Ptr->modeTrainerEVs   = sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS];
     gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
     gSaveBlock2Ptr->modeHealFloors10 = sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS];
     gSaveBlock2Ptr->modeLegendaries  = sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES];
@@ -1356,6 +1367,11 @@ static void Task_ModeMenuSave(u8 taskId)
         FlagSet(FLAG_STAT_CHANGER);
     else
         FlagClear(FLAG_STAT_CHANGER);
+
+    if (sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS] == OPTIONS_ON)
+        FlagSet(FLAG_TRAINER_EVS);
+    else
+        FlagClear(FLAG_TRAINER_EVS);
 
 
     //####################### randomizer settings #######################
@@ -1535,6 +1551,8 @@ static const u8 sText_XPShare_50[]          = _("HARD");
 static const u8 sText_XPShare_None[]        = _("NONE");
 static const u8 sText_StatChanger_On[]      = _("ACTIVE");
 static const u8 sText_StatChanger_Off[]     = _("INACTIVE");
+static const u8 sText_TrainerEVs_On[]       = _("ACTIVE");
+static const u8 sText_TrainerEVs_Off[]      = _("INACTIVE");
 static const u8 sText_Choice_Yes[]          = _("YES");
 static const u8 sText_Choice_No[]           = _("NO");
 static const u8 sText_HealFloors_5[]        = _("5FLRS");
@@ -1661,6 +1679,16 @@ static void DrawChoices_StatChanger(int selection, int y)
 
     DrawModeMenuChoice(sText_StatChanger_On, 104, y, styles[0], active);
     DrawModeMenuChoice(sText_StatChanger_Off, GetStringRightAlignXOffset(FONT_NORMAL, sText_StatChanger_Off, 198), y, styles[1], active);
+}
+
+static void DrawChoices_TrainerEVs(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_TRAINER_EVS);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_TrainerEVs_On, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_TrainerEVs_Off, GetStringRightAlignXOffset(FONT_NORMAL, sText_TrainerEVs_Off, 198), y, styles[1], active);
 }
 
 static void DrawChoices_Legendaries(int selection, int y)
@@ -1843,6 +1871,7 @@ static void ApplyPresets(void)
         case PRESET_NORMAL:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
             #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_OFF;
@@ -1852,6 +1881,7 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
             sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;

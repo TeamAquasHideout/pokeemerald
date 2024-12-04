@@ -47,7 +47,7 @@
 #define FLAG_CASE_STARTER_MODE    0x21 // Unused Flag
 #define FLAG_RANDOM_MODE     0x22 // this is currently no longer used after mode menu overhaul
 #define FLAG_DOUBLES_MODE    0x23 // Unused Flag
-#define FLAG_HARD_MODE       0x24 // this is currently no longer used after mode menu overhaul
+#define FLAG_TRAINER_EVS     0x24 // Have trainer EVs matching the player's teams's average EVs
 #define FLAG_NO_LEGENDARIES  0x25 // this is currently no longer used after mode menu overhaul
 #define FLAG_NO_DUPLICATES   0x26 // this is currently no longer used after mode menu overhaul
 #define FLAG_XPSHARE_50      0x27 // this is currently no longer used after mode menu overhaul
