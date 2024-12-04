@@ -202,10 +202,13 @@ endif
 # set pit gen preproc defines
 ifeq ($(PIT_GEN_3_MODE), 1)
   override CPPFLAGS += -DPIT_GEN_3_MODE=$(PIT_GEN_3_MODE)
+  override ASFLAGS += --defsym PIT_GEN_3_MODE=$(PIT_GEN_3_MODE)
 else ifeq ($(PIT_GEN_5_MODE), 1)
   override CPPFLAGS += -DPIT_GEN_5_MODE=$(PIT_GEN_5_MODE)
+  override ASFLAGS += --defsym PIT_GEN_5_MODE=$(PIT_GEN_5_MODE)
 else
   override CPPFLAGS += -DPIT_GEN_9_MODE=$(PIT_GEN_9_MODE)
+  override ASFLAGS += --defsym PIT_GEN_9_MODE=$(PIT_GEN_9_MODE)
 endif
 
 # Variable filled out in other make files
