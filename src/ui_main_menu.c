@@ -590,6 +590,8 @@ static const struct SpriteTemplate sSpriteTemplate_IconBox =
 void Task_OpenMainMenu(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+    if (!IsBGMPlaying())
+        PlayBGM(MUS_ABANDONED_SHIP);
     if (!gPaletteFade.active)
     {   
         switch (data[0]) // This data[0] comes from the main_menu.c Task_DisplayMainMenu, 
@@ -1136,27 +1138,13 @@ static bool8 MainMenu_LoadGraphics(u8 reload) // Load all the tilesets, tilemaps
     {
     case 0:
         ResetTempTileDataBuffers();
-        if (gSaveBlock2Ptr->playerGender == MALE)
-        {
-            DecompressAndCopyTileDataToVram(1, sMainBgTiles, 0, 0, 0);
-        }
-        else
-        {
-            DecompressAndCopyTileDataToVram(1, sMainBgTilesFem, 0, 0, 0);
-        }
+        DecompressAndCopyTileDataToVram(1, sMainBgTiles, 0, 0, 0);
         sMainMenuDataPtr->gfxLoadState++;
         break;
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            if (gSaveBlock2Ptr->playerGender == MALE)
-            {
-                LZDecompressWram(sMainBgTilemap, sBg1TilemapBuffer);
-            }
-            else
-            {
-                LZDecompressWram(sMainBgTilemapFem, sBg1TilemapBuffer);
-            }
+            LZDecompressWram(sMainBgTilemap, sBg1TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -1184,18 +1172,9 @@ static bool8 MainMenu_LoadGraphics(u8 reload) // Load all the tilesets, tilemaps
         break;
     case 4:
         LoadMugshotIconGraphics();
-        if(gSaveBlock2Ptr->playerGender == MALE)
-        {
-            LoadCompressedSpriteSheet(&sSpriteSheet_IconBox);
-            LoadSpritePalette(&sSpritePal_IconBox);           
-            LoadPalette(sMainBgPalette, 0, 32);
-        }
-        else
-        {
-            LoadCompressedSpriteSheet(&sSpriteSheet_IconBoxFem);
-            LoadSpritePalette(&sSpritePal_IconBoxFem);
-            LoadPalette(sMainBgPaletteFem, 0, 32);
-        }
+        LoadPalette(sMainBgPalette, 0, 32);
+        LoadCompressedSpriteSheet(&sSpriteSheet_IconBox);
+        LoadSpritePalette(&sSpritePal_IconBox);               
         LoadPalette(sScrollBgPalette, 16, 32);
         sMainMenuDataPtr->gfxLoadState++;
         break;
@@ -1559,12 +1538,14 @@ static void Task_MainNewGameMenu(u8 taskId)
 {
     if (JOY_NEW(A_BUTTON)) // If Pressed A go to thing you pressed A on
     {   
+        PlaySE(SE_SELECT);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
         gTasks[taskId].func = Task_MainMenuTurnOff;
         sSelectedOption = HW_WIN_CONTINUE;
     }
     if (JOY_NEW(START_BUTTON))
     {
+        PlaySE(SE_SELECT);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
         LoadCustomModePresets();
         sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
@@ -1574,12 +1555,14 @@ static void Task_MainNewGameMenu(u8 taskId)
     }
     if (JOY_NEW(B_BUTTON) && (sAlreadySelectedAvatar == 0)) // If Pressed A go to thing you pressed A on
     {
+        PlaySE(SE_SELECT);
         gMain.state = 0;
         gTasks[taskId].func = Task_ReloadMainMenu;
         return;
     }
     if (JOY_NEW(DPAD_UP))
     {
+        PlaySE(SE_SELECT);
         if (sNewGameSelectedOption == 0)
             sNewGameSelectedOption = 2;
         else
@@ -1589,6 +1572,7 @@ static void Task_MainNewGameMenu(u8 taskId)
     }
     if (JOY_NEW(DPAD_DOWN))
     {
+        PlaySE(SE_SELECT);
         if (sNewGameSelectedOption == 2)
             sNewGameSelectedOption = 0;
         else
@@ -1662,18 +1646,6 @@ static void Task_MainMenuMain(u8 taskId)
                 gMain.savedCallback = CB2_ReinitMainMenu;
                 sMainMenuDataPtr->savedCallback = CB2_InitOptionMenu;
                 break;
-            case HW_WIN_MYSTERY_EVENT:
-                sMainMenuDataPtr->savedCallback = CB2_InitMysteryEventMenu;
-                sSelectedOption = HW_WIN_CONTINUE;
-                break;
-            case HW_WIN_MYSTERY_GIFT:
-                if((menuType == HAS_MYSTERY_EVENTS) && !(IsWirelessAdapterConnected()))
-                    //sMainMenuDataPtr->savedCallback = CB2_InitEReader;
-                    sMainMenuDataPtr->savedCallback = CB2_InitMysteryGift; // E-Reader Crashes IDK Why Exactly But You Can Uncomment It
-                else
-                    sMainMenuDataPtr->savedCallback = CB2_InitMysteryGift;
-                sSelectedOption = HW_WIN_CONTINUE;
-                break;
         }
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
         gTasks[taskId].func = Task_MainMenuTurnOff;
@@ -1685,7 +1657,8 @@ static void Task_MainMenuMain(u8 taskId)
     }
 
     if(JOY_NEW(DPAD_DOWN)) // Handle DPad directions, kinda bad way to do it with each case handled individually but its whatever
-    {
+    {   
+        PlaySE(SE_SELECT);
         switch (menuType)
         {
             case HAS_SAVED_GAME:
@@ -1717,7 +1690,8 @@ static void Task_MainMenuMain(u8 taskId)
     }
 
     if(JOY_NEW(DPAD_UP))
-    {
+    {   
+        PlaySE(SE_SELECT);
         switch (menuType)
         {
             case HAS_SAVED_GAME:
@@ -1751,7 +1725,8 @@ static void Task_MainMenuMain(u8 taskId)
     }
 
     if(JOY_NEW(DPAD_LEFT) || JOY_NEW(DPAD_RIGHT))
-    {
+    {   
+        PlaySE(SE_SELECT);
         switch (menuType)
         {
             case HAS_SAVED_GAME:

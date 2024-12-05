@@ -892,7 +892,7 @@ void GetBattlerHealthboxCoords(u8 battler, s16 *x, s16 *y)
             *x = 159, *y = 76;
             break;
         case B_POSITION_PLAYER_RIGHT:
-            *x = 171, *y = 101;
+            *x = 169, *y = 101;
             break;
         case B_POSITION_OPPONENT_LEFT:
             *x = 44, *y = 19;
@@ -939,7 +939,7 @@ static void UpdateLvlInHealthbox(u8 healthboxSpriteId, u8 lvl)
         UpdateIndicatorVisibilityAndType(healthboxSpriteId, TRUE);
     }
 
-    windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(text, xPos, 3, 0, &windowId);
+    windowTileData = AddTextPrinterAndCreateWindowOnHealthbox(text, xPos, 3, 3, &windowId);
     spriteTileNum = gSprites[healthboxSpriteId].oam.tileNum * TILE_SIZE_4BPP;
 
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
@@ -1745,7 +1745,7 @@ static void UpdateNickInHealthbox(u8 healthboxSpriteId, struct Pokemon *mon)
         break;
     }
 
-    windowTileData = AddTextPrinterAndCreateWindowOnHealthboxToFit(gDisplayedStringBattle, 0, 3, 0, &windowId, 55);
+    windowTileData = AddTextPrinterAndCreateWindowOnHealthboxToFit(gDisplayedStringBattle, 0, 3, 3, &windowId, 55);
 
     spriteTileNum = gSprites[healthboxSpriteId].oam.tileNum * TILE_SIZE_4BPP;
 
@@ -2380,7 +2380,7 @@ static u8 *AddTextPrinterAndCreateWindowOnHealthboxWithFont(const u8 *str, u32 x
 
     color[0] = bgColor;
     color[1] = 2;
-    color[2] = 3;
+    color[2] = 6;
 
     AddTextPrinterParameterized4(winId, fontId, x, y, 0, 0, color, TEXT_SKIP_DRAW, str);
 

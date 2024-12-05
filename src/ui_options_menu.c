@@ -19,6 +19,9 @@
 #include "ui_options_menu.h"
 #include "event_data.h"
 #include "string_util.h"
+#include "constants/songs.h"
+#include "sound.h"
+
 
 // Window Ids
 enum
@@ -779,16 +782,19 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
     u8 optionsToDraw = min(OPTIONS_ON_SCREEN , MenuItemCount());
 
     if (JOY_NEW(A_BUTTON))
-    {
+    {   
+        PlaySE(SE_SELECT);
         if (sOptions->menuCursor[sOptions->submenu] == MenuItemCancel())
             gTasks[taskId].func = Task_OptionsMenuSave;
     }
     else if (JOY_NEW(B_BUTTON) || (JOY_NEW(START_BUTTON)))
     {
+        PlaySE(SE_SELECT);
         gTasks[taskId].func = Task_OptionsMenuSave;
     }
     else if (JOY_NEW(DPAD_UP))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->visibleCursor[sOptions->submenu] == NUM_OPTIONS_FROM_BORDER) // don't advance visible cursor until scrolled to the bottom
         {
             if (--sOptions->menuCursor[sOptions->submenu] == 0)
@@ -815,6 +821,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(DPAD_DOWN))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->visibleCursor[sOptions->submenu] == optionsToDraw-2) // don't advance visible cursor until scrolled to the bottom
         {
             if (++sOptions->menuCursor[sOptions->submenu] == MenuItemCount() - 1)
@@ -841,6 +848,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu == MENU_PIT)
         {
             int cursor = sOptions->menuCursor[sOptions->submenu];
@@ -878,6 +886,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(R_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu == MENU_VANILLA)
             sOptions->submenu = MENU_PIT;
         else
@@ -890,6 +899,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
     }
     else if (JOY_NEW(L_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if (sOptions->submenu == MENU_PIT)
             sOptions->submenu = MENU_VANILLA;
         else

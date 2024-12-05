@@ -71,11 +71,11 @@ PitEntrance_Warp::
 	goto_if_eq VAR_RESULT, 0, PitEntrance_Warp_SkipShinyDust
 	additem ITEM_SHINY_DUST, 1
 PitEntrance_Warp_SkipShinyDust::
-#ifdef PIT_GEN_9_MODE
+.ifdef PIT_GEN_9_MODE
 	additem ITEM_MEGA_RING, 1
 	@additem ITEM_TERA_ORB, 1
 	additem ITEM_Z_POWER_RING, 1
-#endif
+.endif
 	additem ITEM_EXP_SHARE, 1
 	setflag FLAG_SYS_POKEMON_GET
 	warpteleport MAP_PIT_ARENA, 9, 7
@@ -172,19 +172,36 @@ PitEntrance_EventScript_Sign::
 	msgbox PitEntrance_Text_Rules, MSGBOX_DEFAULT
 PitEntrance_EventScript_Sign_Hook::
 	message PitEntrance_Sign_Text
-	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_GameModes, PitEntrance_Sign_Option2, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
+	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_GameModes, PitEntrance_Sign_Option6, PitEntrance_Sign_Option2, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
 	closemessage
 	copyvar VAR_TEMP_9, VAR_RESULT
 	goto_if_eq VAR_RESULT, 0, PitEntrance_MoreInfo
 	goto_if_eq VAR_RESULT, 1, PitEntrance_BattleInfo
 	goto_if_eq VAR_RESULT, 2, PitEntrance_HardModeInfo
-	goto_if_eq VAR_RESULT, 3, PitEntrance_Credits
-	goto_if_eq VAR_RESULT, 4, PitEntrance_ChangeAvatar
+	goto_if_eq VAR_RESULT, 3, PitEntrance_SecretBaseInfo
+	goto_if_eq VAR_RESULT, 4, PitEntrance_Credits
 	goto_if_eq VAR_RESULT, 5, PitEntrance_Bugs
 	goto_if_eq VAR_RESULT, 6, PitEntrance_Discord
 	goto_if_eq VAR_RESULT, 7, PitEntrance_Cheats
 	release
 	end
+
+PitEntrance_SecretBaseInfo:
+	msgbox PitEntrance_Text_SecretBaseInfo, MSGBOX_DEFAULT
+	goto PitEntrance_EventScript_Sign_Hook
+	release
+	end 
+
+PitEntrance_Text_SecretBaseInfo::
+	.string "As you defeat trainers you are awarded\n"
+	.string "with BP for every victory, this can be\l"
+	.string "traded in the Pit Entrance for decor\l"
+	.string "for your Secret Base.\p"
+	.string "Next to the Decor Shop Employee is the\n"
+	.string "Secret Base Tree, this tree randomizes\l"
+	.string "every time you enter it to a different\l"
+	.string "base map until you claim your choice.$"
+
 
 PitEntrance_MoreInfo:
 	msgbox PitEntrance_Text_MoreInfo, MSGBOX_DEFAULT
@@ -251,7 +268,7 @@ PitEntrance_Sign_Option4:
 PitEntrance_Sign_Option5:
 	.string "Discord$"
 PitEntrance_Sign_Option6:
-	.string "Outfit$"
+	.string "SecretBase$"
 PitEntrance_Sign_Option_GameModes:
 	.string "Game Modes$"
 
@@ -335,7 +352,7 @@ PitEntrance_Text_MoreInfo2::
 	.string "trainer on Floor 100, you can choose to\l"
 	.string "keep going and see how far you can get.\p"
 	.string "After a successful run you are able to\n"
-	.string "deposit one of your members in the PC\l"
+	.string "deposit your team members in the PC\l"
 	.string "to use in a later run if you'd like.\p"
 	.string "Your Pokédex will also keep getting\n"
 	.string "filled from run to run and provides\l"
@@ -350,8 +367,6 @@ PitEntrance_Text_BattleInfo::
 	.string "Depending on the version you chose that\n"
 	.string "means things like Megas and late Gen\l"
 	.string "Pokémon exist.\p"
-	.string "I'm not even really aware of it all as\n"
-	.string "I haven't played all the later games.\p"
 	.string "If you have specific questions you can\n"
 	.string "check the Expansion Github to see what\l"
 	.string "changes they have made.$"
@@ -381,37 +396,31 @@ PitEntrance_Text_GameModeInfo::
 	.string "randomizer options to choose from.$"
 
 PitEntrance_Text_Credits::
-	.string "I, Archie from Team Aquas Hideout, have\n"
-	.string "put together this romhack.\p"
-	.string "wiz1989 joined in implementing\n"
-	.string "balancing changes and new features\l"
-	.string "after v1.3\p"
-	.string "Aereon helped with balancing and\n"
-	.string "curating all data lists like species,\l"
-	.string "items, TMs making them fit for all gens.\p"
+	.string "Lead Developer: Archie from Team Aqua\n"
+	.string "Co-Lead: wiz1989\p"
+	.string "Lead Artist: Mudskip\n"
+	.string "Balance/Testing: Aereon\p"
+	.string "RavePossum implemented the Gen 5\n"
+	.string "Summary Screen and lots of other stuff.\p"
 	.string "All battle / late Gen stuff / plenty\n"
 	.string "more is from the Expansion Team at RHH.\l"
 	.string "They do amazing work!\p"
 	.string "The decomps themselves were created by \n"
 	.string "people at pret.\p"
 	.string "Nico made the Battle UI.\n"
-	.string "RavePossum implemented the Gen 5\l"
-	.string "Summary Screen and the battle bg.\p"
+	.string "Chairry/Logan/Livra: Extra Avatars\p"
 	.string "Ghoulslash made the Item Desc Code +\n"
-	.string "the UI shell code used for my UIs.\p"
-	.string "Mudskip and I together made the \n"
-	.string "Main + Start Menu / Pokeball Case UIs\l"
-	.string "(Mudskip made the graphics).\p"
-	.string "Jaizu made the graphics for the\n"
-	.string "Stat Editor (code by me).$"
+	.string "the UI shell code used for the UIs.\p"
+	.string "Mudskip and Archie together made the \n"
+	.string "majority of the new UIs in the hack.$"
 
 PitEntrance_Text_Credits2::
 	.string "Hyo/Poffin made the FRLG style sprites.\n"
-	.string "Nicolavs gave me the cave tiles.\l"
+	.string "The tilesets used are from TAAR.\l"
 	.string "Bsbob made the map pop-up branch.\p"
 	.string "Lunos wrote the Wonder Trade code.\n"
 	.string "TheXaman wrote some of the randomizer\l"
-	.string "and Party Menu code (graphics by me).\p"
+	.string "and Party Menu code.\p"
 	.string "Devolov/Rioluwott/EliteRedux/Graion\n"
 	.string "for various QOL additions, mostly\l"
 	.string "battle related.\p"
@@ -428,20 +437,20 @@ PitEntrance_Text_Bugs::
 	.string "pokeemerald-expansion as I have not\l"
 	.string "changed any Battle Code myself.\p"
 	.string "Other bugs can be reported in the\n"
-	.string "Team Aquas Hideout Discord Server.$"
+	.string "The Pit Discord Server.$"
 
 PitEntrance_Text_Cheats::
 	.string "You can enable the Expansion debug\n"
 	.string "menu by pressing R and Start at the\l"
-	.string "same time after entering the pit.\p"
+	.string "same time.\p"
 	.string "These features can break the game\n"
 	.string "so don't report bugs if using it.$"
 
 PitEntrance_Text_Rules::
-	.string "Welcome to the Pit of 100 Trials!\n"
-	.string "Beyond this point is a neverending\l"
-	.string "series of rooms filled with opponents.\p"
-	.string "Can you survive even 100 floors?$"
+	.string "Welcome to the Pit of 100 Trials!$"
+	@ .string "Beyond this point is a neverending\l" comment out for now maybe remove for good
+	@ .string "series of rooms filled with opponents.\p"
+	@ .string "Can you survive even 100 floors?$"
 
 PitEntrance_Text_Discord:
 	.string "To talk about the hack join our server.\n"

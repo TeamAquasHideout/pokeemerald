@@ -877,6 +877,7 @@ static void Task_MenuMain(u8 taskId)
     {
         if (JOY_NEW(DPAD_LEFT) || JOY_NEW(DPAD_RIGHT))
         {
+            PlaySE(SE_SELECT);
             if(sMenuDataPtr->selector_x == 0)
                 sMenuDataPtr->selector_x = 1;
             else
@@ -886,6 +887,7 @@ static void Task_MenuMain(u8 taskId)
 
     if (JOY_NEW(DPAD_UP))
     {
+        PlaySE(SE_SELECT);
         if (sMenuDataPtr->selector_y == 0)
             sMenuDataPtr->selector_y = 5;
         else
@@ -893,6 +895,7 @@ static void Task_MenuMain(u8 taskId)
     }
     if (JOY_NEW(DPAD_DOWN))
     {
+        PlaySE(SE_SELECT);
         if (sMenuDataPtr->selector_y == 5)
             sMenuDataPtr->selector_y = 0;
         else
@@ -942,6 +945,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
     }
     if (JOY_NEW(DPAD_LEFT))
     {
+        PlaySE(SE_SELECT);
         if(sMenuDataPtr->selector_x == 0)
         {
             if(sMenuDataPtr->editingStat == 0)
@@ -978,6 +982,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
     }
     if (JOY_NEW(DPAD_RIGHT))
     {
+        PlaySE(SE_SELECT);
         if(sMenuDataPtr->selector_x == 0)
         {
             if((sMenuDataPtr->editingStat == 252) || (sMenuDataPtr->evTotal == 510))
@@ -1016,6 +1021,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
 
     if (JOY_NEW(DPAD_UP) || JOY_NEW(R_BUTTON))
     {
+        PlaySE(SE_SELECT);
         if(sMenuDataPtr->selector_x == 0)
         {
             if((sMenuDataPtr->editingStat == 252) || (sMenuDataPtr->evTotal == 510))
@@ -1051,7 +1057,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
 
     if (JOY_NEW(DPAD_DOWN) || JOY_NEW(L_BUTTON))
     {
-
+        PlaySE(SE_SELECT);
         if((sMenuDataPtr->editingStat == 0))
         {
             StartSpriteAnim(&gSprites[sMenuDataPtr->selectorSpriteId], 1);
