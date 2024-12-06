@@ -968,3 +968,14 @@ const struct Tileset gTileset_PitArenaWhiteBark =
     .metatileAttributes = gMetatileAttributes_PitArenaWhiteBark,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_PitArenaBeachCave =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PitArenaBeachCave,
+    .palettes = gTilesetPalettes_PitArenaBeachCave,
+    .metatiles = gMetatiles_PitArenaBeachCave,
+    .metatileAttributes = gMetatileAttributes_PitArenaBeachCave,
+    .callback = NULL,
+};

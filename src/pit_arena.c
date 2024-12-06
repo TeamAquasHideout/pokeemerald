@@ -1567,6 +1567,16 @@ static const struct sRandomMap sRandomMapArray[] = {
         WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 15,
+        .dest_y = 10,
+        .warp_x = 15,
+        .warp_y = 11,
+    },
     
 };
 

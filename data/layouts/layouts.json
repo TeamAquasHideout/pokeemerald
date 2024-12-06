@@ -4820,6 +4820,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PitArenaSpiderWoods03/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaSpiderWoods03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH_CAVE",
+      "name": "PitArenaBeachCave_Layout",
+      "width": 28,
+      "height": 20,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_PitArenaBeachCave",
+      "border_filepath": "data/layouts/PitArenaBeachCave/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeachCave/map.bin"
     }
   ]
 }
