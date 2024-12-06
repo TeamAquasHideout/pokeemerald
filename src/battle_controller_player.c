@@ -112,6 +112,7 @@ static void PrintLinkStandbyMsg(void);
 static void ReloadMoveNames(u32 battler);
 
 static void UpdateCategorySprite(u32 battler);
+static void HandleChooseMoveAfterDma3(u32 battler);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 {
@@ -405,6 +406,11 @@ static void HandleInputChooseAction(u32 battler)
             if (gBattleResources->bufferA[battler][1] == B_ACTION_USE_ITEM && !IsItemFlute(itemId))
             {
                 AddBagItem(itemId, 1);
+            }
+            if (gCategoryIconSpriteId != 0xFF)
+            {
+                DestroySprite(&gSprites[gCategoryIconSpriteId]);
+                gCategoryIconSpriteId = 0xFF;
             }
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_CANCEL_PARTNER, 0);
@@ -1965,6 +1971,8 @@ static void MoveSelectionDisplayMoveType(u32 battler)
 
 static void UpdateCategorySprite(u32 battler)
 {
+    if((gBattlerControllerFuncs[battler] != HandleInputChooseMove) && (gBattlerControllerFuncs[battler] != HandleChooseMoveAfterDma3))
+        return;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
     u8 cat = gMovesInfo[move].category;
@@ -2250,6 +2258,8 @@ static void PlayerHandleChooseMove(u32 battler)
     {
         struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
+        gBattlerControllerFuncs[battler] = HandleChooseMoveAfterDma3;
+
         InitMoveSelectionsVarsAndStrings(battler);
         gBattleStruct->gimmick.playerSelect = FALSE;
         TryToAddMoveInfoWindow();
@@ -2262,7 +2272,7 @@ static void PlayerHandleChooseMove(u32 battler)
         if (!(gBattleStruct->gimmick.usableGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
             CreateGimmickTriggerSprite(battler);
 
-        gBattlerControllerFuncs[battler] = HandleChooseMoveAfterDma3;
+        
     }
 }
 

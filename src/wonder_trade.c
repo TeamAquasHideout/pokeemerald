@@ -85,73 +85,54 @@ static u32 ReturnRandomSpecies()
     u8 partyCount;
     int i;
 
-    species = GetSpeciesRandomNotSeeded(species * GetSpeciesRandomNotSeeded(VarGet(VAR_PIT_FLOOR) + 1));
+    species = GetRandomSpeciesFlattenedCurve();
     //species = SPECIES_GROUDON; //Test setting for reroll tests
 
-    if (FlagGet(FLAG_NO_DUPLICATES))
+    do
     {
-        do
-        {
-            rerollMon = FALSE;
-            //reroll in case any legendaries, mythics or ultra beasts are determined
-            if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
-            {
-                while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies()) && counter < 10)
-                {
-                    // +counter to handle edge cases
-                    species = GetSpeciesRandomNotSeeded(species * GetSpeciesRandomNotSeeded(VarGet(VAR_PIT_FLOOR) + counter2)) + counter;
-                    counter ++;
-                    //DebugPrintf("%d, rerolled non-legend species = %d", counter, species);
-                }
-            }
-
-            //check for duplicates against the player's party
-            partyCount = CalculatePlayerPartyCount();
-            if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
-            {
-                for (i=0; i<partyCount; i++)
-                {
-                    if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
-                    {
-                        rerollMon = TRUE;
-                        //DebugPrintf("gPlayerParty[%d] = %d", i, species);
-                    }
-                }
-            }
-            //exit in case of infinite loop
-            if (counter2 == 10)
-            {
-                rerollMon = FALSE;
-                // default species could be specified here!
-                //DebugPrintf("no valid species found. Default: %d", species);
-            }
-            //reroll
-            if (rerollMon)
-            {
-                counter2++;
-                species = GetSpeciesRandomNotSeeded(species * GetSpeciesRandomNotSeeded(VarGet(VAR_PIT_FLOOR) + 1));
-                counter = 0; //reset counter for legendary rerolls
-                //DebugPrintf("--- reroll ---");
-            }
-        }
-        while (rerollMon);
-
-        //save species for rerolls
-        //DebugPrintf("Found species = %d", species);
-        //sAlreadyRolledSpecies[9]++; //9 = counter of successfully rolled mons
-    }
-    else
-    {
+        rerollMon = FALSE;
         //reroll in case any legendaries, mythics or ultra beasts are determined
         if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
         {
-            while ((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) && counter < 100)
+            while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies()) && counter < 10)
             {
-                species = GetSpeciesRandomNotSeeded(species * GetSpeciesRandomNotSeeded(VarGet(VAR_PIT_FLOOR) + 1));
-                counter++;
+                // +counter to handle edge cases
+                species = GetRandomSpeciesFlattenedCurve();
+                counter ++;
+                //DebugPrintf("%d, rerolled non-legend species = %d", counter, species);
             }
         }
+
+        //check for duplicates against the player's party
+        partyCount = CalculatePlayerPartyCount();
+        if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
+        {
+            for (i=0; i<partyCount; i++)
+            {
+                if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
+                {
+                    rerollMon = TRUE;
+                    //DebugPrintf("gPlayerParty[%d] = %d", i, species);
+                }
+            }
+        }
+        //exit in case of infinite loop
+        if (counter2 == 10)
+        {
+            rerollMon = FALSE;
+            // default species could be specified here!
+            //DebugPrintf("no valid species found. Default: %d", species);
+        }
+        //reroll
+        if (rerollMon)
+        {
+            counter2++;
+            species = GetRandomSpeciesFlattenedCurve();
+            counter = 0; //reset counter for legendary rerolls
+            //DebugPrintf("--- reroll ---");
+        }
     }
+    while (rerollMon);
 
     return species;
 }
@@ -175,7 +156,7 @@ void CreateWonderTradePokemon(void)
         [0] = {
             .nickname = _(""),
             .species = wonderTradeSpecies,
-            .ivs = {(Random() % 32), (Random() % 32), (Random() % 32), (Random() % 32), (Random() % 32), (Random() % 32)},
+            .ivs = {(31), (31), (31), (31), (31), (31)},
             .abilityNum = (Random() % 2), // Can't use NUM_NORMAL_ABILITY_SLOTS because it's not present in Pret/Pokeemerald.
             .otId = 0, // Handled by CreateMon->CreateBoxMon.
             .conditions = {0, 0, 0, 0, 0},

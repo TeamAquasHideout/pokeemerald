@@ -159,7 +159,6 @@ static EWRAM_DATA u8 *sBg1TilemapBuffer = NULL;
 static EWRAM_DATA u8 *sBg2TilemapBuffer = NULL;
 static EWRAM_DATA u8 sMonChosenAlready[9] = {0};
 static EWRAM_DATA u16 sRolledSpecies[9] = {0};
-static EWRAM_DATA u16 sRolledLegendAlready = 0;
 
 //==========STATIC=DEFINES==========//
 static void BirchCaseRunSetup(void);
@@ -173,108 +172,10 @@ static void Task_BirchCaseWaitFadeIn(u8 taskId);
 static void Task_BirchCaseMain(u8 taskId);
 static void SampleUi_DrawMonIcon(u16 speciesId);
 static void Task_DelayedSpriteLoad(u8 taskId);
-static void GenerateRandomSpeciesForCase(void);
 
 static u32 ReturnRandomSpeciesByPokeballIndex(u32 index)
 {   
     return sRolledSpecies[index];
-}
-
-static void GenerateRandomSpeciesForCase(void)
-{
-    u16 species = 0;
-    u16 counter = 0;
-    u16 counter2 = 0;
-    bool8 rerollMon;
-    u8 partyCount;
-    int i;
-    sRolledLegendAlready = FALSE;
-
-    for(u8 index = 0; index < 9; index++)
-    {
-        counter = 0;
-        counter2 = 0;
-        species = GetRandomSpeciesFlattenedCurve();
-
-        if (FlagGet(FLAG_NO_DUPLICATES))
-        {
-            do
-            {
-                rerollMon = FALSE;
-                if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
-                {
-                    while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 10)
-                    {
-                        species = GetRandomSpeciesFlattenedCurve();
-                        counter++;
-                    }
-                }
-
-                
-                for (i=0; i < 9; i++) //check for duplicates within the case
-                {
-                    if (species == sRolledSpecies[i] && i != index)
-                    {
-                        rerollMon = TRUE;
-                    }
-                }
-
-                //check for duplicates against the player's party
-                partyCount = CalculatePlayerPartyCount();
-                if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
-                {
-                    for (i = 0; i < partyCount; i++)
-                    {
-                        if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
-                            rerollMon = TRUE;
-                    }
-                }
-
-                
-                if (counter2 == 10) //exit in case of infinite loop
-                {
-                    rerollMon = FALSE;
-                    //DebugPrintf("no valid species found. Default: %d", species);
-                }
-                //reroll
-                if (rerollMon)
-                {
-                    counter2++;
-                    species = GetRandomSpeciesFlattenedCurve();
-                    counter = 0;
-                }
-            }
-            while (rerollMon);
-
-            //save species for rerolls
-            if((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)))
-                    sRolledLegendAlready = TRUE;
-            sRolledSpecies[index] = species;
-        }
-        else
-        {
-            //reroll in case any legendaries, mythics or ultra beasts are determined
-            if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 20)))
-            {
-                while ((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) && counter < 1000)
-                {
-                    species = GetRandomSpeciesFlattenedCurve();
-                    counter++;
-                }
-                if((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)))
-                    sRolledLegendAlready = TRUE;
-                sRolledSpecies[index] = species;
-            }
-            else
-            {
-                if((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)))
-                    sRolledLegendAlready = TRUE;
-                sRolledSpecies[index] = species;
-            }
-                
-        }
-    }
-    return;
 }
 
 //==========CONST=DATA==========//
@@ -679,7 +580,7 @@ static bool8 BirchCaseDoGfxSetup(void)
         ResetPaletteFade();
         ResetSpriteData();
         ResetTasks();
-        GenerateRandomSpeciesForCase();
+        GenerateRandomSpeciesRewards(sRolledSpecies);
         gMain.state++;
         break;
     case 2:
