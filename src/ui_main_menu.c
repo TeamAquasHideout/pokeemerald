@@ -727,6 +727,7 @@ static void LoadDefaultSettings(void)
 {
     //run settings
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
+    DebugPrintf("Being Set To Mixed Here: 2");
     gSaveBlock2Ptr->mode3MonsOnly       = OPTIONS_OFF;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
