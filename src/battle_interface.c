@@ -2962,8 +2962,8 @@ static const struct SpriteSheet sSpriteSheet_MoveInfoWindow =
 };
 
 
-#define LAST_USED_BALL_X_F    14
-#define LAST_USED_BALL_X_0    -14
+#define LAST_USED_BALL_X_F    16
+#define LAST_USED_BALL_X_0    -16
 #define LAST_USED_BALL_Y      ((IsDoubleBattle()) ? 78 : 68)
 #define LAST_USED_BALL_Y_BNC  ((IsDoubleBattle()) ? 76 : 66)
 
