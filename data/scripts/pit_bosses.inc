@@ -147,6 +147,7 @@ Pit_EndGameStatue2::
 Pit_EndGameStatue5::
 	msgbox Pit_EndGameStatue_Text3, MSGBOX_AUTOCLOSE 
 	fadescreen FADE_TO_BLACK
+	setflag FLAG_TEMP_HOF_VICTORY
 	special GameClear
 	waitstate
 	release

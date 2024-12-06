@@ -38,6 +38,7 @@
 #include "pit.h"
 #include "ui_trainer_stats.h"
 #include "load_save.h"
+#include "battle_main.h"
 
 #define HALL_OF_FAME_MAX_TEAMS 30
 #define TAG_CONFETTI 1001
@@ -69,7 +70,6 @@ struct HofGfx
 
 static EWRAM_DATA u32 sHofFadePalettes = 0;
 static EWRAM_DATA struct HallofFameTeam *sHofMonPtr = NULL;
-static EWRAM_DATA struct HallofFameTeam *sTempHofMonPtr = NULL;
 static EWRAM_DATA struct HofGfx *sHofGfxPtr = NULL;
 
 static void ClearVramOamPltt_LoadHofPal(void);
@@ -407,11 +407,11 @@ static bool8 InitHallOfFameScreen(void)
         if (!gPaletteFade.active)
         {
             //Delete Save file
-            if (gSaveBlock2Ptr->modeSaveDeletion == OPTIONS_ON)
-            {
-                ClearSav1();
-                ClearSav3();
-            }
+            //if (gSaveBlock2Ptr->modeSaveDeletion == OPTIONS_ON)
+            //{
+            //    ClearSav1();
+            //    ClearSav3();
+            //}
             SetMainCallback2(CB2_HallOfFame);
             PlayBGM(MUS_HALL_OF_FAME);
             return FALSE;
@@ -450,15 +450,25 @@ void CB2_DoHallOfFameScreenDontSaveData(void)
 
 void SaveTempHofData(void)
 {
-    for (u8 i = 0; i < PARTY_SIZE; i++)
+    u16 i, j;
+    u8 nickname[POKEMON_NAME_LENGTH + 1];
+
+    for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
         {
-            VarSet(VAR_TEMP_2 + i, GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG));
+            gSaveBlock2Ptr->tempHofMon.mon[i].species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+            gSaveBlock2Ptr->tempHofMon.mon[i].tid = GetMonData(&gPlayerParty[i], MON_DATA_OT_ID);
+            gSaveBlock2Ptr->tempHofMon.mon[i].isShiny = GetMonData(&gPlayerParty[i], MON_DATA_IS_SHINY);
+            gSaveBlock2Ptr->tempHofMon.mon[i].personality = GetMonData(&gPlayerParty[i], MON_DATA_PERSONALITY);
+            gSaveBlock2Ptr->tempHofMon.mon[i].lvl = GetMonData(&gPlayerParty[i], MON_DATA_LEVEL);
+            GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nickname);
+            for (j = 0; j < POKEMON_NAME_LENGTH; j++)
+                gSaveBlock2Ptr->tempHofMon.mon[i].nickname[j] = nickname[j];
         }
         else
         {
-            VarSet(VAR_TEMP_2 + i, 0);
+            gSaveBlock2Ptr->tempHofMon.mon[i].species = 0;
         }
     }
     FlagSet(FLAG_LOAD_FROM_TEMP_HOF);
@@ -474,16 +484,18 @@ static void Task_Hof_InitMonData(u8 taskId)
     {
         u8 nickname[POKEMON_NAME_LENGTH + 1];
         
-        if (((!FlagGet(FLAG_LOAD_FROM_TEMP_HOF)) && (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))) || (FlagGet(FLAG_LOAD_FROM_TEMP_HOF) && (VarGet(VAR_TEMP_2 + i) != 0)))
+        if (((!FlagGet(FLAG_LOAD_FROM_TEMP_HOF)) && (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))) || (FlagGet(FLAG_LOAD_FROM_TEMP_HOF) && (gSaveBlock2Ptr->tempHofMon.mon[i].species != 0)))
         {   
             if (FlagGet(FLAG_LOAD_FROM_TEMP_HOF))
             {
-                sHofMonPtr->mon[i].species = VarGet(VAR_TEMP_2 + i);
-                sHofMonPtr->mon[i].tid = 0;
-                sHofMonPtr->mon[i].isShiny = FALSE;
-                sHofMonPtr->mon[i].personality = 0;
-                sHofMonPtr->mon[i].lvl = 0;
-                sHofMonPtr->mon[i].nickname[0] = EOS;
+                sHofMonPtr->mon[i].species = gSaveBlock2Ptr->tempHofMon.mon[i].species;
+                sHofMonPtr->mon[i].tid = gSaveBlock2Ptr->tempHofMon.mon[i].tid;
+                sHofMonPtr->mon[i].isShiny = gSaveBlock2Ptr->tempHofMon.mon[i].isShiny;
+                sHofMonPtr->mon[i].personality = gSaveBlock2Ptr->tempHofMon.mon[i].personality;
+                sHofMonPtr->mon[i].lvl = gSaveBlock2Ptr->tempHofMon.mon[i].lvl;
+                for (j = 0; j < POKEMON_NAME_LENGTH; j++)
+                    sHofMonPtr->mon[i].nickname[j] = gSaveBlock2Ptr->tempHofMon.mon[i].nickname[j];
+                gTasks[taskId].tMonNumber++;
             }
             else
             {
@@ -635,6 +647,7 @@ static void Task_Hof_PrintMonInfoAfterAnimating(u8 taskId)
     struct HallofFameMon* currMon = &sHofMonPtr->mon[currMonId];
     struct Sprite *monSprite = &gSprites[gTasks[taskId].tMonSpriteId(currMonId)];
 
+    //DebugPrintf("Print Mon Info: %d", currMonId);
     if (monSprite->callback == SpriteCallbackDummy)
     {
         monSprite->oam.affineMode = ST_OAM_AFFINE_OFF;
@@ -682,11 +695,11 @@ static void Task_Hof_PaletteFadeAndPrintWelcomeText(u8 taskId)
     }
 
     HallOfFame_PrintWelcomeText(0, 15);
-    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors))))
+    if(FlagGet(FLAG_TEMP_HOF_VICTORY))
     {
         PlaySE(SE_APPLAUSE);
     }
-    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN)) && (VarGet(VAR_PIT_FLOOR) <= 100))
+    if(FlagGet(FLAG_TEMP_HOF_VICTORY) && (VarGet(VAR_PIT_FLOOR) >= 100))
     {
         if(gSaveBlock2Ptr->modeXP == 1) // HARD MODE
         {
@@ -703,7 +716,7 @@ static void Task_Hof_PaletteFadeAndPrintWelcomeText(u8 taskId)
 
 static void Task_Hof_DoConfetti(u8 taskId)
 {
-    if ((gTasks[taskId].tFrameCount != 0) && !(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors))))
+    if ((gTasks[taskId].tFrameCount != 0) && FlagGet(FLAG_TEMP_HOF_VICTORY))
     {
         gTasks[taskId].tFrameCount--;
 
@@ -720,9 +733,6 @@ static void Task_Hof_DoConfetti(u8 taskId)
             if (gTasks[taskId].tMonSpriteId(i) != SPRITE_NONE)
                 gSprites[gTasks[taskId].tMonSpriteId(i)].oam.priority = 1;
         }
-        //BeginNormalPaletteFade(sHofFadePalettes, 0, 12, 12, RGB(16, 29, 24));
-        FillWindowPixelBuffer(0, PIXEL_FILL(0));
-        CopyWindowToVram(0, COPYWIN_FULL);
         gTasks[taskId].tFrameCount = 7;
         gTasks[taskId].func = Task_Hof_WaitToDisplayPlayer;
     }
@@ -730,13 +740,12 @@ static void Task_Hof_DoConfetti(u8 taskId)
 
 static void Task_Hof_WaitToDisplayPlayer(u8 taskId)
 {
-    if (gTasks[taskId].tFrameCount >= 16)
+    if (JOY_NEW(A_BUTTON))
     {
         gTasks[taskId].func = Task_Hof_HandlePaletteOnExit;
     }
     else
     {
-        gTasks[taskId].tFrameCount++;
         SetGpuReg(REG_OFFSET_BLDALPHA, gTasks[taskId].tFrameCount * 256);
     }
 }
@@ -769,7 +778,7 @@ static void Task_Hof_DisplayPlayer(u8 taskId)
     gTasks[taskId].tFrameCount = 60;
     gTasks[taskId].func = Task_Hof_WaitAndPrintPlayerInfo;
     DrawDialogueFrame(0, FALSE);
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
+    if(!FlagGet(FLAG_TEMP_HOF_VICTORY))
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LostRunChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
     else
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LeagueChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);        
@@ -791,7 +800,7 @@ static void Task_Hof_WaitAndPrintPlayerInfo(u8 taskId)
         FillBgTilemapBufferRect_Palette0(0, 0, 0, 0, 0x20, 0x20);
         HallOfFame_PrintPlayerInfo(1, 2);
         DrawDialogueFrame(0, FALSE);
-        if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
+        if(!FlagGet(FLAG_TEMP_HOF_VICTORY))
             AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LostRunChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
         else
             AddTextPrinterParameterized2(0, FONT_NORMAL, gText_LeagueChamp, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);        
@@ -811,12 +820,9 @@ static void Task_Hof_ExitOnKeyPressed(u8 taskId)
 
 static void Task_Hof_HandlePaletteOnExit(u8 taskId)
 {
-    if (JOY_NEW(A_BUTTON))
-    {
-        CpuCopy16(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
-        BeginNormalPaletteFade(PALETTES_ALL, 2, 0, 0x10, RGB_BLACK);
-        gTasks[taskId].func = Task_Hof_HandleExit;
-    }
+    CpuCopy16(gPlttBufferFaded, gPlttBufferUnfaded, PLTT_SIZE);
+    BeginNormalPaletteFade(PALETTES_ALL, 2, 0, 0x10, RGB_BLACK);
+    gTasks[taskId].func = Task_Hof_HandleExit;
 }
 
 static void Task_Hof_HandleExit(u8 taskId)
@@ -1017,7 +1023,7 @@ static void Task_HofPC_DrawSpritesPrintText(u8 taskId)
 
     BlendPalettes(PALETTES_OBJECTS, 0xC, RGB(16, 29, 24));
 
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
+    if(!FlagGet(FLAG_TEMP_HOF_VICTORY))
     {
         ConvertIntToDecimalStringN(gStringVar1, VarGet(VAR_PIT_FLOOR), STR_CONV_MODE_LEFT_ALIGN, 3);
         //StringExpandPlaceholders(gStringVar4, gText_LostRunNumber);
@@ -1193,7 +1199,7 @@ static void HallOfFame_PrintWelcomeText(u8 unusedPossiblyWindowId, u8 unused2)
 {
     FillWindowPixelBuffer(0, PIXEL_FILL(0));
     PutWindowTilemap(0);
-    if(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) || ((VarGet(VAR_PIT_FLOOR) <= 50) && gSaveBlock2Ptr->mode50Floors)))
+    if(!FlagGet(FLAG_TEMP_HOF_VICTORY))
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_LostRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_LostRunHOF);
     else
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_WonRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_WonRunHOF);

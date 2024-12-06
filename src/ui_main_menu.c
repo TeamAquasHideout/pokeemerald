@@ -715,7 +715,7 @@ static void Task_MainMenuWaitFadeIn(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        if(sAlreadySelectedAvatar == 1)
+        if((sAlreadySelectedAvatar == 1) || (gSaveBlock2Ptr->forceNewRun == TRUE))
             gTasks[taskId].func = Task_MainNewGameMenu;
         else
             gTasks[taskId].func = Task_MainMenuMain;
@@ -854,7 +854,7 @@ static bool8 MainMenu_DoGfxSetup(void)
         ResetSpriteData();
         ResetTasks();
         MainMenu_InitializeGPUWindows();
-        if(sAlreadySelectedAvatar == 1)
+        if((sAlreadySelectedAvatar == 1) || (gSaveBlock2Ptr->forceNewRun == TRUE))
         {
             sNewGameSelectedOption = 0;
             MoveNewGameHWindowsWithInput();
@@ -876,7 +876,7 @@ static bool8 MainMenu_DoGfxSetup(void)
         }
         break;
     case 3:
-        if(sAlreadySelectedAvatar == 0)
+        if((sAlreadySelectedAvatar == 0) && (gSaveBlock2Ptr->forceNewRun == FALSE))
         {
             if (MainMenu_LoadGraphics(FALSE) == TRUE)
                 gMain.state++;
@@ -893,12 +893,12 @@ static bool8 MainMenu_DoGfxSetup(void)
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
-        if(sAlreadySelectedAvatar == 0)
+        if((sAlreadySelectedAvatar == 0) && (gSaveBlock2Ptr->forceNewRun == FALSE))
             PrintToWindow(WINDOW_HEADER, FONT_WHITE);
         else
             PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
 
-        if(sAlreadySelectedAvatar == 0)
+        if((sAlreadySelectedAvatar == 0)  && (gSaveBlock2Ptr->forceNewRun == FALSE))
         {
             CreateIconShadow();
             CreatePartyMonIcons();
@@ -914,7 +914,7 @@ static bool8 MainMenu_DoGfxSetup(void)
         ShowBg(0);
         ShowBg(1);
         ShowBg(2);
-        if(sAlreadySelectedAvatar == 1)
+        if((sAlreadySelectedAvatar == 1) || (gSaveBlock2Ptr->forceNewRun == TRUE))
             ShowBg(3);
         gMain.state++;
         break;
@@ -1248,7 +1248,7 @@ u16 CreateMugshotExternal()
     u16 spriteId = CreateSprite(&sSpriteTemplate_Mugshot, 40, 111, 1);
     gSprites[spriteId].invisible = FALSE;
     StartSpriteAnim(&gSprites[spriteId], 0);
-    gSprites[spriteId].oam.priority = 0;
+    gSprites[spriteId].oam.priority = 1;
     return spriteId;
 }
 
@@ -1540,6 +1540,7 @@ static void Task_MainNewGameMenu(u8 taskId)
     {   
         PlaySE(SE_SELECT);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
+        gSaveBlock2Ptr->forceNewRun = FALSE;
         gTasks[taskId].func = Task_MainMenuTurnOff;
         sSelectedOption = HW_WIN_CONTINUE;
     }
@@ -1553,7 +1554,7 @@ static void Task_MainNewGameMenu(u8 taskId)
         gTasks[taskId].func = Task_MainMenuTurnOff;
         sSelectedOption = HW_WIN_CONTINUE;
     }
-    if (JOY_NEW(B_BUTTON) && (sAlreadySelectedAvatar == 0)) // If Pressed A go to thing you pressed A on
+    if (JOY_NEW(B_BUTTON) && (sAlreadySelectedAvatar == 0) && (gSaveBlock2Ptr->forceNewRun == FALSE)) // If Pressed A go to thing you pressed A on
     {
         PlaySE(SE_SELECT);
         gMain.state = 0;

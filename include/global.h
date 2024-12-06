@@ -523,6 +523,21 @@ struct SecretBase
 };
 
 
+struct HallofFameMon2
+{
+    u32 tid;
+    u32 personality;
+    u16 isShiny:1;
+    u16 species:15;
+    u8 lvl;
+    u8 nickname[POKEMON_NAME_LENGTH];
+};
+
+struct HallofFameTeam2
+{
+    struct HallofFameMon2 mon[PARTY_SIZE];
+};
+
 struct SaveBlock2
 {
     // Pokedex
@@ -606,13 +621,17 @@ struct SaveBlock2
     /*0x2798*/ u8 decorationDolls[40];
     /*0x27C0*/ u8 decorationCushions[10];
 
-             u16 pokemonAvatarSpecies;
-             u32 secretBaseShopCoins;
-              u8 giveSilverShield:4;
-              u8 giveGoldShield:4;
-              u8 hasSavedOnce; 
-             u16 savedSecretBaseId;
-              u8 hasRecievedShinyDust;
+            u16 pokemonAvatarSpecies;
+            u32 secretBaseShopCoins;
+            u8 giveSilverShield:4;
+            u8 giveGoldShield:4;
+            u8 hasSavedOnce; 
+            u16 savedSecretBaseId;
+            u8 hasRecievedShinyDust;
+            u8 forceNewRun;
+            u8 pit_padding[64];
+
+            struct HallofFameTeam2 tempHofMon;
 
 }; // sizeof=0xF2C
 

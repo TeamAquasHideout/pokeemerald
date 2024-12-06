@@ -8,6 +8,7 @@
 #include "script_pokemon_util.h"
 #include "tv.h"
 #include "constants/heal_locations.h"
+#include "pit.h"
 
 int GameClear(void)
 {
@@ -19,6 +20,14 @@ int GameClear(void)
     } ribbonCounts[6];
 
     HealPlayerParty();
+
+    UpdateRunningStats();
+
+    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) \
+                                         || ((VarGet(VAR_PIT_FLOOR) <= 50)  &&  gSaveBlock2Ptr->mode50Floors))))
+    {
+        FlagSet(FLAG_TEMP_HOF_VICTORY);
+    }
 
     if (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
     {
