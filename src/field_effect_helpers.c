@@ -438,6 +438,9 @@ u32 FldEff_TallGrass(void)
         case TILESET_BEACH:
             spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_BEACH], x, y, 0);
             break;
+        case TILESET_BEACH_CAVE:
+            spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS_BEACH_CAVE], x, y, 0);
+            break;
         default:
             spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_TALL_GRASS], x, y, 0);
             break;

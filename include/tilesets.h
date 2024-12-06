@@ -24,5 +24,6 @@ extern const struct Tileset gTileset_PitArenaUnderwater;
 extern const struct Tileset gTileset_PitArenaMine;
 extern const struct Tileset gTileset_PitArenaSpiderCave;
 extern const struct Tileset gTileset_PitArenaWhiteBark;
+extern const struct Tileset gTileset_PitArenaBeachCave;
 
 #endif //GUARD_tilesets_H

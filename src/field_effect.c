@@ -829,6 +829,9 @@ void FieldEffectScript_LoadFadedPalette_TallGrass(u8 **script)
         case TILESET_BEACH:
             palId = TALL_GRASS_BEACH;
             break;
+        case TILESET_BEACH_CAVE:
+            palId = TALL_GRASS_BEACH_CAVE;
+            break;
         default:
             palId = TALL_GRASS_VANILLA;
             break;

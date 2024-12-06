@@ -784,6 +784,9 @@ $(FLDEFFGFXDIR)/tall_grass_snow.4bpp: %.4bpp: %.png
 $(FLDEFFGFXDIR)/tall_grass_beach.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
+$(FLDEFFGFXDIR)/tall_grass_beachcave.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 2
+
 $(FLDEFFGFXDIR)/tree_disguise.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 

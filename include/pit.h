@@ -129,6 +129,7 @@ enum TilesetsPrimary
     TILESET_MINE,
     TILESET_DEEP_FOREST,
     TILESET_CLOUDS,
+    TILESET_BEACH_CAVE,
 };
 
 #endif // GUARD_PIT_H
