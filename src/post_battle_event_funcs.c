@@ -27,6 +27,7 @@ int GameClear(void)
                                          || ((VarGet(VAR_PIT_FLOOR) <= 50)  &&  gSaveBlock2Ptr->mode50Floors))))
     {
         FlagSet(FLAG_TEMP_HOF_VICTORY);
+        gSaveBlock2Ptr->statsAllClears = gSaveBlock2Ptr->statsAllClears + 1;
     }
 
     if (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE)
