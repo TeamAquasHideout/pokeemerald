@@ -1166,3 +1166,5 @@ EventScript_End:
 	.include "data/maps/PitArenaDesert04/scripts.inc"
 
 	.include "data/maps/PitArenaSpiderWoods03/scripts.inc"
+
+	.include "data/maps/PitArenaBeachCave/scripts.inc"

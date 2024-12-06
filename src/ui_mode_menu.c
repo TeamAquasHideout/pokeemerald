@@ -78,10 +78,10 @@ enum MenuItems_Run
 enum MenuItems_Difficulty
 {
     MENUITEM_DIFF_XPMODE,
-    MENUITEM_DIFF_SAVE_DELETION,
-    MENUITEM_DIFF_STAT_CHANGER,
+    //MENUITEM_DIFF_SAVE_DELETION,
     MENUITEM_DIFF_TRAINER_EVS,
     MENUITEM_DIFF_DOUBLE_CASH,
+    MENUITEM_DIFF_STAT_CHANGER,
     MENUITEM_DIFF_HEALFLOORS,
     MENUITEM_DIFF_LEGENDARIES,
     #ifdef PIT_GEN_9_MODE
@@ -329,7 +329,7 @@ struct Menu_Diff //MENU_DIFF
 } static const sItemFunctionsDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
-    [MENUITEM_DIFF_SAVE_DELETION] = {DrawChoices_SaveDeletion, ProcessInput_Options_Two},
+    //[MENUITEM_DIFF_SAVE_DELETION] = {DrawChoices_SaveDeletion, ProcessInput_Options_Two},
     [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
     [MENUITEM_DIFF_TRAINER_EVS]   = {DrawChoices_TrainerEVs,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
@@ -411,7 +411,7 @@ static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
 static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = sText_XPMode,
-    [MENUITEM_DIFF_SAVE_DELETION] = sText_SaveDeletion,
+    //[MENUITEM_DIFF_SAVE_DELETION] = sText_SaveDeletion,
     [MENUITEM_DIFF_STAT_CHANGER]  = sText_StatChanger,
     [MENUITEM_DIFF_TRAINER_EVS]   = sText_TrainerEVs,
     [MENUITEM_DIFF_DOUBLE_CASH]   = sText_DoubleCash,
@@ -479,7 +479,7 @@ static bool8 CheckConditions(int selection)
             switch(selection)
             {
                 case MENUITEM_DIFF_XPMODE:        return TRUE;
-                case MENUITEM_DIFF_SAVE_DELETION: return TRUE;
+                //case MENUITEM_DIFF_SAVE_DELETION: return TRUE;
                 case MENUITEM_DIFF_STAT_CHANGER:  return TRUE;
                 case MENUITEM_DIFF_TRAINER_EVS:   return TRUE;
                 case MENUITEM_DIFF_DOUBLE_CASH:   return TRUE;
@@ -589,7 +589,7 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
 static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
 {
     [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None},
-    [MENUITEM_DIFF_SAVE_DELETION] = {sText_Desc_SaveDeletion_On,  sText_Desc_SaveDeletion_Off,  sText_Empty},
+    //[MENUITEM_DIFF_SAVE_DELETION] = {sText_Desc_SaveDeletion_On,  sText_Desc_SaveDeletion_Off,  sText_Empty},
     [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty},
     [MENUITEM_DIFF_TRAINER_EVS]   = {sText_Desc_TrainerEVs_On,    sText_Desc_TrainerEVs_Off,    sText_Empty},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
@@ -805,7 +805,7 @@ static void ModeMenu_SetupCB(void)
         //sOptions->sel_run[MENUITEM_RUN_DUPLICATES]      = gSaveBlock2Ptr->modeDuplicates;
         //difficulty settings
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
-        sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = gSaveBlock2Ptr->modeSaveDeletion;
+        //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = gSaveBlock2Ptr->modeSaveDeletion;
         sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = gSaveBlock2Ptr->modeStatChanger;
         sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = gSaveBlock2Ptr->modeTrainerEVs;
         sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = gSaveBlock2Ptr->modeCashRewards;
@@ -1340,7 +1340,7 @@ static void Task_ModeMenuSave(u8 taskId)
 
     //difficulty settings
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
-    gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
+    //gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
     gSaveBlock2Ptr->modeStatChanger  = sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER];
     gSaveBlock2Ptr->modeTrainerEVs   = sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS];
     gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
@@ -1619,12 +1619,12 @@ static void DrawChoices_50Floors(int selection, int y)
 
 static void DrawChoices_SaveDeletion(int selection, int y)
 {
-    bool8 active = CheckConditions(MENUITEM_DIFF_SAVE_DELETION);
-    u8 styles[2] = {0};
-    styles[selection] = 1;
-
-    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+//    bool8 active = CheckConditions(MENUITEM_DIFF_SAVE_DELETION);
+//    u8 styles[2] = {0};
+//    styles[selection] = 1;
+//
+//    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+//    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
 static void DrawChoices_DoubleCash(int selection, int y)
@@ -1860,11 +1860,12 @@ static void ApplyPresets(void)
     //general defaults:
     //run settings
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
+    DebugPrintf("Being Set To Mixed Here: 0");
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
     //difficulty settings
-    sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
+    //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
@@ -1888,7 +1889,7 @@ static void ApplyPresets(void)
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
-            sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
+            //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;

@@ -3943,7 +3943,7 @@ static void Cmd_tryfaintmon(void)
         if (gHitMarker & HITMARKER_FAINTED(battler))
         {
             BattleScriptPop();
-            if (GetBattlerSide(cmd->battler) == B_SIDE_PLAYER)
+            if (GetBattlerSide(cmd->battler) != B_SIDE_PLAYER)
                 IncrementStatsRunKOs();
             gBattlescriptCurrInstr = cmd->instr;
         }
@@ -3976,7 +3976,7 @@ static void Cmd_tryfaintmon(void)
         if (!(gAbsentBattlerFlags & gBitTable[battler])
          && !IsBattlerAlive(battler))
         {
-            if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+            if (GetBattlerSide(battler) != B_SIDE_PLAYER)
                 IncrementStatsRunKOs();
             gHitMarker |= HITMARKER_FAINTED(battler);
             BattleScriptPush(cmd->nextInstr);

@@ -1567,6 +1567,16 @@ static const struct sRandomMap sRandomMapArray[] = {
         WEATHER_CHANCE(RAIN, 50),
         DEFAULT_RANDOM_MAP_COORDS
     },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 15,
+        .dest_y = 10,
+        .warp_x = 15,
+        .warp_y = 11,
+    },
     
 };
 
@@ -3131,13 +3141,11 @@ void SetRandomGiveMonRewardEncounters(void)
 {
     bool8 reroll = FALSE;
 
+    GenerateRandomSpeciesRewards(loadedEncounters);
+
     for(u8 i = 0; i < 9; i++)
     {
-        do {
-            u16 species = GetRandomSpeciesFlattenedCurve();
-            VarSet(variableGraphicsIdsForEncounters[i], species + OBJ_EVENT_GFX_MON_BASE);
-            loadedEncounters[i] = species;
-        } while (reroll);
+        VarSet(variableGraphicsIdsForEncounters[i], loadedEncounters[i] + OBJ_EVENT_GFX_MON_BASE);
     }
 }
 

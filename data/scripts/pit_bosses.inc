@@ -37,7 +37,7 @@ PitBoss_NoAutoSave::
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
-	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
+	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 9, 12
 	waitstate
 	release
 	end
@@ -136,7 +136,7 @@ PitStatueNoAutoSave:
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
-	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 13, 13
+	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 9, 12
 	waitstate
 	release
 	end
@@ -147,6 +147,7 @@ Pit_EndGameStatue2::
 Pit_EndGameStatue5::
 	msgbox Pit_EndGameStatue_Text3, MSGBOX_AUTOCLOSE 
 	fadescreen FADE_TO_BLACK
+	setflag FLAG_TEMP_HOF_VICTORY
 	special GameClear
 	waitstate
 	release

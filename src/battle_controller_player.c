@@ -111,6 +111,9 @@ static void PrintLinkStandbyMsg(void);
 
 static void ReloadMoveNames(u32 battler);
 
+static void UpdateCategorySprite(u32 battler);
+static void HandleChooseMoveAfterDma3(u32 battler);
+
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 {
     [CONTROLLER_GETMONDATA]               = BtlController_HandleGetMonData,
@@ -404,6 +407,11 @@ static void HandleInputChooseAction(u32 battler)
             {
                 AddBagItem(itemId, 1);
             }
+            if (gCategoryIconSpriteId != 0xFF)
+            {
+                DestroySprite(&gSprites[gCategoryIconSpriteId]);
+                gCategoryIconSpriteId = 0xFF;
+            }
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_CANCEL_PARTNER, 0);
             PlayerBufferExecCompleted(battler);
@@ -466,6 +474,11 @@ static void HandleInputChooseTarget(u32 battler)
         else
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
+        if (gCategoryIconSpriteId != 0xFF)
+        {
+            DestroySprite(&gSprites[gCategoryIconSpriteId]);
+            gCategoryIconSpriteId = 0xFF;
+        }
         TryHideLastUsedBall();
         HideGimmickTriggerSprite();
         PlayerBufferExecCompleted(battler);
@@ -627,6 +640,11 @@ static void HandleInputShowEntireFieldTargets(u32 battler)
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
         else
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
+        if (gCategoryIconSpriteId != 0xFF)
+        {
+            DestroySprite(&gSprites[gCategoryIconSpriteId]);
+            gCategoryIconSpriteId = 0xFF;
+        }
         HideGimmickTriggerSprite();
         PlayerBufferExecCompleted(battler);
     }
@@ -655,6 +673,11 @@ static void HandleInputShowTargets(u32 battler)
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
         else
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
+        if (gCategoryIconSpriteId != 0xFF)
+        {
+            DestroySprite(&gSprites[gCategoryIconSpriteId]);
+            gCategoryIconSpriteId = 0xFF;
+        }
         HideGimmickTriggerSprite();
         TryHideLastUsedBall();
         PlayerBufferExecCompleted(battler);
@@ -765,6 +788,11 @@ static void HandleInputChooseMove(u32 battler)
                 BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
             else
                 BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
+            if (gCategoryIconSpriteId != 0xFF)
+            {
+                DestroySprite(&gSprites[gCategoryIconSpriteId]);
+                gCategoryIconSpriteId = 0xFF;
+            }
             HideGimmickTriggerSprite();
             TryHideLastUsedBall();
             PlayerBufferExecCompleted(battler);
@@ -800,6 +828,11 @@ static void HandleInputChooseMove(u32 battler)
         }
         else
         {
+            if (gCategoryIconSpriteId != 0xFF)
+            {
+                DestroySprite(&gSprites[gCategoryIconSpriteId]);
+                gCategoryIconSpriteId = 0xFF;
+            }
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, 0xFFFF);
             HideGimmickTriggerSprite();
             PlayerBufferExecCompleted(battler);
@@ -1827,12 +1860,7 @@ static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId, u32 battler)
 	struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
 
 	txtPtr = StringCopy(gDisplayedStringBattle, gText_MoveInterfaceType);
-	txtPtr[0] = EXT_CTRL_CODE_BEGIN;
-	txtPtr++;
-	txtPtr[0] = 6;
-	txtPtr++;
-	txtPtr[0] = 1;
-	txtPtr++;
+    UpdateCategorySprite(battler);
 
 	StringCopy(txtPtr, gTypesInfo[gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].type].name);
 	BattlePutTextOnWindow(gDisplayedStringBattle, TypeEffectiveness(targetId, battler));
@@ -1886,6 +1914,8 @@ static void MoveSelectionDisplayMoveType(u32 battler)
     //}
     // commented out for now, unknown effect
 
+    UpdateCategorySprite(battler);
+
     end = StringCopy(txtPtr, gTypesInfo[type].name);
     PrependFontIdToFit(txtPtr, end, FONT_NORMAL, WindowWidthPx(B_WIN_MOVE_TYPE) - 25);
     BattlePutTextOnWindow(gDisplayedStringBattle, typeColor);
@@ -1938,6 +1968,18 @@ static void MoveSelectionDisplayMoveType(u32 battler)
 //
 //    CopyWindowToVram(B_WIN_MOVE_DESCRIPTION, COPYWIN_FULL);
 //}
+
+static void UpdateCategorySprite(u32 battler)
+{
+    if((gBattlerControllerFuncs[battler] != HandleInputChooseMove) && (gBattlerControllerFuncs[battler] != HandleChooseMoveAfterDma3))
+        return;
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
+    u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
+    u8 cat = gMovesInfo[move].category;
+    if (gCategoryIconSpriteId == 0xFF)
+        gCategoryIconSpriteId = CreateSprite(&gSpriteTemplate_CategoryIcons, 226, 144, 1);
+    StartSpriteAnim(&gSprites[gCategoryIconSpriteId], cat);
+}
 
 void MoveSelectionCreateCursorAt(u8 cursorPosition, u8 baseTileNum)
 {
@@ -2216,6 +2258,8 @@ static void PlayerHandleChooseMove(u32 battler)
     {
         struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
+        gBattlerControllerFuncs[battler] = HandleChooseMoveAfterDma3;
+
         InitMoveSelectionsVarsAndStrings(battler);
         gBattleStruct->gimmick.playerSelect = FALSE;
         TryToAddMoveInfoWindow();
@@ -2228,7 +2272,7 @@ static void PlayerHandleChooseMove(u32 battler)
         if (!(gBattleStruct->gimmick.usableGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
             CreateGimmickTriggerSprite(battler);
 
-        gBattlerControllerFuncs[battler] = HandleChooseMoveAfterDma3;
+        
     }
 }
 

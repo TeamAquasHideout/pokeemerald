@@ -405,7 +405,11 @@
 #define METATILE_PetalburgGym_SlidingDoor_Frame4  0x21C
 
 // gTileset_PitArenaBeach
-#define METATILE_PitArenaBeach_BEACH_WARP_ACTIVE  0x019
+#define METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE      0x03C
+#define METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2    0x03E
+#define METATILE_PitArenaBeach_BEACH_CAVE__WARP_INACTIVE    0x03D
+#define METATILE_PitArenaBeach_BEACH_CAVE__WARP_INACTIVE_2  0x03F
+#define METATILE_PitArenaBeach_BEACH_WARP_ACTIVE            0x019
 
 // gTileset_PitArenaDeepForest
 #define METATILE_PitArenaDeepForest_DEEP_FOREST_WARP_ACTIVE  0x035
