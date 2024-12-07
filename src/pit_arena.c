@@ -1428,9 +1428,9 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warpMetatileId = METATILE_PitArenaDeepForest_DEEP_FOREST_WARP_ACTIVE,
         .battleTerrainId = BATTLE_TERRAIN_GRASS,
         WEATHER_CHANCE(FOG_HORIZONTAL, 50),
-        .dest_x = 18,
+        .dest_x = 17,
         .dest_y = 17,
-        .warp_x = 18,
+        .warp_x = 17,
         .warp_y = 18,
     },
     {
