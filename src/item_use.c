@@ -164,7 +164,10 @@ static void DisplayCannotUseItemMessage(u8 taskId, bool8 isUsingRegisteredKeyIte
 
 void DisplayDadsAdviceCannotUseItemMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField)
 {
-    DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, gText_DadsAdvice);
+    if (gSpecialVar_ItemId == ITEM_ESCAPE_ROPE)
+        DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, gText_CantUseEscapeRope);
+    else
+        DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, gText_DadsAdvice);
 }
 
 static void DisplayCannotDismountBikeMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField)
