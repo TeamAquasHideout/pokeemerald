@@ -4824,7 +4824,7 @@
     {
       "id": "LAYOUT_PIT_ARENA_BEACH_CAVE",
       "name": "PitArenaBeachCave_Layout",
-      "width": 28,
+      "width": 32,
       "height": 20,
       "primary_tileset": "gTileset_PitArenaBeach",
       "secondary_tileset": "gTileset_PitArenaBeachCave",

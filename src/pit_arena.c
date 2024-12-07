@@ -1572,9 +1572,9 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
         .battleTerrainId = BATTLE_TERRAIN_SAND,
         WEATHER_CHANCE(FOG_HORIZONTAL, 50),
-        .dest_x = 15,
+        .dest_x = 17,
         .dest_y = 10,
-        .warp_x = 15,
+        .warp_x = 17,
         .warp_y = 11,
     },
     
@@ -1672,6 +1672,8 @@ u16 GetPrimaryTilesetIdCurrentMap(void)
         return TILESET_DESERT;
     else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaSnow)
         return TILESET_SNOW;
+    else if (gMapHeader.mapLayout->secondaryTileset == &gTileset_PitArenaBeachCave) //must be before PitArenaBeach as they both share the same primary
+        return TILESET_BEACH_CAVE;
     else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaBeach)
         return TILESET_BEACH;
     else if (gMapHeader.mapLayout->primaryTileset == &gTileset_PitArenaDirtPath)

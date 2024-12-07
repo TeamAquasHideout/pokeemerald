@@ -131,6 +131,8 @@ PitEncounter_RareCandyDrop_alreadyUsed_Text:
 @ Heal Single Pokemon
 PitEncounter_HealOneMon::
 	msgbox PitEncounter_HealOneMon_Text, MSGBOX_DEFAULT
+	msgbox PitEncounter_HealOneMon_YesNo, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PitEncounter_HealOneMon_NoThanks
 	call PitEncounter_ChooseMonScript
 	callnative HealPlayerPokemon
 	call PitEncounter_Common_AfterUse
@@ -141,6 +143,10 @@ PitEncounter_HealOneMon_Text:
 	.string "Chansey wants to heal one of your\nparty members.$"
 PitEncounter_HealOneMon_Text2:
 	.string "Your Pokémon was healed.$"
+PitEncounter_HealOneMon_YesNo:
+	.string "Do you want to proceed?$"
+PitEncounter_HealOneMon_NoThanks:
+	.string "Come back later.$"
 
 
 @ Choose a choice item
@@ -291,7 +297,7 @@ PitEncounter_WonderTradeEnd::
 	end
 
 PitEncounter_WonderTrade_Text:
-	.string "Zigzagoon offers you a Wonder Trade\n incl. a Rare Candy for ¥500.$"
+	.string "Zigzagoon offers you a Wonder Trade\nincl. a Rare Candy for ¥500.$"
 PitEncounter_WonderTrade_YesNo:
 	.string "Do you accept?.$"
 
