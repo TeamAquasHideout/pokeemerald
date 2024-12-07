@@ -146,6 +146,7 @@ void SetOnMapLoadDefaultOptions(void)
 {
     //set options flags/vars, because all flags/vars are cleared after the intro menus
     VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
+    VarSet(VAR_BATTLE_SPEED, gSaveBlock2Ptr->optionsBattleSpeed);
 
     if (gSaveBlock2Ptr->optionsRandomMaps == ON)
         FlagSet(FLAG_RANDOM_MAPS);
