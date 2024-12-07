@@ -1715,12 +1715,14 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .monScript = PitEncounter_Mover,
         .alreadyUsedScript = PitEncounter_Mover_alreadyUsed,
     },
+#ifndef PIT_GEN_3_MODE
     {
         .species = SPECIES_JIRACHI,
         .flagId = 1,
         .monScript = PitEncounter_GrantWishChoiceItem,
         .alreadyUsedScript = PitEncounter_GrantWishChoiceItem_alreadyUsed,
     },
+#endif
     {
         .species = SPECIES_SHEDINJA,
         .flagId = 2,
