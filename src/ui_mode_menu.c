@@ -690,7 +690,7 @@ static u8 MenuItemPresetsCancel(void)
         case MENU_PRESETS:
             return MENUITEM_PRESET_CANCEL;
         default:
-            return 99;
+            return 0;
     }
 }
 
@@ -1121,11 +1121,11 @@ static void Task_ModeMenuMainInput(u8 taskId)
     if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
-        if (sOptions->menuCursor[sOptions->submenu] == MenuItemCancel())
+        if (sOptions->submenu != MENU_PRESETS && sOptions->menuCursor[sOptions->submenu] == MenuItemCancel())
             gTasks[taskId].func = Task_ModeMenuSave;
-        if (sOptions->menuCursor[sOptions->submenu] == MenuItemPresetsSave())
+        if (sOptions->submenu == MENU_PRESETS && sOptions->menuCursor[sOptions->submenu] == MenuItemPresetsSave())
             ApplyPresets();
-        if (sOptions->menuCursor[sOptions->submenu] == MenuItemPresetsCancel())
+        if (sOptions->submenu == MENU_PRESETS && sOptions->menuCursor[sOptions->submenu] == MenuItemPresetsCancel())
         {
             if (sOptions->submenu == MENU_PRESETS)
             {
@@ -1860,7 +1860,6 @@ static void ApplyPresets(void)
     //general defaults:
     //run settings
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
-    DebugPrintf("Being Set To Mixed Here: 0");
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;

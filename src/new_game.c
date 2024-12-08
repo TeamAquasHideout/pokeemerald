@@ -118,7 +118,6 @@ void SetDefaultOptions(void)
         //run settings
         gSaveBlock2Ptr->modeDefault = 0;
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
-        DebugPrintf("Being Set To Mixed Here: 1");
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
@@ -147,6 +146,7 @@ void SetOnMapLoadDefaultOptions(void)
 {
     //set options flags/vars, because all flags/vars are cleared after the intro menus
     VarSet(VAR_PIT_AUTOSAVE, gSaveBlock2Ptr->optionsAutosave);
+    VarSet(VAR_BATTLE_SPEED, gSaveBlock2Ptr->optionsBattleSpeed);
 
     if (gSaveBlock2Ptr->optionsRandomMaps == ON)
         FlagSet(FLAG_RANDOM_MAPS);

@@ -15970,7 +15970,7 @@ const struct Item gItemsInfo[] =
     [ITEM_TM_BREAKING_SWIPE] =
     {
         .name = _("TM222"),
-        .price = 3000,
+        .price = 5000,
         .description = COMPOUND_STRING(
             "Placeholder string"),
         .importance = I_REUSABLE_TMS,
