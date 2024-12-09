@@ -2160,7 +2160,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             SetMonData(&party[i], MON_DATA_IVS, &(partyData[j].iv));
         
             //set opponent EVs
-            if(FlagGet(FLAG_TRAINER_EVS) && !isPlayer && !isAcePokemon)
+            if((FlagGet(FLAG_TRAINER_EVS) \
+                || ((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) \
+                || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))) \
+                && !isPlayer && !isAcePokemon)
             {
                 SetMonData(&party[i], MON_DATA_HP_EV, &averageEVs);
                 SetMonData(&party[i], MON_DATA_ATK_EV, &averageEVs);

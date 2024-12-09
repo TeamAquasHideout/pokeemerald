@@ -734,7 +734,7 @@ PitEntrance_SecretBaseShop_Cushions:
 PitEntrance_Pinball_NPC::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
+	message PitEntrance_Pinball_Text
 	waitmessage
 	dynmultichoice 22, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_Pinball_ModeMeowth_Text, PitEntrance_Pinball_ModeDiglett_Text, PitEntrance_Pinball_ModeSeel_Text, PitEntrance_Pinball_ModeGengar_Text
 	closemessage
@@ -748,6 +748,9 @@ PitEntrance_Pinball_CommonEnd::
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
+
+PitEntrance_Pinball_Text::
+	.string "Would you like to play a game?$"
 
 PitEntrance_Pinball_ModeMeowth_Text::
 	.string "Meowth$"

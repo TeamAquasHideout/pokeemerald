@@ -3393,17 +3393,41 @@ void RemovePartyPokemon(void)
 void LevelUpParty(void)
 {   
     if(!((gSaveBlock2Ptr->modeXP == 2)))
-        return;
-
-    if(VarGet(VAR_PIT_FLOOR) <= 5)
-        return;
-
-    u32 i = 0;
-    for(i = 0; i < 6; i++)
     {
-        struct Pokemon *mon = &gPlayerParty[i];
-        ForceIncrementMonLevel(mon);
-        MonTryLearningNewMove(mon, TRUE);
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+        return;
+    }
+        
+    if(VarGet(VAR_PIT_FLOOR) <= 5)
+    {
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+        return;
+    }
+
+    u8 levels_to_gain = 1;
+    if(FlagGet(FLAG_LEVEL_UP_TWICE))
+    {
+        levels_to_gain = 2;
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+    }
+
+    if(FlagGet(FLAG_LEVEL_UP_THRICE))
+    {
+        levels_to_gain = 3;
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+    }
+    
+    for(u8 level = 0; level < levels_to_gain; level++)
+    {
+        u32 i = 0;
+        for(i = 0; i < 6; i++)
+        {
+            struct Pokemon *mon = &gPlayerParty[i];
+            ForceIncrementMonLevel(mon);
+            MonTryLearningNewMove(mon, TRUE);
+        }
     }
     return;
 }
