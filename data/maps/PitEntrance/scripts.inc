@@ -1,7 +1,11 @@
 PitEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PitArena_Entrance
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, PitEntrance_OnFrameTable
 	.byte 0
 
+PitEntrance_OnFrameTable:
+	map_script_2 VAR_TEMP_0, 0, PitEntrance_CheckForAutoSave
+	.2byte 0
 
 PitEntrance_CheckForAutoSave::
 	callnative CheckIfSavedBefore
@@ -21,6 +25,7 @@ PitEntrance_OnFrame_CheckForAutoSave_Skip::
 	closemessage
 PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward::
 	setvar VAR_TEMP_0, 1
+	special ShowMapNamePopup
 	end
 
 PitEntrance_Text_CheckIfHasRecievedShinyDust:
