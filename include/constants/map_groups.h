@@ -46,6 +46,7 @@
 #define MAP_PIT_ARENA_DESERT04         (37 | (0 << 8))
 #define MAP_PIT_ARENA_SPIDER_WOODS03   (38 | (0 << 8))
 #define MAP_PIT_ARENA_BEACH_CAVE       (39 | (0 << 8))
+#define MAP_PIT_ARENA_BEACH_CAVE02     (40 | (0 << 8))
 
 // gMapGroup_TownsAndRoutes
 #define MAP_PETALBURG_CITY        (0 | (1 << 8))

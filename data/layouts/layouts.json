@@ -4830,6 +4830,16 @@
       "secondary_tileset": "gTileset_PitArenaBeachCave",
       "border_filepath": "data/layouts/PitArenaBeachCave/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaBeachCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH_CAVE02",
+      "name": "PitArenaBeachCave02_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_PitArenaBeachCave",
+      "border_filepath": "data/layouts/PitArenaBeachCave02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeachCave02/map.bin"
     }
   ]
 }

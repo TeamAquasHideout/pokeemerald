@@ -3,7 +3,7 @@
   "name": "PitArenaBeachCave",
   "layout": "LAYOUT_PIT_ARENA_BEACH_CAVE",
   "music": "MUS_ABANDONED_SHIP",
-  "region_map_section": "MAPSEC_ABANDONED_SHIP",
+  "region_map_section": "MAPSEC_PIT_FLOORS",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_NONE",
