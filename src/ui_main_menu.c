@@ -1461,14 +1461,14 @@ static const u8 sText_NewGame_Text_Hard[] = _(" Hard Mode is a bit of a challeng
 static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
 {
     const u8 colors[3] = {0,  5,  3}; 
-    const u8 colors2[3] = {0,  8,  5}; 
+    const u8 colors2[3] = {0,  9,  1}; 
     u32 i = 0;
 
     FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
 
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Custom, 14 * 8) + 64, 18, 0, 0, colors, 0xFF, sText_NewGame_Button_Custom);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Normal, 14 * 8) + 64, 50, 0, 0, colors, 0xFF, sText_NewGame_Button_Normal);
-    AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Hard, 14 * 8) + 64, 82, 0, 0, colors, 0xFF, sText_NewGame_Button_Hard);
+    //AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Custom, 14 * 8) + 64, 18, 0, 0, colors, 0xFF, sText_NewGame_Button_Custom);
+    //AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Normal, 14 * 8) + 64, 50, 0, 0, colors, 0xFF, sText_NewGame_Button_Normal);
+    //AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Hard, 14 * 8) + 64, 82, 0, 0, colors, 0xFF, sText_NewGame_Button_Hard);
 
     if (sNewGameSelectedOption == 0)
         AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Custom);
@@ -1491,6 +1491,7 @@ static void Task_ReloadMainMenu(u8 taskId)
         HideBg(1);
         HideBg(3);
         sNewGameSelectedOption = 0xFF;
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ);
         SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinCoords[sSelectedOption].winh.left, HWinCoords[sSelectedOption].winh.right));  // Set Window 0 width/height Which defines the not darkened space
         SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[sSelectedOption].winv.left, HWinCoords[sSelectedOption].winv.right));
         switch(menuType)
@@ -1598,6 +1599,7 @@ static void Task_LoadNewGameMenu(u8 taskId)
         gMain.state++;
         break;
     case 1:
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ); // Set Win 0 Active everywhere, Win 1 active on everything except bg 1 
         SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(HWinNewGameCoords[0].winh.left, HWinNewGameCoords[0].winh.right));  // Set Window 0 width/height Which defines the not darkened space
         SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinNewGameCoords[0].winv.left, HWinNewGameCoords[0].winv.right));
         SetGpuReg(REG_OFFSET_WIN1H, 0);
