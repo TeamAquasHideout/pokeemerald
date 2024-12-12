@@ -167,12 +167,23 @@ struct UCoords32
     u32 y;
 };
 
+#define DAY_SUNDAY             0
+#define DAY_MONDAY             1
+#define DAY_TUESDAY            2
+#define DAY_WEDNESDAY          3
+#define DAY_THURSDAY           4
+#define DAY_FRIDAY             5
+#define DAY_SATURDAY           6
+#define DAYS_PER_WEEK          7
+#define DAY_CURRENT DAYS_PER_WEEK
+
 struct Time
 {
     /*0x00*/ s16 days;
     /*0x02*/ s8 hours;
     /*0x03*/ s8 minutes;
     /*0x04*/ s8 seconds;
+    /*0x04*/ s8 dayOfWeek;
 };
 
 struct SaveBlock3

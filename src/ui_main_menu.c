@@ -896,8 +896,11 @@ static bool8 MainMenu_DoGfxSetup(void)
         if((sAlreadySelectedAvatar == 0) && (gSaveBlock2Ptr->forceNewRun == FALSE))
             PrintToWindow(WINDOW_HEADER, FONT_WHITE);
         else
+        {
+            SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_EFFECT_DARKEN | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_OBJ);
             PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
-
+        }
+            
         if((sAlreadySelectedAvatar == 0)  && (gSaveBlock2Ptr->forceNewRun == FALSE))
         {
             CreateIconShadow();

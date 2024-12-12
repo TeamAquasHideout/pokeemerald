@@ -562,6 +562,16 @@ static const u8 sText_SkipChoice[]           = _("Skip Choice");
 
 static const u8 sWinMarkerGfx[]         = INCBIN_U8("graphics/ui_main_menu/star.4bpp");
 
+#ifdef PIT_GEN_3_MODE
+const u8 gText_VersionText[] = _("v2.0.0 Gen3");
+#endif
+#ifdef PIT_GEN_5_MODE
+const u8 gText_VersionText[] = _("v2.0.0 Gen5");
+#endif
+#ifdef PIT_GEN_9_MODE
+const u8 gText_VersionText[] = _("v2.0.0 Gen9");
+#endif
+
 static void PrintToWindow(u8 windowId, u8 colorIdx)
 {
     const u8 colors[3] = {0,  5,  2}; 
@@ -782,7 +792,10 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NARROW, GetStringCenterAlignXOffset(FONT_NARROW, withoutPrefixPtr, 10 * 8) + 76, 7, 0, 0, colors, 0xFF, mapDisplayHeader);
 
     // Print Player Name
-    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 164, 7, colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NORMAL, 20, 7, colors, TEXT_SKIP_DRAW, gSaveBlock2Ptr->playerName);
+
+    // Print Version Number
+    AddTextPrinterParameterized3(WINDOW_HEADER, FONT_NARROW, 168, 7, colors, TEXT_SKIP_DRAW, gText_VersionText);
 
     PutWindowTilemap(WINDOW_MIDDLE);
     CopyWindowToVram(WINDOW_MIDDLE, 3);
