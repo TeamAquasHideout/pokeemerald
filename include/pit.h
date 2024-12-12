@@ -32,6 +32,8 @@ const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId);
 const u8 GetRandomTrainerEncounterTrainerClass(void);
 void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr);
 
+u16 AccessAvatarSpeciesArrayIndex(u16 index);
+u16 GetIndexOfSpeciesInAvatarSpeciesArray(u16 species);
 u16 AccessValidSpeciesArrayIndex(u16 index);
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species);
 

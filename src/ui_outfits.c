@@ -979,7 +979,7 @@ static bool8 OutfitsMenu_DoGfxSetup(void)
         gMain.state++;
         break;
     case 5: // Here is where the sprites are drawn and text is printed
-        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInValidSpeciesArray(gSaveBlock2Ptr->pokemonAvatarSpecies);
+        sOutfitsMenuDataPtr->currentSpeciesIndex = GetIndexOfSpeciesInAvatarSpeciesArray(gSaveBlock2Ptr->pokemonAvatarSpecies);
         if(sOutfitsMenuDataPtr->avatarPage == 0)
             CreateMugshotsPage1();
         if(sOutfitsMenuDataPtr->avatarPage == 1)
@@ -1232,7 +1232,7 @@ static void DestroyMugshot()
 
 void CreatePokemonSprite()
 {
-    sOutfitsMenuDataPtr->mugshotSpriteId[0] = CreateMonPicSprite(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex), 
+    sOutfitsMenuDataPtr->mugshotSpriteId[0] = CreateMonPicSprite(AccessAvatarSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex), 
                     FALSE, 
                     0, 
                     TRUE, 
@@ -1352,12 +1352,12 @@ static void PrintToWindow()
 
     if (sOutfitsMenuDataPtr->avatarPage == 2)
     {
-        u16 dexNum = SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));  
+        u16 dexNum = SpeciesToNationalPokedexNum(AccessAvatarSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex));  
         StringCopy(gStringVar1, &gText_NumberClear01[0]);
         ConvertIntToDecimalStringN(gStringVar2, dexNum, STR_CONV_MODE_LEADING_ZEROS, 4);
         StringAppend(gStringVar1, gStringVar2);
         StringAppend(gStringVar1, gText_Dash_Space);
-        StringCopy(gStringVar2, GetSpeciesName(AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex)));
+        StringCopy(gStringVar2, GetSpeciesName(AccessAvatarSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex)));
         StringAppend(gStringVar1, gStringVar2);
 
         FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
@@ -1511,7 +1511,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
 
         if(sOutfitsMenuDataPtr->avatarPage == 2)
         {
-            gSaveBlock2Ptr->pokemonAvatarSpecies = AccessValidSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex);
+            gSaveBlock2Ptr->pokemonAvatarSpecies = AccessAvatarSpeciesArrayIndex(sOutfitsMenuDataPtr->currentSpeciesIndex);
             gSaveBlock2Ptr->playerGfxType = AVATAR_POKEMON_CHOICE;
             gSaveBlock2Ptr->playerGender = MALE;
         }
