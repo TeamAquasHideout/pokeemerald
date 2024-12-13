@@ -2114,8 +2114,17 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
                     while (evolutions != NULL)
                     {
-                        newSpecies = evolutions[0].targetSpecies;
-                        evolutions = GetSpeciesEvolutions(newSpecies);
+                        u16 tempSpecies = evolutions[0].targetSpecies;
+                        if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                        {
+                            evolutions = NULL;
+                            break;
+                        }
+                        else
+                        {
+                            newSpecies = tempSpecies;
+                            evolutions = GetSpeciesEvolutions(newSpecies);
+                        }
                     }
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
@@ -2283,7 +2292,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             }
         }
     }
-
     //DebugPrintf("Reached End Of Party Creator: %d", isPlayer);
     return trainer->partySize;
 }

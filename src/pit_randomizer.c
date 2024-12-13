@@ -2547,7 +2547,7 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
             return i;
         }
     }
-    return 0;
+    return 0xFFFF;
 }
 
 u16 GetSpeciesRandomSeeded(u16 species)
