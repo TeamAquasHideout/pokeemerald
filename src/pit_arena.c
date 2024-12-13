@@ -1812,7 +1812,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .monScript = PitEncounter_CureAllStatus,
         .alreadyUsedScript = PitEncounter_CureAllStatus_alreadyUsed,
     },
-#if (GEN_LATEST == GEN_3)
+#if (GEN_LATEST != GEN_3)
     {
         .species = SPECIES_MUNCHLAX,
         .flagId = 10,
