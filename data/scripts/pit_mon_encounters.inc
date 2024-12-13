@@ -116,8 +116,13 @@ PitEncounter_LeftoversDrop_alreadyUsed::
 	msgbox PitEncounter_LeftoversDrop_alreadyUsed_Text, MSGBOX_DEFAULT
 	release
 	end
+.ifdef PIT_GEN_3_MODE
+PitEncounter_LeftoversDrop_alreadyUsed_Text:
+	.string "Snorlax!$"
+.else
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
 	.string "Munchlax!$"
+.endif
 
 PitEncounter_RareCandyDrop_alreadyUsed::
 	faceplayer

@@ -1811,12 +1811,21 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .monScript = PitEncounter_CureAllStatus,
         .alreadyUsedScript = PitEncounter_CureAllStatus_alreadyUsed,
     },
+#if (GEN_LATEST == GEN_3)
     {
         .species = SPECIES_MUNCHLAX,
         .flagId = 10,
         .monScript = PitEncounter_LeftoversDrop,
         .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
     },
+#else
+    {
+        .species = SPECIES_SNORLAX,
+        .flagId = 10,
+        .monScript = PitEncounter_LeftoversDrop,
+        .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
+    },
+#endif
     {
         .species = SPECIES_EEVEE,
         .flagId = 11,
