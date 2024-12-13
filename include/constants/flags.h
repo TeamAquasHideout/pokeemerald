@@ -60,12 +60,12 @@
 #define FLAG_MEGAS           0x2E // this is currently no longer used after mode menu overhaul
 #define FLAG_FLOOR_100       0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031     0x31 // Unused Flag
+#define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_TM_SHOP         0x32 // Unused Flag
 #define FLAG_RANDOM_MAPS     0x33 // Unused Flag
 #define FLAG_HIDE_MOVE_TUTOR 0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
+#define FLAG_HIDE_ARCHIE     0x35 // Unused Flag
+#define FLAG_HIDE_WIZ1989    0x36 // Unused Flag
 #define FLAG_UNUSED_0x037    0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
@@ -73,8 +73,8 @@
 #define FLAG_UNUSED_0x03B    0x3B // Unused Flag
 #define FLAG_UNUSED_0x03C    0x3C // Unused Flag
 #define FLAG_UNUSED_0x03D    0x3D // Unused Flag
-#define FLAG_LEVEL_UP_TWICE    0x3E // Unused Flag
-#define FLAG_LEVEL_UP_THRICE    0x3F // Unused Flag
+#define FLAG_LEVEL_UP_TWICE  0x3E // Unused Flag
+#define FLAG_LEVEL_UP_THRICE 0x3F // Unused Flag
 #define FLAG_UNUSED_0x040    0x40 // Unused Flag
 #define FLAG_UNUSED_0x041    0x41 // Unused Flag
 #define FLAG_UNUSED_0x042    0x42 // Unused Flag
@@ -86,8 +86,8 @@
 #define FLAG_UNUSED_0x048    0x48 // Unused Flag
 #define FLAG_UNUSED_0x049    0x49 // Unused Flag
 #define FLAG_UNUSED_0x04A    0x4A // Unused Flag
-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
-#define FLAG_UNUSED_0x04C    0x4C // Unused Flag
+#define FLAG_SEND_TO_PC      0x4B // Unused Flag
+#define FLAG_DONT_RANDOMIZE_NEXT_MON    0x4C // Unused Flag
 #define FLAG_LOAD_FROM_TEMP_HOF    0x4D // Unused Flag
 #define FLAG_USED_RANDOM_ENCOUNTER_THIS_FLOOR    0x4E // Unused Flag
 #define FLAG_DONT_RANDOMIZE_NEXT_ITEM    0x4F // Unused Flag

@@ -640,7 +640,8 @@ struct SaveBlock2
             u16 savedSecretBaseId;
             u8 hasRecievedShinyDust;
             u8 forceNewRun;
-            u8 pit_padding[64];
+            u8 hasReceivedShedinja;
+            u8 pit_padding[63];
 
             struct HallofFameTeam2 tempHofMon;
 

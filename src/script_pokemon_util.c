@@ -421,7 +421,7 @@ u32 ScriptGiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 natu
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
             break;
     }
-    if (i >= PARTY_SIZE)
+    if (i >= PARTY_SIZE || FlagGet(FLAG_SEND_TO_PC))
     {
         sentToPc = CopyMonToPC(&mon);
     }
@@ -507,7 +507,8 @@ void ScrCmd_createmon(struct ScriptContext *ctx)
     u8 ivs[NUM_STATS]        = {hpIv, atkIv, defIv, speedIv, spAtkIv, spDefIv};
     u16 moves[MAX_MON_MOVES] = {move1, move2, move3, move4};
 
-    species = GetSpeciesRandomNotSeeded(species);
+    if(!FlagGet(FLAG_DONT_RANDOMIZE_NEXT_MON))
+        species = GetSpeciesRandomNotSeeded(species);
 
     gSpecialVar_Result = ScriptGiveMonParameterized(species, level, item, ball, nature, abilityNum, gender, evs, ivs, moves, ggMaxFactor, teraType, isShiny);
 }

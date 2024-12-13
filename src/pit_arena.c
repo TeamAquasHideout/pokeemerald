@@ -3657,3 +3657,25 @@ void CheckIfShouldWalkBackwards(void)
         VarSet(VAR_RESULT, 0);
     return;
 }
+
+void CheckIfHasReceivedShedinja(void)
+{
+    if(gSaveBlock2Ptr->hasReceivedShedinja == 0)
+    {
+        VarSet(VAR_RESULT, 1);
+        gSaveBlock2Ptr->hasReceivedShedinja = 1;
+        return;
+    }
+
+    VarSet(VAR_RESULT, 0);
+    return;
+}
+
+void CheckAndGiveShedinja(void)
+{
+    if(isDexCompleted(FLAG_GET_SEEN))
+        VarSet(VAR_RESULT, 1);
+    else
+        VarSet(VAR_RESULT, 0);
+    return;
+}

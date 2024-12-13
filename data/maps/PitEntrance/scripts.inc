@@ -1,3 +1,6 @@
+.set LOCALID_ARCHIE, 6
+.set LOCALID_WIZ1989, 5
+
 PitEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PitArena_Entrance
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, PitEntrance_OnFrameTable
@@ -15,24 +18,101 @@ PitEntrance_CheckForAutoSave::
 	waitfieldeffect(FLDEFF_SAVING)
 	callnative AutoSave
 PitEntrance_OnFrame_CheckForAutoSave_Skip::
+	@Full dex check for Shiny Dust reward
 	callnative CheckAndGiveShinyDust
 	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
 	callnative CheckIfHasRecievedShinyDust
 	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
+	lock
+	clearflag FLAG_HIDE_ARCHIE
+	clearflag FLAG_HIDE_WIZ1989
+	addobject LOCALID_ARCHIE, MAP_PIT_ENTRANCE
+	setobjectxy LOCALID_ARCHIE, 18, 7
+	addobject LOCALID_WIZ1989, MAP_PIT_ENTRANCE
+	setobjectxy LOCALID_WIZ1989, 18, 6
+	applymovement LOCALID_ARCHIE Movement_Archie
+	applymovement LOCALID_WIZ1989 Movement_wiz1989
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	waitmovement 0
 	msgbox PitEntrance_Text_CheckIfHasRecievedShinyDust, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_SHINY_DUST, 1
 	closemessage
+	delay 60
+	applymovement LOCALID_ARCHIE Movement_Archie_Leave
+	applymovement LOCALID_WIZ1989 Movement_wiz1989_Leave
+	waitmovement 0
+	setflag FLAG_HIDE_ARCHIE
+	setflag FLAG_HIDE_WIZ1989
+	removeobject LOCALID_ARCHIE
+	removeobject LOCALID_WIZ1989
+	release
 PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward::
+	@Full dex check for Shedinja reward
+	lock
+	callnative CheckAndGiveShedinja
+	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShedinjaReward
+	callnative CheckIfHasReceivedShedinja
+	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShedinjaReward
+	clearflag FLAG_HIDE_ARCHIE
+	clearflag FLAG_HIDE_WIZ1989
+	addobject LOCALID_ARCHIE, MAP_PIT_ENTRANCE
+	setobjectxy LOCALID_ARCHIE, 18, 7
+	addobject LOCALID_WIZ1989, MAP_PIT_ENTRANCE
+	setobjectxy LOCALID_WIZ1989, 18, 6
+	applymovement LOCALID_ARCHIE Movement_Archie
+	applymovement LOCALID_WIZ1989 Movement_wiz1989
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	waitmovement 0
+	msgbox PitEntrance_Text_CheckIfHasReceivedShedinja, MSGBOX_DEFAULT
+	setflag FLAG_SEND_TO_PC
+	setflag FLAG_DONT_RANDOMIZE_NEXT_MON
+	givemon SPECIES_SHEDINJA, 100
+	clearflag FLAG_DONT_RANDOMIZE_NEXT_MON
+	clearflag FLAG_SEND_TO_PC
+	goto PitEntrance_SendShedinjaPC
+PitEntrance_OnFrame_CheckForAutoSave_FinishShedinjaScript::
+	delay 60
+	closemessage
+	applymovement LOCALID_ARCHIE Movement_Archie_Leave
+	applymovement LOCALID_WIZ1989 Movement_wiz1989_Leave
+	waitmovement 0
+	setflag FLAG_HIDE_ARCHIE
+	setflag FLAG_HIDE_WIZ1989
+	removeobject LOCALID_ARCHIE
+	removeobject LOCALID_WIZ1989
+	release
+PitEntrance_OnFrame_CheckForAutoSave_SkipShedinjaReward::
 	setvar VAR_TEMP_0, 1
 	special ShowMapNamePopup
 	end
 
+PitEntrance_SendShedinjaPC::
+	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_SHEDINJA
+	playfanfare MUS_OBTAIN_ITEM
+	message PitEntrance_Text_ObtainedShedinja
+	waitmessage
+	waitfanfare
+	call Common_EventScript_TransferredToPC
+	goto PitEntrance_OnFrame_CheckForAutoSave_FinishShedinjaScript
+
 PitEntrance_Text_CheckIfHasRecievedShinyDust:
-	.string "Congrats on filling out your Pokedex!\n"
+	.string "Congrats on filling out your Pokédex!\n"
 	.string "Here is a reward!$"
 
+PitEntrance_Text_CheckIfHasReceivedShedinja:
+	.string "Congrats on having seen all species\n"
+	.string "listed in your Pokédex.\p"
+	.string "Here is your reward!$"
+
+PitEntrance_Text_ObtainedShedinja:
+	.string "{PLAYER} obtained a SHEDINJA.$"
+
 PitArena_Entrance:
+	setflag FLAG_HIDE_ARCHIE @always hide these NPCs
+	setflag FLAG_HIDE_WIZ1989 @always hide these NPCs
 	goto_if_set FLAG_PIT_STARTED, PitArena_EntranceEnd
 	callnative SetOnMapLoadDefaultOptions
 	setvar VAR_PIT_FLOOR, 0
@@ -796,3 +876,59 @@ PitEntrance_MakePokemonShiny::
 	callnative MakePlayerPokemonShiny
 	release
 	end
+
+Movement_Archie:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	step_end
+
+Movement_wiz1989:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	step_end
+	
+Movement_Archie_Leave:
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+Movement_wiz1989_Leave:
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
