@@ -63,13 +63,6 @@
 #define GEN_7 6
 #define GEN_8 7
 #define GEN_9 8
-#ifdef PIT_GEN_3_MODE
-#define GEN_LATEST GEN_3
-#elif defined PIT_GEN_5_MODE
-#define GEN_LATEST GEN_5
-#else
-#define GEN_LATEST GEN_9
-#endif
 
 // General settings
 #define EXPANSION_INTRO              TRUE    // If TRUE, a custom RHH intro will play after the vanilla copyright screen.
