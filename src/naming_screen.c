@@ -205,7 +205,7 @@ static const struct BgTemplate sBgTemplates[] =
         .bg = 0,
         .charBaseIndex = 0,
         .mapBaseIndex = 30,
-        .priority = 0
+        .priority = 3
     },
     {
         .bg = 1,
