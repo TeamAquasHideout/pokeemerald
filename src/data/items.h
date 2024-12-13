@@ -10809,7 +10809,7 @@ const struct Item gItemsInfo[] =
     [ITEM_TM_DIG] =
     {
         .name = _("TM28"),
-        .price = 8000,
+        .price = 5000,
         .description = COMPOUND_STRING(
             "Digs underground\n"
             "the 1st turn, then\n"
