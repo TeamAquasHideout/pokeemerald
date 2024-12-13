@@ -408,8 +408,8 @@ const u8 gTrainerBackPic_Nate[] = INCBIN_U8("graphics/trainers/back_pics/nate.4b
 const u32 gTrainerBackPalette_Nate[] = INCBIN_U32("graphics/trainers/back_pics/nate.gbapal.lz");
 
 //ToDo wiz1989: finish path after having the back sprite ready
-const u8 gTrainerBackPic_Rosa[] = INCBIN_U8("graphics/trainers/back_pics/dummy.4bpp");//INCBIN_U8("graphics/trainers/back_pics/rosa.4bpp");
-const u32 gTrainerBackPalette_Rosa[] = INCBIN_U32("graphics/trainers/back_pics/dummy.gbapal.lz");//INCBIN_U32("graphics/trainers/palettes/rosa.gbapal.lz");
+const u8 gTrainerBackPic_Rosa[] = INCBIN_U8("graphics/trainers/back_pics/rosa.4bpp");
+const u32 gTrainerBackPalette_Rosa[] = INCBIN_U32("graphics/trainers/back_pics/rosa.gbapal.lz");
 
 const u8 gTrainerBackPic_Lillie[] = INCBIN_U8("graphics/trainers/back_pics/lillie.4bpp");
 const u32 gTrainerBackPalette_Lillie[] = INCBIN_U32("graphics/trainers/back_pics/lillie.gbapal.lz");
@@ -786,7 +786,7 @@ const struct TrainerBacksprite gTrainerBacksprites[] =
     TRAINER_BACK_SPRITE(LYRA,   4, Lyra, BackPalette_Lyra, Hoenn),
     TRAINER_BACK_SPRITE(ETHAN,  4, Ethan, BackPalette_Ethan, Hoenn),
     TRAINER_BACK_SPRITE(NATE,   5, Nate, BackPalette_Nate, Kanto),
-    TRAINER_BACK_SPRITE(ROSA,   4, Rosa, BackPalette_Rosa, Hoenn),
+    TRAINER_BACK_SPRITE(ROSA,   5, Rosa, BackPalette_Rosa, Kanto),
     TRAINER_BACK_SPRITE(LILLIE, 5, Lillie, BackPalette_Lillie, Kanto),
     TRAINER_BACK_SPRITE(WALLY,  4, Wally, Palette_Wally, Hoenn),
     TRAINER_BACK_SPRITE(DUMMY,  4, Dummy, BackPalette_Dummy, Hoenn),
