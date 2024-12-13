@@ -45,6 +45,7 @@
 #include "decoration.h"
 #include "pokedex.h"
 #include "pokedex_plus_hgss.h"
+#include "field_player_avatar.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -3645,4 +3646,14 @@ void MakePlayerPokemonShiny(void)
 {
     u32 shiny = TRUE;
     SetMonData(&gPlayerParty[VarGet(VAR_0x8005)], MON_DATA_IS_SHINY, &shiny);
+}
+
+void CheckIfShouldWalkBackwards(void)
+{   
+    u16 facingDirection = GetPlayerFacingDirection();
+    if((facingDirection == DIR_SOUTH) || (facingDirection == DIR_WEST) || (facingDirection == DIR_EAST))
+        VarSet(VAR_RESULT, 1);
+    else
+        VarSet(VAR_RESULT, 0);
+    return;
 }

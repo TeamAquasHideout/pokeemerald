@@ -164,3 +164,35 @@ PitArena_Text_NotEnoughMons:
 
 PitArena_TrainerBattleFinished::
 	end
+
+PitArena_WalkBackwardsTrigger::
+	callnative CheckIfShouldWalkBackwards
+	goto_if_eq VAR_RESULT, FALSE, PitArena_WalkBackwardsTrigger_SkipCheck
+	lock
+	applymovement OBJ_EVENT_ID_PLAYER, PitArena_WalkBackwardsMovement
+	waitmovement 0
+PitArena_WalkBackwardsTrigger_SkipCheck::
+	release
+	end
+
+PitArena_WalkBackwardsMovement:
+	face_up
+	lock_facing_direction 
+	walk_down
+	walk_down
+	unlock_facing_direction
+	face_down
+	step_end
+
+PitArena_WalkUpTrigger::
+	lock
+	applymovement OBJ_EVENT_ID_PLAYER, PitArena_WalkUpMovement
+	waitmovement 0
+	release
+	end
+
+PitArena_WalkUpMovement:
+	face_up
+	walk_up
+	walk_up
+	step_end
