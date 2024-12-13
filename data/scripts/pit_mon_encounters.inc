@@ -118,7 +118,7 @@ PitEncounter_LeftoversDrop_alreadyUsed::
 	end
 .ifdef PIT_GEN_3_MODE
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
-	.string "Snorlax!$"
+	.string "Snore...$"
 .else
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
 	.string "Munchlax!$"
@@ -397,8 +397,13 @@ PitEncounter_LeftoversDrop::
 	call PitEncounter_Common_AfterUse
 	release
 	end
+.ifdef PIT_GEN_3_MODE
+PitEncounter_LeftoversDrop_Text:
+	.string "Snorlax loves you!\pIt even wants to share its Leftovers\nwith you.$"
+.else
 PitEncounter_LeftoversDrop_Text:
 	.string "Munchlax loves you!\pIt even wants to share its Leftovers\nwith you.$"
+.endif
 
 
 PitEncounter_Mover_NotEnoughMoney:
