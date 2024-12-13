@@ -2611,6 +2611,11 @@ bool8 IsSpeciesParadoxMon(u16 species)
     return FALSE;
 }
 
+u32 GetMaxNumberOfSpeciesAvatars(void)
+{
+    return AVATAR_SPECIES_COUNT;
+}
+
 u32 GetMaxNumberOfSpecies(void)
 {
     return RANDOM_SPECIES_COUNT_LEGENDARY;
