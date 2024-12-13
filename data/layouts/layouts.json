@@ -4830,6 +4830,36 @@
       "secondary_tileset": "gTileset_PitArenaBeachCave",
       "border_filepath": "data/layouts/PitArenaBeachCave/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaBeachCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH_CAVE02",
+      "name": "PitArenaBeachCave02_Layout",
+      "width": 30,
+      "height": 30,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_PitArenaBeachCave",
+      "border_filepath": "data/layouts/PitArenaBeachCave02/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeachCave02/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH_CAVE03",
+      "name": "PitArenaBeachCave03_Layout",
+      "width": 30,
+      "height": 26,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_PitArenaBeachCave",
+      "border_filepath": "data/layouts/PitArenaBeachCave03/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeachCave03/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_ARENA_BEACH_CAVE04",
+      "name": "PitArenaBeachCave04_Layout",
+      "width": 41,
+      "height": 25,
+      "primary_tileset": "gTileset_PitArenaBeach",
+      "secondary_tileset": "gTileset_PitArenaBeachCave",
+      "border_filepath": "data/layouts/PitArenaBeachCave04/border.bin",
+      "blockdata_filepath": "data/layouts/PitArenaBeachCave04/map.bin"
     }
   ]
 }

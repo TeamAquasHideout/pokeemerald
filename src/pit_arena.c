@@ -1577,6 +1577,36 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warp_x = 17,
         .warp_y = 11,
     },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE02,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 13,
+        .dest_y = 10,
+        .warp_x = 13,
+        .warp_y = 9,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE03,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 13,
+        .dest_y = 10,
+        .warp_x = 13,
+        .warp_y = 9,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE04,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 21,
+        .dest_y = 15,
+        .warp_x = 21,
+        .warp_y = 14,
+    },
     
 };
 
