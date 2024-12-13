@@ -827,6 +827,8 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             FlagClear(FLAG_HIDE_MOVE_TUTOR);
             if (VarGet(VAR_PIT_FLOOR) % 10 != 0)
                 FlagSet(FLAG_HIDE_MOVE_TUTOR);
+            if (gSaveBlock2Ptr->modeXP == 2) // If No Exp Mode, Always Spawn Tutor
+                FlagSet(FLAG_HIDE_MOVE_TUTOR);
         }
         else if (!(VarGet(VAR_PIT_FLOOR) % BOSS_FLOOR_RATE))
         {
