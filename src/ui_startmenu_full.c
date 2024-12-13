@@ -1298,7 +1298,7 @@ static void PrintMapNameAndTime(void) //this code is ripped froom different part
     RtcCalcLocalTime();
     hours = gLocalTime.hours;
     minutes = gLocalTime.minutes;
-    dayOfWeek = gLocalTime.days % 7;
+    dayOfWeek = gLocalTime.dayOfWeek;
     if (hours > 999)
         hours = 999;
     if (minutes > 59)

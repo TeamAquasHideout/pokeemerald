@@ -45,6 +45,7 @@
 #include "decoration.h"
 #include "pokedex.h"
 #include "pokedex_plus_hgss.h"
+#include "field_player_avatar.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -1577,6 +1578,36 @@ static const struct sRandomMap sRandomMapArray[] = {
         .warp_x = 17,
         .warp_y = 11,
     },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE02,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 15,
+        .dest_y = 17,
+        .warp_x = 15,
+        .warp_y = 15,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE03,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE_2,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 13,
+        .dest_y = 8,
+        .warp_x = 13,
+        .warp_y = 9,
+    },
+    {
+        .mapConstant = MAP_PIT_ARENA_BEACH_CAVE04,
+        .warpMetatileId = METATILE_PitArenaBeach_BEACH_CAVE__WARP_ACTIVE,
+        .battleTerrainId = BATTLE_TERRAIN_SAND,
+        WEATHER_CHANCE(FOG_HORIZONTAL, 50),
+        .dest_x = 21,
+        .dest_y = 13,
+        .warp_x = 21,
+        .warp_y = 14,
+    },
     
 };
 
@@ -1781,12 +1812,21 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .monScript = PitEncounter_CureAllStatus,
         .alreadyUsedScript = PitEncounter_CureAllStatus_alreadyUsed,
     },
+#if (GEN_LATEST == GEN_3)
     {
         .species = SPECIES_MUNCHLAX,
         .flagId = 10,
         .monScript = PitEncounter_LeftoversDrop,
         .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
     },
+#else
+    {
+        .species = SPECIES_SNORLAX,
+        .flagId = 10,
+        .monScript = PitEncounter_LeftoversDrop,
+        .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
+    },
+#endif
     {
         .species = SPECIES_EEVEE,
         .flagId = 11,
@@ -3393,17 +3433,41 @@ void RemovePartyPokemon(void)
 void LevelUpParty(void)
 {   
     if(!((gSaveBlock2Ptr->modeXP == 2)))
-        return;
-
-    if(VarGet(VAR_PIT_FLOOR) <= 5)
-        return;
-
-    u32 i = 0;
-    for(i = 0; i < 6; i++)
     {
-        struct Pokemon *mon = &gPlayerParty[i];
-        ForceIncrementMonLevel(mon);
-        MonTryLearningNewMove(mon, TRUE);
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+        return;
+    }
+        
+    if(VarGet(VAR_PIT_FLOOR) <= 5)
+    {
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+        return;
+    }
+
+    u8 levels_to_gain = 1;
+    if(FlagGet(FLAG_LEVEL_UP_TWICE))
+    {
+        levels_to_gain = 2;
+        FlagClear(FLAG_LEVEL_UP_TWICE);
+    }
+
+    if(FlagGet(FLAG_LEVEL_UP_THRICE))
+    {
+        levels_to_gain = 3;
+        FlagClear(FLAG_LEVEL_UP_THRICE);
+    }
+    
+    for(u8 level = 0; level < levels_to_gain; level++)
+    {
+        u32 i = 0;
+        for(i = 0; i < 6; i++)
+        {
+            struct Pokemon *mon = &gPlayerParty[i];
+            ForceIncrementMonLevel(mon);
+            MonTryLearningNewMove(mon, TRUE);
+        }
     }
     return;
 }
@@ -3582,4 +3646,14 @@ void MakePlayerPokemonShiny(void)
 {
     u32 shiny = TRUE;
     SetMonData(&gPlayerParty[VarGet(VAR_0x8005)], MON_DATA_IS_SHINY, &shiny);
+}
+
+void CheckIfShouldWalkBackwards(void)
+{   
+    u16 facingDirection = GetPlayerFacingDirection();
+    if((facingDirection == DIR_SOUTH) || (facingDirection == DIR_WEST) || (facingDirection == DIR_EAST))
+        VarSet(VAR_RESULT, 1);
+    else
+        VarSet(VAR_RESULT, 0);
+    return;
 }

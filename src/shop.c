@@ -380,7 +380,7 @@ static void CreatePartyMonIcons()
                 break;
             case 4:
                 x = ICON_BOX_1_START_X + ICON_BOX_X_DIFFERENCE;
-                y = ICON_BOX_1_START_Y + (ICON_BOX_X_DIFFERENCE * 1);
+                y = ICON_BOX_1_START_Y + (ICON_BOX_Y_DIFFERENCE * 1);
                 break;
             case 5:
                 x = ICON_BOX_1_START_X + (ICON_BOX_X_DIFFERENCE * 2);

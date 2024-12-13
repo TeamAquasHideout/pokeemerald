@@ -116,8 +116,13 @@ PitEncounter_LeftoversDrop_alreadyUsed::
 	msgbox PitEncounter_LeftoversDrop_alreadyUsed_Text, MSGBOX_DEFAULT
 	release
 	end
+.ifdef PIT_GEN_3_MODE
+PitEncounter_LeftoversDrop_alreadyUsed_Text:
+	.string "Snorlax!$"
+.else
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
 	.string "Munchlax!$"
+.endif
 
 PitEncounter_RareCandyDrop_alreadyUsed::
 	faceplayer
@@ -297,7 +302,7 @@ PitEncounter_WonderTradeEnd::
 	end
 
 PitEncounter_WonderTrade_Text:
-	.string "Zigzagoon offers you a Wonder Trade\nincl. a Rare Candy for ¥500.$"
+	.string "Zigzagoon offers you a Wonder Trade.$"
 PitEncounter_WonderTrade_YesNo:
 	.string "Do you accept?.$"
 
@@ -361,6 +366,7 @@ PitEncounter_NPCMoverOpen2:
 
 PitEncounter_MoverSkip2::
 	additem ITEM_RARE_CANDY, 2
+	setflag FLAG_LEVEL_UP_TWICE
 	setflag FLAG_FLOOR_CLEARED
 	call PitEncounter_Common_AfterUse
 	callnative SetWarpTileActive
@@ -373,6 +379,7 @@ PitEncounter_MoverSkip2::
 PitEncounter_MoverSkip3::
 	additem ITEM_RARE_CANDY, 3
 	setflag FLAG_FLOOR_CLEARED
+	setflag FLAG_LEVEL_UP_THRICE
 	callnative SetWarpTileActive
 	call PitEncounter_Common_AfterUse
 	addvar VAR_PIT_FLOOR, 2

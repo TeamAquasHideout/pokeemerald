@@ -1,7 +1,11 @@
 PitEntrance_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, PitArena_Entrance
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, PitEntrance_OnFrameTable
 	.byte 0
 
+PitEntrance_OnFrameTable:
+	map_script_2 VAR_TEMP_0, 0, PitEntrance_CheckForAutoSave
+	.2byte 0
 
 PitEntrance_CheckForAutoSave::
 	callnative CheckIfSavedBefore
@@ -21,6 +25,7 @@ PitEntrance_OnFrame_CheckForAutoSave_Skip::
 	closemessage
 PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward::
 	setvar VAR_TEMP_0, 1
+	special ShowMapNamePopup
 	end
 
 PitEntrance_Text_CheckIfHasRecievedShinyDust:
@@ -734,7 +739,7 @@ PitEntrance_SecretBaseShop_Cushions:
 PitEntrance_Pinball_NPC::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
+	message PitEntrance_Pinball_Text
 	waitmessage
 	dynmultichoice 22, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEntrance_Pinball_ModeMeowth_Text, PitEntrance_Pinball_ModeDiglett_Text, PitEntrance_Pinball_ModeSeel_Text, PitEntrance_Pinball_ModeGengar_Text
 	closemessage
@@ -748,6 +753,9 @@ PitEntrance_Pinball_CommonEnd::
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
+
+PitEntrance_Pinball_Text::
+	.string "Would you like to play a game?$"
 
 PitEntrance_Pinball_ModeMeowth_Text::
 	.string "Meowth$"
