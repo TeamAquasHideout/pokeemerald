@@ -29,8 +29,6 @@ PIT_GEN_3_MODE ?= 0
 PIT_GEN_5_MODE ?= 0
 # Gen 9 pit mode
 PIT_GEN_9_MODE ?= 1
-# Gen is zero indexed
-PIT_GEN_INDEX ?= 8
 
 ifeq (agbcc,$(MAKECMDGOALS))
   MODERN := 0
@@ -44,12 +42,10 @@ endif
 ifeq (gen3,$(MAKECMDGOALS))
   FILE_NAME := $(FILE_NAME_GEN_3)
   PIT_GEN_3_MODE := 1
-  PIT_GEN_INDEX := 2
 endif
 ifeq (gen5,$(MAKECMDGOALS))
   FILE_NAME := $(FILE_NAME_GEN_5)
   PIT_GEN_5_MODE := 1
-  PIT_GEN_INDEX := 4
 endif
 
 # Default make rule
@@ -205,14 +201,14 @@ ifeq ($(DINFO),1)
 endif
 # set pit gen preproc defines
 ifeq ($(PIT_GEN_3_MODE), 1)
-  override CPPFLAGS += -DPIT_GEN_3_MODE=$(PIT_GEN_3_MODE) -DGEN_LATEST=$(PIT_GEN_INDEX)
-  override ASFLAGS += --defsym PIT_GEN_3_MODE=$(PIT_GEN_3_MODE) --defsym GEN_LATEST=$(PIT_GEN_INDEX)
+  override CPPFLAGS += -DPIT_GEN_3_MODE=$(PIT_GEN_3_MODE)
+  override ASFLAGS += --defsym PIT_GEN_3_MODE=$(PIT_GEN_3_MODE)
 else ifeq ($(PIT_GEN_5_MODE), 1)
-  override CPPFLAGS += -DPIT_GEN_5_MODE=$(PIT_GEN_5_MODE) -DGEN_LATEST=$(PIT_GEN_INDEX)
-  override ASFLAGS += --defsym PIT_GEN_5_MODE=$(PIT_GEN_5_MODE) --defsym GEN_LATEST=$(PIT_GEN_INDEX)
+  override CPPFLAGS += -DPIT_GEN_5_MODE=$(PIT_GEN_5_MODE)
+  override ASFLAGS += --defsym PIT_GEN_5_MODE=$(PIT_GEN_5_MODE)
 else
-  override CPPFLAGS += -DPIT_GEN_9_MODE=$(PIT_GEN_9_MODE) -DGEN_LATEST=$(PIT_GEN_INDEX)
-  override ASFLAGS += --defsym PIT_GEN_9_MODE=$(PIT_GEN_9_MODE) --defsym GEN_LATEST=$(PIT_GEN_INDEX)
+  override CPPFLAGS += -DPIT_GEN_9_MODE=$(PIT_GEN_9_MODE)
+  override ASFLAGS += --defsym PIT_GEN_9_MODE=$(PIT_GEN_9_MODE)
 endif
 
 # Variable filled out in other make files
