@@ -470,7 +470,7 @@ static void PrintInstructionsOnWindow(struct PokemonSpriteVisualizer *data)
     CopyWindowToVram(WIN_INSTRUCTIONS, COPYWIN_FULL);
 
     //Bottom left text
-    FillWindowPixelBuffer(WIN_BOTTOM_LEFT, PIXEL_FILL(0));
+    FillWindowPixelBuffer(WIN_BOTTOM_LEFT, PIXEL_FILL(1));
     if (data->currentSubmenu != 2)
     {
         AddTextPrinterParameterized(WIN_BOTTOM_LEFT, fontId, textL, 30, 0, 0, NULL);
@@ -979,7 +979,7 @@ static void UpdateMonAnimNames(u8 taskId)
     u8 fontId = 0;
     u8 textNum[4];
 
-    FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
+    FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(1));
 
     //Back
     StringCopy(text, gBackAnimNames[backAnim]);
@@ -1018,7 +1018,7 @@ static void UpdateYPosOffsetText(struct PokemonSpriteVisualizer *data)
     u8 newFrontPicCoords   = frontPicCoords  +  offset_front_picCoords;
     u8 newFrontElevation   = frontElevation  +  offset_front_elevation;
 
-    FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(0));
+    FillWindowPixelBuffer(WIN_BOTTOM_RIGHT, PIXEL_FILL(1));
 
     //Back
     y = 0;
@@ -1055,7 +1055,7 @@ static void ResetPokemonSpriteVisualizerWindows(void)
 
     for (i = 0; i < WIN_END + 1; i++)
     {
-        FillWindowPixelBuffer(i, PIXEL_FILL(0));
+        FillWindowPixelBuffer(i, PIXEL_FILL(1));
         PutWindowTilemap(i);
         CopyWindowToVram(i, COPYWIN_FULL);
     }
