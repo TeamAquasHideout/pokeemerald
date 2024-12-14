@@ -3670,3 +3670,24 @@ void CallRenameScreen()
         DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToField);  
     }
 }
+
+void ChooseRandomRewardNumberForFloor(void)
+{
+    u16 random_val = Random() % 100;
+
+    if(random_val < 10)
+    {
+        if(VarGet(VAR_PIT_FLOOR) < 5)
+            VarSet(VAR_RESULT, 0);
+        else
+            VarSet(VAR_RESULT, 1);
+    }
+    else if(random_val < 60)
+    {
+        VarSet(VAR_RESULT, 1);
+    }
+    else
+    {
+        VarSet(VAR_RESULT, 2);
+    }
+}
