@@ -79,13 +79,13 @@ PitEncounter_NuggetDrop_alreadyUsed::
 	msgbox PitEncounter_NuggetDrop_alreadyUsed_Text, MSGBOX_DEFAULT
 	release
 	end
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 PitEncounter_NuggetDrop_alreadyUsed_Text:
 	.string "Gholdengo$"
-.else
+#else
 PitEncounter_NuggetDrop_alreadyUsed_Text:
 	.string "Sableye$"
-.endif
+#endif
 
 PitEncounter_WonderTrade_alreadyUsed::
 	faceplayer
@@ -116,13 +116,13 @@ PitEncounter_LeftoversDrop_alreadyUsed::
 	msgbox PitEncounter_LeftoversDrop_alreadyUsed_Text, MSGBOX_DEFAULT
 	release
 	end
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
 	.string "Snore...$"
-.else
+#else
 PitEncounter_LeftoversDrop_alreadyUsed_Text:
 	.string "Munchlax!$"
-.endif
+#endif
 
 PitEncounter_RareCandyDrop_alreadyUsed::
 	faceplayer
@@ -280,13 +280,13 @@ PitEncounter_NuggetDrop::
 	call PitEncounter_Common_AfterUse
 	release
 	end
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 PitEncounter_NuggetDrop_Text:
 	.string "Gholdengo just lost a Nugget.\nQuick, take it!$"
-.else
+#else
 PitEncounter_NuggetDrop_Text:
 	.string "Sableye just lost a Nugget.\nQuick, take it!$"
-.endif
+#endif
 
 @ Wonder Trade NPC
 PitEncounter_WonderTrade::
@@ -397,13 +397,13 @@ PitEncounter_LeftoversDrop::
 	call PitEncounter_Common_AfterUse
 	release
 	end
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 PitEncounter_LeftoversDrop_Text:
 	.string "Snorlax loves you!\pIt even wants to share its Leftovers\nwith you.$"
-.else
+#else
 PitEncounter_LeftoversDrop_Text:
 	.string "Munchlax loves you!\pIt even wants to share its Leftovers\nwith you.$"
-.endif
+#endif
 
 
 PitEncounter_Mover_NotEnoughMoney:

@@ -127,7 +127,7 @@ BattleFrontier_Lounge7_EventScript_SwordsDance::
 
 BattleFrontier_Lounge7_EventScript_SetUpTutorMovesForLearnsets::
 	setvar VAR_0x8008, 48
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 	setvar VAR_0x8005, MOVE_FRENZY_PLANT
 	setvar VAR_0x8005, MOVE_BLAST_BURN
 	setvar VAR_0x8005, MOVE_HYDRO_CANNON
@@ -140,7 +140,7 @@ BattleFrontier_Lounge7_EventScript_SetUpTutorMovesForLearnsets::
 	setvar VAR_0x8005, MOVE_HYDRO_CANNON
 	setvar VAR_0x8005, MOVE_RELIC_SONG
 	setvar VAR_0x8005, MOVE_SECRET_SWORD
-.endif
+#endif
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
