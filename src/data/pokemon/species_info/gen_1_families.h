@@ -3,6 +3,8 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
 {
 #endif
 
+#include "config/general.h"
+
 #if P_FAMILY_BULBASAUR
     [SPECIES_BULBASAUR] =
     {

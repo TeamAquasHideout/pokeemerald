@@ -1,6 +1,8 @@
 #ifndef GUARD_CONFIG_SPECIES_ENABLED_H
 #define GUARD_CONFIG_SPECIES_ENABLED_H
 
+#include "config/general.h"
+
 // WARNING: For some reason, using 1/0 instead of TRUE/FALSE causes cry IDs to be shifted.
 // Please use TRUE/FALSE when using the family toggles.
 
