@@ -639,8 +639,6 @@ PitEntrance_SecretBaseShop_Misc:
 	.2byte DECOR_MUD_BALL        
 	.2byte DECOR_BREAKABLE_DOOR  
 	.2byte DECOR_SAND_ORNAMENT   
-	.2byte DECOR_SILVER_SHIELD   
-	.2byte DECOR_GOLD_SHIELD     
 	.2byte DECOR_GLASS_ORNAMENT  
 	.2byte DECOR_TV              
 	.2byte DECOR_ROUND_TV        
