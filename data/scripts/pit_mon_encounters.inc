@@ -294,17 +294,21 @@ PitEncounter_WonderTrade::
 	msgbox PitEncounter_WonderTrade_YesNo, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PitEncounter_WonderTradeEnd
 	additem ITEM_RARE_CANDY, 1
-	removeobject 12
-	call PitEncounter_Common_AfterUse
 	call EventScript_DoWonderTrade
+	goto_if_eq VAR_0x8004, 0xFF, PitEncounter_WonderTrade_EndEarly
+	call PitEncounter_Common_AfterUse
 PitEncounter_WonderTradeEnd::
+	release
+	end
+
+PitEncounter_WonderTrade_EndEarly::
 	release
 	end
 
 PitEncounter_WonderTrade_Text:
 	.string "Zigzagoon offers you a Wonder Trade.$"
 PitEncounter_WonderTrade_YesNo:
-	.string "Do you accept?.$"
+	.string "Do you accept?$"
 
 
 @ Give MooMooMilk Item
