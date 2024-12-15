@@ -567,6 +567,9 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_RUSTED_SWORD
     .2byte  ITEM_RUSTED_SHIELD
     .2byte  ITEM_REINS_OF_UNITY
+	.2byte  ITEM_CORNERSTONE_MASK
+	.2byte  ITEM_WELLSPRING_MASK
+	.2byte  ITEM_HEARTHFLAME_MASK
 #endif
     .2byte  ITEM_DOUSE_DRIVE
     .2byte  ITEM_SHOCK_DRIVE
