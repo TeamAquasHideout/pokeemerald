@@ -15,7 +15,7 @@ enum {
     GFXTAG_RAIN,
 };
 enum {
-    PALTAG_WEATHER = TAG_WEATHER_START,
+    PALTAG_WEATHER = 0x10FE,
     PALTAG_WEATHER_2
 };
 
