@@ -167,15 +167,21 @@ Pit_EndGameStatue_TextSaveTeam:
 
 
 Pit_EndGameStatue_Text1:
-	.string "Congratulations, you have.\n"
-	.string "completed the Pit of 100\l"
-	.string "Trials....\p"
+	.string "Congratulations!\p"
+	.string "You have completed the\n"
+	.string "Pit of 100 Trials....\p"
 	.string "I hope your descent was\n"
-	.string "pleasant.$"
+	.string "pleasant.\p"
+	.string "You can now return to the\n"
+	.string "entrance, prepare for a\l"
+	.string "new trial and store your\l"
+	.string "winning party in the PC.\p"
+	.string "Or continue lower for an\n"
+	.string "infinite challenge!$"
 
 Pit_EndGameStatue_Text2:
-	.string "Return to the Pit Entrance? (YES)\n"
-	.string "Or keep traversing lower?   (NO).$"
+	.string "Start a new run?                 (YES)\n"
+	.string "Or continue the grind?      (NO).$"
 
 Pit_EndGameStatue_Text3:
 	.string "Well, thanks for playing!$"

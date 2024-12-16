@@ -520,6 +520,8 @@ PitEntrance_Text_Credits2::
 	.string "Devolov/Rioluwott/EliteRedux/Graion\n"
 	.string "for various QOL additions, mostly\l"
 	.string "battle related.\p"
+	.string "Bassoonian provided the Egg Moves\n"
+	.string "Tutor code.\p"
 	.string "Special thanks to everyone in our\n"
 	.string "Team Aqua Discord. There are too many\l"
 	.string "people to thank here, but this hack is\l"

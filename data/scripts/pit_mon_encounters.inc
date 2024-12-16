@@ -142,15 +142,21 @@ PitEncounter_HealOneMon::
 	callnative HealPlayerPokemon
 	call PitEncounter_Common_AfterUse
 	msgbox PitEncounter_HealOneMon_Text2, MSGBOX_DEFAULT
+PitEncounter_HealOneMon_End::
 	release
 	end
+
+PitEncounter_HealOneMon_NoThanks:
+	msgbox PitEncounter_HealOneMon_NoThanks_Text, MSGBOX_DEFAULT
+	goto PitEncounter_HealOneMon_End
+
 PitEncounter_HealOneMon_Text:
 	.string "Chansey wants to heal one of your\nparty members.$"
 PitEncounter_HealOneMon_Text2:
 	.string "Your Pokémon was healed.$"
 PitEncounter_HealOneMon_YesNo:
 	.string "Do you want to proceed?$"
-PitEncounter_HealOneMon_NoThanks:
+PitEncounter_HealOneMon_NoThanks_Text:
 	.string "Come back later.$"
 
 
