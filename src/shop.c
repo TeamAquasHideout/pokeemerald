@@ -42,6 +42,8 @@
 #include "constants/songs.h"
 #include "event_data.h"
 #include "pokemon_icon.h"
+#include "pokemon_summary_screen.h"
+#include "battle_util.h"
 
 #define TAG_SCROLL_ARROW   2100
 #define TAG_ITEM_ICON_BASE 2110
@@ -107,6 +109,7 @@ struct ShopData
     u8 itemSpriteIds[2];
     s16 viewportObjects[OBJECT_EVENTS_COUNT][5];
     u8 iconMonSpriteIds[6];
+    u16 categoryIconSpriteId;
 };
 
 static EWRAM_DATA struct MartInfo sMartInfo = {0};
@@ -160,6 +163,9 @@ static void Task_HandleShopMenuBuy(u8 taskId);
 static void Task_HandleShopMenuSell(u8 taskId);
 static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, struct ListMenu *list);
 static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y);
+
+void TMShopDestroyCategoryIcon(void);
+void TmShopShowHideCategoryIcon(s32 moveId);
 
 static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
 static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
@@ -402,6 +408,7 @@ static void DestroyMonIcons()
         DestroySprite(&gSprites[sShopData->iconMonSpriteIds[i]]);
         sShopData->iconMonSpriteIds[i] = SPRITE_NONE;
     }
+    TMShopDestroyCategoryIcon();
 }
 
 static void TintPartyMonIcons(u16 move)
@@ -653,6 +660,9 @@ static void CB2_InitBuyMenu(void)
             if (FreeTempTileDataBuffersIfPossible() != TRUE)
             {
                 LZDecompressWram(sScrollBgTilemap, sShopData->tilemapBuffers[3]);
+                sShopData->categoryIconSpriteId = 0xFF;
+                LoadCompressedSpriteSheet(&gSpriteSheet_CategoryIcons);
+                LoadSpritePalette(&gSpritePal_CategoryIcons);
                 gMain.state++;
             }
         }
@@ -773,11 +783,30 @@ static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, s
                 tminfo = ItemId_GetTMData(item);
                 AddTextPrinterParameterized4(WIN_ITEM_DESCRIPTION, FONT_SMALL_NARROW, 3 + 24, 1, 0, 0, sShopBuyMenuTextColors[COLORID_NORMAL], 0, tminfo);
                 TintPartyMonIcons(move);
+                TmShopShowHideCategoryIcon(move);
             }
         }    
     }
 
 }
+
+void TmShopShowHideCategoryIcon(s32 moveId)
+{
+    if (sShopData->categoryIconSpriteId == 0xFF)
+        sShopData->categoryIconSpriteId = CreateSprite(&gSpriteTemplate_CategoryIcons, 100, 147, 0);
+    gSprites[sShopData->categoryIconSpriteId].invisible = FALSE;
+    gSprites[sShopData->categoryIconSpriteId].oam.priority = 1;
+    StartSpriteAnim(&gSprites[sShopData->categoryIconSpriteId], GetBattleMoveCategory(moveId));
+}
+
+void TMShopDestroyCategoryIcon(void)
+{
+    if (sShopData->categoryIconSpriteId != 0xFF)
+        DestroySprite(&gSprites[sShopData->categoryIconSpriteId]);
+    sShopData->categoryIconSpriteId = 0xFF;
+    gSprites[sShopData->categoryIconSpriteId].invisible = TRUE;
+}
+
 
 static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y)
 {

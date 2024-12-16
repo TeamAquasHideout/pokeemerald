@@ -282,6 +282,7 @@ EventScript_ResetAllMapFlags::
 	setflag FLAG_MOVER_OBJECT
 	setflag FLAG_END_GAME_STATUE
 	setflag FLAG_BOSS_ENCOUNTER
+	setvar VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY, 0
 	callnative ClearAllRandomEncounters
 	callnative ClearAllRandomBossEncounters
 	call EventScript_ResetAllBerries

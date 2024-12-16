@@ -841,6 +841,7 @@ static void HandleInput(bool8 showContest)
         StringCopy(gStringVar2, GetMoveName(itemId));
         StringExpandPlaceholders(gStringVar4, gText_MoveRelearnerTeachMoveConfirm);
         MoveRelearnerPrintMessage(gStringVar4);
+        MoveRelearnerShowHideCategoryIcon(GetCurrentSelectedMove());
         break;
     }
 }
@@ -1187,5 +1188,23 @@ static void DoMoveTutorListMain(void)
             SetMainCallback2(CB2_ReturnToField);
         }
         break;
+    }
+}
+
+void MoveRelearnerShowHideCategoryIcon(s32 moveId)
+{
+    if (sMoveRelearnerMenuSate.showContestInfo || moveId == LIST_CANCEL)
+    {
+        if (sMoveRelearnerStruct->categoryIconSpriteId != 0xFF)
+            DestroySprite(&gSprites[sMoveRelearnerStruct->categoryIconSpriteId]);
+        sMoveRelearnerStruct->categoryIconSpriteId = 0xFF;
+        gSprites[sMoveRelearnerStruct->categoryIconSpriteId].invisible = TRUE;
+    }
+    else
+    {
+        if (sMoveRelearnerStruct->categoryIconSpriteId == 0xFF)
+            sMoveRelearnerStruct->categoryIconSpriteId = CreateSprite(&gSpriteTemplate_CategoryIcons, 66, 40, 0);
+        gSprites[sMoveRelearnerStruct->categoryIconSpriteId].invisible = FALSE;
+        StartSpriteAnim(&gSprites[sMoveRelearnerStruct->categoryIconSpriteId], GetBattleMoveCategory(moveId));
     }
 }
