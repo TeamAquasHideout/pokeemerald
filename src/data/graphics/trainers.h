@@ -407,7 +407,6 @@ const u32 gTrainerBackPicPalette_Leaf[] = INCBIN_U32("graphics/trainers/back_pic
 const u8 gTrainerBackPic_Nate[] = INCBIN_U8("graphics/trainers/back_pics/nate.4bpp");
 const u32 gTrainerBackPalette_Nate[] = INCBIN_U32("graphics/trainers/back_pics/nate.gbapal.lz");
 
-//ToDo wiz1989: finish path after having the back sprite ready
 const u8 gTrainerBackPic_Rosa[] = INCBIN_U8("graphics/trainers/back_pics/rosa.4bpp");
 const u32 gTrainerBackPalette_Rosa[] = INCBIN_U32("graphics/trainers/back_pics/rosa.gbapal.lz");
 

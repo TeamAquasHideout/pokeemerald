@@ -448,7 +448,6 @@ static const struct RandomTrainerClasses sRandomTrainerEncounterArray[] = {
         .trainerClass = TRAINER_CLASS_DOME_ACE,
         .gender = MALE,
     },
-    // wiz1989
     {
         .graphicsId = OBJ_EVENT_GFX_BIKER,
         .trainerPic = TRAINER_PIC_BIKER,
