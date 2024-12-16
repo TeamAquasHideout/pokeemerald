@@ -1733,8 +1733,7 @@ static void VBlank(void)
     TransferPlttBuffer();
     if (BW_SUMMARY_SCROLLING_BG)
     {
-        ChangeBgX(3, 64, BG_COORD_ADD);
-        ChangeBgY(3, 64, BG_COORD_ADD);
+        ChangeBgY(3, 128, BG_COORD_SUB);
     }
     if (BW_SUMMARY_MON_IDLE_ANIMS && !sMonSummaryScreen->summary.isEgg)
     {
