@@ -78,7 +78,6 @@ enum MenuItems_Run
 enum MenuItems_Difficulty
 {
     MENUITEM_DIFF_XPMODE,
-    //MENUITEM_DIFF_SAVE_DELETION,
     MENUITEM_DIFF_TRAINER_EVS,
     MENUITEM_DIFF_DOUBLE_CASH,
     MENUITEM_DIFF_STAT_CHANGER,
@@ -87,6 +86,7 @@ enum MenuItems_Difficulty
     #ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_MEGAS,
     #endif
+    MENUITEM_DIFF_BOSS_HEAL,
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
 };
@@ -288,7 +288,7 @@ static void DrawChoices_BattleMode(int selection, int y);
 static void DrawChoices_3MonsOnly(int selection, int y);
 static void DrawChoices_50Floors(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
-static void DrawChoices_SaveDeletion(int selection, int y);
+static void DrawChoices_BossHeal(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
 static void DrawChoices_RandBattleWeather(int selection, int y);
 static void DrawChoices_RandMoves(int selection, int y);
@@ -329,7 +329,6 @@ struct Menu_Diff //MENU_DIFF
 } static const sItemFunctionsDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
-    //[MENUITEM_DIFF_SAVE_DELETION] = {DrawChoices_SaveDeletion, ProcessInput_Options_Two},
     [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
     [MENUITEM_DIFF_TRAINER_EVS]   = {DrawChoices_TrainerEVs,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
@@ -338,6 +337,7 @@ struct Menu_Diff //MENU_DIFF
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {DrawChoices_Megas,        ProcessInput_Options_Two},
     #endif
+    [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_CANCEL]        = {NULL, NULL},
 };
 
@@ -382,7 +382,7 @@ static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
 
 static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
-static const u8 sText_SaveDeletion[] = _("SAVE DELETION");
+static const u8 sText_BossHeal[]     = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]   = _("CASH RATE");
 static const u8 sText_50Floors[]     = _("50 FLOORS");
 
@@ -411,7 +411,6 @@ static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
 static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = sText_XPMode,
-    //[MENUITEM_DIFF_SAVE_DELETION] = sText_SaveDeletion,
     [MENUITEM_DIFF_STAT_CHANGER]  = sText_StatChanger,
     [MENUITEM_DIFF_TRAINER_EVS]   = sText_TrainerEVs,
     [MENUITEM_DIFF_DOUBLE_CASH]   = sText_DoubleCash,
@@ -420,6 +419,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = sText_Megas,
     #endif
+    [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_CANCEL]        = sText_Cancel,
 };
 
@@ -479,7 +479,6 @@ static bool8 CheckConditions(int selection)
             switch(selection)
             {
                 case MENUITEM_DIFF_XPMODE:        return TRUE;
-                //case MENUITEM_DIFF_SAVE_DELETION: return TRUE;
                 case MENUITEM_DIFF_STAT_CHANGER:  return TRUE;
                 case MENUITEM_DIFF_TRAINER_EVS:   return TRUE;
                 case MENUITEM_DIFF_DOUBLE_CASH:   return TRUE;
@@ -488,6 +487,7 @@ static bool8 CheckConditions(int selection)
                 #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
                 #endif
+                case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
                 case MENUITEM_DIFF_COUNT:         return TRUE;
                 default:                          return FALSE;
@@ -555,8 +555,8 @@ static const u8 sText_Desc_3Mons_On[]           = _("Party size will never incre
 static const u8 sText_Desc_3Mons_Off[]          = _("Party size will increase by one\nevery 25 floors.");
 static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party\nand will be given random species.");
 static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe random Birch Case options.");
-static const u8 sText_Desc_SaveDeletion_On[]    = _("Your current run's save will be\ndeleted when fainting.");
-static const u8 sText_Desc_SaveDeletion_Off[]   = _("Your current run's save will not be\ndeleted when fainting.");
+static const u8 sText_Desc_BossHeal_On[]        = _("Your party will be healed before\nstarting a boss battle.");
+static const u8 sText_Desc_BossHeal_Off[]       = _("Your party won't be healed before\nstarting a boss battle.");
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_05x[]     = _("SUPER HARD! Halves the amount of\nmoney received after a battle.");
@@ -589,7 +589,6 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
 static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
 {
     [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None},
-    //[MENUITEM_DIFF_SAVE_DELETION] = {sText_Desc_SaveDeletion_On,  sText_Desc_SaveDeletion_Off,  sText_Empty},
     [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty},
     [MENUITEM_DIFF_TRAINER_EVS]   = {sText_Desc_TrainerEVs_On,    sText_Desc_TrainerEVs_Off,    sText_Empty},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
@@ -598,6 +597,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
     #endif
+    [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
     [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
 };
 
@@ -805,7 +805,6 @@ static void ModeMenu_SetupCB(void)
         //sOptions->sel_run[MENUITEM_RUN_DUPLICATES]      = gSaveBlock2Ptr->modeDuplicates;
         //difficulty settings
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
-        //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = gSaveBlock2Ptr->modeSaveDeletion;
         sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = gSaveBlock2Ptr->modeStatChanger;
         sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = gSaveBlock2Ptr->modeTrainerEVs;
         sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = gSaveBlock2Ptr->modeCashRewards;
@@ -814,6 +813,7 @@ static void ModeMenu_SetupCB(void)
         #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
+        sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         //randomizer settings
         sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = gSaveBlock2Ptr->randomBattleWeather;
         sOptions->sel_rand[MENUITEM_RAND_MOVES]         = gSaveBlock2Ptr->randomMoves;
@@ -1340,7 +1340,7 @@ static void Task_ModeMenuSave(u8 taskId)
 
     //difficulty settings
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
-    //gSaveBlock2Ptr->modeSaveDeletion = sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION];
+    gSaveBlock2Ptr->modeBossHeal     = sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL];
     gSaveBlock2Ptr->modeStatChanger  = sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER];
     gSaveBlock2Ptr->modeTrainerEVs   = sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS];
     gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
@@ -1617,14 +1617,14 @@ static void DrawChoices_50Floors(int selection, int y)
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
-static void DrawChoices_SaveDeletion(int selection, int y)
+static void DrawChoices_BossHeal(int selection, int y)
 {
-//    bool8 active = CheckConditions(MENUITEM_DIFF_SAVE_DELETION);
-//    u8 styles[2] = {0};
-//    styles[selection] = 1;
-//
-//    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
-//    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+   bool8 active = CheckConditions(MENUITEM_DIFF_BOSS_HEAL);
+   u8 styles[2] = {0};
+   styles[selection] = 1;
+
+   DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+   DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
 static void DrawChoices_DoubleCash(int selection, int y)
@@ -1864,7 +1864,6 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
     //difficulty settings
-    //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     //randomizer settings
@@ -1879,6 +1878,7 @@ static void ApplyPresets(void)
     {
         case PRESET_NORMAL:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
+            sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
@@ -1888,7 +1888,7 @@ static void ApplyPresets(void)
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
-            //sOptions->sel_diff[MENUITEM_DIFF_SAVE_DELETION] = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;

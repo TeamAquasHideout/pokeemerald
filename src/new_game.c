@@ -124,7 +124,7 @@ void SetDefaultOptions(void)
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
-        gSaveBlock2Ptr->modeSaveDeletion = OFF;
+        gSaveBlock2Ptr->modeBossHeal = ON;
         gSaveBlock2Ptr->modeStatChanger = ON;
         gSaveBlock2Ptr->modeTrainerEVs = OFF;
         gSaveBlock2Ptr->modeCashRewards = CASH_1X;
