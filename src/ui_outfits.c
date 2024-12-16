@@ -1582,7 +1582,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
             PlaySE(SE_SELECT);
             if(sOutfitsMenuDataPtr->currentSpeciesIndex < UP_DOWN_SPECIES_JUMP)
             {
-                temp = GetMaxNumberOfSpecies() - (UP_DOWN_SPECIES_JUMP - sOutfitsMenuDataPtr->currentSpeciesIndex);
+                temp = GetMaxNumberOfSpeciesAvatars() - (UP_DOWN_SPECIES_JUMP - sOutfitsMenuDataPtr->currentSpeciesIndex);
                 sOutfitsMenuDataPtr->currentSpeciesIndex = temp;
             }
             else
@@ -1590,7 +1590,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
                 sOutfitsMenuDataPtr->currentSpeciesIndex -= UP_DOWN_SPECIES_JUMP;
             }
 
-            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpeciesAvatars())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
             PrintToWindow();
             gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
@@ -1601,7 +1601,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
         {
             PlaySE(SE_SELECT);
             sOutfitsMenuDataPtr->currentSpeciesIndex += UP_DOWN_SPECIES_JUMP;
-            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpeciesAvatars())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
             PrintToWindow();
             gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
@@ -1612,11 +1612,11 @@ static void Task_OutfitsMenuMain(u8 taskId)
         {
             PlaySE(SE_SELECT);
             if(sOutfitsMenuDataPtr->currentSpeciesIndex == 0)
-                sOutfitsMenuDataPtr->currentSpeciesIndex = GetMaxNumberOfSpecies() - 1;
+                sOutfitsMenuDataPtr->currentSpeciesIndex = GetMaxNumberOfSpeciesAvatars() - 1;
             else
                 sOutfitsMenuDataPtr->currentSpeciesIndex--;
 
-            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpeciesAvatars())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
             PrintToWindow();
             gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;
@@ -1627,7 +1627,7 @@ static void Task_OutfitsMenuMain(u8 taskId)
         {
             PlaySE(SE_SELECT);
             sOutfitsMenuDataPtr->currentSpeciesIndex++;
-            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpecies())
+            if (sOutfitsMenuDataPtr->currentSpeciesIndex >= GetMaxNumberOfSpeciesAvatars())
                 sOutfitsMenuDataPtr->currentSpeciesIndex = 0;
             PrintToWindow();
             gTasks[taskId].func = Task_OutfitsMenu_SwapPokemonSprite;

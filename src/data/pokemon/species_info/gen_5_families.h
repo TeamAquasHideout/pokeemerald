@@ -3,6 +3,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
 {
 #endif
 
+#include "config/general.h"
+
 #if P_FAMILY_VICTINI
     [SPECIES_VICTINI] =
     {

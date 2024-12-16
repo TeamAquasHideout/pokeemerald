@@ -407,7 +407,7 @@
 #define OBJ_EVENT_PAL_TAG_LYRA                    0x1129
 #define OBJ_EVENT_PAL_TAG_ETHAN                   0x1130
 #define OBJ_EVENT_PAL_TAG_PIT_PC				  0x1131
-#define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1132
+#define OBJ_EVENT_PAL_TAG_WALLY                	  0x1132
 #define OBJ_EVENT_PAL_TAG_NPC_WHITE               0x1133
 #define OBJ_EVENT_PAL_TAG_NPC_BLUE                0x1134
 #define OBJ_EVENT_PAL_TAG_NPC_PINK                0x1135
@@ -416,7 +416,7 @@
 #define OBJ_EVENT_PAL_TAG_DEOXYS                  0x1138 //not used. switched position with BUGSY
 #define OBJ_EVENT_PAL_TAG_ROSA                    0x1139
 #define OBJ_EVENT_PAL_TAG_LILLIE                  0x1140
-#define OBJ_EVENT_PAL_TAG_WALLY                	 0x1141
+#define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1141
 
 
 #if OW_FOLLOWERS_POKEBALLS

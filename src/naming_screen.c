@@ -205,7 +205,7 @@ static const struct BgTemplate sBgTemplates[] =
         .bg = 0,
         .charBaseIndex = 0,
         .mapBaseIndex = 30,
-        .priority = 0
+        .priority = 3
     },
     {
         .bg = 1,
@@ -1447,6 +1447,7 @@ static void NamingScreen_CreateMonIcon(void)
 {
     u8 spriteId;
 
+    FreeMonIconPalettes();
     LoadMonIconPalettes();
     spriteId = CreateMonIcon(sNamingScreen->monSpecies, SpriteCallbackDummy, 56, 40, 0, sNamingScreen->monPersonality);
     gSprites[spriteId].oam.priority = 3;
@@ -1933,6 +1934,7 @@ static void LoadPalettes(void)
     LoadPalette(gNamingScreenMenu_Pal, BG_PLTT_ID(0), sizeof(gNamingScreenMenu_Pal));
     LoadPalette(sKeyboard_Pal, BG_PLTT_ID(10), sizeof(sKeyboard_Pal));
     LoadPalette(GetTextWindowPalette(2), BG_PLTT_ID(11), PLTT_SIZE_4BPP);
+    LoadMonIconPalettes();
 }
 
 static void DrawBgTilemap(u8 bg, const void *src)

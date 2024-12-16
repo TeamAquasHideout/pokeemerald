@@ -5,32 +5,32 @@ PitShop_ShopNPC::
 	setvar VAR_TEMP_9, 0
 PitShop_ShopNPCHook::
 	message PitShop_ShopNPC_Text
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen3IVs
 	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-.elseif PIT_GEN_5_MODE == 1
+#elif defined PIT_GEN_5_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen5IVs
 	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-.else
+#else
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen9IVs
 	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-.endif
+#endif
 	closemessage
 	setflag FLAG_BUY_FROM_MART
 	copyvar VAR_TEMP_9, VAR_RESULT
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
 	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
 	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Sell
-.elseif PIT_GEN_5_MODE == 1
+#elif defined PIT_GEN_5_MODE
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
 	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
 	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Gems
 	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_FormItems
 	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_Sell
-.else
+#else
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
 	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_TMs_200
@@ -42,7 +42,7 @@ PitShop_ShopNPCHook::
 	goto_if_eq VAR_RESULT, 8, PitArena_MartScript_ZCrystals
 	goto_if_eq VAR_RESULT, 9, PitArena_MartScript_FormItems
 	goto_if_eq VAR_RESULT, 10, PitArena_MartScript_Sell
-.endif
+#endif
 EndOfMartScript::
 	clearflag FLAG_SELL_FROM_MART
 	clearflag FLAG_BUY_FROM_MART
@@ -230,11 +230,11 @@ PitArena_MartScript_EditIVs_Execute::
 
 
 PitShop_ShopNPC_Option0:
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 	.string "TMs A-F$"
-.else
+#else
 	.string "TMs    $"
-.endif
+#endif
 PitShop_ShopNPC_Option0_100:
 	.string "TMs G-R$"
 PitShop_ShopNPC_Option0_200:
@@ -293,14 +293,14 @@ PitArena_Mart_Vitamins:
 	.2byte ITEM_HP_UP
 	.2byte ITEM_PP_UP
 	.2byte ITEM_PP_MAX
-.ifndef PIT_GEN_3_MODE
+#ifndef PIT_GEN_3_MODE
 	.2byte ITEM_HEALTH_FEATHER
 	.2byte ITEM_MUSCLE_FEATHER
 	.2byte ITEM_RESIST_FEATHER
 	.2byte ITEM_GENIUS_FEATHER
 	.2byte ITEM_CLEVER_FEATHER
 	.2byte ITEM_SWIFT_FEATHER
-.endif
+#endif
 	.2byte ITEM_NONE
 	release
 	end
@@ -322,23 +322,23 @@ PitArena_Mart_Vitamins_HARD:
 	.2byte ITEM_HP_UP
 	.2byte ITEM_PP_UP
 	.2byte ITEM_PP_MAX
-.ifndef PIT_GEN_3_MODE
+#ifndef PIT_GEN_3_MODE
 	.2byte ITEM_HEALTH_FEATHER
 	.2byte ITEM_MUSCLE_FEATHER
 	.2byte ITEM_RESIST_FEATHER
 	.2byte ITEM_GENIUS_FEATHER
 	.2byte ITEM_CLEVER_FEATHER
 	.2byte ITEM_SWIFT_FEATHER
-.endif
+#endif
 	.2byte ITEM_NONE
 	release
 	end
 
 	.align 2
 PitArena_Mart_EvoItems:
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 	.2byte  ITEM_METEORITE
-.endif
+#endif
 	.2byte ITEM_EVERSTONE
     .2byte ITEM_FIRE_STONE
     .2byte ITEM_WATER_STONE
@@ -354,7 +354,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_PRISM_SCALE
     .2byte ITEM_DEEP_SEA_TOOTH
     .2byte ITEM_DEEP_SEA_SCALE
-.ifndef PIT_GEN_3_MODE
+#ifndef PIT_GEN_3_MODE
 	.2byte ITEM_DAWN_STONE
     .2byte ITEM_DUSK_STONE
     .2byte ITEM_SHINY_STONE
@@ -366,8 +366,8 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_RAZOR_FANG
     .2byte ITEM_DUBIOUS_DISC
     .2byte ITEM_REAPER_CLOTH
-.endif
-.ifdef PIT_GEN_9_MODE
+#endif
+#ifdef PIT_GEN_9_MODE
     .2byte ITEM_ICE_STONE
     .2byte ITEM_WHIPPED_DREAM
     .2byte ITEM_SACHET
@@ -396,7 +396,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_FLOWER_SWEET
     .2byte ITEM_STAR_SWEET
     .2byte ITEM_RIBBON_SWEET
-.endif
+#endif
 	.2byte ITEM_NONE
 	release
 	end
@@ -558,7 +558,7 @@ PitArena_Mart_FormItems:
 	.2byte  ITEM_GRISEOUS_CORE
 	.2byte  ITEM_ROTOM_CATALOG
 	.2byte  ITEM_REVEAL_GLASS
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 	.2byte  ITEM_PRISON_BOTTLE
 	.2byte  ITEM_ADAMANT_CRYSTAL
 	.2byte  ITEM_LUSTROUS_GLOBE
@@ -567,7 +567,10 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_RUSTED_SWORD
     .2byte  ITEM_RUSTED_SHIELD
     .2byte  ITEM_REINS_OF_UNITY
-.endif
+	.2byte  ITEM_CORNERSTONE_MASK
+	.2byte  ITEM_WELLSPRING_MASK
+	.2byte  ITEM_HEARTHFLAME_MASK
+#endif
     .2byte  ITEM_DOUSE_DRIVE
     .2byte  ITEM_SHOCK_DRIVE
     .2byte  ITEM_BURN_DRIVE
@@ -589,7 +592,7 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_DREAD_PLATE
     .2byte  ITEM_IRON_PLATE
     .2byte  ITEM_PIXIE_PLATE
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 	.2byte  ITEM_YELLOW_NECTAR
     .2byte  ITEM_PINK_NECTAR
     .2byte  ITEM_PURPLE_NECTAR
@@ -610,14 +613,14 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_DARK_MEMORY
     .2byte  ITEM_STEEL_MEMORY
     .2byte  ITEM_FAIRY_MEMORY
-.endif
+#endif
 	.2byte ITEM_NONE
     release
 	end
 
  	.align 2
 PitArena_Mart_TMs:
-.ifdef PIT_GEN_3_MODE
+#ifdef PIT_GEN_3_MODE
 	.2byte ITEM_TM40
 	.2byte ITEM_TM45
 	.2byte ITEM_TM14
@@ -698,8 +701,8 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM41
 	.2byte ITEM_TM06
 	.2byte ITEM_TM03
-.endif
-.ifdef PIT_GEN_5_MODE
+#endif
+#ifdef PIT_GEN_5_MODE
 	.2byte ITEM_TM62
 	.2byte ITEM_TM40
 	.2byte ITEM_TM51
@@ -800,8 +803,8 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM61
 	.2byte ITEM_TM83
 	.2byte ITEM_TM81
-.endif
-.ifdef PIT_GEN_9_MODE
+#endif
+#ifdef PIT_GEN_9_MODE
 	.2byte ITEM_TM13
 	.2byte ITEM_TM14
 	.2byte ITEM_TM27
@@ -882,8 +885,8 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM62
 	.2byte ITEM_TM155
 	.2byte ITEM_TM217
-.endif
-.ifndef PIT_GEN_9_MODE
+#endif
+#ifndef PIT_GEN_9_MODE
 	.2byte ITEM_HM01
 	.2byte ITEM_HM02
 	.2byte ITEM_HM03
@@ -892,7 +895,7 @@ PitArena_Mart_TMs:
 	.2byte ITEM_HM06
 	.2byte ITEM_HM07
 	.2byte ITEM_HM08
-.endif
+#endif
 	.2byte ITEM_NONE
     release
 	end

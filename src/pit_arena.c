@@ -46,6 +46,7 @@
 #include "pokedex.h"
 #include "pokedex_plus_hgss.h"
 #include "field_player_avatar.h"
+#include "naming_screen.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -3656,6 +3657,39 @@ void CheckIfShouldWalkBackwards(void)
     else
         VarSet(VAR_RESULT, 0);
     return;
+}
+
+void CallRenameScreen()
+{
+    if(gSaveBlock2Ptr->playerGfxType == AVATAR_POKEMON_CHOICE)
+    {
+        DoNamingScreen(NAMING_SCREEN_PLAYER_IS_POKEMON, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->pokemonAvatarSpecies, 0, 0, CB2_ReturnToField);  
+    }
+    else
+    {
+        DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToField);  
+    }
+}
+
+void ChooseRandomRewardNumberForFloor(void)
+{
+    u16 random_val = Random() % 100;
+
+    if(random_val < 10)
+    {
+        if(VarGet(VAR_PIT_FLOOR) < 5)
+            VarSet(VAR_RESULT, 0);
+        else
+            VarSet(VAR_RESULT, 1);
+    }
+    else if(random_val < 60)
+    {
+        VarSet(VAR_RESULT, 1);
+    }
+    else
+    {
+        VarSet(VAR_RESULT, 2);
+    }
 }
 
 void CheckIfHasReceivedShedinja(void)

@@ -1,4 +1,5 @@
 #include "constants/moves.h"
+#include "config/general.h"
 
 #define EGG_MOVES_SPECIES_OFFSET 20000
 #define EGG_MOVES_TERMINATOR 0xFFFF

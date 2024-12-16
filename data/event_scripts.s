@@ -1020,14 +1020,18 @@ EventScript_VsSeekerChargingDone::
 
 EventScript_DoWonderTrade::
 	getpartysize
-	goto_if_eq VAR_RESULT, 0, EventScript_End
+	goto_if_eq VAR_RESULT, 0, EventScript_DoWonderTrade_EndEarly
 	special ChoosePartyMon
 	waitstate
-	goto_if_ge VAR_0x8004, PARTY_SIZE, EventScript_End
+	goto_if_ge VAR_0x8004, PARTY_SIZE, EventScript_DoWonderTrade_EndEarly
 	copyvar VAR_0x8005, VAR_0x8004
 	special CreateWonderTradePokemon
 	special DoInGameTradeScene
 	waitstate
+	return
+
+EventScript_DoWonderTrade_EndEarly::
+	setvar VAR_0x8004, 0xFF
 	return
 
 EventScript_End:

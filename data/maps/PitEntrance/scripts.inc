@@ -156,11 +156,11 @@ PitEntrance_Warp::
 	goto_if_eq VAR_RESULT, 0, PitEntrance_Warp_SkipShinyDust
 	additem ITEM_SHINY_DUST, 1
 PitEntrance_Warp_SkipShinyDust::
-.ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
 	additem ITEM_MEGA_RING, 1
 	@additem ITEM_TERA_ORB, 1
 	additem ITEM_Z_POWER_RING, 1
-.endif
+#endif
 	additem ITEM_EXP_SHARE, 1
 	setflag FLAG_SYS_POKEMON_GET
 	warpteleport MAP_PIT_ARENA, 9, 7
@@ -257,17 +257,18 @@ PitEntrance_EventScript_Sign::
 	msgbox PitEntrance_Text_Rules, MSGBOX_DEFAULT
 PitEntrance_EventScript_Sign_Hook::
 	message PitEntrance_Sign_Text
-	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_GameModes, PitEntrance_Sign_Option6, PitEntrance_Sign_Option2, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
+	dynmultichoice 17, 0, 0, 6, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitEntrance_Sign_Option0, PitEntrance_Sign_Option1, PitEntrance_Sign_Option_GameModes, PitEntrance_Sign_Option_Nickname, PitEntrance_Sign_Option6, PitEntrance_Sign_Option2, PitEntrance_Sign_Option4, PitEntrance_Sign_Option5, PitEntrance_Sign_Option3
 	closemessage
 	copyvar VAR_TEMP_9, VAR_RESULT
 	goto_if_eq VAR_RESULT, 0, PitEntrance_MoreInfo
 	goto_if_eq VAR_RESULT, 1, PitEntrance_BattleInfo
 	goto_if_eq VAR_RESULT, 2, PitEntrance_HardModeInfo
-	goto_if_eq VAR_RESULT, 3, PitEntrance_SecretBaseInfo
-	goto_if_eq VAR_RESULT, 4, PitEntrance_Credits
-	goto_if_eq VAR_RESULT, 5, PitEntrance_Bugs
-	goto_if_eq VAR_RESULT, 6, PitEntrance_Discord
-	goto_if_eq VAR_RESULT, 7, PitEntrance_Cheats
+	goto_if_eq VAR_RESULT, 3, PitEntrance_ChangeNickname
+	goto_if_eq VAR_RESULT, 4, PitEntrance_SecretBaseInfo
+	goto_if_eq VAR_RESULT, 5, PitEntrance_Credits
+	goto_if_eq VAR_RESULT, 6, PitEntrance_Bugs
+	goto_if_eq VAR_RESULT, 7, PitEntrance_Discord
+	goto_if_eq VAR_RESULT, 8, PitEntrance_Cheats
 	release
 	end
 
@@ -337,6 +338,14 @@ PitEntrance_ChangeAvatar:
 	release
 	end 
 
+PitEntrance_ChangeNickname:
+	fadescreen FADE_TO_BLACK
+	callnative CallRenameScreen
+	waitstate
+	goto PitEntrance_EventScript_Sign_Hook
+	release
+	end 
+
 PitEntrance_Sign_Text:
 	.string "Would you like more information?$"
 
@@ -346,6 +355,8 @@ PitEntrance_Sign_Option1:
 	.string "BattleInfo$"
 PitEntrance_Sign_Option2:
 	.string "Credits$"
+PitEntrance_Sign_Option_Nickname:
+	.string "Nickname$"
 PitEntrance_Sign_Option3:
 	.string "Cheats$"
 PitEntrance_Sign_Option4:
@@ -708,8 +719,6 @@ PitEntrance_SecretBaseShop_Misc:
 	.2byte DECOR_MUD_BALL        
 	.2byte DECOR_BREAKABLE_DOOR  
 	.2byte DECOR_SAND_ORNAMENT   
-	.2byte DECOR_SILVER_SHIELD   
-	.2byte DECOR_GOLD_SHIELD     
 	.2byte DECOR_GLASS_ORNAMENT  
 	.2byte DECOR_TV              
 	.2byte DECOR_ROUND_TV        
