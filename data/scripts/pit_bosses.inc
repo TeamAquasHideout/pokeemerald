@@ -2,7 +2,6 @@ PitBoss_BossEncounter::
 	lock
 	faceplayer
 	setflag FLAG_START_BOSS_ENCOUNTER
-	special HealPlayerParty
 	goto_if_set FLAG_DOUBLES_MODE, PitBoss_CommonScriptDoubles
 	trainerbattle_single TRAINER_RANDOM_PIT_BOSS, PitArena_Text_Intro, PitArena_Text_Defeat, PitBoss_CommonAfterBattleScript
 	clearflag FLAG_START_BOSS_ENCOUNTER
@@ -70,13 +69,13 @@ PitBoss_FinalBossAfterBattle::
 	msgbox Pit_EndGameStatue_Text1, MSGBOX_DEFAULT
 	closemessage
 	fadescreen FADE_TO_BLACK
+	delay 20
 	removeobject 1
 	setflag FLAG_BOSS_ENCOUNTER
+	delay 20
 	addobject 2
 	clearflag FLAG_END_GAME_STATUE
 	fadescreen FADE_FROM_BLACK
-	callnative SetAutosaveFlag
-	goto_if_unset FLAG_AUTO_SAVE, PitFinalBossNoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT
 	dofieldeffect(FLDEFF_SAVING)
 	waitfieldeffect(FLDEFF_SAVING)
@@ -120,15 +119,11 @@ PlayerEastMovement:
 Pit_EndGameStatue222::
 	lockall
 	callnative ClearAllRandomBossEncounters
-	callnative SetAutosaveFlag
-	goto_if_unset FLAG_AUTO_SAVE, PitStatueNoAutoSave
-	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
-	callnative AutoSave
 PitStatueNoAutoSave:
-	msgbox Pit_EndGameStatue_Text2, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, Pit_EndGameStatue2
+	message Pit_EndGameStatue_Text2
+	dynmultichoice 22, 8, 1, 5, 0, DYN_MULTICHOICE_CB_NONE, Pit_EndGameStatue_Text_77, Pit_EndGameStatue_Text_99
+	closemessage
+	goto_if_eq VAR_RESULT, 0, Pit_EndGameStatue2
 	special HealPlayerParty
 	callnative BufferMapFloorString
 	callnative Check3MonMode
@@ -140,6 +135,11 @@ PitStatueNoAutoSave:
 	waitstate
 	release
 	end
+
+Pit_EndGameStatue_Text_77:
+	.string "New Run$"
+Pit_EndGameStatue_Text_99:
+	.string "Continue$"
 
 Pit_EndGameStatue2::
 	msgbox Pit_EndGameStatue_TextSaveTeam, MSGBOX_YESNO
@@ -165,23 +165,18 @@ PitStatue_AccessPC::
 Pit_EndGameStatue_TextSaveTeam:
 	.string "Do you want to save your Winning Team?$"
 
-
 Pit_EndGameStatue_Text1:
-	.string "Congratulations!\p"
-	.string "You have completed the\n"
-	.string "Pit of 100 Trials....\p"
-	.string "I hope your descent was\n"
-	.string "pleasant.\p"
-	.string "You can now return to the\n"
-	.string "entrance, prepare for a\l"
-	.string "new trial and store your\l"
-	.string "winning party in the PC.\p"
-	.string "Or continue lower for an\n"
-	.string "infinite challenge!$"
+	.string "Congratulations! You have \n"
+	.string "completed the Pit of 100 Trials..\p"
+	.string "You can now return to the entrance,\n"
+	.string "prepare for a new trial,\l"
+	.string "and store your party in the PC.\p"
+	.string "Or continue lower and keep going\n"
+	.string "for an infinite challenge!$"
 
 Pit_EndGameStatue_Text2:
-	.string "Start a new run?                 (YES)\n"
-	.string "Or continue the grind?      (NO).$"
+	.string "Would you like to return to\n"
+	.string "the Pit Entrance?$"
 
 Pit_EndGameStatue_Text3:
 	.string "Well, thanks for playing!$"

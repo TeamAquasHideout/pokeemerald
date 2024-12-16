@@ -3712,3 +3712,12 @@ void CheckAndGiveShedinja(void)
         VarSet(VAR_RESULT, 0);
     return;
 }
+
+void CheckIfShouldSkipBossHeal(void)
+{
+    if(gSaveBlock2Ptr->modeNoBossSave == 0)
+        VarSet(VAR_RESULT, 0);
+    else
+        VarSet(VAR_RESULT, 1);
+    return;
+}

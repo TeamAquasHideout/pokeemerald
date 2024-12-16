@@ -578,7 +578,8 @@ struct SaveBlock2
              u16 padding1:4;  // uncommented because its free padding space
             // end of u16
              u16 mode50Floors:1;
-             u16 padding2:15; // uncommented because its free padding space
+             u16 modeNoBossSave:1;
+             u16 padding2:14; // uncommented because its free padding space
             // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
