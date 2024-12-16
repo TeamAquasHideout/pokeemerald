@@ -815,6 +815,10 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
     u16 y = VarGet(ScriptReadHalfword(ctx));
     u32 healFloorFreq = gSaveBlock2Ptr->modeHealFloors10 ? 10 : 5;
 
+
+    if((VarGet(VAR_PIT_FLOOR) % 125) == 0) // Every 125 Floors Clear The Boss Flags
+        ClearAllRandomBossEncounters();
+
     if(mapNum == 0xFF)
     {   
         if(((VarGet(VAR_PIT_FLOOR) % healFloorFreq) == 0) && (VarGet(VAR_PIT_FLOOR) % BOSS_FLOOR_RATE))

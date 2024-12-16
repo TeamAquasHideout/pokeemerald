@@ -818,6 +818,8 @@ static void MoveRelearnerLoadBattleMoveDescription(u32 chosenMove)
         str = gNotDoneYetDescription;
 
     AddTextPrinterParameterized4(RELEARNERWIN_DESC_BATTLE, FONT_NARROW, 0, 65, 0, 0, colors, 0, str);
+
+    MoveRelearnerShowHideCategoryIcon(chosenMove);
 }
 
 static void MoveRelearnerMenuLoadContestMoveDescription(u32 chosenMove)
