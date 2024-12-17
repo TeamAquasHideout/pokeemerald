@@ -486,7 +486,9 @@ $(OBJEVENTGFXDIR)/people/rosa.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/lillie.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-
+# mudskip
+$(OBJEVENTGFXDIR)/people/mario.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/pokemon_old/azumarill.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
