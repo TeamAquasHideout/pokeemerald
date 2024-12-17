@@ -1,4 +1,5 @@
 .set LOCALID_MARIO, 5
+.set LOCALID_RAVEPOSSUM, 6
 
 PitBackRoom_MapScripts::
 	.byte 0
@@ -54,3 +55,15 @@ PitBackRoom_Text_Mudskip:
 	.string "hack!\l"
 	.string "Because I sure do at least, ehe."
 	.string "$"
+
+PitBackRoom_EventScript_RavePossum::
+	msgbox PitBackRoom_Text_RavePossum, MSGBOX_NPC
+	turnobject LOCALID_RAVEPOSSUM, DIR_WEST
+	end
+
+PitBackRoom_Text_RavePossum:
+	.string "RavePossum here! Surprisingly, I am not\n" 
+	.string "actually a marsupial.\p"
+	.string "I programmed the summary screen and a\n"
+	.string "few other random bits here and there.\p"
+	.string "Enjoy your time in the Pit!$"
