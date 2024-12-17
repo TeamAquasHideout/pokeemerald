@@ -38,6 +38,7 @@
   ],
   "gMapGroup_ThePit": [
     "PitEntrance",
+    "PitBackRoom",
     "PitRestFloor",
     "PitBossArena",
     "PitWildEncounterFloor",
@@ -79,8 +80,7 @@
     "PitArenaBeachCave",
     "PitArenaBeachCave02",
     "PitArenaBeachCave03",
-    "PitArenaBeachCave04",
-    "PitBackRoom"
+    "PitArenaBeachCave04"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
