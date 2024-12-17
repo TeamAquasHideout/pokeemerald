@@ -27,6 +27,12 @@ static const struct BgTemplate sPartyMenuBgTemplates[] =
         .priority = 0,
         .baseTile = 0
     },
+    {
+        .bg = 3,
+        .charBaseIndex = 0,
+        .mapBaseIndex = 22,
+        .priority = 3,
+    },
 };
 
 enum

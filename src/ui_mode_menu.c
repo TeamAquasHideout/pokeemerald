@@ -882,7 +882,7 @@ static void ModeMenu_VBlankCB(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
-    ChangeBgY(3, 96, BG_COORD_SUB);
+    ChangeBgY(3, 128, BG_COORD_SUB);
 }
 
 //Header Window

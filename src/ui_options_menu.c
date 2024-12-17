@@ -442,7 +442,7 @@ static void VBlankCB(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
-    ChangeBgY(3, 96, BG_COORD_SUB);
+    ChangeBgY(3, 128, BG_COORD_SUB);
 }
 
 static const u8 sText_TopBar_Pit[]         = _("THE PIT OPTIONS");
