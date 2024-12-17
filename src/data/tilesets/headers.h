@@ -979,3 +979,14 @@ const struct Tileset gTileset_PitArenaBeachCave =
     .metatileAttributes = gMetatileAttributes_PitArenaBeachCave,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_PitZeldaHouse =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PitZeldaHouse,
+    .palettes = gTilesetPalettes_PitZeldaHouse,
+    .metatiles = gMetatiles_PitZeldaHouse,
+    .metatileAttributes = gMetatileAttributes_PitZeldaHouse,
+    .callback = NULL,
+};

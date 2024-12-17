@@ -38,6 +38,7 @@
   ],
   "gMapGroup_ThePit": [
     "PitEntrance",
+    "PitBackRoom",
     "PitRestFloor",
     "PitBossArena",
     "PitWildEncounterFloor",

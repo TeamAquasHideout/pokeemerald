@@ -266,10 +266,13 @@
 #define OBJ_EVENT_GFX_ROSA                       260
 #define OBJ_EVENT_GFX_LILLIE                     261
 
+// mudskip
+#define OBJ_EVENT_GFX_MARIO                      262
+
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                        262
+#define NUM_OBJ_EVENT_GFX                        263
 
 
 // These are dynamic object gfx ids.
@@ -406,7 +409,7 @@
 #define OBJ_EVENT_PAL_TAG_OAK                     0x1128
 #define OBJ_EVENT_PAL_TAG_LYRA                    0x1129
 #define OBJ_EVENT_PAL_TAG_ETHAN                   0x1130
-#define OBJ_EVENT_PAL_TAG_PIT_PC				  0x1131
+#define OBJ_EVENT_PAL_TAG_PIT_PC                  0x1131
 #define OBJ_EVENT_PAL_TAG_WALLY                	  0x1132
 #define OBJ_EVENT_PAL_TAG_NPC_WHITE               0x1133
 #define OBJ_EVENT_PAL_TAG_NPC_BLUE                0x1134
@@ -416,7 +419,9 @@
 #define OBJ_EVENT_PAL_TAG_DEOXYS                  0x1138 //not used. switched position with BUGSY
 #define OBJ_EVENT_PAL_TAG_ROSA                    0x1139
 #define OBJ_EVENT_PAL_TAG_LILLIE                  0x1140
-#define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1141
+#define OBJ_EVENT_PAL_TAG_MARIO                   0x1141
+
+#define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1142
 
 
 #if OW_FOLLOWERS_POKEBALLS

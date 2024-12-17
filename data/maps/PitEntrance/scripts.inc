@@ -1,4 +1,4 @@
-.set LOCALID_ARCHIE, 6
+.set LOCALID_ARCHIE, 4
 .set LOCALID_WIZ1989, 5
 
 PitEntrance_MapScripts::

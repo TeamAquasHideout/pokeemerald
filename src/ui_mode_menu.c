@@ -93,12 +93,12 @@ enum MenuItems_Difficulty
 
 enum MenuItems_Randomizer
 {
-    MENUITEM_RAND_B_WEATHER,
     MENUITEM_RAND_MOVES,
     MENUITEM_RAND_ABILITIES,
     MENUITEM_RAND_BASE_STATS,
     MENUITEM_RAND_TYPES,
     MENUITEM_RAND_EVOS,
+    MENUITEM_RAND_B_WEATHER,
     MENUITEM_RAND_CANCEL,
     MENUITEM_RAND_COUNT,
 };
@@ -882,7 +882,7 @@ static void ModeMenu_VBlankCB(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
-    ChangeBgY(3, 96, BG_COORD_SUB);
+    ChangeBgY(3, 128, BG_COORD_SUB);
 }
 
 //Header Window

@@ -4860,6 +4860,16 @@
       "secondary_tileset": "gTileset_PitArenaBeachCave",
       "border_filepath": "data/layouts/PitArenaBeachCave04/border.bin",
       "blockdata_filepath": "data/layouts/PitArenaBeachCave04/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_BACK_ROOM",
+      "name": "PitBackRoom_Layout",
+      "width": 20,
+      "height": 20,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PitZeldaHouse",
+      "border_filepath": "data/layouts/PitBackRoom/border.bin",
+      "blockdata_filepath": "data/layouts/PitBackRoom/map.bin"
     }
   ]
 }

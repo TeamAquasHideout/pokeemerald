@@ -4362,7 +4362,7 @@ u8 GetTypeBySpecies(u16 species, u8 typeNum)
     if (gSaveBlock2Ptr->randomType == OPTIONS_OFF)
         return type;
 
-    type = sOneTypeChallengeValidTypes[RandomSeededModulo2(type + typeNum + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2)];
+    type = sOneTypeChallengeValidTypes[RandomSeededModulo2(type + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2)];
     return type;
 }
 

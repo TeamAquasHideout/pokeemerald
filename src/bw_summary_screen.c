@@ -1733,8 +1733,7 @@ static void VBlank(void)
     TransferPlttBuffer();
     if (BW_SUMMARY_SCROLLING_BG)
     {
-        ChangeBgX(3, 64, BG_COORD_ADD);
-        ChangeBgY(3, 64, BG_COORD_ADD);
+        ChangeBgY(3, 128, BG_COORD_SUB);
     }
     if (BW_SUMMARY_MON_IDLE_ANIMS && !sMonSummaryScreen->summary.isEgg)
     {
@@ -4836,7 +4835,7 @@ static void SetMonTypeIcons(void)
         SetTypeSpritePosAndPal(GetTypeBySpecies(summary->species, 1), 68, 46, SPRITE_ARR_ID_TYPE);
         if (GetTypeBySpecies(summary->species, 1) != GetTypeBySpecies(summary->species, 2))
         {
-            SetTypeSpritePosAndPal(gSpeciesInfo[summary->species].types[1], 106, 46, SPRITE_ARR_ID_TYPE + 1);
+            SetTypeSpritePosAndPal(GetTypeBySpecies(summary->species, 2), 106, 46, SPRITE_ARR_ID_TYPE + 1);
             SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, FALSE);
         }
         else
