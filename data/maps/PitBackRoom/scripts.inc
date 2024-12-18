@@ -1,4 +1,6 @@
 .set LOCALID_MARIO, 5
+.set LOCALID_RAVEPOSSUM, 6
+.set LOCALID_PHANTONOMY, 7
 
 PitBackRoom_MapScripts::
 	.byte 0
@@ -54,3 +56,34 @@ PitBackRoom_Text_Mudskip:
 	.string "hack!\l"
 	.string "Because I sure do at least, ehe."
 	.string "$"
+
+PitBackRoom_EventScript_RavePossum::
+	msgbox PitBackRoom_Text_RavePossum, MSGBOX_NPC
+	turnobject LOCALID_RAVEPOSSUM, DIR_WEST
+	end
+
+PitBackRoom_Text_RavePossum:
+	.string "RavePossum here! Surprisingly, I am not\n" 
+	.string "actually a marsupial.\p"
+	.string "I programmed the summary screen and a\n"
+	.string "few other random bits here and there.\p"
+	.string "Enjoy your time in the Pit!$"
+
+
+PitBackRoom_EventScript_Phantonomy::
+	msgbox PitBackRoom_Text_Phantonomy, MSGBOX_NPC
+	turnobject LOCALID_PHANTONOMY, DIR_EAST
+	end
+
+PitBackRoom_Text_Phantonomy:
+	.string "Hello!\p" 
+	.string "I'm Phantonomy.\p"
+	.string "I had the priviledge to playtest some\n"
+	.string "of the later builds of this project to\l"
+	.string "help polish it up for release!\p"
+	.string "I'll share a quick tip with you that\n"
+	.string "will greatly benefit your runs.\p"		
+	.string "Pick up all of the items BEFORE\n"
+	.string "you step on the warp tile.\p"
+	.string "It makes the game a lot easier.\n"
+	.string "Trust me…$"
