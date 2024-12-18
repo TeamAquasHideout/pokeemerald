@@ -374,6 +374,77 @@ gText_OneTwoThreeApproach::
     .string "One, two, three...\n"
     .string "you are losing, not me!$"
 
+gText_AereonApproach::
+    .string "The time for talking is over.\n"
+    .string "Prepare yourself!$"
+
+gText_AaronApproach::
+    .string "Yup... I can smell it... A strong trainer!$"
+
+gText_BlakeApproach::
+    .string "Oh, hey! You made it this far, huh?$"
+
+gText_CollinApproach::
+    .string "Let us get straight to it.$"
+
+gText_DyllanApproach::
+    .string "Stop right there!$"
+
+gText_ElaineApproach::
+    .string "Nice to meet you!$"
+
+gText_FreddyApproach::
+    .string "So, you've come at last...$"
+
+gText_Grace2Approach::
+    .string "Excuse me? Yes, you! Let's battle!$"
+
+gText_HelenaApproach::
+    .string "So... we meet again...$"
+
+gText_IanApproach::
+    .string "Look out! I'm really strong!$"
+
+gText_JohnApproach::
+    .string "Ah! Hello, hello!$"
+
+gText_KiraApproach::
+    .string "My Pokémon and I won't lose!$"
+
+gText_LindseyApproach::
+    .string "I'll try not to disappoint!$"
+
+gText_MichaelApproach::
+    .string "Hehehe... Got here already, did you?$"
+
+gText_Nathan2Approach::
+    .string "Oh joy, another battle...$"
+
+gText_OliviaApproach::
+    .string "Give it everything you've got!$"
+
+gText_PaulApproach::
+    .string "Go easy on us, okay?$"
+
+gText_QuinnApproach::
+    .string "I've got this! ...I hope.$"
+
+gText_RileyApproach::
+    .string "We're pulling out all the stops\n"
+    .string "to put your Pokémon down.$"
+
+gText_StephenApproach::
+    .string "Get ready for an awesome battle!$"
+
+gText_TrevorApproach::
+    .string "I think I will be your next opponent!$"
+
+gText_VictorApproach::
+    .string "Hey! I've found a pretty strong Trainer!$"
+
+gText_ShawnApproach::
+    .string "Yo! Let's battle!$"
+
 
 
 gText_TylerDefeat::
@@ -609,3 +680,76 @@ gText_AinsleyDefeat::
 
 gText_GriffinDefeat::
     .string "You've won but at what cost…$"
+
+gText_wiz1989Defeat::
+    .string "This is also great content!$"
+
+gText_AereonDefeat::
+    .string "Don't let your guard down!$"
+
+gText_AaronDefeat::
+    .string "There's no mistakin' it!$"
+
+gText_BlakeDefeat::
+    .string "You and your Pokémon sure make a great\n"
+    .string "team!$"
+
+gText_CollinDefeat::
+    .string "You know what is expected of you.$"
+
+gText_DyllanDefeat::
+    .string "Ah ha ha! I didn't mean to surprise you!$"
+
+gText_ElaineDefeat::
+    .string "It was nice meeting you!$"
+
+gText_FreddyDefeat::
+    .string "I am deeply impressed!$"
+
+gText_Grace2Defeat::
+    .string "You're really something!$"
+
+gText_HelenaDefeat::
+    .string "See you in the next run...$"
+
+gText_IanDefeat::
+    .string "It seems you're even stronger!$"
+
+gText_JohnDefeat::
+    .string "Ah! Goodbye, goodbye!$"
+
+gText_KiraDefeat::
+    .string "See you later!$"
+
+gText_LindseyDefeat::
+    .string "Well, you beat me soundly!$"
+
+gText_MichaelDefeat::
+    .string "Hehehe... So I lost...$"
+
+gText_Nathan2Defeat::
+    .string "Oh joy, another defeat...$"
+
+gText_OliviaDefeat::
+    .string "How lovely.$"
+
+gText_PaulDefeat::
+    .string "How was that going easy?$"
+
+gText_QuinnDefeat::
+    .string "I did not have this.$"
+
+gText_RileyDefeat::
+    .string "Your team! I sense their potential!$"
+
+gText_StephenDefeat::
+    .string "That was an amazing battle!$"
+
+gText_TrevorDefeat::
+    .string "You're even stronger than I thought!$"
+
+gText_VictorDefeat::
+    .string "A-ha! You're stronger than I thought!$"
+
+gText_ShawnDefeat::
+    .string "Good battle!$"

@@ -5,7 +5,10 @@ PitBackRoom_MapScripts::
 
 
 PitBackRoom_EventScript_Nico::
+	lock
+	faceplayer
 	msgbox PitBackRoom_Text_Nico, MSGBOX_NPC
+	release
 	end
 
 PitBackRoom_Text_Nico:
@@ -30,8 +33,11 @@ PitBackRoom_Text_Nico:
 	.string "So I hope you enjoy our work!!!$"
 
 PitBackRoom_EventScript_Mudskip::
+	lock
+	faceplayer
 	msgbox PitBackRoom_Text_Mudskip, MSGBOX_NPC
 	turnobject LOCALID_MARIO, DIR_EAST
+	release
 	end
 
 PitBackRoom_Text_Mudskip:
@@ -54,3 +60,36 @@ PitBackRoom_Text_Mudskip:
 	.string "hack!\l"
 	.string "Because I sure do at least, ehe."
 	.string "$"
+
+PitBackRoom_EventScript_wiz1989::
+	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_wiz1989_Text_0
+	waitmessage
+	msgbox PitBackRoom_EventScript_wiz1989_Text_1, MSGBOX_YESNO
+	msgbox PitBackRoom_EventScript_wiz1989_Text_2, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+PitBackRoom_EventScript_wiz1989_Text_0:
+	.string "I am the Game Master.\p"
+	.string "I will give you helpful advice for each\n"
+	.string "situation, but it adds an additional\l"
+	.string "20min to your play clock.$"
+
+PitBackRoom_EventScript_wiz1989_Text_1:
+	.string "Do you want me to give you a hint?$"
+
+PitBackRoom_EventScript_wiz1989_Text_2:
+	.string "Haha! I dumbfounded you!\p"
+	.string "Actually my name is wiz1989 and this\n"
+	.string "is my safe room I like to escape to...\l"
+	.string "if you know what I mean.\p"
+	.string "I joined Archie early on this venture\n"
+	.string "and did a bit of everything.\p"
+	.string "I really hope you enjoy this hack as\n"
+	.string "much as I do and can value the passion\l"
+	.string "that went into making it.\p"
+	.string "Now go and try to escape from The Pit!$"
+	
