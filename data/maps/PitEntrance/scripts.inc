@@ -846,7 +846,7 @@ PitEntrance_Pinball_CommonEnd::
 	end
 
 PitEntrance_Pinball_Text::
-	.string "Would you like to play a game?$"
+	.string "Would you like to play a game of pinball?$"
 
 PitEntrance_Pinball_ModeMeowth_Text::
 	.string "Meowth$"

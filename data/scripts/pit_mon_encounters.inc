@@ -382,7 +382,7 @@ PitEncounter_MoverSkip2::
 	callnative SetWarpTileActive
 	addvar VAR_PIT_FLOOR, 1
 	special DrawWholeMapView
-	goto PitArena_Warp
+	goto Pit_Warp_Advance_Floor
 	release
 	end
 
@@ -394,7 +394,7 @@ PitEncounter_MoverSkip3::
 	call PitEncounter_Common_AfterUse
 	addvar VAR_PIT_FLOOR, 2
 	special DrawWholeMapView
-	goto PitArena_Warp
+	goto Pit_Warp_Advance_Floor
 	release
 	end
 
