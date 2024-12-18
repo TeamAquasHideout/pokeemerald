@@ -278,6 +278,10 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Scientist;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SuperNerd;
 // mudskip
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mario;
+// ravepossum
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RavePossum;
+// phantonomy
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Phantonomy;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -545,6 +549,8 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     //more
     [OBJ_EVENT_GFX_NATE] =                     &gObjectEventGraphicsInfo_Nate,
     [OBJ_EVENT_GFX_MARIO] =                    &gObjectEventGraphicsInfo_Mario,
+    [OBJ_EVENT_GFX_RAVEPOSSUM] =               &gObjectEventGraphicsInfo_RavePossum,
+    [OBJ_EVENT_GFX_PHANTONOMY] =               &gObjectEventGraphicsInfo_Phantonomy,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {
