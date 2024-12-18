@@ -1586,7 +1586,7 @@ static const u8 *const sArchieFinalDefeat[1] =
 };
 
 #define RANDOM_TRAINER_APPROACH_TEXTS_COUNT ARRAY_COUNT(sRandomTrainerApproachTexts)
-static const u8 *const sRandomTrainerApproachTexts[79] =
+static const u8 *const sRandomTrainerApproachTexts[] =
 {
     gText_TylerApproach,
     gText_JuliaApproach,
@@ -1667,10 +1667,33 @@ static const u8 *const sRandomTrainerApproachTexts[79] =
     gText_GriffinApproach,
     gText_wiz1989Approach,
     gText_OneTwoThreeApproach,
+    gText_AereonApproach,
+    gText_AaronApproach,
+    gText_BlakeApproach,
+    gText_CollinApproach,
+    gText_DyllanApproach,
+    gText_ElaineApproach,
+    gText_FreddyApproach,
+    gText_Grace2Approach,
+    gText_HelenaApproach,
+    gText_IanApproach,
+    gText_JohnApproach,
+    gText_KiraApproach,
+    gText_LindseyApproach,
+    gText_MichaelApproach,
+    gText_Nathan2Approach,
+    gText_OliviaApproach,
+    gText_PaulApproach,
+    gText_QuinnApproach,
+    gText_RileyApproach,
+    gText_StephenApproach,
+    gText_TrevorApproach,
+    gText_VictorApproach,
+    gText_ShawnApproach,
 };
 
 #define RANDOM_TRAINER_DEFEAT_TEXTS_COUNT ARRAY_COUNT(sRandomTrainerDefeatTexts)
-static const u8 *const sRandomTrainerDefeatTexts[77] =
+static const u8 *const sRandomTrainerDefeatTexts[] =
 {
     gText_TylerDefeat,
     gText_JuliaDefeat,
@@ -1749,6 +1772,30 @@ static const u8 *const sRandomTrainerDefeatTexts[77] =
     gText_HunterDefeat,
     gText_AinsleyDefeat,
     gText_GriffinDefeat,
+    gText_wiz1989Defeat,
+    gText_AereonDefeat,
+    gText_AaronDefeat,
+    gText_BlakeDefeat,
+    gText_CollinDefeat,
+    gText_DyllanDefeat,
+    gText_ElaineDefeat,
+    gText_FreddyDefeat,
+    gText_Grace2Defeat,
+    gText_HelenaDefeat,
+    gText_IanDefeat,
+    gText_JohnDefeat,
+    gText_KiraDefeat,
+    gText_LindseyDefeat,
+    gText_MichaelDefeat,
+    gText_Nathan2Defeat,
+    gText_OliviaDefeat,
+    gText_PaulDefeat,
+    gText_QuinnDefeat,
+    gText_RileyDefeat,
+    gText_StephenDefeat,
+    gText_TrevorDefeat,
+    gText_VictorDefeat,
+    gText_ShawnDefeat,
 };
 
 u8 getNumberOfApproachTexts(void)
