@@ -872,7 +872,7 @@ static void Task_DelayedSpriteLoad(u8 taskId) // wait 4 frames after changing th
 
 static void Task_BirchCaseRecievedMon(u8 taskId)
 {
-    if(JOY_NEW(A_BUTTON) || gTasks[taskId].data[12] > 80)
+    if(JOY_NEW(A_BUTTON) || gTasks[taskId].data[12] > 30)
     {
         if(FlagGet(FLAG_CASE_STARTER_MODE) && (sBirchCaseDataPtr->monState < 2))
         {
