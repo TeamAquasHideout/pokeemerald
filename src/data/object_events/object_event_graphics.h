@@ -448,6 +448,12 @@ const u16 gObjectEventPaletteEmotes[] = INCBIN_U16("graphics/misc/emotes.gbapal"
 // mudskip
 const u32 gObjectEventPic_Mario[] = INCBIN_U32("graphics/object_events/pics/people/mario.4bpp");
 const u16 gObjectEventPal_Mario[] = INCBIN_U16("graphics/object_events/pics/people/mario.gbapal");
+// ravepossum
+const u32 gObjectEventPic_RavePossum[] = INCBIN_U32("graphics/object_events/pics/people/ravepossum.4bpp");
+const u16 gObjectEventPal_RavePossum[] = INCBIN_U16("graphics/object_events/pics/people/ravepossum.gbapal");
+// phantonomy
+const u32 gObjectEventPic_Phantonomy[] = INCBIN_U32("graphics/object_events/pics/people/elio.4bpp");
+const u16 gObjectEventPal_Phantonomy[] = INCBIN_U16("graphics/object_events/pics/people/elio.gbapal");
 
 #if OW_FOLLOWERS_POKEBALLS
 const u32 gObjectEventPic_MasterBall[] = INCBIN_U32("graphics/object_events/pics/misc/ball_master.4bpp");

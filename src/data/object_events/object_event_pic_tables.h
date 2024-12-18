@@ -1547,3 +1547,11 @@ static const struct SpriteFrameImage sPicTable_Mario[] = {
     overworld_frame(gObjectEventPic_Mario, 2, 4, 2),
     overworld_frame(gObjectEventPic_Mario, 2, 4, 2),
 };
+
+static const struct SpriteFrameImage sPicTable_RavePossum[] = {
+    overworld_ascending_frames(gObjectEventPic_RavePossum, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Phantonomy[] = {
+    overworld_ascending_frames(gObjectEventPic_Phantonomy, 2, 4),
+};
