@@ -47,6 +47,7 @@
 #include "pokedex_plus_hgss.h"
 #include "field_player_avatar.h"
 #include "naming_screen.h"
+#include "config/general.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -3677,9 +3678,9 @@ void ChooseRandomRewardNumberForFloor(void)
     if(random_val < 10)
     {
         if(VarGet(VAR_PIT_FLOOR) < 5)
-            VarSet(VAR_RESULT, 0);
-        else
             VarSet(VAR_RESULT, 1);
+        else
+            VarSet(VAR_RESULT, 0);
     }
     else if(random_val < 60)
     {
