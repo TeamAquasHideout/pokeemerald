@@ -1236,8 +1236,16 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_CURE_STATUS:
+        // DebugPrintf("EFFECT_ITEM_CURE_STATUS");
+        // DebugPrintf("mon = %d", mon);
+        // DebugPrintf("item = %d", itemId);
+        // DebugPrintf("status check = %d", GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId));
+        // DebugPrintf("gBattlerInMenuId = %d", gBattlerInMenuId);
+        // DebugPrintf("slot = %d", gPartyMenu.slotId);
+        // DebugPrintf("status check = %d", gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId));
+        
         if (!((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
-            || (gPartyMenu.slotId == 0 && gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId))))
+            || (gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId))))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
