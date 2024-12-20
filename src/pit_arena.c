@@ -1872,12 +1872,14 @@ bool8 EncounterFlagGet(u16 id)
 bool8 RemainingEncounters(void)
 {
     u8 i = 0;
+    u8 count = 0;
+
     for(i = 0; i < RANDOM_ENCOUNTER_COUNT; i++)
     {
         if(!EncounterFlagGet(i))
-            return TRUE;
+            count++;
     }
-    return FALSE;
+    return count;
 }
 
 void ClearAllRandomEncounters(void)
@@ -1907,6 +1909,16 @@ void SetRandomMonEncounter(void)
         u16 index = Random() % RANDOM_ENCOUNTER_COUNT;
         if(EncounterFlagGet(index))
         {
+            reroll = TRUE;
+        }
+        //no floor skipping before boss floors
+        else if (sRandomEncounterArray[index].species == SPECIES_ABRA
+         && (VarGet(VAR_PIT_FLOOR) % 25) > 22)
+        {
+            //if Abra is the last remaining encounter we would be stuck otherwise
+            if (RemainingEncounters() != 1)
+                return;
+
             reroll = TRUE;
         }
         else
