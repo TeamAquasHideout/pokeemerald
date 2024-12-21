@@ -85,7 +85,7 @@
 #define FLAG_UNUSED_0x047    0x47 // Unused Flag
 #define FLAG_UNUSED_0x048    0x48 // Unused Flag
 #define FLAG_UNUSED_0x049    0x49 // Unused Flag
-#define FLAG_UNUSED_0x04A    0x4A // Unused Flag
+#define FLAG_NO_COLLISION    0x4A // Unused Flag
 #define FLAG_SEND_TO_PC      0x4B // Unused Flag
 #define FLAG_DONT_RANDOMIZE_NEXT_MON    0x4C // Unused Flag
 #define FLAG_LOAD_FROM_TEMP_HOF    0x4D // Unused Flag
