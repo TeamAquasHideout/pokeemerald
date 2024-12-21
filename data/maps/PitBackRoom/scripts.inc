@@ -159,3 +159,14 @@ PitBackRoom_EventScript_Aereon_text::
 	.string "Pokemon! Best of luck on your future\l"
 	.string "attempts in The Pit, I'm rooting for\l"
 	.string "you!$"
+
+PitBackRoom_EventScript_Vase::
+	lock
+	msgbox PitBackRoom_EventScript_Vase_text, MSGBOX_DEFAULT
+	release
+	end
+
+PitBackRoom_EventScript_Vase_text:
+	.string "There's a Big Pickle in the vase.\n"
+	.string "And it smells like Dragonite...\p"
+	.string "Eww!$"

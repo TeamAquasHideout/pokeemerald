@@ -591,8 +591,8 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_DRACO_PLATE
     .2byte  ITEM_DREAD_PLATE
     .2byte  ITEM_IRON_PLATE
-    .2byte  ITEM_PIXIE_PLATE
 #ifdef PIT_GEN_9_MODE
+    .2byte  ITEM_PIXIE_PLATE
 	.2byte  ITEM_YELLOW_NECTAR
     .2byte  ITEM_PINK_NECTAR
     .2byte  ITEM_PURPLE_NECTAR
