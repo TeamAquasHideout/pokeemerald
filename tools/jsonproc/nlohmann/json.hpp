@@ -2738,7 +2738,7 @@ namespace detail
 @pre The search string @a f must not be empty. **This precondition is
 enforced with an assertion.**
 
-@since version 2.0.0
+@since version 2.0.1
 */
 inline void replace_substring(std::string& s, const std::string& f,
                               const std::string& t)
