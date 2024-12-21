@@ -1168,6 +1168,7 @@ struct SaveBlock1
     /*0x624*/ u16 contestLinkResults[CONTEST_CATEGORIES_COUNT][CONTESTANT_COUNT];
     u8 randomBossEncounters[3];
     u8 randomMonEncounters[2];
+    u16 wildEncounterFloorSpecies[9];
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;
