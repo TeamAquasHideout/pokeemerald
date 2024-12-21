@@ -47,6 +47,7 @@
 #include "pokedex_plus_hgss.h"
 #include "field_player_avatar.h"
 #include "naming_screen.h"
+#include "config/general.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -1913,7 +1914,7 @@ void SetRandomMonEncounter(void)
         }
         //no floor skipping before boss floors
         else if (sRandomEncounterArray[index].species == SPECIES_ABRA
-         && (VarGet(VAR_PIT_FLOOR) % 25) > 22)
+         && (VarGet(VAR_PIT_FLOOR) % 25) > 21)
         {
             //if Abra is the last remaining encounter we would be stuck otherwise
             if (RemainingEncounters() != 1)
@@ -3183,13 +3184,12 @@ const u8 *GetRandomBossEncounterBossAceText(void)
 
 const u16 variableGraphicsIdsForEncounters[9] = {VAR_OBJ_GFX_ID_4, VAR_OBJ_GFX_ID_5, VAR_OBJ_GFX_ID_6, VAR_OBJ_GFX_ID_7,
                                             VAR_OBJ_GFX_ID_8, VAR_OBJ_GFX_ID_9, VAR_OBJ_GFX_ID_A, VAR_OBJ_GFX_ID_B, VAR_OBJ_GFX_ID_C};
-static EWRAM_DATA u16 loadedEncounters[9] = {0};
 
 void DebugPrintAllSpecies(void)
 {
     for(u8 i = 0; i < 9; i++)
     {
-        DebugPrintf("Species: %d", loadedEncounters[i]);
+        DebugPrintf("Species: %d", gSaveBlock1Ptr->wildEncounterFloorSpecies[i]);
     }
 }
 
@@ -3197,11 +3197,16 @@ void SetRandomGiveMonRewardEncounters(void)
 {
     bool8 reroll = FALSE;
 
-    GenerateRandomSpeciesRewards(loadedEncounters);
+    for(u8 i = 0; i < 9; i++)
+    {
+        gSaveBlock1Ptr->wildEncounterFloorSpecies[i] = 0;
+    }
+
+    GenerateRandomSpeciesRewards(gSaveBlock1Ptr->wildEncounterFloorSpecies);
 
     for(u8 i = 0; i < 9; i++)
     {
-        VarSet(variableGraphicsIdsForEncounters[i], loadedEncounters[i] + OBJ_EVENT_GFX_MON_BASE);
+        VarSet(variableGraphicsIdsForEncounters[i], gSaveBlock1Ptr->wildEncounterFloorSpecies[i] + OBJ_EVENT_GFX_MON_BASE);
     }
 }
 
@@ -3209,7 +3214,7 @@ void GiveRandomMonRewardEncounter(void)
 {
     u8 mapGroup = gSaveBlock1Ptr->location.mapGroup;
     u8 mapNum = gSaveBlock1Ptr->location.mapNum;
-    u16 species = loadedEncounters[gSpecialVar_LastTalked - 1];
+    u16 species = gSaveBlock1Ptr->wildEncounterFloorSpecies[gSpecialVar_LastTalked - 1];
     u16 level = VarGet(VAR_PIT_FLOOR) <= 100 ? VarGet(VAR_PIT_FLOOR) : 100;
     u8 evs[] = {0, 0, 0, 0, 0, 0};
     u8 ivs[] = {31, 31, 31, 31, 31, 31};
@@ -3219,7 +3224,7 @@ void GiveRandomMonRewardEncounter(void)
 
 void BufferNameText_RandomMonRewardEncounter(void)
 {
-    u16 species = loadedEncounters[gSpecialVar_LastTalked - 1];
+    u16 species = gSaveBlock1Ptr->wildEncounterFloorSpecies[gSpecialVar_LastTalked - 1];
 
 #ifdef POKEMON_EXPANSION
     StringCopy(gStringVar2, GetSpeciesName(species));
@@ -3516,7 +3521,7 @@ void AddInitial3MonsNoCaseMode(void)
     SetRandomGiveMonRewardEncounters();
     for(; i < 3; i++)
     {
-        u16 species = loadedEncounters[i];
+        u16 species = gSaveBlock1Ptr->wildEncounterFloorSpecies[i];
         u16 level = 5;
         u8 evs[] = {0, 0, 0, 0, 0, 0};
         u8 ivs[] = {31, 31, 31, 31, 31, 31};
@@ -3530,7 +3535,7 @@ void AddNewMonNoCaseMode(void)
     if(gPlayerPartyCount == 6)
         return;
     SetRandomGiveMonRewardEncounters();
-    u16 species = loadedEncounters[0];
+    u16 species = gSaveBlock1Ptr->wildEncounterFloorSpecies[0];
     u16 level = VarGet(VAR_PIT_FLOOR) <= 100 ? VarGet(VAR_PIT_FLOOR) : 100;
     u8 evs[] = {0, 0, 0, 0, 0, 0};
     u8 ivs[] = {31, 31, 31, 31, 31, 31};
@@ -3689,9 +3694,9 @@ void ChooseRandomRewardNumberForFloor(void)
     if(random_val < 10)
     {
         if(VarGet(VAR_PIT_FLOOR) < 5)
-            VarSet(VAR_RESULT, 0);
-        else
             VarSet(VAR_RESULT, 1);
+        else
+            VarSet(VAR_RESULT, 0);
     }
     else if(random_val < 60)
     {

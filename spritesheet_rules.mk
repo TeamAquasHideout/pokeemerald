@@ -490,6 +490,16 @@ $(OBJEVENTGFXDIR)/people/lillie.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/mario.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
+# ravepossum
+$(OBJEVENTGFXDIR)/people/ravepossum.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+# phantonomy
+$(OBJEVENTGFXDIR)/people/elio.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+
+
 $(OBJEVENTGFXDIR)/pokemon_old/azumarill.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 

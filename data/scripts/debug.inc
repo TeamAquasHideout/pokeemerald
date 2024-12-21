@@ -201,6 +201,11 @@ Debug_EventScript_Script_7::
 	end
 
 Debug_EventScript_Script_8::
+	lock
+	callnative BufferMapFloorString
+	callnative SetRandomGiveMonRewardEncounters
+	warpteleport MAP_PIT_WILD_ENCOUNTER_FLOOR, 9, 12
+	waitstate
 	release
 	end
 

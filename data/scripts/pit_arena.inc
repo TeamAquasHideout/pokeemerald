@@ -85,6 +85,13 @@ PitArena_RewardDrop3::
 
 PitArena_Warp::
 	goto_if_unset FLAG_FLOOR_CLEARED, PitArena_WarpEnd
+	goto_if_unset FLAG_REWARD_ITEM_1, PitArenaWarp_AskForItems
+	goto_if_unset FLAG_REWARD_ITEM_2, PitArenaWarp_AskForItems
+	goto_if_unset FLAG_REWARD_ITEM_3, PitArenaWarp_AskForItems
+	goto Pit_Warp_Advance_Floor
+PitArenaWarp_AskForItems::
+	msgbox PitArenaWarp_AskForItems_Text, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PitArena_WarpEnd
 Pit_Warp_Advance_Floor::
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitArenaNoAutoSave
@@ -112,6 +119,8 @@ PitArena_WarpEnd::
 	releaseall
 	end
 
+PitArenaWarp_AskForItems_Text::
+	.string "Are you sure you want to leave?$"
 
 PitArena_TrainerBattle::
 	trainerbattle_single TRAINER_RANDOM_BATTLE_0, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_TrainerBattleFinished

@@ -1,4 +1,6 @@
 .set LOCALID_MARIO, 5
+.set LOCALID_RAVEPOSSUM, 6
+.set LOCALID_PHANTONOMY, 7
 
 PitBackRoom_MapScripts::
 	.byte 0
@@ -42,9 +44,8 @@ PitBackRoom_EventScript_Mudskip::
 
 PitBackRoom_Text_Mudskip:
 	.string "Hiya, I'm mudskip!\p"
-	.string "Not to be confused by the streamer\n"
-	.string "Mudskip though, as I am shown as the\l"
-	.string "Red Luigi man instead of a Mudkip.\p"
+	.string "I am shown as the Red Luigi man\n"
+	.string "instead of a Mudkip.\p"
 	.string "Anyhoo, I worked on Pit as an artist,\n"
 	.string "ranging from the Birch's Case UI for\l"
 	.string "the 9 starters, to the indirect\l"
@@ -61,6 +62,43 @@ PitBackRoom_Text_Mudskip:
 	.string "Because I sure do at least, ehe."
 	.string "$"
 
+PitBackRoom_EventScript_RavePossum::
+	lock
+	faceplayer
+	msgbox PitBackRoom_Text_RavePossum, MSGBOX_NPC
+	turnobject LOCALID_RAVEPOSSUM, DIR_WEST
+	release
+	end
+
+PitBackRoom_Text_RavePossum:
+	.string "RavePossum here! Surprisingly, I am not\n" 
+	.string "actually a marsupial.\p"
+	.string "I programmed the summary screen and a\n"
+	.string "few other random bits here and there.\p"
+	.string "Enjoy your time in the Pit!$"
+
+
+PitBackRoom_EventScript_Phantonomy::
+	lock
+	faceplayer
+	msgbox PitBackRoom_Text_Phantonomy, MSGBOX_NPC
+	turnobject LOCALID_PHANTONOMY, DIR_EAST
+	release
+	end
+
+PitBackRoom_Text_Phantonomy:
+	.string "Hello!\p" 
+	.string "I'm Phantonomy.\p"
+	.string "I had the priviledge to playtest some\n"
+	.string "of the later builds of this project to\l"
+	.string "help polish it up for release!\p"
+	.string "I'll share a quick tip with you that\n"
+	.string "will greatly benefit your runs.\p"		
+	.string "Pick up all of the items BEFORE\n"
+	.string "you step on the warp tile.\p"
+	.string "It makes the game a lot easier.\n"
+	.string "Trust me…$"
+
 PitBackRoom_EventScript_wiz1989::
 	lock
 	faceplayer
@@ -69,8 +107,7 @@ PitBackRoom_EventScript_wiz1989::
 	msgbox PitBackRoom_EventScript_wiz1989_Text_1, MSGBOX_YESNO
 	msgbox PitBackRoom_EventScript_wiz1989_Text_2, MSGBOX_AUTOCLOSE
 	release
-	return
-
+	end
 
 PitBackRoom_EventScript_wiz1989_Text_0:
 	.string "I am the Game Master.\p"
@@ -93,3 +130,32 @@ PitBackRoom_EventScript_wiz1989_Text_2:
 	.string "that went into making it.\p"
 	.string "Now go and try to escape from The Pit!$"
 	
+
+PitBackRoom_EventScript_Archie::
+	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_Archie_Text_0, MSGBOX_DEFAULT
+	turnobject 1, DIR_SOUTH
+	release
+	end
+
+PitBackRoom_EventScript_Archie_Text_0:
+	.string "You know....\n"
+	.string "I've been thinking....\p"
+	.string "Do you think I could flood The Pit?$"
+
+
+
+PitBackRoom_EventScript_Aereon::
+	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_Aereon_text, MSGBOX_DEFAULT
+	release
+	end
+
+PitBackRoom_EventScript_Aereon_text::
+	.string "Hello, I'm Aereon! I helped a lot with\n"
+	.string "balance changes and the Boss Ace\l"
+	.string "Pokemon! Best of luck on your future\l"
+	.string "attempts in The Pit, I'm rooting for\l"
+	.string "you!$"
