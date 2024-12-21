@@ -168,8 +168,10 @@ PitEncounter_GrantWishChoiceItem::
 	goto_if_eq VAR_RESULT, 0, PitEncounter_GrantWishChoiceItem_0
 	goto_if_eq VAR_RESULT, 1, PitEncounter_GrantWishChoiceItem_1
 	goto_if_eq VAR_RESULT, 2, PitEncounter_GrantWishChoiceItem_2
+	goto PitEncounter_GrantWishChoiceItem_End_SkippedItem
 PitEncounter_GrantWishChoiceItem_End:
 	call PitEncounter_Common_AfterUse
+PitEncounter_GrantWishChoiceItem_End_SkippedItem:
 	release
 	end
 
