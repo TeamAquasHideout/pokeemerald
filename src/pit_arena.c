@@ -1914,7 +1914,7 @@ void SetRandomMonEncounter(void)
         }
         //no floor skipping before boss floors
         else if (sRandomEncounterArray[index].species == SPECIES_ABRA
-         && (VarGet(VAR_PIT_FLOOR) % 25) > 22)
+         && (VarGet(VAR_PIT_FLOOR) % 25) > 21)
         {
             //if Abra is the last remaining encounter we would be stuck otherwise
             if (RemainingEncounters() != 1)
