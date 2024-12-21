@@ -649,6 +649,8 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     const u32 gOverworldPalette_Pikachu[] = INCBIN_U32("graphics/pokemon/pikachu/overworld_normal.gbapal.lz");
     const u32 gShinyOverworldPalette_Pikachu[] = INCBIN_U32("graphics/pokemon/pikachu/overworld_shiny.gbapal.lz");
+    const u32 gOverworldPalette_PikachuHoennCap[] = INCBIN_U32("graphics/pokemon/pikachu/hoenn_cap/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_PikachuHoennCap[] = INCBIN_U32("graphics/pokemon/pikachu/hoenn_cap/overworld_shiny.gbapal.lz");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 
@@ -756,7 +758,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 
 #if OW_POKEMON_OBJECT_EVENTS
     // const u32 gObjectEventPic_PikachuOriginalCap[] = INCBIN_COMP("graphics/pokemon/pikachu/original_cap/overworld.4bpp");
-    // const u32 gObjectEventPic_PikachuHoennCap[] = INCBIN_COMP("graphics/pokemon/pikachu/hoenn_cap/overworld.4bpp");
+    const u32 gObjectEventPic_PikachuHoennCap[] = INCBIN_COMP("graphics/pokemon/pikachu/hoenn_cap/overworld.4bpp");
     // const u32 gObjectEventPic_PikachuSinnohCap[] = INCBIN_COMP("graphics/pokemon/pikachu/sinnoh_cap/overworld.4bpp");
     // const u32 gObjectEventPic_PikachuUnovaCap[] = INCBIN_COMP("graphics/pokemon/pikachu/unova_cap/overworld.4bpp");
     // const u32 gObjectEventPic_PikachuKalosCap[] = INCBIN_COMP("graphics/pokemon/pikachu/kalos_cap/overworld.4bpp");
