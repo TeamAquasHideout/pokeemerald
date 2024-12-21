@@ -162,11 +162,6 @@ PitBackRoom_EventScript_Aereon_text::
 
 PitBackRoom_EventScript_Vase::
 	lock
-	msgbox PitBackRoom_EventScript_Vase_text, MSGBOX_DEFAULT
 	release
 	end
 
-PitBackRoom_EventScript_Vase_text:
-	.string "There's a Big Pickle in the vase.\n"
-	.string "And it smells like Dragonite...\p"
-	.string "Eww!$"
