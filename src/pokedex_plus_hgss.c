@@ -7893,6 +7893,9 @@ static int DoPokedexSearch(u8 dexMode, u8 order, u8 abcGroup, u8 bodyColor, u8 t
                 }
                 break;
         }
+        //jump out of pokedexList if entry is 0xFFFF --> massively speeds up searches
+        if (sPokedexView->pokedexList[i].dexNum == 0xFFFF)
+            i = NATIONAL_DEX_COUNT;
     }
     sPokedexView->pokemonListCount = resultsCount;
 
@@ -8888,7 +8891,7 @@ static bool8 IsSpeciesInParty(u16 species)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {            
-        species_party = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+        species_party = GetFormSpeciesId(GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL), 0);
         if (species_party == species && species_party != SPECIES_NONE)
             return TRUE;
     }
