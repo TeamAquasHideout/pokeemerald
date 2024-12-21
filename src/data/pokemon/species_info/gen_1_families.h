@@ -2975,6 +2975,14 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .shinyPalette = gMonShinyPalette_PikachuHoennCap,
         .iconSprite = gMonIcon_PikachuHoennCap,
         .iconPalIndex = 0,
+        OVERWORLD(
+            sPicTable_PikachuHoennCap,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            gOverworldPalette_PikachuHoennCap,
+            gShinyOverworldPalette_PikachuHoennCap
+        )
         FOOTPRINT(Pikachu)
         .levelUpLearnset = sPikachuLevelUpLearnset,
         .teachableLearnset = sPikachuTeachableLearnset,
