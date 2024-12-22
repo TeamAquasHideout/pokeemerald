@@ -3691,6 +3691,17 @@ void ChooseRandomRewardNumberForFloor(void)
 {
     u16 random_val = Random() % 100;
 
+    switch(gSaveBlock2Ptr->modeChoiceItemReward)
+    {
+        case 1: // always 3 rewards
+            VarSet(VAR_RESULT, 2);
+            return;
+        case 2: // always 1 rewards
+            VarSet(VAR_RESULT, 0);
+            return;
+    }
+
+    // Fallthrough if Set to Random
     if(random_val < 10)
     {
         if(VarGet(VAR_PIT_FLOOR) < 5)
@@ -3698,7 +3709,7 @@ void ChooseRandomRewardNumberForFloor(void)
         else
             VarSet(VAR_RESULT, 0);
     }
-    else if(random_val < 60)
+    else if(random_val < 40)
     {
         VarSet(VAR_RESULT, 1);
     }
@@ -3706,6 +3717,7 @@ void ChooseRandomRewardNumberForFloor(void)
     {
         VarSet(VAR_RESULT, 2);
     }
+    return;
 }
 
 void CheckIfHasReceivedShedinja(void)

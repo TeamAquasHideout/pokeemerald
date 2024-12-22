@@ -27,7 +27,7 @@ PitArena_OnFrameRewardDrop_4:
 	clearflag FLAG_REWARD_ITEM_1
 	clearflag FLAG_REWARD_ITEM_2
 	addobject 9
-	addobject 10
+	addobject 11
 	goto PitArena_OnFrameRewardDrop_1
 
 PitArena_OnFrameRewardDrop_5:
