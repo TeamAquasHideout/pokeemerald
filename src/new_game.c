@@ -131,6 +131,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeHealFloors10 = 0;
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
+        gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather

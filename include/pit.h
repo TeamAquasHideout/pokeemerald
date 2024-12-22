@@ -31,6 +31,7 @@ u16 GetRandomTrainerEncounterTrainerPic(void);
 const u8 *GetRandomTrainerEncounterTrainerName(u16 trainerId);
 const u8 GetRandomTrainerEncounterTrainerClass(void);
 void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr);
+u16 GetPreEvolution(u16 species);
 
 u16 AccessAvatarSpeciesArrayIndex(u16 index);
 u16 GetIndexOfSpeciesInAvatarSpeciesArray(u16 species);
@@ -84,6 +85,9 @@ struct RandomTrainerNPC
 #define AUTOSAVE_OFF     0
 #define AUTOSAVE_5F      1
 #define AUTOSAVE_ON      2
+#define EVOSTAGE_ALL     0
+#define EVOSTAGE_BASIC   1
+#define EVOSTAGE_FULL    2
 
 //Autosave defines
 #define SAVE_NO         0

@@ -579,7 +579,8 @@ struct SaveBlock2
             // end of u16
              u16 mode50Floors:1;
              u16 modeBossHeal:1;
-             u16 padding2:14; // uncommented because its free padding space
+             u16 modeChoiceEvoStage:2; //0 = All, 1 = basic pokemon, 2 = fully evolved
+             u16 padding2:12; // uncommented because its free padding space
             // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;

@@ -86,6 +86,7 @@ enum MenuItems_Difficulty
     #ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_MEGAS,
     #endif
+    MENUITEM_DIFF_EVOSTAGE,
     MENUITEM_DIFF_BOSS_HEAL,
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
@@ -290,6 +291,7 @@ static void DrawChoices_50Floors(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_BossHeal(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
+static void DrawChoices_EvoStage(int selection, int y);
 static void DrawChoices_RandBattleWeather(int selection, int y);
 static void DrawChoices_RandMoves(int selection, int y);
 static void DrawChoices_RandAbilities(int selection, int y);
@@ -337,6 +339,7 @@ struct Menu_Diff //MENU_DIFF
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {DrawChoices_Megas,        ProcessInput_Options_Two},
     #endif
+    [MENUITEM_DIFF_EVOSTAGE]      = {DrawChoices_EvoStage,     ProcessInput_Options_Three},
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_CANCEL]        = {NULL, NULL},
 };
@@ -384,6 +387,7 @@ static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
 static const u8 sText_BossHeal[]     = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]   = _("CASH RATE");
+static const u8 sText_EvoStage[]     = _("EVO STAGES");
 static const u8 sText_50Floors[]     = _("50 FLOORS");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
@@ -419,6 +423,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = sText_Megas,
     #endif
+    [MENUITEM_DIFF_EVOSTAGE]      = sText_EvoStage,
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_CANCEL]        = sText_Cancel,
 };
@@ -487,6 +492,7 @@ static bool8 CheckConditions(int selection)
                 #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
                 #endif
+                case MENUITEM_DIFF_EVOSTAGE:      return TRUE; //wiz1989
                 case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
                 case MENUITEM_DIFF_COUNT:         return TRUE;
@@ -560,6 +566,9 @@ static const u8 sText_Desc_BossHeal_Off[]       = _("Your party won't be healed 
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_05x[]     = _("SUPER HARD! Halves the amount of\nmoney received after a battle.");
+static const u8 sText_Desc_EvoStage_All[]       = _("Pokémon to choose from can be all\nkinds of evolution stages.");
+static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from will always\nbe Basic Pokémon.");
+static const u8 sText_Desc_EvoStage_Full[]      = _("Pokémon to choose from will always\nbe fully evolved Pokémon.");
 static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
 static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
@@ -597,6 +606,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
     #endif
+    [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
     [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
     [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
 };
@@ -813,6 +823,7 @@ static void ModeMenu_SetupCB(void)
         #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
+        sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         //randomizer settings
         sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = gSaveBlock2Ptr->randomBattleWeather;
@@ -1349,6 +1360,7 @@ static void Task_ModeMenuSave(u8 taskId)
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
     #endif
+    gSaveBlock2Ptr->modeChoiceEvoStage = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
 
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather    = sOptions->sel_rand[MENUITEM_RAND_B_WEATHER];
@@ -1572,6 +1584,9 @@ static const u8 sText_B_Weather_Off[]       = _("NO");
 static const u8 sText_Cash_1x[]             = _("1x");
 static const u8 sText_Cash_2x[]             = _("2x");
 static const u8 sText_Cash_05x[]            = _(".5x");
+static const u8 sText_EvoStage_All[]        = _("ALL");
+static const u8 sText_EvoStage_Basic[]      = _("BASIC");
+static const u8 sText_EvoStage_Full[]       = _("FULL");
 
 /*static void DrawChoices_Autosave(int selection, int y)
 {
@@ -1732,6 +1747,17 @@ static void DrawChoices_Megas(int selection, int y)
 }
 #endif
 
+static void DrawChoices_EvoStage(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_EVOSTAGE);
+    u8 styles[3] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_EvoStage_All, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_EvoStage_Basic, GetStringRightAlignXOffset(FONT_NORMAL, sText_EvoStage_Basic, 198 - 35), y, styles[1], active);
+    DrawModeMenuChoice(sText_EvoStage_Full, GetStringRightAlignXOffset(FONT_NORMAL, sText_EvoStage_Full, 198), y, styles[2], active);
+}
+
 static void DrawChoices_RandBattleWeather(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_B_WEATHER);
@@ -1866,6 +1892,7 @@ static void ApplyPresets(void)
     //difficulty settings
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
+    sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_ALL;
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
     sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_OFF;
