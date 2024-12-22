@@ -445,8 +445,11 @@ PitGiveMonCommon::
 	goto_if_eq VAR_RESULT, NO, PitGiveMonCommon_FullPartyNothingChosen
 	callnative PlayerPartyCountToResultVar
 	goto_if_eq VAR_RESULT, 6, PitGiveMonCommon_PartyFullRemoveOne
+	callnative Check3MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitGiveMonCommon_PartyFullRemoveOne
 PitGiveMonCommon_NewMon2::
 	callnative GiveRandomMonRewardEncounter
+	callnative BufferNameText_RandomMonRewardEncounter
 	msgbox PitGiveMonCommon_Text_ReceivedMon, MSGBOX_DEFAULT
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9
