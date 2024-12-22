@@ -554,6 +554,7 @@ PitArena_Mart_ZCrystals:
 PitArena_Mart_FormItems:
 	.2byte  ITEM_METEORITE
     .2byte  ITEM_DNA_SPLICERS
+	.2byte  ITEM_ZYGARDE_CUBE
 	.2byte  ITEM_GRACIDEA
 	.2byte  ITEM_GRISEOUS_CORE
 	.2byte  ITEM_ROTOM_CATALOG
