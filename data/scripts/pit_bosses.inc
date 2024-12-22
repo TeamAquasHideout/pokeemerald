@@ -31,8 +31,6 @@ PitBoss_ContinueAfterBattleScript::
 PitBoss_NoAutoSave::
 	lock
 	callnative BufferMapFloorString
-	@callnative Check3MonMode
-	@goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
@@ -56,9 +54,10 @@ PitBoss_PartyFullRemoveOne::
 PitBoss_NoCaseModeMode::
 	callnative PlayerPartyCountToResultVar
 	goto_if_eq VAR_RESULT, 6, PitBoss_PartyFullRemoveOne
+	callnative Check3MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
 PitBoss_NoCaseModeMode2::
 	callnative AddNewMonNoCaseMode
-@PitBoss_3MonMode::
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9
 	waitstate
@@ -126,8 +125,6 @@ PitStatueNoAutoSave:
 	goto_if_eq VAR_RESULT, 0, Pit_EndGameStatue2
 	special HealPlayerParty
 	callnative BufferMapFloorString
-	@callnative Check3MonMode
-	@goto_if_eq VAR_TEMP_A, 1, PitBoss_3MonMode
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
