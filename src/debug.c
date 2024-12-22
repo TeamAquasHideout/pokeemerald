@@ -3317,12 +3317,56 @@ static void DebugAction_Give_Pokemon_SelectLevel(u8 taskId)
         FreeAndDestroyMonIconSprite(&gSprites[gTasks[taskId].tSpriteId]);
         if (gTasks[taskId].tIsComplex == FALSE)
         {
+            struct Pokemon mon;
+            u16 nationalDexNum;
+            u8 nature, level, i;
+            int sentToPc;
+
+            level = sDebugMonData->level;
+            nature = Random() % NUM_NATURES;
+
             PlaySE(MUS_LEVEL_UP);
-            ScriptGiveMon(sDebugMonData->species, gTasks[taskId].tInput, ITEM_NONE);
+            CreateMonWithNature(&mon, sDebugMonData->species, level, 32, nature);
+            
+            //Update mon stats before giving it to the player
+            CalculateMonStats(&mon);
+
+            // give player the mon
+            SetMonData(&mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+            SetMonData(&mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+                    break;
+            }
+
+            if (i >= PARTY_SIZE)
+                sentToPc = CopyMonToPC(&mon);
+            else
+            {
+                sentToPc = MON_GIVEN_TO_PARTY;
+                CopyMon(&gPlayerParty[i], &mon, sizeof(mon));
+                gPlayerPartyCount = i + 1;
+            }
+
+            //Pokedex entry
+            nationalDexNum = SpeciesToNationalPokedexNum(sDebugMonData->species);
+            switch(sentToPc)
+            {
+            case MON_GIVEN_TO_PARTY:
+            case MON_GIVEN_TO_PC:
+                GetSetPokedexFlag(nationalDexNum, FLAG_SET_SEEN);
+                GetSetPokedexFlag(nationalDexNum, FLAG_SET_CAUGHT);
+                break;
+            case MON_CANT_GIVE:
+                break;
+            }
+
             // Set flag for user convenience
             FlagSet(FLAG_SYS_POKEMON_GET);
+
             Free(sDebugMonData);
-            DebugAction_DestroyExtraWindow(taskId);
+            DebugAction_DestroyExtraWindow(taskId); //return sentToPc;
         }
         else
         {

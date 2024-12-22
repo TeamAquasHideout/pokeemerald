@@ -734,6 +734,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
     gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_5;
+    gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_ALL;
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;

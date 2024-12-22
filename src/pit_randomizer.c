@@ -911,6 +911,7 @@ static const u16 sAvatarSpecies[] =
     SPECIES_FROAKIE,
     SPECIES_FROGADIER,
     SPECIES_GRENINJA,
+    SPECIES_GRENINJA_ASH,
     SPECIES_BUNNELBY,
     SPECIES_DIGGERSBY,
     SPECIES_FLETCHLING,
@@ -973,7 +974,9 @@ static const u16 sAvatarSpecies[] =
     SPECIES_NOIVERN,
     SPECIES_XERNEAS_NEUTRAL,
     SPECIES_YVELTAL,
+    SPECIES_ZYGARDE_10_AURA_BREAK,
     SPECIES_ZYGARDE_50_AURA_BREAK,
+    SPECIES_ZYGARDE_COMPLETE,
     SPECIES_DIANCIE,
     SPECIES_HOOPA_CONFINED,
     SPECIES_VOLCANION,
@@ -1002,6 +1005,8 @@ static const u16 sAvatarSpecies[] =
     SPECIES_RIBOMBEE,
     SPECIES_ROCKRUFF,
     SPECIES_LYCANROC_MIDDAY,
+    SPECIES_LYCANROC_MIDNIGHT,
+    SPECIES_LYCANROC_DUSK,
     SPECIES_WISHIWASHI_SOLO,
     SPECIES_MAREANIE,
     SPECIES_TOXAPEX,
@@ -2404,6 +2409,11 @@ static const u16 sRandomSpeciesLegendary[] =
     SPECIES_SNEASLER,
     SPECIES_OVERQWIL,
     SPECIES_ENAMORUS_INCARNATE,
+    SPECIES_GRENINJA_BATTLE_BOND,
+    SPECIES_ZYGARDE_10_AURA_BREAK,
+    SPECIES_ROCKRUFF_OWN_TEMPO,
+    SPECIES_LYCANROC_MIDNIGHT,
+    SPECIES_LYCANROC_DUSK,
     SPECIES_SPRIGATITO,
     SPECIES_FLORAGATO,
     SPECIES_MEOWSCARADA,
@@ -2674,10 +2684,12 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
     u16 species = 0;
     u16 counter = 0;
     u16 counter2 = 0;
+    u16 newSpecies, tempSpecies, preEvolution;
     bool8 rerollMon;
     u8 partyCount;
     int i;
     u16 sRolledLegendAlready = FALSE;
+    const struct Evolution *evolutions;
 
     for(u8 index = 0; index < 9; index++)
     {
@@ -2688,15 +2700,62 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
         do
         {
             rerollMon = FALSE;
+
+            //legendary check
             if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
             {
-                while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 10)
+                while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 30)
                 {
                     species = GetRandomSpeciesFlattenedCurve();
                     counter++;
                 }
             }
 
+            //evo stage check
+            counter = 0;
+            switch (gSaveBlock2Ptr->modeChoiceEvoStage)
+            {
+                case EVOSTAGE_BASIC:
+                    preEvolution = GetPreEvolution(species);
+                    newSpecies = species;
+                    while (preEvolution != SPECIES_NONE)
+                    {
+                        // tempSpecies = evolutions[0].targetSpecies;
+                        if(GetIndexOfSpeciesInValidSpeciesArray(preEvolution) == 0xFFFF)
+                        {
+                            preEvolution = SPECIES_NONE;
+                            break;
+                        }
+                        else
+                        {
+                            newSpecies = preEvolution;
+                            preEvolution = GetPreEvolution(newSpecies);
+                        }
+                    }
+                    species = newSpecies;
+                    break;
+                case EVOSTAGE_FULL:
+                    evolutions = GetSpeciesEvolutions(species);
+                    newSpecies = species;
+                    while (evolutions != NULL)
+                    {
+                        tempSpecies = evolutions[0].targetSpecies;
+                        if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                        {
+                            evolutions = NULL;
+                            break;
+                        }
+                        else
+                        {
+                            newSpecies = tempSpecies;
+                            evolutions = GetSpeciesEvolutions(newSpecies);
+                        }
+                    }
+                    species = newSpecies;
+                    break;
+                default:
+                    break;
+            }
             
             for (i=0; i < 9; i++) //check for duplicates within the case
             {
@@ -2718,7 +2777,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
             }
 
             
-            if (counter2 == 10) //exit in case of infinite loop
+            if (counter2 == 20) //exit in case of infinite loop
             {
                 rerollMon = FALSE;
                 //DebugPrintf("no valid species found. Default: %d", species);
