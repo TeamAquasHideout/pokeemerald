@@ -17517,7 +17517,7 @@ const struct Item gItemsInfo[] =
             "Mirrors an enemy's\n"
             "stat increases\n"
             "but only once."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_BATTLE_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 30,
