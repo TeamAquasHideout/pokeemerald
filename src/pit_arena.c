@@ -1737,6 +1737,7 @@ struct RandomMonEncounters {
     u16 flagId; // id into gSaveBlock1Ptr->randomMonEncounters not normal flags
     const u8 *monScript;
     const u8 *alreadyUsedScript;
+    const u8 resetOnFloor;
 };
 
 #define RANDOM_ENCOUNTER_COUNT ARRAY_COUNT(sRandomEncounterArray)
@@ -1746,6 +1747,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 0,
         .monScript = PitEncounter_Mover,
         .alreadyUsedScript = PitEncounter_Mover_alreadyUsed,
+        .resetOnFloor = 50,
     },
 #ifndef PIT_GEN_3_MODE
     {
@@ -1753,6 +1755,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 1,
         .monScript = PitEncounter_GrantWishChoiceItem,
         .alreadyUsedScript = PitEncounter_GrantWishChoiceItem_alreadyUsed,
+        .resetOnFloor = 100,
     },
 #endif
     {
@@ -1760,12 +1763,14 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 2,
         .monScript = PitEncounter_ReviveOneMon,
         .alreadyUsedScript = PitEncounter_ReviveOneMon_alreadyUsed,
+        .resetOnFloor = 50,
     },
     {
         .species = SPECIES_CHANSEY,
         .flagId = 3,
         .monScript = PitEncounter_HealOneMon,
         .alreadyUsedScript = PitEncounter_HealOneMon_alreadyUsed,
+        .resetOnFloor = 100,
         //.monScript = PitEncounter_LuckyEggDrop,
     },
     {
@@ -1773,12 +1778,14 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 4,
         .monScript = PitEncounter_AmuletCoinDrop,
         .alreadyUsedScript = PitEncounter_AmuletCoinDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
     {
         .species = SPECIES_DELIBIRD,
         .flagId = 5,
         .monScript = PitEncounter_Present,
         .alreadyUsedScript = PitEncounter_Present_alreadyUsed,
+        .resetOnFloor = 50,
     },
 #if (GEN_LATEST == GEN_9)
     {
@@ -1786,6 +1793,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 6,
         .monScript = PitEncounter_NuggetDrop,
         .alreadyUsedScript = PitEncounter_NuggetDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
 #else
     {
@@ -1793,6 +1801,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 6,
         .monScript = PitEncounter_NuggetDrop,
         .alreadyUsedScript = PitEncounter_NuggetDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
 #endif
     {
@@ -1800,18 +1809,21 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 7,
         .monScript = PitEncounter_WonderTrade,
         .alreadyUsedScript = PitEncounter_WonderTrade_alreadyUsed,
+        .resetOnFloor = 25,
     },
     {
         .species = SPECIES_MILTANK,
         .flagId = 8,
         .monScript = PitEncounter_MooMooMilkDrop,
         .alreadyUsedScript = PitEncounter_MooMooMilkDrop_alreadyUsed,
+        .resetOnFloor = 50,
     },
     {
         .species = SPECIES_CHIMECHO,
         .flagId = 9,
         .monScript = PitEncounter_CureAllStatus,
         .alreadyUsedScript = PitEncounter_CureAllStatus_alreadyUsed,
+        .resetOnFloor = 25,
     },
 #if (GEN_LATEST != GEN_3)
     {
@@ -1819,6 +1831,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 10,
         .monScript = PitEncounter_LeftoversDrop,
         .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
 #else
     {
@@ -1826,6 +1839,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 10,
         .monScript = PitEncounter_LeftoversDrop,
         .alreadyUsedScript = PitEncounter_LeftoversDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
 #endif
     {
@@ -1833,6 +1847,7 @@ static const struct RandomMonEncounters sRandomEncounterArray[] = {
         .flagId = 11,
         .monScript = PitEncounter_RareCandyDrop,
         .alreadyUsedScript = PitEncounter_RareCandyDrop_alreadyUsed,
+        .resetOnFloor = 100,
     },
 };
 
@@ -1892,10 +1907,22 @@ void ClearAllRandomEncounters(void)
     }
 }
 
+void ClearRandomEncounters(void)
+{
+    u8 i = 0;
+    for(i = 0; i < RANDOM_ENCOUNTER_COUNT; i++)
+    {
+        if ((VarGet(VAR_PIT_FLOOR) % sRandomEncounterArray[i].resetOnFloor) == 0)
+            EncounterFlagClear(i);
+    }
+}
+
 void SetRandomMonEncounter(void)
 {
     bool8 reroll = FALSE;
     FlagSet(FLAG_OVERWORLD_MON_ENCOUNTER);
+
+    ClearRandomEncounters();
 
     if (Random() % 5) // Odds of A Random Encounter On Each Floor
         return;
