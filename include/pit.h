@@ -49,6 +49,8 @@ void Task_PokemonAvatar_HandleBob(u8 taskId);
 u32 GetMaxNumberOfSpeciesAvatars(void);
 void ClearAllRandomBossEncounters(void);
 
+u32 GetSpeciesFromRandomArray(u16 index);
+
 struct RandomTrainerNPC 
 {
     u16 arrayElement;
