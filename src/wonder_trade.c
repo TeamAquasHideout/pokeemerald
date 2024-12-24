@@ -94,7 +94,7 @@ static u32 ReturnRandomSpecies()
         //reroll in case any legendaries, mythics or ultra beasts are determined
         if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
         {
-            while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies()) && counter < 10)
+            while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies(TRUE)) && counter < 10)
             {
                 // +counter to handle edge cases
                 species = GetRandomSpeciesFlattenedCurve();

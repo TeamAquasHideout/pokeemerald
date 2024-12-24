@@ -6493,11 +6493,11 @@ static const u16 sRandomDynamicSpecies_76_100[] =
 #endif
 };
 
-u32 GetMaxNumberOfSpecies(void)
+u32 GetMaxNumberOfSpecies(bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
     
-    if (FALSE) // ToDo: add new mode option here || wiz1989
+    if (gSaveBlock2Ptr->modeSpeciesArray == ARRAY_RANDOM || forceAllSpecies)
         return RANDOM_SPECIES_COUNT_LEGENDARY;
     else
     {
@@ -6516,11 +6516,11 @@ u32 GetMaxNumberOfSpecies(void)
     }
 }
 
-u32 GetSpeciesFromRandomArray(u16 index)
+u32 GetSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
     
-    if (FALSE) // ToDo: add new mode option here || wiz1989
+    if (gSaveBlock2Ptr->modeSpeciesArray == ARRAY_RANDOM || forceAllSpecies)
         return sRandomSpeciesLegendary[index];
     else
     {

@@ -117,6 +117,7 @@ void SetDefaultOptions(void)
     {
         //run settings
         gSaveBlock2Ptr->modeDefault = 0;
+        gSaveBlock2Ptr->modeSpeciesArray = ARRAY_RANDOM;
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;

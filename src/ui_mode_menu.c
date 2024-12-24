@@ -66,6 +66,7 @@ enum MenuIds
 
 enum MenuItems_Run
 {
+    MENUITEM_RUN_SPECIES_ARRAY,
     MENUITEM_RUN_BATTLEMODE,
     MENUITEM_RUN_3_MONS_ONLY,
     MENUITEM_RUN_NO_CASE_CHOICE,
@@ -284,6 +285,7 @@ static int ProcessInput_Options_Two(int selection);
 static int ProcessInput_Options_Three(int selection);
 static void ReDrawAll(void);
 //static void DrawChoices_Autosave(int selection, int y);
+static void DrawChoices_SpeciesArray(int selection, int y);
 static void DrawChoices_BattleMode(int selection, int y);
 //static void DrawChoices_Randomizer(int selection, int y);
 static void DrawChoices_3MonsOnly(int selection, int y);
@@ -316,6 +318,7 @@ struct Menu_Run //MENU_RUN
     int (*processInput)(int selection);
 } static const sItemFunctionsRun[MENUITEM_RUN_COUNT] =
 {
+    [MENUITEM_RUN_SPECIES_ARRAY]  = {DrawChoices_SpeciesArray, ProcessInput_Options_Two},
     [MENUITEM_RUN_BATTLEMODE]     = {DrawChoices_BattleMode,   ProcessInput_Options_Three},
     [MENUITEM_RUN_3_MONS_ONLY]    = {DrawChoices_3MonsOnly,    ProcessInput_Options_Two},
     [MENUITEM_RUN_NO_CASE_CHOICE] = {DrawChoices_NoCaseChoice, ProcessInput_Options_Two},
@@ -373,6 +376,7 @@ struct Menu_Presets //MENU_PRESETS
 // Menu left side option names text
 static const u8 sText_Defaults[]     = _("PRESETS");
 static const u8 sText_Autosave[]     = _("AUTOSAVE");
+static const u8 sText_SpeciesArray[] = _("TRAINER TEAMS");
 static const u8 sText_BattleMode[]   = _("BATTLE MODE");
 static const u8 sText_Randomizer[]   = _("RANDOMIZER");
 static const u8 sText_XPMode[]       = _("XP MODE");
@@ -404,6 +408,7 @@ static const u8 sText_SavePreset[]   = _("SAVE PRESETS");
 
 static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
 {
+    [MENUITEM_RUN_SPECIES_ARRAY]  = sText_SpeciesArray,
     [MENUITEM_RUN_BATTLEMODE]     = sText_BattleMode,
     [MENUITEM_RUN_3_MONS_ONLY]    = sText_3MonsOnly,
     [MENUITEM_RUN_NO_CASE_CHOICE] = sText_NoCaseChoice,
@@ -471,6 +476,7 @@ static bool8 CheckConditions(int selection)
         case MENU_RUN:
             switch(selection)
             {
+                case MENUITEM_RUN_SPECIES_ARRAY:  return TRUE;
                 case MENUITEM_RUN_BATTLEMODE:     return TRUE;
                 case MENUITEM_RUN_3_MONS_ONLY:    return TRUE;
                 case MENUITEM_RUN_NO_CASE_CHOICE: return TRUE;
@@ -529,6 +535,8 @@ static const u8 sText_Empty[]                   = _("");
 static const u8 sText_Desc_Save[]               = _("Save your settings.");
 static const u8 sText_Desc_CancelPreset[]       = _("Cancel and return without setting\na preset.");
 static const u8 sText_Desc_SavePreset[]         = _("Save preset and overwrite current\nmode choice.");
+static const u8 sText_Desc_SpeciesArrayRand[]   = _("Trainer Pokémon are fully randomized.");
+static const u8 sText_Desc_SpeciesArrayProg[]   = _("Trainer Pokémon scale with floors\nto offer a smoother experience.");
 static const u8 sText_Desc_NormalMode[]         = _("Normal mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_HardMode[]           = _("Hard mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for Normal Mode below.");
@@ -587,6 +595,7 @@ static const u8 sText_Desc_RandEvos_Off[]       = _("Keeps the default evo line.
 
 static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
 {
+    [MENUITEM_RUN_SPECIES_ARRAY]  = {sText_Desc_SpeciesArrayRand,    sText_Desc_SpeciesArrayProg,    sText_Empty},
     [MENUITEM_RUN_BATTLEMODE]     = {sText_Desc_BattleMode_Singles,  sText_Desc_BattleMode_Doubles,  sText_Desc_BattleMode_Mix},
     [MENUITEM_RUN_3_MONS_ONLY]    = {sText_Desc_3Mons_On,            sText_Desc_3Mons_Off,           sText_Empty},
     [MENUITEM_RUN_NO_CASE_CHOICE] = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
@@ -808,6 +817,7 @@ static void ModeMenu_SetupCB(void)
         break;
     case 6:
         //run settings
+        sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY]   = gSaveBlock2Ptr->modeSpeciesArray;
         sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = gSaveBlock2Ptr->modeBattleMode;
         sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = gSaveBlock2Ptr->mode3MonsOnly;
         sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = gSaveBlock2Ptr->modeNoCaseChoice;
@@ -1343,6 +1353,7 @@ static void Task_ModeMenuSave(u8 taskId)
 {
     //write in saveblock
     //run settings
+    gSaveBlock2Ptr->modeSpeciesArray = sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY];
     gSaveBlock2Ptr->modeBattleMode   = sOptions->sel_run[MENUITEM_RUN_BATTLEMODE];
     gSaveBlock2Ptr->mode3MonsOnly    = sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY];
     gSaveBlock2Ptr->modeNoCaseChoice = sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE];
@@ -1562,6 +1573,8 @@ static const u8 sText_ModeCustom[]          = _("CUST");
 static const u8 sText_Autosave_Off[]        = _("OFF");
 static const u8 sText_Autosave_5[]          = _("5FLRS");
 static const u8 sText_Autosave_On[]         = _("ON");
+static const u8 sText_SpeciesArray_Rand[]   = _("RANDOM");
+static const u8 sText_SpeciesArray_Prog[]   = _("PROG");
 static const u8 sText_BattleMode_Singles[]  = _("SNGLS");
 static const u8 sText_BattleMode_Doubles[]  = _("DUOS");
 static const u8 sText_BattleMode_Mix[]      = _("MIX");
@@ -1601,6 +1614,16 @@ static const u8 sText_EvoStage_Full[]       = _("FULL");
     DrawModeMenuChoice(sText_Autosave_5, xMid, y, styles[1], active);
     DrawModeMenuChoice(sText_Autosave_On, GetStringRightAlignXOffset(1, sText_Autosave_On, 198), y, styles[2], active);
 }*/
+
+static void DrawChoices_SpeciesArray(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_RUN_SPECIES_ARRAY);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_SpeciesArray_Rand, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_SpeciesArray_Prog, GetStringRightAlignXOffset(FONT_NORMAL, sText_SpeciesArray_Prog, 198), y, styles[1], active);
+}
 
 static void DrawChoices_3MonsOnly(int selection, int y)
 {
@@ -1885,6 +1908,7 @@ static void ApplyPresets(void)
 
     //general defaults:
     //run settings
+    sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY]   = ARRAY_RANDOM;
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;

@@ -904,7 +904,7 @@ u8 GetNumberOfTutorMoves(struct Pokemon *mon);
 u8 GetTutorMoves(struct Pokemon *mon, u16 *moves);
 u8 GetStaticTutorMoves(u16 *moves);
 u16 GetMegaStone(u32 species);
-u32 GetMaxNumberOfSpecies(void);
+u32 GetMaxNumberOfSpecies(bool8 forceAllSpecies);
 void DebugTestRandomness(void);
 u16 GetRandomSpeciesFlattenedCurve(void);
 u16 GetAverageEVsFromParty(void);

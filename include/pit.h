@@ -49,7 +49,7 @@ void Task_PokemonAvatar_HandleBob(u8 taskId);
 u32 GetMaxNumberOfSpeciesAvatars(void);
 void ClearAllRandomBossEncounters(void);
 
-u32 GetSpeciesFromRandomArray(u16 index);
+u32 GetSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies);
 
 struct RandomTrainerNPC 
 {
@@ -91,6 +91,8 @@ struct RandomTrainerNPC
 #define EVOSTAGE_ALL     0
 #define EVOSTAGE_BASIC   1
 #define EVOSTAGE_FULL    2
+#define ARRAY_RANDOM     0
+#define ARRAY_PROG       1
 
 //Autosave defines
 #define SAVE_NO         0

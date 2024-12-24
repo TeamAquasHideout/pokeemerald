@@ -1353,14 +1353,14 @@ bool8 IsSpeciesParadoxMon(u16 species)
 
 u16 AccessValidSpeciesArrayIndex(u16 index)
 {
-    return GetSpeciesFromRandomArray(index % GetMaxNumberOfSpecies());
+    return GetSpeciesFromRandomArray(index % GetMaxNumberOfSpecies(FALSE), FALSE);
 }
 
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 {   
-    for(int i = 0; i < GetMaxNumberOfSpecies(); i++)
+    for(int i = 0; i < GetMaxNumberOfSpecies(FALSE); i++)
     {
-        if(GetSpeciesFromRandomArray(i) == species)
+        if(GetSpeciesFromRandomArray(i, FALSE) == species)
         {
             return i;
         }
@@ -1370,17 +1370,17 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 
 u16 GetSpeciesRandomSeeded(u16 species)
 {
-    return GetSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxNumberOfSpecies()));
+    return GetSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxNumberOfSpecies(FALSE)), FALSE);
 }
 
 u16 GetSpeciesRandomNotSeeded(u16 species)
 {
-    return GetSpeciesFromRandomArray(RandomModulo(species, GetMaxNumberOfSpecies()));
+    return GetSpeciesFromRandomArray(RandomModulo(species, GetMaxNumberOfSpecies(FALSE)), FALSE);
 }
 
 u8 GetCurrentMaxMonGeneratedCount(void)
 {
-    u32 speciesCountReduced = ((GetMaxNumberOfSpecies() * 15) / 16);
+    u32 speciesCountReduced = ((GetMaxNumberOfSpecies(FALSE) * 15) / 16);
     return (gSaveBlock3Ptr->monsGeneratedCount / (speciesCountReduced)) + 1;
 }
 
@@ -1420,7 +1420,7 @@ void ClearGeneratedMons(void)
 {
     u16 i = 0;
     gSaveBlock3Ptr->monsGeneratedCount = 0;
-    for(i = 0; i < GetMaxNumberOfSpecies(); i++)
+    for(i = 0; i < GetMaxNumberOfSpecies(FALSE); i++)
     {
         gSaveBlock3Ptr->monRolledCounts[i] = 0;
     }
@@ -1574,7 +1574,7 @@ void DebugTestRandomness(void)
     }
 
     //DebugPrintf("\n\n\nDebugTestRandomness New");
-    for(i = 0; i < GetMaxNumberOfSpecies(); i++)
+    for(i = 0; i < GetMaxNumberOfSpecies(TRUE); i++)
     {
         StringCopy(gStringVar1, GetSpeciesName(i));
         //DebugPrintf("Species %S: %d", &gStringVar1, gSaveBlock3Ptr->monRolledCounts[i]);
