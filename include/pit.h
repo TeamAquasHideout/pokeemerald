@@ -93,6 +93,9 @@ struct RandomTrainerNPC
 #define EVOSTAGE_FULL    2
 #define ARRAY_RANDOM     0
 #define ARRAY_PROG       1
+#define ITEM_DROPS_RAND  0
+#define ITEM_DROPS_1     1
+#define ITEM_DROPS_3     2
 
 //Autosave defines
 #define SAVE_NO         0

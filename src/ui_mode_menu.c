@@ -89,6 +89,7 @@ enum MenuItems_Difficulty
     #endif
     MENUITEM_DIFF_EVOSTAGE,
     MENUITEM_DIFF_BOSS_HEAL,
+    MENUITEM_DIFF_ITEM_DROPS,
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
 };
@@ -292,6 +293,7 @@ static void DrawChoices_3MonsOnly(int selection, int y);
 static void DrawChoices_50Floors(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_BossHeal(int selection, int y);
+static void DrawChoices_ItemDrops(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
 static void DrawChoices_EvoStage(int selection, int y);
 static void DrawChoices_RandBattleWeather(int selection, int y);
@@ -344,6 +346,7 @@ struct Menu_Diff //MENU_DIFF
     #endif
     [MENUITEM_DIFF_EVOSTAGE]      = {DrawChoices_EvoStage,     ProcessInput_Options_Three},
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
+    [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Three},
     [MENUITEM_DIFF_CANCEL]        = {NULL, NULL},
 };
 
@@ -386,6 +389,7 @@ static const u8 sText_Legendaries[]  = _("LEGENDARIES");
 static const u8 sText_Duplicates[]   = _("DUPLICATES");
 static const u8 sText_Megas[]        = _("TRAINER MEGAS");
 static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
+static const u8 sText_ItemDrops[]    = _("ITEM DROPS");
 
 static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
@@ -430,6 +434,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     #endif
     [MENUITEM_DIFF_EVOSTAGE]      = sText_EvoStage,
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
+    [MENUITEM_DIFF_ITEM_DROPS]    = sText_ItemDrops,
     [MENUITEM_DIFF_CANCEL]        = sText_Cancel,
 };
 
@@ -498,8 +503,9 @@ static bool8 CheckConditions(int selection)
                 #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
                 #endif
-                case MENUITEM_DIFF_EVOSTAGE:      return TRUE; //wiz1989
+                case MENUITEM_DIFF_EVOSTAGE:      return TRUE;
                 case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
+                case MENUITEM_DIFF_ITEM_DROPS:    return TRUE;
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
                 case MENUITEM_DIFF_COUNT:         return TRUE;
                 default:                          return FALSE;
@@ -574,6 +580,9 @@ static const u8 sText_Desc_BossHeal_Off[]       = _("Your party won't be healed 
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money\nreceived after a battle.");
 static const u8 sText_Desc_DoubleCash_05x[]     = _("SUPER HARD! Halves the amount of\nmoney received after a battle.");
+static const u8 sText_Desc_ItemDrops_Rand[]     = _("Item drops after clearing a floor\nare randomized 1-3.");
+static const u8 sText_Desc_ItemDrops_1[]        = _("Only a single item is dropped after\nclearing a floor.");
+static const u8 sText_Desc_ItemDrops_3[]        = _("Always three items are dropped after\nclearing a floor.");
 static const u8 sText_Desc_EvoStage_All[]       = _("Pokémon to choose from can be all\nkinds of evolution stages.");
 static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from will always\nbe Basic Pokémon.");
 static const u8 sText_Desc_EvoStage_Full[]      = _("Pokémon to choose from will always\nbe fully evolved Pokémon.");
@@ -617,6 +626,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     #endif
     [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
     [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
+    [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_3},
     [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
 };
 
@@ -835,6 +845,7 @@ static void ModeMenu_SetupCB(void)
         #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
+        sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = gSaveBlock2Ptr->modeChoiceItemReward;
         //randomizer settings
         sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = gSaveBlock2Ptr->randomBattleWeather;
         sOptions->sel_rand[MENUITEM_RAND_MOVES]         = gSaveBlock2Ptr->randomMoves;
@@ -1371,6 +1382,7 @@ static void Task_ModeMenuSave(u8 taskId)
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
     #endif
+    gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
 
     //randomizer settings
@@ -1600,6 +1612,9 @@ static const u8 sText_Cash_05x[]            = _(".5x");
 static const u8 sText_EvoStage_All[]        = _("ALL");
 static const u8 sText_EvoStage_Basic[]      = _("BASIC");
 static const u8 sText_EvoStage_Full[]       = _("FULL");
+static const u8 sText_ItemDrops_Rand[]      = _("RAND");
+static const u8 sText_ItemDrops_1[]         = _("1");
+static const u8 sText_ItemDrops_3[]         = _("3");
 
 /*static void DrawChoices_Autosave(int selection, int y)
 {
@@ -1674,6 +1689,17 @@ static void DrawChoices_DoubleCash(int selection, int y)
     DrawModeMenuChoice(sText_Cash_1x, 104, y, styles[0], active);
     DrawModeMenuChoice(sText_Cash_2x, GetStringRightAlignXOffset(FONT_NORMAL, sText_Cash_2x, 198 - 41), y, styles[1], active);
     DrawModeMenuChoice(sText_Cash_05x, GetStringRightAlignXOffset(FONT_NORMAL, sText_Cash_05x, 198), y, styles[2], active);
+}
+
+static void DrawChoices_ItemDrops(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_ITEM_DROPS);
+    u8 styles[3] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_ItemDrops_Rand, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_ItemDrops_1, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_1, 198 - 37), y, styles[1], active);
+    DrawModeMenuChoice(sText_ItemDrops_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_3, 198), y, styles[2], active);
 }
 
 static void DrawChoices_HealFloors(int selection, int y)
@@ -1918,6 +1944,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_ALL;
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
+    sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_RAND;
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
     sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_OFF;
