@@ -49,6 +49,7 @@
 #include "field_weather.h"
 #include "script.h"
 #include "pit.h"
+#include "constants/abilities.h"
 
 static void ChangeMoveDisplayMode(u32 battler);
 #include "menu.h"
@@ -1839,7 +1840,10 @@ u8 TypeEffectiveness(u8 targetId, u32 battler)
     SetTypeBeforeUsingMove(move, battler);
     GET_MOVE_TYPE(move, moveType); //this sets the moveType var
 
-    modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), TRUE);
+    if (GetBattlerAbility(targetId) == ABILITY_ILLUSION && GetIllusionMonSpecies(targetId) != SPECIES_NONE) //calc effectiveness for the illusion mon
+        modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), TRUE, TRUE);
+    else
+        modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), TRUE, FALSE);
     
     if (modifier == UQ_4_12(0.0)) {
 			return B_WIN_TYPE_NO_EFF; // 26 - no effect
