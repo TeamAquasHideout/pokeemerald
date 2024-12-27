@@ -2219,7 +2219,9 @@ static void InitSellHowManyInput(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     u8 windowId = BagMenu_AddWindow(ITEMWIN_QUANTITY_WIDE);
-    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM)
+    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
+      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
+      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
         PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount);
     else
         PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);
@@ -2261,7 +2263,6 @@ static void ConfirmSell(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
-    DebugPrintf("ItemId = %d", gSpecialVar_ItemId);
     CopyItemName(gSpecialVar_ItemId, gStringVar2);
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
       || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
