@@ -5195,7 +5195,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
 
     if (gSaveBlock2Ptr->randomEvos == OPTIONS_ON && (targetSpecies != SPECIES_NONE))
     {
-        targetSpecies = GetSpeciesRandomNotSeeded(targetSpecies);
+        targetSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
     }
 
     return targetSpecies;

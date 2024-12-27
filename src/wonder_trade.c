@@ -85,7 +85,7 @@ static u32 ReturnRandomSpecies()
     u8 partyCount;
     int i;
 
-    species = GetRandomSpeciesFlattenedCurve();
+    species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
     //species = SPECIES_GROUDON; //Test setting for reroll tests
 
     do
@@ -94,10 +94,10 @@ static u32 ReturnRandomSpecies()
         //reroll in case any legendaries, mythics or ultra beasts are determined
         if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF)
         {
-            while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxNumberOfSpecies(TRUE)) && counter < 10)
+            while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxTrainerNumberOfSpecies(TRUE)) && counter < 10)
             {
                 // +counter to handle edge cases
-                species = GetRandomSpeciesFlattenedCurve();
+                species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
                 counter ++;
                 //DebugPrintf("%d, rerolled non-legend species = %d", counter, species);
             }
@@ -127,7 +127,7 @@ static u32 ReturnRandomSpecies()
         if (rerollMon)
         {
             counter2++;
-            species = GetRandomSpeciesFlattenedCurve();
+            species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
             counter = 0; //reset counter for legendary rerolls
             //DebugPrintf("--- reroll ---");
         }
