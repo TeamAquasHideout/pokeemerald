@@ -1930,11 +1930,11 @@ u16 RandomItemId(u16 itemId)
         else if (ItemId_GetPocket(itemId) != POCKET_KEY_ITEMS)
         {
             randomItemCategory = Random32() % 1000;
-            if(randomItemCategory < 100)
+            if(randomItemCategory < 70)
                 itemId = sRandomXItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_X_ITEM_COUNT)];
             else if(randomItemCategory < 700)
                 itemId = sRandomConsumableValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_CONSUMABLE_ITEM_COUNT)];
-            else if(randomItemCategory < 900)
+            else if(randomItemCategory < 920)
                 itemId = sRandomHeldValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_HELD_ITEM_COUNT)];
             else
                 itemId = sRandomBerryValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_BERRY_ITEM_COUNT)];
