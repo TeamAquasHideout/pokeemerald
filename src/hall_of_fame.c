@@ -1298,8 +1298,8 @@ static void HallOfFame_PrintMonInfo(struct HallofFameMon* currMon, u8 unused1, u
     }
 }
 
-static const u8 sText_ModeNormal[]          = _("MODE: NORM");
-static const u8 sText_ModeHard[]            = _("MODE: HARD");
+static const u8 sText_ModeNormal[]          = _("MODE: HOPE");
+static const u8 sText_ModeHard[]            = _("MODE: DESPAIR");
 static const u8 sText_ModeCustom[]          = _("MODE: CUSTOM");
 static const u8 sText_BattleMode_Singles[]  = _("SINGLES");
 static const u8 sText_BattleMode_Doubles[]  = _("DOUBLES");

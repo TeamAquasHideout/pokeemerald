@@ -1455,12 +1455,12 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 //  Print The Text For Dex Num, Badges, Name, Playtime, Location
 //
 static const u8 sText_NewGame_Button_Custom[] = _("Custom");
-static const u8 sText_NewGame_Button_Normal[] = _("Normal");
-static const u8 sText_NewGame_Button_Hard[] = _("Hard");
+static const u8 sText_NewGame_Button_Normal[] = _("Hope");
+static const u8 sText_NewGame_Button_Hard[] = _("Despair");
 
-static const u8 sText_NewGame_Text_Custom[] = _(" Custom Mode lets you choose your own \n ruleset to play with.");
-static const u8 sText_NewGame_Text_Normal[] = _(" Normal Mode is not too difficult, \n a fun way to play through The Pit.");
-static const u8 sText_NewGame_Text_Hard[] = _(" Hard Mode is a bit of a challenge, \n less Exp and harder trainers await you.");
+static const u8 sText_NewGame_Text_Custom[] = _(" CUSTOM Mode lets you choose your own \n ruleset to play with.");
+static const u8 sText_NewGame_Text_Normal[] = _(" HOPE Mode is difficult but fair,\n a fun way to play through The Pit.");
+static const u8 sText_NewGame_Text_Hard[] = _(" DESPAIR Mode is trying to destroy your\n morale. Less XP and harder battles.");
 
 static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
 {

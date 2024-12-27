@@ -503,8 +503,8 @@ static void TrainerStats_InitWindows(void) // Init Text Windows
 //
 //  Print 
 //
-static const u8 sText_ModeNormal[]          = _("Mode: NORM");
-static const u8 sText_ModeHard[]            = _("Mode: HARD");
+static const u8 sText_ModeNormal[]          = _("Mode: HOPE");
+static const u8 sText_ModeHard[]            = _("Mode: DESPAIR");
 static const u8 sText_ModeCustom[]          = _("Mode: CUSTOM");
 
 static const u8 sText_ExpNormal[]          = _("Exp: Normal");

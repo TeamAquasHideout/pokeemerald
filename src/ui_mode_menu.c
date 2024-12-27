@@ -543,10 +543,10 @@ static const u8 sText_Desc_CancelPreset[]       = _("Cancel and return without s
 static const u8 sText_Desc_SavePreset[]         = _("Save preset and overwrite current\nmode choice.");
 static const u8 sText_Desc_SpeciesArrayRand[]   = _("Trainer Pokémon are fully randomized.");
 static const u8 sText_Desc_SpeciesArrayProg[]   = _("Trainer Pokémon scale with floors\nto offer a smoother experience.");
-static const u8 sText_Desc_NormalMode[]         = _("Normal mode settings are used as\nintended by the devs.");
-static const u8 sText_Desc_HardMode[]           = _("Hard mode settings are used as\nintended by the devs.");
-static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for Normal Mode below.");
-static const u8 sText_Desc_Defaults_Hard[]      = _("Sets all options for Hard Mode below.");
+static const u8 sText_Desc_NormalMode[]         = _("HOPE mode settings are used as\nintended by the devs.");
+static const u8 sText_Desc_HardMode[]           = _("DESPAIR mode settings are used as\nintended by the devs.");
+static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for HOPE Mode below.");
+static const u8 sText_Desc_Defaults_Hard[]      = _("Sets all options for DESPAIR Mode below.");
 static const u8 sText_Desc_Defaults_Custom[]    = _("Is shown when manually changing\nmode settings.");
 static const u8 sText_Desc_Autosave_Off[]       = _("Autosave is inactive.");
 static const u8 sText_Desc_Autosave_5[]         = _("Autosave is executed every\nfive floors during warping.");
@@ -557,7 +557,7 @@ static const u8 sText_Desc_BattleMode_Mix[]     = _("Play mixed singles and doub
 static const u8 sText_Desc_Randomizer_Mons[]    = _("Only randomize Pokémon species,\ntrainers and item drops.");
 static const u8 sText_Desc_Randomizer_All[]     = _("Also randomize abilities and\nmoves.");
 static const u8 sText_Desc_XPMode_75[]          = _("Exp. Share gives 75% XP to party\nmembers.");
-static const u8 sText_Desc_XPMode_50[]          = _("Exp. Share gives 50% XP to party\nmembers. WARNING: Hard Mode!");
+static const u8 sText_Desc_XPMode_50[]          = _("Exp. Share gives 50% XP to party\nmembers. WARNING: DESPAIR Mode!");
 static const u8 sText_Desc_XPMode_None[]        = _("You won't receive any XP from battles.\nLevels are tied to the floor.");
 static const u8 sText_Desc_StatChanger_On[]     = _("Enables the EV/IV Changer\nin the party menu.");
 static const u8 sText_Desc_StatChanger_Off[]    = _("Makes the EV/IV Changer read only\nand adds an IV merchant option.");
@@ -1579,8 +1579,8 @@ static void ReDrawAll(void)
 }
 
 // Process Input functions ****SPECIFIC****
-static const u8 sText_ModeNormal[]          = _("NORM");
-static const u8 sText_ModeHard[]            = _("HARD");
+static const u8 sText_ModeNormal[]          = _("HOPE");
+static const u8 sText_ModeHard[]            = _("DESPAIR");
 static const u8 sText_ModeCustom[]          = _("CUST");
 static const u8 sText_Autosave_Off[]        = _("OFF");
 static const u8 sText_Autosave_5[]          = _("5FLRS");
