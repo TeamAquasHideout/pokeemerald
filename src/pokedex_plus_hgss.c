@@ -8904,7 +8904,7 @@ bool8 isDexCompleted(u8 mode)
 {
     u16 i, k;
     u16 maxSpecies = NUM_SPECIES;
-    u16 maxSpeciesPit = GetMaxNumberOfSpecies(TRUE);
+    u16 maxSpeciesPit = GetMaxTrainerNumberOfSpecies(TRUE);
     u16 invalidSpecies = 0;
     u8 baseSpeciesHandled[NATIONAL_DEX_COUNT] = {0};
 
@@ -8948,7 +8948,7 @@ bool8 isDexCompleted(u8 mode)
 // void printNatDex(void)
 // {
 //     u16 i;
-//     u16 maxSpeciesPit = GetMaxNumberOfSpecies(TRUE);
+//     u16 maxSpeciesPit = GetMaxTrainerNumberOfSpecies(TRUE);
 
 //     for (i = 0; i < maxSpeciesPit; i++)
 //         DebugPrintf("i=%d, %d, %S, %d", i, SpeciesToNationalPokedexNum(AccessValidSpeciesArrayIndex(i)), gSpeciesInfo[AccessValidSpeciesArrayIndex(i)].speciesName, AccessValidSpeciesArrayIndex(i));

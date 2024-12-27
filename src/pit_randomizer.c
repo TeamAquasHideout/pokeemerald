@@ -1374,14 +1374,14 @@ bool8 IsSpeciesParadoxMon(u16 species)
 
 u16 AccessValidSpeciesArrayIndex(u16 index)
 {
-    return GetSpeciesFromRandomArray(index % GetMaxNumberOfSpecies(FALSE), FALSE);
+    return GetTrainerSpeciesFromRandomArray(index % GetMaxTrainerNumberOfSpecies(TRUE), TRUE);
 }
 
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 {   
-    for(int i = 0; i < GetMaxNumberOfSpecies(FALSE); i++)
+    for(int i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
-        if(GetSpeciesFromRandomArray(i, FALSE) == species)
+        if(GetTrainerSpeciesFromRandomArray(i, TRUE) == species)
         {
             return i;
         }
@@ -1391,57 +1391,56 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 
 u16 GetSpeciesRandomSeeded(u16 species)
 {
-    return GetSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxNumberOfSpecies(FALSE)), FALSE);
+    return GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
 }
 
-u16 GetSpeciesRandomNotSeeded(u16 species)
+u16 GetSpeciesRandomNotSeeded(u16 monType)
 {
-    return GetSpeciesFromRandomArray(RandomModulo(species, GetMaxNumberOfSpecies(FALSE)), FALSE);
+    switch(monType)
+    {
+        case TRAINER_MONS:
+            return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(FALSE)), FALSE);
+        case PLAYER_MONS:
+            return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
+        case ALL_MONS:
+            return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    }
+
+    // Default Should Never Reach
+    return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(FALSE)), FALSE);
 }
 
-u8 GetCurrentMaxMonGeneratedCount(void)
-{
-    u32 speciesCountReduced = ((GetMaxNumberOfSpecies(FALSE) * 15) / 16);
-    return (gSaveBlock3Ptr->monsGeneratedCount / (speciesCountReduced)) + 1;
-}
-
-u16 GetRandomSpeciesFlattenedCurve(void)
+u16 GetRandomSpeciesFlattenedCurve(u16 monType)
 {
     u16 randomSpecies = 0;
-    u16 largestMonCount = gSaveBlock3Ptr->largestMonCount;
     u16 notChosen = TRUE;
-    u8 maxChosenNumber = 0;
     u16 breakOut = 0;
-
-    gSaveBlock3Ptr->monsGeneratedCount += 1;
-    maxChosenNumber = GetCurrentMaxMonGeneratedCount();
-
-    //SeedRngWithRtc();
 
     while(notChosen)
     {
-        randomSpecies = GetSpeciesRandomNotSeeded(0);
-        if(gSaveBlock3Ptr->monRolledCounts[randomSpecies] < maxChosenNumber)
+        randomSpecies = GetSpeciesRandomNotSeeded(monType);
+        if(gSaveBlock3Ptr->monRolledCounts[randomSpecies] == 0)
             notChosen = FALSE;
 
         breakOut++;
-        if(breakOut > 100000)
-            notChosen = FALSE;
+        if(breakOut > 700) 
+        {
+            // Looping too much is intentionally used as the new Clear method because the arrays are broken apart, looping through this function is very fast, 
+            // it will maybe slow down a trainer generation by 0.2 seconds every now and then, but thats not a big deal imo, 
+            // the alternative is very complicated logic and thousands of bytes more of save space
+            ClearGeneratedMons();
+            breakOut = 0;
+        }
     }
 
     gSaveBlock3Ptr->monRolledCounts[randomSpecies] += 1;
-    if(gSaveBlock3Ptr->monRolledCounts[randomSpecies] > largestMonCount)
-        gSaveBlock3Ptr->largestMonCount = gSaveBlock3Ptr->monRolledCounts[randomSpecies] + 1;
-
     return randomSpecies;
-        
 }
 
 void ClearGeneratedMons(void)
 {
     u16 i = 0;
-    gSaveBlock3Ptr->monsGeneratedCount = 0;
-    for(i = 0; i < GetMaxNumberOfSpecies(FALSE); i++)
+    for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
         gSaveBlock3Ptr->monRolledCounts[i] = 0;
     }
@@ -1463,7 +1462,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
     {
         counter = 0;
         counter2 = 0;
-        species = GetRandomSpeciesFlattenedCurve();
+        species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
 
         do
         {
@@ -1472,9 +1471,9 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
             //legendary check
             if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
             {
-                while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 30)
+                while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species))) && counter < 100)
                 {
-                    species = GetRandomSpeciesFlattenedCurve();
+                    species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
                     counter++;
                 }
             }
@@ -1545,7 +1544,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
             }
 
             
-            if (counter2 == 20) //exit in case of infinite loop
+            if (counter2 == 100) //exit in case of infinite loop
             {
                 rerollMon = FALSE;
                 //DebugPrintf("no valid species found. Default: %d", species);
@@ -1554,7 +1553,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
             if (rerollMon)
             {
                 counter2++;
-                species = GetRandomSpeciesFlattenedCurve();
+                species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
                 counter = 0;
             }
         }
@@ -1587,7 +1586,7 @@ void DebugTestRandomness(void)
             {
                 for(partyNum = 0; partyNum < 5; partyNum++)
                 {
-                    GetRandomSpeciesFlattenedCurve();
+                    GetRandomSpeciesFlattenedCurve(ALL_MONS);
                 }
             }
         }
@@ -1595,7 +1594,7 @@ void DebugTestRandomness(void)
     }
 
     //DebugPrintf("\n\n\nDebugTestRandomness New");
-    for(i = 0; i < GetMaxNumberOfSpecies(TRUE); i++)
+    for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
         StringCopy(gStringVar1, GetSpeciesName(i));
         //DebugPrintf("Species %S: %d", &gStringVar1, gSaveBlock3Ptr->monRolledCounts[i]);

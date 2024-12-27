@@ -5271,7 +5271,7 @@ static const u16 sRandomDynamicSpecies_76_100[] =
 #endif
 };
 
-u32 GetMaxNumberOfSpecies(bool8 forceAllSpecies)
+u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
     
@@ -5294,7 +5294,7 @@ u32 GetMaxNumberOfSpecies(bool8 forceAllSpecies)
     }
 }
 
-u32 GetSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
+u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
     
@@ -5313,6 +5313,38 @@ u32 GetSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
         if (floor <= 75)
             return sRandomDynamicSpecies_51_75[index];
         //everything above 75
+        return sRandomDynamicSpecies_76_100[index];
+    }
+}
+
+u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies)
+{   
+    u8 floor = VarGet(VAR_PIT_FLOOR);
+
+    if (gSaveBlock2Ptr->modeChoiceEvoStage != EVOSTAGE_PROG || forceAllSpecies)
+        return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+    else
+    {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
+        if (floor <= 25)
+            return RANDOM_DYNAMIC_SPECIES_COUNT_16_25;
+        if (floor <= 50)
+            return RANDOM_DYNAMIC_SPECIES_COUNT_51_75;
+        return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+    }
+}
+
+u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
+{
+    u8 floor = VarGet(VAR_PIT_FLOOR);
+
+    if (gSaveBlock2Ptr->modeChoiceEvoStage != EVOSTAGE_PROG || forceAllSpecies) // If Not Prog, The Evo Stage Basic/Evolved Is Handled By Rerolls In GenerateRandomSpeciesRewards()
+        return sRandomDynamicSpecies_76_100[index];
+    else
+    {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
+        if (floor <= 25)
+            return sRandomDynamicSpecies_16_25[index];
+        if (floor <= 50)
+            return sRandomDynamicSpecies_51_75[index];
         return sRandomDynamicSpecies_76_100[index];
     }
 }

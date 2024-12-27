@@ -2110,7 +2110,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 else if (monLevel == 100 || monLevel % 25 == 0)
                 {
                     // = fully evolved mons for every trainer from Floor 100 on and for bosses!
-                    u16 newSpecies = GetRandomSpeciesFlattenedCurve();
+                    u16 newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
                     const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
                     while (evolutions != NULL)
                     {
@@ -2130,7 +2130,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
                 else
                 {
-                    CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(TRAINER_MONS), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     //test line below for forced test encounters
                     //CreateMon(&party[i], SPECIES_RAYQUAZA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                 }
