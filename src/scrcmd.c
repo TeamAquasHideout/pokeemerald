@@ -829,10 +829,13 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             y = 9;
             //only show move tutor on 10er levels
             FlagClear(FLAG_HIDE_MOVE_TUTOR);
-            if (VarGet(VAR_PIT_FLOOR) % 10 != 0)
+
+            if (VarGet(VAR_PIT_FLOOR) % 10 != 0) // Hide if on a multiple of 10
                 FlagSet(FLAG_HIDE_MOVE_TUTOR);
-            if (VarGet(VAR_PIT_FLOOR) % 25 != 0)
+
+            if (VarGet(VAR_PIT_FLOOR) % 25 == 0) // Show Tutor if on 25
                 FlagClear(FLAG_HIDE_MOVE_TUTOR);
+
             if (gSaveBlock2Ptr->modeXP == 2) // If No Exp Mode, Always Spawn Tutor
                 FlagClear(FLAG_HIDE_MOVE_TUTOR);
         }
