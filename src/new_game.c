@@ -117,7 +117,7 @@ void SetDefaultOptions(void)
     {
         //run settings
         gSaveBlock2Ptr->modeDefault = 0;
-        gSaveBlock2Ptr->modeSpeciesArray = ARRAY_RANDOM;
+        gSaveBlock2Ptr->modeSpeciesArray = ARRAY_PROG;
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
@@ -129,11 +129,11 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeStatChanger = ON;
         gSaveBlock2Ptr->modeTrainerEVs = OFF;
         gSaveBlock2Ptr->modeCashRewards = CASH_1X;
-        gSaveBlock2Ptr->modeHealFloors10 = 0;
+        gSaveBlock2Ptr->modeHealFloors10 = HEAL_FLOORS_5;
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
-        gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_RAND;
+        gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather

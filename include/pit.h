@@ -94,7 +94,6 @@ struct RandomTrainerNPC
 #define EVOSTAGE_ALL     0
 #define EVOSTAGE_BASIC   1
 #define EVOSTAGE_FULL    2
-#define EVOSTAGE_PROG    3
 #define ARRAY_RANDOM     0
 #define ARRAY_PROG       1
 #define ITEM_DROPS_RAND  0

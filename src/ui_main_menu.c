@@ -726,6 +726,7 @@ static void Task_MainMenuWaitFadeIn(u8 taskId)
 static void LoadDefaultSettings(void)
 {
     //run settings
+    gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_RANDOM;
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
     gSaveBlock2Ptr->mode3MonsOnly       = OPTIONS_OFF;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
@@ -735,6 +736,8 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
     gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_5;
     gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_ALL;
+    gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
+    gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;
@@ -747,6 +750,7 @@ static void LoadDefaultSettings(void)
 void LoadNormalModePresets(void)
 {
     LoadDefaultSettings();
+    gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_PROG;
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
     FlagSet(FLAG_STAT_CHANGER);

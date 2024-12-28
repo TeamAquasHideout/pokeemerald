@@ -5321,7 +5321,7 @@ u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies)
 {   
     u8 floor = VarGet(VAR_PIT_FLOOR);
 
-    if (gSaveBlock2Ptr->modeChoiceEvoStage != EVOSTAGE_PROG || forceAllSpecies)
+    if (gSaveBlock2Ptr->modeSpeciesArray != ARRAY_PROG || forceAllSpecies || gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL)
         return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
     else
     {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
@@ -5337,7 +5337,7 @@ u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
 
-    if (gSaveBlock2Ptr->modeChoiceEvoStage != EVOSTAGE_PROG || forceAllSpecies) // If Not Prog, The Evo Stage Basic/Evolved Is Handled By Rerolls In GenerateRandomSpeciesRewards()
+    if (gSaveBlock2Ptr->modeSpeciesArray != ARRAY_PROG || forceAllSpecies || gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL) // If Not Prog, The Evo Stage Basic/Evolved Is Handled By Rerolls In GenerateRandomSpeciesRewards()
         return sRandomDynamicSpecies_76_100[index];
     else
     {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
