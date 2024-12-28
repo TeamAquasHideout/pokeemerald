@@ -3720,11 +3720,11 @@ void ChooseRandomRewardNumberForFloor(void)
 
     switch(gSaveBlock2Ptr->modeChoiceItemReward)
     {
-        case 1: // always 3 rewards
-            VarSet(VAR_RESULT, 2);
-            return;
-        case 2: // always 1 rewards
+        case 1: // always 1 rewards
             VarSet(VAR_RESULT, 0);
+            return;
+        case 2: // always 3 rewards
+            VarSet(VAR_RESULT, 2);
             return;
     }
 
