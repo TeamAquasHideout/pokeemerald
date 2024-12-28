@@ -1475,14 +1475,14 @@ static void ScrollAll(int direction) // to bottom or top
     {
         y = optionsToDraw - scrollCount;
         if (y < 0)
-            y = optionsToDraw;
+            y = 0;
         y *= Y_DIFF;
     }
     else
     {
         y = 0;
     }
-
+    
     FillWindowPixelRect(WIN_OPTIONS, PIXEL_FILL(0), 0, y, 26 * 8, Y_DIFF * scrollCount);
     // Print new texts
     for (i = 0; i < scrollCount; i++)
