@@ -39,7 +39,7 @@
 #define AI_FLAG_NEGATE_UNAWARE        (1 << 10)  // AI is NOT aware of negating effects like wonder room, mold breaker, etc
 #define AI_FLAG_WILL_SUICIDE          (1 << 11)  // AI will use explosion / self destruct / final gambit / etc
 // New, Trainer Strategy Flags
-#define AI_FLAG_PREFER_STATUS_MOVES   (1 << 12)  // AI gets a score bonus for status moves. Should be combined with AI_FLAG_CHECK_BAD_MOVE to prevent using only status moves
+#define AI_FLAG_DONT_PREFER_STATUS_MOVES   (1 << 12)  // AI gets a score bonus for status moves. Should be combined with AI_FLAG_CHECK_BAD_MOVE to prevent using only status moves
 #define AI_FLAG_STALL                 (1 << 13)  // AI stalls battle and prefers secondary damage/trapping/etc. TODO not finished
 #define AI_FLAG_SMART_SWITCHING       (1 << 14)  // AI includes a lot more switching checks. Automatically includes AI_FLAG_SMART_MON_CHOICES.
 #define AI_FLAG_ACE_POKEMON           (1 << 15)  // AI has an Ace Pokemon. The last Pokemon in the party will not be used until it's the last one remaining.

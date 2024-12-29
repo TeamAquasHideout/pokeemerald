@@ -98,7 +98,7 @@ AI does not understand ability suppression (Mold Breaker etc., weather suppressi
 ## `AI_FLAG_WILL_SUICIDE`
 AI prioritizes self destruction moves (Explosion, Memento).
 
-## `AI_FLAG_PREFER_STATUS_MOVES`
+## `AI_FLAG_DONT_PREFER_STATUS_MOVES`
 AI gets a score bonus for status moves. This should be combined with `AI_FLAG_CHECK_BAD_MOVE` to prevent using only status moves.
 
 ## `AI_FLAG_STALL`
