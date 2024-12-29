@@ -7,10 +7,10 @@ PitShop_ShopNPCHook::
 	message PitShop_ShopNPC_Text
 #ifdef PIT_GEN_3_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen3IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
 #elif defined PIT_GEN_5_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen5IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
 #else
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen9IVs
 	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
@@ -22,14 +22,16 @@ PitShop_ShopNPCHook::
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
 	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Sell
+	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Mints
+	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Sell
 #elif defined PIT_GEN_5_MODE
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
 	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
 	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Gems
 	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_Sell
+	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_Mints
+	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Sell
 #else
 	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
 	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
