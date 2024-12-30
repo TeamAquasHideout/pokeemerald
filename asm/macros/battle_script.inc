@@ -1683,6 +1683,11 @@
 	.byte \battler
 	.4byte \failInstr
 	.endm
+	
+	.macro jumpifcommanderactive jumpInstr:req
+	callnative BS_JumpIfCommanderActive
+	.4byte \jumpInstr
+	.endm
 
 	.macro tryhitswitchtarget failInstr:req
 	callnative BS_TryHitSwitchTarget
