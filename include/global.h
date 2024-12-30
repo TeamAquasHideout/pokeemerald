@@ -609,7 +609,7 @@ struct SaveBlock2
              u16 randomBattleWeather:2;
              u16 optionsBattleSpeed:2;
              u16 modeTrainerEVs:1;
-             u16 filler_9912:1;
+             u16 padding:1;
              //end of u16
 
     // #### running stats for The Pit - START ####
@@ -645,7 +645,8 @@ struct SaveBlock2
             u8 hasRecievedShinyDust;
             u8 forceNewRun;
             u8 hasReceivedShedinja;
-            u8 pit_padding[63];
+            u8 monoType; //0 = all types, rest is based on type defines in constants/pokemon.h
+            u8 pit_padding[62];
 
             struct HallofFameTeam2 tempHofMon;
 

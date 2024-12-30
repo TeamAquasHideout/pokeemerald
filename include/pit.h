@@ -52,8 +52,10 @@ void ClearAllRandomBossEncounters(void);
 
 u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies);
 u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies);
+u32 GetMonoTypeNumberOfSpecies(void);
 u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies);
 void ClearGeneratedMons(void);
+void ResetMonoTypeArray(void);
 
 struct RandomTrainerNPC 
 {

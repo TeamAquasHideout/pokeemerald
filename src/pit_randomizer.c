@@ -1394,6 +1394,8 @@ u16 GetSpeciesRandomSeeded(u16 species)
     return GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
 }
 
+EWRAM_DATA u16 gMonoTypeArray[NUM_SPECIES] = {0};
+
 u16 GetSpeciesRandomNotSeeded(u16 monType)
 {
     switch(monType)
@@ -1401,13 +1403,48 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
         case TRAINER_MONS:
             return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(FALSE)), FALSE);
         case PLAYER_MONS:
-            return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
+            if (TRUE) //gSaveBlock2Ptr->monoType != TYPE_NONE) //add condition for mono type runs
+            {
+                //test
+                gSaveBlock2Ptr->monoType = TYPE_DRAGON;
+
+                //create dynamic array
+                u32 maxSpecies = GetMaxPlayerNumberOfSpecies(FALSE);
+                u32 maxMonoTypeSpecies = GetMonoTypeNumberOfSpecies();
+                int element = 0;
+
+                if (gMonoTypeArray[0] == 0) // array is empty
+                {
+                    for (int i = 0; i < maxSpecies; i++)
+                    {
+                        if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->monoType
+                          || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->monoType)
+                        {
+                            gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
+                            DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
+                            element++;
+                        }
+                    }
+                }
+
+                return gMonoTypeArray[RandomModulo(0, maxMonoTypeSpecies)];
+            }   
+            else
+                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
         case ALL_MONS:
             return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     }
 
     // Default Should Never Reach
     return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(FALSE)), FALSE);
+}
+
+void ResetMonoTypeArray(void)
+{
+    for(int i = 0; i < NUM_SPECIES; i++)
+    {
+        gMonoTypeArray[i] = 0;
+    }
 }
 
 u16 GetRandomSpeciesFlattenedCurve(u16 monType)
@@ -1423,7 +1460,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
             notChosen = FALSE;
 
         breakOut++;
-        if(breakOut > 700) 
+        if(breakOut > 700)
         {
             // Looping too much is intentionally used as the new Clear method because the arrays are broken apart, looping through this function is very fast, 
             // it will maybe slow down a trainer generation by 0.2 seconds every now and then, but thats not a big deal imo, 
@@ -1431,8 +1468,15 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
             ClearGeneratedMons();
             breakOut = 0;
         }
+        if (monType == PLAYER_MONS && gSaveBlock2Ptr->monoType != TYPE_NONE && breakOut > 50)
+        {
+            ClearGeneratedMons();
+            breakOut = 0;
+            randomSpecies = gMonoTypeArray[RandomModulo(0, GetMonoTypeNumberOfSpecies())]; //default for overflow cases
+        }
     }
 
+    //DebugPrintf("final species = %S", gSpeciesInfo[randomSpecies].speciesName);
     gSaveBlock3Ptr->monRolledCounts[randomSpecies] += 1;
     return randomSpecies;
 }
@@ -1462,11 +1506,11 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
     {
         counter = 0;
         counter2 = 0;
-        species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
 
         do
         {
             rerollMon = FALSE;
+            species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
 
             //legendary check
             if (gSaveBlock2Ptr->modeLegendaries == OPTIONS_OFF || (sRolledLegendAlready && (Random() % 10))) //reroll in case any legendaries, mythics or ultra beasts are determined
@@ -1524,22 +1568,25 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     break;
             }
             
-            for (i=0; i < 9; i++) //check for duplicates within the case
+            if (gSaveBlock2Ptr->monoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
             {
-                if (species == sRolledSpeciesPtr[i] && i != index)
+                for (i=0; i < 9; i++) //check for duplicates within the case
                 {
-                    rerollMon = TRUE;
-                }
-            }
-
-            //check for duplicates against the player's party
-            partyCount = CalculatePlayerPartyCount();
-            if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
-            {
-                for (i = 0; i < partyCount; i++)
-                {
-                    if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
+                    if (species == sRolledSpeciesPtr[i] && i != index)
+                    {
                         rerollMon = TRUE;
+                    }
+                }
+
+                //check for duplicates against the player's party
+                partyCount = CalculatePlayerPartyCount();
+                if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
+                {
+                    for (i = 0; i < partyCount; i++)
+                    {
+                        if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
+                            rerollMon = TRUE;
+                    }
                 }
             }
 

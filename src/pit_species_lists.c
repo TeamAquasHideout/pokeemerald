@@ -5326,9 +5326,9 @@ u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies)
     else
     {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
         if (floor <= 25)
-            return RANDOM_DYNAMIC_SPECIES_COUNT_16_25;
+            return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;  //old: RANDOM_DYNAMIC_SPECIES_COUNT_16_25
         if (floor <= 50)
-            return RANDOM_DYNAMIC_SPECIES_COUNT_51_75;
+            return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;  //old: RANDOM_DYNAMIC_SPECIES_COUNT_51_75
         return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
     }
 }
@@ -5342,9 +5342,43 @@ u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
     else
     {   // The Player Only Gets 4 Mon Options So They're Weighted Better Than Opponents Slightly. Can Update if you Want.
         if (floor <= 25)
-            return sRandomDynamicSpecies_16_25[index];
+            return sRandomDynamicSpecies_76_100[index];  //old: sRandomDynamicSpecies_16_25
         if (floor <= 50)
-            return sRandomDynamicSpecies_51_75[index];
+            return sRandomDynamicSpecies_76_100[index];  //old: sRandomDynamicSpecies_51_75
         return sRandomDynamicSpecies_76_100[index];
     }
+}
+
+u32 GetMonoTypeNumberOfSpecies(void)
+{
+    u8 floor = VarGet(VAR_PIT_FLOOR);
+    u16 arraySize = 0;
+    int i;
+    u16 counter = 0;
+
+    if (TRUE) //gSaveBlock2Ptr->monoType != TYPE_NONE) //add condition for mono type runs
+    {
+        //calc base array size
+        if (gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL)
+            arraySize = RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+        else
+        {
+            if (floor <= 25)
+                arraySize = RANDOM_DYNAMIC_SPECIES_COUNT_76_100; //old: RANDOM_DYNAMIC_SPECIES_COUNT_16_25
+            else if (floor <= 50)
+                arraySize = RANDOM_DYNAMIC_SPECIES_COUNT_76_100; //old: RANDOM_DYNAMIC_SPECIES_COUNT_51_75
+            else //everything above 75
+                arraySize = RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+        }
+
+        //calc size of dynamic array for chosen mono type
+        for (i = 0; i < arraySize; i++)
+        {
+            if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->monoType
+              || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->monoType)
+                counter++;
+        }
+    }
+    
+    return counter;
 }

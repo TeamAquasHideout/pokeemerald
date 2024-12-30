@@ -250,6 +250,7 @@ void NewGameInitData(void)
     InitLotadSizeRecord();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
+    ResetMonoTypeArray();
     
     // Poke Storage Stuff
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
