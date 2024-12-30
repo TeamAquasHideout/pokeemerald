@@ -12105,3 +12105,12 @@ bool32 TargetFullyImmuneToCurrMove(u32 battlerAtk, u32 battlerDef)
          || IsSemiInvulnerable(battlerDef, gCurrentMove)
          || DoesBattlerHaveAbilityImmunity(battlerDef));
 }
+
+bool32 DoesDestinyBondFail(u32 battler)
+{
+    if (B_DESTINY_BOND_FAIL >= GEN_7
+        && gMovesInfo[gLastResultingMoves[battler]].effect == EFFECT_DESTINY_BOND
+        && !(gBattleStruct->lastMoveFailed & (1u << battler)))
+        return TRUE;
+    return FALSE;
+}
