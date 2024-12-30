@@ -1756,7 +1756,9 @@ static const u16 sRandomBerryValidItems[] =
     ITEM_MICLE_BERRY,
     ITEM_CUSTAP_BERRY,
     ITEM_JABOCA_BERRY,
-    ITEM_ROWAP_BERRY,    
+    ITEM_ROWAP_BERRY,
+#endif
+#ifdef PIT_GEN_9_MODE  
     ITEM_ROSELI_BERRY,
     ITEM_KEE_BERRY,
     ITEM_MARANGA_BERRY,
