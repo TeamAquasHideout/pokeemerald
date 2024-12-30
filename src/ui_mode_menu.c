@@ -80,6 +80,8 @@ enum MenuItems_Difficulty
 {
     MENUITEM_DIFF_XPMODE,
     MENUITEM_DIFF_TRAINER_EVS,
+    MENUITEM_DIFF_EVOSTAGE,
+    MENUITEM_DIFF_MONOTYPE,
     MENUITEM_DIFF_DOUBLE_CASH,
     MENUITEM_DIFF_STAT_CHANGER,
     MENUITEM_DIFF_HEALFLOORS,
@@ -87,7 +89,6 @@ enum MenuItems_Difficulty
     #ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_MEGAS,
     #endif
-    MENUITEM_DIFF_EVOSTAGE,
     MENUITEM_DIFF_BOSS_HEAL,
     MENUITEM_DIFF_ITEM_DROPS,
     MENUITEM_DIFF_CANCEL,
@@ -274,7 +275,7 @@ static void DrawLeftSideOptionText(int selection, int y);
 static void DrawRightSideChoiceText(const u8 *str, int x, int y, bool8 chosen, bool8 active);
 static void DrawDescriptionText(void);
 static void DrawModeMenuTexts(void); //left side text;
-static void DrawChoices(u32 id, int y); //right side draw function
+static void DrawChoices(u8 id, int y); //right side draw function
 static void HighlightModeMenuItem(void);
 static bool8 ModeMenu_LoadGraphics(void);
 static void ModeMenu_FreeResources(void);
@@ -296,6 +297,7 @@ static void DrawChoices_BossHeal(int selection, int y);
 static void DrawChoices_ItemDrops(int selection, int y);
 static void DrawChoices_DoubleCash(int selection, int y);
 static void DrawChoices_EvoStage(int selection, int y);
+static void DrawChoices_MonoType(int selection, int y);
 static void DrawChoices_RandBattleWeather(int selection, int y);
 static void DrawChoices_RandMoves(int selection, int y);
 static void DrawChoices_RandAbilities(int selection, int y);
@@ -336,15 +338,16 @@ struct Menu_Diff //MENU_DIFF
 } static const sItemFunctionsDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
-    [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
     [MENUITEM_DIFF_TRAINER_EVS]   = {DrawChoices_TrainerEVs,   ProcessInput_Options_Two},
+    [MENUITEM_DIFF_EVOSTAGE]      = {DrawChoices_EvoStage,     ProcessInput_Options_Three},
+    [MENUITEM_DIFF_MONOTYPE]      = {DrawChoices_MonoType,     ProcessInput_Options_Three},
+    [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
     [MENUITEM_DIFF_HEALFLOORS]    = {DrawChoices_HealFloors,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_LEGENDARIES]   = {DrawChoices_Legendaries,  ProcessInput_Options_Two},
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {DrawChoices_Megas,        ProcessInput_Options_Two},
     #endif
-    [MENUITEM_DIFF_EVOSTAGE]      = {DrawChoices_EvoStage,     ProcessInput_Options_Three},
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Three},
     [MENUITEM_DIFF_CANCEL]        = {NULL, NULL},
@@ -396,6 +399,7 @@ static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
 static const u8 sText_BossHeal[]     = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]   = _("CASH RATE");
 static const u8 sText_EvoStage[]     = _("EVO STAGES");
+static const u8 sText_MonoType[]     = _("MONO TYPE");
 static const u8 sText_50Floors[]     = _("50 FLOORS");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
@@ -424,15 +428,16 @@ static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
 static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
 {
     [MENUITEM_DIFF_XPMODE]        = sText_XPMode,
-    [MENUITEM_DIFF_STAT_CHANGER]  = sText_StatChanger,
     [MENUITEM_DIFF_TRAINER_EVS]   = sText_TrainerEVs,
+    [MENUITEM_DIFF_EVOSTAGE]      = sText_EvoStage,
+    [MENUITEM_DIFF_MONOTYPE]      = sText_MonoType,
+    [MENUITEM_DIFF_STAT_CHANGER]  = sText_StatChanger,
     [MENUITEM_DIFF_DOUBLE_CASH]   = sText_DoubleCash,
     [MENUITEM_DIFF_HEALFLOORS]    = sText_HealFloors,
     [MENUITEM_DIFF_LEGENDARIES]   = sText_Legendaries,
     #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = sText_Megas,
     #endif
-    [MENUITEM_DIFF_EVOSTAGE]      = sText_EvoStage,
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_ITEM_DROPS]    = sText_ItemDrops,
     [MENUITEM_DIFF_CANCEL]        = sText_Cancel,
@@ -504,6 +509,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
                 #endif
                 case MENUITEM_DIFF_EVOSTAGE:      return TRUE;
+                case MENUITEM_DIFF_MONOTYPE:      return TRUE;
                 case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
                 case MENUITEM_DIFF_ITEM_DROPS:    return TRUE;
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
@@ -588,6 +594,7 @@ static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from wil
 static const u8 sText_Desc_EvoStage_Full[]      = _("Pokémon to choose from will always\nbe fully evolved Pokémon.");
 static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
 static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
+static const u8 sText_Desc_MonoType[]           = _("Choose a type to play a\nmono type run with.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
 static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
 static const u8 sText_Desc_RandBWeather_Off[]   = _("Weather during battles is turned off.");
@@ -625,6 +632,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
     #endif
     [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
+    [MENUITEM_DIFF_MONOTYPE]      = {sText_Desc_MonoType,         sText_Desc_MonoType,          sText_Desc_MonoType},
     [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
     [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_3},
     [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
@@ -844,6 +852,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
+        sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]      = gSaveBlock2Ptr->modeMonoType;
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = gSaveBlock2Ptr->modeChoiceItemReward;
         //randomizer settings
@@ -1053,7 +1062,7 @@ static void DrawRightSideChoiceText(const u8 *text, int x, int y, bool8 chosen, 
         AddTextPrinterParameterized4(WIN_OPTIONS, FONT_NORMAL, x, y, 0, 0, color_gray, TEXT_SKIP_DRAW, text);
 }
 
-static void DrawChoices(u32 id, int y) //right side draw function
+static void DrawChoices(u8 id, int y) //right side draw function
 {
     switch (sOptions->submenu)
     {
@@ -1384,6 +1393,7 @@ static void Task_ModeMenuSave(u8 taskId)
     #endif
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
+    gSaveBlock2Ptr->modeMonoType     = sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE];
 
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather    = sOptions->sel_rand[MENUITEM_RAND_B_WEATHER];
@@ -1572,8 +1582,8 @@ static void ReDrawAll(void)
     FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(0));
     for (i = 0; i < optionsToDraw; i++)
     {
-        DrawChoices(menuItem+i, i * Y_DIFF);
-        DrawLeftSideOptionText(menuItem+i, (i * Y_DIFF) + 1);
+        DrawChoices(menuItem + i, i * Y_DIFF);
+        DrawLeftSideOptionText(menuItem + i, (i * Y_DIFF) + 1);
     }
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
 }
@@ -1615,6 +1625,25 @@ static const u8 sText_EvoStage_Full[]       = _("FULL");
 static const u8 sText_ItemDrops_Rand[]      = _("RAND");
 static const u8 sText_ItemDrops_1[]         = _("1");
 static const u8 sText_ItemDrops_3[]         = _("3");
+static const u8 sText_Type_Normal[]         = _("NORM");
+static const u8 sText_Type_Fighting[]       = _("FIGHT");
+static const u8 sText_Type_Flying[]         = _("FLY");
+static const u8 sText_Type_Poison[]         = _("POISN");
+static const u8 sText_Type_Ground[]         = _("GRND");
+static const u8 sText_Type_Rock[]           = _("ROCK");
+static const u8 sText_Type_Bug[]            = _("BUG");
+static const u8 sText_Type_Ghost[]          = _("GHOST");
+static const u8 sText_Type_Steel[]          = _("STEEL"); //TYPE_MYSTERY
+static const u8 sText_Type_Fire[]           = _("FIRE");
+static const u8 sText_Type_Water[]          = _("WATER");
+static const u8 sText_Type_Grass[]          = _("GRASS");
+static const u8 sText_Type_Electric[]       = _("ELCTR");
+static const u8 sText_Type_Psychic[]        = _("PSYCH");
+static const u8 sText_Type_Ice[]            = _("ICE");
+static const u8 sText_Type_Dragon[]         = _("DRAGN");
+static const u8 sText_Type_Dark[]           = _("DARK");
+static const u8 sText_Type_Fairy[]          = _("FAIRY");
+
 
 /*static void DrawChoices_Autosave(int selection, int y)
 {
@@ -1807,6 +1836,17 @@ static void DrawChoices_EvoStage(int selection, int y)
     DrawModeMenuChoice(sText_EvoStage_Full, GetStringRightAlignXOffset(FONT_NORMAL, sText_EvoStage_Full, 198), y, styles[2], active);
 }
 
+static void DrawChoices_MonoType(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_MONOTYPE);
+    u8 styles[3] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Autosave_Off, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Type_Normal, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Normal, 198 - 35), y, styles[1], active);
+    DrawModeMenuChoice(sText_Type_Fighting, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Fighting, 198), y, styles[2], active);
+}
+
 static void DrawChoices_RandBattleWeather(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_B_WEATHER);
@@ -1943,6 +1983,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
     sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_ALL;
+    sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]      = TYPE_NONE;
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
     //randomizer settings

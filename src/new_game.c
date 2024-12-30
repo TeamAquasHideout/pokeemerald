@@ -133,6 +133,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
+        gSaveBlock2Ptr->modeMonoType = TYPE_NONE;
         gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
 
         //randomizer settings

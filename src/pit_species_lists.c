@@ -5356,7 +5356,7 @@ u32 GetMonoTypeNumberOfSpecies(void)
     int i;
     u16 counter = 0;
 
-    if (TRUE) //gSaveBlock2Ptr->monoType != TYPE_NONE) //add condition for mono type runs
+    if (gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
     {
         //calc base array size
         if (gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL)
@@ -5374,8 +5374,8 @@ u32 GetMonoTypeNumberOfSpecies(void)
         //calc size of dynamic array for chosen mono type
         for (i = 0; i < arraySize; i++)
         {
-            if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->monoType
-              || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->monoType)
+            if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
+              || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
                 counter++;
         }
     }

@@ -1403,11 +1403,8 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
         case TRAINER_MONS:
             return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(FALSE)), FALSE);
         case PLAYER_MONS:
-            if (TRUE) //gSaveBlock2Ptr->monoType != TYPE_NONE) //add condition for mono type runs
+            if (gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
             {
-                //test
-                gSaveBlock2Ptr->monoType = TYPE_DRAGON;
-
                 //create dynamic array
                 u32 maxSpecies = GetMaxPlayerNumberOfSpecies(FALSE);
                 u32 maxMonoTypeSpecies = GetMonoTypeNumberOfSpecies();
@@ -1417,11 +1414,11 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
                 {
                     for (int i = 0; i < maxSpecies; i++)
                     {
-                        if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->monoType
-                          || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->monoType)
+                        if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
+                          || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
                         {
                             gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
-                            DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
+                            //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
                             element++;
                         }
                     }
@@ -1468,7 +1465,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
             ClearGeneratedMons();
             breakOut = 0;
         }
-        if (monType == PLAYER_MONS && gSaveBlock2Ptr->monoType != TYPE_NONE && breakOut > 50)
+        if (monType == PLAYER_MONS && gSaveBlock2Ptr->modeMonoType != TYPE_NONE && breakOut > 50)
         {
             ClearGeneratedMons();
             breakOut = 0;
@@ -1568,7 +1565,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     break;
             }
             
-            if (gSaveBlock2Ptr->monoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
+            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
