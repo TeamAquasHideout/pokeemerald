@@ -3266,16 +3266,23 @@ void BufferNameText_RandomMonRewardEncounter(void)
 //  Overworld Trainers Left HUD
 //
 
-static void Task_DelayPrintOverworldHUD(u8 taskId);
+static void Task_DelayPrintOverworldTrainerHUD(u8 taskId);
+static void Task_DelayPrintOverworldMonHUD(u8 taskId);
 static void PrintTrainerCount(u32 spriteId, u32 bgColor, u32 startTile);
+void MonHUDSpriteCallback(struct Sprite *sprite);
 
 static EWRAM_DATA u8 gOWHUDSprite;
 static EWRAM_DATA u8 gOWHUDSpriteMask;
+static EWRAM_DATA u8 gOWMonHUDSprite;
+static EWRAM_DATA u8 gOWMonHUDSpriteMask;
 static const u32 sTrainerCountGfx[] = INCBIN_U32("graphics/interface/trainercount_hud.4bpp.lz");
+static const u32 sMonRewardGfx[] = INCBIN_U32("graphics/interface/monreward_hud.4bpp.lz");
+
 static const u16 sTrainerCountPal[] = INCBIN_U16("graphics/interface/trainercount_hud.gbapal");
 
 #define TRAINER_COUNT_PAL_TAG       OBJ_EVENT_PAL_TAG_NPC_4 // Shares the same pal as the trainer it uses
-#define TAG_TRAINER_COUNT_GFX 30050
+#define TAG_TRAINER_COUNT_GFX       30050
+#define TAG_MON_REWARD_GFX          30051
 
 static const struct SpritePalette sSpritePal_TrainerCountHUD =
 {
@@ -3288,6 +3295,13 @@ static const struct CompressedSpriteSheet sSpriteSheet_TrainerCountHUD =
     .data = sTrainerCountGfx,
     .size = 32*32*1/2,
     .tag = TAG_TRAINER_COUNT_GFX,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_MonRewardHUD = 
+{
+    .data = sMonRewardGfx,
+    .size = 16*32*1/2,
+    .tag = TAG_MON_REWARD_GFX,
 };
 
 static const union AnimCmd sSpriteAnim_TrainerCountHUD0[] =
@@ -3305,7 +3319,14 @@ static const struct OamData sOamData_TrainerCountHUD =
 {
     .size = SPRITE_SIZE(32x32),
     .shape = SPRITE_SHAPE(32x32),
-    .priority = 0,
+    .priority = 1,
+};
+
+static const struct OamData sOamData_MonRewardHUD =
+{
+    .size = SPRITE_SIZE(16x32),
+    .shape = SPRITE_SHAPE(16x32),
+    .priority = 1,
 };
 
 static const struct SpriteTemplate sSpriteTemplate_TrainerCountHUD =
@@ -3319,17 +3340,29 @@ static const struct SpriteTemplate sSpriteTemplate_TrainerCountHUD =
     .callback = SpriteCallbackDummy
 };
 
-void CreateOverworldHUD(void)
+static const struct SpriteTemplate sSpriteTemplate_MonRewardHUD =
 {
-    if(FuncIsActiveTask(Task_DelayPrintOverworldHUD))
+    .tileTag = TAG_MON_REWARD_GFX,
+    .paletteTag = TRAINER_COUNT_PAL_TAG,
+    .oam = &sOamData_MonRewardHUD,
+    .anims = sSpriteAnimTable_TrainerCountHUD,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = MonHUDSpriteCallback
+};
+
+
+void CreateOverworldTrainerHUD(void)
+{
+    if(FuncIsActiveTask(Task_DelayPrintOverworldTrainerHUD))
         return;
     u16 remainingTrainers = ReturnTrainersRemaining();
     if ((remainingTrainers == 0) || (VarGet(VAR_PIT_FLOOR) == 0) || ((VarGet(VAR_PIT_FLOOR) % BOSS_FLOOR_RATE) == 0) || ((VarGet(VAR_PIT_FLOOR) % (gSaveBlock2Ptr->modeHealFloors10 ? 10 : 5)) == 0))
         return;
-    CreateTask(Task_DelayPrintOverworldHUD, 15);
+    CreateTask(Task_DelayPrintOverworldTrainerHUD, 15);
 }
 
-static void Task_DelayPrintOverworldHUD(u8 taskId)
+static void Task_DelayPrintOverworldTrainerHUD(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
@@ -3353,6 +3386,48 @@ static void Task_DelayPrintOverworldHUD(u8 taskId)
         DestroyTask(taskId);
     }
 }
+
+
+void CreateOverworldMonHUD(void)
+{
+    if(FuncIsActiveTask(Task_DelayPrintOverworldMonHUD))
+        return;
+    if ((FlagGet(FLAG_OVERWORLD_MON_ENCOUNTER)) || (VarGet(VAR_PIT_FLOOR) == 0) || ((VarGet(VAR_PIT_FLOOR) % BOSS_FLOOR_RATE) == 0) || ((VarGet(VAR_PIT_FLOOR) % (gSaveBlock2Ptr->modeHealFloors10 ? 10 : 5)) == 0))
+        return;
+    CreateTask(Task_DelayPrintOverworldMonHUD, 15);
+}
+
+static void Task_DelayPrintOverworldMonHUD(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        LoadCompressedSpriteSheet(&sSpriteSheet_MonRewardHUD);
+        LoadSpritePalette(&sSpritePal_TrainerCountHUD);
+        gOWMonHUDSprite = SPRITE_NONE;
+        gOWMonHUDSprite = CreateSprite(&sSpriteTemplate_MonRewardHUD, 14, 14, 0);
+        gSprites[gOWMonHUDSprite].invisible = FALSE;
+
+        if (GetFlashLevel() > 0)
+        {
+            SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_OBJWIN_ON);
+            SetGpuRegBits(REG_OFFSET_WINOUT, WINOUT_WINOBJ_OBJ);
+            gOWMonHUDSpriteMask = SPRITE_NONE;
+            gOWMonHUDSpriteMask = CreateSprite(&sSpriteTemplate_MonRewardHUD, 14, 14, 0);
+            gSprites[gOWMonHUDSpriteMask].invisible = FALSE;
+            gSprites[gOWMonHUDSpriteMask].oam.objMode = ST_OAM_OBJ_WINDOW;
+        }
+        DestroyTask(taskId);
+    }
+}
+
+void MonHUDSpriteCallback(struct Sprite *sprite)
+{
+    if(FlagGet(FLAG_OVERWORLD_MON_ENCOUNTER) || FlagGet(FLAG_USED_RANDOM_ENCOUNTER_THIS_FLOOR))
+    {
+        DestroySprite(sprite);
+    }
+}
+
 static const struct WindowTemplate sTrainerCountWindowTemplate = {
     .bg = 0,
     .tilemapLeft = 0,

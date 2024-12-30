@@ -4285,6 +4285,7 @@ static void Cmd_getexp(void)
             u32 expShareBits = 0;
             s32 viaSentIn = 0;
             s32 viaExpShare = 0;
+            u32 expYield;
 
             for (i = 0; i < PARTY_SIZE; i++)
             {
@@ -4314,13 +4315,26 @@ static void Cmd_getexp(void)
             if (orderId < PARTY_SIZE)
                 gBattleStruct->expGettersOrder[orderId] = PARTY_SIZE;
 
-            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level;
+            expYield = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield;
+
+            if((gSaveBlock2Ptr->modeSpeciesArray == ARRAY_PROG) && (VarGet(VAR_PIT_FLOOR) <= 35))
+            {
+                if (expYield < 80)
+                {
+                    u32 multiplier = ((((35 - VarGet(VAR_PIT_FLOOR)) * 100) / 70)) + ((((80 - expYield) * 100) / 80)) + 100;
+                    expYield *= multiplier;
+                    expYield /= 100;
+                }
+            }
+
+            calculatedExp = expYield * gBattleMons[gBattlerFainted].level;
+
             if (B_SCALED_EXP >= GEN_5 && B_SCALED_EXP != GEN_6)
                 calculatedExp /= 5;
             else
                 calculatedExp /= 7;
 
-            if (B_TRAINER_EXP_MULTIPLIER <= GEN_7 && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+            if (gSaveBlock2Ptr->modeXP != 1) // If Exp Mode is Not Set to Hard
                 calculatedExp = (calculatedExp * 150) / 100;
 
             if (B_SPLIT_EXP < GEN_6)
