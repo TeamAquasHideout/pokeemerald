@@ -139,6 +139,7 @@ PitEncounter_HealOneMon::
 	msgbox PitEncounter_HealOneMon_YesNo, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PitEncounter_HealOneMon_NoThanks
 	call PitEncounter_ChooseMonScript
+	goto_if_ge VAR_0x8004, PARTY_SIZE, PitEncounter_HealOneMon_End
 	callnative HealPlayerPokemon
 	call PitEncounter_Common_AfterUse
 	msgbox PitEncounter_HealOneMon_Text2, MSGBOX_DEFAULT
@@ -198,6 +199,7 @@ PitEncounter_GrantWishChoiceItem_Specs:
 PitEncounter_ReviveOneMon::
 	msgbox PitEncounter_ReviveOneMon_Text, MSGBOX_DEFAULT
 	call PitEncounter_ChooseMonScript
+	goto_if_ge VAR_0x8004, PARTY_SIZE, PitEncounter_HealOneMon_End
 	callnative CheckMonFainted
 	goto_if_eq VAR_RESULT, 0, PitEncounter_ReviveMonNotFainted
 	callnative HealPlayerPokemon
