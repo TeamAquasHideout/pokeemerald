@@ -364,8 +364,8 @@ PitEncounter_Mover::
 	msgbox PitEncounter_NPCMoverOpen, MSGBOX_DEFAULT
 	message PitEncounter_NPCMoverOpen2
 	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEncounter_NPCMover2, PitEncounter_NPCMover3, PitShop_ShopNPC_Option8
-	goto_if_eq VAR_RESULT, 0, PitEncounter_MoverSkip2
-	goto_if_eq VAR_RESULT, 1, PitEncounter_MoverSkip3
+	goto_if_eq VAR_RESULT, 0, PitEncounter_MoverSkip1
+	goto_if_eq VAR_RESULT, 1, PitEncounter_MoverSkip2
 	closemessage
 EndOfMoverScript::
 	release
@@ -374,27 +374,27 @@ EndOfMoverScript::
 PitEncounter_NPCMoverOpen:
 	.string "Abra has a special offer for you!\pIt can teleport you away.$"
 PitEncounter_NPCMoverOpen2:
-	.string "Free Rare Candy Included With Purchase!$"
+	.string "Free Rare Candies included with purchase!$"
 
-PitEncounter_MoverSkip2::
-	additem ITEM_RARE_CANDY, 2
+PitEncounter_MoverSkip1::
+	additem ITEM_RARE_CANDY, 1
 	setflag FLAG_LEVEL_UP_TWICE
 	setflag FLAG_FLOOR_CLEARED
 	call PitEncounter_Common_AfterUse
 	callnative SetWarpTileActive
-	addvar VAR_PIT_FLOOR, 1
+	addvar VAR_PIT_FLOOR, 0
 	special DrawWholeMapView
 	goto Pit_Warp_Advance_Floor
 	release
 	end
 
-PitEncounter_MoverSkip3::
-	additem ITEM_RARE_CANDY, 3
+PitEncounter_MoverSkip2::
+	additem ITEM_RARE_CANDY, 2
 	setflag FLAG_FLOOR_CLEARED
 	setflag FLAG_LEVEL_UP_THRICE
 	callnative SetWarpTileActive
 	call PitEncounter_Common_AfterUse
-	addvar VAR_PIT_FLOOR, 2
+	addvar VAR_PIT_FLOOR, 1
 	special DrawWholeMapView
 	goto Pit_Warp_Advance_Floor
 	release
@@ -427,9 +427,9 @@ PitEncounter_NPCMoverNotEnoughMoneyText:
 	.string "Not enough money...$"
 
 PitEncounter_NPCMover2:
-	.string "Skip 2 Floors$"
+	.string "Skip 1 Floor  (1RC)$"
 PitEncounter_NPCMover3:
-	.string "Skip 3 Floors$"
+	.string "Skip 2 Floors (2RC)$"
 PitEncounter_NPCMover4:
 	.string "Wonder Trade$"
 
