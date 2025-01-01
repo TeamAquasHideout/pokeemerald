@@ -1414,8 +1414,10 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
                 {
                     for (int i = 0; i < maxSpecies; i++)
                     {
-                        if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
-                          || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
+                        // if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
+                        //   || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
+                        if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
+                          || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
                         {
                             gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
                             //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);

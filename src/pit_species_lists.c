@@ -5370,8 +5370,11 @@ u32 GetMonoTypeNumberOfSpecies(void)
         //calc size of dynamic array for chosen mono type
         for (i = 0; i < arraySize; i++)
         {
-            if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
-              || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
+            // if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
+            //   || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
+            //     counter++;
+            if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
+              || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
                 counter++;
         }
     }

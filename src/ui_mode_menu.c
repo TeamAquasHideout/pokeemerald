@@ -285,6 +285,8 @@ static int GetMiddleX(const u8 *txt1, const u8 *txt2, const u8 *txt3);
 static int XOptions_ProcessInput(int x, int selection);
 static int ProcessInput_Options_Two(int selection);
 static int ProcessInput_Options_Three(int selection);
+static int ProcessInput_Options_Eighteen(int selection);
+static int ProcessInput_Options_Nineteen(int selection);
 static void ReDrawAll(void);
 //static void DrawChoices_Autosave(int selection, int y);
 static void DrawChoices_SpeciesArray(int selection, int y);
@@ -340,7 +342,11 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_XPMODE]        = {DrawChoices_XPMode,       ProcessInput_Options_Three},
     [MENUITEM_DIFF_TRAINER_EVS]   = {DrawChoices_TrainerEVs,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_EVOSTAGE]      = {DrawChoices_EvoStage,     ProcessInput_Options_Three},
-    [MENUITEM_DIFF_MONOTYPE]      = {DrawChoices_MonoType,     ProcessInput_Options_Three},
+#ifdef PIT_GEN_9_MODE
+    [MENUITEM_DIFF_MONOTYPE]      = {DrawChoices_MonoType,     ProcessInput_Options_Nineteen},
+#else
+    [MENUITEM_DIFF_MONOTYPE]      = {DrawChoices_MonoType,     ProcessInput_Options_Eighteen},
+#endif
     [MENUITEM_DIFF_STAT_CHANGER]  = {DrawChoices_StatChanger,  ProcessInput_Options_Two},
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
     [MENUITEM_DIFF_HEALFLOORS]    = {DrawChoices_HealFloors,   ProcessInput_Options_Two},
@@ -668,7 +674,10 @@ static const u8 *const OptionTextDescription(void)
         return sModeMenuItemDescriptionsRun[menuItem][selection];
     case MENU_DIFF:
         selection = sOptions->sel_diff[menuItem];
-        return sModeMenuItemDescriptionsDiff[menuItem][selection];
+        if (menuItem == MENUITEM_DIFF_MONOTYPE)
+            return sModeMenuItemDescriptionsDiff[menuItem][0];
+        else
+            return sModeMenuItemDescriptionsDiff[menuItem][selection];
     case MENU_RAND:
         selection = sOptions->sel_rand[menuItem];
         return sModeMenuItemDescriptionsRand[menuItem][selection];
@@ -1393,7 +1402,11 @@ static void Task_ModeMenuSave(u8 taskId)
     #endif
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
-    gSaveBlock2Ptr->modeMonoType     = sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE];
+
+    if (sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE] >= TYPE_MYSTERY)
+        gSaveBlock2Ptr->modeMonoType     = sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE] + 1;
+    else
+        gSaveBlock2Ptr->modeMonoType     = sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE];
 
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather    = sOptions->sel_rand[MENUITEM_RAND_B_WEATHER];
@@ -1548,6 +1561,16 @@ static int ProcessInput_Options_Three(int selection)
     return XOptions_ProcessInput(3, selection);
 }
 
+static int ProcessInput_Options_Eighteen(int selection)
+{
+    return XOptions_ProcessInput(18, selection);
+}
+
+static int ProcessInput_Options_Nineteen(int selection)
+{
+    return XOptions_ProcessInput(19, selection);
+}
+
 // Draw Choices functions ****GENERIC****
 static void DrawModeMenuChoice(const u8 *text, u8 x, u8 y, u8 style, bool8 active)
 {
@@ -1625,11 +1648,11 @@ static const u8 sText_EvoStage_Full[]       = _("FULL");
 static const u8 sText_ItemDrops_Rand[]      = _("RAND");
 static const u8 sText_ItemDrops_1[]         = _("1");
 static const u8 sText_ItemDrops_3[]         = _("3");
-static const u8 sText_Type_Normal[]         = _("NORM");
+static const u8 sText_Type_Normal[]         = _("NORMAL");
 static const u8 sText_Type_Fighting[]       = _("FIGHT");
-static const u8 sText_Type_Flying[]         = _("FLY");
-static const u8 sText_Type_Poison[]         = _("POISN");
-static const u8 sText_Type_Ground[]         = _("GRND");
+static const u8 sText_Type_Flying[]         = _("FLYING");
+static const u8 sText_Type_Poison[]         = _("POISON");
+static const u8 sText_Type_Ground[]         = _("GROUND");
 static const u8 sText_Type_Rock[]           = _("ROCK");
 static const u8 sText_Type_Bug[]            = _("BUG");
 static const u8 sText_Type_Ghost[]          = _("GHOST");
@@ -1637,12 +1660,14 @@ static const u8 sText_Type_Steel[]          = _("STEEL"); //TYPE_MYSTERY
 static const u8 sText_Type_Fire[]           = _("FIRE");
 static const u8 sText_Type_Water[]          = _("WATER");
 static const u8 sText_Type_Grass[]          = _("GRASS");
-static const u8 sText_Type_Electric[]       = _("ELCTR");
-static const u8 sText_Type_Psychic[]        = _("PSYCH");
+static const u8 sText_Type_Electric[]       = _("ELECTRIC");
+static const u8 sText_Type_Psychic[]        = _("PSYCHIC");
 static const u8 sText_Type_Ice[]            = _("ICE");
-static const u8 sText_Type_Dragon[]         = _("DRAGN");
+static const u8 sText_Type_Dragon[]         = _("DRAGON");
 static const u8 sText_Type_Dark[]           = _("DARK");
 static const u8 sText_Type_Fairy[]          = _("FAIRY");
+static const u8 sText_Arrows_Left[]         = _("<<");
+static const u8 sText_Arrows_Right[]        = _(">>");
 
 
 /*static void DrawChoices_Autosave(int selection, int y)
@@ -1838,13 +1863,96 @@ static void DrawChoices_EvoStage(int selection, int y)
 
 static void DrawChoices_MonoType(int selection, int y)
 {
-    bool8 active = CheckConditions(MENUITEM_DIFF_MONOTYPE);
-    u8 styles[3] = {0};
-    styles[selection] = 1;
+    // DrawModeMenuChoice(sText_Autosave_Off, 104, y, styles[0], active);
+    // DrawModeMenuChoice(sText_Type_Normal, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Normal, 198 - 35), y, styles[1], active);
+    // DrawModeMenuChoice(sText_Type_Fighting, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Fighting, 198), y, styles[2], active);
 
-    DrawModeMenuChoice(sText_Autosave_Off, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_Type_Normal, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Normal, 198 - 35), y, styles[1], active);
-    DrawModeMenuChoice(sText_Type_Fighting, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Fighting, 198), y, styles[2], active);
+    bool8 active = CheckConditions(MENUITEM_DIFF_MONOTYPE);
+    u16 xMid = 0;
+
+    DrawModeMenuChoice(sText_Arrows_Left, 104, y, 0, active);
+
+    switch (selection)
+    {
+    case 1:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Normal, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Normal, xMid, y, 1, active);
+        break;
+    case 2:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Fighting, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Fighting, xMid, y, 1, active);
+        break;
+    case 3:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Flying, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Flying, xMid, y, 1, active);
+        break;
+    case 4:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Poison, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Poison, xMid, y, 1, active);
+        break;
+    case 5:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Ground, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Ground, xMid, y, 1, active);
+        break;
+    case 6:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Rock, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Rock, xMid, y, 1, active);
+        break;
+    case 7:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Bug, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Bug, xMid, y, 1, active);
+        break;
+    case 8:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Ghost, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Ghost, xMid, y, 1, active);
+        break;
+    case 9:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Steel, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Steel, xMid, y, 1, active);
+        break;
+    case 10:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Fire, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Fire, xMid, y, 1, active);
+        break;
+    case 11:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Water, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Water, xMid, y, 1, active);
+        break;
+    case 12:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Grass, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Grass, xMid, y, 1, active);
+        break;
+    case 13:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Electric, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Electric, xMid, y, 1, active);
+        break;
+    case 14:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Psychic, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Psychic, xMid, y, 1, active);
+        break;
+    case 15:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Ice, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Ice, xMid, y, 1, active);
+        break;
+    case 16:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Dragon, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Dragon, xMid, y, 1, active);
+        break;
+    case 17:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Dark, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Dark, xMid, y, 1, active);
+        break;
+    case 18:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Type_Fairy, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Type_Fairy, xMid, y, 1, active);
+        break;
+    default:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_Autosave_Off, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_Autosave_Off, xMid, y, 1, active);
+        break;
+    }
+
+    DrawModeMenuChoice(sText_Arrows_Right, GetStringRightAlignXOffset(FONT_NORMAL, sText_Arrows_Right, 198), y, 0, active);
 }
 
 static void DrawChoices_RandBattleWeather(int selection, int y)
