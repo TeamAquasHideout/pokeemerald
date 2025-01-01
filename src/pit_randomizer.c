@@ -1469,7 +1469,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
         }
         if (monType == PLAYER_MONS && gSaveBlock2Ptr->modeMonoType != TYPE_NONE && breakOut > 50)
         {
-            ClearGeneratedMons();
+            ClearGeneratedMonsByType();
             breakOut = 0;
             randomSpecies = gMonoTypeArray[RandomModulo(0, GetMonoTypeNumberOfSpecies())]; //default for overflow cases
         }
@@ -1486,6 +1486,17 @@ void ClearGeneratedMons(void)
     for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
         gSaveBlock3Ptr->monRolledCounts[i] = 0;
+    }
+}
+
+void ClearGeneratedMonsByType(void)
+{
+    u16 i = 0;
+    for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
+    {
+        if (GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType
+              || GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 2) == gSaveBlock2Ptr->modeMonoType)
+            gSaveBlock3Ptr->monRolledCounts[GetTrainerSpeciesFromRandomArray(i, TRUE)] = 0;
     }
 }
 

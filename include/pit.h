@@ -56,7 +56,7 @@ u32 GetMonoTypeNumberOfSpecies(void);
 u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies);
 void ClearGeneratedMons(void);
 void ResetMonoTypeArray(void);
-
+void ClearGeneratedMonsByType(void);
 struct RandomTrainerNPC 
 {
     u16 arrayElement;
