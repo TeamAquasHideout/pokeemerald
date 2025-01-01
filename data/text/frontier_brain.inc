@@ -682,7 +682,7 @@ gText_GriffinDefeat::
     .string "You've won but at what cost…$"
 
 gText_wiz1989Defeat::
-    .string "This is also great content!$"
+    .string "This was great content!$"
 
 gText_AereonDefeat::
     .string "Don't let your guard down!$"

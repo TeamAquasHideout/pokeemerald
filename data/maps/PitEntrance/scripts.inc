@@ -437,8 +437,6 @@ PitEntrance_Text_MoreInfo::
 	.string "Every 5th floor is a Heal/Shop floor\n"
 	.string "where you will be able to rest and\l"
 	.string "prepare for the next Trial.\p"
-	.string "Every ten floors there will be\n"
-	.string "a Move Tutor.\p"
 	.string "And every 25th floor there will be a\n"
 	.string "boss fight after that you will be able\l"
 	.string "to choose another random Pokémon.$"

@@ -736,6 +736,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
     gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_5;
     gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_ALL;
+    gSaveBlock2Ptr->modeMonoType        = TYPE_NONE;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
     //randomizer settings

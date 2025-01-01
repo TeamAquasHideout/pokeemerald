@@ -1939,9 +1939,9 @@ void SetRandomMonEncounter(void)
         {
             reroll = TRUE;
         }
-        //no floor skipping before boss floors
+        //floor skipping only if 3 floors before pit stops
         else if (sRandomEncounterArray[index].species == SPECIES_ABRA
-         && (VarGet(VAR_PIT_FLOOR) % 25) > 21)
+         && (VarGet(VAR_PIT_FLOOR) % 5) != 3)
         {
             //if Abra is the last remaining encounter we would be stuck otherwise
             if (RemainingEncounters() != 1)

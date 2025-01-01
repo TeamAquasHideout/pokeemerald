@@ -928,8 +928,9 @@
 	.4byte \failInstr
 	.endm
 
-	.macro setdestinybond
+	.macro trysetdestinybond failInstr:req
 	.byte 0xaa
+	.4byte \failInstr
 	.endm
 
 	.macro trysetdestinybondtohappen
@@ -1681,6 +1682,11 @@
 	callnative BS_JumpIfBlockedBySoundproof
 	.byte \battler
 	.4byte \failInstr
+	.endm
+	
+	.macro jumpifcommanderactive jumpInstr:req
+	callnative BS_JumpIfCommanderActive
+	.4byte \jumpInstr
 	.endm
 
 	.macro tryhitswitchtarget failInstr:req

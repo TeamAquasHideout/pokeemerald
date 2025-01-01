@@ -133,6 +133,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
+        gSaveBlock2Ptr->modeMonoType = TYPE_NONE;
         gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
 
         //randomizer settings
@@ -250,6 +251,7 @@ void NewGameInitData(void)
     InitLotadSizeRecord();
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
+    ResetMonoTypeArray();
     
     // Poke Storage Stuff
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
