@@ -69,6 +69,7 @@
 #include "wild_encounter.h"
 #include "script_pokemon_util.h"
 #include "constants/secret_bases.h"
+#include "load_save.h"
 
 //
 //      Avatar species
@@ -1459,7 +1460,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
             notChosen = FALSE;
 
         breakOut++;
-        if(breakOut > 700)
+        if(breakOut > 600)
         {
             // Looping too much is intentionally used as the new Clear method because the arrays are broken apart, looping through this function is very fast, 
             // it will maybe slow down a trainer generation by 0.2 seconds every now and then, but thats not a big deal imo, 
@@ -1469,7 +1470,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
         }
         if (monType == PLAYER_MONS && gSaveBlock2Ptr->modeMonoType != TYPE_NONE && breakOut > 50)
         {
-            ClearGeneratedMons();
+            ClearGeneratedMonsByType();
             breakOut = 0;
             randomSpecies = gMonoTypeArray[RandomModulo(0, GetMonoTypeNumberOfSpecies())]; //default for overflow cases
         }
@@ -1482,10 +1483,17 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
 
 void ClearGeneratedMons(void)
 {
+    ClearSav3();
+}
+
+void ClearGeneratedMonsByType(void)
+{
     u16 i = 0;
     for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
-        gSaveBlock3Ptr->monRolledCounts[i] = 0;
+        if (GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType
+              || GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 2) == gSaveBlock2Ptr->modeMonoType)
+            gSaveBlock3Ptr->monRolledCounts[GetTrainerSpeciesFromRandomArray(i, TRUE)] = 0;
     }
 }
 
