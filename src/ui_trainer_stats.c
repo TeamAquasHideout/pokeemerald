@@ -49,6 +49,7 @@
 #include "credits.h"
 #include "start_menu.h"
 #include "load_save.h"
+#include "battle_main.h"
 
 /*
  * 
@@ -518,12 +519,11 @@ static const u8 sText_Money12x[]          = _("Money: 1/2x");
 static const u8 sText_PitStp5x[]          = _("Shop: 5 fl.");
 static const u8 sText_PitStp10x[]          = _("Shop: 10 fl.");
 
-static const u8 sText_ModeEVsOn[]          = _("EVs: On");
-static const u8 sText_ModeEVsOff[]            = _("EVs: Off");
+static const u8 sText_ModeEVsOn[]          = _("EVs");
 
 static const u8 sText_BattleMode_Singles[]  = _("Singles");
 static const u8 sText_BattleMode_Doubles[]  = _("Doubles");
-static const u8 sText_BattleMode_Mixed[]  = _("Mixed");
+static const u8 sText_BattleMode_Mixed[]  =   _("Mixed");
 
 static const u8 sText_Randomizer_Moves[]     = _("Moves");
 static const u8 sText_Randomizer_Ability[]     = _("Ability");
@@ -538,11 +538,23 @@ static const u8 sText_Stat_Highscore[]     	= _("Highscore:");
 static const u8 sText_Stat_Clears[]     	= _("Pit Clears:");
 static const u8 sText_Stat_Attempts[]     	= _("Pit Attempts:");
 
-static const u8 sText_Legends[]           = _("Legendaries");
-static const u8 sText_StatEdit[]           = _("Stat Edit");
-static const u8 sText_Megas[]           = _("Megas");
+static const u8 sText_Legends[]           = _("Legend");
+static const u8 sText_StatEdit[]           = _("Editor");
+static const u8 sText_Megas[]           = _("Mega");
 static const u8 sText_3MonMode[]           = _("3 Mon Mode");
 static const u8 sText_SkipChoice[]           = _("Skip Choice");
+
+static const u8 sText_EvoChoice_All[]           = _("Evo: All");
+static const u8 sText_EvoChoice_Basic[]           = _("Evo: Basic");
+static const u8 sText_EvoChoice_Full[]           = _("Evo: Full");
+
+static const u8 sText_TrainerMode_Random[]           = _("/ Rand");
+static const u8 sText_TrainerMode_Prog[]           = _("/ Prog");
+
+static const u8 sText_Slash[]           = _("/");
+
+static const u8 sText_Type_All[]            = _("Type: All");
+static const u8 sText_Type_Solo[]            = _("Type:");
 
 #define SETTINGS_X_POS 20
 #define SETTINGS2_X_POSITION 90
@@ -563,13 +575,13 @@ static const u8 sText_SkipChoice[]           = _("Skip Choice");
 static const u8 sWinMarkerGfx[]         = INCBIN_U8("graphics/ui_main_menu/star.4bpp");
 
 #ifdef PIT_GEN_3_MODE
-const u8 gText_VersionText[] = _("v2.0.2 Gen3");
+const u8 gText_VersionText[] = _("v2.1.0 Gen3");
 #endif
 #ifdef PIT_GEN_5_MODE
-const u8 gText_VersionText[] = _("v2.0.2 Gen5");
+const u8 gText_VersionText[] = _("v2.1.0 Gen5");
 #endif
 #ifdef PIT_GEN_9_MODE
-const u8 gText_VersionText[] = _("v2.0.2 Gen9");
+const u8 gText_VersionText[] = _("v2.1.0 Gen9");
 #endif
 
 static void PrintToWindow(u8 windowId, u8 colorIdx)
@@ -589,24 +601,35 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 
     if(FlagGet(FLAG_TEMP_HOF_VICTORY))
         BlitBitmapToWindow(WINDOW_MIDDLE, sWinMarkerGfx, 240 - 24, 80 - 24, 16, 16);
+
+    u16 x_pos = SETTINGS_X_POS + 30;
     
 	// Game Mode
     switch(gSaveBlock2Ptr->modeBattleMode)
     {
         case 0:
             modeText = sText_BattleMode_Singles;
+            x_pos += 5;
             break;
         case 1:
             modeText = sText_BattleMode_Doubles;
+            x_pos += 5;
             break;
         case 2:
             modeText = sText_BattleMode_Mixed;
+            x_pos -= 4;
             break;
         default:
             modeText = sText_BattleMode_Singles;
+            x_pos += 5;
             break;
     }
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS, 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
+
+    if(gSaveBlock2Ptr->modeSpeciesArray == 0)
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, x_pos, SETTINGS_Y_START_POS, 0, 0, colors2, TEXT_SKIP_DRAW, sText_TrainerMode_Random);
+    else
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, x_pos, SETTINGS_Y_START_POS, 0, 0, colors2, TEXT_SKIP_DRAW, sText_TrainerMode_Prog);
 
 	// Exp
 	u8 expMode = 0;
@@ -661,37 +684,68 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
 	else
 		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_PitStp10x);
 
-    // Trainer EVs
-    if(!gSaveBlock2Ptr->modeTrainerEVs)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeEVsOn);
-	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeEVsOff);
-
+	// Money
+    switch(gSaveBlock2Ptr->modeChoiceEvoStage)
+    {
+        case 0:
+            modeText = sText_EvoChoice_All;
+            break;
+        case 1:
+            modeText = sText_EvoChoice_Basic;
+            break;
+        case 2:
+            modeText = sText_EvoChoice_Full;
+            break;
+        default:
+            modeText = sText_EvoChoice_All;
+            break;
+    }
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
 
     //
     // Second Column
     //
-
-	// Legends
-    if(!gSaveBlock2Ptr->modeLegendaries)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Legends);
+    
+    // Trainer EVs
+    if(!gSaveBlock2Ptr->modeTrainerEVs)
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Legends);
-
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
+    
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 18, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
 
 	// StatEdit
     if(!gSaveBlock2Ptr->modeStatChanger)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_StatEdit);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_StatEdit);
 
 
 	// Megas
     if(!gSaveBlock2Ptr->modeMegas)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Megas);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 39, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Megas);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Megas);
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 39, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Megas);
 
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 32, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+
+	// Legends
+    if(!gSaveBlock2Ptr->modeLegendaries)
+    {
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Legends);
+    }
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Legends);
+
+
+    // MonoType
+    if(gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
+    {
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Type_Solo);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, gTypesInfo[gSaveBlock2Ptr->modeMonoType].name);
+    }
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Type_All);
 
 	// 3 Mon Mode
     if(!gSaveBlock2Ptr->mode3MonsOnly)
