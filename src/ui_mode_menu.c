@@ -861,7 +861,10 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
         #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
-        sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]      = gSaveBlock2Ptr->modeMonoType;
+        if (gSaveBlock2Ptr->modeMonoType >= TYPE_MYSTERY)
+            sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]  = gSaveBlock2Ptr->modeMonoType - 1;
+        else
+            sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]  = gSaveBlock2Ptr->modeMonoType;
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = gSaveBlock2Ptr->modeChoiceItemReward;
         //randomizer settings
