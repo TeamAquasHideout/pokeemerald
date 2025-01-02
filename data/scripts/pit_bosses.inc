@@ -164,7 +164,7 @@ Pit_EndGameStatue_TextSaveTeam:
 
 Pit_EndGameStatue_Text1:
 	.string "Congratulations! You have \n"
-	.string "completed the Pit of 100 Trials..\p"
+	.string "completed The Pit!\p"
 	.string "You can now return to the entrance,\n"
 	.string "prepare for a new trial,\l"
 	.string "and store your party in the PC.\p"

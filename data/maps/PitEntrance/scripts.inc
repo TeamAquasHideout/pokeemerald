@@ -544,7 +544,7 @@ PitEntrance_Text_Cheats::
 	.string "so don't report bugs if using it.$"
 
 PitEntrance_Text_Rules::
-	.string "Welcome to the Pit of 100 Trials!$"
+	.string "Welcome to The Pit!$"
 	@ .string "Beyond this point is a neverending\l" comment out for now maybe remove for good
 	@ .string "series of rooms filled with opponents.\p"
 	@ .string "Can you survive even 100 floors?$"
