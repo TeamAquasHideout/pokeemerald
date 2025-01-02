@@ -46,6 +46,7 @@
 #include "tv.h"
 #include "gba/isagbprint.h"
 #include "random.h"
+#include "money.h"
 
  /*
     9 Starter Selection Birch Case
@@ -207,9 +208,9 @@ static const struct WindowTemplate sMenuWindowTemplates[] =
     {
         .bg = 0,            // which bg to print text on
         .tilemapLeft = 0,   // position from left (per 8 pixels)
-        .tilemapTop = 14,    // position from top (per 8 pixels)
+        .tilemapTop = 0,    // position from top (per 8 pixels)
         .width = 30,        // width (per 8 pixels)
-        .height = 6,        // height (per 8 pixels)
+        .height = 20,        // height (per 8 pixels)
         .paletteNum = 15,   // palette index to use for text
         .baseBlock = 1,     // tile start in VRAM
     },
@@ -300,7 +301,7 @@ static const struct SpriteTemplate sSpriteTemplate_PokeballHandMap =
 //
 #define TOP_ROW_Y 36
 #define MIDDLE_ROW_Y 58
-#define BOTTOM_ROW_Y 80
+#define BOTTOM_ROW_Y 84
 
 static const struct SpriteCordsStruct sBallSpriteCords[3][4] = {
         {{40, TOP_ROW_Y}, {88, TOP_ROW_Y}, {152, TOP_ROW_Y}, {200, TOP_ROW_Y}},
@@ -449,7 +450,7 @@ static void DestroyPokeballSprites()
 //  Draw The Pokemon Sprites
 //
 #define MON_ICON_X     208
-#define MON_ICON_Y     104
+#define MON_ICON_Y     110
 #define TAG_MON_SPRITE 30003
 static void SampleUi_DrawMonIcon(u16 speciesId)
 {
@@ -474,7 +475,7 @@ static void ChangePositionUpdateSpriteAnims(u16 oldPosition, u8 taskId) // turn 
     if(!FlagGet(FLAG_CASE_STARTER_MODE))
         PrintTextToBottomBar(CHOOSE_MON);
     else
-         PrintTextToBottomBar(sBirchCaseDataPtr->monState + CHOOSE_FIRST_MON);
+        PrintTextToBottomBar(sBirchCaseDataPtr->monState + CHOOSE_FIRST_MON);
 }
 
 static void BirchCase_GiveMon() // Function that calls the GiveMon function pulled from Expansion by Lunos and Ghoulslash
@@ -526,7 +527,6 @@ void BirchCase_Init(MainCallback callback)
     sBirchCaseDataPtr->gfxLoadState = 0;
     sBirchCaseDataPtr->savedCallback = callback;
     sBirchCaseDataPtr->handSpriteId = SPRITE_NONE;
-
     if(gPlayerPartyCount == 1)
         sBirchCaseDataPtr->monState++;
 
@@ -770,6 +770,8 @@ static const u8 sText_RecievedMon[] = _("You received the Mon!");
 static const u8 sText_Choose1Mon[] = _("Choose your 1st Mon!");
 static const u8 sText_Choose2Mon[] = _("Choose your 2nd Mon!");
 static const u8 sText_Choose3Mon[] = _("Choose your 3rd Mon!");
+
+static const u8 sText_Reroll[] = _("Reroll: -50 {START_BUTTON}");
 static void PrintTextToBottomBar(u8 textId)
 {
     u8 speciesNameArray[16];
@@ -808,7 +810,10 @@ static void PrintTextToBottomBar(u8 textId)
             mainBarAlternatingText = sText_ChooseMon;
             break;
     } 
-    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x, y, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, mainBarAlternatingText);
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, 3, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, mainBarAlternatingText);
+    
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, 162, 0, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, sText_Reroll);
+    PrintBPMoneyAmount_TransparentBg(WINDOW_BOTTOM_BAR, 160 + CalculateMoneyTextHorizontalPosition(gSaveBlock2Ptr->secretBaseShopCoins), 16, gSaveBlock2Ptr->secretBaseShopCoins, TEXT_SKIP_DRAW);
 
     if(sStarterChoices[sBirchCaseDataPtr->handPosition].species == SPECIES_NONE || sMonChosenAlready[sBirchCaseDataPtr->handPosition])
     {
@@ -816,21 +821,20 @@ static void PrintTextToBottomBar(u8 textId)
         CopyWindowToVram(WINDOW_BOTTOM_BAR, 3);
         return;
     }
-    
 
     StringCopy(gStringVar1, &gText_NumberClear01[0]);
     ConvertIntToDecimalStringN(gStringVar2, dexNum, STR_CONV_MODE_LEADING_ZEROS, 4);
     StringAppend(gStringVar1, gStringVar2);
-    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x, 1 + 2, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, gStringVar1);
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x, 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, gStringVar1);
 
-    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x + 38, 1 + 2, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, gText_Dash);
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x + 38, 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, gText_Dash);
 
 #ifdef POKEMON_EXPANSION
     StringCopy(&speciesNameArray[0], GetSpeciesName(species));
 #else
     StringCopy(&speciesNameArray[0], &gSpeciesNames[species][0]);
 #endif
-    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x + 46, 1 + 2, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, &speciesNameArray[0]);
+    AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NORMAL, x + 46, 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, &speciesNameArray[0]);
 
     if(textId != 2)
     {
@@ -839,7 +843,7 @@ static void PrintTextToBottomBar(u8 textId)
 #else
         speciesCategoryText = GetPokedexCategoryName(dexNum);
 #endif
-        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 178 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), y, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
+        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 178 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
     }
 
     PutWindowTilemap(WINDOW_BOTTOM_BAR);
@@ -850,6 +854,24 @@ static void PrintTextToBottomBar(u8 textId)
     // vanilla takes dexnum const u8 *GetPokedexCategoryName(u16 dexNum)
 }
 
+void RerollMons(void)
+{   
+    u8 i = 0;
+    u16 rolledMons[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    for(i = 0; i < 9; i++)
+    {
+        rolledMons[i] = sRolledSpecies[i];
+    }
+
+    GenerateRandomSpeciesRewards(sRolledSpecies);
+
+    for(i = 0; i < 9; i++)
+    {
+        if(rolledMons[i] == SPECIES_NONE)
+            sRolledSpecies[i] = SPECIES_NONE;
+    }
+}
 
 //
 //  Control Flow Tasks for Switching Positions in the Grid and Confirming and Naming a Mon
@@ -923,6 +945,16 @@ static void Task_BirchCaseConfirmSelection(u8 taskId)
 static void Task_BirchCaseMain(u8 taskId)
 {
     u16 oldPosition = sBirchCaseDataPtr->handPosition;
+    if(JOY_NEW(START_BUTTON))
+    {   
+        if(gSaveBlock2Ptr->secretBaseShopCoins >= 50)
+        {
+            gSaveBlock2Ptr->secretBaseShopCoins -= 50;
+            RerollMons();
+            ChangePositionUpdateSpriteAnims(oldPosition, taskId);
+            return;
+        }
+    }
     if(JOY_NEW(DPAD_UP))
     {
         PlaySE(SE_SELECT);
