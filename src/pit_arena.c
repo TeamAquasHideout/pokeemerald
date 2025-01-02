@@ -807,7 +807,7 @@ u16 ReturnNumberOfTrainersForFloor()
     {
         if(randomValue < 30)
             return 1;
-        if(randomValue < 60)
+        if(randomValue < 65)
             return 2;
         if(randomValue < 90)
             return 3;
@@ -819,7 +819,7 @@ u16 ReturnNumberOfTrainersForFloor()
     {
         if(randomValue < 20)
             return 1;
-        if(randomValue < 40)
+        if(randomValue < 50)
             return 2;
         if(randomValue < 80)
             return 3;
