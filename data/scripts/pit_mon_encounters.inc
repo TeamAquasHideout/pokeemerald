@@ -273,7 +273,10 @@ PitEncounter_Present_Prize:
 	goto PitEncounter_Present_End
 
 PitEncounter_Present_Loss:
+	msgbox PitEncounter_Present_Loss_Text, MSGBOX_DEFAULT
 	goto Debug_EventScript_InflictStatus1_Party_Poison
+PitEncounter_Present_Loss_Text:
+	.string "Oh no, there was a smelly sock inside\nthat poisoned your whole party!$"
 
 PitEncounter_Present_NoThanks:
 	msgbox PitEncounter_Present_NoThanks_Text, MSGBOX_DEFAULT
