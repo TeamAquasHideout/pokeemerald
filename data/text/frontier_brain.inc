@@ -484,7 +484,7 @@ gText_NewApproach10::
 gText_NewApproach11::
     .string "I found the secret Missingno!$"
 
-gText_NewApproac12::
+gText_NewApproach12::
     .string "Your mom was stronger.$"
 
 gText_NewApproach13::
