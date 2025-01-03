@@ -7849,7 +7849,7 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
 
         //double the money for boss fights
         if(FlagGet(FLAG_START_BOSS_ENCOUNTER))
-            trainerMoney = 1000;
+            trainerMoney = 2000;
 
         if(gSaveBlock2Ptr->modeCashRewards == 1)
         {
