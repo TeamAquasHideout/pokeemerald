@@ -276,7 +276,7 @@ PitEncounter_Present_Loss:
 	msgbox PitEncounter_Present_Loss_Text, MSGBOX_DEFAULT
 	goto Debug_EventScript_InflictStatus1_Party_Poison
 PitEncounter_Present_Loss_Text:
-	.string "Oh no, there was a smelly sock inside\nthat poisoned your whole party!$"
+	.string "Oh no, there was poison barb inside!\It poisoned your whole party!$"
 
 PitEncounter_Present_NoThanks:
 	msgbox PitEncounter_Present_NoThanks_Text, MSGBOX_DEFAULT

@@ -472,7 +472,7 @@ gText_NewApproach07::
 
 gText_NewApproach08::
     .string "They call it The Pit.\n"
-    .string "More like The StuPit, amiright?$"
+    .string "I wonder why?$"
 
 gText_NewApproach09::
     .string "... ... ... ... ...\n"
