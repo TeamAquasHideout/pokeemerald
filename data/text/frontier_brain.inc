@@ -510,7 +510,7 @@ gText_NewApproach18::
     .string "Make it double!$"
 
 gText_NewApproach19::
-    .string "I wonder how Magikarps\n"
+    .string "I wonder what Magikarps\n"
 	.string "taste like.$"
 
 gText_NewApproach20::
