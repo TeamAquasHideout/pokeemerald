@@ -445,6 +445,78 @@ gText_VictorApproach::
 gText_ShawnApproach::
     .string "Yo! Let's battle!$"
 
+gText_NewApproach01::
+    .string "Where did you come from? Yes or No?$"
+
+gText_NewApproach02::
+    .string "I forgot to turn off the oven.\n"
+    .string "Let's finish this quickly!$"
+
+gText_NewApproach03::
+    .string "The air is tasty here!$"
+
+gText_NewApproach04::
+    .string "I like shorts!\n"
+    .string "They're comfy and easy to wear!$"
+
+gText_NewApproach05::
+    .string "Hey you, the man in the mirror\n"
+    .string "said I'm gonna win today.$"
+
+gText_NewApproach06::
+    .string "Do you have life insurance?$"
+
+gText_NewApproach07::
+    .string "I came here with my girlfriend.\n"
+    .string "Wonder where she is.$"
+
+gText_NewApproach08::
+    .string "They call it The Pit.\n"
+    .string "More like The StuPit, amiright?$"
+
+gText_NewApproach09::
+    .string "... ... ... ... ...\n"
+    .string "... ... ... ... ...$"
+
+gText_NewApproach10::
+    .string "I CAN'T STOP SHOUTING!$"
+
+gText_NewApproach11::
+    .string "I found the secret Missingno!$"
+
+gText_NewApproach12::
+    .string "Your mom was stronger.$"
+
+gText_NewApproach13::
+    .string "Get out.$"
+
+gText_NewApproach14::
+    .string "Why?\n"
+    .string "Why did she bring her brother?$"
+
+gText_NewApproach15::
+    .string "Have you ever sniffed a Tauros?\n"
+    .string "Me neither.$"
+
+gText_NewApproach16::
+    .string "If we both lose no one can win.$"
+
+gText_NewApproach17::
+    .string "Eek!\n"
+    .string "Did you touch me?$"
+
+gText_NewApproach18::
+    .string "Prepare for trouble!\n"
+    .string "Make it double!$"
+
+gText_NewApproach19::
+    .string "I wonder what Magikarps\n"
+	.string "taste like.$"
+
+gText_NewApproach20::
+    .string "Gen 3 was peak.\n"
+    .string "Deal with it!$"
+
 
 
 gText_TylerDefeat::
