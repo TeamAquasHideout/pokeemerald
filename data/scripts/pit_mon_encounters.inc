@@ -306,7 +306,10 @@ PitEncounter_WonderTrade::
 	msgbox PitEncounter_WonderTrade_Text, MSGBOX_DEFAULT
 	msgbox PitEncounter_WonderTrade_YesNo, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, PitEncounter_WonderTradeEnd
+	callnative CheckNoExpMode
+	goto_if_eq VAR_TEMP_A, 1, PitEncounter_WonderTrade_SkipRareCandy
 	additem ITEM_RARE_CANDY, 1
+PitEncounter_WonderTrade_SkipRareCandy::
 	call EventScript_DoWonderTrade
 	goto_if_eq VAR_0x8004, 0xFF, PitEncounter_WonderTrade_EndEarly
 	call PitEncounter_Common_AfterUse
@@ -382,7 +385,10 @@ PitEncounter_NPCMoverOpen2:
 	.string "Free Rare Candies included with purchase!$"
 
 PitEncounter_MoverSkip1::
+	callnative CheckNoExpMode
+	goto_if_eq VAR_TEMP_A, 1, PitEncounter_MoverSkip1_SkipRareCandy
 	additem ITEM_RARE_CANDY, 1
+PitEncounter_MoverSkip1_SkipRareCandy::
 	setflag FLAG_LEVEL_UP_TWICE
 	setflag FLAG_FLOOR_CLEARED
 	call PitEncounter_Common_AfterUse
@@ -394,7 +400,10 @@ PitEncounter_MoverSkip1::
 	end
 
 PitEncounter_MoverSkip2::
+	callnative CheckNoExpMode
+	goto_if_eq VAR_TEMP_A, 1, PitEncounter_MoverSkip2_SkipRareCandy
 	additem ITEM_RARE_CANDY, 2
+PitEncounter_MoverSkip2_SkipRareCandy::
 	setflag FLAG_FLOOR_CLEARED
 	setflag FLAG_LEVEL_UP_THRICE
 	callnative SetWarpTileActive

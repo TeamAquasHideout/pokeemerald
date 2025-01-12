@@ -1944,7 +1944,17 @@ void SetRandomMonEncounter(void)
          && (VarGet(VAR_PIT_FLOOR) % 5) != 3)
         {
             //if Abra is the last remaining encounter we would be stuck otherwise
-            if (RemainingEncounters() != 1)
+            if (RemainingEncounters() <= 1)
+                return;
+            if ((RemainingEncounters() <= 2) && (gSaveBlock2Ptr->modeXP == 2))
+                return;
+
+            reroll = TRUE;
+        }
+        else if ((sRandomEncounterArray[index].species == SPECIES_EEVEE) && ((gSaveBlock2Ptr->modeXP == 2)))
+        {
+            //if Eevee is the last remaining encounter we would be stuck otherwise
+            if (RemainingEncounters() <= 2)
                 return;
 
             reroll = TRUE;
@@ -3610,6 +3620,14 @@ void Check50FloorMode(void)
 void CheckNoCaseMode(void)
 {
     if(gSaveBlock2Ptr->modeNoCaseChoice == 0)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void CheckNoExpMode(void)
+{
+    if((gSaveBlock2Ptr->modeXP == 2))
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);

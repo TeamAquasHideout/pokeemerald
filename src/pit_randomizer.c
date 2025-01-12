@@ -2004,6 +2004,8 @@ u16 RandomItemId(u16 itemId)
                 rerollItem = TRUE;
             }
         }
+        if((gSaveBlock2Ptr->modeXP == 2) && (itemId == ITEM_RARE_CANDY))
+            rerollItem = TRUE;
         //exit in case of infinite loop
         if (counter >= 20)
             rerollItem = FALSE;
