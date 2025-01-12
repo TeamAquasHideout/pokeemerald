@@ -1804,7 +1804,6 @@ static const u16 sRandomHeldValidItems[] =
     ITEM_MENTAL_HERB,
     ITEM_RED_FLUTE,
     ITEM_SHELL_BELL,
-    ITEM_SOOTHE_BELL,
     ITEM_WHITE_HERB,
     ITEM_YELLOW_FLUTE,
 #ifndef PIT_GEN_3_MODE
@@ -1912,7 +1911,6 @@ static const u16 sRandomHeldItemsForOpponents[] =
     ITEM_LEFTOVERS,
     ITEM_QUICK_CLAW,
     ITEM_SCOPE_LENS,
-    ITEM_SOOTHE_BELL,
     ITEM_CHOICE_BAND,
     ITEM_MENTAL_HERB,
     ITEM_SHELL_BELL,

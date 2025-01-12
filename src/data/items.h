@@ -8236,7 +8236,7 @@ const struct Item gItemsInfo[] =
     [ITEM_SOOTHE_BELL] =
     {
         .name = _("Soothe Bell"),
-        .price = 200,
+        .price = 1000,
         .holdEffect = HOLD_EFFECT_FRIENDSHIP_UP,
         .description = COMPOUND_STRING(
             "A hold item that\n"
