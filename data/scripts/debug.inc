@@ -161,7 +161,7 @@ PitArenaDebug3NotOnWall::
 PitArenaDebug4NotOnWall::
 	setflag FLAG_FLOOR_CLEARED
 	callnative SetWarpTileActive
-	setvar VAR_PIT_FLOOR, 19
+	setvar VAR_PIT_FLOOR, 9
 	additem ITEM_RARE_CANDY, 99
 	special DrawWholeMapView
 	end

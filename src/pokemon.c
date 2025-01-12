@@ -5834,6 +5834,12 @@ void ForceIncrementMonLevel(struct Pokemon *mon)
     u8 nextLevel = GetMonData(mon, MON_DATA_LEVEL, 0) + 1;
     u32 expPoints = GetMonData(mon, MON_DATA_EXP, 0);
     s32 currentHP = GetMonData(mon, MON_DATA_HP, NULL);
+
+    if (nextLevel >= 100)
+        nextLevel = 100;
+    if(VarGet(VAR_PIT_FLOOR) >= 100)
+        nextLevel = 100;
+
     expPoints = gExperienceTables[gSpeciesInfo[species].growthRate][nextLevel];
     SetMonData(mon, MON_DATA_EXP, &expPoints);
     SetMonData(mon, MON_DATA_LEVEL, &nextLevel);
