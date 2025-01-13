@@ -2992,7 +2992,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "I'm truly grateful that you made me\n"
                                             "realize I need to do that.$"),
         .bossAceText =      COMPOUND_STRING("All right, let's do this!\p$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -3003,7 +3003,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_ADAMANT,
                             .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -3043,7 +3043,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                                             "I may not like it, but... go! Go face your\n"
                                             "next challenge!$"),
         .bossAceText =      COMPOUND_STRING("Take this!\p$"),
-#ifdef GEN_3_MODE
+#if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
@@ -3054,7 +3054,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .nature = NATURE_ADAMANT,
                             .moves = {MOVE_BULK_UP, MOVE_CROSS_CHOP, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE}
                         },
-#elif GEN_5_MODE
+#elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
