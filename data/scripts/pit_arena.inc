@@ -7,7 +7,6 @@ PitArena_OnFrameRewardDrop::
 	lock
 	setvar VAR_PIT_TUTOR_STATE, 0
 	setvar VAR_REWARD_STATE, 2
-	goto_if_set FLAG_DOUBLES_MODE, PitArena_OnFrameRewardDrop_Doubles
 	callnative ChooseRandomRewardNumberForFloor
 	switch VAR_RESULT
 	case 0, PitArena_OnFrameRewardDrop_3
@@ -37,13 +36,6 @@ PitArena_OnFrameRewardDrop_5:
 	addobject 9
 	addobject 10
 	addobject 11
-	goto PitArena_OnFrameRewardDrop_1
-
-PitArena_OnFrameRewardDrop_Doubles:
-	random 2
-	switch VAR_RESULT
-	case 0, PitArena_OnFrameRewardDrop_4
-	case 1, PitArena_OnFrameRewardDrop_5
 	goto PitArena_OnFrameRewardDrop_1
 
 PitArena_OnResume:
