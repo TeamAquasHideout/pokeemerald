@@ -645,6 +645,9 @@ const u32 gItemIconPalette_RibbonSweet[] = INCBIN_U32("graphics/items/icon_palet
 const u32 gItemIcon_Everstone[] = INCBIN_U32("graphics/items/icons/everstone.4bpp.lz");
 const u32 gItemIconPalette_Everstone[] = INCBIN_U32("graphics/items/icon_palettes/everstone.gbapal.lz");
 
+const u32 gItemIcon_RunningShoes[] = INCBIN_U32("graphics/items/icons/running_shoes.4bpp.lz");
+const u32 gItemIconPalette_RunningShoes[] = INCBIN_U32("graphics/items/icon_palettes/running_shoes.gbapal.lz");
+
 const u32 gItemIcon_BlackAugurite[] = INCBIN_U32("graphics/items/icons/black_augurite.4bpp.lz");
 const u32 gItemIconPalette_BlackAugurite[] = INCBIN_U32("graphics/items/icon_palettes/black_augurite.gbapal.lz");
 

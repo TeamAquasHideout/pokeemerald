@@ -4375,6 +4375,20 @@ const struct Item gItemsInfo[] =
         .iconPalette = gItemIconPalette_Everstone,
     },
 
+    [ITEM_RUNNING_SHOES] =
+    {
+        .name = _("Running Shoes"),
+        .price = 5000, // EVO
+        .description = sEvolutionStoneDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+        .effect = gItemEffect_EvoItem,
+        .flingPower = 30,
+        .iconPic = gItemIcon_RunningShoes,
+        .iconPalette = gItemIconPalette_RunningShoes,
+    },
+
 // Nectars
 
     [ITEM_RED_NECTAR] =

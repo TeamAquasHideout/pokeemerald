@@ -773,6 +773,8 @@ extern const u32 gItemIcon_RibbonSweet[];
 extern const u32 gItemIconPalette_RibbonSweet[];
 extern const u32 gItemIcon_Everstone[];
 extern const u32 gItemIconPalette_Everstone[];
+extern const u32 gItemIcon_RunningShoes[];
+extern const u32 gItemIconPalette_RunningShoes[];
 extern const u32 gItemIcon_BlackAugurite[];
 extern const u32 gItemIconPalette_BlackAugurite[];
 extern const u32 gItemIcon_LinkingCord[];

@@ -357,6 +357,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_DEEP_SEA_TOOTH
     .2byte ITEM_DEEP_SEA_SCALE
 	.2byte ITEM_SOOTHE_BELL
+	.2byte ITEM_RUNNING_SHOES
 #ifndef PIT_GEN_3_MODE
 	.2byte ITEM_DAWN_STONE
     .2byte ITEM_DUSK_STONE

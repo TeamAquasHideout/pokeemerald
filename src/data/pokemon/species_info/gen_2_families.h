@@ -1361,7 +1361,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sTogepiLevelUpLearnset,
         .teachableLearnset = sTogepiTeachableLearnset,
         .eggMoveLearnset = sTogepiEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_TOGETIC}),
+        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_TOGETIC},
+                                {EVO_ITEM, ITEM_RUNNING_SHOES, SPECIES_TOGETIC}),
     },
 
     [SPECIES_TOGETIC] =
@@ -1946,7 +1947,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sAzurillLevelUpLearnset,
         .teachableLearnset = sAzurillTeachableLearnset,
         .eggMoveLearnset = sAzurillEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_MARILL}),
+        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_MARILL},
+                                {EVO_ITEM, ITEM_RUNNING_SHOES, SPECIES_MARILL}),
     },
 #endif //P_GEN_3_CROSS_EVOS
 

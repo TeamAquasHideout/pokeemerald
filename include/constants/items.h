@@ -1130,11 +1130,12 @@
 #define ITEM_SWAP_SNACK 955
 #define ITEM_TWICE_SPICED_RADISH 956
 #define ITEM_POKESHI_DOLL 957
+#define ITEM_RUNNING_SHOES 958 // new evo item
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 958
+#define ITEMS_COUNT 959
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
