@@ -349,6 +349,8 @@ u32 ScriptGiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 natu
         isShiny = TRUE;
     else if (P_FLAG_FORCE_NO_SHINY != 0 && FlagGet(P_FLAG_FORCE_NO_SHINY))
         isShiny = FALSE;
+    else
+        isShiny = GET_SHINY_VALUE(GetMonData(&mon, MON_DATA_OT_ID), GetMonData(&mon, MON_DATA_PERSONALITY, NULL)) < SHINY_ODDS;
     SetMonData(&mon, MON_DATA_IS_SHINY, &isShiny);
 
     // gigantamax factor
