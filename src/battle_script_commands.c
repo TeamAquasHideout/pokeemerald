@@ -11072,7 +11072,7 @@ static void Cmd_various(void)
 
 static void TryResetProtectUseCounter(u32 battler)
 {
-    u32 lastMove = gLastResultingMoves[battler];
+    u32 lastMove = gLastMoves[battler];
     if (lastMove == MOVE_UNAVAILABLE
         || (!gBattleMoveEffects[gMovesInfo[lastMove].effect].usesProtectCounter
           && (B_ALLY_SWITCH_FAIL_CHANCE >= GEN_9 && gMovesInfo[lastMove].effect != EFFECT_ALLY_SWITCH)))
