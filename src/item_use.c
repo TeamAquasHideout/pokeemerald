@@ -189,6 +189,8 @@ u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId)
         return 1;
     else if (ItemId_GetFieldFunc(itemId) == ItemUseOutOfBattle_EvolutionStone)
         return 2;
+    else if (ItemId_GetFieldFunc(itemId) == ItemUseOutOfBattle_SwapGender)
+        return 3;
     else
         return 0;
 }
@@ -1074,6 +1076,12 @@ void ItemUseOutOfBattle_EscapeRope(u8 taskId)
 void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
 {
     gItemUseCB = ItemUseCB_EvolutionStone;
+    SetUpItemUseCallback(taskId);
+}
+
+void ItemUseOutOfBattle_SwapGender(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_SwapGender;
     SetUpItemUseCallback(taskId);
 }
 

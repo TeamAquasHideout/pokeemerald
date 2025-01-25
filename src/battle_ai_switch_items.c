@@ -2177,7 +2177,7 @@ static bool32 ShouldUseItem(u32 battler)
     for (i = 0; i < MAX_TRAINER_ITEMS; i++)
     {
         u16 item;
-        const u8 *itemEffects;
+        const u16 *itemEffects;
         u8 battlerSide;
 
         item = gBattleResources->battleHistory->trainerItems[i];

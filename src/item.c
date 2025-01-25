@@ -939,7 +939,7 @@ static const u8 *ItemId_GetPluralName(u16 itemId)
     return gItemsInfo[SanitizeItemId(itemId)].pluralName;
 }
 
-const u8 *ItemId_GetEffect(u32 itemId)
+const u16 *ItemId_GetEffect(u32 itemId)
 {
     if (itemId == ITEM_ENIGMA_BERRY_E_READER)
     #if FREE_ENIGMA_BERRY == FALSE
@@ -1109,7 +1109,7 @@ u32 ItemId_GetFlingPower(u32 itemId)
 
 u32 GetItemStatus1Mask(u16 itemId)
 {
-    const u8 *effect = ItemId_GetEffect(itemId);
+    const u16 *effect = ItemId_GetEffect(itemId);
     switch (effect[3])
     {
         case ITEM3_PARALYSIS:
@@ -1130,7 +1130,7 @@ u32 GetItemStatus1Mask(u16 itemId)
 
 u32 GetItemStatus2Mask(u16 itemId)
 {
-    const u8 *effect = ItemId_GetEffect(itemId);
+    const u16 *effect = ItemId_GetEffect(itemId);
     if (effect[3] & ITEM3_STATUS_ALL)
         return STATUS2_INFATUATION | STATUS2_CONFUSION;
     else if (effect[0] & ITEM0_INFATUATION)

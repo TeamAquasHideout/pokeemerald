@@ -464,6 +464,7 @@ PitArena_Mart_MegaStones:
 PitArena_Mart_Mints:
 	.2byte ITEM_ABILITY_CAPSULE
     .2byte ITEM_ABILITY_PATCH
+	.2byte ITEM_RAINBOW_PEARL
 	.2byte ITEM_LONELY_MINT
     .2byte ITEM_ADAMANT_MINT
     .2byte ITEM_NAUGHTY_MINT

@@ -1210,6 +1210,11 @@ static bool8 DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(u8 slot)
                 return FALSE;
             DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_NO_USE);
             break;
+        case 3: // Gender swap
+            if (!GetMonData(currentPokemon, MON_DATA_IS_EGG) && hasMultipleGenders(GetMonData(currentPokemon, MON_DATA_SPECIES)))
+                return FALSE;
+            DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_NO_USE);
+            break;
         }
     }
     return TRUE;
@@ -4724,7 +4729,7 @@ static void Task_SetSacredAshCB(u8 taskId)
 
 static bool8 IsHPRecoveryItem(u16 item)
 {
-    const u8 *effect = ItemId_GetEffect(item);
+    const u16 *effect = ItemId_GetEffect(item);
 
     if (effect == NULL)
         return FALSE;
@@ -5414,7 +5419,7 @@ static void Task_HandleWhichMoveInput(u8 taskId)
 
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task)
 {
-    const u8 *effect = ItemId_GetEffect(gSpecialVar_ItemId);
+    const u16 *effect = ItemId_GetEffect(gSpecialVar_ItemId);
 
     if (effect == NULL || !(effect[4] & ITEM4_HEAL_PP_ONE))
     {
@@ -6267,6 +6272,39 @@ void ItemUseCB_EvolutionStone(u8 taskId, TaskFunc task)
     }
 }
 
+void ItemUseCB_SwapGender(u8 taskId, TaskFunc task)
+{
+    bool8 cannotUseEffect = ExecuteTableBasedItemEffect(&gPlayerParty[gPartyMenu.slotId], gSpecialVar_ItemId, gPartyMenu.slotId, 0);
+
+    if (cannotUseEffect)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+    }
+    else
+    {
+        gPartyMenuUseExitCallback = TRUE;
+        PlaySE(SE_USE_ITEM);
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
+        switch (GetMonGender(&gPlayerParty[gPartyMenu.slotId]))
+        {
+        case MON_MALE:
+            StringExpandPlaceholders(gStringVar4, gText_GenderSwitchedToMale);
+            break;
+        case MON_FEMALE:
+            StringExpandPlaceholders(gStringVar4, gText_GenderSwitchedToFemale);
+            break;
+        }
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+    }
+}
+
 #define FUSE_MON        1
 #define UNFUSE_MON      2
 #define SECOND_FUSE_MON 3
@@ -6881,7 +6919,7 @@ void TryItemHoldFormChange(struct Pokemon *mon)
 u8 GetItemEffectType(u16 item)
 {
     u32 statusCure;
-    const u8 *itemEffect = ItemId_GetEffect(item);
+    const u16 *itemEffect = ItemId_GetEffect(item);
 
     if (itemEffect == NULL)
         return ITEM_EFFECT_NONE;

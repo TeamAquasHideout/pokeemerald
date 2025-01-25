@@ -1888,3 +1888,5 @@ const u8 gText_DefEVResetToZero[] = _("{STR_VAR_1}'s Defense EVs\nwere reset to 
 const u8 gText_SpatkEVResetToZero[] = _("{STR_VAR_1}'s Sp. Atk. EVs\nwere reset to zero!{PAUSE_UNTIL_PRESS}");
 const u8 gText_SpdefEVResetToZero[] = _("{STR_VAR_1}'s Sp. Def. EVs\nwere reset to zero!{PAUSE_UNTIL_PRESS}");
 const u8 gText_SpeedEVResetToZero[] = _("{STR_VAR_1}'s Speed EVs\nwere reset to zero!{PAUSE_UNTIL_PRESS}");
+const u8 gText_GenderSwitchedToFemale[] = _("{STR_VAR_1}'s gender changed\nto Female!{PAUSE_UNTIL_PRESS}");
+const u8 gText_GenderSwitchedToMale[] = _("{STR_VAR_1}'s gender changed\nto Male!{PAUSE_UNTIL_PRESS}");

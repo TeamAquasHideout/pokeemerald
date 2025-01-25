@@ -16477,7 +16477,7 @@ void BS_ItemIncreaseStat(void)
 void BS_ItemRestorePP(void)
 {
     NATIVE_ARGS();
-    const u8 *effect = ItemId_GetEffect(gLastUsedItem);
+    const u16 *effect = ItemId_GetEffect(gLastUsedItem);
     u32 i, pp, maxPP, moveId, loopEnd;
     u32 battler = MAX_BATTLERS_COUNT;
     struct Pokemon *mon = (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER) ? &gPlayerParty[gBattleStruct->itemPartyIndex[gBattlerAttacker]] : &gEnemyParty[gBattleStruct->itemPartyIndex[gBattlerAttacker]];

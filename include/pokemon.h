@@ -912,4 +912,6 @@ void ForceIncrementMonLevel(struct Pokemon *mon);
 u16 GetRandomValidMovesCount(void);
 u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum);
 extern const u16 gRandomValidMoves[];
+bool8 hasMultipleGenders (u16 species);
+
 #endif // GUARD_POKEMON_H
