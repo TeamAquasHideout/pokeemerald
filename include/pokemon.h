@@ -441,7 +441,8 @@ struct SpeciesInfo /*0xC4*/
             u32 dexForceRequired:1; // This species will be taken into account for Pokédex ratings even if they have the "isMythical" flag set.
             u32 tmIlliterate:1;     // This species will be unable to learn the universal moves.
             u32 isFrontierBanned:1; // This species is not allowed to participate in Battle Frontier facilities.
-            u32 padding4:13;
+            u32 signatureItem:11;
+            u32 padding4:2;
             // Move Data
  /* 0x80 */ const struct LevelUpMove *levelUpLearnset;
  /* 0x84 */ const u16 *teachableLearnset;

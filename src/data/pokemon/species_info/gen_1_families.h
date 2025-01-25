@@ -2565,6 +2565,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .formChangeTable = sPikachuFormChangeTable,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_RAICHU},
                                 {EVO_ITEM_HOLD_ITEM, ITEM_THUNDER_STONE, SPECIES_RAICHU_ALOLAN}),
+        .signatureItem = ITEM_LIGHT_BALL,
     },
 
 #if P_COSPLAY_PIKACHU_FORMS
@@ -2988,6 +2989,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sPikachuLevelUpLearnset,
         .teachableLearnset = sPikachuTeachableLearnset,
         .formSpeciesIdTable = sPikachuFormSpeciesIdTable,
+        .signatureItem = ITEM_LIGHT_BALL,
     },
 
     [SPECIES_PIKACHU_SINNOH_CAP] =
@@ -9544,6 +9546,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .teachableLearnset = sFarfetchdTeachableLearnset,
         .eggMoveLearnset = sFarfetchdEggMoveLearnset,
         .formSpeciesIdTable = sFarfetchdFormSpeciesIdTable,
+        .signatureItem = ITEM_LEEK,
     },
 
 #if P_GALARIAN_FORMS
@@ -9610,6 +9613,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sFarfetchdGalarianEggMoveLearnset,
         .formSpeciesIdTable = sFarfetchdFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_CRITICAL_HITS, 3, SPECIES_SIRFETCHD}),
+        .signatureItem = ITEM_LEEK,
     },
 
     [SPECIES_SIRFETCHD] =
@@ -9671,6 +9675,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         )
         .levelUpLearnset = sSirfetchdLevelUpLearnset,
         .teachableLearnset = sSirfetchdTeachableLearnset,
+        .signatureItem = ITEM_LEEK,
     },
 #endif //P_GALARIAN_FORMS
 #endif //P_FAMILY_FARFETCHD
@@ -11706,6 +11711,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .evolutions = EVOLUTION({EVO_LEVEL, 28, SPECIES_MAROWAK},
                                 {EVO_LEVEL_HOLD_ITEM, 28, SPECIES_MAROWAK_ALOLAN},
                                 {EVO_NONE, 0, SPECIES_MAROWAK_ALOLAN_TOTEM}),
+        .signatureItem = ITEM_THICK_CLUB,
     },
 
     [SPECIES_MAROWAK] =
@@ -11768,6 +11774,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMarowakLevelUpLearnset,
         .teachableLearnset = sMarowakTeachableLearnset,
         .formSpeciesIdTable = sMarowakFormSpeciesIdTable,
+        .signatureItem = ITEM_THICK_CLUB,
     },
 
 #if P_ALOLAN_FORMS
@@ -11828,6 +11835,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .levelUpLearnset = sMarowakAlolanLevelUpLearnset,
         .teachableLearnset = sMarowakAlolanTeachableLearnset,
         .formSpeciesIdTable = sMarowakFormSpeciesIdTable,
+        .signatureItem = ITEM_THICK_CLUB,
     },
 
     [SPECIES_MAROWAK_ALOLAN_TOTEM] =
@@ -12827,6 +12835,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sChanseyEggMoveLearnset,
         .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_BLISSEY},
                                 {EVO_ITEM, ITEM_RUNNING_SHOES, SPECIES_BLISSEY}),
+        .signatureItem = ITEM_LUCKY_PUNCH,
     },
 
 #if P_GEN_2_CROSS_EVOS
@@ -15457,6 +15466,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .tmIlliterate = TRUE,
         .levelUpLearnset = sDittoLevelUpLearnset,
         .teachableLearnset = sDittoTeachableLearnset,
+        .signatureItem = ITEM_METAL_POWDER,
     },
 #endif //P_FAMILY_DITTO
 

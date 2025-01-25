@@ -5476,6 +5476,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sDialgaTeachableLearnset,
         .formSpeciesIdTable = sDialgaFormSpeciesIdTable,
         .formChangeTable = sDialgaFormChangeTable,
+        .signatureItem = ITEM_ADAMANT_ORB,
     },
 
     [SPECIES_DIALGA_ORIGIN] =
@@ -5540,6 +5541,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sDialgaTeachableLearnset,
         .formSpeciesIdTable = sDialgaFormSpeciesIdTable,
         .formChangeTable = sDialgaFormChangeTable,
+        .signatureItem = ITEM_ADAMANT_ORB,
     },
 #endif //P_FAMILY_DIALGA
 
@@ -5614,6 +5616,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sPalkiaTeachableLearnset,
         .formSpeciesIdTable = sPalkiaFormSpeciesIdTable,
         .formChangeTable = sPalkiaFormChangeTable,
+        .signatureItem = ITEM_LUSTROUS_ORB,
     },
 
     [SPECIES_PALKIA_ORIGIN] =
@@ -5678,6 +5681,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sPalkiaTeachableLearnset,
         .formSpeciesIdTable = sPalkiaFormSpeciesIdTable,
         .formChangeTable = sPalkiaFormChangeTable,
+        .signatureItem = ITEM_LUSTROUS_ORB,
     },
 #endif //P_FAMILY_PALKIA
 
@@ -5890,6 +5894,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sGiratinaTeachableLearnset,
         .formSpeciesIdTable = sGiratinaFormSpeciesIdTable,
         .formChangeTable = sGiratinaFormChangeTable,
+        .signatureItem = ITEM_GRISEOUS_ORB,
     },
 
     [SPECIES_GIRATINA_ORIGIN] =
@@ -5955,6 +5960,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .teachableLearnset = sGiratinaTeachableLearnset,
         .formSpeciesIdTable = sGiratinaFormSpeciesIdTable,
         .formChangeTable = sGiratinaFormChangeTable,
+        .signatureItem = ITEM_GRISEOUS_ORB,
     },
 #endif //P_FAMILY_GIRATINA
 

@@ -10426,6 +10426,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .teachableLearnset = sLatiasTeachableLearnset,
         .formSpeciesIdTable = sLatiasFormSpeciesIdTable,
         .formChangeTable = sLatiasFormChangeTable,
+        .signatureItem = ITEM_SOUL_DEW,
     },
 
 #if P_MEGA_EVOLUTIONS
@@ -10557,6 +10558,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .teachableLearnset = sLatiosTeachableLearnset,
         .formSpeciesIdTable = sLatiosFormSpeciesIdTable,
         .formChangeTable = sLatiosFormChangeTable,
+        .signatureItem = ITEM_SOUL_DEW,
     },
 
 #if P_MEGA_EVOLUTIONS
