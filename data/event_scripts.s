@@ -1036,10 +1036,6 @@ EventScript_DoWonderTrade_EndEarly::
 
 EventScript_SetGigantamaxFactor::
 	lock
-	getpartysize
-	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_End
-	special ChoosePartyMon
-	waitstate
 	togglegigantamaxfactor VAR_0x8004
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	message gText_GigantamaxFactorSet

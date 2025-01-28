@@ -95,6 +95,7 @@ static const MainCallback sItemUseCallbacks[] =
     [ITEM_USE_FIELD - 1]            = CB2_ReturnToField,
     [ITEM_USE_PBLOCK_CASE - 1]      = NULL,
     [ITEM_USE_PARTY_MENU_MOVES - 1] = CB2_ShowPartyMenuForItemUse,
+    [ITEM_USE_PARTY_MENU_RETURN_OVERWORLD - 1] = CB2_ShowPartyMenuForItemUseReturnToOverworld,
 };
 
 static const u8 sClockwiseDirections[] = {DIR_NORTH, DIR_EAST, DIR_SOUTH, DIR_WEST};

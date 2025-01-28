@@ -4709,6 +4709,36 @@ void CB2_ShowPartyMenuForItemUse(void)
     InitPartyMenu(menuType, partyLayout, PARTY_ACTION_USE_ITEM, TRUE, msgId, task, callback);
 }
 
+void CB2_ShowPartyMenuForItemUseReturnToOverworld(void)
+{
+    MainCallback callback = CB2_ReturnToField;
+    u8 partyLayout;
+    u8 menuType;
+    u8 i;
+    u8 msgId;
+    TaskFunc task;
+
+    if (gMain.inBattle)
+    {
+        menuType = PARTY_MENU_TYPE_IN_BATTLE;
+        partyLayout = GetPartyLayoutFromBattleType();
+    }
+    else
+    {
+        menuType = PARTY_MENU_TYPE_FIELD;
+        partyLayout = PARTY_LAYOUT_SINGLE;
+    }
+
+    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM)
+        msgId = PARTY_MSG_TEACH_WHICH_MON;
+    else
+        msgId = PARTY_MSG_USE_ON_WHICH_MON;
+
+    task = Task_HandleChooseMonInput;
+
+    InitPartyMenu(menuType, partyLayout, PARTY_ACTION_CHOOSE_AND_CLOSE, TRUE, msgId, task, callback);
+}
+
 static void CB2_ReturnToBagMenu(void)
 {
     if (InBattlePyramid() == FALSE)
