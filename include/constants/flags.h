@@ -59,7 +59,7 @@
 #define FLAG_FRLG_PLAYER     0x2D // Unused Flag
 #define FLAG_INVERSE_BATTLE  0x2E // Unused Flag
 #define FLAG_FLOOR_100       0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
+#define FLAG_DYNAMAX         0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
 #define FLAG_TM_SHOP         0x32 // Unused Flag
 #define FLAG_RANDOM_MAPS     0x33 // Unused Flag

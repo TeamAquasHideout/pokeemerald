@@ -16498,11 +16498,12 @@ const struct Item gItemsInfo[] =
     [ITEM_DYNAMAX_BAND] =
     {
         .name = _("Dynamax Band"),
-        .price = 0,
+        .price = 20000,
         .description = COMPOUND_STRING(
             "A band carrying a\n"
             "Wishing Star that\n"
             "allows Dynamaxing."),
+        .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,

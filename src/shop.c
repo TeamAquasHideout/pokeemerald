@@ -1166,7 +1166,7 @@ static void BuyMenuDrawObjectEvents(void)
         if (gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId >= OBJ_EVENT_GFX_VARS && gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId <= OBJ_EVENT_GFX_VAR_F)
             gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId = VarGetObjectEventGraphicsId(gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId - OBJ_EVENT_GFX_VARS);
 
-        DebugPrintf("Graphics IDs: %d", gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId);
+        // DebugPrintf("Graphics IDs: %d", gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId);
 
         graphicsInfo = GetObjectEventGraphicsInfo(gObjectEvents[sShopData->viewportObjects[i][OBJ_EVENT_ID]].graphicsId);
 

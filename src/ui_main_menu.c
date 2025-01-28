@@ -740,6 +740,8 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeMonoType        = TYPE_NONE;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
+    gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;

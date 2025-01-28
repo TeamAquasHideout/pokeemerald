@@ -136,6 +136,8 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
         gSaveBlock2Ptr->modeMonoType = TYPE_NONE;
         gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
+        gSaveBlock2Ptr->modeDynamax = FALSE; //this doesn't use the OPTIONS defines!
+        gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather
@@ -171,6 +173,16 @@ void SetOnMapLoadDefaultOptions(void)
     if (gSaveBlock2Ptr->modeInverseBattles)
     {
         FlagSet(FLAG_INVERSE_BATTLE);
+    }
+
+    if (gSaveBlock2Ptr->modeDynamax)
+    {
+        FlagSet(FLAG_DYNAMAX);
+    }
+
+    if (gSaveBlock2Ptr->modeTera)
+    {
+        FlagSet(FLAG_TERA_CHARGED);
     }
 }
 
