@@ -122,6 +122,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
+        gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
@@ -166,6 +167,11 @@ void SetOnMapLoadDefaultOptions(void)
     
     if (gSaveBlock2Ptr->modeTrainerEVs == ON)
         FlagSet(FLAG_TRAINER_EVS);
+
+    if (gSaveBlock2Ptr->modeInverseBattles)
+    {
+        FlagSet(FLAG_INVERSE_BATTLE);
+    }
 }
 
 #undef ON

@@ -731,6 +731,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->mode3MonsOnly       = OPTIONS_OFF;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeInverseBattles  = FALSE; //this doesn't use the OPTIONS defines!
     //difficulty settings
     gSaveBlock2Ptr->modeSaveDeletion    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;

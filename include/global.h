@@ -609,7 +609,7 @@ struct SaveBlock2
              u16 randomBattleWeather:2;
              u16 optionsBattleSpeed:2;
              u16 modeTrainerEVs:1;
-             u16 padding:1;
+             u16 modeInverseBattles:1;
              //end of u16
 
     // #### running stats for The Pit - START ####
