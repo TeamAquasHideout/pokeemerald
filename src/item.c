@@ -440,6 +440,16 @@ u8 GetPocketByItemId(u16 itemId)
     return ItemId_GetPocket(itemId);
 }
 
+u8 SellsForBuyPrice(u16 itemId)
+{
+    if (gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
+      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH
+      || gSpecialVar_ItemId == ITEM_MAX_SOUP)
+        return TRUE;
+    
+    return FALSE;
+}
+
 void ClearItemSlots(struct ItemSlot *itemSlots, u8 itemCount)
 {
     u16 i;

@@ -1534,3 +1534,16 @@ void ItemUseOutOfBattle_ShinyDust(u8 taskId)
     sItemUseOnFieldCB = ItemUseOnFieldCB_ShinyDust;
     SetUpItemUseOnFieldCallback(taskId);
 }
+
+static void ItemUseOnFieldCB_SetGigantamaxFactor(u8 taskId)
+{   
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_SetGigantamaxFactor);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_SetGigantamaxFactor(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_SetGigantamaxFactor;
+    SetUpItemUseOnFieldCallback(taskId);
+}

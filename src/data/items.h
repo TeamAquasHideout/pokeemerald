@@ -150,6 +150,10 @@ static const u8 sRainbowPearlDesc[]   = _("Swaps the gender\n"
                                           "of a Pokémon if\n"
                                           "possible.");
 
+static const u8 sMaxSoupDesc[]        = _("Enables a Pokémon\n"
+                                          "to gigantamax if\n"
+                                          "possible.");
+
 const struct Item gItemsInfo[] =
 {
     [ITEM_NONE] =
@@ -4402,6 +4406,19 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_SwapGender,
         .effect = gItemEffect_SwapGender,
+        .flingPower = 30,
+        .iconPic = gItemIcon_BigPearl,
+        .iconPalette = gItemIconPalette_Pearl,
+    },
+
+    [ITEM_MAX_SOUP] =
+    {
+        .name = _("Max Soup"),
+        .price = 5000,
+        .description = sMaxSoupDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_SetGigantamaxFactor,
         .flingPower = 30,
         .iconPic = gItemIcon_BigPearl,
         .iconPalette = gItemIconPalette_Pearl,

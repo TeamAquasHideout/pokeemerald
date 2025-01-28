@@ -1034,6 +1034,25 @@ EventScript_DoWonderTrade_EndEarly::
 	setvar VAR_0x8004, 0xFF
 	return
 
+EventScript_SetGigantamaxFactor::
+	lock
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_End
+	special ChoosePartyMon
+	waitstate
+	togglegigantamaxfactor VAR_0x8004
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	message gText_GigantamaxFactorSet
+	waitmessage
+	waitfanfare
+	removeitem ITEM_MAX_SOUP
+	release
+	end
+
+gText_GigantamaxFactorSet::
+	.string "{STR_VAR_1} had its Gigantamax Factor\n"
+	.string "set.{PAUSE_UNTIL_PRESS}$"
+
 EventScript_End:
 	end
 

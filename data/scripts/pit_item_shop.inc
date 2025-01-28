@@ -559,6 +559,7 @@ PitArena_Mart_ZCrystals:
 PitArena_Mart_FormItems:
 #ifdef PIT_GEN_9_MODE
 	.2byte  ITEM_DYNAMAX_BAND
+	.2byte  ITEM_MAX_SOUP
 #endif
 	.2byte  ITEM_METEORITE
     .2byte  ITEM_DNA_SPLICERS
