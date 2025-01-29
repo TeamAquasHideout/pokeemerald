@@ -358,6 +358,9 @@ const u32 gItemIcon_BigPearl[] = INCBIN_U32("graphics/items/icons/big_pearl.4bpp
 const u32 gItemIcon_PearlString[] = INCBIN_U32("graphics/items/icons/pearl_string.4bpp.lz");
 const u32 gItemIconPalette_PearlString[] = INCBIN_U32("graphics/items/icon_palettes/pearl_string.gbapal.lz");
 
+const u32 gItemIcon_MaxSoup[] = INCBIN_U32("graphics/items/icons/max_soup.4bpp.lz");
+const u32 gItemIconPalette_MaxSoup[] = INCBIN_U32("graphics/items/icon_palettes/max_soup.gbapal.lz");
+
 const u32 gItemIcon_Stardust[] = INCBIN_U32("graphics/items/icons/stardust.4bpp.lz");
 const u32 gItemIconPalette_Star[] = INCBIN_U32("graphics/items/icon_palettes/star.gbapal.lz");
 

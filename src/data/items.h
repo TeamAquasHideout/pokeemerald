@@ -4420,8 +4420,8 @@ const struct Item gItemsInfo[] =
         .type = ITEM_USE_PARTY_MENU_RETURN_OVERWORLD,
         .fieldUseFunc = ItemUseOutOfBattle_SetGigantamaxFactor,
         .flingPower = 30,
-        .iconPic = gItemIcon_BigPearl,
-        .iconPalette = gItemIconPalette_Pearl,
+        .iconPic = gItemIcon_MaxSoup,
+        .iconPalette = gItemIconPalette_MaxSoup,
     },
 
 
