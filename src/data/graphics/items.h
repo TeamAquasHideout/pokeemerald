@@ -358,6 +358,9 @@ const u32 gItemIcon_BigPearl[] = INCBIN_U32("graphics/items/icons/big_pearl.4bpp
 const u32 gItemIcon_PearlString[] = INCBIN_U32("graphics/items/icons/pearl_string.4bpp.lz");
 const u32 gItemIconPalette_PearlString[] = INCBIN_U32("graphics/items/icon_palettes/pearl_string.gbapal.lz");
 
+const u32 gItemIcon_MaxSoup[] = INCBIN_U32("graphics/items/icons/max_soup.4bpp.lz");
+const u32 gItemIconPalette_MaxSoup[] = INCBIN_U32("graphics/items/icon_palettes/max_soup.gbapal.lz");
+
 const u32 gItemIcon_Stardust[] = INCBIN_U32("graphics/items/icons/stardust.4bpp.lz");
 const u32 gItemIconPalette_Star[] = INCBIN_U32("graphics/items/icon_palettes/star.gbapal.lz");
 
@@ -644,6 +647,9 @@ const u32 gItemIconPalette_RibbonSweet[] = INCBIN_U32("graphics/items/icon_palet
 
 const u32 gItemIcon_Everstone[] = INCBIN_U32("graphics/items/icons/everstone.4bpp.lz");
 const u32 gItemIconPalette_Everstone[] = INCBIN_U32("graphics/items/icon_palettes/everstone.gbapal.lz");
+
+const u32 gItemIcon_RunningShoes[] = INCBIN_U32("graphics/items/icons/running_shoes.4bpp.lz");
+const u32 gItemIconPalette_RunningShoes[] = INCBIN_U32("graphics/items/icon_palettes/running_shoes.gbapal.lz");
 
 const u32 gItemIcon_BlackAugurite[] = INCBIN_U32("graphics/items/icons/black_augurite.4bpp.lz");
 const u32 gItemIconPalette_BlackAugurite[] = INCBIN_U32("graphics/items/icon_palettes/black_augurite.gbapal.lz");

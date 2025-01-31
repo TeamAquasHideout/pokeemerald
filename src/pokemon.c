@@ -4001,7 +4001,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     s32 friendship;
     s32 i;
     bool8 retVal = TRUE;
-    const u8 *itemEffect;
+    const u16 *itemEffect;
     u8 itemEffectParam = ITEM_EFFECT_ARG_START;
     u32 temp1, temp2;
     s8 friendshipChange = 0;
@@ -4009,7 +4009,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
     u8 battlerId = MAX_BATTLERS_COUNT;
     u32 friendshipOnly = FALSE;
     u16 heldItem;
-    u8 effectFlags;
+    u16 effectFlags;
     s8 evChange;
     u16 evCount;
 
@@ -4297,6 +4297,44 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 return FALSE;
                             }
                         }
+                            break;
+
+                    case 8: // ITEM4_SWAP_GENDER
+                        {
+                            u8 newGender = MON_GENDERLESS;          
+                            u16 checksum;
+                            u32 personality;
+                            u32 otId = GetMonData(mon, MON_DATA_OT_ID);
+                            u16 species = GetMonData(mon, MON_DATA_SPECIES);
+                            bool8 isShiny = IsMonShiny(mon);
+
+                            if (hasMultipleGenders(species))
+                            {
+                                // get opposite Gender
+                                switch (GetMonGender(mon))
+                                {
+                                case MON_MALE:
+                                    newGender = MON_FEMALE;
+                                    break;
+                                case MON_FEMALE:
+                                    newGender = MON_MALE;
+                                    break;
+                                }
+
+                                // calc personality for new gender
+                                do
+                                {
+                                    personality = Random32();
+                                }
+                                while (GetGenderFromSpeciesAndPersonality(species, personality) != newGender);
+
+                                // set new data
+                                UpdateMonPersonality(&mon->box, personality);
+                                SetMonData(mon, MON_DATA_IS_SHINY, &isShiny);
+                                CalculateMonStats(mon);
+                                return FALSE;
+                            }
+                        }
                         break;
                     }
                 }
@@ -4451,8 +4489,8 @@ bool8 HealStatusConditions(struct Pokemon *mon, u32 healMask, u8 battlerId)
 
 u8 GetItemEffectParamOffset(u32 battler, u16 itemId, u8 effectByte, u8 effectBit)
 {
-    const u8 *temp;
-    const u8 *itemEffect;
+    const u16 *temp;
+    const u16 *itemEffect;
     u8 offset;
     int i;
     u8 j;
@@ -4581,7 +4619,7 @@ static void BufferStatRoseMessage(s32 statIdx)
 
 u8 *UseStatIncreaseItem(u16 itemId)
 {
-    const u8 *itemEffect;
+    const u16 *itemEffect;
 
     if (itemId == ITEM_ENIGMA_BERRY_E_READER)
     {
@@ -7430,4 +7468,16 @@ void UpdateDaysPassedSinceFormChange(u16 days)
             }
         }
     }
+}
+
+bool8 hasMultipleGenders (u16 species)
+{
+    if (gSpeciesInfo[species].genderRatio == MON_GENDERLESS)
+        return FALSE;
+    if (gSpeciesInfo[species].genderRatio == MON_MALE)
+        return FALSE;
+    if (gSpeciesInfo[species].genderRatio == MON_FEMALE)
+        return FALSE;
+    
+    return TRUE;
 }

@@ -1432,7 +1432,31 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
             else
                 return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
         case ALL_MONS:
-            return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+            if (gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
+            {
+                //create dynamic array
+                u32 maxSpecies = GetMaxPlayerNumberOfSpecies(TRUE);
+                u32 maxMonoTypeSpecies = GetMonoTypeNumberOfSpecies();
+                int element = 0;
+
+                if (gMonoTypeArray[0] == 0) // array is empty
+                {
+                    for (int i = 0; i < maxSpecies; i++)
+                    {
+                        if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
+                          || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
+                        {
+                            gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
+                            //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
+                            element++;
+                        }
+                    }
+                }
+
+                return gMonoTypeArray[RandomModulo(0, maxMonoTypeSpecies)];
+            }   
+            else
+                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(TRUE)), TRUE);
     }
 
     // Default Should Never Reach
@@ -1575,7 +1599,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     break;
             }
             
-            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
+            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE && counter2 > 10) // for performance reasons only 10 rerolls in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
@@ -1864,6 +1888,24 @@ static const u16 sRandomHeldValidItems[] =
 #endif
 };
 
+#define RANDOM_SIGNATURE_ITEM_COUNT ARRAY_COUNT(sRandomSignatureItems)
+static const u16 sRandomSignatureItems[] =
+{
+    // any other signature items than the ones below can be acquired from the merchant (evos and form changes)
+    ITEM_LUCKY_PUNCH,
+    ITEM_LIGHT_BALL,
+    ITEM_LEEK,
+    ITEM_THICK_CLUB,
+    ITEM_METAL_POWDER,
+    ITEM_SOUL_DEW,
+#ifndef PIT_GEN_3_MODE
+    ITEM_QUICK_POWDER,
+    ITEM_LUSTROUS_ORB,
+    ITEM_GRISEOUS_ORB,
+    ITEM_ADAMANT_ORB,
+#endif
+};
+
 #define RANDOM_ITEM_REROLL_COUNT ARRAY_COUNT(sRandomItemsRerollCheck)
 static const u16 sRandomItemsRerollCheck[] =
 {
@@ -1972,11 +2014,14 @@ u16 RandomItemId(u16 itemId)
 {
     u16 randomItemCategory = 0;
     bool8 rerollItem = FALSE;
+    bool8 isSignatureItem;
     int i;
     int counter = 0;
 
     do
-    {    
+    {
+        isSignatureItem = FALSE;
+
         if (ItemId_GetPocket(itemId) == POCKET_TM_HM)
         {
             return itemId;
@@ -1990,20 +2035,45 @@ u16 RandomItemId(u16 itemId)
                 itemId = sRandomConsumableValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_CONSUMABLE_ITEM_COUNT)];
             else if(randomItemCategory < 920)
                 itemId = sRandomHeldValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_HELD_ITEM_COUNT)];
+            else if(randomItemCategory < 940)
+            {
+                //use as default if last reroll is a signature item
+                itemId = sRandomSignatureItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_SIGNATURE_ITEM_COUNT)];
+                isSignatureItem = TRUE;
+            }
             else
                 itemId = sRandomBerryValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_BERRY_ITEM_COUNT)];
         }
-        //check for reroll
+
+        //check against reroll array for reroll
         for (i = 0; i < RANDOM_ITEM_REROLL_COUNT; i++)
         {
             if((itemId == sRandomItemsRerollCheck[i]) && (CheckBagHasItem(itemId, 1) || CheckPartyMonHasHeldItem(itemId)))
-            {
-                DebugPrintf("rerollItem = TRUE, i=%d", i);
                 rerollItem = TRUE;
-            }
         }
+
+        //rare candy reroll for No-EXP-Mode
         if((gSaveBlock2Ptr->modeXP == 2) && (itemId == ITEM_RARE_CANDY))
             rerollItem = TRUE;
+
+        //signature item refine
+        if (isSignatureItem)
+        {
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if(gSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)].signatureItem > ITEM_NONE)
+                {
+                    itemId = gSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL)].signatureItem;
+
+                    if (!CheckBagHasItem(itemId, 1) && !CheckPartyMonHasHeldItem(itemId))
+                        break;
+                }
+            }
+
+            if (i == PARTY_SIZE)
+                rerollItem = TRUE;
+        }
+
         //exit in case of infinite loop
         if (counter >= 20)
             rerollItem = FALSE;
@@ -2011,7 +2081,7 @@ u16 RandomItemId(u16 itemId)
     } while (rerollItem);
 
     VarSet(VAR_0x8006, itemId);
-    DebugPrintf("itemId = %d", itemId);
+    // DebugPrintf("itemId = %d", itemId);
     return itemId;
 }
 

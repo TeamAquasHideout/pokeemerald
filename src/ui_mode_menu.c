@@ -71,7 +71,7 @@ enum MenuItems_Run
     MENUITEM_RUN_3_MONS_ONLY,
     MENUITEM_RUN_NO_CASE_CHOICE,
     MENUITEM_RUN_50_FLOORS,
-    //MENUITEM_RUN_DUPLICATES,
+    MENUITEM_RUN_INVERSE_BATTLES,
     MENUITEM_RUN_CANCEL,
     MENUITEM_RUN_COUNT,
 };
@@ -86,11 +86,15 @@ enum MenuItems_Difficulty
     MENUITEM_DIFF_STAT_CHANGER,
     MENUITEM_DIFF_HEALFLOORS,
     MENUITEM_DIFF_LEGENDARIES,
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_MEGAS,
-    #endif
+#endif
     MENUITEM_DIFF_BOSS_HEAL,
     MENUITEM_DIFF_ITEM_DROPS,
+#ifdef PIT_GEN_9_MODE
+    MENUITEM_DIFF_DYNAMAX,
+    MENUITEM_DIFF_TERA,
+#endif
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
 };
@@ -294,6 +298,7 @@ static void DrawChoices_BattleMode(int selection, int y);
 //static void DrawChoices_Randomizer(int selection, int y);
 static void DrawChoices_3MonsOnly(int selection, int y);
 static void DrawChoices_50Floors(int selection, int y);
+static void DrawChoices_InverseBattles(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_BossHeal(int selection, int y);
 static void DrawChoices_ItemDrops(int selection, int y);
@@ -313,6 +318,8 @@ static void DrawChoices_Legendaries(int selection, int y);
 static void DrawChoices_Duplicates(int selection, int y);
 static void DrawChoices_Megas(int selection, int y);
 static void DrawChoices_HealFloors(int selection, int y);
+static void DrawChoices_Dynamax(int selection, int y);
+static void DrawChoices_Tera(int selection, int y);
 static void DrawChoices_PresetsMode(int selection, int y);
 static void DrawBgWindowFrames(void);
 static void ApplyPresets(void);
@@ -324,13 +331,13 @@ struct Menu_Run //MENU_RUN
     int (*processInput)(int selection);
 } static const sItemFunctionsRun[MENUITEM_RUN_COUNT] =
 {
-    [MENUITEM_RUN_SPECIES_ARRAY]  = {DrawChoices_SpeciesArray, ProcessInput_Options_Two},
-    [MENUITEM_RUN_BATTLEMODE]     = {DrawChoices_BattleMode,   ProcessInput_Options_Three},
-    [MENUITEM_RUN_3_MONS_ONLY]    = {DrawChoices_3MonsOnly,    ProcessInput_Options_Two},
-    [MENUITEM_RUN_NO_CASE_CHOICE] = {DrawChoices_NoCaseChoice, ProcessInput_Options_Two},
-    [MENUITEM_RUN_50_FLOORS]      = {DrawChoices_50Floors,     ProcessInput_Options_Two},
-    //[MENUITEM_RUN_DUPLICATES]     = {DrawChoices_Duplicates,  ProcessInput_Options_Two},
-    [MENUITEM_RUN_CANCEL]         = {NULL, NULL},
+    [MENUITEM_RUN_SPECIES_ARRAY]   = {DrawChoices_SpeciesArray,   ProcessInput_Options_Two},
+    [MENUITEM_RUN_BATTLEMODE]      = {DrawChoices_BattleMode,     ProcessInput_Options_Three},
+    [MENUITEM_RUN_3_MONS_ONLY]     = {DrawChoices_3MonsOnly,      ProcessInput_Options_Two},
+    [MENUITEM_RUN_NO_CASE_CHOICE]  = {DrawChoices_NoCaseChoice,   ProcessInput_Options_Two},
+    [MENUITEM_RUN_50_FLOORS]       = {DrawChoices_50Floors,       ProcessInput_Options_Two},
+    [MENUITEM_RUN_INVERSE_BATTLES] = {DrawChoices_InverseBattles, ProcessInput_Options_Two},
+    [MENUITEM_RUN_CANCEL]          = {NULL, NULL},
 };
 
 struct Menu_Diff //MENU_DIFF
@@ -351,11 +358,15 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_DOUBLE_CASH]   = {DrawChoices_DoubleCash,   ProcessInput_Options_Three},
     [MENUITEM_DIFF_HEALFLOORS]    = {DrawChoices_HealFloors,   ProcessInput_Options_Two},
     [MENUITEM_DIFF_LEGENDARIES]   = {DrawChoices_Legendaries,  ProcessInput_Options_Two},
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {DrawChoices_Megas,        ProcessInput_Options_Two},
-    #endif
+#endif
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Three},
+#ifdef PIT_GEN_9_MODE
+    [MENUITEM_DIFF_DYNAMAX]       = {DrawChoices_Dynamax,      ProcessInput_Options_Two},
+    [MENUITEM_DIFF_TERA]          = {DrawChoices_Tera,         ProcessInput_Options_Two},
+#endif
     [MENUITEM_DIFF_CANCEL]        = {NULL, NULL},
 };
 
@@ -399,14 +410,17 @@ static const u8 sText_Duplicates[]   = _("DUPLICATES");
 static const u8 sText_Megas[]        = _("TRAINER MEGAS");
 static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
 static const u8 sText_ItemDrops[]    = _("ITEM DROPS");
+static const u8 sText_Dynamax[]      = _("DYNAMAX");
+static const u8 sText_Tera[]         = _("TERASTAL");
 
-static const u8 sText_3MonsOnly[]    = _("3 MONS ONLY");
-static const u8 sText_NoCaseChoice[] = _("NO BIRCH CASE");
-static const u8 sText_BossHeal[]     = _("BOSS HEALS");
-static const u8 sText_DoubleCash[]   = _("CASH RATE");
-static const u8 sText_EvoStage[]     = _("EVO STAGES");
-static const u8 sText_MonoType[]     = _("MONO TYPE");
-static const u8 sText_50Floors[]     = _("50 FLOORS");
+static const u8 sText_3MonsOnly[]      = _("3 MONS ONLY");
+static const u8 sText_NoCaseChoice[]   = _("NO BIRCH CASE");
+static const u8 sText_BossHeal[]       = _("BOSS HEALS");
+static const u8 sText_DoubleCash[]     = _("CASH RATE");
+static const u8 sText_EvoStage[]       = _("EVO STAGES");
+static const u8 sText_MonoType[]       = _("MONO TYPE");
+static const u8 sText_50Floors[]       = _("50 FLOORS");
+static const u8 sText_InverseBattles[] = _("INVERSE BTLS");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
 static const u8 sText_Moves[]        = _("MOVES");
@@ -422,13 +436,13 @@ static const u8 sText_SavePreset[]   = _("SAVE PRESETS");
 
 static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
 {
-    [MENUITEM_RUN_SPECIES_ARRAY]  = sText_SpeciesArray,
-    [MENUITEM_RUN_BATTLEMODE]     = sText_BattleMode,
-    [MENUITEM_RUN_3_MONS_ONLY]    = sText_3MonsOnly,
-    [MENUITEM_RUN_NO_CASE_CHOICE] = sText_NoCaseChoice,
-    [MENUITEM_RUN_50_FLOORS]      = sText_50Floors,
-    //[MENUITEM_RUN_DUPLICATES]   = sText_Duplicates,
-    [MENUITEM_RUN_CANCEL]         = sText_Cancel,
+    [MENUITEM_RUN_SPECIES_ARRAY]   = sText_SpeciesArray,
+    [MENUITEM_RUN_BATTLEMODE]      = sText_BattleMode,
+    [MENUITEM_RUN_3_MONS_ONLY]     = sText_3MonsOnly,
+    [MENUITEM_RUN_NO_CASE_CHOICE]  = sText_NoCaseChoice,
+    [MENUITEM_RUN_50_FLOORS]       = sText_50Floors,
+    [MENUITEM_RUN_INVERSE_BATTLES] = sText_InverseBattles,
+    [MENUITEM_RUN_CANCEL]          = sText_Cancel,
 };
 
 static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
@@ -441,11 +455,15 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     [MENUITEM_DIFF_DOUBLE_CASH]   = sText_DoubleCash,
     [MENUITEM_DIFF_HEALFLOORS]    = sText_HealFloors,
     [MENUITEM_DIFF_LEGENDARIES]   = sText_Legendaries,
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = sText_Megas,
-    #endif
+#endif
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_ITEM_DROPS]    = sText_ItemDrops,
+#ifdef PIT_GEN_9_MODE
+    [MENUITEM_DIFF_DYNAMAX]       = sText_Dynamax,
+    [MENUITEM_DIFF_TERA]          = sText_Tera,
+#endif
     [MENUITEM_DIFF_CANCEL]        = sText_Cancel,
 };
 
@@ -492,15 +510,15 @@ static bool8 CheckConditions(int selection)
         case MENU_RUN:
             switch(selection)
             {
-                case MENUITEM_RUN_SPECIES_ARRAY:  return TRUE;
-                case MENUITEM_RUN_BATTLEMODE:     return TRUE;
-                case MENUITEM_RUN_3_MONS_ONLY:    return TRUE;
-                case MENUITEM_RUN_NO_CASE_CHOICE: return TRUE;
-                case MENUITEM_RUN_50_FLOORS:      return TRUE;
-                //case MENUITEM_RUN_DUPLICATES:     return TRUE;
-                case MENUITEM_RUN_CANCEL:         return TRUE;
-                case MENUITEM_RUN_COUNT:          return TRUE;
-                default:                          return FALSE;
+                case MENUITEM_RUN_SPECIES_ARRAY:   return TRUE;
+                case MENUITEM_RUN_BATTLEMODE:      return TRUE;
+                case MENUITEM_RUN_3_MONS_ONLY:     return TRUE;
+                case MENUITEM_RUN_NO_CASE_CHOICE:  return TRUE;
+                case MENUITEM_RUN_50_FLOORS:       return TRUE;
+                case MENUITEM_RUN_INVERSE_BATTLES: return TRUE;
+                case MENUITEM_RUN_CANCEL:          return TRUE;
+                case MENUITEM_RUN_COUNT:           return TRUE;
+                default:                           return FALSE;
             }
         case MENU_DIFF:
             switch(selection)
@@ -511,13 +529,17 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_DOUBLE_CASH:   return TRUE;
                 case MENUITEM_DIFF_HEALFLOORS:    return TRUE;
                 case MENUITEM_DIFF_LEGENDARIES:   return TRUE;
-                #ifdef PIT_GEN_9_MODE
+            #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
-                #endif
+            #endif
                 case MENUITEM_DIFF_EVOSTAGE:      return TRUE;
                 case MENUITEM_DIFF_MONOTYPE:      return TRUE;
                 case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
                 case MENUITEM_DIFF_ITEM_DROPS:    return TRUE;
+            #ifdef PIT_GEN_9_MODE
+                case MENUITEM_DIFF_DYNAMAX:       return TRUE;
+                case MENUITEM_DIFF_TERA:          return FALSE;
+            #endif
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
                 case MENUITEM_DIFF_COUNT:         return TRUE;
                 default:                          return FALSE;
@@ -600,6 +622,12 @@ static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from wil
 static const u8 sText_Desc_EvoStage_Full[]      = _("Pokémon to choose from will always\nbe fully evolved Pokémon.");
 static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
 static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
+static const u8 sText_Desc_InverseBattles_On[]  = _("The type chart is inversed.");
+static const u8 sText_Desc_InverseBattles_Off[] = _("The regular type chart is used.");
+static const u8 sText_Desc_Dynamax_On[]         = _("Dynamaxing is possible. A Dynamax\nBand can be bought from the merchant.");
+static const u8 sText_Desc_Dynamax_Off[]        = _("Dynamaxing is not available.");
+static const u8 sText_Desc_Tera_On[]            = _("Terastallization is possible.\nA Tera Orb is added to the bag.");
+static const u8 sText_Desc_Tera_Off[]           = _("Terastallization is not available.");
 static const u8 sText_Desc_MonoType[]           = _("Choose a type to play a\nmono type run with.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");
 static const u8 sText_Desc_RandBWeather_OW[]    = _("Weather during battles is based on\nthe current floor's weather.");
@@ -617,13 +645,13 @@ static const u8 sText_Desc_RandEvos_Off[]       = _("Keeps the default evo line.
 
 static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
 {
-    [MENUITEM_RUN_SPECIES_ARRAY]  = {sText_Desc_SpeciesArrayRand,    sText_Desc_SpeciesArrayProg,    sText_Empty},
-    [MENUITEM_RUN_BATTLEMODE]     = {sText_Desc_BattleMode_Singles,  sText_Desc_BattleMode_Doubles,  sText_Desc_BattleMode_Mix},
-    [MENUITEM_RUN_3_MONS_ONLY]    = {sText_Desc_3Mons_On,            sText_Desc_3Mons_Off,           sText_Empty},
-    [MENUITEM_RUN_NO_CASE_CHOICE] = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
-    [MENUITEM_RUN_50_FLOORS]      = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
-    //[MENUITEM_RUN_DUPLICATES]     = {sText_Desc_Duplicates_On,       sText_Desc_Duplicates_Off,      sText_Empty},
-    [MENUITEM_RUN_CANCEL]         = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
+    [MENUITEM_RUN_SPECIES_ARRAY]   = {sText_Desc_SpeciesArrayRand,    sText_Desc_SpeciesArrayProg,    sText_Empty},
+    [MENUITEM_RUN_BATTLEMODE]      = {sText_Desc_BattleMode_Singles,  sText_Desc_BattleMode_Doubles,  sText_Desc_BattleMode_Mix},
+    [MENUITEM_RUN_3_MONS_ONLY]     = {sText_Desc_3Mons_On,            sText_Desc_3Mons_Off,           sText_Empty},
+    [MENUITEM_RUN_NO_CASE_CHOICE]  = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
+    [MENUITEM_RUN_50_FLOORS]       = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
+    [MENUITEM_RUN_INVERSE_BATTLES] = {sText_Desc_InverseBattles_On,   sText_Desc_InverseBattles_Off,  sText_Empty},
+    [MENUITEM_RUN_CANCEL]          = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
 };
 
 static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
@@ -634,13 +662,17 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
     [MENUITEM_DIFF_HEALFLOORS]    = {sText_Desc_HealFloors_5,     sText_Desc_HealFloors_10,     sText_Empty},
     [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty},
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
-    #endif
+#endif
     [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
     [MENUITEM_DIFF_MONOTYPE]      = {sText_Desc_MonoType,         sText_Desc_MonoType,          sText_Desc_MonoType},
     [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
     [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_3},
+#ifdef PIT_GEN_9_MODE
+    [MENUITEM_DIFF_DYNAMAX]       = {sText_Desc_Dynamax_On,       sText_Desc_Dynamax_Off,       sText_Empty},
+    [MENUITEM_DIFF_TERA]          = {sText_Desc_Tera_On,          sText_Desc_Tera_Off,          sText_Empty},
+#endif
     [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
 };
 
@@ -849,7 +881,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = gSaveBlock2Ptr->mode3MonsOnly;
         sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = gSaveBlock2Ptr->modeNoCaseChoice;
         sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = !(gSaveBlock2Ptr->mode50Floors);
-        //sOptions->sel_run[MENUITEM_RUN_DUPLICATES]      = gSaveBlock2Ptr->modeDuplicates;
+        sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = !(gSaveBlock2Ptr->modeInverseBattles);
         //difficulty settings
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
         sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = gSaveBlock2Ptr->modeStatChanger;
@@ -857,9 +889,9 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = gSaveBlock2Ptr->modeCashRewards;
         sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = gSaveBlock2Ptr->modeHealFloors10;
         sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = gSaveBlock2Ptr->modeLegendaries;
-        #ifdef PIT_GEN_9_MODE
+    #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
-        #endif
+    #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
         if (gSaveBlock2Ptr->modeMonoType >= TYPE_MYSTERY)
             sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]  = gSaveBlock2Ptr->modeMonoType - 1;
@@ -867,6 +899,10 @@ static void ModeMenu_SetupCB(void)
             sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]  = gSaveBlock2Ptr->modeMonoType;
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = gSaveBlock2Ptr->modeChoiceItemReward;
+    #ifdef PIT_GEN_9_MODE
+        sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = !(gSaveBlock2Ptr->modeDynamax);
+        sOptions->sel_diff[MENUITEM_DIFF_TERA]          = !(gSaveBlock2Ptr->modeTera);
+    #endif
         //randomizer settings
         sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = gSaveBlock2Ptr->randomBattleWeather;
         sOptions->sel_rand[MENUITEM_RAND_MOVES]         = gSaveBlock2Ptr->randomMoves;
@@ -1385,12 +1421,12 @@ static void Task_ModeMenuSave(u8 taskId)
 {
     //write in saveblock
     //run settings
-    gSaveBlock2Ptr->modeSpeciesArray = sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY];
-    gSaveBlock2Ptr->modeBattleMode   = sOptions->sel_run[MENUITEM_RUN_BATTLEMODE];
-    gSaveBlock2Ptr->mode3MonsOnly    = sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY];
-    gSaveBlock2Ptr->modeNoCaseChoice = sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE];
-    gSaveBlock2Ptr->mode50Floors     = !(sOptions->sel_run[MENUITEM_RUN_50_FLOORS]);
-    //gSaveBlock2Ptr->modeDuplicates   = sOptions->sel_run[MENUITEM_RUN_DUPLICATES];
+    gSaveBlock2Ptr->modeSpeciesArray   = sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY];
+    gSaveBlock2Ptr->modeBattleMode     = sOptions->sel_run[MENUITEM_RUN_BATTLEMODE];
+    gSaveBlock2Ptr->mode3MonsOnly      = sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY];
+    gSaveBlock2Ptr->modeNoCaseChoice   = sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE];
+    gSaveBlock2Ptr->mode50Floors       = !(sOptions->sel_run[MENUITEM_RUN_50_FLOORS]);
+    gSaveBlock2Ptr->modeInverseBattles = !(sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES]);
 
     //difficulty settings
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
@@ -1400,11 +1436,15 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeCashRewards  = sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH];
     gSaveBlock2Ptr->modeHealFloors10 = sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS];
     gSaveBlock2Ptr->modeLegendaries  = sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES];
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
-    #endif
+#endif
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
-    gSaveBlock2Ptr->modeChoiceEvoStage = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
+    gSaveBlock2Ptr->modeChoiceEvoStage   = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
+#ifdef PIT_GEN_9_MODE
+    gSaveBlock2Ptr->modeDynamax          = !(sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]);
+    gSaveBlock2Ptr->modeTera             = !(sOptions->sel_diff[MENUITEM_DIFF_TERA]);
+#endif
 
     if (sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE] >= TYPE_MYSTERY)
         gSaveBlock2Ptr->modeMonoType     = sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE] + 1;
@@ -1422,6 +1462,8 @@ static void Task_ModeMenuSave(u8 taskId)
 
     //set flags/vars
     //####################### run settings #######################
+
+    //!!!! Reminder: Flags are cleared after the intro menus - See SetOnMapLoadDefaultOptions() !!!!
     if (sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_DOUBLES)
         FlagSet(FLAG_DOUBLES_MODE);
     else if(sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_MIXED)
@@ -1442,6 +1484,13 @@ static void Task_ModeMenuSave(u8 taskId)
         FlagSet(FLAG_TRAINER_EVS);
     else
         FlagClear(FLAG_TRAINER_EVS);
+
+    if (gSaveBlock2Ptr->modeInverseBattles)
+    {
+        FlagSet(FLAG_INVERSE_BATTLE);
+    }
+    else
+        FlagClear(FLAG_INVERSE_BATTLE);
 
 
     //####################### randomizer settings #######################
@@ -1727,6 +1776,16 @@ static void DrawChoices_50Floors(int selection, int y)
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
+static void DrawChoices_InverseBattles(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_RUN_INVERSE_BATTLES);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+
 static void DrawChoices_BossHeal(int selection, int y)
 {
    bool8 active = CheckConditions(MENUITEM_DIFF_BOSS_HEAL);
@@ -1958,6 +2017,28 @@ static void DrawChoices_MonoType(int selection, int y)
     DrawModeMenuChoice(sText_Arrows_Right, GetStringRightAlignXOffset(FONT_NORMAL, sText_Arrows_Right, 198), y, 0, active);
 }
 
+#ifdef PIT_GEN_9_MODE
+static void DrawChoices_Dynamax(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_DYNAMAX);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+
+static void DrawChoices_Tera(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_TERA);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+#endif
+
 static void DrawChoices_RandBattleWeather(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_B_WEATHER);
@@ -2090,6 +2171,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = OPTIONS_OFF;
     //difficulty settings
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
@@ -2097,6 +2179,10 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_MONOTYPE]      = TYPE_NONE;
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
+#ifdef PIT_GEN_9_MODE
+    sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]        = OPTIONS_OFF;
+    sOptions->sel_diff[MENUITEM_DIFF_TERA]           = OPTIONS_OFF;
+#endif
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
     sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_OFF;
@@ -2113,18 +2199,18 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
-            #ifdef PIT_GEN_9_MODE
+        #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_OFF;
-            #endif
+        #endif
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
-            #ifdef PIT_GEN_9_MODE
+        #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
-            #endif
+        #endif
             break;
         default:
             break;

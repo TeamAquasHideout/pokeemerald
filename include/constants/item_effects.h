@@ -34,7 +34,8 @@
 #define ITEM4_HEAL_PP_ONE       0x10
 #define ITEM4_PP_UP             0x20
 #define ITEM4_REVIVE            0x40
-#define ITEM4_EVO_STONE         0x80
+#define ITEM4_EVO_STONE         0x80 // also used for gender swap
+#define ITEM4_SWAP_GENDER       0x100
 
 // field 5 masks
 #define ITEM5_EV_DEF            0x1

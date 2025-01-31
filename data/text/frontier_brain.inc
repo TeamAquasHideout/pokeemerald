@@ -622,7 +622,7 @@ gText_RubyDefeat::
     .string "My head hangs in shame.$"
 
 gText_ColeDefeat::
-    .string "Im never going to financially\n"
+    .string "I'm never going to financially\n"
     .string "recover from this!$"
 
 gText_AubreyDefeat::
@@ -690,7 +690,7 @@ gText_PeytonDefeat::
     .string "You were too strong!$"
 
 gText_AndrewDefeat::
-    .string "But Im better than you...$"
+    .string "But I'm better than you...$"
 
 gText_LaylaDefeat::
     .string "You've earned this win!$"

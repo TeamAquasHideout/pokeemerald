@@ -95,6 +95,7 @@ static const MainCallback sItemUseCallbacks[] =
     [ITEM_USE_FIELD - 1]            = CB2_ReturnToField,
     [ITEM_USE_PBLOCK_CASE - 1]      = NULL,
     [ITEM_USE_PARTY_MENU_MOVES - 1] = CB2_ShowPartyMenuForItemUse,
+    [ITEM_USE_PARTY_MENU_RETURN_OVERWORLD - 1] = CB2_ShowPartyMenuForItemUseReturnToOverworld,
 };
 
 static const u8 sClockwiseDirections[] = {DIR_NORTH, DIR_EAST, DIR_SOUTH, DIR_WEST};
@@ -189,6 +190,8 @@ u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId)
         return 1;
     else if (ItemId_GetFieldFunc(itemId) == ItemUseOutOfBattle_EvolutionStone)
         return 2;
+    else if (ItemId_GetFieldFunc(itemId) == ItemUseOutOfBattle_SwapGender)
+        return 3;
     else
         return 0;
 }
@@ -1077,6 +1080,12 @@ void ItemUseOutOfBattle_EvolutionStone(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_SwapGender(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_SwapGender;
+    SetUpItemUseCallback(taskId);
+}
+
 static u32 GetBallThrowableState(void)
 {
     if (IsBattlerAlive(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT))
@@ -1524,5 +1533,18 @@ static void ItemUseOnFieldCB_ShinyDust(u8 taskId)
 void ItemUseOutOfBattle_ShinyDust(u8 taskId)
 {
     sItemUseOnFieldCB = ItemUseOnFieldCB_ShinyDust;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+static void ItemUseOnFieldCB_SetGigantamaxFactor(u8 taskId)
+{   
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_SetGigantamaxFactor);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_SetGigantamaxFactor(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_SetGigantamaxFactor;
     SetUpItemUseOnFieldCallback(taskId);
 }

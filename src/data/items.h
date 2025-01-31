@@ -146,6 +146,14 @@ static const u8 sGenericMulchDesc[]   = _("A fertilizer that\n"
                                           "is unsuitable for\n"
                                           "local soil.");
 
+static const u8 sRainbowPearlDesc[]   = _("Swaps the gender\n"
+                                          "of a Pokémon if\n"
+                                          "possible.");
+
+static const u8 sMaxSoupDesc[]        = _("Enables a Pokémon\n"
+                                          "to gigantamax if\n"
+                                          "possible.");
+
 const struct Item gItemsInfo[] =
 {
     [ITEM_NONE] =
@@ -4374,6 +4382,48 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_Everstone,
         .iconPalette = gItemIconPalette_Everstone,
     },
+
+    [ITEM_RUNNING_SHOES] =
+    {
+        .name = _("Running Shoes"),
+        .price = 5000, // EVO
+        .description = sEvolutionStoneDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+        .effect = gItemEffect_EvoItem,
+        .flingPower = 30,
+        .iconPic = gItemIcon_RunningShoes,
+        .iconPalette = gItemIconPalette_RunningShoes,
+    },
+
+    [ITEM_RAINBOW_PEARL] =
+    {
+        .name = _("Rainbow Pearl"),
+        .price = 1000,
+        .description = sRainbowPearlDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_SwapGender,
+        .effect = gItemEffect_SwapGender,
+        .flingPower = 30,
+        .iconPic = gItemIcon_BigPearl,
+        .iconPalette = gItemIconPalette_Pearl,
+    },
+
+    [ITEM_MAX_SOUP] =
+    {
+        .name = _("Max Soup"),
+        .price = 5000,
+        .description = sMaxSoupDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_PARTY_MENU_RETURN_OVERWORLD,
+        .fieldUseFunc = ItemUseOutOfBattle_SetGigantamaxFactor,
+        .flingPower = 30,
+        .iconPic = gItemIcon_MaxSoup,
+        .iconPalette = gItemIconPalette_MaxSoup,
+    },
+
 
 // Nectars
 
@@ -16465,11 +16515,12 @@ const struct Item gItemsInfo[] =
     [ITEM_DYNAMAX_BAND] =
     {
         .name = _("Dynamax Band"),
-        .price = 0,
+        .price = 20000,
         .description = COMPOUND_STRING(
             "A band carrying a\n"
             "Wishing Star that\n"
             "allows Dynamaxing."),
+        .importance = 1,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,

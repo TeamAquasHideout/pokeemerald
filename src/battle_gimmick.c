@@ -13,6 +13,8 @@
 #include "sprite.h"
 #include "util.h"
 #include "test_runner.h"
+#include "random.h"
+#include "event_data.h"
 
 #include "data/gimmicks.h"
 
@@ -85,7 +87,8 @@ bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick)
 
         if ((gimmick == GIMMICK_TERA) && (GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE))
             return FALSE;
-        if (gimmick == GIMMICK_DYNAMAX && mon->shouldUseDynamax)
+        if (gimmick == GIMMICK_DYNAMAX && RandomPercentage(RNG_NONE, 5)
+          && FlagGet(FLAG_DYNAMAX))
             return TRUE;
     }
 

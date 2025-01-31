@@ -3288,6 +3288,8 @@ extern const u8 gText_DefEVResetToZero[];
 extern const u8 gText_SpatkEVResetToZero[];
 extern const u8 gText_SpdefEVResetToZero[];
 extern const u8 gText_SpeedEVResetToZero[];
+extern const u8 gText_GenderSwitchedToFemale[];
+extern const u8 gText_GenderSwitchedToMale[];
 
 // BSBob map pop-ups
 extern const u8 gText_AM[];

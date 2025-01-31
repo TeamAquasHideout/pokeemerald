@@ -76,6 +76,7 @@ static u8 GetWonderTradeOT(u8 *name)
     return randGender;
 }
 
+// This function is a copy of GenerateRandomSpeciesRewards() without species limitations (ALL_MONS, no additional legendary odds, no evo stage check, etc.)
 static u32 ReturnRandomSpecies()
 {   
     u16 species = 0xFF;
@@ -110,12 +111,10 @@ static u32 ReturnRandomSpecies()
             for (i=0; i<partyCount; i++)
             {
                 if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
-                {
                     rerollMon = TRUE;
-                    //DebugPrintf("gPlayerParty[%d] = %d", i, species);
-                }
             }
         }
+
         //exit in case of infinite loop
         if (counter2 == 10)
         {
@@ -129,7 +128,6 @@ static u32 ReturnRandomSpecies()
             counter2++;
             species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
             counter = 0; //reset counter for legendary rerolls
-            //DebugPrintf("--- reroll ---");
         }
     }
     while (rerollMon);

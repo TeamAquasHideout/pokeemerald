@@ -1130,11 +1130,14 @@
 #define ITEM_SWAP_SNACK 955
 #define ITEM_TWICE_SPICED_RADISH 956
 #define ITEM_POKESHI_DOLL 957
+#define ITEM_RUNNING_SHOES 958 // new evo item
+#define ITEM_RAINBOW_PEARL 959 // new gender swapping item
+#define ITEM_MAX_SOUP 960 // activate the dynamax factor
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 958
+#define ITEMS_COUNT 961
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
@@ -1197,6 +1200,7 @@
 #define ITEM_USE_PBLOCK_CASE      3
 #define ITEM_USE_BAG_MENU         4 // No exit callback, stays in bag menu
 #define ITEM_USE_PARTY_MENU_MOVES 5
+#define ITEM_USE_PARTY_MENU_RETURN_OVERWORLD 6
 
 // Item battle script IDs (need to be non-zero)
 #define EFFECT_ITEM_RESTORE_HP              1

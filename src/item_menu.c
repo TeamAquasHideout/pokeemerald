@@ -2190,8 +2190,7 @@ static void DisplaySellItemPriceAndConfirm(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
-      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
-      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
+      || SellsForBuyPrice(gSpecialVar_ItemId))
         ConvertIntToDecimalStringN(gStringVar1, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount, STR_CONV_MODE_LEFT_ALIGN, 6);
     else    
         ConvertIntToDecimalStringN(gStringVar1, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount, STR_CONV_MODE_LEFT_ALIGN, 6);
@@ -2220,8 +2219,7 @@ static void InitSellHowManyInput(u8 taskId)
     s16 *data = gTasks[taskId].data;
     u8 windowId = BagMenu_AddWindow(ITEMWIN_QUANTITY_WIDE);
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
-      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
-      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
+      || SellsForBuyPrice(gSpecialVar_ItemId))
         PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount);
     else
         PrintItemSoldAmount(windowId, 1, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);
@@ -2236,8 +2234,7 @@ static void Task_ChooseHowManyToSell(u8 taskId)
     if (AdjustQuantityAccordingToDPadInput(&tItemCount, tQuantity) == TRUE)
     {   
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
-      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
-      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
+      || SellsForBuyPrice(gSpecialVar_ItemId))
             PrintItemSoldAmount(gBagMenu->windowIds[ITEMWIN_QUANTITY_WIDE], tItemCount, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount);
         else
             PrintItemSoldAmount(gBagMenu->windowIds[ITEMWIN_QUANTITY_WIDE], tItemCount, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);
@@ -2265,8 +2262,7 @@ static void ConfirmSell(u8 taskId)
 
     CopyItemName(gSpecialVar_ItemId, gStringVar2);
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
-      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
-      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
+      || SellsForBuyPrice(gSpecialVar_ItemId))
         ConvertIntToDecimalStringN(gStringVar1, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount, STR_CONV_MODE_LEFT_ALIGN, 6);
     else
         ConvertIntToDecimalStringN(gStringVar1, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount, STR_CONV_MODE_LEFT_ALIGN, 6);
@@ -2284,8 +2280,7 @@ static void SellItem(u8 taskId)
     PlaySE(SE_SHOP);
     RemoveBagItem(gSpecialVar_ItemId, tItemCount);
     if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM
-      || gSpecialVar_ItemId == ITEM_ABILITY_CAPSULE
-      || gSpecialVar_ItemId == ITEM_ABILITY_PATCH)
+      || SellsForBuyPrice(gSpecialVar_ItemId))
         AddMoney(&gSaveBlock1Ptr->money, (ItemId_GetPrice(gSpecialVar_ItemId)) * tItemCount);
     else
         AddMoney(&gSaveBlock1Ptr->money, (ItemId_GetPrice(gSpecialVar_ItemId) / ITEM_SELL_FACTOR) * tItemCount);

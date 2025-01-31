@@ -179,7 +179,7 @@ Debug_EventScript_Script_3::
 	end
 
 Debug_EventScript_Script_4::
-	goto PitArena_ChangeAvatarDebug
+	togglegigantamaxfactor 0
 	end
 
 Debug_EventScript_Script_5::

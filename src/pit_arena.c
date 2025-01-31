@@ -3811,18 +3811,19 @@ void ChooseRandomRewardNumberForFloor(void)
 {
     u16 random_val = Random() % 100;
 
+    // fixed item amount setting
     switch(gSaveBlock2Ptr->modeChoiceItemReward)
     {
-        case 1: // always 1 rewards
+        case ITEM_DROPS_1: // always 1 reward
             VarSet(VAR_RESULT, 0);
             return;
-        case 2: // always 3 rewards
+        case ITEM_DROPS_3: // always 3 rewards
             VarSet(VAR_RESULT, 2);
             return;
     }
 
-    // Fallthrough if Set to Random
-    if(random_val < 10)
+    // fallthrough if set to Random
+    if(random_val < 10 && !FlagGet(FLAG_DOUBLES_MODE)) // doubles mode shouldn't give single items
     {
         if(VarGet(VAR_PIT_FLOOR) < 5)
             VarSet(VAR_RESULT, 1);

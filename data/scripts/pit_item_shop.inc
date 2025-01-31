@@ -357,6 +357,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_DEEP_SEA_TOOTH
     .2byte ITEM_DEEP_SEA_SCALE
 	.2byte ITEM_SOOTHE_BELL
+	.2byte ITEM_RUNNING_SHOES
 #ifndef PIT_GEN_3_MODE
 	.2byte ITEM_DAWN_STONE
     .2byte ITEM_DUSK_STONE
@@ -463,6 +464,7 @@ PitArena_Mart_MegaStones:
 PitArena_Mart_Mints:
 	.2byte ITEM_ABILITY_CAPSULE
     .2byte ITEM_ABILITY_PATCH
+	.2byte ITEM_RAINBOW_PEARL
 	.2byte ITEM_LONELY_MINT
     .2byte ITEM_ADAMANT_MINT
     .2byte ITEM_NAUGHTY_MINT
@@ -555,6 +557,10 @@ PitArena_Mart_ZCrystals:
 
  	.align 2
 PitArena_Mart_FormItems:
+#ifdef PIT_GEN_9_MODE
+	.2byte  ITEM_DYNAMAX_BAND
+	.2byte  ITEM_MAX_SOUP
+#endif
 	.2byte  ITEM_METEORITE
     .2byte  ITEM_DNA_SPLICERS
 	.2byte  ITEM_ZYGARDE_CUBE
