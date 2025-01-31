@@ -104,17 +104,14 @@ static u32 ReturnRandomSpecies()
             }
         }
 
-        if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
+        //check for duplicates against the player's party
+        partyCount = CalculatePlayerPartyCount();
+        if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
         {
-            //check for duplicates against the player's party
-            partyCount = CalculatePlayerPartyCount();
-            if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
+            for (i=0; i<partyCount; i++)
             {
-                for (i=0; i<partyCount; i++)
-                {
-                    if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
-                        rerollMon = TRUE;
-                }
+                if (species == GetMonData(&gPlayerParty[i], MON_DATA_SPECIES))
+                    rerollMon = TRUE;
             }
         }
 

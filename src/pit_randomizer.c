@@ -1599,7 +1599,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     break;
             }
             
-            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE) // don't do duplicates handling in case of mono type runs
+            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE && counter2 > 10) // for performance reasons only 10 rerolls in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
