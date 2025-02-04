@@ -66,7 +66,7 @@
 #define FLAG_HIDE_MOVE_TUTOR 0x34 // Unused Flag
 #define FLAG_HIDE_ARCHIE     0x35 // Unused Flag
 #define FLAG_HIDE_WIZ1989    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
+#define FLAG_NO_BAG_USE      0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
 #define FLAG_TEMP_HOF_VICTORY    0x3A // Unused Flag
