@@ -1904,6 +1904,9 @@ static const u16 sRandomSignatureItems[] =
     ITEM_GRISEOUS_ORB,
     ITEM_ADAMANT_ORB,
 #endif
+#ifdef PIT_GEN_9_MODE
+    ITEM_BOOSTER_ENERGY,
+#endif
 };
 
 #define RANDOM_ITEM_REROLL_COUNT ARRAY_COUNT(sRandomItemsRerollCheck)
