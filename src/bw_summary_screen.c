@@ -2067,7 +2067,7 @@ static bool8 DecompressGraphics(void)
         sMonSummaryScreen->switchCounter++;
         break;
     case 23:
-        if (BW_SUMMARY_SHOW_TERA_TYPE)
+        if (BW_SUMMARY_SHOW_TERA_TYPE != FALSE && FlagGet(BW_SUMMARY_SHOW_TERA_TYPE))
             LoadCompressedSpriteSheet(&sSpriteSheet_TeraType);
         sMonSummaryScreen->switchCounter = 0;
         return TRUE;
@@ -4794,7 +4794,7 @@ static void CreateMoveTypeIcons(void)
         {
             if (i == SPRITE_ARR_ID_TERA_TYPE)
             {
-                if (BW_SUMMARY_SHOW_TERA_TYPE)
+                if (BW_SUMMARY_SHOW_TERA_TYPE != FALSE && FlagGet(BW_SUMMARY_SHOW_TERA_TYPE))
                     sMonSummaryScreen->spriteIds[i] = CreateSprite(&sSpriteTemplate_TeraType, 0, 0, 2);
             }
             else
@@ -4827,7 +4827,7 @@ static void SetMonTypeIcons(void)
     {
         SetTypeSpritePosAndPal(TYPE_MYSTERY, 68, 46, SPRITE_ARR_ID_TYPE);
         SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, TRUE);
-        if (BW_SUMMARY_SHOW_TERA_TYPE)
+        if (BW_SUMMARY_SHOW_TERA_TYPE != FALSE && FlagGet(BW_SUMMARY_SHOW_TERA_TYPE))
             SetSpriteInvisibility(SPRITE_ARR_ID_TERA_TYPE, TRUE);
     }
     else
@@ -4842,7 +4842,7 @@ static void SetMonTypeIcons(void)
         {
             SetSpriteInvisibility(SPRITE_ARR_ID_TYPE + 1, TRUE);
         }
-        if (BW_SUMMARY_SHOW_TERA_TYPE)
+        if (BW_SUMMARY_SHOW_TERA_TYPE != FALSE && FlagGet(BW_SUMMARY_SHOW_TERA_TYPE))
         {
             SetTypeSpritePosAndPal(summary->teraType, 36, 47, SPRITE_ARR_ID_TERA_TYPE);
         }

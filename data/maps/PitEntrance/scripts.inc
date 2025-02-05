@@ -162,8 +162,6 @@ PitEntrance_Warp_SkipShinyDust::
 #endif
 	additem ITEM_EXP_SHARE, 1
 	setflag FLAG_SYS_POKEMON_GET
-	goto_if_unset FLAG_TERA_CHARGED, PitEntrance_ExecuteWarp
-	additem ITEM_TERA_ORB, 1
 PitEntrance_ExecuteWarp:
 	warpteleport MAP_PIT_ARENA, 9, 7
 	waitstate

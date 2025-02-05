@@ -544,7 +544,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_NO_BAG_USE:    return TRUE;
             #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_DYNAMAX:       return TRUE;
-                case MENUITEM_DIFF_TERA:          return FALSE;
+                case MENUITEM_DIFF_TERA:          return TRUE;
             #endif
                 case MENUITEM_DIFF_CANCEL:        return TRUE;
                 case MENUITEM_DIFF_COUNT:         return TRUE;

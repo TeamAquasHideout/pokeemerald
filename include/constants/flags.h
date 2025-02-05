@@ -741,8 +741,8 @@
 #define FLAG_UNUSED_0x2B6						0x2B6 // Unused Flag
 #define FLAG_UNUSED_0x2B7						0x2B7 // Unused Flag
 #define FLAG_UNUSED_0x2B8						0x2B8 // Unused Flag
-#define FLAG_UNUSED_0x2B9						0x2B9 // Unused Flag
-#define FLAG_OVERWORLD_MON_ENCOUNTER						0x2BA // Unused Flag
+#define FLAG_TERA_ACTIVE						0x2B9 // Unused Flag
+#define FLAG_OVERWORLD_MON_ENCOUNTER            0x2BA // Unused Flag
 #define FLAG_TERA_CHARGED						0x2BB // Unused Flag
 
 // Event Flags

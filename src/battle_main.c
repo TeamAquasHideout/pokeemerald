@@ -2247,9 +2247,9 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
 
-            if((partyData[j].teraType > 0))
+            if (partyData[j].teraType > 0)
             {
-                u32 data = TYPE_NONE;
+                u32 data = partyData[j].teraType;
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
             }
 
@@ -5879,6 +5879,10 @@ static void HandleEndTurn_FinishBattle(void)
         FadeOutMapMusic(5);
         if (B_TRAINERS_KNOCK_OFF_ITEMS == TRUE || B_RESTORE_HELD_BATTLE_ITEMS >= GEN_9)
             TryRestoreHeldItems();
+
+        // Recharge Tera Orb, if possible.
+        if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1))
+            FlagSet(B_FLAG_TERA_ORB_CHARGED);
 
         // Undo Dynamax HP multiplier before recalculating stats.
         for (battler = 0; battler < gBattlersCount; ++battler)

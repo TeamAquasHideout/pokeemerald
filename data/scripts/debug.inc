@@ -179,7 +179,7 @@ Debug_EventScript_Script_3::
 	end
 
 Debug_EventScript_Script_4::
-	togglegigantamaxfactor 0
+	setteratype TYPE_WATER, 0
 	end
 
 Debug_EventScript_Script_5::
