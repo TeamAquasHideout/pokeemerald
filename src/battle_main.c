@@ -2151,7 +2151,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         odds = 0;
                     
                     if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-                        odds = 100;//35;
+                        odds = 35;
                     
                     if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
                     {
