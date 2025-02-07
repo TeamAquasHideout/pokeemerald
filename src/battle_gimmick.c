@@ -97,7 +97,7 @@ bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick)
             else if (VarGet(VAR_PIT_FLOOR) <= 50)
                 dynamax_odds = 1;
             else if (VarGet(VAR_PIT_FLOOR) <= 75)
-                dynamax_odds = 3;
+                dynamax_odds = 2;
             else
                 dynamax_odds = 5;
         }    

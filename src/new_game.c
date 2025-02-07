@@ -140,7 +140,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
         gSaveBlock2Ptr->modeDynamax = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
-        gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_PROGRESSIVE;
+        gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_NONE;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather
