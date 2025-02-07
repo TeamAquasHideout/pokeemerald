@@ -749,6 +749,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->randomBST           = OPTIONS_OFF;
     gSaveBlock2Ptr->randomType          = OPTIONS_OFF;
     gSaveBlock2Ptr->randomEvos          = OPTIONS_OFF;
+    gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_NONE;
 }
 
 void LoadNormalModePresets(void)

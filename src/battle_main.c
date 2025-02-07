@@ -2145,10 +2145,27 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 //overwrite with Mega Stones
                 if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                 {
-                    u16 odds;
-                    odds = (Random() % 100);
+                    u16 odds = 0;
 
-                    if (odds < 40)
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                        odds = 0;
+                    
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                        odds = 35;
+                    
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
+                    {
+                        if(VarGet(VAR_PIT_FLOOR) <= 25)
+                            odds = 0;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                            odds = 10;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                            odds = 20;
+                        else
+                            odds = 35;
+                    }    
+
+                    if ((Random() % 100) < odds)
                     {
                         u16 megaStone = GetMegaStone(GetMonData(&party[i], MON_DATA_SPECIES));
 
