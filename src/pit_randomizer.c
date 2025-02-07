@@ -1432,31 +1432,7 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
             else
                 return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
         case ALL_MONS:
-            if (gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
-            {
-                //create dynamic array
-                u32 maxSpecies = GetMaxPlayerNumberOfSpecies(TRUE);
-                u32 maxMonoTypeSpecies = GetMonoTypeNumberOfSpecies();
-                int element = 0;
-
-                if (gMonoTypeArray[0] == 0) // array is empty
-                {
-                    for (int i = 0; i < maxSpecies; i++)
-                    {
-                        if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
-                          || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
-                        {
-                            gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
-                            //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
-                            element++;
-                        }
-                    }
-                }
-
-                return gMonoTypeArray[RandomModulo(0, maxMonoTypeSpecies)];
-            }   
-            else
-                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(TRUE)), TRUE);
+            return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     }
 
     // Default Should Never Reach
