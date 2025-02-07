@@ -83,19 +83,17 @@ enum MenuItems_Difficulty
     MENUITEM_DIFF_EVOSTAGE,
     MENUITEM_DIFF_MONOTYPE,
     MENUITEM_DIFF_DOUBLE_CASH,
-    MENUITEM_DIFF_STAT_CHANGER,
     MENUITEM_DIFF_HEALFLOORS,
     MENUITEM_DIFF_LEGENDARIES,
 #ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_MEGAS,
-#endif
-    MENUITEM_DIFF_BOSS_HEAL,
-    MENUITEM_DIFF_ITEM_DROPS,
-    MENUITEM_DIFF_NO_BAG_USE,
-#ifdef PIT_GEN_9_MODE
     MENUITEM_DIFF_DYNAMAX,
     MENUITEM_DIFF_TERA,
 #endif
+    MENUITEM_DIFF_BOSS_HEAL,
+    MENUITEM_DIFF_ITEM_DROPS,
+    MENUITEM_DIFF_STAT_CHANGER,
+    MENUITEM_DIFF_NO_BAG_USE,
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
 };
@@ -410,7 +408,7 @@ static const u8 sText_StatChanger[]  = _("STAT CHANGER");
 static const u8 sText_TrainerEVs[]   = _("TRAINER EVS");
 static const u8 sText_Legendaries[]  = _("LEGENDARIES");
 static const u8 sText_Duplicates[]   = _("DUPLICATES");
-static const u8 sText_Megas[]        = _("TRAINER MEGAS");
+static const u8 sText_Megas[]        = _("MEGA EVO");
 static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
 static const u8 sText_ItemDrops[]    = _("ITEM DROPS");
 static const u8 sText_NoBagUse[]     = _("BAG IN BATTLE");
@@ -607,8 +605,8 @@ static const u8 sText_Desc_Legendaries_On[]     = _("Legendaries can be found\ni
 static const u8 sText_Desc_Legendaries_Off[]    = _("Legendaries can not be found\nin the Birch Case.");
 static const u8 sText_Desc_Duplicates_On[]      = _("Truly random. Duplicates are\npossible in the Birch Case.");
 static const u8 sText_Desc_Duplicates_Off[]     = _("Birch Case can't hold duplicates.");
-static const u8 sText_Desc_Megas_On[]           = _("Trainer Pokémon have a 40% chance\nto mega evolve if possible.");
-static const u8 sText_Desc_Megas_Off[]          = _("Trainer Pokémon can never mega\nevolve.");
+static const u8 sText_Desc_Megas_On[]           = _("Mega Evolution is possible.\nA Mega Ring is added to the shop.");
+static const u8 sText_Desc_Megas_Off[]          = _("Mega Evolution is not available.");
 static const u8 sText_Desc_HealFloors_5[]       = _("Get a rest stop to heal every\n5 floors.");
 static const u8 sText_Desc_HealFloors_10[]      = _("SUPER HARD! Get a rest stop to heal\nevery 10 floors.");
 static const u8 sText_Desc_3Mons_On[]           = _("Party size will never increase and\nremain at three (incl. trainers).");
@@ -634,7 +632,7 @@ static const u8 sText_Desc_NoBagUse_On[]        = _("The bag can be used in batt
 static const u8 sText_Desc_NoBagUse_Off[]       = _("The bag cannot be used in battle.");
 static const u8 sText_Desc_Dynamax_On[]         = _("Dynamaxing is possible. A Dynamax\nBand can be bought from the merchant.");
 static const u8 sText_Desc_Dynamax_Off[]        = _("Dynamaxing is not available.");
-static const u8 sText_Desc_Tera_On[]            = _("Terastallization is possible.\nA Tera Orb is added to the bag.");
+static const u8 sText_Desc_Tera_On[]            = _("Terastallization is possible.\nA Tera Orb is added to the shop.");
 static const u8 sText_Desc_Tera_Off[]           = _("Terastallization is not available.");
 static const u8 sText_Desc_MonoType[]           = _("Choose a type to play a\nmono type run with.");
 static const u8 sText_Desc_RandBWeather_On[]    = _("Weather during battles is randomized.");

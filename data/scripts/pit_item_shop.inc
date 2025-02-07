@@ -7,28 +7,28 @@ PitShop_ShopNPCHook::
 	message PitShop_ShopNPC_Text
 #ifdef PIT_GEN_3_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen3IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 #elif defined PIT_GEN_5_MODE
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen5IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 #else
 	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen9_NoStatChanger
 	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopNPCHook_Gen9_StatChanger_NoTera
 	@Stat changer active and Tera active
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Tera, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_TMsGR_100, PitShop_ShopNPC_Option_TMsSZ_200, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Megas, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_ZMoves, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_Tera, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	goto PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_Tera
 PitShop_ShopNPCHook_Gen9_StatChanger_NoTera:
 	@Stat changer active and Tera inactive
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_TMsGR_100, PitShop_ShopNPC_Option_TMsSZ_200, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Megas, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_ZMoves, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	goto PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_NoTera
 PitShop_ShopNPCHook_Gen9_NoStatChanger:
 	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopNPCHook_Gen9_NoStatChanger_NoTera
 	@Stat changer inactive and Tera active
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Tera, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_TMsGR_100, PitShop_ShopNPC_Option_TMsSZ_200, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Megas, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_ZMoves, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_Tera, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	goto PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_Tera
 PitShop_ShopNPCHook_Gen9_NoStatChanger_NoTera:
 	@Stat changer inactive and Tera inactive
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_TMsGR_100, PitShop_ShopNPC_Option_TMsSZ_200, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Megas, PitShop_ShopNPC_Option_Mints, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_ZMoves, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	goto PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_NoTera
 #endif
 	closemessage
@@ -132,7 +132,7 @@ PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_NoTera::
 	end
 
 PitShop_ShopNPCHook_Gen5IVs::
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option_Gems, PitShop_ShopNPC_Option_Forms, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	closemessage
 	setflag FLAG_BUY_FROM_MART
 	copyvar VAR_TEMP_9, VAR_RESULT
@@ -147,7 +147,7 @@ PitShop_ShopNPCHook_Gen5IVs::
 	end
 
 PitShop_ShopNPCHook_Gen3IVs::
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option_TMsAF_OrAll, PitShop_ShopNPC_Option_Evos, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option_Sell, PitShop_ShopNPC_Option_Exit
 	closemessage
 	setflag FLAG_BUY_FROM_MART
 	copyvar VAR_TEMP_9, VAR_RESULT
@@ -304,33 +304,33 @@ PitArena_MartScript_EditIVs_Execute::
 	end
 
 
-PitShop_ShopNPC_Option0:
+PitShop_ShopNPC_Option_TMsAF_OrAll:
 #ifdef PIT_GEN_9_MODE
 	.string "TMs A-F$"
 #else
 	.string "TMs    $"
 #endif
-PitShop_ShopNPC_Option0_100:
+PitShop_ShopNPC_Option_TMsGR_100:
 	.string "TMs G-R$"
-PitShop_ShopNPC_Option0_200:
+PitShop_ShopNPC_Option_TMsSZ_200:
 	.string "TMs S-Z & HMs$"
-PitShop_ShopNPC_Option1:
+PitShop_ShopNPC_Option_Evos:
 	.string "Evos$"
-PitShop_ShopNPC_Option2:
+PitShop_ShopNPC_Option_Megas:
 	.string "Megas$"
-PitShop_ShopNPC_Option3:
+PitShop_ShopNPC_Option_Mints:
 	.string "Mints   $"
-PitShop_ShopNPC_Option4:
+PitShop_ShopNPC_Option_Gems:
 	.string "Gems$"
-PitShop_ShopNPC_Option5:
+PitShop_ShopNPC_Option_ZMoves:
 	.string "Z-Moves$"
-PitShop_ShopNPC_Option6:
+PitShop_ShopNPC_Option_Forms:
 	.string "Forms$"
 PitShop_ShopNPC_Tera:
 	.string "Terastal$"
-PitShop_ShopNPC_Option7:
+PitShop_ShopNPC_Option_Sell:
 	.string "Sell$"
-PitShop_ShopNPC_Option8:
+PitShop_ShopNPC_Option_Exit:
 	.string "Exit$"
 PitShop_ShopNPC_EditIVs:
 	.string "Edit IVs$"
@@ -482,6 +482,7 @@ PitArena_Mart_EvoItems:
 
 	.align 2
 PitArena_Mart_MegaStones:
+	.2byte ITEM_MEGA_RING
 	.2byte ITEM_RED_ORB
     .2byte ITEM_BLUE_ORB
 	.2byte ITEM_VENUSAURITE
@@ -591,6 +592,7 @@ PitArena_Mart_Gems:
 
  	.align 2
 PitArena_Mart_ZCrystals:
+	.2byte ITEM_Z_POWER_RING
     .2byte ITEM_NORMALIUM_Z
     .2byte ITEM_FIRIUM_Z
     .2byte ITEM_WATERIUM_Z

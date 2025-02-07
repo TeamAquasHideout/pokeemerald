@@ -191,6 +191,11 @@ void SetOnMapLoadDefaultOptions(void)
         FlagSet(FLAG_TERA_CHARGED);
         FlagSet(FLAG_TERA_ACTIVE);
     }
+
+    if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
+    {
+        FlagSet(FLAG_MEGA_ACTIVE);
+    }
 }
 
 #undef ON
