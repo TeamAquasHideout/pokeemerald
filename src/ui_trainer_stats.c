@@ -519,7 +519,16 @@ static const u8 sText_Money12x[]          = _("Money: 1/2x");
 static const u8 sText_PitStp5x[]          = _("Shop: 5 fl.");
 static const u8 sText_PitStp10x[]          = _("Shop: 10 fl.");
 
+static const u8 sText_ModeFoe[]          = _("Foe:");
+static const u8 sText_ModeYou[]          = _("You:");
 static const u8 sText_ModeEVsOn[]          = _("EVs");
+static const u8 sText_ModeGimmick[]          = _("Gmik");
+
+static const u8 sText_ModeGimmickColon[]          = _("Gmik:");
+static const u8 sText_ModeGimmickMega[]          = _("M");
+static const u8 sText_ModeGimmickDynamax[]          = _("D");
+static const u8 sText_ModeGimmickTera[]          = _("T");
+static const u8 sText_ModeGimmickZMove[]          = _("Z");
 
 static const u8 sText_BattleMode_Singles[]  = _("Singles");
 static const u8 sText_BattleMode_Doubles[]  = _("Doubles");
@@ -538,26 +547,27 @@ static const u8 sText_Stat_Highscore[]     	= _("Highscore:");
 static const u8 sText_Stat_Clears[]     	= _("Pit Clears:");
 static const u8 sText_Stat_Attempts[]     	= _("Pit Attempts:");
 
-static const u8 sText_Legends[]           = _("Legend");
-static const u8 sText_StatEdit[]           = _("Editor");
+static const u8 sText_Legends[]           = _("Lgnd");
+static const u8 sText_StatEdit[]           = _("Edit");
 static const u8 sText_Megas[]           = _("Mega");
-static const u8 sText_3MonMode[]           = _("3 Mon Mode");
-static const u8 sText_SkipChoice[]           = _("Skip Choice");
+static const u8 sText_ModeColon[]           = _("Mode: ");
+static const u8 sText_3MonMode[]           = _("3Mon");
+static const u8 sText_SkipChoice[]           = _("Skip");
 
 static const u8 sText_EvoChoice_All[]           = _("Evo: All");
 static const u8 sText_EvoChoice_Basic[]           = _("Evo: Basic");
 static const u8 sText_EvoChoice_Full[]           = _("Evo: Full");
 
-static const u8 sText_TrainerMode_Random[]           = _("/ Rand");
-static const u8 sText_TrainerMode_Prog[]           = _("/ Prog");
+static const u8 sText_TrainerMode_Random[]           = _("/Rand");
+static const u8 sText_TrainerMode_Prog[]           = _("/Prog");
 
 static const u8 sText_Slash[]           = _("/");
 
-static const u8 sText_Type_All[]            = _("Type: All");
+static const u8 sText_Type_All[]            = _("All");
 static const u8 sText_Type_Solo[]            = _("Type:");
 
 #define SETTINGS_X_POS 20
-#define SETTINGS2_X_POSITION 90
+#define SETTINGS2_X_POSITION 88
 #define SETTINGS_Y_START_POS 7
 #define SETTINGS_Y_DIFFERENCE 12
 #define SETTINGS2_Y_DIFFERENCE 12
@@ -706,60 +716,98 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     // Second Column
     //
     
+    // Foe: EVs / Gmik
+    // You: Lgnd/Edit
+    // Type: All
+    // Gmik: M/Z/D/T
+    // 3 Mon Mode
+
     // Trainer EVs
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeFoe);
     if(!gSaveBlock2Ptr->modeTrainerEVs)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeEVsOn);
     
-    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 18, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
-
-	// StatEdit
-    if(!gSaveBlock2Ptr->modeStatChanger)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 18 + 18, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+	// Gimmick
+    if(!(gSaveBlock2Ptr->trainerGimmicks == 2))
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeGimmick);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 0), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeGimmick);
 
 
-	// Megas
-    if(!gSaveBlock2Ptr->modeMegas)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 39, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Megas);
-	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 39, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Megas);
-
-    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 32, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
-
-	// Legends
+    // Trainer EVs
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeYou);
     if(!gSaveBlock2Ptr->modeLegendaries)
-    {
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Legends);
-    }
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Legends);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Legends);
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Legends);
+    
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 18 + 22, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+	// Gimmick
+    if(!(gSaveBlock2Ptr->modeStatChanger))
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 26 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 1), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_StatEdit);
+
+
+    // Gmik: M/Z/D/T
+    // Gimmicks
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeGimmickColon);
+    if(!gSaveBlock2Ptr->modeMegas)
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeGimmickMega);
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeGimmickMega);
+    
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+	// Gimmick
+    if(!(gSaveBlock2Ptr->modeZMoves))
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeGimmickZMove);
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeGimmickZMove);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 18 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+
+    if(gSaveBlock2Ptr->modeDynamax)
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 24 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeGimmickDynamax);
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 24 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeGimmickDynamax);
+    
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 30 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+	// Gimmick
+    if((gSaveBlock2Ptr->modeTera))
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 36 + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_ModeGimmickTera);
+	else
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 36 + 20 + 4, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_ModeGimmickTera);
 
 
     // MonoType
     if(gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
     {
-        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_Type_Solo);
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, green_colors, TEXT_SKIP_DRAW, gTypesInfo[gSaveBlock2Ptr->modeMonoType].name);
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Type_Solo);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, gTypesInfo[gSaveBlock2Ptr->modeMonoType].name);
     }
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Type_All);
+    {
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Type_Solo);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Type_All);
+    }
+		
 
 	// 3 Mon Mode
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeColon);
     if(!gSaveBlock2Ptr->mode3MonsOnly)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_3MonMode);
-
-
-	// Skip Mon Choice
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+    
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+	// Skip Choice
     if(!gSaveBlock2Ptr->modeNoCaseChoice)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
 	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
-
+		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
+    
 
 
 	// sText_Randomizer_Moves
