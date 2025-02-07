@@ -739,7 +739,7 @@
 #define FLAG_UNUSED_0x2B4						0x2B4 // Unused Flag
 #define FLAG_UNUSED_0x2B5						0x2B5 // Unused Flag
 #define FLAG_UNUSED_0x2B6						0x2B6 // Unused Flag
-#define FLAG_UNUSED_0x2B7						0x2B7 // Unused Flag
+#define FLAG_ZMOVES						0x2B7 // Unused Flag
 #define FLAG_MEGA_ACTIVE						0x2B8 // Unused Flag
 #define FLAG_TERA_ACTIVE						0x2B9 // Unused Flag
 #define FLAG_OVERWORLD_MON_ENCOUNTER            0x2BA // Unused Flag

@@ -103,6 +103,10 @@ struct RandomTrainerNPC
 #define ITEM_DROPS_1     1
 #define ITEM_DROPS_3     2
 
+#define TRAINER_GIMMICKS_RANDOM 0
+#define TRAINER_GIMMICKS_PROGRESSIVE 1
+#define TRAINER_GIMMICKS_NONE 2
+
 #define TRAINER_MONS    0
 #define PLAYER_MONS     1
 #define ALL_MONS        2

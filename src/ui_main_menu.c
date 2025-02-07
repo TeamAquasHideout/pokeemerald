@@ -742,8 +742,6 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeMonoType        = TYPE_NONE;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
-    gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
-    gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;
@@ -765,6 +763,10 @@ void LoadNormalModePresets(void)
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_NONE;
     #endif
 
     FlagClear(FLAG_DOUBLES_MODE);
@@ -782,6 +784,10 @@ void LoadHardModePresets(void)
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_ON;
+    gSaveBlock2Ptr->modeDynamax         = TRUE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeTera            = TRUE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
     #endif
 
     FlagClear(FLAG_DOUBLES_MODE);
