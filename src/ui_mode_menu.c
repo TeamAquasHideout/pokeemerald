@@ -89,6 +89,7 @@ enum MenuItems_Difficulty
     MENUITEM_DIFF_MEGAS,
     MENUITEM_DIFF_DYNAMAX,
     MENUITEM_DIFF_TERA,
+    MENUITEM_DIFF_ZMOVES,
 #endif
     MENUITEM_DIFF_BOSS_HEAL,
     MENUITEM_DIFF_ITEM_DROPS,
@@ -316,6 +317,7 @@ static void DrawChoices_TrainerEVs(int selection, int y);
 static void DrawChoices_Legendaries(int selection, int y);
 static void DrawChoices_Duplicates(int selection, int y);
 static void DrawChoices_Megas(int selection, int y);
+static void DrawChoices_ZMoves(int selection, int y);
 static void DrawChoices_HealFloors(int selection, int y);
 static void DrawChoices_NoBagUse(int selection, int y);
 static void DrawChoices_Dynamax(int selection, int y);
@@ -360,6 +362,7 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_LEGENDARIES]   = {DrawChoices_Legendaries,  ProcessInput_Options_Two},
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {DrawChoices_Megas,        ProcessInput_Options_Two},
+    [MENUITEM_DIFF_ZMOVES]        = {DrawChoices_ZMoves,        ProcessInput_Options_Two},
 #endif
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Three},
@@ -414,6 +417,7 @@ static const u8 sText_ItemDrops[]    = _("ITEM DROPS");
 static const u8 sText_NoBagUse[]     = _("BAG IN BATTLE");
 static const u8 sText_Dynamax[]      = _("DYNAMAX");
 static const u8 sText_Tera[]         = _("TERASTAL");
+static const u8 sText_ZMoves[]         = _("Z-MOVES");
 
 static const u8 sText_3MonsOnly[]      = _("3 MONS ONLY");
 static const u8 sText_NoCaseChoice[]   = _("NO BIRCH CASE");
@@ -459,6 +463,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     [MENUITEM_DIFF_LEGENDARIES]   = sText_Legendaries,
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = sText_Megas,
+    [MENUITEM_DIFF_ZMOVES]        = sText_ZMoves,
 #endif
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_ITEM_DROPS]    = sText_ItemDrops,
@@ -534,6 +539,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_LEGENDARIES:   return TRUE;
             #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_MEGAS:         return TRUE;
+                case MENUITEM_DIFF_ZMOVES:        return TRUE;
             #endif
                 case MENUITEM_DIFF_EVOSTAGE:      return TRUE;
                 case MENUITEM_DIFF_MONOTYPE:      return TRUE;
@@ -607,6 +613,8 @@ static const u8 sText_Desc_Duplicates_On[]      = _("Truly random. Duplicates ar
 static const u8 sText_Desc_Duplicates_Off[]     = _("Birch Case can't hold duplicates.");
 static const u8 sText_Desc_Megas_On[]           = _("Mega Evolution is possible.\nA Mega Ring is added to the shop.");
 static const u8 sText_Desc_Megas_Off[]          = _("Mega Evolution is not available.");
+static const u8 sText_Desc_ZMoves_On[]           = _("Using Z-Moves is possible.\nA Z Power Ring is added to the shop.");
+static const u8 sText_Desc_ZMoves_Off[]          = _("Using Z-Moves is not available.");
 static const u8 sText_Desc_HealFloors_5[]       = _("Get a rest stop to heal every\n5 floors.");
 static const u8 sText_Desc_HealFloors_10[]      = _("SUPER HARD! Get a rest stop to heal\nevery 10 floors.");
 static const u8 sText_Desc_3Mons_On[]           = _("Party size will never increase and\nremain at three (incl. trainers).");
@@ -670,6 +678,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
     [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty},
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
+    [MENUITEM_DIFF_ZMOVES]          = {sText_Desc_ZMoves_On,         sText_Desc_ZMoves_Off,         sText_Empty},
 #endif
     [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
     [MENUITEM_DIFF_MONOTYPE]      = {sText_Desc_MonoType,         sText_Desc_MonoType,          sText_Desc_MonoType},
@@ -898,6 +907,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = gSaveBlock2Ptr->modeLegendaries;
     #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
+        sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = gSaveBlock2Ptr->modeZMoves;
     #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
         if (gSaveBlock2Ptr->modeMonoType >= TYPE_MYSTERY)
@@ -1446,6 +1456,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeLegendaries  = sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES];
 #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
+    gSaveBlock2Ptr->modeZMoves        = sOptions->sel_diff[MENUITEM_DIFF_ZMOVES];
 #endif
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage   = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
@@ -1928,6 +1939,18 @@ static void DrawChoices_Megas(int selection, int y)
 }
 #endif
 
+#ifdef PIT_GEN_9_MODE
+static void DrawChoices_ZMoves(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_ZMOVES);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+#endif
+
 static void DrawChoices_EvoStage(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_DIFF_EVOSTAGE);
@@ -2206,10 +2229,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
     sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_ON;
-#ifdef PIT_GEN_9_MODE
-    sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_OFF;
-    sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_OFF;
-#endif
+
     //randomizer settings
     sOptions->sel_rand[MENUITEM_RAND_B_WEATHER]     = NO_B_WEATHER;
     sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_OFF;
@@ -2228,6 +2248,9 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
         #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_OFF;
         #endif
             break;
         case PRESET_HARD:
@@ -2237,6 +2260,9 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
         #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_ON;
         #endif
             break;
         default:

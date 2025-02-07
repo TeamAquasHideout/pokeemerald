@@ -9,9 +9,10 @@
 .set ZMOVES_SHOP, 8
 .set FORMS_SHOP, 9
 .set TERA_SHOP, 10
-.set EDIT_IV_SHOP, 11
-.set SELL_SHOP, 12
-.set EXIT_SHOP, 13
+.set DYNAMAX_SHOP, 11
+.set EDIT_IV_SHOP, 12
+.set SELL_SHOP, 13
+.set EXIT_SHOP, 14
 
 
 PitShop_ShopNPC::
@@ -48,6 +49,11 @@ PitShop_ShopSkipZMoves::
 	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopSkipTeraShop
 	dynmultipush PitShop_ShopNPC_Tera, TERA_SHOP
 PitShop_ShopSkipTeraShop::
+
+	goto_if_unset FLAG_DYNAMAX, PitShop_ShopSkipDynamaxShop
+	dynmultipush PitShop_ShopNPC_Dynamax, DYNAMAX_SHOP
+PitShop_ShopSkipDynamaxShop::
+	
 #endif
 
 	goto_if_set FLAG_STAT_CHANGER, PitShop_ShopSkipStatChanger
@@ -75,6 +81,7 @@ PitShop_ShopSkipStatChanger::
 	case ZMOVES_SHOP, PitArena_MartScript_ZCrystals
 	case FORMS_SHOP, PitArena_MartScript_FormItems
 	case TERA_SHOP, PitArena_MartScript_TeraShards
+	case DYNAMAX_SHOP, PitArena_MartScript_Dynamax
 	case EDIT_IV_SHOP, PitArena_MartScript_EditIVs
 	case SELL_SHOP, PitArena_MartScript_Sell
 	case EXIT_SHOP, EndOfMartScript
@@ -179,6 +186,13 @@ PitArena_MartScript_FormItems::
 	release
 	end
 
+PitArena_MartScript_Dynamax::
+	pokemart PitArena_Mart_Dynamax
+	goto PitShop_ShopNPCHook
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
 PitArena_MartScript_EditIVs::
 	showmoneybox 0, 0
 	msgbox PitShop_ShopNPC_IV_Text, MSGBOX_YESNO
@@ -254,6 +268,8 @@ PitShop_ShopNPC_Option_Forms:
 	.string "Forms$"
 PitShop_ShopNPC_Tera:
 	.string "Terastal$"
+PitShop_ShopNPC_Dynamax:
+	.string "Dynamax$"
 PitShop_ShopNPC_Option_Sell:
 	.string "Sell$"
 PitShop_ShopNPC_Option_Exit:
@@ -559,11 +575,15 @@ PitArena_Mart_ZCrystals:
 	end
 
  	.align 2
-PitArena_Mart_FormItems:
-#ifdef PIT_GEN_9_MODE
+PitArena_Mart_Dynamax:
 	.2byte  ITEM_DYNAMAX_BAND
 	.2byte  ITEM_MAX_SOUP
-#endif
+	.2byte ITEM_NONE
+    release
+	end
+
+ 	.align 2
+PitArena_Mart_FormItems:
 	.2byte  ITEM_METEORITE
     .2byte  ITEM_DNA_SPLICERS
 	.2byte  ITEM_ZYGARDE_CUBE
