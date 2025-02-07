@@ -322,6 +322,10 @@ void Ai_InitPartyStruct(void)
     u32 i;
     bool32 isOmniscient = (AI_THINKING_STRUCT->aiFlags[B_POSITION_OPPONENT_LEFT] & AI_FLAG_OMNISCIENT) || (AI_THINKING_STRUCT->aiFlags[B_POSITION_OPPONENT_RIGHT] & AI_FLAG_OMNISCIENT);
     struct Pokemon *mon;
+    
+    bool8 hasMega = FALSE;
+    bool8 hasDyna = FALSE;
+    bool8 hasTera = FALSE;
 
     AI_PARTY->count[B_SIDE_PLAYER] = gPlayerPartyCount;
     AI_PARTY->count[B_SIDE_OPPONENT] = gEnemyPartyCount;
@@ -338,7 +342,67 @@ void Ai_InitPartyStruct(void)
         CopyBattlerDataToAIParty(B_POSITION_OPPONENT_RIGHT, B_SIDE_OPPONENT);
     }
 
-    // Find fainted mons
+    //set AI gimmick data
+    for (i = 0; i < AI_PARTY->count[B_SIDE_OPPONENT]; i++)
+    {
+        if (AI_PARTY->mons[B_SIDE_OPPONENT][i].gimmick == GIMMICK_PIT_NONE
+          && !(((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES)) && i == (AI_PARTY->count[B_SIDE_OPPONENT] - 1))) //exclude Ace
+        {
+            //Dynamax
+            u16 dynamax_odds = 0;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                dynamax_odds = 0;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                dynamax_odds = 5;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
+            {
+                if(VarGet(VAR_PIT_FLOOR) <= 25)
+                    dynamax_odds = 0;
+                else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                    dynamax_odds = 1;
+                else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                    dynamax_odds = 2;
+                else
+                    dynamax_odds = 5;
+            }    
+            //Terastal
+            u16 tera_odds = 0;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                tera_odds = 0;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                tera_odds = 15;
+            if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
+            {
+                if(VarGet(VAR_PIT_FLOOR) <= 25)
+                    tera_odds = 0;
+                else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                    tera_odds = 5;
+                else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                    tera_odds = 10;
+                else
+                    tera_odds = 15;
+            }
+            //set data
+            if (FlagGet(FLAG_MEGA_ACTIVE) && GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM) == GetMegaStone(GetMonData(&gEnemyParty[gBattlerPartyIndexes[i]], MON_DATA_SPECIES)) && !hasMega)
+            {
+                //This condition is required to balance all gimmicks, even though it doesn't actually activate the Mega gimmick.
+                //This is done earlier by giving the randomized mon its Mega Stone.
+                hasMega = TRUE;
+            }
+            else if (FlagGet(FLAG_DYNAMAX) && RandomPercentage(RNG_NONE, dynamax_odds) && !hasDyna)
+            {
+                AI_PARTY->mons[B_SIDE_OPPONENT][i].gimmick = GIMMICK_PIT_DYNA;
+                hasDyna = TRUE;
+            }
+            else if (FlagGet(FLAG_TERA_ACTIVE) && RandomPercentage(RNG_NONE, tera_odds) && !hasTera)
+            {
+                AI_PARTY->mons[B_SIDE_OPPONENT][i].gimmick = GIMMICK_PIT_TERA;
+                hasTera = TRUE;
+            }
+        }
+    }
+
+    // set AI mon flags
     for (i = 0; i < AI_PARTY->count[B_SIDE_PLAYER]; i++)
     {
         if (GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0)

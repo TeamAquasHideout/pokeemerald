@@ -85,47 +85,11 @@ bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick)
         u16 trainerId = isSecondTrainer ? gTrainerBattleOpponent_B : gTrainerBattleOpponent_A;
         const struct TrainerMon *mon = &GetTrainerPartyFromId(trainerId)[isSecondTrainer ? gBattlerPartyIndexes[battler] - MULTI_PARTY_SIZE : gBattlerPartyIndexes[battler]];
 
-        u16 dynamax_odds = 0;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
-            dynamax_odds = 0;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-            dynamax_odds = 5;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
-        {
-            if(VarGet(VAR_PIT_FLOOR) <= 25)
-                dynamax_odds = 0;
-            else if (VarGet(VAR_PIT_FLOOR) <= 50)
-                dynamax_odds = 1;
-            else if (VarGet(VAR_PIT_FLOOR) <= 75)
-                dynamax_odds = 2;
-            else
-                dynamax_odds = 5;
-        }    
 
-        u16 tera_odds = 0;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
-            tera_odds = 0;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-            tera_odds = 25;
-        if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
-        {
-            if(VarGet(VAR_PIT_FLOOR) <= 25)
-                tera_odds = 0;
-            else if (VarGet(VAR_PIT_FLOOR) <= 50)
-                tera_odds = 5;
-            else if (VarGet(VAR_PIT_FLOOR) <= 75)
-                tera_odds = 15;
-            else
-                tera_odds = 25;
-        }    
-
-        DebugPrintf("Dynamax Chance: %d", dynamax_odds);
-        DebugPrintf("Tera Chance: %d", tera_odds);
-
-        if ((gimmick == GIMMICK_TERA) && (GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE) && RandomPercentage(RNG_NONE, tera_odds)
+        if ((gimmick == GIMMICK_TERA) && (GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE) && AI_PARTY->mons[B_SIDE_OPPONENT][gBattlerPartyIndexes[battler]].gimmick == GIMMICK_PIT_TERA
           && FlagGet(FLAG_TERA_ACTIVE))
             return TRUE;
-        if (gimmick == GIMMICK_DYNAMAX && RandomPercentage(RNG_NONE, dynamax_odds)
+        if (gimmick == GIMMICK_DYNAMAX && AI_PARTY->mons[B_SIDE_OPPONENT][gBattlerPartyIndexes[battler]].gimmick == GIMMICK_PIT_DYNA
           && FlagGet(FLAG_DYNAMAX))
             return TRUE;
     }
