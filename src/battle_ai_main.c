@@ -353,7 +353,7 @@ void Ai_InitPartyStruct(void)
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
                 dynamax_odds = 0;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-                dynamax_odds = 5;
+                dynamax_odds = 4;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
             {
                 if(VarGet(VAR_PIT_FLOOR) <= 25)
@@ -363,24 +363,24 @@ void Ai_InitPartyStruct(void)
                 else if (VarGet(VAR_PIT_FLOOR) <= 75)
                     dynamax_odds = 2;
                 else
-                    dynamax_odds = 5;
+                    dynamax_odds = 4;
             }    
             //Terastal
             u16 tera_odds = 0;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
                 tera_odds = 0;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-                tera_odds = 15;
+                tera_odds = 10;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
             {
                 if(VarGet(VAR_PIT_FLOOR) <= 25)
                     tera_odds = 0;
                 else if (VarGet(VAR_PIT_FLOOR) <= 50)
-                    tera_odds = 5;
+                    tera_odds = 4;
                 else if (VarGet(VAR_PIT_FLOOR) <= 75)
-                    tera_odds = 10;
+                    tera_odds = 8;
                 else
-                    tera_odds = 15;
+                    tera_odds = 10;
             }
             //set data
             if (FlagGet(FLAG_MEGA_ACTIVE) && GetMonData(&gEnemyParty[i], MON_DATA_HELD_ITEM) == GetMegaStone(GetMonData(&gEnemyParty[gBattlerPartyIndexes[i]], MON_DATA_SPECIES)) && !hasMega)
