@@ -3274,6 +3274,11 @@ static const u8  sOneTypeChallengeValidTypes[VALID_TYPES_COUNT] =
     #endif
 };
 
+u8 GetRandomType()
+{
+    return sOneTypeChallengeValidTypes[Random() % RANDOM_TYPE_COUNT];
+}
+
 u8 GetTypeBySpecies(u16 species, u8 typeNum)
 {
     u8 type;

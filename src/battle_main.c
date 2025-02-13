@@ -2163,6 +2163,14 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             odds = 20;
                         else
                             odds = 35;
+                    
+                        if(gSaveBlock2Ptr->mode50Floors)
+                        {
+                            if (VarGet(VAR_PIT_FLOOR) <= 25)
+                                odds = 5;
+                            else
+                                odds = 25;
+                        }
                     }    
 
                     if ((Random() % 100) < odds)
@@ -2278,7 +2286,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             if (FlagGet(FLAG_TERA_ACTIVE) && !isPlayer)
             {
-                u32 data = Random() % NUMBER_OF_MON_TYPES;
+                u32 data = GetRandomType();
                 u8 coinflip = Random() % 2;
                 if (coinflip)
                     data = TYPE_NONE; //use default in 50% of cases
