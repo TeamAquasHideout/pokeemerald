@@ -919,7 +919,7 @@ static void ModeMenu_SetupCB(void)
     #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]   = gSaveBlock2Ptr->trainerGimmicks;
         sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = gSaveBlock2Ptr->modeMegas;
-        sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = gSaveBlock2Ptr->modeZMoves;
+        sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = gSaveBlock2Ptr->modeZMoves;
     #endif
         sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = gSaveBlock2Ptr->modeChoiceEvoStage;
         if (gSaveBlock2Ptr->modeMonoType >= TYPE_MYSTERY)
@@ -2257,6 +2257,10 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
     sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_ON;
 #ifdef PIT_GEN_9_MODE
+    sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
+    sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = OPTIONS_ON;
+    sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_OFF;
+    sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_NONE;
 #endif
     //randomizer settings
@@ -2275,12 +2279,6 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
-        #ifdef PIT_GEN_9_MODE
-            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_OFF;
-            sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = OPTIONS_OFF;
-            sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_OFF;
-            sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_OFF;
-        #endif
             break;
         case PRESET_HARD:
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_50;
@@ -2288,10 +2286,6 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
         #ifdef PIT_GEN_9_MODE
-            sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
-            sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]         = OPTIONS_ON;
-            sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_ON;
-            sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
         #endif
             break;

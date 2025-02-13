@@ -57,7 +57,7 @@ u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies);
 void ClearGeneratedMons(void);
 void ResetMonoTypeArray(void);
 void ClearGeneratedMonsByType(void);
-u8 GetRandomType();
+u8 GetRandomTeraType(void);
 
 struct RandomTrainerNPC 
 {

@@ -3322,6 +3322,7 @@ static void DebugAction_Give_Pokemon_SelectLevel(u8 taskId)
             u8 nature, level, i;
             int sentToPc;
 
+            sDebugMonData->level = gTasks[taskId].tInput;
             level = sDebugMonData->level;
             nature = Random() % NUM_NATURES;
 

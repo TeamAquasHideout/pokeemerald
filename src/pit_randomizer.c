@@ -3274,9 +3274,33 @@ static const u8  sOneTypeChallengeValidTypes[VALID_TYPES_COUNT] =
     #endif
 };
 
-u8 GetRandomType()
+#define RANDOM_TERA_TYPE_COUNT ARRAY_COUNT(sValidTeraTypes)
+static const u8  sValidTeraTypes[] =
 {
-    return sOneTypeChallengeValidTypes[Random() % RANDOM_TYPE_COUNT];
+    TYPE_NORMAL   ,
+    TYPE_FIGHTING ,
+    TYPE_FLYING   ,
+    TYPE_POISON   ,
+    TYPE_GROUND   ,
+    TYPE_ROCK     ,
+    TYPE_BUG      ,
+    TYPE_GHOST    ,
+    TYPE_STEEL    ,
+    TYPE_FIRE     ,
+    TYPE_WATER    ,
+    TYPE_GRASS    ,
+    TYPE_ELECTRIC ,
+    TYPE_PSYCHIC  ,
+    TYPE_ICE      ,
+    TYPE_DRAGON   ,
+    TYPE_DARK     ,
+    TYPE_FAIRY    ,
+    TYPE_STELLAR  ,
+};
+
+u8 GetRandomTeraType(void)
+{
+    return sValidTeraTypes[Random() % RANDOM_TYPE_COUNT];
 }
 
 u8 GetTypeBySpecies(u16 species, u8 typeNum)

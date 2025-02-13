@@ -2286,7 +2286,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             if (FlagGet(FLAG_TERA_ACTIVE) && !isPlayer)
             {
-                u32 data = GetRandomType();
+                u32 data = GetRandomTeraType();
                 u8 coinflip = Random() % 2;
                 if (coinflip)
                     data = TYPE_NONE; //use default in 50% of cases

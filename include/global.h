@@ -592,7 +592,7 @@ struct SaveBlock2
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
              u16 modeNoCaseChoice:1;
-             u16 modeSaveDeletion:1;
+             u16 modeSaveDeletion:1; // no longer used and can be repurposed!
              u16 modeStatChanger:1;
              u16 modeLegendaries:1;
              u16 modeDuplicates:1;
