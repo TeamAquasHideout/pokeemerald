@@ -2279,7 +2279,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                 {
                     data = TRUE;
-                    DebugPrintf("set gigantamax factor");
+                    //DebugPrintf("set gigantamax factor");
                 }
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
@@ -2291,7 +2291,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                     data = TYPE_NONE; //use default in 50% of cases
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-                DebugPrintf("set trainer tera type to %d, coinflip %d", data, coinflip);
+                //DebugPrintf("set trainer tera type to %d, coinflip %d", data, coinflip);
             }
 
             //DebugPrintf("MONS CREATED HERE");
@@ -4562,6 +4562,7 @@ static void HandleTurnActionSelectionState(void)
                     {
                         struct ChooseMoveStruct moveInfo;
 
+                        gBattleStruct->gimmick.playerSelect = FALSE;
                         moveInfo.zmove = gBattleStruct->zmove;
                         moveInfo.species = gBattleMons[battler].species;
                         moveInfo.monTypes[0] = gBattleMons[battler].types[0];
