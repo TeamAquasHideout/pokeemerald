@@ -2727,7 +2727,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_VENUSAURITE,
                             .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_SLEEP_POWDER, MOVE_SLUDGE_BOMB, MOVE_ENERGY_BALL, MOVE_EARTH_POWER}
+                            .moves = {MOVE_SLEEP_POWDER, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN, MOVE_EARTH_POWER}
                         },
 #endif
     },
