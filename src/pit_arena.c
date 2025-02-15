@@ -2274,7 +2274,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_DOUBLE_EDGE, MOVE_SHADOW_BALL, MOVE_HYPER_BEAM, MOVE_EARTHQUAKE}
+                            .moves = {MOVE_DOUBLE-EDGE, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_SHADOW_BALL}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2285,7 +2285,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_NIGHT_SLASH, MOVE_ROCK_SLIDE}
+                            .moves = {MOVE_DOUBLE-EDGE, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_NIGHT_SLASH}
                         },
 #else
         .trainerAce =   {
@@ -2296,7 +2296,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_DOUBLE_EDGE, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE, MOVE_KNOCK_OFF}
+                            .moves = {MOVE_DOUBLE-EDGE, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_KNOCK_OFF}
                         },
 #endif
     },
@@ -2317,13 +2317,13 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_ALTARIA,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_LONELY,
-                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_FLY}
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_DOUBLE_EDGE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2334,7 +2334,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROOST}
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_DOUBLE_EDGE}
         },
 #else
         .trainerAce =   {
@@ -2345,7 +2345,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_ALTARIANITE,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_ROOST}
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW, MOVE_DOUBLE_EDGE}
                         },
 #endif
     },
@@ -2413,35 +2413,35 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_NIDOKING,
+                            .species = SPECIES_MEWTWO,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_JOLLY,
-                            .moves = {MOVE_EARTHQUAKE, MOVE_MEGAHORN, MOVE_SLUDGE_BOMB, MOVE_ROCK_SLIDE}
+                            .nature = NATURE_TIMID,
+                            .moves = {MOVE_CALM_MIND, MOVE_PSYCHIC, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_NIDOKING,
+                            .species = SPECIES_MEWTWO,
                             .heldItem = ITEM_LIFE_ORB,
                             .ability = 2,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_FLAMETHROWER, MOVE_EARTH_POWER, MOVE_SLUDGE_BOMB, MOVE_ICE_BEAM}
+                            .moves = {MOVE_CALM_MIND, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                         },
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_NIDOKING,
-                            .heldItem = ITEM_LIFE_ORB,
+                            .species = SPECIES_MEWTWO,
+                            .heldItem = ITEM_MEWTWONITE_Y,
                             .ability = 2,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_FLAMETHROWER, MOVE_EARTH_POWER, MOVE_SLUDGE_BOMB, MOVE_ICE_BEAM}
+                            .moves = {MOVE_CALM_MIND, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                         },
 #endif
    },
@@ -2459,36 +2459,36 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("Show me what you got!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+                            .iv = TRAINER_PARTY_IVS(30, 30, 30, 31, 30, 30),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_STEELIX,
-                            .heldItem = ITEM_LEFTOVERS,
+                            .species = SPECIES_AERODACTYL,
+                            .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
-                            .nature = NATURE_IMPISH,
-                            .moves = {MOVE_EARTHQUAKE, MOVE_TOXIC, MOVE_ROCK_SLIDE, MOVE_REST}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_ROCK_SLIDE, MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_HIDDEN_POWER}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 0, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+                            .iv = TRAINER_PARTY_IVS(30, 30, 30, 31, 30, 30),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_STEELIX,
-                            .heldItem = ITEM_LEFTOVERS,
+                            .species = SPECIES_AERODACTYL,
+                            .heldItem = ITEM_LIFE_ORB,
                             .ability = 0,
-                            .nature = NATURE_IMPISH,
-                            .moves = {MOVE_EARTHQUAKE, MOVE_GYRO_BALL, MOVE_ROCK_SLIDE, MOVE_CURSE}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_ROCK_SLIDE, MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_HIDDEN_POWER}
                         },
 #else
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 0, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 252, 0, 0, 0),
+                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_STEELIX,
-                            .heldItem = ITEM_STEELIXITE,
+                            .species = SPECIES_AERODACTYL,
+                            .heldItem = ITEM_AERODACTYLITE,
                             .ability = 0,
-                            .nature = NATURE_IMPISH,
-                            .moves = {MOVE_EARTHQUAKE, MOVE_GYRO_BALL, MOVE_ROCK_SLIDE, MOVE_CURSE}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_ROCK_SLIDE, MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_DUAL_WINGBEAT}
                         },
 #endif
     },
@@ -2504,14 +2504,14 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("Put your back into it!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .iv = TRAINER_PARTY_IVS(31, 30, 31, 31, 30, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_GENGAR,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_THUNDERBOLT, MOVE_FIRE_PUNCH, MOVE_ICE_PUNCH, MOVE_HYPNOSIS}
+                            .moves = {MOVE_THUNDERBOLT, MOVE_FIRE_PUNCH, MOVE_ICE_PUNCH, MOVE_HIDDEN_POWER}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2519,10 +2519,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_GENGAR,
-                            .heldItem = ITEM_BLACK_SLUDGE,
+                            .heldItem = ITEM_LIFE_ORB,
                             .ability = 0,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_NASTY_PLOT}
+                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_THUNDERBOLT}
                         },
 #else
         .trainerAce =   {
@@ -2533,7 +2533,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_GENGARITE,
                             .ability = 0,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_NASTY_PLOT}
+                            .moves = {MOVE_SLUDGE_BOMB, MOVE_SHADOW_BALL, MOVE_FOCUS_BLAST, MOVE_THUNDERBOLT}
                         },
 #endif
     },
@@ -2558,35 +2558,35 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_METAGROSS,
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
-                            .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_DOUBLE_EDGE, MOVE_ROCK_SLIDE}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_METEOR_MASH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_AERIAL_ACE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_METAGROSS,
                             .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
-                            .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ICE_PUNCH, MOVE_PURSUIT}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_ICE_PUNCH}
                         }
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_METAGROSS,
                             .heldItem = ITEM_METAGROSSITE,
                             .ability = 0,
-                            .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ICE_PUNCH, MOVE_ROCK_SLIDE}
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_BULLET_PUNCH, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_ICE_PUNCH}
                         },
 #endif
     },
@@ -2610,7 +2610,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_NAIVE,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_OVERHEAT, MOVE_ROCK_SLIDE}
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_OVERHEAT}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2621,7 +2621,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_FIRE_PUNCH, MOVE_STONE_EDGE}
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
                         },
 #else
         .trainerAce =   {
@@ -2632,7 +2632,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_RED_ORB,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_FIRE_PUNCH, MOVE_STONE_EDGE}
+                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
                         },
 #endif
     },
@@ -2651,7 +2651,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_KYOGRE,
                             .heldItem = ITEM_LEFTOVERS,
@@ -2662,18 +2662,18 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_KYOGRE,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_CALM_MIND, MOVE_SCALD, MOVE_THUNDER, MOVE_ICE_BEAM}
+                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
                         },
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_KYOGRE,
                             .heldItem = ITEM_BLUE_ORB,
@@ -2698,36 +2698,36 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("I shall not lose!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                            .iv = TRAINER_PARTY_IVS(31, 31, 30, 31, 31, 30),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_VILEPLUME,
+                            .species = SPECIES_VENUSAUR,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_LONELY,
-                            .moves = {MOVE_SLEEP_POWDER, MOVE_SWORDS_DANCE, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SLUDGE_BOMB, MOVE_EARTHQUAKE, MOVE_HIDDEN_POWER}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .iv = TRAINER_PARTY_IVS(31, 30, 30, 31, 31, 31),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_VILEPLUME,
-                            .heldItem = ITEM_BLACK_SLUDGE,
-                            .ability = 2,
+                            .species = SPECIES_VENUSAUR,
+                            .heldItem = ITEM_LIFE_ORB,
+                            .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_SLEEP_POWDER, MOVE_LEECH_SEED, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+                            .moves = {MOVE_SLEEP_POWDER, MOVE_SLUDGE_BOMB, MOVE_ENERGY_BALL, MOVE_HIDDEN_POWER}
                         }
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 252, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
-                            .species = SPECIES_VILEPLUME,
-                            .heldItem = ITEM_BLACK_SLUDGE,
-                            .ability = 2,
+                            .species = SPECIES_VENUSAUR,
+                            .heldItem = ITEM_VENUSAURITE,
+                            .ability = 0,
                             .nature = NATURE_MODEST,
-                            .moves = {MOVE_SLEEP_POWDER, MOVE_STRENGTH_SAP, MOVE_SLUDGE_BOMB, MOVE_GIGA_DRAIN}
+                            .moves = {MOVE_SLEEP_POWDER, MOVE_SLUDGE_BOMB, MOVE_ENERGY_BALL, MOVE_EARTH_POWER}
                         },
 #endif
     },
@@ -2746,14 +2746,14 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("Wahahahah! Now, this is amusing!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .iv = TRAINER_PARTY_IVS(30, 31, 30, 31, 31, 31),
                             .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
                             .lvl = 100,
                             .species = SPECIES_MANECTRIC,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_THUNDERBOLT, MOVE_THUNDER, MOVE_CRUNCH, MOVE_DOUBLE_TEAM}
+                            .moves = {MOVE_THUNDERBOLT, MOVE_HIDDEN_POWER, MOVE_CRUNCH, MOVE_DOUBLE_TEAM}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2802,7 +2802,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_CALM_MIND, MOVE_PSYCHIC, MOVE_FIRE_PUNCH, MOVE_RECOVER}
+                            .moves = {MOVE_PSYCHIC, MOVE_FIRE_PUNCH, MOVE_ICE_PUNCH, MOVE_THUNDER_PUNCH}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2845,36 +2845,36 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("Careful you don't freeze up!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .iv = TRAINER_PARTY_IVS(31, 31, 30, 30, 31, 30),
+                            .ev = TRAINER_PARTY_EVS(252, 0, 4, 0, 252, 0),
                             .lvl = 100,
                             .species = SPECIES_WALREIN,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_CALM,
-                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
+                            .nature = NATURE_MODEST,
+                            .moves = {MOVE_ICE_BEAM, MOVE_EARTHQUAKE, MOVE_SURF, MOVE_PROTECT}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .ev = TRAINER_PARTY_EVS(252, 0, 4, 0, 252, 0),
                             .lvl = 100,
                             .species = SPECIES_WALREIN,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_CALM,
-                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
+                            .nature = NATURE_MODEST,
+                            .moves = {MOVE_ICE_BEAM, MOVE_EARTHQUAKE, MOVE_SURF, MOVE_PROTECT}
                         },
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 4, 0, 0, 0, 252),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_WALREIN,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 0,
-                            .nature = NATURE_CALM,
-                            .moves = {MOVE_ICE_BEAM, MOVE_SURF, MOVE_TOXIC, MOVE_REST}
+                            .species = SPECIES_GLALIE,
+                            .heldItem = ITEM_GLALITITE,
+                            .ability = 2,
+                            .nature = NATURE_JOLLY,
+                            .moves = {MOVE_ICE_SHARD, MOVE_EARTHQUAKE, MOVE_CRUNCH, MOVE_TRAILBLAZE}
                         },
 #endif
     },
@@ -2895,13 +2895,13 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_DRAGONITE,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
-                            .nature = NATURE_LONELY,
-                            .moves = {MOVE_DRAGON_DANCE, MOVE_AERIAL_ACE, MOVE_EARTHQUAKE, MOVE_ICE_BEAM}
+                            .nature = NATURE_ADAMANT,
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_DOUBLE_EDGE, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2912,7 +2912,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 2,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_DRAGON_DANCE, MOVE_EXTREME_SPEED, MOVE_EARTHQUAKE, MOVE_OUTRAGE}
+                            .moves = {MOVE_DRAGON_DANCE, MOVE_EXTREME_SPEED, MOVE_EARTHQUAKE, MOVE_AERIAL_ACE}
                         },
 #else
         .trainerAce =   {
@@ -2942,14 +2942,14 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("Don't let up!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .iv = TRAINER_PARTY_IVS(31, 31, 30, 30, 30, 30),
                             .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_ABSOL,
-                            .heldItem = ITEM_LEFTOVERS,
+                            .heldItem = ITEM_CHOICE_BAND,
                             .ability = 0,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_DOUBLE_TEAM, MOVE_SHADOW_BALL, MOVE_BITE}
+                            .moves = {MOVE_DOUBLE_EDGE, MOVE_QUICK_ATTACK, MOVE_SHADOW_BALL, MOVE_HIDDEN_POWER}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -2960,7 +2960,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LIFE_ORB,
                             .ability = 1,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUCKER_PUNCH, MOVE_SUPERPOWER, MOVE_NIGHT_SLASH}
+                            .moves = {MOVE_SUCKER_PUNCH, MOVE_SUPERPOWER, MOVE_PURSUIT, MOVE_ROCK_SLIDE}
                         },
 #else
         .trainerAce =   {
@@ -2971,7 +2971,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_ABSOLITE,
                             .ability = 1,
                             .nature = NATURE_JOLLY,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUCKER_PUNCH, MOVE_PLAY_ROUGH, MOVE_KNOCK_OFF}
+                            .moves = {MOVE_SUCKER_PUNCH, MOVE_CLOSE_COMBAT, MOVE_KNOCK_OFF, MOVE_PLAY_ROUGH}
                         },
 #endif
     },
@@ -2994,14 +2994,14 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
         .bossAceText =      COMPOUND_STRING("All right, let's do this!\p$"),
 #if (GEN_LATEST == GEN_3)
         .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                            .iv = TRAINER_PARTY_IVS(31, 31, 30, 30, 31, 30),
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_SCIZOR,
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_MORNING_SUN, MOVE_STEEL_WING}
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_SILVER_WIND, MOVE_HIDDEN_POWER, MOVE_STEEL_WING}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -3012,7 +3012,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LIFE_ORB,
                             .ability = 1,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_SUPERPOWER, MOVE_BULLET_PUNCH, MOVE_PURSUIT}
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_BULLET_PUNCH, MOVE_KNOCK_OFF, MOVE_AERIAL_ACE}
                         },
 #else
         .trainerAce =   {
@@ -3023,7 +3023,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_SCIZORITE,
                             .ability = 1,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_SWORDS_DANCE, MOVE_KNOCK_OFF, MOVE_BULLET_PUNCH, MOVE_TRAILBLAZE}
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_BULLET_PUNCH, MOVE_KNOCK_OFF, MOVE_TRAILBLAZE}
                         },
 #endif
     },
@@ -3052,7 +3052,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LEFTOVERS,
                             .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_CROSS_CHOP, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE}
+                            .moves = {MOVE_CROSS_CHOP, MOVE_FACADE, MOVE_ROCK_SLIDE, MOVE_EARTHQUAKE}
                         },
 #elif (GEN_LATEST == GEN_5)
         .trainerAce =   {
@@ -3060,10 +3060,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_MACHAMP,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 1,
+                            .heldItem = ITEM_FLAME_ORB,
+                            .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_DYNAMIC_PUNCH, MOVE_STONE_EDGE, MOVE_THUNDER_PUNCH}
+                            .moves = {MOVE_CLOSE_COMBAT, MOVE_FACADE, MOVE_ROCK_SLIDE, MOVE_KNOCK_OFF}
                         },
 #else
         .trainerAce =   {
@@ -3071,10 +3071,10 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
                             .lvl = 100,
                             .species = SPECIES_MACHAMP,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 1,
+                            .heldItem = ITEM_FLAME_ORB,
+                            .ability = 0,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_DYNAMIC_PUNCH, MOVE_STONE_EDGE, MOVE_KNOCK_OFF}
+                            .moves = {MOVE_CLOSE_COMBAT, MOVE_FACADE, MOVE_ROCK_SLIDE, MOVE_KNOCK_OFF}
                         },
 #endif
     },
