@@ -76,7 +76,7 @@ static u8 GetWonderTradeOT(u8 *name)
     return randGender;
 }
 
-// This function is a copy of GenerateRandomSpeciesRewards() without species limitations (ALL_MONS, no additional legendary odds, no evo stage check, etc.)
+// This function is a copy of GenerateRandomSpeciesRewards() without species limitations (PLAYER_MONS, no additional legendary odds, no evo stage check, etc.)
 static u32 ReturnRandomSpecies()
 {   
     u16 species = 0xFF;
@@ -86,7 +86,7 @@ static u32 ReturnRandomSpecies()
     u8 partyCount;
     int i;
 
-    species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+    species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
     //species = SPECIES_GROUDON; //Test setting for reroll tests
 
     do
@@ -98,7 +98,7 @@ static u32 ReturnRandomSpecies()
             while (((IsSpeciesLegendary(species) || IsSpeciesMythical(species) || IsSpeciesUltraBeast(species) || IsSpeciesParadoxMon(species)) || species > GetMaxTrainerNumberOfSpecies(TRUE)) && counter < 10)
             {
                 // +counter to handle edge cases
-                species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+                species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
                 counter ++;
                 //DebugPrintf("%d, rerolled non-legend species = %d", counter, species);
             }
@@ -126,7 +126,7 @@ static u32 ReturnRandomSpecies()
         if (rerollMon)
         {
             counter2++;
-            species = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+            species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
             counter = 0; //reset counter for legendary rerolls
         }
     }

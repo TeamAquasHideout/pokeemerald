@@ -134,11 +134,13 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeHealFloors10 = HEAL_FLOORS_5;
         gSaveBlock2Ptr->modeLegendaries = ON;
         gSaveBlock2Ptr->modeMegas = OFF;
+        gSaveBlock2Ptr->modeZMoves = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
         gSaveBlock2Ptr->modeMonoType = TYPE_NONE;
         gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
         gSaveBlock2Ptr->modeDynamax = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
+        gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_NONE;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather
@@ -190,6 +192,15 @@ void SetOnMapLoadDefaultOptions(void)
     {
         FlagSet(FLAG_TERA_CHARGED);
         FlagSet(FLAG_TERA_ACTIVE);
+    }
+
+    if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
+    {
+        FlagSet(FLAG_MEGA_ACTIVE);
+    }
+    if(gSaveBlock2Ptr->modeZMoves == OPTIONS_ON)
+    {
+        FlagSet(FLAG_ZMOVES);
     }
 }
 

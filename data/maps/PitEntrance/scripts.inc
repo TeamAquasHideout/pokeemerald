@@ -156,10 +156,6 @@ PitEntrance_Warp::
 	goto_if_eq VAR_RESULT, 0, PitEntrance_Warp_SkipShinyDust
 	additem ITEM_SHINY_DUST, 1
 PitEntrance_Warp_SkipShinyDust::
-#ifdef PIT_GEN_9_MODE
-	additem ITEM_MEGA_RING, 1
-	additem ITEM_Z_POWER_RING, 1
-#endif
 	additem ITEM_EXP_SHARE, 1
 	setflag FLAG_SYS_POKEMON_GET
 PitEntrance_ExecuteWarp:

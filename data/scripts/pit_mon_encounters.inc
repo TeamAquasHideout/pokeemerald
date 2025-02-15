@@ -371,7 +371,7 @@ PitEncounter_Mover::
 	faceplayer
 	msgbox PitEncounter_NPCMoverOpen, MSGBOX_DEFAULT
 	message PitEncounter_NPCMoverOpen2
-	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEncounter_NPCMover2, PitEncounter_NPCMover3, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitEncounter_NPCMover2, PitEncounter_NPCMover3, PitShop_ShopNPC_Option_Exit
 	goto_if_eq VAR_RESULT, 0, PitEncounter_MoverSkip1
 	goto_if_eq VAR_RESULT, 1, PitEncounter_MoverSkip2
 	closemessage

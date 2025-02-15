@@ -1,3 +1,19 @@
+.set TMS_AF_OR_ALL, 0
+.set TMS_GR_100, 1
+.set TMS_SZ_200, 2
+.set EVOS_SHOP, 3
+.set VITAMINS_SHOP, 4
+.set MEGAS_SHOP, 5
+.set MINTS_SHOP, 6
+.set GEMS_SHOP, 7
+.set ZMOVES_SHOP, 8
+.set FORMS_SHOP, 9
+.set TERA_SHOP, 10
+.set DYNAMAX_SHOP, 11
+.set EDIT_IV_SHOP, 12
+.set SELL_SHOP, 13
+.set EXIT_SHOP, 14
+
 
 PitShop_ShopNPC::
 	lock
@@ -5,157 +21,74 @@ PitShop_ShopNPC::
 	setvar VAR_TEMP_9, 0
 PitShop_ShopNPCHook::
 	message PitShop_ShopNPC_Text
-#ifdef PIT_GEN_3_MODE
-	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen3IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-#elif defined PIT_GEN_5_MODE
-	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen5IVs
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-#else
-	goto_if_unset FLAG_STAT_CHANGER, PitShop_ShopNPCHook_Gen9_NoStatChanger
-	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopNPCHook_Gen9_StatChanger_NoTera
-	@Stat changer active and Tera active
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Tera, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	goto PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_Tera
-PitShop_ShopNPCHook_Gen9_StatChanger_NoTera:
-	@Stat changer active and Tera inactive
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	goto PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_NoTera
-PitShop_ShopNPCHook_Gen9_NoStatChanger:
-	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopNPCHook_Gen9_NoStatChanger_NoTera
-	@Stat changer inactive and Tera active
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_Tera, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	goto PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_Tera
-PitShop_ShopNPCHook_Gen9_NoStatChanger_NoTera:
-	@Stat changer inactive and Tera inactive
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option0_100, PitShop_ShopNPC_Option0_200, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option2, PitShop_ShopNPC_Option3, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option5, PitShop_ShopNPC_Option6, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	goto PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_NoTera
+
+	dynmultipush PitShop_ShopNPC_Option_TMsAF_OrAll, TMS_AF_OR_ALL
+
+#ifdef PIT_GEN_9_MODE
+	dynmultipush PitShop_ShopNPC_Option_TMsGR_100, TMS_GR_100
+	dynmultipush PitShop_ShopNPC_Option_TMsSZ_200, TMS_SZ_200
 #endif
+
+	dynmultipush PitShop_ShopNPC_Option_Evos, EVOS_SHOP
+	dynmultipush PitShop_ShopNPC_OptionVitamin, VITAMINS_SHOP
+	dynmultipush PitShop_ShopNPC_Option_Mints, MINTS_SHOP
+
+#ifndef PIT_GEN_3_MODE
+	dynmultipush PitShop_ShopNPC_Option_Forms, FORMS_SHOP
+#endif
+
+#ifdef PIT_GEN_9_MODE
+	goto_if_unset FLAG_MEGA_ACTIVE, PitShop_ShopSkipMegaShop
+	dynmultipush PitShop_ShopNPC_Option_Megas, MEGAS_SHOP
+PitShop_ShopSkipMegaShop::
+
+	goto_if_unset FLAG_ZMOVES, PitShop_ShopSkipZMoves
+	dynmultipush PitShop_ShopNPC_Option_ZMoves, ZMOVES_SHOP
+PitShop_ShopSkipZMoves::
+
+	goto_if_unset FLAG_TERA_ACTIVE, PitShop_ShopSkipTeraShop
+	dynmultipush PitShop_ShopNPC_Tera, TERA_SHOP
+PitShop_ShopSkipTeraShop::
+
+	goto_if_unset FLAG_DYNAMAX, PitShop_ShopSkipDynamaxShop
+	dynmultipush PitShop_ShopNPC_Dynamax, DYNAMAX_SHOP
+PitShop_ShopSkipDynamaxShop::
+	
+#endif
+
+	goto_if_set FLAG_STAT_CHANGER, PitShop_ShopSkipStatChanger
+	dynmultipush PitShop_ShopNPC_EditIVs, EDIT_IV_SHOP
+PitShop_ShopSkipStatChanger::
+
+	dynmultipush PitShop_ShopNPC_Option_Sell, SELL_SHOP
+	dynmultipush PitShop_ShopNPC_Option_Exit, EXIT_SHOP
+
+	dynmultistack 17, 1, FALSE, 5, FALSE, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE
+
 	closemessage
 	setflag FLAG_BUY_FROM_MART
 	copyvar VAR_TEMP_9, VAR_RESULT
-#ifdef PIT_GEN_3_MODE
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Sell
-#elif defined PIT_GEN_5_MODE
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Sell
-#endif
+
+	switch VAR_RESULT
+	case TMS_AF_OR_ALL, PitArena_MartScript_TMs
+	case TMS_GR_100, PitArena_MartScript_TMs_100
+	case TMS_SZ_200, PitArena_MartScript_TMs_200
+	case EVOS_SHOP, PitArena_MartScript_EvoItems
+	case VITAMINS_SHOP, PitArena_MartScript_Vitamins
+	case MEGAS_SHOP, PitArena_MartScript_MegaStones
+	case MINTS_SHOP, PitArena_MartScript_Mints
+	case GEMS_SHOP, PitArena_MartScript_Gems
+	case ZMOVES_SHOP, PitArena_MartScript_ZCrystals
+	case FORMS_SHOP, PitArena_MartScript_FormItems
+	case TERA_SHOP, PitArena_MartScript_TeraShards
+	case DYNAMAX_SHOP, PitArena_MartScript_Dynamax
+	case EDIT_IV_SHOP, PitArena_MartScript_EditIVs
+	case SELL_SHOP, PitArena_MartScript_Sell
+	case EXIT_SHOP, EndOfMartScript
+	case MULTI_B_PRESSED, EndOfMartScript
 EndOfMartScript::
 	clearflag FLAG_SELL_FROM_MART
 	clearflag FLAG_BUY_FROM_MART
-	release
-	end
-
-PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_Tera::
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_TMs_200
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_MegaStones
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 7, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 8, PitArena_MartScript_ZCrystals
-	goto_if_eq VAR_RESULT, 9, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 10, PitArena_MartScript_TeraShards
-	goto_if_eq VAR_RESULT, 11, PitArena_MartScript_Sell
-	release
-	end
-
-PitShop_ShopNPCHook_Martscript_Gen9_StatChanger_NoTera::
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_TMs_200
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_MegaStones
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 7, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 8, PitArena_MartScript_ZCrystals
-	goto_if_eq VAR_RESULT, 9, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 10, PitArena_MartScript_Sell
-	release
-	end
-
-PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_Tera::
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_TMs_200
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_MegaStones
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 7, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 8, PitArena_MartScript_ZCrystals
-	goto_if_eq VAR_RESULT, 9, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 10, PitArena_MartScript_TeraShards
-	goto_if_eq VAR_RESULT, 11, PitArena_MartScript_EditIVs
-	goto_if_eq VAR_RESULT, 12, PitArena_MartScript_Sell
-	release
-	end
-
-PitShop_ShopNPCHook_Martscript_Gen9_NoStatChanger_NoTera::
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_TMs_100
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_TMs_200
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_MegaStones
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Mints
-	goto_if_eq VAR_RESULT, 7, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 8, PitArena_MartScript_ZCrystals
-	goto_if_eq VAR_RESULT, 9, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 10, PitArena_MartScript_EditIVs
-	goto_if_eq VAR_RESULT, 11, PitArena_MartScript_Sell
-	release
-	end
-
-PitShop_ShopNPCHook_Gen5IVs::
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_Option4, PitShop_ShopNPC_Option6, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_Gems
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_FormItems
-	goto_if_eq VAR_RESULT, 5, PitArena_MartScript_EditIVs
-	goto_if_eq VAR_RESULT, 6, PitArena_MartScript_Sell
-	release
-	end
-
-PitShop_ShopNPCHook_Gen3IVs::
-	dynmultichoice 17, 1, 0, 5, VAR_TEMP_9, DYN_MULTICHOICE_CB_NONE, PitShop_ShopNPC_Option0, PitShop_ShopNPC_Option1, PitShop_ShopNPC_OptionVitamin, PitShop_ShopNPC_EditIVs, PitShop_ShopNPC_Option7, PitShop_ShopNPC_Option8
-	closemessage
-	setflag FLAG_BUY_FROM_MART
-	copyvar VAR_TEMP_9, VAR_RESULT
-	goto_if_eq VAR_RESULT, 0, PitArena_MartScript_TMs
-	goto_if_eq VAR_RESULT, 1, PitArena_MartScript_EvoItems
-	goto_if_eq VAR_RESULT, 2, PitArena_MartScript_Vitamins
-	goto_if_eq VAR_RESULT, 3, PitArena_MartScript_EditIVs
-	goto_if_eq VAR_RESULT, 4, PitArena_MartScript_Sell
 	release
 	end
 
@@ -253,6 +186,13 @@ PitArena_MartScript_FormItems::
 	release
 	end
 
+PitArena_MartScript_Dynamax::
+	pokemart PitArena_Mart_Dynamax
+	goto PitShop_ShopNPCHook
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
 PitArena_MartScript_EditIVs::
 	showmoneybox 0, 0
 	msgbox PitShop_ShopNPC_IV_Text, MSGBOX_YESNO
@@ -304,33 +244,35 @@ PitArena_MartScript_EditIVs_Execute::
 	end
 
 
-PitShop_ShopNPC_Option0:
+PitShop_ShopNPC_Option_TMsAF_OrAll:
 #ifdef PIT_GEN_9_MODE
 	.string "TMs A-F$"
 #else
 	.string "TMs    $"
 #endif
-PitShop_ShopNPC_Option0_100:
+PitShop_ShopNPC_Option_TMsGR_100:
 	.string "TMs G-R$"
-PitShop_ShopNPC_Option0_200:
+PitShop_ShopNPC_Option_TMsSZ_200:
 	.string "TMs S-Z & HMs$"
-PitShop_ShopNPC_Option1:
+PitShop_ShopNPC_Option_Evos:
 	.string "Evos$"
-PitShop_ShopNPC_Option2:
+PitShop_ShopNPC_Option_Megas:
 	.string "Megas$"
-PitShop_ShopNPC_Option3:
+PitShop_ShopNPC_Option_Mints:
 	.string "Mints   $"
-PitShop_ShopNPC_Option4:
+PitShop_ShopNPC_Option_Gems:
 	.string "Gems$"
-PitShop_ShopNPC_Option5:
+PitShop_ShopNPC_Option_ZMoves:
 	.string "Z-Moves$"
-PitShop_ShopNPC_Option6:
+PitShop_ShopNPC_Option_Forms:
 	.string "Forms$"
 PitShop_ShopNPC_Tera:
 	.string "Terastal$"
-PitShop_ShopNPC_Option7:
+PitShop_ShopNPC_Dynamax:
+	.string "Dynamax$"
+PitShop_ShopNPC_Option_Sell:
 	.string "Sell$"
-PitShop_ShopNPC_Option8:
+PitShop_ShopNPC_Option_Exit:
 	.string "Exit$"
 PitShop_ShopNPC_EditIVs:
 	.string "Edit IVs$"
@@ -482,6 +424,7 @@ PitArena_Mart_EvoItems:
 
 	.align 2
 PitArena_Mart_MegaStones:
+	.2byte ITEM_MEGA_RING
 	.2byte ITEM_RED_ORB
     .2byte ITEM_BLUE_ORB
 	.2byte ITEM_VENUSAURITE
@@ -591,6 +534,7 @@ PitArena_Mart_Gems:
 
  	.align 2
 PitArena_Mart_ZCrystals:
+	.2byte ITEM_Z_POWER_RING
     .2byte ITEM_NORMALIUM_Z
     .2byte ITEM_FIRIUM_Z
     .2byte ITEM_WATERIUM_Z
@@ -631,19 +575,23 @@ PitArena_Mart_ZCrystals:
 	end
 
  	.align 2
-PitArena_Mart_FormItems:
-#ifdef PIT_GEN_9_MODE
+PitArena_Mart_Dynamax:
 	.2byte  ITEM_DYNAMAX_BAND
 	.2byte  ITEM_MAX_SOUP
-#endif
+	.2byte ITEM_NONE
+    release
+	end
+
+ 	.align 2
+PitArena_Mart_FormItems:
 	.2byte  ITEM_METEORITE
     .2byte  ITEM_DNA_SPLICERS
-	.2byte  ITEM_ZYGARDE_CUBE
 	.2byte  ITEM_GRACIDEA
 	.2byte  ITEM_GRISEOUS_CORE
 	.2byte  ITEM_ROTOM_CATALOG
 	.2byte  ITEM_REVEAL_GLASS
 #ifdef PIT_GEN_9_MODE
+	.2byte  ITEM_ZYGARDE_CUBE
 	.2byte  ITEM_PRISON_BOTTLE
 	.2byte  ITEM_ADAMANT_CRYSTAL
 	.2byte  ITEM_LUSTROUS_GLOBE
@@ -678,7 +626,8 @@ PitArena_Mart_FormItems:
     .2byte  ITEM_IRON_PLATE
 #ifdef PIT_GEN_9_MODE
     .2byte  ITEM_PIXIE_PLATE
-	.2byte  ITEM_YELLOW_NECTAR
+	.2byte  ITEM_RED_NECTAR
+    .2byte  ITEM_YELLOW_NECTAR
     .2byte  ITEM_PINK_NECTAR
     .2byte  ITEM_PURPLE_NECTAR
 	.2byte  ITEM_FIRE_MEMORY

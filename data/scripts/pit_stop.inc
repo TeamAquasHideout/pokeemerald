@@ -18,10 +18,10 @@ PitTutor_MoveRelearner::
 	faceplayer
 #ifndef PIT_GEN_9_MODE
 	showmoneybox 18, 13
-	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitTutor_MoveRelearnerText, PitArena_EggMovesText, PitArena_PreEvoMovesText, PitArena_TutorMovesText, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitTutor_MoveRelearnerText, PitArena_EggMovesText, PitArena_PreEvoMovesText, PitArena_TutorMovesText, PitShop_ShopNPC_Option_Exit
 #else
 	showmoneybox 18, 11
-	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitTutor_MoveRelearnerText, PitArena_EggMovesText, PitArena_PreEvoMovesText, PitShop_ShopNPC_Option8
+	dynmultichoice 17, 1, 0, 5, 0, DYN_MULTICHOICE_CB_NONE, PitTutor_MoveRelearnerText, PitArena_EggMovesText, PitArena_PreEvoMovesText, PitShop_ShopNPC_Option_Exit
 #endif	
 	goto_if_eq VAR_RESULT, 0, PitTutor_MartNPCMoveRelearner
 	goto_if_eq VAR_RESULT, 1, PitTutor_MartNPCMoveTutorEggMoves

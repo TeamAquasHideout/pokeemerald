@@ -67,6 +67,14 @@
 
 #define BATTLE_BUFFER_LINK_SIZE 0x1000
 
+enum PitGimmickType
+{
+    GIMMICK_PIT_NONE,
+    GIMMICK_PIT_MEGA,
+    GIMMICK_PIT_DYNA,
+    GIMMICK_PIT_TERA,
+};
+
 // Special indicator value for shellBellDmg in SpecialStatus
 #define IGNORE_SHELL_BELL 0xFFFF
 
@@ -334,6 +342,7 @@ struct AiPartyMon
     bool8 isFainted;
     bool8 wasSentInBattle;
     u8 switchInCount; // Counts how many times this Pokemon has been sent out or switched into in a battle.
+    u8 gimmick;
 };
 
 struct AIPartyData // Opposing battlers - party mons.

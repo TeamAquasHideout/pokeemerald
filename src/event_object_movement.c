@@ -2024,6 +2024,8 @@ static u8 LoadDynamicFollowerPalette(u16 species, u8 form, bool32 shiny)
 static void FollowerSetGraphics(struct ObjectEvent *objEvent, u16 species, u8 form, bool8 shiny)
 {
     const struct ObjectEventGraphicsInfo *graphicsInfo = SpeciesToGraphicsInfo(species, form);
+    
+    shiny = FALSE; //force all follower mons to use the regular palette
     ObjectEventSetGraphics(objEvent, graphicsInfo);
     objEvent->graphicsId = (OBJ_EVENT_GFX_MON_BASE + species) & OBJ_EVENT_GFX_SPECIES_MASK;
     objEvent->graphicsId |= form << OBJ_EVENT_GFX_SPECIES_BITS;

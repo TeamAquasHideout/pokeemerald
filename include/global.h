@@ -585,12 +585,14 @@ struct SaveBlock2
              u16 modeSpeciesArray:1; //0 = Random, 1 = progressive
              u16 modeDynamax:1;
              u16 modeTera:1;
-             u16 padding2:7; // uncommented because its free padding space
+             u16 modeZMoves:1;
+             u16 trainerGimmicks:2; // 0 = Random, 1 = Progressive, 2 = Off
+             u16 padding2:4; // uncommented because its free padding space
             // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
              u16 modeNoCaseChoice:1;
-             u16 modeSaveDeletion:1;
+             u16 modeSaveDeletion:1; // no longer used and can be repurposed!
              u16 modeStatChanger:1;
              u16 modeLegendaries:1;
              u16 modeDuplicates:1;

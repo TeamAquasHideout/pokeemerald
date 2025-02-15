@@ -1432,31 +1432,7 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
             else
                 return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
         case ALL_MONS:
-            if (gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
-            {
-                //create dynamic array
-                u32 maxSpecies = GetMaxPlayerNumberOfSpecies(TRUE);
-                u32 maxMonoTypeSpecies = GetMonoTypeNumberOfSpecies();
-                int element = 0;
-
-                if (gMonoTypeArray[0] == 0) // array is empty
-                {
-                    for (int i = 0; i < maxSpecies; i++)
-                    {
-                        if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
-                          || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
-                        {
-                            gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
-                            //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
-                            element++;
-                        }
-                    }
-                }
-
-                return gMonoTypeArray[RandomModulo(0, maxMonoTypeSpecies)];
-            }   
-            else
-                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(TRUE)), TRUE);
+            return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     }
 
     // Default Should Never Reach
@@ -1599,7 +1575,8 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     break;
             }
             
-            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE && counter2 > 10) // for performance reasons only 10 rerolls in case of mono type runs
+            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
+              (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5)) // for performance reasons only 10 rerolls in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
@@ -3296,6 +3273,35 @@ static const u8  sOneTypeChallengeValidTypes[VALID_TYPES_COUNT] =
         TYPE_FAIRY,
     #endif
 };
+
+#define RANDOM_TERA_TYPE_COUNT ARRAY_COUNT(sValidTeraTypes)
+static const u8  sValidTeraTypes[] =
+{
+    TYPE_NORMAL   ,
+    TYPE_FIGHTING ,
+    TYPE_FLYING   ,
+    TYPE_POISON   ,
+    TYPE_GROUND   ,
+    TYPE_ROCK     ,
+    TYPE_BUG      ,
+    TYPE_GHOST    ,
+    TYPE_STEEL    ,
+    TYPE_FIRE     ,
+    TYPE_WATER    ,
+    TYPE_GRASS    ,
+    TYPE_ELECTRIC ,
+    TYPE_PSYCHIC  ,
+    TYPE_ICE      ,
+    TYPE_DRAGON   ,
+    TYPE_DARK     ,
+    TYPE_FAIRY    ,
+    TYPE_STELLAR  ,
+};
+
+u8 GetRandomTeraType(void)
+{
+    return sValidTeraTypes[Random() % RANDOM_TYPE_COUNT];
+}
 
 u8 GetTypeBySpecies(u16 species, u8 typeNum)
 {

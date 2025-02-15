@@ -57,6 +57,8 @@ u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies);
 void ClearGeneratedMons(void);
 void ResetMonoTypeArray(void);
 void ClearGeneratedMonsByType(void);
+u8 GetRandomTeraType(void);
+
 struct RandomTrainerNPC 
 {
     u16 arrayElement;
@@ -102,6 +104,10 @@ struct RandomTrainerNPC
 #define ITEM_DROPS_RAND  0
 #define ITEM_DROPS_1     1
 #define ITEM_DROPS_3     2
+
+#define TRAINER_GIMMICKS_RANDOM 0
+#define TRAINER_GIMMICKS_PROGRESSIVE 1
+#define TRAINER_GIMMICKS_NONE 2
 
 #define TRAINER_MONS    0
 #define PLAYER_MONS     1

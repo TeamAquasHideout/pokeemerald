@@ -5257,6 +5257,13 @@ u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
         return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
     else
     {
+        if(gSaveBlock2Ptr->mode50Floors)
+        {
+            if (floor <= 25)
+                return RANDOM_DYNAMIC_SPECIES_COUNT_36_50;
+            return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+        }
+
         if (floor <= 25)
             return RANDOM_DYNAMIC_SPECIES_COUNT_16_25;
         if (floor <= 50)
@@ -5276,6 +5283,13 @@ u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
         return sRandomDynamicSpecies_76_100[index];
     else
     {
+        if(gSaveBlock2Ptr->mode50Floors)
+        {
+            if (floor <= 25)
+                return sRandomDynamicSpecies_36_50[index];
+            return sRandomDynamicSpecies_76_100[index];
+        }
+
         if (floor <= 25)
             return sRandomDynamicSpecies_16_25[index];
         if (floor <= 50)

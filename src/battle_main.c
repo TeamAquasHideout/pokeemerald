@@ -2145,10 +2145,35 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 //overwrite with Mega Stones
                 if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                 {
-                    u16 odds;
-                    odds = (Random() % 100);
+                    u16 odds = 0;
 
-                    if (odds < 40)
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                        odds = 0;
+                    
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                        odds = 35;
+                    
+                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
+                    {
+                        if(VarGet(VAR_PIT_FLOOR) <= 25)
+                            odds = 0;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                            odds = 10;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                            odds = 20;
+                        else
+                            odds = 35;
+                    
+                        if(gSaveBlock2Ptr->mode50Floors)
+                        {
+                            if (VarGet(VAR_PIT_FLOOR) <= 25)
+                                odds = 5;
+                            else
+                                odds = 25;
+                        }
+                    }    
+
+                    if ((Random() % 100) < odds)
                     {
                         u16 megaStone = GetMegaStone(GetMonData(&party[i], MON_DATA_SPECIES));
 
@@ -2247,42 +2272,29 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
 
-            if (partyData[j].teraType > 0)
+            if (FlagGet(FLAG_DYNAMAX) && !isPlayer)
             {
-                u32 data = partyData[j].teraType;
-                SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
+                u32 data = FALSE;
+                u8 coinflip = Random() % 2;
+                if (coinflip)
+                {
+                    data = TRUE;
+                    //DebugPrintf("set gigantamax factor");
+                }
+                SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
 
-            //if(isPlayer && (partyData[j].teraType > 0))
-            //{
-            //    u32 data = partyData[j].teraType;
-            //    SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-            //    DebugPrintf("PLAYER SET TERA %d", data);
-            //}
-            //else if (isPlayer)
-            //{
-            //    u32 data = TYPE_NONE;
-            //    SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-            //}
-            //
-            //if (!isPlayer)
-            //{   
-            //    if(setTrainerTera == 0)
-            //    {
-            //        u32 data = Random() % NUMBER_OF_MON_TYPES;
-            //        SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-            //        setTrainerTera = 1;
-            //        DebugPrintf("SET TERA %d", data);
-            //    }
-            //    else
-            //    {
-            //        u32 data = TYPE_NONE;
-            //        SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-            //        DebugPrintf("DONT SET TERA %d", data);
-            //    }
-            //} 
-            //DebugPrintf("MONS CREATED HERE");
+            if (FlagGet(FLAG_TERA_ACTIVE) && !isPlayer)
+            {
+                u32 data = GetRandomTeraType();
+                u8 coinflip = Random() % 2;
+                if (coinflip)
+                    data = TYPE_NONE; //use default in 50% of cases
+                SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
+                //DebugPrintf("set trainer tera type to %d, coinflip %d", data, coinflip);
+            }
 
+            //DebugPrintf("MONS CREATED HERE");
             CalculateMonStats(&party[i]);
 
             if (B_TRAINER_CLASS_POKE_BALLS >= GEN_7 && ball == -1)
@@ -4550,6 +4562,7 @@ static void HandleTurnActionSelectionState(void)
                     {
                         struct ChooseMoveStruct moveInfo;
 
+                        gBattleStruct->gimmick.playerSelect = FALSE;
                         moveInfo.zmove = gBattleStruct->zmove;
                         moveInfo.species = gBattleMons[battler].species;
                         moveInfo.monTypes[0] = gBattleMons[battler].types[0];
@@ -5978,6 +5991,7 @@ static void TryEvolvePokemon(void)
     {
         if (!(sTriedEvolving & gBitTable[i]))
         {
+            DebugPrintf("TryEvolvePokemon");
             u16 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_BATTLE_SPECIAL, i, NULL);
             bool32 evoModeNormal = TRUE;
             sTriedEvolving |= gBitTable[i];
