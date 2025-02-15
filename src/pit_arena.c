@@ -2430,7 +2430,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_LIFE_ORB,
                             .ability = 2,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_CALM_MIND, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
+                            .moves = {MOVE_AURA_SPHERE, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                         },
 #else
         .trainerAce =   {
@@ -2441,7 +2441,7 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                             .heldItem = ITEM_MEWTWONITE_Y,
                             .ability = 2,
                             .nature = NATURE_TIMID,
-                            .moves = {MOVE_CALM_MIND, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
+                            .moves = {MOVE_AURA_SPHERE, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                         },
 #endif
    },
