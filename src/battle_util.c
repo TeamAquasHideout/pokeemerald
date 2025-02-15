@@ -11405,6 +11405,8 @@ bool32 CanStealItem(u32 battlerStealing, u32 battlerItem, u16 item)
     {
         return FALSE;
     }
+    else if (stealerSide == B_SIDE_PLAYER && GetBattlerSide(gBattlerTarget) == stealerSide) //don't allow stealing from your own partner as it can be used to multiply items
+        return FALSE;
 
     if (!CanBattlerGetOrLoseItem(battlerItem, item)      // Battler with item cannot have it stolen
       ||!CanBattlerGetOrLoseItem(battlerStealing, item)) // Stealer cannot take the item
