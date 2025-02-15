@@ -4713,6 +4713,8 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
     u16 evolutionTracker = GetMonData(mon, MON_DATA_EVOLUTION_TRACKER, 0);
     const struct Evolution *evolutions = GetSpeciesEvolutions(species);
 
+    DebugPrintf("GetEvolutionTargetSpecies");
+
     if (evolutions == NULL)
         return SPECIES_NONE;
 
@@ -5040,6 +5042,12 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 mode, u16 evolutionItem, s
                 break;
             case EVO_OVERWORLD_STEPS:
                 if (mon == GetFirstLiveMon() && gFollowerSteps >= evolutions[i].param)
+                    targetSpecies = evolutions[i].targetSpecies;
+                break;
+            case EVO_DAMAGE_TAKEN:
+                u16 currentHp = GetMonData(mon, MON_DATA_HP, NULL);
+                if (currentHp != 0
+                  && (GetMonData(mon, MON_DATA_MAX_HP, NULL) - currentHp >= evolutions[i].param))
                     targetSpecies = evolutions[i].targetSpecies;
                 break;
             }
