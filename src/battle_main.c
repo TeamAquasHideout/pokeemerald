@@ -2023,6 +2023,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     u8 monsCount;
     u16 averageEVs = 0;
     u16 setTrainerTera = 0;
+    bool8 megaStoneAssigned = FALSE;
 
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
@@ -2173,12 +2174,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         }
                     }    
 
-                    if ((Random() % 100) < odds)
+                    if ((Random() % 100) < odds && !megaStoneAssigned)
                     {
                         u16 megaStone = GetMegaStone(GetMonData(&party[i], MON_DATA_SPECIES));
 
                         if (megaStone != ITEM_NONE)
+                        {
                             item = megaStone;
+                            megaStoneAssigned = TRUE;
+                        }
                     }
                 }
 #endif
