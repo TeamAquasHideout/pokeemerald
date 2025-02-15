@@ -1037,6 +1037,7 @@ EventScript_DoWonderTrade_EndEarly::
 EventScript_SetGigantamaxFactor::
 	lock
 	togglegigantamaxfactor VAR_0x8004
+	goto_if_eq VAR_RESULT, 0, EventScript_End
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	message gText_GigantamaxFactorSet
 	waitmessage

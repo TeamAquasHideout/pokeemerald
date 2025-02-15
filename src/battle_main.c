@@ -5991,7 +5991,6 @@ static void TryEvolvePokemon(void)
     {
         if (!(sTriedEvolving & gBitTable[i]))
         {
-            DebugPrintf("TryEvolvePokemon");
             u16 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_BATTLE_SPECIAL, i, NULL);
             bool32 evoModeNormal = TRUE;
             sTriedEvolving |= gBitTable[i];
