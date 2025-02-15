@@ -2141,6 +2141,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             if(!isPlayer)
             {
                 item = GetRandomHeldItemOpponent();
+
+                if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))
+                  && (item == ITEM_RED_CARD || item == ITEM_EJECT_BUTTON || item == ITEM_EJECT_PACK))
+                    item = ITEM_LEFTOVERS; // safety measure: default item in case of switch out items for bosses
                 
 #ifdef PIT_GEN_9_MODE
                 //overwrite with Mega Stones
