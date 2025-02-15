@@ -3068,13 +3068,13 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
 #else
         .trainerAce =   {
                             .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 0, 4),
                             .lvl = 100,
-                            .species = SPECIES_MACHAMP,
-                            .heldItem = ITEM_FLAME_ORB,
-                            .ability = 0,
+                            .species = SPECIES_LUCARIO,
+                            .heldItem = ITEM_LUCARIONITE,
+                            .ability = 2,
                             .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_CLOSE_COMBAT, MOVE_FACADE, MOVE_ROCK_SLIDE, MOVE_KNOCK_OFF}
+                            .moves = {MOVE_SWORDS_DANCE, MOVE_CLOSE_COMBAT, MOVE_BULLET_PUNCH, MOVE_EXTREME_SPEED}
                         },
 #endif
     },
