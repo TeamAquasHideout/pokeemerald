@@ -4300,9 +4300,10 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 
                     case 8: // ITEM4_SWAP_GENDER
                         {
-                            u8 newGender = MON_GENDERLESS;          
+                            u8 newGender = MON_GENDERLESS;     
+                            u32 personality = 0; 
+                            u16 oldNature = 0;
                             u16 checksum;
-                            u32 personality;
                             u32 otId = GetMonData(mon, MON_DATA_OT_ID);
                             u16 species = GetMonData(mon, MON_DATA_SPECIES);
                             bool8 isShiny = IsMonShiny(mon);
@@ -4321,11 +4322,14 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                                 }
 
                                 // calc personality for new gender
+                                personality = GetMonData(mon, MON_DATA_PERSONALITY);
+                                oldNature = GetNatureFromPersonality(personality);
                                 do
                                 {
                                     personality = Random32();
                                 }
-                                while (GetGenderFromSpeciesAndPersonality(species, personality) != newGender);
+                                while (GetGenderFromSpeciesAndPersonality(species, personality) != newGender
+                                  || GetNatureFromPersonality(personality) != oldNature);
 
                                 // set new data
                                 UpdateMonPersonality(&mon->box, personality);
