@@ -2101,6 +2101,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 CreateMon(&party[i], partyData[j].species, partyData[j].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId);
             else
             {
+                //trainer mons
                 u16 monLevel = VarGet(VAR_PIT_FLOOR);
                 if (monLevel > 100)
                     monLevel = 100;
@@ -2111,22 +2112,33 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 else if (monLevel == 100 || monLevel % 25 == 0)
                 {
                     // = fully evolved mons for every trainer from Floor 100 on and for bosses!
-                    u16 newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
-                    const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
-                    while (evolutions != NULL)
+                    u16 newSpecies;
+                    u32 bst = 0;
+                    const struct Evolution *evolutions;
+
+                    do
                     {
-                        u16 tempSpecies = evolutions[0].targetSpecies;
-                        if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                        newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+                        evolutions = GetSpeciesEvolutions(newSpecies);
+                        while (evolutions != NULL)
                         {
-                            evolutions = NULL;
-                            break;
+                            u16 tempSpecies = evolutions[0].targetSpecies;
+                            if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                            {
+                                evolutions = NULL;
+                                break;
+                            }
+                            else
+                            {
+                                newSpecies = tempSpecies;
+                                evolutions = GetSpeciesEvolutions(newSpecies);
+                            }
                         }
-                        else
-                        {
-                            newSpecies = tempSpecies;
-                            evolutions = GetSpeciesEvolutions(newSpecies);
-                        }
-                    }
+                        bst = (gSpeciesInfo[newSpecies].baseHP + gSpeciesInfo[newSpecies].baseAttack + gSpeciesInfo[newSpecies].baseDefense + gSpeciesInfo[newSpecies].baseSpAttack + gSpeciesInfo[newSpecies].baseSpDefense + gSpeciesInfo[newSpecies].baseSpeed);
+                    } while ((VarGet(VAR_PIT_FLOOR) == 100
+                        || (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50))
+                      && bst < 525); //make the final boss have only BST 525+ mons
+                    
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
                 else
@@ -2148,7 +2160,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     item = ITEM_LEFTOVERS; // safety measure: default item in case of switch out items for bosses
                 
 #ifdef PIT_GEN_9_MODE
-                //overwrite with Mega Stones
+                //overwrite item with Mega Stones
                 if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                 {
                     u16 odds = 0;
@@ -2179,7 +2191,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         }
                     }    
 
-                    if ((Random() % 100) < odds && !megaStoneAssigned)
+                    if ((Random() % 100) < odds && !megaStoneAssigned
+                      && VarGet(VAR_PIT_FLOOR) % 25 != 0) //no additional megas for bosses
                     {
                         u16 megaStone = GetMegaStone(GetMonData(&party[i], MON_DATA_SPECIES));
 
