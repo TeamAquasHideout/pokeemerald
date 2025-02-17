@@ -12,6 +12,13 @@ enum Gimmick
     GIMMICKS_COUNT,
 };
 
+// gimmick Flags
+#define GIMMICK_FLAG_MEGA        (1 << 0)
+#define GIMMICK_FLAG_ULTRA_BURST (1 << 1)
+#define GIMMICK_FLAG_Z_MOVE      (1 << 2)
+#define GIMMICK_FLAG_DYNAMAX     (1 << 3)
+#define GIMMICK_FLAG_TERA        (1 << 4)
+
 struct GimmickInfo
 {
     const struct SpritePalette *triggerPal;        // trigger gfx data
@@ -33,7 +40,7 @@ bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick);
 void SetGimmickAsActivated(u32 battler, enum Gimmick gimmick);
 
 void ChangeGimmickTriggerSprite(u32 spriteId, u32 animId);
-void CreateGimmickTriggerSprite(u32 battler);
+void CreateGimmickTriggerSprite(u32 battler, u32 gimmick);
 bool32 IsGimmickTriggerSpriteActive(void);
 void HideGimmickTriggerSprite(void);
 void DestroyGimmickTriggerSprite(void);

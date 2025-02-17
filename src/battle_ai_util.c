@@ -21,6 +21,7 @@
 #include "constants/hold_effects.h"
 #include "constants/moves.h"
 #include "constants/items.h"
+#include "math_util.h"
 
 #define CHECK_MOVE_FLAG(flag)                                                                                   \
     s32 i;                                                                                                      \
@@ -534,14 +535,15 @@ struct SimulatedDamage AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u
 
     // Temporarily enable gimmicks for damage calcs if planned
     if (gBattleStruct->gimmick.usableGimmick[battlerAtk] && GetActiveGimmick(battlerAtk) == GIMMICK_NONE
-        && !(gBattleStruct->gimmick.usableGimmick[battlerAtk] == GIMMICK_Z_MOVE && !considerZPower))
+        && !(gBattleStruct->gimmick.usableGimmick[battlerAtk] & GIMMICK_FLAG_Z_MOVE && !considerZPower))
     {
         // Set Z-Move variables if needed
-        if (gBattleStruct->gimmick.usableGimmick[battlerAtk] == GIMMICK_Z_MOVE && IsViableZMove(battlerAtk, move))
+        if (gBattleStruct->gimmick.usableGimmick[battlerAtk] & GIMMICK_FLAG_Z_MOVE && IsViableZMove(battlerAtk, move))
             gBattleStruct->zmove.baseMoves[battlerAtk] = move;
 
         toggledGimmick = TRUE;
-        SetActiveGimmick(battlerAtk, gBattleStruct->gimmick.usableGimmick[battlerAtk]);
+        DebugPrintf("AI_CalcDamage gimmick = %d", MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battlerAtk]));
+        SetActiveGimmick(battlerAtk, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battlerAtk]));
     }
 
     moveEffect = gMovesInfo[move].effect;

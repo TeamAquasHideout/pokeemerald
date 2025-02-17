@@ -43,6 +43,7 @@
 #include "constants/event_objects.h"
 #include "script.h"
 #include "pit.h"
+#include "math_util.h"
 
 static void OpponentHandleLoadMonSprite(u32 battler);
 static void OpponentHandleSwitchInAnim(u32 battler);
@@ -568,8 +569,8 @@ static void OpponentHandleChooseMove(u32 battler)
                             gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
                     }
                     // If opponent can and should use a gimmick (considering trainer data), do it
-                    if (gBattleStruct->gimmick.usableGimmick[battler] != GIMMICK_NONE
-                     && !(gBattleStruct->gimmick.usableGimmick[battler] == GIMMICK_Z_MOVE
+                    if (MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) != GIMMICK_NONE
+                     && !(MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) == GIMMICK_Z_MOVE
                      && !ShouldUseZMove(battler, gBattlerTarget, moveInfo->moves[chosenMoveId])))
                     {
                         BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, (chosenMoveId) | (RET_GIMMICK) | (gBattlerTarget << 8));

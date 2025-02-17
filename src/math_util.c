@@ -84,3 +84,43 @@ s32 MathUtil_Inv32(s32 y)
     x = 0x10000;
     return x / y;
 }
+
+// Function to return trailing
+// 0s in factorial of n
+s32 MathUtil_FindTrailingZeros(s32 n)
+{
+    // Negative Number Edge Case
+    if (n < 0) 
+        return -1;
+
+    // Initialize result
+    s32 count = 0;
+
+    while ((n & 1) == 0)
+    {
+        n = n >> 1;
+        count++;
+    }
+
+    return count;
+}
+
+u32 MathUtil_GetFirstBitmaskFlag(s32 n)
+{
+    if (n < 0) 
+        return -1;
+    
+    if (n == 0)
+        return 0;
+
+    // Initialize result
+    s32 count = 0;
+
+    while ((n & 1) == 0)
+    {
+        n = n >> 1;
+        count++;
+    }
+
+    return count + 1;
+}

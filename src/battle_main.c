@@ -5499,9 +5499,9 @@ static bool32 TryDoGimmicksBeforeMoves(void)
             {
                 battler = gBattlerAttacker = gBattleScripting.battler = order[i];
                 gBattleStruct->gimmick.toActivate &= ~(gBitTable[battler]);
-                if (gGimmicksInfo[gBattleStruct->gimmick.usableGimmick[battler]].ActivateGimmick != NULL)
+                if (gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick != NULL)
                 {
-                    gGimmicksInfo[gBattleStruct->gimmick.usableGimmick[battler]].ActivateGimmick(battler);
+                    gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick(battler);
                     return TRUE;
                 }
             }

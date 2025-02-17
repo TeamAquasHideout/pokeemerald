@@ -172,7 +172,7 @@ bool32 IsViableZMove(u32 battler, u32 move)
 
     item = gBattleMons[battler].item;
 
-    if (gBattleStruct->gimmick.usableGimmick[battler] != GIMMICK_Z_MOVE)
+    if (gBattleStruct->gimmick.chosenGimmick[battler] != GIMMICK_Z_MOVE)
         return FALSE;
 
     for (moveSlotIndex = 0; moveSlotIndex < MAX_MON_MOVES; moveSlotIndex++)
@@ -220,7 +220,7 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
     if (gBattleStruct->zmove.viable && !viableZMove)
         HideGimmickTriggerSprite();   // Was a viable z move, now is not -> slide out
     else if (!gBattleStruct->zmove.viable && viableZMove)
-        CreateGimmickTriggerSprite(battler);   // Was not a viable z move, now is -> slide back in
+        CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
 
     gBattleStruct->zmove.viable = viableZMove;
 
