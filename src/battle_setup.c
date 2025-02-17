@@ -1405,13 +1405,18 @@ static void CB2_EndTrainerBattle(void)
     }
     else
     {
-        SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
-        DowngradeBadPoison();
-        if (!InBattlePyramid() && !InTrainerHillChallenge())
+        if (gBattleOutcome != B_OUTCOME_RAN && gBattleOutcome != B_OUTCOME_FORFEITED)
         {
-            RegisterTrainerInMatchCall();
-            SetBattledTrainersFlags();
+            SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+            DowngradeBadPoison();
+            if (!InBattlePyramid() && !InTrainerHillChallenge())
+            {
+                RegisterTrainerInMatchCall();
+                SetBattledTrainersFlags();
+            }
         }
+        else
+            SetMainCallback2(CB2_WhiteOut);
     }
 }
 
