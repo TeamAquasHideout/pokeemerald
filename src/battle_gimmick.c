@@ -15,6 +15,7 @@
 #include "test_runner.h"
 #include "random.h"
 #include "event_data.h"
+#include "math_util.h"
 
 #include "data/gimmicks.h"
 
@@ -32,7 +33,9 @@ void AssignUsableGimmicks(void)
             {
                 DebugPrintf("battler %d has gimmick = %d", battler, gimmick);
                 gBattleStruct->gimmick.usableGimmick[battler] |= (1 << (gimmick - 1)); //set the corresponding GIMMICK_FLAG
-                gBattleStruct->gimmick.chosenGimmick[battler] = gimmick; //required?
+                // //set default chosen gimmick to first valid gimmick
+                // if (gBattleStruct->gimmick.chosenGimmick[battler] != GIMMICK_NONE && gBattleStruct->gimmick.chosenGimmick[battler] != GIMMICK_Z_MOVE)
+                //     gBattleStruct->gimmick.chosenGimmick[battler] = gimmick;
             }
         }
         DebugPrintf("gimmick flags battler %d: %d", battler, gBattleStruct->gimmick.usableGimmick[battler]);
@@ -65,6 +68,20 @@ void SetActiveGimmick(u32 battler, enum Gimmick gimmick)
 enum Gimmick GetActiveGimmick(u32 battler)
 {
     return gBattleStruct->gimmick.activeGimmick[GetBattlerSide(battler)][gBattlerPartyIndexes[battler]];
+}
+
+u32 GetFirstValidGimmick(u32 battler)
+{
+    u32 initialGimmick = MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]);
+    
+    if (initialGimmick == GIMMICK_Z_MOVE)
+    {
+        do
+        {
+            initialGimmick++;
+        } while ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (initialGimmick - 1))) == 0 && initialGimmick < GIMMICKS_COUNT);
+    }
+    return initialGimmick;
 }
 
 // Returns whether a trainer mon is intended to use an unrestrictive gimmick via .useGimmick (i.e Tera).
@@ -145,16 +162,18 @@ void ChangeGimmickTriggerSprite(u32 spriteId, u32 animId)
     StartSpriteAnim(&gSprites[spriteId], animId);
 }
 
-void CreateGimmickTriggerSprite(u32 battler, u32 getGimmick) //wiz1989 loop this later
+void CreateGimmickTriggerSprite(u32 battler, u32 getGimmick)
 {
     const struct GimmickInfo * gimmick = &gGimmicksInfo[getGimmick];
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
     DebugPrintf("CreateGimmickTriggerSprite for gimmick %d", getGimmick);
     // Exit if there shouldn't be a sprite produced.
     if (GetBattlerSide(battler) == B_SIDE_OPPONENT
      || getGimmick == GIMMICK_NONE
      || gimmick->triggerSheet == NULL
-     || HasTrainerUsedGimmick(battler, getGimmick))
+     || HasTrainerUsedGimmick(battler, getGimmick)
+     || (getGimmick == GIMMICK_NONE && GetUsableZMove(battler, moveInfo->moves[gMoveSelectionCursor[battler]]) == MOVE_NONE))
     {
         return;
     }

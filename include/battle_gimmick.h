@@ -35,6 +35,7 @@ bool32 CanActivateGimmick(u32 battler, enum Gimmick gimmick);
 bool32 IsGimmickSelected(u32 battler, enum Gimmick gimmick);
 void SetActiveGimmick(u32 battler, enum Gimmick gimmick);
 enum Gimmick GetActiveGimmick(u32 battler);
+u32 GetFirstValidGimmick(u32 battler);
 bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick);
 bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick);
 void SetGimmickAsActivated(u32 battler, enum Gimmick gimmick);

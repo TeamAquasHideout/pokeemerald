@@ -217,11 +217,14 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
 {
     bool32 viableZMove = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[moveIndex]) != 0;
 
+    DebugPrintf("TryChangeZTrigger");
     if (gBattleStruct->zmove.viable && !viableZMove)
         HideGimmickTriggerSprite();   // Was a viable z move, now is not -> slide out
     else if (!gBattleStruct->zmove.viable && viableZMove)
+    {
+        DebugPrintf("C");
         CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
-
+    }
     gBattleStruct->zmove.viable = viableZMove;
 
     return viableZMove;
@@ -264,6 +267,7 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
 
+    DebugPrintf("MoveSelectionDisplayZMove");
     PlaySE(SE_SELECT);
     gBattleStruct->zmove.viewing = TRUE;
     if (zmove != MOVE_NONE)

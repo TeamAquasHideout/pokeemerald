@@ -86,7 +86,7 @@ s32 MathUtil_Inv32(s32 y)
 }
 
 // Function to return trailing
-// 0s in factorial of n
+// 0s in binary of n
 s32 MathUtil_FindTrailingZeros(s32 n)
 {
     // Negative Number Edge Case
