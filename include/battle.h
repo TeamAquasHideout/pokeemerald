@@ -597,7 +597,8 @@ struct DynamaxData
 
 struct BattleGimmickData
 {
-    u8 usableGimmick[MAX_BATTLERS_COUNT];                // first usable gimmick that can be selected for each battler
+    u32 usableGimmick[MAX_BATTLERS_COUNT];               // a bitmask of gimmicks that can be selected for each battler
+    u32 chosenGimmick[MAX_BATTLERS_COUNT];               // stores the chosen gimmick
     bool8 playerSelect;                                  // used to toggle trigger and update battle UI
     u8 triggerSpriteId;
     u8 indicatorSpriteId[MAX_BATTLERS_COUNT];

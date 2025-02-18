@@ -12930,8 +12930,7 @@ const u16 gEggMoves[] = {
         MOVE_HI_JUMP_KICK,
         MOVE_SAND_ATTACK,
         MOVE_SUCKER_PUNCH,
-        MOVE_SUPER_FANG,
-        MOVE_HIGH_JUMP_KICK),
+        MOVE_SUPER_FANG),
 
     egg_moves(RABOOT,
         MOVE_HI_JUMP_KICK,

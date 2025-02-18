@@ -1037,6 +1037,8 @@ EventScript_DoWonderTrade_EndEarly::
 EventScript_SetGigantamaxFactor::
 	lock
 	togglegigantamaxfactor VAR_0x8004
+	goto_if_eq VAR_RESULT, 2, EventScript_NoGigantamaxForm
+	goto_if_eq VAR_RESULT, 0, EventScript_End
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	message gText_GigantamaxFactorSet
 	waitmessage
@@ -1045,9 +1047,20 @@ EventScript_SetGigantamaxFactor::
 	release
 	end
 
+EventScript_NoGigantamaxForm::
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	message gText_NoGigantamaxForm
+	waitmessage
+	release
+	end
+
 gText_GigantamaxFactorSet::
 	.string "{STR_VAR_1} had its Gigantamax Factor\n"
 	.string "set.{PAUSE_UNTIL_PRESS}$"
+
+gText_NoGigantamaxForm::
+	.string "{STR_VAR_1} has no Gigantamax Form.\n"
+	.string "Max Soup can't be used.{PAUSE_UNTIL_PRESS}$"
 
 EventScript_End:
 	end

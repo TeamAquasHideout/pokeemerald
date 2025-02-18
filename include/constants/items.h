@@ -1132,7 +1132,7 @@
 #define ITEM_POKESHI_DOLL 957
 #define ITEM_RUNNING_SHOES 958 // new evo item
 #define ITEM_RAINBOW_PEARL 959 // new gender swapping item
-#define ITEM_MAX_SOUP 960 // activate the dynamax factor
+#define ITEM_MAX_SOUP 960 // activate the gigantamax factor
 
 // HOPO BERRY
 // LEGEND PLATE

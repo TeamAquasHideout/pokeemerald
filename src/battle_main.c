@@ -2023,6 +2023,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     u8 monsCount;
     u16 averageEVs = 0;
     u16 setTrainerTera = 0;
+    bool8 megaStoneAssigned = FALSE;
 
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
@@ -2100,6 +2101,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 CreateMon(&party[i], partyData[j].species, partyData[j].lvl, 0, TRUE, personalityValue, otIdType, fixedOtId);
             else
             {
+                //trainer mons
                 u16 monLevel = VarGet(VAR_PIT_FLOOR);
                 if (monLevel > 100)
                     monLevel = 100;
@@ -2110,29 +2112,41 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 else if (monLevel == 100 || monLevel % 25 == 0)
                 {
                     // = fully evolved mons for every trainer from Floor 100 on and for bosses!
-                    u16 newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
-                    const struct Evolution *evolutions = GetSpeciesEvolutions(newSpecies);
-                    while (evolutions != NULL)
+                    u16 newSpecies;
+                    u32 bst = 0;
+                    const struct Evolution *evolutions;
+
+                    do
                     {
-                        u16 tempSpecies = evolutions[0].targetSpecies;
-                        if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                        newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+                        evolutions = GetSpeciesEvolutions(newSpecies);
+                        while (evolutions != NULL)
                         {
-                            evolutions = NULL;
-                            break;
+                            u16 tempSpecies = evolutions[0].targetSpecies;
+                            if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                            {
+                                evolutions = NULL;
+                                break;
+                            }
+                            else
+                            {
+                                newSpecies = tempSpecies;
+                                evolutions = GetSpeciesEvolutions(newSpecies);
+                            }
                         }
-                        else
-                        {
-                            newSpecies = tempSpecies;
-                            evolutions = GetSpeciesEvolutions(newSpecies);
-                        }
-                    }
+                        bst = (gSpeciesInfo[newSpecies].baseHP + gSpeciesInfo[newSpecies].baseAttack + gSpeciesInfo[newSpecies].baseDefense + gSpeciesInfo[newSpecies].baseSpAttack + gSpeciesInfo[newSpecies].baseSpDefense + gSpeciesInfo[newSpecies].baseSpeed);
+                    } while ((VarGet(VAR_PIT_FLOOR) == 100
+                        || (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50))
+                      && bst < 525); //make the final boss have only BST 525+ mons
+                    
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
                 else
                 {
+                    // if (i == 1) //test line for forced test encounters
+                    //     CreateMon(&party[i], SPECIES_MIMIKYU, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else
                     CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(TRAINER_MONS), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    //test line below for forced test encounters
-                    //CreateMon(&party[i], SPECIES_RAYQUAZA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                 }
             }
 
@@ -2140,9 +2154,13 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             if(!isPlayer)
             {
                 item = GetRandomHeldItemOpponent();
+
+                if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))
+                  && (item == ITEM_RED_CARD || item == ITEM_EJECT_BUTTON || item == ITEM_EJECT_PACK))
+                    item = ITEM_LEFTOVERS; // safety measure: default item in case of switch out items for bosses
                 
 #ifdef PIT_GEN_9_MODE
-                //overwrite with Mega Stones
+                //overwrite item with Mega Stones
                 if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                 {
                     u16 odds = 0;
@@ -2173,12 +2191,16 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         }
                     }    
 
-                    if ((Random() % 100) < odds)
+                    if ((Random() % 100) < odds && !megaStoneAssigned
+                      && VarGet(VAR_PIT_FLOOR) % 25 != 0) //no additional megas for bosses
                     {
                         u16 megaStone = GetMegaStone(GetMonData(&party[i], MON_DATA_SPECIES));
 
                         if (megaStone != ITEM_NONE)
+                        {
                             item = megaStone;
+                            megaStoneAssigned = TRUE;
+                        }
                     }
                 }
 #endif
@@ -4524,6 +4546,14 @@ static void HandleTurnActionSelectionState(void)
                         gChosenActionByBattler[battler] = B_ACTION_NOTHING_FAINTED; // Not fainted, but it cannot move, because of the throwing ball.
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
                     }
+                    else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+                            && position == B_POSITION_PLAYER_RIGHT
+                            && gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] == B_ACTION_RUN
+                            && gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] != B_ACTION_NOTHING_FAINTED)
+                    {
+                        gChosenActionByBattler[battler] = B_ACTION_USE_MOVE;
+                        gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
+                    }
                     else
                     {
                         gBattleStruct->itemPartyIndex[battler] = PARTY_SIZE;
@@ -4708,12 +4738,15 @@ static void HandleTurnActionSelectionState(void)
                     *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
                     return;
                 }
-                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+                else if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                          && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
                          && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
-                    BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
-                    gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                    gSelectionBattleScripts[battler] = BattleScript_AskIfWantsToForfeitMatch;
+                    gBattleCommunication[battler] = STATE_SELECTION_SCRIPT_MAY_RUN;
+                    *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
+                    *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                    return;
                 }
                 else if (IsRunningFromBattleImpossible(battler) != BATTLE_RUN_SUCCESS
                          && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
@@ -5466,9 +5499,9 @@ static bool32 TryDoGimmicksBeforeMoves(void)
             {
                 battler = gBattlerAttacker = gBattleScripting.battler = order[i];
                 gBattleStruct->gimmick.toActivate &= ~(gBitTable[battler]);
-                if (gGimmicksInfo[gBattleStruct->gimmick.usableGimmick[battler]].ActivateGimmick != NULL)
+                if (gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick != NULL)
                 {
-                    gGimmicksInfo[gBattleStruct->gimmick.usableGimmick[battler]].ActivateGimmick(battler);
+                    gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick(battler);
                     return TRUE;
                 }
             }
@@ -5799,7 +5832,7 @@ static void HandleEndTurn_RanFromBattle(void)
 {
     gCurrentActionFuncId = 0;
 
-    if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER || gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         gBattlescriptCurrInstr = BattleScript_PrintPlayerForfeited;
         gBattleOutcome = B_OUTCOME_FORFEITED;
@@ -5991,7 +6024,6 @@ static void TryEvolvePokemon(void)
     {
         if (!(sTriedEvolving & gBitTable[i]))
         {
-            DebugPrintf("TryEvolvePokemon");
             u16 species = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_BATTLE_SPECIAL, i, NULL);
             bool32 evoModeNormal = TRUE;
             sTriedEvolving |= gBitTable[i];

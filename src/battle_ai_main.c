@@ -406,15 +406,18 @@ void Ai_InitPartyStruct(void)
                 //This condition is required to balance all gimmicks, even though it doesn't actually activate the Mega gimmick.
                 //This is done earlier by giving the randomized mon its Mega Stone.
                 hasMega = TRUE;
+                DebugPrintf("Opponent %d can Mega", i);
             }
             else if (FlagGet(FLAG_DYNAMAX) && RandomPercentage(RNG_NONE, dynamax_odds) && !hasDyna)
             {
                 AI_PARTY->mons[B_SIDE_OPPONENT][i].gimmick = GIMMICK_PIT_DYNA;
                 hasDyna = TRUE;
+                DebugPrintf("Opponent %d can Dyna", i);
             }
             else if (FlagGet(FLAG_TERA_ACTIVE) && RandomPercentage(RNG_NONE, tera_odds) && !hasTera)
             {
                 AI_PARTY->mons[B_SIDE_OPPONENT][i].gimmick = GIMMICK_PIT_TERA;
+                DebugPrintf("Opponent %d can Tera", i);
                 hasTera = TRUE;
             }
         }

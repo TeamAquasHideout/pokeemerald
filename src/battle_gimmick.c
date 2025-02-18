@@ -22,6 +22,7 @@
 void AssignUsableGimmicks(void)
 {
     u32 battler, gimmick;
+    DebugPrintf("AssignUsableGimmicks");
     for (battler = 0; battler < gBattlersCount; ++battler)
     {
         gBattleStruct->gimmick.usableGimmick[battler] = GIMMICK_NONE;
@@ -29,10 +30,12 @@ void AssignUsableGimmicks(void)
         {
             if (CanActivateGimmick(battler, gimmick))
             {
-                gBattleStruct->gimmick.usableGimmick[battler] = gimmick;
-                break;
+                DebugPrintf("battler %d has gimmick = %d", battler, gimmick);
+                gBattleStruct->gimmick.usableGimmick[battler] |= (1 << (gimmick - 1)); //set the corresponding GIMMICK_FLAG
+                gBattleStruct->gimmick.chosenGimmick[battler] = gimmick; //required?
             }
         }
+        DebugPrintf("gimmick flags battler %d: %d", battler, gBattleStruct->gimmick.usableGimmick[battler]);
     }
 }
 
@@ -47,9 +50,9 @@ bool32 IsGimmickSelected(u32 battler, enum Gimmick gimmick)
 {
     // There's no player select in tests, but some gimmicks need to test choice before they are fully activated.
     if (TESTING)
-        return (gBattleStruct->gimmick.toActivate & gBitTable[battler]) && gBattleStruct->gimmick.usableGimmick[battler] == gimmick;
+        return (gBattleStruct->gimmick.toActivate & gBitTable[battler]) && gBattleStruct->gimmick.chosenGimmick[battler] == gimmick;
     else
-        return gBattleStruct->gimmick.usableGimmick[battler] == gimmick && gBattleStruct->gimmick.playerSelect;
+        return gBattleStruct->gimmick.chosenGimmick[battler] == gimmick && gBattleStruct->gimmick.playerSelect;
 }
 
 // Sets a battler as having a gimmick active using their party index.
@@ -105,7 +108,7 @@ bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick)
         && IsPartnerMonFromSameTrainer(battler)
         && (gBattleStruct->gimmick.activated[BATTLE_PARTNER(battler)][gimmick]
         || ((gBattleStruct->gimmick.toActivate & gBitTable[BATTLE_PARTNER(battler)]
-        && gBattleStruct->gimmick.usableGimmick[BATTLE_PARTNER(battler)] == gimmick))))
+        && gBattleStruct->gimmick.chosenGimmick[BATTLE_PARTNER(battler)] == gimmick)))) //wiz1989 test, was usableGimmick
     {
         return TRUE;
     }
@@ -142,19 +145,21 @@ void ChangeGimmickTriggerSprite(u32 spriteId, u32 animId)
     StartSpriteAnim(&gSprites[spriteId], animId);
 }
 
-void CreateGimmickTriggerSprite(u32 battler)
+void CreateGimmickTriggerSprite(u32 battler, u32 getGimmick) //wiz1989 loop this later
 {
-    const struct GimmickInfo * gimmick = &gGimmicksInfo[gBattleStruct->gimmick.usableGimmick[battler]];
+    const struct GimmickInfo * gimmick = &gGimmicksInfo[getGimmick];
 
+    DebugPrintf("CreateGimmickTriggerSprite for gimmick %d", getGimmick);
     // Exit if there shouldn't be a sprite produced.
     if (GetBattlerSide(battler) == B_SIDE_OPPONENT
-     || gBattleStruct->gimmick.usableGimmick[battler] == GIMMICK_NONE
+     || getGimmick == GIMMICK_NONE
      || gimmick->triggerSheet == NULL
-     || HasTrainerUsedGimmick(battler, gBattleStruct->gimmick.usableGimmick[battler]))
+     || HasTrainerUsedGimmick(battler, getGimmick))
     {
         return;
     }
 
+    DebugPrintf("LoadSprite");
     LoadSpritePalette(gimmick->triggerPal);
     if (GetSpriteTileStartByTag(TAG_GIMMICK_TRIGGER_TILE) == 0xFFFF)
         LoadSpriteSheet(gimmick->triggerSheet);
