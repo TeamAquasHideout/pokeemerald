@@ -915,5 +915,6 @@ u16 GetRandomValidMovesCount(void);
 u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum);
 extern const u16 gRandomValidMoves[];
 bool8 hasMultipleGenders (u16 species);
+bool8 PartyMonHasGigantamaxFactor(u32 partyIndex);
 
 #endif // GUARD_POKEMON_H
