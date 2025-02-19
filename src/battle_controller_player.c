@@ -179,7 +179,7 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 };
 
 static EWRAM_DATA bool8 sDescriptionSubmenu = 0;
-static EWRAM_DATA u8 gimmickCursor = 0;
+static EWRAM_DATA u8 gimmickCursor = GIMMICK_NONE;
 
 void SetControllerToPlayer(u32 battler)
 {
@@ -825,7 +825,7 @@ static void HandleInputChooseMove(u32 battler)
     {
         PlaySE(SE_SELECT);
         gBattleStruct->gimmick.playerSelect = FALSE;
-        gimmickCursor = 0;
+        gimmickCursor = GIMMICK_NONE;
         gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
         if (gBattleStruct->zmove.viewing)
         {
@@ -947,11 +947,14 @@ static void HandleInputChooseMove(u32 battler)
     {
         bool8 dontDestroySprite = FALSE;
         DebugPrintf("Press START - gimmickCursor = %d", gimmickCursor);
+        u32 firstValidGimmick = GetFirstValidGimmick(battler);
 
-        // cycle through available gimmicks, except for Z Moves as they are handled separately
-        if (MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) != GIMMICK_NONE
-          && !HasTrainerUsedGimmick(battler, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler])))
+        // cycle through available gimmicks, except for Z Moves as they are skippped and handled separately
+        if (firstValidGimmick != GIMMICK_NONE
+          //&& !HasTrainerUsedGimmick(battler, firstValidGimmick)
+          && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_CYCLE)
         {
+            DebugPrintf("GIMMICK_MODE_CYCLE");
             if (gimmickCursor == GIMMICK_NONE || gimmickCursor == GIMMICKS_COUNT) //activate gimmick symbol and set first available gimmick
             {
                 DebugPrintf("activate gimmick symbol");
@@ -959,7 +962,7 @@ static void HandleInputChooseMove(u32 battler)
                 if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE) //gBattleStruct->gimmick.playerSelect == FALSE)
                     dontDestroySprite = TRUE;
                 gBattleStruct->gimmick.playerSelect ^= 1;
-                gimmickCursor = GetFirstValidGimmick(battler);
+                gimmickCursor = firstValidGimmick;//GetFirstValidGimmick(battler);
             }
             else if (gimmickCursor == GIMMICK_Z_MOVE) //skip Z Moves during cycling
             {
@@ -982,23 +985,49 @@ static void HandleInputChooseMove(u32 battler)
             if (gimmickCursor == GIMMICKS_COUNT)
             {
                 gBattleStruct->gimmick.playerSelect ^= 1;
-                //gimmickCursor = 0;
+                //gimmickCursor = GIMMICK_NONE;
             }
 
-            //update gimmickTriggerSprites
             gBattleStruct->gimmick.chosenGimmick[battler] = gimmickCursor;
+            //update gimmickTriggerSprites
             ReloadMoveNames(battler);
             if (gimmickCursor != GIMMICKS_COUNT && gimmickCursor != GIMMICK_NONE && !dontDestroySprite)
             {
+                DebugPrintf("A Destroy %d", gimmickCursor);
                 DestroyGimmickTriggerSprite();
                 gBattleStruct->gimmick.triggerSpriteId = 0xFF;
             }
+            if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable)) //this check is probably irrelevant now
+            {
+                if(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICKS_COUNT)
+                    HideGimmickTriggerSprite();
+                else
+                {
+                    DebugPrintf("A Create %d", gBattleStruct->gimmick.chosenGimmick[battler]);
+                    CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
+                }
+            }
+            ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
+            PlaySE(SE_SELECT);
+        }
+        else if (gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_Z_MOVE)
+        {
+            DebugPrintf("GIMMICK_MODE_Z_MOVE");
+            gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_Z_MOVE;
+            gBattleStruct->gimmick.playerSelect ^= 1;
+            //update gimmickTriggerSprites
+            ReloadMoveNames(battler);
+            // if (gimmickCursor != GIMMICKS_COUNT && gimmickCursor != GIMMICK_NONE && !dontDestroySprite)
+            // {
+            //     DestroyGimmickTriggerSprite();
+            //     gBattleStruct->gimmick.triggerSpriteId = 0xFF;
+            // }
             if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
             {
-                DebugPrintf("A");
+                DebugPrintf("D");
                 CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
             }
-                ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
+            ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
             PlaySE(SE_SELECT);
         }
     }
@@ -2254,8 +2283,8 @@ static void PlayerHandleChooseAction(u32 battler)
     s32 i;
 
     gBattleStruct->gimmick.playerSelect = FALSE;
-    gimmickCursor = 0;
-    //gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+    gimmickCursor = GIMMICK_NONE;
+    gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
 
     gBattlerControllerFuncs[battler] = HandleChooseActionAfterDma3;
     BattleTv_ClearExplosionFaintCause();
@@ -2329,11 +2358,13 @@ static void PlayerHandleChooseMove(u32 battler)
         AssignUsableZMoves(battler, moveInfo->moves);
         gBattleStruct->zmove.viable = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[gMoveSelectionCursor[battler]]) != 0;
 
+        DebugPrintf("PlayerHandleChooseMove");
         if (!IsGimmickTriggerSpriteActive())
             gBattleStruct->gimmick.triggerSpriteId = 0xFF;
         if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
         {
             u32 initialGimmick = GetFirstValidGimmick(battler);
+            gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
             DebugPrintf("B - initial gimmick = %d", initialGimmick);
             //DebugPrintf("chosenGimmick = %d", gBattleStruct->gimmick.chosenGimmick[battler]);
             if (initialGimmick != GIMMICKS_COUNT)

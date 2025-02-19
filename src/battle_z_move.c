@@ -172,7 +172,9 @@ bool32 IsViableZMove(u32 battler, u32 move)
 
     item = gBattleMons[battler].item;
 
-    if (gBattleStruct->gimmick.chosenGimmick[battler] != GIMMICK_Z_MOVE)
+    DebugPrintf("IsViableZMove #######");
+    DebugPrintf("usable Gimmick? = %d", (gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE));
+    if (!(gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE))
         return FALSE;
 
     for (moveSlotIndex = 0; moveSlotIndex < MAX_MON_MOVES; moveSlotIndex++)
@@ -205,9 +207,11 @@ bool32 IsViableZMove(u32 battler, u32 move)
 void AssignUsableZMoves(u32 battler, u16 *moves)
 {
     u32 i;
+    DebugPrintf("AssignUsableZMoves");
     gBattleStruct->zmove.possibleZMoves[battler] = 0;
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
+        DebugPrintf("IsViableZMove? %S, %d", gMovesInfo[moves[i]].name, IsViableZMove(battler, moves[i]));
         if (moves[i] != MOVE_NONE && IsViableZMove(battler, moves[i]))
             gBattleStruct->zmove.possibleZMoves[battler] |= gBitTable[i];
     }
@@ -217,13 +221,22 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
 {
     bool32 viableZMove = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[moveIndex]) != 0;
 
-    DebugPrintf("TryChangeZTrigger");
+    DebugPrintf("TryChangeZTrigger - viable? %d", gBattleStruct->zmove.viable);
+    DebugPrintf("viableZMove? %d", viableZMove);
     if (gBattleStruct->zmove.viable && !viableZMove)
+    {
+        gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
         HideGimmickTriggerSprite();   // Was a viable z move, now is not -> slide out
+    }
     else if (!gBattleStruct->zmove.viable && viableZMove)
     {
-        DebugPrintf("C");
-        CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
+        DebugPrintf("C - set Z Move mode");
+        gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_Z_MOVE;
+        DestroyGimmickTriggerSprite();
+        gBattleStruct->gimmick.triggerSpriteId = 0xFF;
+        // CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
+        CreateGimmickTriggerSprite(battler, GIMMICK_Z_MOVE);
     }
     gBattleStruct->zmove.viable = viableZMove;
 

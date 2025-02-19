@@ -19,6 +19,10 @@ enum Gimmick
 #define GIMMICK_FLAG_DYNAMAX     (1 << 3)
 #define GIMMICK_FLAG_TERA        (1 << 4)
 
+// gimmick modes
+#define GIMMICK_MODE_CYCLE  0
+#define GIMMICK_MODE_Z_MOVE 1
+
 struct GimmickInfo
 {
     const struct SpritePalette *triggerPal;        // trigger gfx data

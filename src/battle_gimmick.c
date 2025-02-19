@@ -73,13 +73,16 @@ enum Gimmick GetActiveGimmick(u32 battler)
 u32 GetFirstValidGimmick(u32 battler)
 {
     u32 initialGimmick = MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]);
-    
-    if (initialGimmick == GIMMICK_Z_MOVE)
+
+    if (initialGimmick != GIMMICK_NONE
+      && (initialGimmick == GIMMICK_Z_MOVE || !(CanActivateGimmick(battler, initialGimmick))))
     {
         do
         {
             initialGimmick++;
-        } while ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (initialGimmick - 1))) == 0 && initialGimmick < GIMMICKS_COUNT);
+        } while ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (initialGimmick - 1))) == 0
+          && initialGimmick < GIMMICKS_COUNT
+          && !(CanActivateGimmick(battler, initialGimmick)));
     }
     return initialGimmick;
 }
