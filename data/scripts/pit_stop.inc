@@ -50,7 +50,7 @@ PitTutor_MartNPCMoveTutor::
 	end
 
 PitTutor_MartNPCMoveTutorEggMoves::
-	checkmoney 10000
+	checkmoney 8000
 	goto_if_eq VAR_RESULT, FALSE, PitTutor_MartNPCMoveTutorTutorMoves_NotEnoughMoney
 	setvar VAR_PIT_TUTOR_STATE, 2
 	hidemoneybox
