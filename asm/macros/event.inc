@@ -2354,3 +2354,8 @@
 	.macro togglefakertc
 	callnative Script_ToggleFakeRtc
 	.endm
+
+	@ Set B_FLAG_TERA_ORB_CHARGED if possible
+	.macro tryrechargingteraorb
+	callnative RechargeTeraOrb
+	.endm

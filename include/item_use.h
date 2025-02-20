@@ -51,6 +51,7 @@ void Task_ItemUse_CloseMessageBoxAndReturnToField_VsSeeker(u8 taskId);
 void DisplayDadsAdviceCannotUseItemMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField);
 void ItemUseOutOfBattle_ShinyDust(u8 taskId);
 void ItemUseOutOfBattle_SetGigantamaxFactor (u8 taskId);
+void ItemUseOutOfBattle_RechargeTeraOrb (u8 taskId);
 
 enum {
     BALL_THROW_UNABLE_TWO_MONS,

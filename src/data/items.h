@@ -154,6 +154,10 @@ static const u8 sMaxSoupDesc[]        = _("Enables a Pokémon\n"
                                           "to gigantamax if\n"
                                           "possible.");
 
+static const u8 sTeraShotDesc[]       = _("Recharges the Tera\n"
+                                          "Orb to use it in\n"
+                                          "the next battle.");
+
 const struct Item gItemsInfo[] =
 {
     [ITEM_NONE] =
@@ -4422,6 +4426,19 @@ const struct Item gItemsInfo[] =
         .flingPower = 30,
         .iconPic = gItemIcon_MaxSoup,
         .iconPalette = gItemIconPalette_MaxSoup,
+    },
+
+    [ITEM_TERA_SHOT] =
+    {
+        .name = _("Tera Shot"),
+        .price = 500,
+        .description = sTeraShotDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_RechargeTeraOrb,
+        .flingPower = 30,
+        .iconPic = gItemIcon_AuxBottle,
+        .iconPalette = gItemIconPalette_AuxEvasion,
     },
 
 
@@ -16515,7 +16532,7 @@ const struct Item gItemsInfo[] =
     [ITEM_DYNAMAX_BAND] =
     {
         .name = _("Dynamax Band"),
-        .price = 20000,
+        .price = 25000,
         .description = COMPOUND_STRING(
             "A band carrying a\n"
             "Wishing Star that\n"

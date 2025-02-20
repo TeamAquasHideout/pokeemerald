@@ -1554,3 +1554,18 @@ void ItemUseOutOfBattle_SetGigantamaxFactor(u8 taskId)
     sItemUseOnFieldCB = ItemUseOnFieldCB_SetGigantamaxFactor;
     SetUpItemUseOnFieldCallback(taskId);
 }
+
+static void ItemUseOnFieldCB_RechargeTeraOrb(u8 taskId)
+{   
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_RechargeTeraOrb);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_RechargeTeraOrb (u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_RechargeTeraOrb;
+    gFieldCallback = FieldCB_UseItemOnField;
+    gBagMenu->newScreenCallback = CB2_ReturnToField;
+    Task_FadeAndCloseBagMenu(taskId);
+}

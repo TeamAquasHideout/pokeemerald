@@ -1040,15 +1040,16 @@ EventScript_SetGigantamaxFactor::
 	goto_if_eq VAR_RESULT, 2, EventScript_NoGigantamaxForm
 	goto_if_eq VAR_RESULT, 0, EventScript_End
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playse SE_USE_ITEM
 	message gText_GigantamaxFactorSet
 	waitmessage
-	waitfanfare
 	removeitem ITEM_MAX_SOUP
 	release
 	end
 
 EventScript_NoGigantamaxForm::
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playse SE_FAILURE
 	message gText_NoGigantamaxForm
 	waitmessage
 	release
@@ -1061,6 +1062,31 @@ gText_GigantamaxFactorSet::
 gText_NoGigantamaxForm::
 	.string "{STR_VAR_1} has no Gigantamax Form.\n"
 	.string "Max Soup can't be used.{PAUSE_UNTIL_PRESS}$"
+
+EventScript_RechargeTeraOrb::
+	lock
+	tryrechargingteraorb
+	goto_if_eq VAR_RESULT, 0, EventScript_RechargeTeraOrb_CantRecharge
+	playse SE_USE_ITEM
+	message gText_TeraOrbRecharged
+	waitmessage
+	removeitem ITEM_TERA_SHOT, 1
+	goto EventScript_RechargeTeraOrb_End
+EventScript_RechargeTeraOrb_CantRecharge:
+	playse SE_FAILURE
+	message gText_CantRechargeTeraOrb
+	waitmessage
+EventScript_RechargeTeraOrb_End:
+	release
+	end
+
+gText_TeraOrbRecharged::
+	.string "The Tera Orb was\n"
+	.string "recharged.{PAUSE_UNTIL_PRESS}$"
+
+gText_CantRechargeTeraOrb::
+	.string "The Tera Orb cannot.\n"
+	.string "be recharged.{PAUSE_UNTIL_PRESS}$"
 
 EventScript_End:
 	end

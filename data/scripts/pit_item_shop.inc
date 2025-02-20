@@ -1184,6 +1184,7 @@ PitArena_Mart_TMs_200:
 	.align 2
 PitArena_Mart_TeraShards:
 	.2byte ITEM_TERA_ORB
+	.2byte  ITEM_TERA_SHOT
 	.2byte ITEM_BUG_TERA_SHARD
 	.2byte ITEM_DARK_TERA_SHARD
 	.2byte ITEM_DRAGON_TERA_SHARD 

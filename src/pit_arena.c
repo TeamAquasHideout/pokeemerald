@@ -48,6 +48,7 @@
 #include "field_player_avatar.h"
 #include "naming_screen.h"
 #include "config/general.h"
+#include "item.h"
 
 //
 // 	Random Trainer Floor Generation Code
@@ -1011,7 +1012,13 @@ void CheckFloorCleared()
             trainerDefeated = (u8) FlagGet(TRAINER_FLAGS_START + RandomNPCTrainers[iterator].trainerflag) + trainerDefeated;
     }
     if (trainerDefeated == MAX_TRAINER_OBJECTS)
+    {
         FlagSet(FLAG_FLOOR_CLEARED);
+        if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1))
+        {
+            FlagSet(B_FLAG_TERA_ORB_CHARGED);
+        }
+    }
     return;
 }
 

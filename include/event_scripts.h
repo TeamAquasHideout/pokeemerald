@@ -679,5 +679,6 @@ extern const u8 PitEncounter_Present_alreadyUsed[];
 extern const u8 PitEncounter_LeftoversDrop_alreadyUsed[];
 extern const u8 PitEntrance_MakePokemonShiny[];
 extern const u8 EventScript_SetGigantamaxFactor[];
+extern const u8 EventScript_RechargeTeraOrb[];
 
 #endif // GUARD_EVENT_SCRIPTS_H
