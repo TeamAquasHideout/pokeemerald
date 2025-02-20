@@ -379,7 +379,7 @@ void Ai_InitPartyStruct(void)
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
                 tera_odds = 0;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
-                tera_odds = 20;
+                tera_odds = 15;
             if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
             {
                 if(VarGet(VAR_PIT_FLOOR) <= 25)
@@ -387,16 +387,16 @@ void Ai_InitPartyStruct(void)
                 else if (VarGet(VAR_PIT_FLOOR) <= 50)
                     tera_odds = 8;
                 else if (VarGet(VAR_PIT_FLOOR) <= 75)
-                    tera_odds = 16;
+                    tera_odds = 12;
                 else
-                    tera_odds = 25;
+                    tera_odds = 15;
 
                 if(gSaveBlock2Ptr->mode50Floors)
                 {
                     if (VarGet(VAR_PIT_FLOOR) <= 25)
                         tera_odds = 4;
                     else
-                        tera_odds = 25;
+                        tera_odds = 15;
                 }
             }
 
