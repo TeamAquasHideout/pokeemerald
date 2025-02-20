@@ -45,6 +45,7 @@ void AssignUsableGimmicks(void)
 // Returns whether a battler is able to use a gimmick. Checks consumption and gimmick specific functions.
 bool32 CanActivateGimmick(u32 battler, enum Gimmick gimmick)
 {
+    DebugPrintf("CanActivateGimmick %d", gGimmicksInfo[gimmick].CanActivate != NULL && gGimmicksInfo[gimmick].CanActivate(battler));
     return gGimmicksInfo[gimmick].CanActivate != NULL && gGimmicksInfo[gimmick].CanActivate(battler);
 }
 
@@ -74,16 +75,20 @@ u32 GetFirstValidGimmick(u32 battler)
 {
     u32 initialGimmick = MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]);
 
+    DebugPrintf("---- GetFirstValidGimmick ----");
+    DebugPrintf("initialGimmick = %d", initialGimmick);
     if (initialGimmick != GIMMICK_NONE
-      && (initialGimmick == GIMMICK_Z_MOVE || !(CanActivateGimmick(battler, initialGimmick))))
+      && (initialGimmick == GIMMICK_Z_MOVE
+        || !(CanActivateGimmick(battler, initialGimmick))))
     {
         do
         {
             initialGimmick++;
-        } while ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (initialGimmick - 1))) == 0
-          && initialGimmick < GIMMICKS_COUNT
-          && !(CanActivateGimmick(battler, initialGimmick)));
+        } while (initialGimmick < GIMMICKS_COUNT
+          && ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (initialGimmick - 1))) == 0
+            || !(CanActivateGimmick(battler, initialGimmick))));
     }
+    DebugPrintf("first valid gimmick = %d", initialGimmick);
     return initialGimmick;
 }
 
@@ -123,6 +128,7 @@ bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick)
 // Returns whether a trainer has used a gimmick during a battle.
 bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick)
 {
+    DebugPrintf("HasTrainerUsedGimmick %d", gimmick);
     // Check whether partner battler has used gimmick or plans to during turn.
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
         && IsPartnerMonFromSameTrainer(battler)
@@ -130,11 +136,13 @@ bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick)
         || ((gBattleStruct->gimmick.toActivate & gBitTable[BATTLE_PARTNER(battler)]
         && gBattleStruct->gimmick.chosenGimmick[BATTLE_PARTNER(battler)] == gimmick)))) //wiz1989 test, was usableGimmick
     {
+        DebugPrintf("<<< YES >>>");
         return TRUE;
     }
     // Otherwise, return whether current battler has used gimmick.
     else
     {
+        DebugPrintf("<<< %d >>>", gBattleStruct->gimmick.activated[battler][gimmick]);
         return gBattleStruct->gimmick.activated[battler][gimmick];
     }
 }

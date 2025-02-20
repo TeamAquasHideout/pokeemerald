@@ -310,6 +310,7 @@ void ActionSelectionDestroyCursorAt(u8 cursorPos);
 void InitMoveSelectionsVarsAndStrings(u32 battler);
 void MoveSelectionCreateCursorAt(u8 cursorPos, u8 arg1);
 void MoveSelectionDestroyCursorAt(u8 cursorPosition);
+void SetGimmickCursor(u8 gimmick);
 
 // recorded player controller
 void SetControllerToRecordedPlayer(u32 battler);

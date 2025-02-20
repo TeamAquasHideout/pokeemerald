@@ -221,22 +221,29 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
 {
     bool32 viableZMove = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[moveIndex]) != 0;
 
-    DebugPrintf("TryChangeZTrigger - viable? %d", gBattleStruct->zmove.viable);
-    DebugPrintf("viableZMove? %d", viableZMove);
     if (gBattleStruct->zmove.viable && !viableZMove)
     {
+        DebugPrintf("C - set Cycle mode");
         gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
         gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
+        SetGimmickCursor(GIMMICK_NONE);
         HideGimmickTriggerSprite();   // Was a viable z move, now is not -> slide out
     }
-    else if (!gBattleStruct->zmove.viable && viableZMove)
+    else if (viableZMove)
     {
         DebugPrintf("C - set Z Move mode");
         gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_Z_MOVE;
+        SetGimmickCursor(GIMMICK_Z_MOVE);
         DestroyGimmickTriggerSprite();
         gBattleStruct->gimmick.triggerSpriteId = 0xFF;
-        // CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
+        //reset currently chosen gimmick
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
         CreateGimmickTriggerSprite(battler, GIMMICK_Z_MOVE);
+        // Is a viable z move -> slide back in, even if we are coming from another Z move
+        // Reasoning: If your cursor is on a viable z move when loading the move choice,
+        // then it wouldn't trigger the slide in when moving to another viable z move.
     }
     gBattleStruct->zmove.viable = viableZMove;
 
