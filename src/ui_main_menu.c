@@ -763,7 +763,7 @@ void LoadNormalModePresets(void)
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
-    gSaveBlock2Ptr->modeZMoves          = OPTIONS_ON;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
     gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_NONE;
@@ -783,7 +783,7 @@ void LoadHardModePresets(void)
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
     #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
-    gSaveBlock2Ptr->modeZMoves          = OPTIONS_ON;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
     gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
