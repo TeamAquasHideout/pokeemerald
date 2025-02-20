@@ -13707,17 +13707,17 @@ const struct Item gItemsInfo[] =
     },
 
 
-    [ITEM_TM_FALSE_SWIPE] =
+    [ITEM_TM_DRAGON_ASCENT] = // was ITEM_TM_FALSE_SWIPE
     {
         .name = _("TM57"),
-        .price = 500,
+        .price = 15000,
         .description = COMPOUND_STRING(
             "Placeholder string"),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_FALSE_SWIPE,
+        .secondaryId = MOVE_DRAGON_ASCENT,
     },
 
 
@@ -16128,7 +16128,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_UPPER_HAND,
     },
 
-
+    //additional non vanilla TMs
     [ITEM_TM_HIDDEN_POWER] =
     {
         .name = _("TM230"),

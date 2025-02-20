@@ -879,6 +879,7 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM19
 	.2byte ITEM_TM204
 	.2byte ITEM_TM169
+	.2byte ITEM_TM57 @Dragon Ascent
 	.2byte ITEM_TM226
 	.2byte ITEM_TM78
 	.2byte ITEM_TM100
@@ -901,7 +902,6 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM218
 	.2byte ITEM_TM25
 	.2byte ITEM_TM03
-	.2byte ITEM_TM57
 	.2byte ITEM_TM216
 	.2byte ITEM_TM141
 	.2byte ITEM_TM08
