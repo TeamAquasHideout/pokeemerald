@@ -844,7 +844,6 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             mapNum = MAP_PIT_BOSS_ARENA;
             mapGroup = 0;
             VarSet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY, 0);
-            SetRandomBossEncounter();
             y = 14;
 
             if(gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 50))
@@ -852,12 +851,18 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
                 mapNum = MAP_PIT_FINAL_BOSS;
                 x = 15;
                 y = 17;
+                ChooseFinalBossEncounter();
             }
-            if(!gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 100))
+            else if(!gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 100))
             {
                 mapNum = MAP_PIT_FINAL_BOSS;
                 x = 15;
                 y = 17;
+                ChooseFinalBossEncounter();
+            }
+            else
+            {
+                SetRandomBossEncounter();
             }
 
         }
