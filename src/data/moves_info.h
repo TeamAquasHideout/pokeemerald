@@ -18603,7 +18603,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .contestCategory = CONTEST_CATEGORY_BEAUTY,
         .contestComboStarterId = 0,
         .contestComboMoves = {0},
-        .battleAnimScript = Move_FIERY_WRATH,
+        .battleAnimScript = Move_OVERHEAT,
     },
 
     [MOVE_THUNDEROUS_KICK] =
