@@ -846,6 +846,20 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             VarSet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY, 0);
             SetRandomBossEncounter();
             y = 14;
+
+            if(gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 50))
+            {
+                mapNum = MAP_PIT_FINAL_BOSS;
+                x = 15;
+                y = 17;
+            }
+            if(!gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 100))
+            {
+                mapNum = MAP_PIT_FINAL_BOSS;
+                x = 15;
+                y = 17;
+            }
+
         }
         else
         {
