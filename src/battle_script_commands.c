@@ -17420,3 +17420,16 @@ void BS_JumpIfCommanderActive(void)
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
+
+void BS_JumpIfCanGigantamax(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    
+    if (PartyMonHasGigantamaxFactor(gBattlerPartyIndexes[battler])
+      && GetGMaxTargetSpecies(gBattleMons[battler].species) != SPECIES_NONE)
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}

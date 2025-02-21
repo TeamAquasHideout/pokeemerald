@@ -245,7 +245,7 @@
     F(PSYSHOCK) \
     F(DIG) \
     F(BULLET_SEED) \
-    F(FALSE_SWIPE) \
+    F(DRAGON_ASCENT) \
     F(BRICK_BREAK) \
     F(ZEN_HEADBUTT) \
     F(U_TURN) \

@@ -19,6 +19,10 @@ enum Gimmick
 #define GIMMICK_FLAG_DYNAMAX     (1 << 3)
 #define GIMMICK_FLAG_TERA        (1 << 4)
 
+// gimmick modes
+#define GIMMICK_MODE_CYCLE  0
+#define GIMMICK_MODE_Z_MOVE 1
+
 struct GimmickInfo
 {
     const struct SpritePalette *triggerPal;        // trigger gfx data
@@ -35,6 +39,7 @@ bool32 CanActivateGimmick(u32 battler, enum Gimmick gimmick);
 bool32 IsGimmickSelected(u32 battler, enum Gimmick gimmick);
 void SetActiveGimmick(u32 battler, enum Gimmick gimmick);
 enum Gimmick GetActiveGimmick(u32 battler);
+u32 GetFirstValidGimmick(u32 battler);
 bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick);
 bool32 HasTrainerUsedGimmick(u32 battler, enum Gimmick gimmick);
 void SetGimmickAsActivated(u32 battler, enum Gimmick gimmick);

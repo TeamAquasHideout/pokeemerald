@@ -856,6 +856,10 @@ static const u8 sText_PkmnTerastallizedInto[] = _("{B_ATK_NAME_WITH_PREFIX} tera
 static const u8 sText_SupersweetAromaWafts[] = _("A supersweet aroma is wafting from\nthe syrup covering {B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_TidyingUpComplete[] = _("Tidying up complete!");
 static const u8 sText_FickleBeamDoubled[] = _("{B_ATK_NAME_WITH_PREFIX} is going all\nout for this attack!");
+static const u8 sText_PkmnDynamaxed[] = _("{B_ATK_NAME_WITH_PREFIX} grew huge\ninto its Dynamax form!");
+static const u8 sText_PkmnGigantamaxed[] = _("{B_ATK_NAME_WITH_PREFIX} grew huge\ninto its Gigantamax form!");
+static const u8 sText_TimeToDynamax[] = _("Time to Dynamax!");
+static const u8 sText_TimeToGigantamax[] = _("Time to Gigantamax!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
@@ -1561,6 +1565,10 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_ITEMWASUSEDUP - BATTLESTRINGS_TABLE_START] = sText_ItemWasUsedUp,
     [STRINGID_ATTACKERLOSTITSTYPE - BATTLESTRINGS_TABLE_START] = sText_AttackerLostItsType,
     [STRINGID_CLOAKEDINAHARSHLIGHT - BATTLESTRINGS_TABLE_START] = sText_PkmnIsCloakedInAHarshLight,
+    [STRINGID_PKMNDYNAMAXED - BATTLESTRINGS_TABLE_START] = sText_PkmnDynamaxed,
+    [STRINGID_PKMNGIGANTAMAXED - BATTLESTRINGS_TABLE_START] = sText_PkmnGigantamaxed,
+    [STRINGID_TIMETODYNAMAX - BATTLESTRINGS_TABLE_START] = sText_TimeToDynamax,
+    [STRINGID_TIMETOGIGANTAMAX - BATTLESTRINGS_TABLE_START] = sText_TimeToGigantamax,
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -2078,7 +2086,7 @@ const u8 gText_WhatWillPkmnDo[] = _("What will\n{B_BUFF1} do?");
 const u8 gText_WhatWillPkmnDo2[] = _("What will\n{B_PLAYER_NAME} do?");
 const u8 gText_WhatWillWallyDo[] = _("What will\nWALLY do?");
 const u8 gText_LinkStandby[] = _("{PAUSE 16}Link standby…");
-const u8 gText_BattleMenu[] = _("Fight{CLEAR_TO 56}Bag\nPokémon{CLEAR_TO 56}Forfeit");
+const u8 gText_BattleMenu[] = _("FIGHT{CLEAR_TO 56}BAG\nPOKéMON{CLEAR_TO 56}QUIT");
 const u8 gText_SafariZoneMenu[] = _("BALL{CLEAR_TO 56}{POKEBLOCK}\nGO NEAR{CLEAR_TO 56}RUN");
 const u8 gText_MoveInterfacePP[] = _("PP ");
 const u8 gText_MoveInterfaceType[] = _("");

@@ -10029,6 +10029,14 @@ BattleScript_EffectSteelsurge::
 BattleScript_DynamaxBegins::
 	flushtextbox
 	trytrainerslidedynamaxmsg
+	jumpifcangigantamax BS_ATTACKER, BattleScript_DynamaxBegins_GigantamaxString1
+	printstring STRINGID_TIMETODYNAMAX
+	waitmessage B_WAIT_TIME_MED
+	goto BattleScript_DynamaxBegins_01
+BattleScript_DynamaxBegins_GigantamaxString1:
+	printstring STRINGID_TIMETOGIGANTAMAX
+	waitmessage B_WAIT_TIME_MED
+BattleScript_DynamaxBegins_01:
 	returnatktoball
 	pause B_WAIT_TIME_SHORT
 	returntoball BS_SCRIPTING, TRUE
@@ -10036,6 +10044,14 @@ BattleScript_DynamaxBegins::
 	updatedynamax
 	playanimation BS_SCRIPTING, B_ANIM_DYNAMAX_GROWTH
 	waitanimation
+	jumpifcangigantamax BS_ATTACKER, BattleScript_DynamaxBegins_GigantamaxString2
+	printstring STRINGID_PKMNDYNAMAXED
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_DynamaxBegins_End3
+BattleScript_DynamaxBegins_GigantamaxString2:
+	printstring STRINGID_PKMNGIGANTAMAXED
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DynamaxBegins_End3:
 	end3
 
 BattleScript_DynamaxEnds::

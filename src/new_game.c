@@ -133,7 +133,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeCashRewards = CASH_1X;
         gSaveBlock2Ptr->modeHealFloors10 = HEAL_FLOORS_5;
         gSaveBlock2Ptr->modeLegendaries = ON;
-        gSaveBlock2Ptr->modeMegas = OFF;
+        gSaveBlock2Ptr->modeMegas = ON;
         gSaveBlock2Ptr->modeZMoves = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
         gSaveBlock2Ptr->modeMonoType = TYPE_NONE;

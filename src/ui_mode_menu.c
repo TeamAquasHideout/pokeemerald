@@ -1486,9 +1486,9 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeHealFloors10 = sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS];
     gSaveBlock2Ptr->modeLegendaries  = sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES];
 #ifdef PIT_GEN_9_MODE
-    gSaveBlock2Ptr->trainerGimmicks = sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS];
+    gSaveBlock2Ptr->trainerGimmicks  = sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS];
     gSaveBlock2Ptr->modeMegas        = sOptions->sel_diff[MENUITEM_DIFF_MEGAS];
-    gSaveBlock2Ptr->modeZMoves        = sOptions->sel_diff[MENUITEM_DIFF_ZMOVES];
+    gSaveBlock2Ptr->modeZMoves       = sOptions->sel_diff[MENUITEM_DIFF_ZMOVES];
 #endif
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage   = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
@@ -2277,7 +2277,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_ON;
 #ifdef PIT_GEN_9_MODE
     sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
-    sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = OPTIONS_ON;
+    sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_TERA]          = OPTIONS_OFF;
     sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_NONE;

@@ -103,6 +103,7 @@ static const u8 sText_FollowMe[] = _("Follow Me");
 static const u8 sText_RecoverHP[] = _("Recover HP");
 static const u8 sText_HealAllyHP[] = _("Heal Replacement HP");
 static const u8 sText_PowerColon[] = _("Power: ");
+static const u8 sText_NoAdditionalEffect[] = _("No Additional Effect");
 
 // Functions
 bool32 IsZMove(u32 move)
@@ -172,7 +173,9 @@ bool32 IsViableZMove(u32 battler, u32 move)
 
     item = gBattleMons[battler].item;
 
-    if (gBattleStruct->gimmick.chosenGimmick[battler] != GIMMICK_Z_MOVE)
+    DebugPrintf("IsViableZMove #######");
+    DebugPrintf("usable Gimmick? = %d", (gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE));
+    if (!(gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE))
         return FALSE;
 
     for (moveSlotIndex = 0; moveSlotIndex < MAX_MON_MOVES; moveSlotIndex++)
@@ -205,9 +208,11 @@ bool32 IsViableZMove(u32 battler, u32 move)
 void AssignUsableZMoves(u32 battler, u16 *moves)
 {
     u32 i;
+    DebugPrintf("AssignUsableZMoves");
     gBattleStruct->zmove.possibleZMoves[battler] = 0;
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
+        DebugPrintf("IsViableZMove? %S, %d", gMovesInfo[moves[i]].name, IsViableZMove(battler, moves[i]));
         if (moves[i] != MOVE_NONE && IsViableZMove(battler, moves[i]))
             gBattleStruct->zmove.possibleZMoves[battler] |= gBitTable[i];
     }
@@ -218,10 +223,29 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
     bool32 viableZMove = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[moveIndex]) != 0;
 
     if (gBattleStruct->zmove.viable && !viableZMove)
+    {
+        DebugPrintf("C - set Cycle mode");
+        gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
+        SetGimmickCursor(GIMMICK_NONE);
         HideGimmickTriggerSprite();   // Was a viable z move, now is not -> slide out
-    else if (!gBattleStruct->zmove.viable && viableZMove)
-        CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);   // Was not a viable z move, now is -> slide back in
-
+    }
+    else if (viableZMove)
+    {
+        DebugPrintf("C - set Z Move mode");
+        gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_Z_MOVE;
+        SetGimmickCursor(GIMMICK_Z_MOVE);
+        DestroyGimmickTriggerSprite();
+        gBattleStruct->gimmick.triggerSpriteId = 0xFF;
+        //reset currently chosen gimmick
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
+        CreateGimmickTriggerSprite(battler, GIMMICK_Z_MOVE);
+        // Is a viable z move -> slide back in, even if we are coming from another Z move
+        // Reasoning: If your cursor is on a viable z move when loading the move choice,
+        // then it wouldn't trigger the slide in when moving to another viable z move.
+    }
     gBattleStruct->zmove.viable = viableZMove;
 
     return viableZMove;
@@ -264,6 +288,7 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
 
+    DebugPrintf("MoveSelectionDisplayZMove");
     PlaySE(SE_SELECT);
     gBattleStruct->zmove.viewing = TRUE;
     if (zmove != MOVE_NONE)
@@ -351,6 +376,10 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
                 gDisplayedStringBattle[4] = EOS;
                 PREPARE_STAT_BUFFER(gBattleTextBuff1, zEffect - Z_EFFECT_ATK_UP_3 + 1);
                 ExpandBattleTextBuffPlaceholders(gBattleTextBuff1, gDisplayedStringBattle + 4);
+                break;
+            default:
+                StringCopy(gDisplayedStringBattle, sText_NoAdditionalEffect);
+                break;
                 break;
             }
 

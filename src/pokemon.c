@@ -4689,6 +4689,14 @@ u8 GetNatureFromPersonality(u32 personality)
     return personality % NUM_NATURES;
 }
 
+bool8 PartyMonHasGigantamaxFactor(u32 partyIndex)
+{
+    if (partyIndex < PARTY_SIZE)
+        return GetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR);
+    else
+        return FALSE;
+}
+
 u32 GetGMaxTargetSpecies(u32 species)
 {
     const struct FormChange *formChanges = GetSpeciesFormChanges(species);

@@ -751,7 +751,7 @@ static void DoMoveRelearnerMain(void)
         {
             //deduct money if a tutor move was taught
             if(VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_EGG_MOVES)
-                RemoveMoney(&gSaveBlock1Ptr->money, 10000);
+                RemoveMoney(&gSaveBlock1Ptr->money, 8000);
             if(VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_PREEVO_MOVES)
                 RemoveMoney(&gSaveBlock1Ptr->money, 5000);
 #ifndef PIT_GEN_9_MODE

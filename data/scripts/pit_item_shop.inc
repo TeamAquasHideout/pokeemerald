@@ -279,7 +279,7 @@ PitShop_ShopNPC_EditIVs:
 PitTutor_MoveRelearnerText:
 	.string "Move Relearner (free)$"
 PitArena_EggMovesText:
-	.string "Egg Moves (¥10,000/ea)$"
+	.string "Egg Moves (¥8,000/ea)$"
 PitArena_TutorMovesText:
 	.string "Tutor Moves (¥10,000/ea)$"
 PitArena_PreEvoMovesText:
@@ -879,6 +879,7 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM19
 	.2byte ITEM_TM204
 	.2byte ITEM_TM169
+	.2byte ITEM_TM57 @Dragon Ascent
 	.2byte ITEM_TM226
 	.2byte ITEM_TM78
 	.2byte ITEM_TM100
@@ -901,7 +902,6 @@ PitArena_Mart_TMs:
 	.2byte ITEM_TM218
 	.2byte ITEM_TM25
 	.2byte ITEM_TM03
-	.2byte ITEM_TM57
 	.2byte ITEM_TM216
 	.2byte ITEM_TM141
 	.2byte ITEM_TM08
@@ -1184,6 +1184,7 @@ PitArena_Mart_TMs_200:
 	.align 2
 PitArena_Mart_TeraShards:
 	.2byte ITEM_TERA_ORB
+	.2byte  ITEM_TERA_SHOT
 	.2byte ITEM_BUG_TERA_SHARD
 	.2byte ITEM_DARK_TERA_SHARD
 	.2byte ITEM_DRAGON_TERA_SHARD 

@@ -179,7 +179,7 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 };
 
 static EWRAM_DATA bool8 sDescriptionSubmenu = 0;
-static EWRAM_DATA u8 gimmickCursor = 0;
+static EWRAM_DATA u8 gimmickCursor = GIMMICK_NONE;
 
 void SetControllerToPlayer(u32 battler)
 {
@@ -825,10 +825,13 @@ static void HandleInputChooseMove(u32 battler)
     {
         PlaySE(SE_SELECT);
         gBattleStruct->gimmick.playerSelect = FALSE;
-        gimmickCursor = 0;
+        gimmickCursor = GIMMICK_NONE;
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
         if (gBattleStruct->zmove.viewing)
         {
             ReloadMoveNames(battler);
+            // deactivate Z move symbol
+            ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
         }
         else
         {
@@ -869,7 +872,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+                TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
     else if (JOY_NEW(DPAD_RIGHT) && !gBattleStruct->zmove.viewing)
@@ -887,7 +891,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+                TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
     else if (JOY_NEW(DPAD_UP) && !gBattleStruct->zmove.viewing)
@@ -904,7 +909,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+                TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
 
     }
@@ -923,7 +929,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+                TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
     else if ((JOY_NEW(SELECT_BUTTON) && !gBattleStruct->zmove.viewing)  && !sDescriptionSubmenu)
@@ -944,38 +951,87 @@ static void HandleInputChooseMove(u32 battler)
     }
     else if (JOY_NEW(START_BUTTON))
     {
-        DebugPrintf("press START");
-        if (MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) != GIMMICK_NONE && !HasTrainerUsedGimmick(battler, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler])))
+        bool8 dontDestroySprite = FALSE;
+        DebugPrintf("Press START - gimmickCursor = %d", gimmickCursor);
+        u32 firstValidGimmick = GetFirstValidGimmick(battler);
+
+        // cycle through available gimmicks, except for Z Moves as they are skippped and handled separately
+        if (firstValidGimmick != GIMMICK_NONE
+          //&& !HasTrainerUsedGimmick(battler, firstValidGimmick)
+          && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_CYCLE)
         {
-            if (gimmickCursor == 0) //activate gimmick symbol and set first available gimmick
+            DebugPrintf("GIMMICK_MODE_CYCLE");
+            if (gimmickCursor == GIMMICK_NONE || gimmickCursor == GIMMICKS_COUNT) //activate gimmick symbol and set first available gimmick
             {
+                DebugPrintf("activate gimmick symbol");
+                DebugPrintf("chosen gimmick = %d", gBattleStruct->gimmick.chosenGimmick[battler]);
+                if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE) //gBattleStruct->gimmick.playerSelect == FALSE)
+                    dontDestroySprite = TRUE;
                 gBattleStruct->gimmick.playerSelect ^= 1;
-                gimmickCursor = MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]);
+                gimmickCursor = firstValidGimmick;
+            }
+            else if (gimmickCursor == GIMMICK_Z_MOVE) //skip Z Moves during cycling
+            {
+                DebugPrintf("gimmickCursor == GIMMICK_Z_MOVE");
+                //check for next active flag
+                do
+                {
+                    gimmickCursor++;
+                } while (gimmickCursor < GIMMICKS_COUNT
+                    && ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (gimmickCursor - 1))) == 0
+                      || !(CanActivateGimmick(battler, gimmickCursor))));
             }
             else
             {
                 //check for next active flag
                 do
                 {
-                    DebugPrintf("gimmickCursor++ because %d is %d", gimmickCursor, gBattleStruct->gimmick.usableGimmick[battler] & (1 << (gimmickCursor - 1)));
                     gimmickCursor++;
-                } while ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (gimmickCursor - 1))) == 0 && gimmickCursor < GIMMICKS_COUNT);
+                } while (gimmickCursor < GIMMICKS_COUNT
+                    && ((gBattleStruct->gimmick.usableGimmick[battler] & (1 << (gimmickCursor - 1))) == 0
+                      || !(CanActivateGimmick(battler, gimmickCursor))));
             }
 
             if (gimmickCursor == GIMMICKS_COUNT)
             {
                 gBattleStruct->gimmick.playerSelect ^= 1;
-                gimmickCursor = 0; //MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]);
+                //gimmickCursor = GIMMICK_NONE;
             }
 
-            DebugPrintf("GIMMICK = %d", gimmickCursor);
             gBattleStruct->gimmick.chosenGimmick[battler] = gimmickCursor;
-            ReloadMoveNames(battler);
             //update gimmickTriggerSprites
-            if (!IsGimmickTriggerSpriteActive())
+            ReloadMoveNames(battler);
+            if (gimmickCursor != GIMMICKS_COUNT && gimmickCursor != GIMMICK_NONE && !dontDestroySprite)
+            {
+                DebugPrintf("A Destroy %d", gimmickCursor);
+                DestroyGimmickTriggerSprite();
                 gBattleStruct->gimmick.triggerSpriteId = 0xFF;
+            }
+            if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable)) //this check is probably irrelevant now
+            {
+                if(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICKS_COUNT)
+                    HideGimmickTriggerSprite();
+                else
+                {
+                    DebugPrintf("A Create %d", gBattleStruct->gimmick.chosenGimmick[battler]);
+                    CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
+                }
+            }
+            ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
+            PlaySE(SE_SELECT);
+        }
+        else if (gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_Z_MOVE)
+        {
+            DebugPrintf("GIMMICK_MODE_Z_MOVE");
+            gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_Z_MOVE;
+            gBattleStruct->gimmick.playerSelect ^= 1;
+            //update gimmickTriggerSprites
+            ReloadMoveNames(battler);
             if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
+            {
+                DebugPrintf("D");
                 CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
+            }
             ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
             PlaySE(SE_SELECT);
         }
@@ -1001,15 +1057,24 @@ static void HandleInputChooseMove(u32 battler)
     }
 }
 
+void SetGimmickCursor(u8 gimmick)
+{
+    if (gimmick <= GIMMICKS_COUNT)
+        gimmickCursor = gimmick;
+}
+
 static void ReloadMoveNames(u32 battler)
 {
-    if (gBattleStruct->zmove.viable && !gBattleStruct->zmove.viewing)
+    if (gBattleStruct->zmove.viable && !gBattleStruct->zmove.viewing
+      && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_Z_MOVE)
     {
+        DebugPrintf("ReloadMoveNames Z Move");
         struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
         MoveSelectionDisplayZMove(GetUsableZMove(battler, moveInfo->moves[gMoveSelectionCursor[battler]]), battler);
     }
     else
     {
+        DebugPrintf("no Z move showing");
         gBattleStruct->zmove.viewing = FALSE;
         MoveSelectionDestroyCursorAt(battler);
         MoveSelectionDisplayMoveNames(battler);
@@ -2230,7 +2295,8 @@ static void PlayerHandleChooseAction(u32 battler)
     s32 i;
 
     gBattleStruct->gimmick.playerSelect = FALSE;
-    gimmickCursor = 0;
+    gimmickCursor = GIMMICK_NONE;
+    gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
 
     gBattlerControllerFuncs[battler] = HandleChooseActionAfterDma3;
     BattleTv_ClearExplosionFaintCause();
@@ -2304,10 +2370,21 @@ static void PlayerHandleChooseMove(u32 battler)
         AssignUsableZMoves(battler, moveInfo->moves);
         gBattleStruct->zmove.viable = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[gMoveSelectionCursor[battler]]) != 0;
 
+        DebugPrintf("PlayerHandleChooseMove");
         if (!IsGimmickTriggerSpriteActive())
             gBattleStruct->gimmick.triggerSpriteId = 0xFF;
         if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
-            CreateGimmickTriggerSprite(battler, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]));
+        {
+            u32 initialGimmick = GetFirstValidGimmick(battler);
+            gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
+            DebugPrintf("B - initial gimmick = %d", initialGimmick);
+            //DebugPrintf("chosenGimmick = %d", gBattleStruct->gimmick.chosenGimmick[battler]);
+            if (initialGimmick != GIMMICKS_COUNT)
+            {
+                //gimmickCursor = initialGimmick;
+                CreateGimmickTriggerSprite(battler, initialGimmick);
+            }
+        }
     }
 }
 

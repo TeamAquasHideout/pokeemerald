@@ -5926,9 +5926,9 @@ static void HandleEndTurn_FinishBattle(void)
         if (B_TRAINERS_KNOCK_OFF_ITEMS == TRUE || B_RESTORE_HELD_BATTLE_ITEMS >= GEN_9)
             TryRestoreHeldItems();
 
-        // Recharge Tera Orb, if possible.
-        if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1))
-            FlagSet(B_FLAG_TERA_ORB_CHARGED);
+        // Recharge Tera Orb, if possible. --> moved to CheckFloorCleared()
+        // if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1))
+        //     FlagSet(B_FLAG_TERA_ORB_CHARGED);
 
         // Undo Dynamax HP multiplier before recalculating stats.
         for (battler = 0; battler < gBattlersCount; ++battler)

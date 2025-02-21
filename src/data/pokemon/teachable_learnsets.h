@@ -158,6 +158,7 @@
 // - MOVE_AVALANCHE                                       //
 // - MOVE_SNOWSCAPE                                       //
 // - MOVE_SMART_STRIKE                                    //
+// - MOVE_DRAGON_ASCENT                                   //
 // - MOVE_ZEN_HEADBUTT                                    //
 // - MOVE_FOUL_PLAY                                       //
 // - MOVE_PSYCHIC_FANGS                                   //
@@ -40473,6 +40474,7 @@ static const u16 sRayquazaTeachableLearnset[] = {
     MOVE_DOUBLE_EDGE,
     MOVE_DOUBLE_TEAM,
     MOVE_DRACO_METEOR,
+    MOVE_DRAGON_ASCENT,
     MOVE_DRAGON_CHEER,
     MOVE_DRAGON_CLAW,
     MOVE_DRAGON_DANCE,

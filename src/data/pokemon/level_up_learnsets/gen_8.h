@@ -10052,7 +10052,6 @@ static const struct LevelUpMove sGroudonLevelUpLearnset[] = {
 
 #if P_FAMILY_RAYQUAZA
 static const struct LevelUpMove sRayquazaLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_DRAGON_ASCENT),
     LEVEL_UP_MOVE( 1, MOVE_TWISTER),
     LEVEL_UP_MOVE( 1, MOVE_ANCIENT_POWER),
     LEVEL_UP_MOVE( 1, MOVE_AIR_SLASH),

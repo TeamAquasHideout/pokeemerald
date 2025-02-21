@@ -5103,6 +5103,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sGreatTuskLevelUpLearnset,
         .teachableLearnset = sGreatTuskTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_GREAT_TUSK
 
@@ -5167,6 +5168,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sScreamTailLevelUpLearnset,
         .teachableLearnset = sScreamTailTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_SCREAM_TAIL
 
@@ -5231,6 +5233,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sBruteBonnetLevelUpLearnset,
         .teachableLearnset = sBruteBonnetTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_BRUTE_BONNET
 
@@ -5298,6 +5301,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sFlutterManeLevelUpLearnset,
         .teachableLearnset = sFlutterManeTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_FLUTTER_MANE
 
@@ -5361,6 +5365,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sSlitherWingLevelUpLearnset,
         .teachableLearnset = sSlitherWingTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_SLITHER_WING
 
@@ -5425,6 +5430,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sSandyShocksLevelUpLearnset,
         .teachableLearnset = sSandyShocksTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_SANDY_SHOCKS
 
@@ -5489,6 +5495,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronTreadsLevelUpLearnset,
         .teachableLearnset = sIronTreadsTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_TREADS
 
@@ -5553,6 +5560,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronBundleLevelUpLearnset,
         .teachableLearnset = sIronBundleTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_BUNDLE
 
@@ -5617,6 +5625,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronHandsLevelUpLearnset,
         .teachableLearnset = sIronHandsTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_HANDS
 
@@ -5682,6 +5691,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronJugulisLevelUpLearnset,
         .teachableLearnset = sIronJugulisTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_JUGULIS
 
@@ -5747,6 +5757,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronMothLevelUpLearnset,
         .teachableLearnset = sIronMothTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_MOTH
 
@@ -5811,6 +5822,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronThornsLevelUpLearnset,
         .teachableLearnset = sIronThornsTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_THORNS
 
@@ -6492,6 +6504,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sRoaringMoonLevelUpLearnset,
         .teachableLearnset = sRoaringMoonTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_ROARING_MOON
 
@@ -6555,6 +6568,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronValiantLevelUpLearnset,
         .teachableLearnset = sIronValiantTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_VALIANT
 
@@ -6746,6 +6760,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sWalkingWakeLevelUpLearnset,
         .teachableLearnset = sWalkingWakeTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_WALKING_WAKE
 
@@ -6809,6 +6824,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronLeavesLevelUpLearnset,
         .teachableLearnset = sIronLeavesTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_LEAVES
 
@@ -7387,6 +7403,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sGougingFireLevelUpLearnset,
         .teachableLearnset = sGougingFireTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_GOUGING_FIRE
 
@@ -7451,6 +7468,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sRagingBoltLevelUpLearnset,
         .teachableLearnset = sRagingBoltTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_RAGING_BOLT
 
@@ -7514,6 +7532,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronBoulderLevelUpLearnset,
         .teachableLearnset = sIronBoulderTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_BOULDER
 
@@ -7578,6 +7597,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .isParadox = TRUE,
         .levelUpLearnset = sIronCrownLevelUpLearnset,
         .teachableLearnset = sIronCrownTeachableLearnset,
+        .signatureItem = ITEM_BOOSTER_ENERGY,
     },
 #endif //P_FAMILY_IRON_CROWN
 

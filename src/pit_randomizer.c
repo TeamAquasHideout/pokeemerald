@@ -2013,7 +2013,7 @@ u16 RandomItemId(u16 itemId)
                 itemId = sRandomXItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_X_ITEM_COUNT)];
             else if(randomItemCategory < 700)
                 itemId = sRandomConsumableValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_CONSUMABLE_ITEM_COUNT)];
-            else if(randomItemCategory < 920)
+            else if(randomItemCategory < 925)
                 itemId = sRandomHeldValidItems[RandomModulo(itemId + VarGet(VAR_PIT_FLOOR) + gSaveBlock1Ptr->pos.x, RANDOM_HELD_ITEM_COUNT)];
             else if(randomItemCategory < 940)
             {

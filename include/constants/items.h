@@ -1133,11 +1133,12 @@
 #define ITEM_RUNNING_SHOES 958 // new evo item
 #define ITEM_RAINBOW_PEARL 959 // new gender swapping item
 #define ITEM_MAX_SOUP 960 // activate the gigantamax factor
+#define ITEM_TERA_SHOT 961 // recharge Tera Orb
 
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 961
+#define ITEMS_COUNT 962
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
