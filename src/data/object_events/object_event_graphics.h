@@ -400,6 +400,7 @@ const u16 gObjectEventPal_Phoebe[] = INCBIN_U16("graphics/object_events/pics/peo
 const u16 gObjectEventPal_Oak[] = INCBIN_U16("graphics/object_events/pics/people/oak.gbapal");
 const u16 gObjectEventPal_Lyra[] = INCBIN_U16("graphics/object_events/pics/people/lyra.gbapal");
 const u16 gObjectEventPal_Ethan[] = INCBIN_U16("graphics/object_events/pics/people/ethan.gbapal");
+const u32 gObjectEventPic_Misty[] = INCBIN_U32("graphics/object_events/pics/people/misty.4bpp");
 const u16 gObjectEventPal_PitPC[] = INCBIN_U16("graphics/object_events/pics/misc/pit_pc.gbapal");
 const u16 gObjectEventPal_Blue[] = INCBIN_U16("graphics/object_events/palettes/npc_blue.gbapal");
 const u16 gObjectEventPal_Pink[] = INCBIN_U16("graphics/object_events/palettes/npc_pink.gbapal");
