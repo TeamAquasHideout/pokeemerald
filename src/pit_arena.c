@@ -2599,99 +2599,6 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
     },
 
     {
-        .graphicsId = OBJ_EVENT_GFX_MAXIE,
-        .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
-        .bossName = COMPOUND_STRING("Maxie"),
-        .bossApproachText =  COMPOUND_STRING("Clear out of the way! Don't you dare\n"
-                                            "interfere!$"),
-        .bossLoseText =     COMPOUND_STRING("You've really done it...\p"
-                                            "You've shown a power that exceeds that\n"
-                                            "of the great Maxie!$"),
-        .bossAceText =      COMPOUND_STRING("I shall educate you!\p$"),
-#if (GEN_LATEST == GEN_3)
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
-                            .lvl = 100,
-                            .species = SPECIES_GROUDON,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 0,
-                            .nature = NATURE_NAIVE,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_OVERHEAT}
-                        },
-#elif (GEN_LATEST == GEN_5)
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
-                            .lvl = 100,
-                            .species = SPECIES_GROUDON,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 0,
-                            .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
-                        },
-#else
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
-                            .lvl = 100,
-                            .species = SPECIES_GROUDON,
-                            .heldItem = ITEM_RED_ORB,
-                            .ability = 0,
-                            .nature = NATURE_ADAMANT,
-                            .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
-                        },
-#endif
-    },
-
-    {
-        .graphicsId = OBJ_EVENT_GFX_ARCHIE,
-        .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
-        .bossName = COMPOUND_STRING("Archie"),
-        .bossApproachText =  COMPOUND_STRING("I have waited so long for this day to\n"
-                                            "come...\p"
-                                            "For the realization of my dream, you\n"
-                                            "must disappear now!$"),
-        .bossLoseText =     COMPOUND_STRING("I commend you. I must recognize that\n"
-                                            "you are truly gifted.$"),
-        .bossAceText =      COMPOUND_STRING("It's the road's end for you!\p$"),
-#if (GEN_LATEST == GEN_3)
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
-                            .lvl = 100,
-                            .species = SPECIES_KYOGRE,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 0,
-                            .nature = NATURE_MODEST,
-                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
-                        },
-#elif (GEN_LATEST == GEN_5)
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
-                            .lvl = 100,
-                            .species = SPECIES_KYOGRE,
-                            .heldItem = ITEM_LEFTOVERS,
-                            .ability = 0,
-                            .nature = NATURE_MODEST,
-                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
-                        },
-#else
-        .trainerAce =   {
-                            .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
-                            .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
-                            .lvl = 100,
-                            .species = SPECIES_KYOGRE,
-                            .heldItem = ITEM_BLUE_ORB,
-                            .ability = 0,
-                            .nature = NATURE_MODEST,
-                            .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
-                        },
-#endif
-    },
-
-    {
         .graphicsId = OBJ_EVENT_GFX_ERIKA,
         .trainerPic = TRAINER_PIC_ERIKA,
         .bossName = COMPOUND_STRING("Erika"),
@@ -3109,6 +3016,100 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         },
     },
 #endif
+
+{
+    .graphicsId = OBJ_EVENT_GFX_MAXIE,
+    .trainerPic = TRAINER_PIC_MAGMA_LEADER_MAXIE,
+    .bossName = COMPOUND_STRING("Maxie"),
+    .bossApproachText =  COMPOUND_STRING("Clear out of the way! Don't you dare\n"
+                                        "interfere!$"),
+    .bossLoseText =     COMPOUND_STRING("You've really done it...\p"
+                                        "You've shown a power that exceeds that\n"
+                                        "of the great Maxie!$"),
+    .bossAceText =      COMPOUND_STRING("I shall educate you!\p$"),
+#if (GEN_LATEST == GEN_3)
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(0, 252, 0, 252, 4, 0),
+                        .lvl = 100,
+                        .species = SPECIES_GROUDON,
+                        .heldItem = ITEM_LEFTOVERS,
+                        .ability = 0,
+                        .nature = NATURE_NAIVE,
+                        .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_OVERHEAT}
+                    },
+#elif (GEN_LATEST == GEN_5)
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                        .lvl = 100,
+                        .species = SPECIES_GROUDON,
+                        .heldItem = ITEM_LEFTOVERS,
+                        .ability = 0,
+                        .nature = NATURE_ADAMANT,
+                        .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
+                    },
+#else
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(252, 252, 0, 0, 0, 4),
+                        .lvl = 100,
+                        .species = SPECIES_GROUDON,
+                        .heldItem = ITEM_RED_ORB,
+                        .ability = 0,
+                        .nature = NATURE_ADAMANT,
+                        .moves = {MOVE_BULK_UP, MOVE_EARTHQUAKE, MOVE_ROCK_SLIDE, MOVE_FIRE_PUNCH}
+                    },
+#endif
+},
+
+{
+    .graphicsId = OBJ_EVENT_GFX_ARCHIE,
+    .trainerPic = TRAINER_PIC_AQUA_LEADER_ARCHIE,
+    .bossName = COMPOUND_STRING("Archie"),
+    .bossApproachText =  COMPOUND_STRING("I have waited so long for this day to\n"
+                                        "come...\p"
+                                        "For the realization of my dream, you\n"
+                                        "must disappear now!$"),
+    .bossLoseText =     COMPOUND_STRING("I commend you. I must recognize that\n"
+                                        "you are truly gifted.$"),
+    .bossAceText =      COMPOUND_STRING("It's the road's end for you!\p$"),
+#if (GEN_LATEST == GEN_3)
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+                        .lvl = 100,
+                        .species = SPECIES_KYOGRE,
+                        .heldItem = ITEM_LEFTOVERS,
+                        .ability = 0,
+                        .nature = NATURE_MODEST,
+                        .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
+                    },
+#elif (GEN_LATEST == GEN_5)
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+                        .lvl = 100,
+                        .species = SPECIES_KYOGRE,
+                        .heldItem = ITEM_LEFTOVERS,
+                        .ability = 0,
+                        .nature = NATURE_MODEST,
+                        .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
+                    },
+#else
+    .trainerAce =   {
+                        .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+                        .ev = TRAINER_PARTY_EVS(0, 0, 0, 252, 252, 4),
+                        .lvl = 100,
+                        .species = SPECIES_KYOGRE,
+                        .heldItem = ITEM_BLUE_ORB,
+                        .ability = 0,
+                        .nature = NATURE_MODEST,
+                        .moves = {MOVE_CALM_MIND, MOVE_HYDRO_PUMP, MOVE_THUNDER, MOVE_ICE_BEAM}
+                    },
+#endif
+},
+
 };
 
 u8 *GetBossEncounterFlagPointer(u16 id)
@@ -3165,12 +3166,13 @@ void ClearAllRandomBossEncounters(void)
     }
 }
 
+#define NUMBER_FINAL_BOSSES 2
 void SetRandomBossEncounter(void)
 {
     bool8 reroll = FALSE;
         
     do {
-        u16 index = Random() % RANDOM_BOSS_ENCOUNTER_COUNT;
+        u16 index = Random() % (RANDOM_BOSS_ENCOUNTER_COUNT - NUMBER_FINAL_BOSSES);
         //index = RANDOM_BOSS_ENCOUNTER_COUNT - 3; //test
         if(BossEncounterFlagGet(index))
         {
@@ -3189,6 +3191,19 @@ void SetRandomBossEncounter(void)
         }
     } while (reroll);
 }
+
+void ChooseFinalBossEncounter(void)
+{
+    u16 index = (RANDOM_BOSS_ENCOUNTER_COUNT - 1 - (Random() % NUMBER_FINAL_BOSSES));
+    //index = RANDOM_BOSS_ENCOUNTER_COUNT - 3; //test
+    BossEncounterFlagSet(index);
+    ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS);
+    ClearTrainerFlag(TRAINER_RANDOM_PIT_BOSS_DOUBLES);
+    VarSet(VAR_OBJ_GFX_ID_F, sRandomBossEncounterArray[index].graphicsId);
+    VarSet(VAR_CURRENT_BOSS, index);
+    FlagClear(FLAG_BOSS_ENCOUNTER);
+}
+
 
 const struct TrainerMon *GetRandomBossEncounterAcePokemon(void)
 {

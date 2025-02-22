@@ -6,6 +6,7 @@ u16 ReturnLastSpokenVarObjGfxId();
 void BufferMapFloorString();
 void WarpToRandomPitArena(void);
 void SetRandomBossEncounter(void);
+void ChooseFinalBossEncounter(void);
 const struct TrainerMon *GetRandomBossEncounterAcePokemon(void);
 u16 GetRandomBossEncounterTrainerPic(void);
 const u8 *GetRandomBossEncounterBossName(void);

@@ -4870,6 +4870,16 @@
       "secondary_tileset": "gTileset_PitZeldaHouse",
       "border_filepath": "data/layouts/PitBackRoom/border.bin",
       "blockdata_filepath": "data/layouts/PitBackRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_PIT_FINAL_BOSS",
+      "name": "PitFinalBoss_Layout",
+      "width": 31,
+      "height": 23,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_BattlePyramid",
+      "border_filepath": "data/layouts/PitFinalBoss/border.bin",
+      "blockdata_filepath": "data/layouts/PitFinalBoss/map.bin"
     }
   ]
 }

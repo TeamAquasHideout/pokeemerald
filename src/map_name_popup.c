@@ -398,6 +398,10 @@ static void LoadMapNamePopUpWindowBgs(void)
     {
         popupThemeId = MAPPOPUP_THEME_BLACK;
     }
+    if((mapNum | (mapGroup << 8)) == MAP_PIT_FINAL_BOSS)
+    {
+        popupThemeId = MAPPOPUP_THEME_BLACK;
+    }
     if((mapNum | (mapGroup << 8)) == MAP_PIT_WILD_ENCOUNTER_FLOOR)
     {
         popupThemeId = MAPPOPUP_THEME_BLACK;
