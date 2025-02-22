@@ -598,8 +598,6 @@ static void CB2_InitBattleInternal(void)
     }
 
     gBattleCommunication[MULTIUSE_STATE] = 0;
-
-    //DebugPrintf("Reached End Of Init Battle Internal: %d", gSpecialVar_TrainerNumber);
 }
 
 #define BUFFER_PARTY_VS_SCREEN_STATUS(party, flags, i)                      \
@@ -2301,7 +2299,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                 {
                     data = TRUE;
-                    //DebugPrintf("set gigantamax factor");
                 }
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
@@ -2313,7 +2310,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                     data = TYPE_NONE; //use default in 50% of cases
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-                //DebugPrintf("set trainer tera type to %d, coinflip %d", data, coinflip);
             }
 
             //DebugPrintf("MONS CREATED HERE");
