@@ -37,6 +37,7 @@
 #include "config/general.h"
 #include "main_menu.h"
 #include "pit.h"
+#include "ui_main_menu.h"
 
 
 // This code is based on Ghoulslash's excellent UI tutorial:
@@ -1233,6 +1234,18 @@ static void Task_ModeMenuWaitFadeIn(u8 taskId)
     }
 }
 
+static void Task_ModeMenuQuitOut(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        ModeMenu_FreeResources();
+        DestroyTask(taskId);
+        TrainerStats_OpenMainMenu();
+    }
+}
+
+
+
 static void Task_ModeMenuMainInput(u8 taskId)
 {
     u8 optionsToDraw = min(OPTIONS_ON_SCREEN , MenuItemCount());
@@ -1444,8 +1457,14 @@ static void Task_ModeMenuMainInput(u8 taskId)
             HighlightModeMenuItem();
             DrawDescriptionText();
         }
+        else{
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
+            gTasks[taskId].func = Task_ModeMenuQuitOut;
+            return;
+        }
     }
 }
+
 
 static void Task_ModeMenuSave(u8 taskId)
 {
