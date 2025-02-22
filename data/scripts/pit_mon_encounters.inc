@@ -81,10 +81,10 @@ PitEncounter_NuggetDrop_alreadyUsed::
 	end
 #ifdef PIT_GEN_9_MODE
 PitEncounter_NuggetDrop_alreadyUsed_Text:
-	.string "Gholdengo$"
+	.string "Gholdengo!$"
 #else
 PitEncounter_NuggetDrop_alreadyUsed_Text:
-	.string "Sableye$"
+	.string "Sableye!$"
 #endif
 
 PitEncounter_WonderTrade_alreadyUsed::
@@ -130,7 +130,7 @@ PitEncounter_RareCandyDrop_alreadyUsed::
 	release
 	end
 PitEncounter_RareCandyDrop_alreadyUsed_Text:
-	.string "Eevee!!$"
+	.string "Eevee!$"
 
 
 @ Heal Single Pokemon
