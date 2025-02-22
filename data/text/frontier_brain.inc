@@ -343,13 +343,13 @@ gText_MayaApproach::
     .string "Let's get you back to Floor 0!$"
 
 gText_AveryApproach::
-    .string "Show me what its like to lose!$"
+    .string "Show me what it's like to lose!$"
 
 gText_LeahApproach::
     .string "Let's end this quickly!$"
 
 gText_BradenApproach::
-    .string "Is this all you've got!$"
+    .string "Is this all you've got?$"
 
 gText_NoraApproach::
     .string "Show me your skills!$"
@@ -446,7 +446,8 @@ gText_ShawnApproach::
     .string "Yo! Let's battle!$"
 
 gText_NewApproach01::
-    .string "Where did you come from? Yes or No?$"
+    .string "Where did you come from?\n"
+    .string "Yes or No?$"
 
 gText_NewApproach02::
     .string "I forgot to turn off the oven.\n"
@@ -582,7 +583,7 @@ gText_CalebDefeat::
     .string "NOOOOOOOO!$"
 
 gText_EllaDefeat::
-    .string "Shaking my head!$"
+    .string "Shaking my head...$"
 
 gText_BenDefeat::
     .string "I can't believe you've\n"
