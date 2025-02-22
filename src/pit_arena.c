@@ -773,6 +773,9 @@ u16 ReturnLastSpokenVarObjGfxId()
 
 u16 ReturnNumberOfTrainersForFloor()
 {
+    if (gSaveBlock2Ptr->modeSingleFloors)
+        return 1;
+
     if(VarGet(VAR_LAST_FLOOR_TRAINER_NUMBER) == 4)
         return 1;
 

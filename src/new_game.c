@@ -121,6 +121,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
+        gSaveBlock2Ptr->modeSingleFloors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeNoBagUse = FALSE;
