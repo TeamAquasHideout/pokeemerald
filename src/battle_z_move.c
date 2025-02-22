@@ -173,8 +173,6 @@ bool32 IsViableZMove(u32 battler, u32 move)
 
     item = gBattleMons[battler].item;
 
-    DebugPrintf("IsViableZMove #######");
-    DebugPrintf("usable Gimmick? = %d", (gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE));
     if (!(gBattleStruct->gimmick.usableGimmick[battler] & GIMMICK_FLAG_Z_MOVE))
         return FALSE;
 
@@ -208,11 +206,10 @@ bool32 IsViableZMove(u32 battler, u32 move)
 void AssignUsableZMoves(u32 battler, u16 *moves)
 {
     u32 i;
-    DebugPrintf("AssignUsableZMoves");
+
     gBattleStruct->zmove.possibleZMoves[battler] = 0;
     for (i = 0; i < MAX_MON_MOVES; i++)
     {
-        DebugPrintf("IsViableZMove? %S, %d", gMovesInfo[moves[i]].name, IsViableZMove(battler, moves[i]));
         if (moves[i] != MOVE_NONE && IsViableZMove(battler, moves[i]))
             gBattleStruct->zmove.possibleZMoves[battler] |= gBitTable[i];
     }
@@ -224,7 +221,6 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
 
     if (gBattleStruct->zmove.viable && !viableZMove)
     {
-        DebugPrintf("C - set Cycle mode");
         gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
         gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
         gBattleStruct->gimmick.playerSelect = FALSE;
@@ -233,7 +229,6 @@ bool32 TryChangeZTrigger(u32 battler, u32 moveIndex)
     }
     else if (viableZMove)
     {
-        DebugPrintf("C - set Z Move mode");
         gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_Z_MOVE;
         SetGimmickCursor(GIMMICK_Z_MOVE);
         DestroyGimmickTriggerSprite();
@@ -288,7 +283,6 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
     u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
 
-    DebugPrintf("MoveSelectionDisplayZMove");
     PlaySE(SE_SELECT);
     gBattleStruct->zmove.viewing = TRUE;
     if (zmove != MOVE_NONE)

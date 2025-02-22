@@ -578,7 +578,6 @@ void RechargeTeraOrb(void)
     // Recharge Tera Orb, if possible.
     if (B_FLAG_TERA_ORB_CHARGED != 0 && CheckBagHasItem(ITEM_TERA_ORB, 1) && FlagGet(B_FLAG_TERA_ORB_CHARGED) == FALSE)
     {
-        DebugPrintf("--- B_FLAG_TERA_ORB_CHARGED ---");
         FlagSet(B_FLAG_TERA_ORB_CHARGED);
         gSpecialVar_Result = TRUE;
     }
