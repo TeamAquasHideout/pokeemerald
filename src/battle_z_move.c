@@ -374,7 +374,6 @@ bool32 MoveSelectionDisplayZMove(u16 zmove, u32 battler)
             default:
                 StringCopy(gDisplayedStringBattle, sText_NoAdditionalEffect);
                 break;
-                break;
             }
 
             BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MOVE_NAME_3);
