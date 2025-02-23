@@ -1528,10 +1528,14 @@ static void Task_ModeMenuSave(u8 taskId)
 
     //!!!! Reminder: Flags are cleared after the intro menus - See SetOnMapLoadDefaultOptions() !!!!
     if (sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_DOUBLES)
+    {
+        FlagClear(FLAG_MIXED_MODE);
         FlagSet(FLAG_DOUBLES_MODE);
+    }
     else if(sOptions->sel_run[MENUITEM_RUN_BATTLEMODE] == MODE_MIXED)
     {
         FlagClear(FLAG_DOUBLES_MODE);
+        FlagSet(FLAG_MIXED_MODE);
     }
     else
     {

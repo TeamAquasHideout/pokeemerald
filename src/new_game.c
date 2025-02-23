@@ -167,6 +167,8 @@ void SetOnMapLoadDefaultOptions(void)
 
     if (gSaveBlock2Ptr->modeBattleMode == MODE_DOUBLES)
         FlagSet(FLAG_DOUBLES_MODE);
+    else if (gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
+        FlagSet(FLAG_MIXED_MODE);
 
     if (gSaveBlock2Ptr->modeStatChanger == ON)
         FlagSet(FLAG_STAT_CHANGER);

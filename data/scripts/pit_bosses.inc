@@ -2,12 +2,19 @@ PitBoss_BossEncounter::
 	lock
 	faceplayer
 	setflag FLAG_START_BOSS_ENCOUNTER
+	goto_if_set FLAG_MIXED_MODE, PitBoss_CommonScriptMixed
 	goto_if_set FLAG_DOUBLES_MODE, PitBoss_CommonScriptDoubles
+PitBoss_CommonScriptSingles:
 	trainerbattle_single TRAINER_RANDOM_PIT_BOSS, PitArena_Text_Intro, PitArena_Text_Defeat, PitBoss_CommonAfterBattleScript
 	clearflag FLAG_START_BOSS_ENCOUNTER
 	goto PitBoss_CommonAfterBattleScript
 	release
 	end
+
+PitBoss_CommonScriptMixed::
+	randompercentage 50
+	goto_if_eq VAR_RESULT, TRUE, PitBoss_CommonScriptDoubles
+	goto PitBoss_CommonScriptSingles
 
 PitBoss_CommonScriptDoubles::
 	trainerbattle_double TRAINER_RANDOM_PIT_BOSS_DOUBLES, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_Text_NotEnoughMons, PitBoss_CommonAfterBattleScript
