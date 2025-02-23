@@ -1565,6 +1565,7 @@ static void Task_ModeMenuWaitFadeAndExitGracefully(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        gSaveBlock2Ptr->forceNewRun = FALSE;
         SetMainCallback2(CB2_NewGameBirchSpeech_FromNewMainMenu);
         //BirchCase_Init(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         ModeMenu_FreeResources();

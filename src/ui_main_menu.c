@@ -1560,7 +1560,6 @@ static void Task_MainNewGameMenu(u8 taskId)
     {   
         PlaySE(SE_SELECT);
         BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, RGB_BLACK);
-        gSaveBlock2Ptr->forceNewRun = FALSE;
         gTasks[taskId].func = Task_MainMenuTurnOff;
         sSelectedOption = HW_WIN_CONTINUE;
     }
