@@ -278,6 +278,8 @@ PitShop_ShopNPC_EditIVs:
 	.string "Edit IVs$"
 PitTutor_MoveRelearnerText:
 	.string "Move Relearner (free)$"
+PitArena_MoveDeleterText:
+	.string "Move Deleter (free)$"
 PitArena_EggMovesText:
 	.string "Egg Moves (¥8,000/ea)$"
 PitArena_TutorMovesText:
