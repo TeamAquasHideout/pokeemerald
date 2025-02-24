@@ -1188,6 +1188,7 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
     const u8* failStr = NULL;
     u32 i;
     u16 hp = GetMonData(mon, MON_DATA_HP);
+    u8 target;
 
     // Embargo Check
     if ((gPartyMenu.slotId == 0 && gStatuses3[B_POSITION_PLAYER_LEFT] & STATUS3_EMBARGO)
@@ -1251,22 +1252,28 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_CURE_STATUS:
-        // DebugPrintf("EFFECT_ITEM_CURE_STATUS");
-        // DebugPrintf("mon = %d", mon);
-        // DebugPrintf("item = %d", itemId);
-        // DebugPrintf("status check = %d", GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId));
-        // DebugPrintf("gBattlerInMenuId = %d", gBattlerInMenuId);
-        // DebugPrintf("slot = %d", gPartyMenu.slotId);
-        // DebugPrintf("status check = %d", gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId));
+        if (gPartyMenu.slotId == 0)
+            target = 0;
+        else if (gPartyMenu.slotId == 1)
+            target = 2; // because slotId 1 is battler 2
+        else
+            target = PARTY_SIZE;
         
         if (!((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
-            || (gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId))))
+          || (target != PARTY_SIZE && gBattleMons[target].status2 & GetItemStatus2Mask(itemId))))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
+        if (gPartyMenu.slotId == 0)
+            target = 0;
+        else if (gPartyMenu.slotId == 1)
+            target = 2; // because slotId 1 is battler 2
+        else
+            target = PARTY_SIZE;
+        
         if ((hp == 0 || hp == GetMonData(mon, MON_DATA_MAX_HP))
-            && !((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
-            || (gPartyMenu.slotId == 0 && gBattleMons[gBattlerInMenuId].status2 & GetItemStatus2Mask(itemId))))
+          && !((GetMonData(mon, MON_DATA_STATUS) & GetItemStatus1Mask(itemId))
+            || (target != PARTY_SIZE && gBattleMons[target].status2 & GetItemStatus2Mask(itemId))))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_REVIVE:
