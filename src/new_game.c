@@ -99,7 +99,7 @@ void SetDefaultOptions(void)
     //options
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
     {
-        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_INSTANT;
+        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
         gSaveBlock2Ptr->optionsWindowFrameType = 0;
         gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_STEREO;
         gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;

@@ -104,16 +104,23 @@ PitBackRoom_EventScript_wiz1989::
 	faceplayer
 	msgbox PitBackRoom_EventScript_wiz1989_Text_0
 	waitmessage
-	msgbox PitBackRoom_EventScript_wiz1989_Text_1, MSGBOX_YESNO
-	msgbox PitBackRoom_EventScript_wiz1989_Text_2, MSGBOX_AUTOCLOSE
+	// msgbox PitBackRoom_EventScript_wiz1989_Text_1, MSGBOX_YESNO
+	// msgbox PitBackRoom_EventScript_wiz1989_Text_2, MSGBOX_AUTOCLOSE
 	release
 	end
 
 PitBackRoom_EventScript_wiz1989_Text_0:
-	.string "I am the Game Master.\p"
-	.string "I will give you helpful advice for each\n"
-	.string "situation, but it adds an additional\l"
-	.string "20min to your play clock.$"
+	.string "wiz1989: I'm a coding guy and\n"
+	.string "puzzle master.\p"
+	.string "What I have prepared for you\n"
+	.string "can be very PITtyful, if you\l"
+	.string "dare to take a challenge!$"
+
+// PitBackRoom_EventScript_wiz1989_Text_0:
+// 	.string "I am the Game Master.\p"
+// 	.string "I will give you helpful advice for each\n"
+// 	.string "situation, but it adds an additional\l"
+// 	.string "20min to your play clock.$"
 
 PitBackRoom_EventScript_wiz1989_Text_1:
 	.string "Do you want me to give you a hint?$"
