@@ -3237,8 +3237,8 @@ static const struct RandomBossEncounters sRandomBossEncounterArray[] = {
                         .moves = {MOVE_AURA_SPHERE, MOVE_PSYSTRIKE, MOVE_ICE_BEAM, MOVE_THUNDERBOLT}
                     },
 #endif
-#endif
 },
+#endif
 
 };
 

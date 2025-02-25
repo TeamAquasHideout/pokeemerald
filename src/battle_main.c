@@ -2152,6 +2152,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             if(!isPlayer)
             {
                 item = GetRandomHeldItemOpponent();
+                // item = ITEM_AIR_BALLOON; // test item
 
                 if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))
                   && (item == ITEM_RED_CARD || item == ITEM_EJECT_BUTTON || item == ITEM_EJECT_PACK))
