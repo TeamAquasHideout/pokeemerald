@@ -2371,11 +2371,6 @@ void PlayerHandleChooseMove(u32 battler)
 
 void InitMoveSelectionsVarsAndStrings(u32 battler)
 {
-    //only show type icons by default if all gimmicks are deactivated
-    // if (!(gSaveBlock2Ptr->modeMegas == OPTIONS_ON
-    //   || gSaveBlock2Ptr->modeZMoves == OPTIONS_ON
-    //   || gSaveBlock2Ptr->modeTera
-    //   || gSaveBlock2Ptr->modeDynamax))
     LoadTypeIcons(battler);
     MoveSelectionDisplayMoveNames(battler);
     gMultiUsePlayerCursor = 0xFF;
