@@ -244,6 +244,7 @@ void LoadTypeIcons(u32 battler)
 
     LoadTypeSpritesAndPalettes();
 
+    // only show icons for opponent battlers
     for (position = 1; position < gBattlersCount; position = position + 2)
         LoadTypeIconsPerBattler(battler, position);
 }
@@ -296,8 +297,6 @@ static u32 GetMonPublicType(u32 battlerId, u32 typeNum)
     struct Pokemon* monIllusion;
     u32 illusionSpecies;
 
-    DebugPrintf("GetMonPublicType");
-
     if (ShouldHideUncaughtType(monSpecies))
         return TYPE_MYSTERY;
 
@@ -309,8 +308,6 @@ static u32 GetMonPublicType(u32 battlerId, u32 typeNum)
 
     if (IsIllusionActiveAndTypeUnchanged(monIllusion,monSpecies, battlerId))
         return gSpeciesInfo[illusionSpecies].types[typeNum];
-
-    DebugPrintf("GetMonPublicType %S - %d", gSpeciesInfo[monSpecies].speciesName, gBattleMons[battlerId].types[typeNum]);
 
     return gBattleMons[battlerId].types[typeNum];
 }
