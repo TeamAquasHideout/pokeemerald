@@ -55,6 +55,7 @@
 static void ChangeMoveDisplayMode(u32 battler);
 #include "menu.h"
 #include "pokemon_summary_screen.h"
+#include "type_icons.h"
 
 static void PlayerBufferExecCompleted(u32 battler);
 static void PlayerHandleLoadMonSprite(u32 battler);
@@ -70,7 +71,6 @@ static void PlayerHandlePrintString(u32 battler);
 static void PlayerHandlePrintSelectionString(u32 battler);
 static void PlayerHandleChooseAction(u32 battler);
 static void PlayerHandleYesNoBox(u32 battler);
-static void PlayerHandleChooseMove(u32 battler);
 static void PlayerHandleChooseItem(u32 battler);
 static void PlayerHandleChoosePokemon(u32 battler);
 static void PlayerHandleCmd23(u32 battler);
@@ -92,15 +92,12 @@ static void PlayerHandleEndLinkBattle(u32 battler);
 static void PlayerHandleBattleDebug(u32 battler);
 
 static void PlayerBufferRunCommand(u32 battler);
-static void HandleInputChooseTarget(u32 battler);
-static void HandleInputChooseMove(u32 battler);
 static void MoveSelectionDisplayPpNumber(u32 battler);
 static void MoveSelectionDisplayPpString(u32 battler);
 static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId, u32 battler);
 static void MoveSelectionDisplayMoveType(u32 battler);
 static void MoveSelectionDisplayMoveDescription(u32 battler);
 static void MoveSelectionDisplayMoveNames(u32 battler);
-static void HandleMoveSwitching(u32 battler);
 static void SwitchIn_HandleSoundAndEnd(u32 battler);
 static void WaitForMonSelection(u32 battler);
 static void CompleteWhenChoseItem(u32 battler);
@@ -114,7 +111,6 @@ static void PrintLinkStandbyMsg(void);
 static void ReloadMoveNames(u32 battler);
 
 static void UpdateCategorySprite(u32 battler);
-static void HandleChooseMoveAfterDma3(u32 battler);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 {
@@ -449,7 +445,7 @@ static void HandleInputChooseAction(u32 battler)
     }
 }
 
-static void HandleInputChooseTarget(u32 battler)
+void HandleInputChooseTarget(u32 battler)
 {
     s32 i;
     static const u8 identities[MAX_BATTLERS_COUNT] = {B_POSITION_PLAYER_LEFT, B_POSITION_PLAYER_RIGHT, B_POSITION_OPPONENT_RIGHT, B_POSITION_OPPONENT_LEFT};
@@ -630,7 +626,7 @@ static void HideShownTargets(u32 battler)
     }
 }
 
-static void HandleInputShowEntireFieldTargets(u32 battler)
+void HandleInputShowEntireFieldTargets(u32 battler)
 {
     if (JOY_HELD(DPAD_ANY) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
         gPlayerDpadHoldFrames++;
@@ -663,7 +659,7 @@ static void HandleInputShowEntireFieldTargets(u32 battler)
     }
 }
 
-static void HandleInputShowTargets(u32 battler)
+void HandleInputShowTargets(u32 battler)
 {
     if (JOY_HELD(DPAD_ANY) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
         gPlayerDpadHoldFrames++;
@@ -706,7 +702,7 @@ static void TryShowAsTarget(u32 battler)
     }
 }
 
-static void HandleInputChooseMove(u32 battler)
+void HandleInputChooseMove(u32 battler)
 {
     u16 moveTarget;
     u32 canSelectTarget = 0;
@@ -1170,7 +1166,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
 }
 
 
-static void HandleMoveSwitching(u32 battler)
+void HandleMoveSwitching(u32 battler)
 {
     u8 perMovePPBonuses[MAX_MON_MOVES];
     struct ChooseMoveStruct moveStruct;
@@ -2319,7 +2315,7 @@ static void PlayerHandleYesNoBox(u32 battler)
     }
 }
 
-static void HandleChooseMoveAfterDma3(u32 battler)
+void HandleChooseMoveAfterDma3(u32 battler)
 {
     if (!IsDma3ManagerBusyWithBgCopy())
     {
@@ -2341,7 +2337,7 @@ static void PlayerChooseMoveInBattlePalace(u32 battler)
     }
 }
 
-static void PlayerHandleChooseMove(u32 battler)
+void PlayerHandleChooseMove(u32 battler)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
     {
@@ -2375,6 +2371,12 @@ static void PlayerHandleChooseMove(u32 battler)
 
 void InitMoveSelectionsVarsAndStrings(u32 battler)
 {
+    //only show type icons by default if all gimmicks are deactivated
+    // if (!(gSaveBlock2Ptr->modeMegas == OPTIONS_ON
+    //   || gSaveBlock2Ptr->modeZMoves == OPTIONS_ON
+    //   || gSaveBlock2Ptr->modeTera
+    //   || gSaveBlock2Ptr->modeDynamax))
+    LoadTypeIcons(battler);
     MoveSelectionDisplayMoveNames(battler);
     gMultiUsePlayerCursor = 0xFF;
     MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);
