@@ -85,6 +85,7 @@
     F(ICE_PUNCH) \
     F(THUNDER_PUNCH) \
     F(FIRE_PUNCH)
+//END PIT_GEN3
 # elif defined PIT_GEN_5_MODE
 #define FOREACH_TM(F) \
     F(HONE_CLAWS) \
@@ -187,7 +188,8 @@
     F(IRON_TAIL) \
     F(SHOCK_WAVE) \
     F(SKILL_SWAP)
-# else
+//END PIT_GEN5
+# else // PIT_GEN_9_MODE
 #define FOREACH_TM(F) \
     F(TAKE_DOWN) \
     F(CHARM) \
@@ -419,6 +421,7 @@
     F(PSYCHIC_NOISE) \
     F(UPPER_HAND) \
     F(HIDDEN_POWER)
+//END PIT_GEN9
 # endif
 
 #define FOREACH_HM(F) \
