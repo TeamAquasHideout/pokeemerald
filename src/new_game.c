@@ -99,7 +99,7 @@ void SetDefaultOptions(void)
     //options
     if (GetNationalPokedexCount(FLAG_GET_CAUGHT) < 1)
     {
-        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_INSTANT;
+        gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
         gSaveBlock2Ptr->optionsWindowFrameType = 0;
         gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_STEREO;
         gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
@@ -121,6 +121,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
         gSaveBlock2Ptr->mode3MonsOnly = OFF;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
+        gSaveBlock2Ptr->modeSingleFloors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeNoBagUse = FALSE;
@@ -166,6 +167,8 @@ void SetOnMapLoadDefaultOptions(void)
 
     if (gSaveBlock2Ptr->modeBattleMode == MODE_DOUBLES)
         FlagSet(FLAG_DOUBLES_MODE);
+    else if (gSaveBlock2Ptr->modeBattleMode == MODE_MIXED)
+        FlagSet(FLAG_MIXED_MODE);
 
     if (gSaveBlock2Ptr->modeStatChanger == ON)
         FlagSet(FLAG_STAT_CHANGER);

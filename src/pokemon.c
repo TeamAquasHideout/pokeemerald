@@ -7498,3 +7498,10 @@ bool8 hasMultipleGenders (u16 species)
     
     return TRUE;
 }
+
+uq4_12_t GetDynamaxLevelHPMultiplier(u32 dynamaxLevel, bool32 inverseMultiplier)
+{
+    if (inverseMultiplier)
+        return UQ_4_12(1.0/(1.5 + 0.05 * dynamaxLevel));
+    return UQ_4_12(1.5 + 0.05 * dynamaxLevel);
+}

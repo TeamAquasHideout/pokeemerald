@@ -542,7 +542,6 @@ struct SimulatedDamage AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u
             gBattleStruct->zmove.baseMoves[battlerAtk] = move;
 
         toggledGimmick = TRUE;
-        DebugPrintf("AI_CalcDamage gimmick = %d", MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battlerAtk]));
         SetActiveGimmick(battlerAtk, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battlerAtk]));
     }
 

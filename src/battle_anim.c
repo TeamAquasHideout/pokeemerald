@@ -797,7 +797,6 @@ static void Cmd_end(void)
     {
         // Debugging - ensure no hanging mon bg tasks
         if (FuncIsActiveTask(Task_UpdateMonBg))
-            DebugPrintf("Move %d animation still has Task_UpdateMonBg active at the end!", gAnimMoveIndex);
 
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
         if (!IsContest())
