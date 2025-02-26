@@ -897,13 +897,14 @@ static void BuyMenuAddItemIcon(u16 item, u8 iconSlot)
             {
                 gSprites[spriteId].x2 = 16;
                 gSprites[spriteId].y2 = 100;
+                gSprites[spriteId].oam.priority = 0;
             }
             else
             {
                 gSprites[spriteId].x2 = 24;
                 gSprites[spriteId].y2 = 88;
+                gSprites[spriteId].oam.priority = 1;
             }
-            gSprites[spriteId].oam.priority = 0;
         }
     }
     else
