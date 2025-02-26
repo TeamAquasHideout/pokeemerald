@@ -96,6 +96,7 @@ PitArena_MartScript_Vitamins::
 	lock
 	setflag FLAG_BUY_FROM_MART
 	goto_if_set FLAG_TRAINER_EVS, PitArena_MartScript_Vitamins_2
+	goto_if_unset FLAG_STAT_CHANGER, PitArena_MartScript_Vitamins_2
 	pokemart PitArena_Mart_Vitamins
 PitArena_MartScript_Vitamins_1:
 	goto PitShop_ShopNPCHook
@@ -278,6 +279,8 @@ PitShop_ShopNPC_EditIVs:
 	.string "Edit IVs$"
 PitTutor_MoveRelearnerText:
 	.string "Move Relearner (free)$"
+PitArena_MoveDeleterText:
+	.string "Move Deleter (free)$"
 PitArena_EggMovesText:
 	.string "Egg Moves (¥8,000/ea)$"
 PitArena_TutorMovesText:
@@ -395,7 +398,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_SWEET_APPLE
     .2byte ITEM_TART_APPLE
     .2byte ITEM_SYRUPY_APPLE
-    .2byte ITEM_CRACKED_POT
+    @ .2byte ITEM_CRACKED_POT
     .2byte ITEM_CHIPPED_POT
     .2byte ITEM_GALARICA_CUFF
     .2byte ITEM_GALARICA_WREATH
@@ -407,7 +410,7 @@ PitArena_Mart_EvoItems:
     .2byte ITEM_MALICIOUS_ARMOR
     .2byte ITEM_LEADERS_CREST
     .2byte ITEM_GIMMIGHOUL_COIN
-    .2byte ITEM_UNREMARKABLE_TEACUP
+    @ .2byte ITEM_UNREMARKABLE_TEACUP
     .2byte ITEM_MASTERPIECE_TEACUP
     .2byte ITEM_METAL_ALLOY
 	.2byte ITEM_STRAWBERRY_SWEET

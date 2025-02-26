@@ -1,4 +1,5 @@
 import glob
+import pathlib
 import re
 import json
 import os
@@ -16,6 +17,25 @@ def parse_mon_name(name):
     
 tm_moves = []
 tutor_moves = []
+valid_species = []
+
+# read generational settings from general.h
+define_gen_latest = re.compile(r"^#define\s+PIT_GEN_(?P<GEN_LATEST>\w+)", re.MULTILINE)
+pit_mode = []
+
+with open(pathlib.Path("include/config/general.h"), "r") as config_general_h:
+    if m := define_gen_latest.search(config_general_h.read()):
+        pit_mode = m.group("GEN_LATEST")
+        print(m.group("GEN_LATEST"))
+    else:
+        print("No match found")
+# set gen_latest for correct learnset determination
+if pit_mode == "3_MODE":
+    gen_latest = 3
+elif pit_mode == "5_MODE":
+    gen_latest = 5
+else:
+    gen_latest = 9
 
 # scan incs
 incs_to_check =  glob.glob('./data/scripts/*.inc') # all .incs in the script folder
@@ -34,13 +54,34 @@ if len(incs_to_check) == 0: # disabled if no jsons present
 
 # scan Tutor Moves
 with open("./src/data/pokemon/tutor_moves.h", 'r') as file:
-    for x in re.findall(r'\b(MOVE_\w+)\b', file.read()):
-        if not x in tutor_moves:
-            tutor_moves.append(x)
+    # split tms_hms.h in only the relevant parts of the current gen setting
+    if gen_latest == 3:
+        before_end = file.read().split("PIT_GEN3")[0]
+    elif gen_latest == 5:
+        before_end = file.read().split("PIT_GEN5")[0]
+    else:
+        before_end = []
+    # only proceed if a file could be read
+    if not before_end:
+        print("No Tutor Moves available")
+    else:
+        # determine the list elements
+        for x in re.findall(r'\b(MOVE_\w+)\b', before_end):
+            # print(x)
+            if not x in tutor_moves:
+                tutor_moves.append(x)
 
 # scan TMs and HMs
 with open("./include/constants/tms_hms.h", 'r') as file:
-    for x in re.findall(r'F\((.*)\)', file.read()):
+    # split tms_hms.h in only the relevant parts of the current gen setting
+    if gen_latest == 3:
+        before_end = file.read().split("PIT_GEN3")[0]
+    elif gen_latest == 5:
+        before_end = file.read().split("PIT_GEN5")[0]
+    else:
+        before_end = file.read().split("PIT_GEN9")[0]
+    # determine the list elements
+    for x in re.findall(r'F\((.*)\)', before_end):
         if not 'MOVE_' + x in tm_moves:
             tm_moves.append('MOVE_' + x)
 
@@ -58,27 +99,52 @@ with open("./src/pokemon.c", "r") as file:
 # get compatibility from jsons
 def construct_compatibility_dict(force_custom_check):
     dict_out = {}
-    for pth in glob.glob('./tools/learnset_helpers/porymoves_files/*.json'):
+    if gen_latest == 3:
+        learnsets = [
+            './tools/learnset_helpers/porymoves_files/rse.json',
+        ]
+    elif gen_latest == 5:
+        learnsets = [
+            './tools/learnset_helpers/porymoves_files/b2w2.json',
+            './tools/learnset_helpers/porymoves_files/hgss.json',
+            './tools/learnset_helpers/porymoves_files/rse.json',
+        ]
+    else:
+        learnsets = [
+            './tools/learnset_helpers/porymoves_files/sv.json',
+            './tools/learnset_helpers/porymoves_files/bdsp.json',
+            './tools/learnset_helpers/porymoves_files/la.json',
+            './tools/learnset_helpers/porymoves_files/swsh.json',
+            './tools/learnset_helpers/porymoves_files/usum.json',
+            './tools/learnset_helpers/porymoves_files/oras.json',
+            './tools/learnset_helpers/porymoves_files/b2w2.json',
+            './tools/learnset_helpers/porymoves_files/hgss.json',
+            './tools/learnset_helpers/porymoves_files/rse.json',
+        ]
+
+    for pth in learnsets:
         f = open(pth, 'r')
         data = json.load(f)
         for mon in data.keys():
             if not mon in dict_out:
                 dict_out[mon] = []
-            for move in data[mon]['LevelMoves']:
-                if not move['Move'] in dict_out[mon]:
-                    dict_out[mon].append(move['Move'])
-            #for move in data[mon]['PreEvoMoves']:
-            #    if not move in dict_out[mon]:
-            #        dict_out[mon].append(move)
-            for move in data[mon]['TMMoves']:
-                if not move in dict_out[mon]:
-                    dict_out[mon].append(move)
-            for move in data[mon]['EggMoves']:
-                if not move in dict_out[mon]:
-                    dict_out[mon].append(move)
-            for move in data[mon]['TutorMoves']:
-                if not move in dict_out[mon]:
-                    dict_out[mon].append(move)
+                valid_species.append(mon)
+            if not dict_out[mon]:
+                # for move in data[mon]['LevelMoves']:
+                #     if not move['Move'] in dict_out[mon]:
+                #         dict_out[mon].append(move['Move'])
+                #for move in data[mon]['PreEvoMoves']:
+                #    if not move in dict_out[mon]:
+                #        dict_out[mon].append(move)
+                for move in data[mon]['TMMoves']:
+                    if not move in dict_out[mon]:
+                        dict_out[mon].append(move)
+                # for move in data[mon]['EggMoves']:
+                #     if not move in dict_out[mon]:
+                #         dict_out[mon].append(move)
+                for move in data[mon]['TutorMoves']:
+                    if not move in dict_out[mon]:
+                        dict_out[mon].append(move)
 
     # if the file was not previously generated, check if there is custom data there that needs to be preserved
     with open("./src/data/pokemon/teachable_learnsets.h", 'r') as file:
@@ -143,23 +209,23 @@ for mon in list_of_mons:
         continue
     if not mon_parsed in compatibility_dict:
         print("Unable to find %s in json" % mon)
-        continue
-    for move in tm_moves:
-        if move in universal_moves:
-            continue
-        if move in tm_learnset:
-            continue
-        if move in compatibility_dict[mon_parsed]:
-            tm_learnset.append(move)
-            continue
-    for move in tutor_moves:
-        if move in universal_moves:
-            continue
-        if move in tutor_learnset:
-            continue
-        if move in compatibility_dict[mon_parsed]:
-            tutor_learnset.append(move)
-            continue
+    else:
+        for move in tm_moves:
+            if move in universal_moves:
+                continue
+            if move in tm_learnset:
+                continue
+            if move in compatibility_dict[mon_parsed]:
+                tm_learnset.append(move)
+                continue
+        for move in tutor_moves:
+            # if move in universal_moves:
+            #     continue
+            if move in tutor_learnset:
+                continue
+            if move in compatibility_dict[mon_parsed]:
+                tutor_learnset.append(move)
+                continue
     tm_learnset.sort()
     tutor_learnset.sort()
     tm_learnset += tutor_learnset

@@ -55,6 +55,7 @@
 static void ChangeMoveDisplayMode(u32 battler);
 #include "menu.h"
 #include "pokemon_summary_screen.h"
+#include "type_icons.h"
 
 static void PlayerBufferExecCompleted(u32 battler);
 static void PlayerHandleLoadMonSprite(u32 battler);
@@ -70,7 +71,6 @@ static void PlayerHandlePrintString(u32 battler);
 static void PlayerHandlePrintSelectionString(u32 battler);
 static void PlayerHandleChooseAction(u32 battler);
 static void PlayerHandleYesNoBox(u32 battler);
-static void PlayerHandleChooseMove(u32 battler);
 static void PlayerHandleChooseItem(u32 battler);
 static void PlayerHandleChoosePokemon(u32 battler);
 static void PlayerHandleCmd23(u32 battler);
@@ -92,15 +92,12 @@ static void PlayerHandleEndLinkBattle(u32 battler);
 static void PlayerHandleBattleDebug(u32 battler);
 
 static void PlayerBufferRunCommand(u32 battler);
-static void HandleInputChooseTarget(u32 battler);
-static void HandleInputChooseMove(u32 battler);
 static void MoveSelectionDisplayPpNumber(u32 battler);
 static void MoveSelectionDisplayPpString(u32 battler);
 static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId, u32 battler);
 static void MoveSelectionDisplayMoveType(u32 battler);
 static void MoveSelectionDisplayMoveDescription(u32 battler);
 static void MoveSelectionDisplayMoveNames(u32 battler);
-static void HandleMoveSwitching(u32 battler);
 static void SwitchIn_HandleSoundAndEnd(u32 battler);
 static void WaitForMonSelection(u32 battler);
 static void CompleteWhenChoseItem(u32 battler);
@@ -114,7 +111,6 @@ static void PrintLinkStandbyMsg(void);
 static void ReloadMoveNames(u32 battler);
 
 static void UpdateCategorySprite(u32 battler);
-static void HandleChooseMoveAfterDma3(u32 battler);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 {
@@ -449,7 +445,7 @@ static void HandleInputChooseAction(u32 battler)
     }
 }
 
-static void HandleInputChooseTarget(u32 battler)
+void HandleInputChooseTarget(u32 battler)
 {
     s32 i;
     static const u8 identities[MAX_BATTLERS_COUNT] = {B_POSITION_PLAYER_LEFT, B_POSITION_PLAYER_RIGHT, B_POSITION_OPPONENT_RIGHT, B_POSITION_OPPONENT_LEFT};
@@ -472,6 +468,8 @@ static void HandleInputChooseTarget(u32 battler)
     {
         PlaySE(SE_SELECT);
         gSprites[gBattlerSpriteIds[gMultiUsePlayerCursor]].callback = SpriteCB_HideAsMoveTarget;
+        if (gBattleStruct->zmove.viewing)
+            gBattleStruct->zmove.viewing = FALSE;
         if (gBattleStruct->gimmick.playerSelect)
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, 10, gMoveSelectionCursor[battler] | RET_GIMMICK | (gMultiUsePlayerCursor << 8));
         else
@@ -628,7 +626,7 @@ static void HideShownTargets(u32 battler)
     }
 }
 
-static void HandleInputShowEntireFieldTargets(u32 battler)
+void HandleInputShowEntireFieldTargets(u32 battler)
 {
     if (JOY_HELD(DPAD_ANY) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
         gPlayerDpadHoldFrames++;
@@ -661,7 +659,7 @@ static void HandleInputShowEntireFieldTargets(u32 battler)
     }
 }
 
-static void HandleInputShowTargets(u32 battler)
+void HandleInputShowTargets(u32 battler)
 {
     if (JOY_HELD(DPAD_ANY) && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A)
         gPlayerDpadHoldFrames++;
@@ -704,7 +702,7 @@ static void TryShowAsTarget(u32 battler)
     }
 }
 
-static void HandleInputChooseMove(u32 battler)
+void HandleInputChooseMove(u32 battler)
 {
     u16 moveTarget;
     u32 canSelectTarget = 0;
@@ -725,7 +723,6 @@ static void HandleInputChooseMove(u32 battler)
 
         if (gBattleStruct->zmove.viewing)
         {
-            gBattleStruct->zmove.viewing = FALSE;
             if (gMovesInfo[moveInfo->moves[gMoveSelectionCursor[battler]]].category != DAMAGE_CATEGORY_STATUS)
                 moveTarget = MOVE_TARGET_SELECTED;  //damaging z moves always have selected target
         }
@@ -850,11 +847,9 @@ static void HandleInputChooseMove(u32 battler)
     else if (JOY_NEW(R_BUTTON) || JOY_NEW(L_BUTTON))
     {
         if(!FlagGet(FLAG_SYS_MOVE_INFO)){
-            //ChangeMoveDisplayMode(battler);
             FlagSet(FLAG_SYS_MOVE_INFO);
         }
         else{
-            //MoveSelectionDisplayMoveNames(battler);
             FlagClear(FLAG_SYS_MOVE_INFO);
         }
     }
@@ -872,7 +867,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE
+              || gBattleStruct->gimmick.playerSelect == FALSE)
                 TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -891,7 +887,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE
+              || gBattleStruct->gimmick.playerSelect == FALSE)
                 TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -909,7 +906,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE
+              || gBattleStruct->gimmick.playerSelect == FALSE)
                 TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
 
@@ -929,7 +927,8 @@ static void HandleInputChooseMove(u32 battler)
                 MoveSelectionDisplayMoveDescription(battler);
             else
                 FlagClear(FLAG_SYS_MOVE_INFO);
-            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+            if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE
+              || gBattleStruct->gimmick.playerSelect == FALSE)
                 TryChangeZTrigger(battler, gMoveSelectionCursor[battler]);
         }
     }
@@ -952,19 +951,14 @@ static void HandleInputChooseMove(u32 battler)
     else if (JOY_NEW(START_BUTTON))
     {
         bool8 dontDestroySprite = FALSE;
-        DebugPrintf("Press START - gimmickCursor = %d", gimmickCursor);
         u32 firstValidGimmick = GetFirstValidGimmick(battler);
 
         // cycle through available gimmicks, except for Z Moves as they are skippped and handled separately
         if (firstValidGimmick != GIMMICK_NONE
-          //&& !HasTrainerUsedGimmick(battler, firstValidGimmick)
           && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_CYCLE)
         {
-            DebugPrintf("GIMMICK_MODE_CYCLE");
             if (gimmickCursor == GIMMICK_NONE || gimmickCursor == GIMMICKS_COUNT) //activate gimmick symbol and set first available gimmick
             {
-                DebugPrintf("activate gimmick symbol");
-                DebugPrintf("chosen gimmick = %d", gBattleStruct->gimmick.chosenGimmick[battler]);
                 if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE) //gBattleStruct->gimmick.playerSelect == FALSE)
                     dontDestroySprite = TRUE;
                 gBattleStruct->gimmick.playerSelect ^= 1;
@@ -972,7 +966,6 @@ static void HandleInputChooseMove(u32 battler)
             }
             else if (gimmickCursor == GIMMICK_Z_MOVE) //skip Z Moves during cycling
             {
-                DebugPrintf("gimmickCursor == GIMMICK_Z_MOVE");
                 //check for next active flag
                 do
                 {
@@ -995,7 +988,6 @@ static void HandleInputChooseMove(u32 battler)
             if (gimmickCursor == GIMMICKS_COUNT)
             {
                 gBattleStruct->gimmick.playerSelect ^= 1;
-                //gimmickCursor = GIMMICK_NONE;
             }
 
             gBattleStruct->gimmick.chosenGimmick[battler] = gimmickCursor;
@@ -1003,7 +995,6 @@ static void HandleInputChooseMove(u32 battler)
             ReloadMoveNames(battler);
             if (gimmickCursor != GIMMICKS_COUNT && gimmickCursor != GIMMICK_NONE && !dontDestroySprite)
             {
-                DebugPrintf("A Destroy %d", gimmickCursor);
                 DestroyGimmickTriggerSprite();
                 gBattleStruct->gimmick.triggerSpriteId = 0xFF;
             }
@@ -1012,24 +1003,22 @@ static void HandleInputChooseMove(u32 battler)
                 if(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICKS_COUNT)
                     HideGimmickTriggerSprite();
                 else
-                {
-                    DebugPrintf("A Create %d", gBattleStruct->gimmick.chosenGimmick[battler]);
                     CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
-                }
             }
             ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
             PlaySE(SE_SELECT);
         }
         else if (gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_Z_MOVE)
         {
-            DebugPrintf("GIMMICK_MODE_Z_MOVE");
             gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_Z_MOVE;
             gBattleStruct->gimmick.playerSelect ^= 1;
+            // reset chosen gimmick based on select state
+            if (gBattleStruct->gimmick.playerSelect == FALSE)
+                gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
             //update gimmickTriggerSprites
             ReloadMoveNames(battler);
             if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
             {
-                DebugPrintf("D");
                 CreateGimmickTriggerSprite(battler, gBattleStruct->gimmick.chosenGimmick[battler]);
             }
             ChangeGimmickTriggerSprite(gBattleStruct->gimmick.triggerSpriteId, gBattleStruct->gimmick.playerSelect);
@@ -1068,13 +1057,11 @@ static void ReloadMoveNames(u32 battler)
     if (gBattleStruct->zmove.viable && !gBattleStruct->zmove.viewing
       && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_Z_MOVE)
     {
-        DebugPrintf("ReloadMoveNames Z Move");
         struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
         MoveSelectionDisplayZMove(GetUsableZMove(battler, moveInfo->moves[gMoveSelectionCursor[battler]]), battler);
     }
     else
     {
-        DebugPrintf("no Z move showing");
         gBattleStruct->zmove.viewing = FALSE;
         MoveSelectionDestroyCursorAt(battler);
         MoveSelectionDisplayMoveNames(battler);
@@ -1179,7 +1166,7 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
 }
 
 
-static void HandleMoveSwitching(u32 battler)
+void HandleMoveSwitching(u32 battler)
 {
     u8 perMovePPBonuses[MAX_MON_MOVES];
     struct ChooseMoveStruct moveStruct;
@@ -1623,6 +1610,14 @@ void Task_PlayerController_RestoreBgmAfterCry(u8 taskId)
 #define tExpTask_gainedExp_2    data[4] // Stored as two half-words containing a word.
 #define tExpTask_frames         data[10]
 
+static void DynamaxModifyHPLevelUp(struct Pokemon *mon, u32 battler, u32 oldMaxHP)
+{
+    ApplyDynamaxHPMultiplier(mon);
+    gBattleScripting.levelUpHP = GetMonData(mon, MON_DATA_MAX_HP) - oldMaxHP; // overwrite levelUpHP since it overflows
+    gBattleMons[battler].hp += gBattleScripting.levelUpHP;
+    SetMonData(mon, MON_DATA_HP, &gBattleMons[battler].hp);
+}
+
 static s32 GetTaskExpValue(u8 taskId)
 {
     return (u16)(gTasks[taskId].tExpTask_gainedExp_1) | (gTasks[taskId].tExpTask_gainedExp_2 << 16);
@@ -1641,21 +1636,16 @@ static void Task_GiveExpToMon(u8 taskId)
         u8 level = GetMonData(mon, MON_DATA_LEVEL);
         u32 currExp = GetMonData(mon, MON_DATA_EXP);
         u32 nextLvlExp = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1];
+        u32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP);
 
         if (currExp + gainedExp >= nextLvlExp)
         {
             SetMonData(mon, MON_DATA_EXP, &nextLvlExp);
-            gBattleStruct->dynamax.levelUpHP = GetMonData(mon, MON_DATA_HP) \
-                + UQ_4_12_TO_INT((gBattleScripting.levelUpHP * UQ_4_12(1.5)) + UQ_4_12_ROUND);
             CalculateMonStats(mon);
 
             // Reapply Dynamax HP multiplier after stats are recalculated.
             if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && monId == gBattlerPartyIndexes[battler])
-            {
-                ApplyDynamaxHPMultiplier(battler, mon);
-                gBattleMons[battler].hp = gBattleStruct->dynamax.levelUpHP;
-                SetMonData(mon, MON_DATA_HP, &gBattleMons[battler].hp);
-            }
+                DynamaxModifyHPLevelUp(mon, battler, oldMaxHP);
 
             gainedExp -= nextLvlExp - currExp;
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, RET_VALUE_LEVELED_UP, gainedExp);
@@ -1704,6 +1694,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
 {
     u8 level;
     u16 species;
+    u32 oldMaxHP;
     s32 currExp, expOnNextLvl, newExpPoints;
 
     if (gTasks[taskId].tExpTask_frames < 13)
@@ -1715,31 +1706,27 @@ static void Task_GiveExpWithExpBar(u8 taskId)
         u8 monId = gTasks[taskId].tExpTask_monId;
         s32 gainedExp = GetTaskExpValue(taskId);
         u8 battler = gTasks[taskId].tExpTask_battler;
+        struct Pokemon *mon = &gPlayerParty[monId];
 
         newExpPoints = MoveBattleBar(battler, gHealthboxSpriteIds[battler], EXP_BAR, 0);
         SetHealthboxSpriteVisible(gHealthboxSpriteIds[battler]);
         if (newExpPoints == -1) // The bar has been filled with given exp points.
         {
             m4aSongNumStop(SE_EXP);
-            level = GetMonData(&gPlayerParty[monId], MON_DATA_LEVEL);
-            currExp = GetMonData(&gPlayerParty[monId], MON_DATA_EXP);
-            species = GetMonData(&gPlayerParty[monId], MON_DATA_SPECIES);
+            level = GetMonData(mon, MON_DATA_LEVEL);
+            currExp = GetMonData(mon, MON_DATA_EXP);
+            species = GetMonData(mon, MON_DATA_SPECIES);
+            oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP);
             expOnNextLvl = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1];
 
             if (currExp + gainedExp >= expOnNextLvl)
             {
-                SetMonData(&gPlayerParty[monId], MON_DATA_EXP, &expOnNextLvl);
-                gBattleStruct->dynamax.levelUpHP = GetMonData(&gPlayerParty[monId], MON_DATA_HP) \
-                    + UQ_4_12_TO_INT((gBattleScripting.levelUpHP * UQ_4_12(1.5)) + UQ_4_12_ROUND);
-                CalculateMonStats(&gPlayerParty[monId]);
+                SetMonData(mon, MON_DATA_EXP, &expOnNextLvl);
+                CalculateMonStats(mon);
 
                 // Reapply Dynamax HP multiplier after stats are recalculated.
                 if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && monId == gBattlerPartyIndexes[battler])
-                {
-                    ApplyDynamaxHPMultiplier(battler, &gPlayerParty[monId]);
-                    gBattleMons[battler].hp = gBattleStruct->dynamax.levelUpHP;
-                    SetMonData(&gPlayerParty[monId], MON_DATA_HP, &gBattleMons[battler].hp);
-                }
+                    DynamaxModifyHPLevelUp(mon, battler, oldMaxHP);
 
                 gainedExp -= expOnNextLvl - currExp;
                 BtlController_EmitTwoReturnValues(battler, BUFFER_B, RET_VALUE_LEVELED_UP, gainedExp);
@@ -1748,7 +1735,7 @@ static void Task_GiveExpWithExpBar(u8 taskId)
             else
             {
                 currExp += gainedExp;
-                SetMonData(&gPlayerParty[monId], MON_DATA_EXP, &currExp);
+                SetMonData(mon, MON_DATA_EXP, &currExp);
                 gBattlerControllerFuncs[battler] = Controller_WaitForString;
                 DestroyTask(taskId);
             }
@@ -2328,7 +2315,7 @@ static void PlayerHandleYesNoBox(u32 battler)
     }
 }
 
-static void HandleChooseMoveAfterDma3(u32 battler)
+void HandleChooseMoveAfterDma3(u32 battler)
 {
     if (!IsDma3ManagerBusyWithBgCopy())
     {
@@ -2350,7 +2337,7 @@ static void PlayerChooseMoveInBattlePalace(u32 battler)
     }
 }
 
-static void PlayerHandleChooseMove(u32 battler)
+void PlayerHandleChooseMove(u32 battler)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
     {
@@ -2370,26 +2357,21 @@ static void PlayerHandleChooseMove(u32 battler)
         AssignUsableZMoves(battler, moveInfo->moves);
         gBattleStruct->zmove.viable = (gBattleStruct->zmove.possibleZMoves[battler] & gBitTable[gMoveSelectionCursor[battler]]) != 0;
 
-        DebugPrintf("PlayerHandleChooseMove");
         if (!IsGimmickTriggerSpriteActive())
             gBattleStruct->gimmick.triggerSpriteId = 0xFF;
         if (!(gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_Z_MOVE && !gBattleStruct->zmove.viable))
         {
             u32 initialGimmick = GetFirstValidGimmick(battler);
             gBattleStruct->gimmick.gimmickMode = GIMMICK_MODE_CYCLE;
-            DebugPrintf("B - initial gimmick = %d", initialGimmick);
-            //DebugPrintf("chosenGimmick = %d", gBattleStruct->gimmick.chosenGimmick[battler]);
             if (initialGimmick != GIMMICKS_COUNT)
-            {
-                //gimmickCursor = initialGimmick;
                 CreateGimmickTriggerSprite(battler, initialGimmick);
-            }
         }
     }
 }
 
 void InitMoveSelectionsVarsAndStrings(u32 battler)
 {
+    LoadTypeIcons(battler);
     MoveSelectionDisplayMoveNames(battler);
     gMultiUsePlayerCursor = 0xFF;
     MoveSelectionCreateCursorAt(gMoveSelectionCursor[battler], 0);

@@ -598,8 +598,6 @@ static void CB2_InitBattleInternal(void)
     }
 
     gBattleCommunication[MULTIUSE_STATE] = 0;
-
-    //DebugPrintf("Reached End Of Init Battle Internal: %d", gSpecialVar_TrainerNumber);
 }
 
 #define BUFFER_PARTY_VS_SCREEN_STATUS(party, flags, i)                      \
@@ -2154,6 +2152,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             if(!isPlayer)
             {
                 item = GetRandomHeldItemOpponent();
+                // item = ITEM_AIR_BALLOON; // test item
 
                 if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))
                   && (item == ITEM_RED_CARD || item == ITEM_EJECT_BUTTON || item == ITEM_EJECT_PACK))
@@ -2301,7 +2300,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                 {
                     data = TRUE;
-                    //DebugPrintf("set gigantamax factor");
                 }
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
@@ -2313,7 +2311,6 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (coinflip)
                     data = TYPE_NONE; //use default in 50% of cases
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
-                //DebugPrintf("set trainer tera type to %d, coinflip %d", data, coinflip);
             }
 
             //DebugPrintf("MONS CREATED HERE");
@@ -5494,6 +5491,7 @@ static bool32 TryDoGimmicksBeforeMoves(void)
         SortBattlersBySpeed(order, FALSE);
         for (i = 0; i < gBattlersCount; i++)
         {
+            battler = i;
             // Search through each battler and activate their gimmick if they have one prepared.
             if ((gBattleStruct->gimmick.toActivate & gBitTable[order[i]]) && !(gProtectStructs[order[i]].noValidMoves))
             {
