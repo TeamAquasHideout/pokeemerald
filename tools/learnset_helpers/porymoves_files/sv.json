@@ -34152,7 +34152,8 @@
       "MOVE_WHIRLPOOL",
       "MOVE_METEOR_BEAM",
       "MOVE_BREAKING_SWIPE",
-      "MOVE_DRAGON_CHEER"
+      "MOVE_DRAGON_CHEER",
+      "MOVE_DRAGON_ASCENT"
     ],
     "EggMoves": [],
     "TutorMoves": []

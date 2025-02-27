@@ -10916,13 +10916,22 @@ u16 GetBattleFormChangeTargetSpecies(u32 battler, u16 method)
                     if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
                         megaRayquaza = TRUE;
 #endif
-                    if(megaRayquaza || GetBattlerSide(battler) == B_SIDE_PLAYER)
+                    if(megaRayquaza)
                     {
-                        if (gBattleMons[battler].moves[0] == formChanges[i].param1
-                        || gBattleMons[battler].moves[1] == formChanges[i].param1
-                        || gBattleMons[battler].moves[2] == formChanges[i].param1
-                        || gBattleMons[battler].moves[3] == formChanges[i].param1)
+                        if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+                        {
+                            if (gBattleMons[battler].moves[0] == formChanges[i].param1
+                            || gBattleMons[battler].moves[1] == formChanges[i].param1
+                            || gBattleMons[battler].moves[2] == formChanges[i].param1
+                            || gBattleMons[battler].moves[3] == formChanges[i].param1)
+                            {
+                                targetSpecies = formChanges[i].targetSpecies;
+                            }
+                        }
+                        else if (gCanRayquazaMega && GetBattlerSide(battler) == B_SIDE_OPPONENT)
+                        {
                             targetSpecies = formChanges[i].targetSpecies;
+                        }
                     }
                     break;
                 case FORM_CHANGE_BATTLE_SWITCH:

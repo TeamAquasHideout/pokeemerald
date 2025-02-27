@@ -56,9 +56,9 @@ if len(incs_to_check) == 0: # disabled if no jsons present
 with open("./src/data/pokemon/tutor_moves.h", 'r') as file:
     # split tms_hms.h in only the relevant parts of the current gen setting
     if gen_latest == 3:
-        before_end = file.read().split("PIT_GEN3")[0]
+        before_end = file.read().split("PIT_GEN_3")[1]
     elif gen_latest == 5:
-        before_end = file.read().split("PIT_GEN5")[0]
+        before_end = file.read().split("PIT_GEN_5")[1]
     else:
         before_end = []
     # only proceed if a file could be read
@@ -67,7 +67,6 @@ with open("./src/data/pokemon/tutor_moves.h", 'r') as file:
     else:
         # determine the list elements
         for x in re.findall(r'\b(MOVE_\w+)\b', before_end):
-            # print(x)
             if not x in tutor_moves:
                 tutor_moves.append(x)
 
@@ -75,11 +74,11 @@ with open("./src/data/pokemon/tutor_moves.h", 'r') as file:
 with open("./include/constants/tms_hms.h", 'r') as file:
     # split tms_hms.h in only the relevant parts of the current gen setting
     if gen_latest == 3:
-        before_end = file.read().split("PIT_GEN3")[0]
+        before_end = file.read().split("PIT_GEN_3")[1]
     elif gen_latest == 5:
-        before_end = file.read().split("PIT_GEN5")[0]
+        before_end = file.read().split("PIT_GEN_5")[1]
     else:
-        before_end = file.read().split("PIT_GEN9")[0]
+        before_end = file.read().split("PIT_GEN_9")[1]
     # determine the list elements
     for x in re.findall(r'F\((.*)\)', before_end):
         if not 'MOVE_' + x in tm_moves:
