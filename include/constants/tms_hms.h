@@ -85,7 +85,21 @@
     F(ICE_PUNCH) \
     F(THUNDER_PUNCH) \
     F(FIRE_PUNCH)
-//END PIT_GEN3
+
+#define FOREACH_HM(F) \
+    F(CUT) \
+    F(FLY) \
+    F(SURF) \
+    F(STRENGTH) \
+    F(FLASH) \
+    F(ROCK_SMASH) \
+    F(WATERFALL) \
+    F(DIVE)
+
+#define FOREACH_TMHM(F) \
+    FOREACH_TM(F) \
+    FOREACH_HM(F)
+//END PIT_GEN_3
 # elif defined PIT_GEN_5_MODE
 #define FOREACH_TM(F) \
     F(HONE_CLAWS) \
@@ -188,7 +202,21 @@
     F(IRON_TAIL) \
     F(SHOCK_WAVE) \
     F(SKILL_SWAP)
-//END PIT_GEN5
+
+    #define FOREACH_HM(F) \
+    F(CUT) \
+    F(FLY) \
+    F(SURF) \
+    F(STRENGTH) \
+    F(FLASH) \
+    F(ROCK_SMASH) \
+    F(WATERFALL) \
+    F(DIVE)
+
+#define FOREACH_TMHM(F) \
+    FOREACH_TM(F) \
+    FOREACH_HM(F)
+//END PIT_GEN_5
 # else // PIT_GEN_9_MODE
 #define FOREACH_TM(F) \
     F(TAKE_DOWN) \
@@ -421,8 +449,6 @@
     F(PSYCHIC_NOISE) \
     F(UPPER_HAND) \
     F(HIDDEN_POWER)
-//END PIT_GEN9
-# endif
 
 #define FOREACH_HM(F) \
     F(CUT) \
@@ -437,5 +463,7 @@
 #define FOREACH_TMHM(F) \
     FOREACH_TM(F) \
     FOREACH_HM(F)
+//END PIT_GEN_9
+# endif
 
 #endif
