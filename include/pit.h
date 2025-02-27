@@ -121,6 +121,7 @@ struct RandomTrainerNPC
 
 extern const struct RandomTrainerNPC RandomNPCTrainers[];
 extern const struct RandomTrainerNPC RandomNPCTrainers_Doubles[];
+extern u8 gCanRayquazaMega;
 
 u16 ReturnAvatarMugshotId(u16 avatarId);
 u16 ReturnAvatarGraphicsId(u16 avatarId);

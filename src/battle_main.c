@@ -237,6 +237,7 @@ EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA static u8 sTriedEvolving = 0;
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
+EWRAM_DATA u8 gCanRayquazaMega = 0;
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
@@ -2022,6 +2023,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     u16 averageEVs = 0;
     u16 setTrainerTera = 0;
     bool8 megaStoneAssigned = FALSE;
+    
+    gCanRayquazaMega = FALSE;
 
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
@@ -2141,9 +2144,11 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
                 else
                 {
-                    // if (i == 1) //test line for forced test encounters
-                    //     CreateMon(&party[i], SPECIES_MIMIKYU, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    // else
+                    // if (i == 0) // ### test snippet for forced test encounters
+                    //     CreateMon(&party[i], SPECIES_RAYQUAZA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else if (i == 1)
+                    //     CreateMon(&party[i], SPECIES_ALTARIA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else // ### end test snippet
                     CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(TRAINER_MONS), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                 }
             }
@@ -2188,8 +2193,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             else
                                 odds = 25;
                         }
-                    }    
-
+                    }
+                    
                     if ((Random() % 100) < odds && !megaStoneAssigned
                       && VarGet(VAR_PIT_FLOOR) % 25 != 0) //no additional megas for bosses
                     {
@@ -2198,6 +2203,12 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         if (megaStone != ITEM_NONE)
                         {
                             item = megaStone;
+                            megaStoneAssigned = TRUE;
+                        }
+                        //special handling for Rayquaza because it doesn't learn Dragon Ascent in the Pit
+                        else if (GetMonData(&party[i], MON_DATA_SPECIES) == SPECIES_RAYQUAZA)
+                        {
+                            gCanRayquazaMega = TRUE;
                             megaStoneAssigned = TRUE;
                         }
                     }

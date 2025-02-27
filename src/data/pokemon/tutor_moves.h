@@ -6060,7 +6060,7 @@ const u16 gTutorMoves[] = {
         MOVE_SWIFT,
         MOVE_THUNDER_PUNCH,
         MOVE_THUNDER_WAVE),
-// END PIT_GEN3
+// END PIT_GEN_3
 #elif defined PIT_GEN_5_MODE
 // #### GEN 5 Tutor Moves ####
     tutor_moves(BULBASAUR,
@@ -14660,7 +14660,7 @@ const u16 gTutorMoves[] = {
         MOVE_SNORE,
         MOVE_ZEN_HEADBUTT),
 #endif
-// END PIT_GEN5
+// END PIT_GEN_5
 
     TUTOR_MOVES_TERMINATOR
 };

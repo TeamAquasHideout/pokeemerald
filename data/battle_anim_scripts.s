@@ -1907,7 +1907,7 @@ Move_AVALANCHE::
 	loadspritegfx ANIM_TAG_ICE_CHUNK
 	monbg ANIM_DEF_PARTNER
 	createsprite gShakeMonOrTerrainSpriteTemplate, ANIM_TARGET, 2, 7, 1, 11, 1
-	createsprite gAvalancheSpriteTemplate, ANIM_TARGET, 130, 4, -5, 1, -5, 1
+	createsprite gAvalancheSpriteTemplate, ANIM_TARGET, 130, -5, 1, -5, 1
 	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
 	delay 2
 	createsprite gAvalancheSpriteTemplate, ANIM_TARGET, 130, 5, 0, 6, 1
@@ -5665,6 +5665,8 @@ Move_FROST_BREATH::
 	waitforvisualfinish
 	createsprite gFrostBreathBlueBreathTemplate, ANIM_TARGET, 2, 0x1e, 0xf, 0x0, 0xa, 0xa
 	waitforvisualfinish
+	unloadspritegfx ANIM_TAG_SMALL_EMBER
+	loadspritegfx ANIM_TAG_FIRE_PLUME
 	loopsewithpan SE_M_ICY_WIND, SOUND_PAN_TARGET, 0xb, 0x3
 	createvisualtask AnimTask_ShakeMon, 5, ANIM_TARGET, 0, 3, 25, 1
 	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x1, 0x5, 0x0
@@ -7737,7 +7739,6 @@ Move_PARABOLIC_CHARGE::
 	loadspritegfx ANIM_TAG_SPARK
 	loadspritegfx ANIM_TAG_LIGHTNING
 	loadspritegfx ANIM_TAG_ORBS
-	loadspritegfx ANIM_TAG_BLUE_STAR
 	monbg ANIM_ATTACKER
 	setalpha 12, 8
 	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 1, 1, 0, 6, RGB(18, 16, 3)
@@ -7760,6 +7761,11 @@ Move_PARABOLIC_CHARGE::
 	createvisualtask AnimTask_BlendBattleAnimPal, 5, 4, 0, 0, 0, RGB_BLACK
 ParabolicChargeHeal:
 	waitforvisualfinish
+	unloadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+	unloadspritegfx ANIM_TAG_ELECTRIC_ORBS
+	unloadspritegfx ANIM_TAG_SPARK
+	unloadspritegfx ANIM_TAG_LIGHTNING
+	loadspritegfx ANIM_TAG_BLUE_STAR
 	clearmonbg ANIM_ATTACKER
 	waitforvisualfinish
 	call HealingEffect
@@ -12335,14 +12341,13 @@ ZingZapSparks2:
 	return
 
 Move_NATURES_MADNESS::
-	loadspritegfx ANIM_TAG_ICE_CRYSTALS @small circles
-	loadspritegfx ANIM_TAG_THIN_RING @ring
-	loadspritegfx ANIM_TAG_SPARKLE_2 @stars
-	loadspritegfx ANIM_TAG_PINK_PETAL @pink
-	loadspritegfx ANIM_TAG_ICE_CHUNK @blue green
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS @small circles  CrystalsTemplate
+	loadspritegfx ANIM_TAG_THIN_RING @ring              PinkRingTemplate, GrayRingTemplate
+	loadspritegfx ANIM_TAG_SPARKLE_2 @stars             PinkStarsTemplate
+	loadspritegfx ANIM_TAG_PINK_PETAL @pink             PinkRingTemplate, PinkStarsTemplate
+	loadspritegfx ANIM_TAG_ICE_CHUNK @blue green        CrystalsTemplate
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT @charge
 	loadspritegfx ANIM_TAG_TEAL_ALERT @charge particles
-	loadspritegfx ANIM_TAG_ECLIPSING_ORB @blue green
 	monbg ANIM_ATTACKER
 	setalpha 14, 8
 	delay 0x1
@@ -12378,6 +12383,8 @@ Move_NATURES_MADNESS::
 	delay 0x1
 	monbg ANIM_TARGET
 	waitforvisualfinish
+	unloadspritegfx ANIM_TAG_SPARKLE_2
+	loadspritegfx ANIM_TAG_ECLIPSING_ORB @blue green    grayRing
 	createsprite gNaturesMadnessGrayRingTemplate, ANIM_ATTACKER, 40, 0x0, 0x0, 0x1, 0x0
 	playsewithpan SE_M_HEAL_BELL, SOUND_PAN_ATTACKER
 	delay 0xe
@@ -12819,7 +12826,6 @@ Move_STUFF_CHEEKS::
 	loadspritegfx ANIM_TAG_BERRY_NORMAL
 	loadspritegfx ANIM_TAG_SHARP_TEETH
 	loadspritegfx ANIM_TAG_THIN_RING
-	loadspritegfx ANIM_TAG_SPARKLE_2
 	playsewithpan SE_M_METRONOME, 0xc0
 	createsprite gFloatingBerryTemplate, ANIM_ATTACKER, 1, 0x0
 	delay 0x45
