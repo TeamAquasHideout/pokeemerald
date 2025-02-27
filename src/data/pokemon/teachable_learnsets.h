@@ -21847,6 +21847,7 @@ static const u16 sRayquazaTeachableLearnset[] = {
     MOVE_CRUNCH,
     MOVE_DOUBLE_EDGE,
     MOVE_DRACO_METEOR,
+    MOVE_DRAGON_ASCENT,
     MOVE_DRAGON_CHEER,
     MOVE_DRAGON_CLAW,
     MOVE_DRAGON_DANCE,
