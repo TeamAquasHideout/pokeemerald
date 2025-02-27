@@ -31420,7 +31420,8 @@
       "MOVE_EARTH_POWER",
       "MOVE_IRON_HEAD",
       "MOVE_STONE_EDGE",
-      "MOVE_HURRICANE"
+      "MOVE_HURRICANE",
+      "MOVE_DRAGON_ASCENT"
     ],
     "EggMoves": [],
     "TutorMoves": [

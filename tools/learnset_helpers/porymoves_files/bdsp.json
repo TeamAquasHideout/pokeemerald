@@ -43220,7 +43220,8 @@
       "MOVE_SURF",
       "MOVE_STRENGTH",
       "MOVE_ROCK_SMASH",
-      "MOVE_WATERFALL"
+      "MOVE_WATERFALL",
+      "MOVE_DRAGON_ASCENT"
     ],
     "EggMoves": [],
     "TutorMoves": [
