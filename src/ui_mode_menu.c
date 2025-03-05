@@ -292,6 +292,7 @@ static int GetMiddleX(const u8 *txt1, const u8 *txt2, const u8 *txt3);
 static int XOptions_ProcessInput(int x, int selection);
 static int ProcessInput_Options_Two(int selection);
 static int ProcessInput_Options_Three(int selection);
+static int ProcessInput_Options_Four(int selection);
 static int ProcessInput_Options_Eighteen(int selection);
 static int ProcessInput_Options_Nineteen(int selection);
 static void ReDrawAll(void);
@@ -372,7 +373,7 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_ZMOVES]        = {DrawChoices_ZMoves,        ProcessInput_Options_Two},
 #endif
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
-    [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Three},
+    [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Four},
     [MENUITEM_DIFF_NO_BAG_USE]    = {DrawChoices_NoBagUse,     ProcessInput_Options_Two},
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_DYNAMAX]       = {DrawChoices_Dynamax,      ProcessInput_Options_Two},
@@ -641,6 +642,7 @@ static const u8 sText_Desc_DoubleCash_2x[]      = _("Doubles the amount of money
 static const u8 sText_Desc_DoubleCash_05x[]     = _("SUPER HARD! Halves the amount of\nmoney received after a battle.");
 static const u8 sText_Desc_ItemDrops_Rand[]     = _("Item drops after clearing a floor\nare randomized 1-3.");
 static const u8 sText_Desc_ItemDrops_1[]        = _("Only a single item is dropped after\nclearing a floor.");
+static const u8 sText_Desc_ItemDrops_2[]        = _("Always two items are dropped after\nclearing a floor.");
 static const u8 sText_Desc_ItemDrops_3[]        = _("Always three items are dropped after\nclearing a floor.");
 static const u8 sText_Desc_EvoStage_All[]       = _("Pokémon to choose from can be all\nkinds of evolution stages.");
 static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from will always\nbe Basic Pokémon.");
@@ -687,29 +689,29 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
     [MENUITEM_RUN_CANCEL]          = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
 };
 
-static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][3] =
+static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][4] =
 {
-    [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None},
-    [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty},
-    [MENUITEM_DIFF_TRAINER_EVS]   = {sText_Desc_TrainerEVs_On,    sText_Desc_TrainerEVs_Off,    sText_Empty},
-    [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x},
-    [MENUITEM_DIFF_HEALFLOORS]    = {sText_Desc_HealFloors_5,     sText_Desc_HealFloors_10,     sText_Empty},
-    [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty},
+    [MENUITEM_DIFF_XPMODE]        = {sText_Desc_XPMode_75,        sText_Desc_XPMode_50,         sText_Desc_XPMode_None,     sText_Empty},
+    [MENUITEM_DIFF_STAT_CHANGER]  = {sText_Desc_StatChanger_On,   sText_Desc_StatChanger_Off,   sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_TRAINER_EVS]   = {sText_Desc_TrainerEVs_On,    sText_Desc_TrainerEVs_Off,    sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_DOUBLE_CASH]   = {sText_Desc_DoubleCash_1x,    sText_Desc_DoubleCash_2x,     sText_Desc_DoubleCash_05x,  sText_Empty},
+    [MENUITEM_DIFF_HEALFLOORS]    = {sText_Desc_HealFloors_5,     sText_Desc_HealFloors_10,     sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_LEGENDARIES]   = {sText_Desc_Legendaries_On,   sText_Desc_Legendaries_Off,   sText_Empty,                sText_Empty},
 #ifdef PIT_GEN_9_MODE
-    [MENUITEM_DIFF_TRAINER_GIMMICKS]   = {sText_Desc_TrainerGimmicks_Random,    sText_Desc_TrainerGimmicks_Prog,     sText_Desc_TrainerGimmicks_None},
-    [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty},
-    [MENUITEM_DIFF_ZMOVES]          = {sText_Desc_ZMoves_On,         sText_Desc_ZMoves_Off,         sText_Empty},
+    [MENUITEM_DIFF_TRAINER_GIMMICKS]   = {sText_Desc_TrainerGimmicks_Random,    sText_Desc_TrainerGimmicks_Prog,     sText_Desc_TrainerGimmicks_None,   sText_Empty},
+    [MENUITEM_DIFF_MEGAS]         = {sText_Desc_Megas_On,         sText_Desc_Megas_Off,         sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_ZMOVES]        = {sText_Desc_ZMoves_On,        sText_Desc_ZMoves_Off,        sText_Empty,                sText_Empty},
 #endif
-    [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full},
-    [MENUITEM_DIFF_MONOTYPE]      = {sText_Desc_MonoType,         sText_Desc_MonoType,          sText_Desc_MonoType},
-    [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty},
-    [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_3},
-    [MENUITEM_DIFF_NO_BAG_USE]    = {sText_Desc_NoBagUse_On,      sText_Desc_NoBagUse_Off,      sText_Empty},
+    [MENUITEM_DIFF_EVOSTAGE]      = {sText_Desc_EvoStage_All,     sText_Desc_EvoStage_Basic,    sText_Desc_EvoStage_Full,   sText_Empty},
+    [MENUITEM_DIFF_MONOTYPE]      = {sText_Desc_MonoType,         sText_Desc_MonoType,          sText_Desc_MonoType,        sText_Empty},
+    [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_2,     sText_Desc_ItemDrops_3},
+    [MENUITEM_DIFF_NO_BAG_USE]    = {sText_Desc_NoBagUse_On,      sText_Desc_NoBagUse_Off,      sText_Empty,                sText_Empty},
 #ifdef PIT_GEN_9_MODE
-    [MENUITEM_DIFF_DYNAMAX]       = {sText_Desc_Dynamax_On,       sText_Desc_Dynamax_Off,       sText_Empty},
-    [MENUITEM_DIFF_TERA]          = {sText_Desc_Tera_On,          sText_Desc_Tera_Off,          sText_Empty},
+    [MENUITEM_DIFF_DYNAMAX]       = {sText_Desc_Dynamax_On,       sText_Desc_Dynamax_Off,       sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_TERA]          = {sText_Desc_Tera_On,          sText_Desc_Tera_Off,          sText_Empty,                sText_Empty},
 #endif
-    [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty},
+    [MENUITEM_DIFF_CANCEL]        = {sText_Desc_Save,             sText_Empty,                  sText_Empty,                sText_Empty},
 };
 
 static const u8 *const sModeMenuItemDescriptionsRand[MENUITEM_RAND_COUNT][3] =
@@ -1688,6 +1690,11 @@ static int ProcessInput_Options_Three(int selection)
     return XOptions_ProcessInput(3, selection);
 }
 
+static int ProcessInput_Options_Four(int selection)
+{
+    return XOptions_ProcessInput(4, selection);
+}
+
 static int ProcessInput_Options_Eighteen(int selection)
 {
     return XOptions_ProcessInput(18, selection);
@@ -1777,6 +1784,7 @@ static const u8 sText_EvoStage_Basic[]      = _("BASIC");
 static const u8 sText_EvoStage_Full[]       = _("FULL");
 static const u8 sText_ItemDrops_Rand[]      = _("RAND");
 static const u8 sText_ItemDrops_1[]         = _("1");
+static const u8 sText_ItemDrops_2[]         = _("2");
 static const u8 sText_ItemDrops_3[]         = _("3");
 static const u8 sText_Type_Normal[]         = _("NORMAL");
 static const u8 sText_Type_Fighting[]       = _("FIGHT");
@@ -1894,12 +1902,13 @@ static void DrawChoices_TrainerGimmicks(int selection, int y)
 static void DrawChoices_ItemDrops(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_DIFF_ITEM_DROPS);
-    u8 styles[3] = {0};
+    u8 styles[4] = {0};
     styles[selection] = 1;
 
     DrawModeMenuChoice(sText_ItemDrops_Rand, 104, y, styles[0], active);
     DrawModeMenuChoice(sText_ItemDrops_1, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_1, 198 - 37), y, styles[1], active);
-    DrawModeMenuChoice(sText_ItemDrops_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_3, 198), y, styles[2], active);
+    DrawModeMenuChoice(sText_ItemDrops_2, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_2, 198 - 18), y, styles[2], active);
+    DrawModeMenuChoice(sText_ItemDrops_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_ItemDrops_3, 198), y, styles[3], active);
 }
 
 static void DrawChoices_HealFloors(int selection, int y)

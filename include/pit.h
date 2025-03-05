@@ -104,7 +104,8 @@ struct RandomTrainerNPC
 #define ARRAY_PROG       1
 #define ITEM_DROPS_RAND  0
 #define ITEM_DROPS_1     1
-#define ITEM_DROPS_3     2
+#define ITEM_DROPS_2     2
+#define ITEM_DROPS_3     3
 
 #define TRAINER_GIMMICKS_RANDOM 0
 #define TRAINER_GIMMICKS_PROGRESSIVE 1

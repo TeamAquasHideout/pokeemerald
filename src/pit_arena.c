@@ -3969,6 +3969,9 @@ void ChooseRandomRewardNumberForFloor(void)
         case ITEM_DROPS_1: // always 1 reward
             VarSet(VAR_RESULT, 0);
             return;
+        case ITEM_DROPS_2: // always 2 reward2
+            VarSet(VAR_RESULT, 1);
+            return;
         case ITEM_DROPS_3: // always 3 rewards
             VarSet(VAR_RESULT, 2);
             return;
