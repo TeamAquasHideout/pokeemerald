@@ -134,7 +134,11 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeCashRewards = CASH_1X;
         gSaveBlock2Ptr->modeHealFloors10 = HEAL_FLOORS_5;
         gSaveBlock2Ptr->modeLegendaries = ON;
+        #ifdef PIT_GEN_9_MODE
         gSaveBlock2Ptr->modeMegas = ON;
+        #else
+        gSaveBlock2Ptr->modeMegas = OFF;
+        #endif
         gSaveBlock2Ptr->modeZMoves = OFF;
         gSaveBlock2Ptr->modeChoiceEvoStage = EVOSTAGE_ALL;
         gSaveBlock2Ptr->modeMonoType = TYPE_NONE;
