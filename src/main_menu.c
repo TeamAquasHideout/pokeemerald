@@ -1304,6 +1304,8 @@ void CB2_NewGameBirchSpeech_FromNewMainMenu(void) // Combination of the Above fu
     u8 spriteId;
     u16 savedIme;
 
+    gSaveBlock2Ptr->forceNewRun = FALSE;
+
     ResetBgsAndClearDma3BusyFlags(0);
     SetGpuReg(REG_OFFSET_DISPCNT, 0);
     SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
