@@ -2115,7 +2115,13 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     // = fully evolved mons for every trainer from Floor 100 on and for bosses!
                     u16 newSpecies;
                     u32 bst = 0;
+                    u32 minBST = 0;
                     const struct Evolution *evolutions;
+
+                    if (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50)
+                        minBST = 500;
+                    else
+                        minBST = 525;
 
                     do
                     {
@@ -2138,7 +2144,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         bst = (gSpeciesInfo[newSpecies].baseHP + gSpeciesInfo[newSpecies].baseAttack + gSpeciesInfo[newSpecies].baseDefense + gSpeciesInfo[newSpecies].baseSpAttack + gSpeciesInfo[newSpecies].baseSpDefense + gSpeciesInfo[newSpecies].baseSpeed);
                     } while ((VarGet(VAR_PIT_FLOOR) == 100
                         || (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50))
-                      && bst < 525); //make the final boss have only BST 525+ mons
+                      && bst < minBST); //make the final boss have only minBST+ mons
                     
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
