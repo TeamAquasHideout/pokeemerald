@@ -582,13 +582,14 @@ struct SaveBlock2
              u16 mode50Floors:1;
              u16 modeBossHeal:1;
              u16 modeChoiceEvoStage:2; //0 = All, 1 = basic pokemon, 2 = fully evolved
-             u16 modeChoiceItemReward:2; //0 = Random, 1 = always 1, 2 = always 3
+             u16 padding:2; // uncommented because its free padding space
              u16 modeSpeciesArray:1; //0 = Random, 1 = progressive
              u16 modeDynamax:1;
              u16 modeTera:1;
              u16 modeZMoves:1;
              u16 trainerGimmicks:2; // 0 = Random, 1 = Progressive, 2 = Off
-             u16 padding2:4; // uncommented because its free padding space
+             u16 modeChoiceItemReward:3; //0 = Random, 1 = always 1, 2 = always 2, 3 = always 3
+             u16 padding2:1; // uncommented because its free padding space
             // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
