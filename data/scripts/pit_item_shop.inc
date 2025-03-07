@@ -35,6 +35,7 @@ PitShop_ShopNPCHook::
 
 #ifndef PIT_GEN_3_MODE
 	dynmultipush PitShop_ShopNPC_Option_Forms, FORMS_SHOP
+	dynmultipush PitShop_ShopNPC_Option_Gems, GEMS_SHOP
 #endif
 
 #ifdef PIT_GEN_9_MODE
