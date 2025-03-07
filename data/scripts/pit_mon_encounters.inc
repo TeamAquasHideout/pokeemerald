@@ -34,6 +34,14 @@ PitEncounter_Mover_alreadyUsed::
 PitEncounter_Mover_alreadyUsed_Text:
 	.string "Abra!$"
 
+PitEncounter_Mover_floorAlreadyCleared::
+	faceplayer
+	msgbox PitEncounter_Mover_alreadyCleared_Text, MSGBOX_DEFAULT
+	release
+	end
+PitEncounter_Mover_alreadyCleared_Text:
+	.string "You have already cleared the floor.\nAbra is no longer interested!$"
+
 PitEncounter_HealOneMon_alreadyUsed::
 	faceplayer
 	msgbox PitEncounter_HealOneMon_alreadyUsed_Text, MSGBOX_DEFAULT
@@ -368,6 +376,8 @@ PitEncounter_CureAllStatus_Cured:
 @ Skip Floor NPC
 PitEncounter_Mover::
 	lock
+	callnative CheckFloorCleared
+	goto_if_set FLAG_FLOOR_CLEARED, PitEncounter_Mover_floorAlreadyCleared
 	faceplayer
 	msgbox PitEncounter_NPCMoverOpen, MSGBOX_DEFAULT
 	message PitEncounter_NPCMoverOpen2
