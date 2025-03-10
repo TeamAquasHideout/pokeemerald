@@ -47,6 +47,7 @@
 #include "gba/isagbprint.h"
 #include "random.h"
 #include "money.h"
+#include "battle_main.h"
 
  /*
     9 Starter Selection Birch Case
@@ -839,7 +840,19 @@ static void PrintTextToBottomBar(u8 textId)
     if(textId != 2)
     {
 #ifdef POKEMON_EXPANSION
-        speciesCategoryText = GetSpeciesCategory(species);
+        // add typings under Pokémon sprite
+        u16 type0 = gSpeciesInfo[species].types[0];
+        u16 type1 = gSpeciesInfo[species].types[1];
+
+        StringCopy(gStringVar1, gTypesInfo[type0].name);
+        if (type1 != type0 && type1 != TYPE_NONE)
+        {
+            StringCopy(gStringVar1, gTypesInfo[type0].name_short);
+            StringAppend(gStringVar1, gText_Slash);
+            StringAppend(gStringVar1, gTypesInfo[type1].name_short);
+        }
+        speciesCategoryText = gStringVar1;
+        
 #else
         speciesCategoryText = GetPokedexCategoryName(dexNum);
 #endif
