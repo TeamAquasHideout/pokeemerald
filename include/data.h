@@ -105,6 +105,7 @@ struct TrainerClass
 struct TypeInfo
 {
     u8 name[TYPE_NAME_LENGTH + 1];
+    u8 name_short[TYPE_NAME_LENGTH + 1];
     u8 generic[17];
     u8 palette;
     u16 zMove;
