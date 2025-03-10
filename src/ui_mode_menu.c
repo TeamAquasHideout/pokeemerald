@@ -125,7 +125,8 @@ enum MenuItems_Presets
 enum Game_Presets
 {
     PRESET_NORMAL,
-    PRESET_HARD
+    PRESET_HARD,
+    PRESET_RACE
 };
 
 static EWRAM_DATA struct ModeMenuState *sModeMenuState = NULL;
@@ -403,7 +404,7 @@ struct Menu_Presets //MENU_PRESETS
     int (*processInput)(int selection);
 } static const sItemFunctionsPresets[MENUITEM_PRESET_COUNT] =
 {
-    [MENUITEM_PRESET_MODE] = {DrawChoices_PresetsMode,     ProcessInput_Options_Two},
+    [MENUITEM_PRESET_MODE] = {DrawChoices_PresetsMode,     ProcessInput_Options_Three},
     [MENUITEM_PRESET_CANCEL] = {NULL, NULL},
     [MENUITEM_PRESET_SAVE]   = {NULL, NULL},
 };
@@ -603,6 +604,7 @@ static const u8 sText_Desc_SpeciesArrayRand[]   = _("Trainer Pokémon are fully 
 static const u8 sText_Desc_SpeciesArrayProg[]   = _("Trainer Pokémon scale with floors\nto offer a smoother experience.");
 static const u8 sText_Desc_NormalMode[]         = _("HOPE mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_HardMode[]           = _("DESPAIR mode settings are used as\nintended by the devs.");
+static const u8 sText_Desc_RaceMode[]           = _("A single-trainer floor RACE mode\nfor fast paced challenge runs.");
 static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for HOPE Mode below.");
 static const u8 sText_Desc_Defaults_Hard[]      = _("Sets all options for DESPAIR Mode below.");
 static const u8 sText_Desc_Defaults_Custom[]    = _("Is shown when manually changing\nmode settings.");
@@ -727,7 +729,7 @@ static const u8 *const sModeMenuItemDescriptionsRand[MENUITEM_RAND_COUNT][3] =
 
 static const u8 *const sModeMenuItemDescriptionsPresets[MENUITEM_PRESET_COUNT][3] =
 {
-    [MENUITEM_PRESET_MODE]        = {sText_Desc_NormalMode,    sText_Desc_HardMode,           sText_Empty},
+    [MENUITEM_PRESET_MODE]        = {sText_Desc_NormalMode,    sText_Desc_HardMode,           sText_Desc_RaceMode},
     [MENUITEM_PRESET_CANCEL]      = {sText_Desc_CancelPreset,  sText_Empty,                   sText_Empty},
     [MENUITEM_PRESET_SAVE]        = {sText_Desc_SavePreset,    sText_Empty,                   sText_Empty},
 };
@@ -1747,7 +1749,8 @@ static void ReDrawAll(void)
 
 // Process Input functions ****SPECIFIC****
 static const u8 sText_ModeNormal[]          = _("HOPE");
-static const u8 sText_ModeHard[]            = _("DESPAIR");
+static const u8 sText_ModeHard[]            = _("DESP");
+static const u8 sText_ModeRace[]            = _("RACE");
 static const u8 sText_ModeCustom[]          = _("CUST");
 static const u8 sText_Autosave_Off[]        = _("OFF");
 static const u8 sText_Autosave_5[]          = _("5FLRS");
@@ -2218,11 +2221,12 @@ static void DrawChoices_RandEvos(int selection, int y)
 static void DrawChoices_PresetsMode(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_PRESET_MODE);
-    u8 styles[2] = {0};
+    u8 styles[3] = {0};
     styles[selection] = 1;
 
     DrawModeMenuChoice(sText_ModeNormal, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_ModeHard, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeHard, 198), y, styles[1], active);
+    DrawModeMenuChoice(sText_ModeHard, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeHard, 198 - 35), y, styles[1], active);
+    DrawModeMenuChoice(sText_ModeRace, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeRace, 198), y, styles[2], active);
 }
 
 // Background tilemap
@@ -2329,6 +2333,22 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
         #endif
             break;
+        case PRESET_RACE:
+            //run settings
+            sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_ON;
+            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
+            //difficulty settings
+            sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_NONE;
+            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_2X;
+            sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
+            sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
+            sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_2;
+        #ifdef PIT_GEN_9_MODE
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
+        #endif
         default:
             break;
     }
