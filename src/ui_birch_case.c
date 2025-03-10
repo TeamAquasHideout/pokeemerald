@@ -856,7 +856,7 @@ static void PrintTextToBottomBar(u8 textId)
 #else
         speciesCategoryText = GetPokedexCategoryName(dexNum);
 #endif
-        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 178 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
+        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 176 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
     }
 
     PutWindowTilemap(WINDOW_BOTTOM_BAR);
