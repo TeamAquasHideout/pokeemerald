@@ -17056,104 +17056,18 @@
     "TutorMoves": []
   },
   "PONYTA_GALARIAN": {
-    "LevelMoves": [
-      {
-        "Level": 1,
-        "Move": "MOVE_TACKLE"
-      },
-      {
-        "Level": 5,
-        "Move": "MOVE_EMBER"
-      },
-      {
-        "Level": 9,
-        "Move": "MOVE_DOUBLE_HIT"
-      },
-      {
-        "Level": 15,
-        "Move": "MOVE_FLAME_WHEEL"
-      },
-      {
-        "Level": 21,
-        "Move": "MOVE_HYPNOSIS"
-      },
-      {
-        "Level": 29,
-        "Move": "MOVE_FIRE_BLAST"
-      },
-      {
-        "Level": 37,
-        "Move": "MOVE_DOUBLE_EDGE"
-      },
-      {
-        "Level": 47,
-        "Move": "MOVE_FLARE_BLITZ"
-      }
-    ],
+    "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
-    "TutorMoves": [
-      "MOVE_FLAMETHROWER",
-      "MOVE_HIGH_HORSEPOWER",
-      "MOVE_IRON_TAIL",
-      "MOVE_MYSTICAL_FIRE",
-      "MOVE_REST",
-      "MOVE_SWIFT",
-      "MOVE_WILD_CHARGE"
-    ]
+    "TutorMoves": []
   },
   "RAPIDASH_GALARIAN": {
-    "LevelMoves": [
-      {
-        "Level": 1,
-        "Move": "MOVE_TACKLE"
-      },
-      {
-        "Level": 5,
-        "Move": "MOVE_EMBER"
-      },
-      {
-        "Level": 9,
-        "Move": "MOVE_DOUBLE_HIT"
-      },
-      {
-        "Level": 15,
-        "Move": "MOVE_FLAME_WHEEL"
-      },
-      {
-        "Level": 21,
-        "Move": "MOVE_HYPNOSIS"
-      },
-      {
-        "Level": 29,
-        "Move": "MOVE_FIRE_BLAST"
-      },
-      {
-        "Level": 37,
-        "Move": "MOVE_DOUBLE_EDGE"
-      },
-      {
-        "Level": 47,
-        "Move": "MOVE_FLARE_BLITZ"
-      }
-    ],
+    "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
-    "TutorMoves": [
-      "MOVE_FLAMETHROWER",
-      "MOVE_GIGA_IMPACT",
-      "MOVE_HIGH_HORSEPOWER",
-      "MOVE_HYPER_BEAM",
-      "MOVE_IRON_TAIL",
-      "MOVE_MEGAHORN",
-      "MOVE_MYSTICAL_FIRE",
-      "MOVE_POISON_JAB",
-      "MOVE_REST",
-      "MOVE_SWIFT",
-      "MOVE_WILD_CHARGE"
-    ]
+    "TutorMoves": []
   },
   "SLOWPOKE_GALARIAN": {
     "LevelMoves": [],
