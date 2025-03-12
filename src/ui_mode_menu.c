@@ -2338,12 +2338,12 @@ static void ApplyPresets(void)
             sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_ON;
             sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
             //difficulty settings
-            sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_NONE;
+            sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_2X;
-            sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
+            sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_10;
             sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
             sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_2;
         #ifdef PIT_GEN_9_MODE
