@@ -2346,6 +2346,7 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_10;
             sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
             sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_2;
+            sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_OFF;
         #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
         #endif
