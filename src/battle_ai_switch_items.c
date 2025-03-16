@@ -2140,6 +2140,31 @@ static bool32 AiExpectsToFaintPlayer(u32 battler)
     return FALSE;
 }
 
+static u32 GetHPAmount(u8 itemEffectParam, struct Pokemon *mon)
+{
+    switch (itemEffectParam)
+    {
+    case ITEM6_HEAL_HP_FULL:
+        itemEffectParam = GetMonData(mon, MON_DATA_MAX_HP, NULL) - GetMonData(mon, MON_DATA_HP, NULL);
+        break;
+    case ITEM6_HEAL_HP_HALF:
+        itemEffectParam = GetMonData(mon, MON_DATA_MAX_HP, NULL) / 2;
+        if (itemEffectParam == 0)
+            itemEffectParam = 1;
+        break;
+    case ITEM6_HEAL_HP_LVL_UP:
+        itemEffectParam = gBattleScripting.levelUpHP;
+        break;
+    case ITEM6_HEAL_HP_QUARTER:
+        itemEffectParam = GetMonData(mon, MON_DATA_MAX_HP, NULL) / 4;
+        if (itemEffectParam == 0)
+            itemEffectParam = 1;
+        break;
+    }
+
+    return itemEffectParam;
+}
+
 static bool32 ShouldUseItem(u32 battler)
 {
     struct Pokemon *party;
@@ -2179,6 +2204,7 @@ static bool32 ShouldUseItem(u32 battler)
         u16 item;
         const u16 *itemEffects;
         u8 battlerSide;
+        u32 healAmount = 0;
 
         item = gBattleResources->battleHistory->trainerItems[i];
         if (item == ITEM_NONE)
@@ -2190,10 +2216,12 @@ static bool32 ShouldUseItem(u32 battler)
         switch (ItemId_GetBattleUsage(item))
         {
         case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
-            shouldUse = AI_ShouldHeal(battler, 0);
+            healAmount = GetHPAmount(itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)], &gEnemyParty[gBattlerPartyIndexes[battler]]);
+            shouldUse = AI_ShouldHeal(battler, healAmount);
             break;
         case EFFECT_ITEM_RESTORE_HP:
-            shouldUse = AI_ShouldHeal(battler, itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)]);
+            healAmount = GetHPAmount(itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)], &gEnemyParty[gBattlerPartyIndexes[battler]]);
+            shouldUse = AI_ShouldHeal(battler, healAmount);
             break;
         case EFFECT_ITEM_CURE_STATUS:
             if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[battler].status1 & STATUS1_SLEEP)
@@ -2255,6 +2283,11 @@ static bool32 ShouldUseItem(u32 battler)
 static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
 {
     bool32 shouldHeal = FALSE;
+    u8 opponent, i, k;
+    u32 maxDamage = 0;
+    u32 dmg = 0;
+    u16 *moves;
+    u16 *AIKnownMoves;
 
     if (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 4
      || gBattleMons[battler].hp == 0
@@ -2263,6 +2296,41 @@ static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
         // We have low enough HP to consider healing
         shouldHeal = !AI_OpponentCanFaintAiWithMod(battler, healAmount); // if target can kill us even after we heal, why bother
     }
+
+    //calculate max expected damage from the opponent
+    for (opponent = 0; opponent < gBattlersCount; opponent++)
+    {
+        if (GetBattlerSide(opponent) == B_SIDE_PLAYER)
+        {
+            AIKnownMoves = gBattleResources->battleHistory->usedMoves[opponent];
+            moves = GetMovesArray(opponent);
+            for (i = 0; i < MAX_MON_MOVES; i++)
+            {
+                for (k = 0; k < MAX_MON_MOVES; k++)
+                {
+                    if (AIKnownMoves[i] != MOVE_NONE && AIKnownMoves[i] == moves[k])
+                    {            
+                        dmg = AI_DATA->simulatedDmg[opponent][battler][k].expected;
+                        if (dmg > maxDamage)
+                            maxDamage = dmg;
+                    }
+                }
+            }
+        }
+    }
+
+    // also heal if a 2HKO is outhealed
+    if (AI_OpponentCanFaintAiWithMod(battler, 0)
+      && !AI_OpponentCanFaintAiWithMod(battler, healAmount)
+      && healAmount > 2*maxDamage)
+        return TRUE;
+
+
+    // also heal, if the expected damage is outhealed and it's the last remaining mon
+    if (AI_OpponentCanFaintAiWithMod(battler, 0)
+      && !AI_OpponentCanFaintAiWithMod(battler, healAmount)
+      && CountUsablePartyMons(battler) == 0)
+        return TRUE;
 
     return shouldHeal;
 }
