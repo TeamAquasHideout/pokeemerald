@@ -11713,7 +11713,7 @@
       },
       {
         "Level": 44,
-        "Move": "MOVE_HIGH_JUMP_KICK"
+        "Move": "MOVE_HI_JUMP_KICK"
       }
     ],
     "PreEvoMoves": [],
@@ -34540,7 +34540,7 @@
       },
       {
         "Level": 28,
-        "Move": "MOVE_HIGH_JUMP_KICK"
+        "Move": "MOVE_HI_JUMP_KICK"
       },
       {
         "Level": 31,
@@ -34687,7 +34687,7 @@
       },
       {
         "Level": 28,
-        "Move": "MOVE_HIGH_JUMP_KICK"
+        "Move": "MOVE_HI_JUMP_KICK"
       },
       {
         "Level": 31,
@@ -47847,7 +47847,7 @@
       },
       {
         "Level": 56,
-        "Move": "MOVE_HIGH_JUMP_KICK"
+        "Move": "MOVE_HI_JUMP_KICK"
       }
     ],
     "PreEvoMoves": [],

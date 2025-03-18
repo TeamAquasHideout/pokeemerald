@@ -39741,7 +39741,6 @@
       "MOVE_DETECT",
       "MOVE_HI_JUMP_KICK",
       "MOVE_HOWL",
-      "MOVE_HIGH_JUMP_KICK"
     ],
     "TutorMoves": []
   },
@@ -67861,7 +67860,6 @@
       "MOVE_SAND_ATTACK",
       "MOVE_SUCKER_PUNCH",
       "MOVE_SUPER_FANG",
-      "MOVE_HIGH_JUMP_KICK"
     ],
     "TutorMoves": []
   },
