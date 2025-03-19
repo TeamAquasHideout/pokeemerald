@@ -2247,7 +2247,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
 #endif
                 if(isAcePokemon)
-                    item = partyData[j].heldItem;
+                {
+                    if((gSaveBlock2Ptr->modeSpeciesArray == ARRAY_PROG) && (VarGet(VAR_PIT_FLOOR) == 25))
+                    {
+                        //set default item for first boss in prog runs, so they don't mega
+                        item = ITEM_LEFTOVERS;
+                    }
+                    else
+                        item = partyData[j].heldItem;
+                }
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &item);
             }
