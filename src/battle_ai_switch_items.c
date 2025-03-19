@@ -2265,6 +2265,7 @@ static bool32 ShouldUseItem(u32 battler)
         default:
             return FALSE;
         }
+        // DebugPrintf("should use item? %d", shouldUse);
         if (shouldUse)
         {
             // Set selected party ID to current battler if none chosen.

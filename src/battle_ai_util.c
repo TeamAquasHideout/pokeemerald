@@ -1235,32 +1235,29 @@ bool32 CanTargetMoveFaintAi(u32 move, u32 battlerDef, u32 battlerAtk, u32 nHits)
 // Check if target has means to faint ai mon after modding hp/dmg
 bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dmgMod)
 {
-    u32 i, k;
-    u32 unusable = AI_DATA->moveLimitations[battlerDef];
+    u32 moveIndex;
     s32 dmg = 0;
     u16 *moves = GetMovesArray(battlerDef);
-    u16 *AIKnownMoves = gBattleResources->battleHistory->usedMoves[battlerDef];
     u32 hpCheck = gBattleMons[battlerAtk].hp + hpMod;
+    u32 moveLimitations = AI_DATA->moveLimitations[battlerAtk];
 
     if (hpCheck > gBattleMons[battlerAtk].maxHP)
         hpCheck = gBattleMons[battlerAtk].maxHP;
 
-    for (i = 0; i < MAX_MON_MOVES; i++)
+    for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
     {
-        for (k = 0; k < MAX_MON_MOVES; k++)
-        {
-            if (AIKnownMoves[i] != MOVE_NONE && AIKnownMoves[i] == moves[k])
-                dmg = AI_DATA->simulatedDmg[battlerDef][battlerAtk][k].expected;
-        }
+        if (IsMoveUnusable(moveIndex, moves[moveIndex], moveLimitations))
+            continue;
+        
+        dmg = AI_DATA->simulatedDmg[battlerDef][battlerAtk][moveIndex].expected;
+        
         if (dmgMod)
             dmg *= dmgMod;
 
-        // if (AIKnownMoves[i] != MOVE_NONE && AIKnownMoves[i] != MOVE_UNAVAILABLE && !(unusable & gBitTable[i]))
-        // {
-        //     DebugPrintf("%S does %d damage", gMovesInfo[AIKnownMoves[i]].name, dmg);
-        // }
+        // DebugPrintf("hecked HP amount: %d", hpCheck);
+        // DebugPrintf("%S does %d damage", gMovesInfo[moves[moveIndex]].name, dmg);
 
-        if (AIKnownMoves[i] != MOVE_NONE && AIKnownMoves[i] != MOVE_UNAVAILABLE && !(unusable & gBitTable[i]) && dmg >= hpCheck)
+        if (dmg >= hpCheck)
         {
             return TRUE;
         }
