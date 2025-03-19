@@ -1254,7 +1254,8 @@ bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dm
         if (dmgMod)
             dmg *= dmgMod;
 
-        // DebugPrintf("hecked HP amount: %d", hpCheck);
+        // DebugPrintf("Can %S be fainted?", gSpeciesInfo[GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SPECIES, NULL)].speciesName);
+        // DebugPrintf("checked HP amount: %d", hpCheck);
         // DebugPrintf("%S does %d damage", gMovesInfo[moves[moveIndex]].name, dmg);
 
         if (dmg >= hpCheck)
