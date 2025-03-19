@@ -30,6 +30,7 @@ static bool32 AI_ShouldHeal(u32 battler, u32 healAmount);
 static bool32 AI_OpponentCanFaintAiWithMod(u32 battler, u32 healAmount);
 static u32 GetSwitchinHazardsDamage(u32 battler, struct BattlePokemon *battleMon);
 static bool32 CanAbilityTrapOpponent(u16 ability, u32 opponent);
+static u8 GetFirstViableSwitchIn(u32 battler);
 
 static void InitializeSwitchinCandidate(struct Pokemon *mon)
 {
@@ -934,6 +935,108 @@ static bool32 ShouldSwitchIfBadChoiceLock(u32 battler, bool32 emitResult)
     return FALSE;
 }
 
+static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
+{
+    u32 moveIndex, partyslot;
+    u32 opposingBattler = GetOppositeBattler(battler);
+    u32 aiMove;
+    u32 switchIn;
+
+    // Switch if no moves affect opponents
+    if (IsDoubleBattle())
+    {
+        u32 opposingPartner = GetBattlerAtPosition(BATTLE_PARTNER(opposingBattler));
+        for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+        {
+            aiMove = gBattleMons[battler].moves[moveIndex];
+            if ((AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
+              || AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0))
+                && aiMove != MOVE_NONE
+                && gMovesInfo[aiMove].power != 0)
+                    return FALSE;
+        }
+    }
+    else
+    {
+        for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+        {
+            aiMove = gBattleMons[battler].moves[moveIndex];
+            if (AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
+              && aiMove != MOVE_NONE
+              && gMovesInfo[aiMove].power != 0)
+                return FALSE;
+        }
+    }
+
+    //check if there are viable options to switch in to
+    switchIn = GetFirstViableSwitchIn(battler);
+    if(switchIn != PARTY_SIZE)
+    {
+        gBattleStruct->AI_monToSwitchIntoId[battler] = switchIn;
+    }
+    else
+    {
+        // If we don't have any viable options, don't switch out
+        gBattleStruct->AI_monToSwitchIntoId[battler] = PARTY_SIZE;
+        return FALSE;
+    }
+    
+    if (emitResult && RandomPercentage(RNG_AI_SWITCH_ALL_MOVES_BAD, 100))
+    {
+        BtlController_EmitTwoReturnValues(battler, 1, B_ACTION_SWITCH, 0);
+        return TRUE;
+    }
+    else
+        return FALSE;
+}
+
+static u8 GetFirstViableSwitchIn(u32 battler)
+{
+    u32 moveIndex, partyslot;
+    u32 opposingBattler = GetOppositeBattler(battler);
+    u32 aiMove;
+    u8 switchIn = PARTY_SIZE;
+    s32 battlerOnField1, battlerOnField2, i, ret;
+    struct Pokemon *party;
+
+    if (GetBattlerSide(battler) == B_SIDE_PLAYER)
+        party = gPlayerParty;
+    else
+        party = gEnemyParty;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battler];
+        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))];
+    }
+    else // In singles there's only one battlerId by side.
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battler];
+        battlerOnField2 = gBattlerPartyIndexes[battler];
+    }
+
+    for (partyslot = 0; partyslot < PARTY_SIZE; partyslot++)
+    {
+        if (partyslot != battlerOnField1 && partyslot != battlerOnField2
+          && GetMonData(&party[partyslot], MON_DATA_HP) != 0
+          && GetMonData(&party[partyslot], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+          && GetMonData(&party[partyslot], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+        {
+            for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+            {
+                aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
+                if (AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
+                  && aiMove != MOVE_NONE
+                  && gMovesInfo[aiMove].power != 0
+                  && switchIn == PARTY_SIZE)
+                    switchIn = partyslot;
+            }
+        }
+    }
+
+    return switchIn;
+}
+
 // AI should switch if it's become setup fodder and has something better to switch to
 static bool32 AreAttackingStatsLowered(u32 battler, bool32 emitResult)
 {
@@ -1080,6 +1183,8 @@ bool32 ShouldSwitch(u32 battler, bool32 emitResult)
     //These Functions can prompt switch to generic pary members
     if ((AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_SMART_SWITCHING) && (CanMonSurviveHazardSwitchin(battler) == FALSE))
         return FALSE;
+    if (ShouldSwitchIfAllMovesBad(battler, emitResult))
+        return TRUE;
     if (ShouldSwitchIfAllBadMoves(battler, emitResult))
         return TRUE;
     if (ShouldSwitchIfAbilityBenefit(battler, emitResult))
