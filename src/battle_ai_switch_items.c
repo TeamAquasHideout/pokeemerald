@@ -2284,11 +2284,11 @@ static bool32 ShouldUseItem(u32 battler)
 static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
 {
     bool32 shouldHeal = FALSE;
-    u8 opponent, i, k;
+    u8 opponent, moveIndex;
     u32 maxDamage = 0;
     u32 dmg = 0;
     u16 *moves;
-    u16 *AIKnownMoves;
+    u32 moveLimitations;
 
     if (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 4
      || gBattleMons[battler].hp == 0
@@ -2303,29 +2303,27 @@ static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
     {
         if (GetBattlerSide(opponent) == B_SIDE_PLAYER)
         {
-            AIKnownMoves = gBattleResources->battleHistory->usedMoves[opponent];
             moves = GetMovesArray(opponent);
-            for (i = 0; i < MAX_MON_MOVES; i++)
-            {
-                for (k = 0; k < MAX_MON_MOVES; k++)
-                {
-                    if (AIKnownMoves[i] != MOVE_NONE && AIKnownMoves[i] == moves[k])
-                    {            
-                        dmg = AI_DATA->simulatedDmg[opponent][battler][k].expected;
-                        if (dmg > maxDamage)
-                            maxDamage = dmg;
-                    }
-                }
+            moveLimitations = AI_DATA->moveLimitations[opponent];
+            for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+            {       
+                if (IsMoveUnusable(moveIndex, moves[moveIndex], moveLimitations))
+                    continue;
+                
+                dmg = AI_DATA->simulatedDmg[opponent][battler][moveIndex].expected;
+                if (dmg > maxDamage)
+                    maxDamage = dmg;
             }
         }
     }
+
+    // DebugPrintf("maxDamage = %d", maxDamage);
 
     // also heal if a 2HKO is outhealed
     if (AI_OpponentCanFaintAiWithMod(battler, 0)
       && !AI_OpponentCanFaintAiWithMod(battler, healAmount)
       && healAmount > 2*maxDamage)
         return TRUE;
-
 
     // also heal, if the expected damage is outhealed and it's the last remaining mon
     if (AI_OpponentCanFaintAiWithMod(battler, 0)
