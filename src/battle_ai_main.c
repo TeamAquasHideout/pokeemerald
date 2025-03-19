@@ -545,6 +545,7 @@ static void SetBattlerAiMovesData(struct AiLogicData *aiData, u32 battlerAtk, u3
             }
             aiData->simulatedDmg[battlerAtk][battlerDef][i] = dmg;
             aiData->effectiveness[battlerAtk][battlerDef][i] = effectiveness;
+            // DebugPrintf("### %S does %d damage", gMovesInfo[move].name, dmg);
         }
         RestoreBattlerData(battlerDef);
     }
