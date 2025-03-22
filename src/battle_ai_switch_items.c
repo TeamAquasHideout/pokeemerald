@@ -38,7 +38,7 @@ static void InitializeSwitchinCandidate(struct Pokemon *mon)
     AI_DATA->switchinCandidate.hypotheticalStatus = FALSE;
 }
 
-static bool32 IsAceMon(u32 battler, u32 monPartyId)
+bool32 IsAceMon(u32 battler, u32 monPartyId)
 {
     if (AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_ACE_POKEMON
             && !(gBattleStruct->forcedSwitch & gBitTable[battler])
@@ -670,6 +670,14 @@ static bool32 ShouldSwitchIfAbilityBenefit(u32 battler, bool32 emitResult)
                  && Random() % (moduloChance*chanceReducer) == 0)
                 break;
 
+            return FALSE;
+
+        case ABILITY_ZERO_TO_HERO:
+            //Zero to Hero only works on Palafin-Zero
+            if (gBattleMons[battler].species == SPECIES_PALAFIN_ZERO
+              && CountUsablePartyMonsWithoutAce(battler) > 0)
+                break;
+            
             return FALSE;
 
         default:
