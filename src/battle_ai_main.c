@@ -521,6 +521,8 @@ static void SetBattlerAiMovesData(struct AiLogicData *aiData, u32 battlerAtk, u3
     {
         if (battlerAtk == battlerDef || !IsBattlerAlive(battlerDef))
             continue;
+        // if (GetBattlerSide(battlerDef) != B_SIDE_PLAYER)
+        //     DebugPrintf("battlerDef = %d, species = %S", battlerDef, gSpeciesInfo[gBattleMons[battlerDef].species].speciesName);
 
         SaveBattlerData(battlerDef);
         SetBattlerData(battlerDef);
@@ -545,7 +547,10 @@ static void SetBattlerAiMovesData(struct AiLogicData *aiData, u32 battlerAtk, u3
             }
             aiData->simulatedDmg[battlerAtk][battlerDef][i] = dmg;
             aiData->effectiveness[battlerAtk][battlerDef][i] = effectiveness;
-            // DebugPrintf("### %S does %d damage", gMovesInfo[move].name, dmg);
+
+            // if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER
+            //   && GetBattlerSide(battlerDef) == B_SIDE_OPPONENT)
+            //     DebugPrintf("### %S's %S does %d damage", gSpeciesInfo[gBattleMons[battlerAtk].species].speciesName, gMovesInfo[move].name, dmg);
         }
         RestoreBattlerData(battlerDef);
     }

@@ -2390,10 +2390,12 @@ static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
 {
     bool32 shouldHeal = FALSE;
     u8 opponent, moveIndex;
-    u32 maxDamage = 0;
+    u32 maxDamage[MAX_BATTLERS_COUNT] = {0};
+    u32 totalDamage = 0;
     u32 dmg = 0;
     u16 *moves;
     u32 moveLimitations;
+    u32 i;
 
     if (gBattleMons[battler].hp < gBattleMons[battler].maxHP / 4
      || gBattleMons[battler].hp == 0
@@ -2416,25 +2418,51 @@ static bool32 AI_ShouldHeal(u32 battler, u32 healAmount)
                     continue;
                 
                 dmg = AI_DATA->simulatedDmg[opponent][battler][moveIndex].expected;
-                if (dmg > maxDamage)
-                    maxDamage = dmg;
+                if (dmg > maxDamage[opponent])
+                    maxDamage[opponent] = dmg;
             }
         }
     }
 
-    // DebugPrintf("maxDamage = %d", maxDamage);
+    // consider doubling into the battler in case of a 2v1 situation
+    if (IsDoubleBattle())
+    {
+        if (IS_WHOLE_SIDE_ALIVE(battler)) //n vs 2
+        {
+            for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+            {
+                if (maxDamage[i] > totalDamage)
+                    totalDamage = maxDamage[i];
+            }
+        }
+        else //n vs 1
+        {
+            for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+            {
+                totalDamage = totalDamage + maxDamage[i];
+            }
+        }
+    }
+    else
+        totalDamage = maxDamage[0];
 
     // also heal if a 2HKO is outhealed
     if (AI_OpponentCanFaintAiWithMod(battler, 0)
       && !AI_OpponentCanFaintAiWithMod(battler, healAmount)
-      && healAmount > 2*maxDamage)
+      && healAmount > 2*totalDamage)
         return TRUE;
 
     // also heal, if the expected damage is outhealed and it's the last remaining mon
     if (AI_OpponentCanFaintAiWithMod(battler, 0)
       && !AI_OpponentCanFaintAiWithMod(battler, healAmount)
-      && CountUsablePartyMons(battler) == 0)
-        return TRUE;
+      && CountUsablePartyMons(battler) == 0
+      && healAmount > totalDamage)
+    {
+        if (IsDoubleBattle() && !IS_WHOLE_SIDE_ALIVE(battler))
+            return TRUE;
+        else if (!IsDoubleBattle())
+            return TRUE;
+    }
 
     return shouldHeal;
 }
