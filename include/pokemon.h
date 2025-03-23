@@ -6,6 +6,7 @@
 #include "constants/region_map_sections.h"
 #include "constants/map_groups.h"
 #include "contest_effect.h"
+#include "constants/moves.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
@@ -699,6 +700,19 @@ extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u32 sExpCandyExperienceTable[];
 extern const struct Ability gAbilitiesInfo[];
 extern const struct NatureInfo gNaturesInfo[];
+
+static inline u32 SanitizeMoveId(u32 moveId)
+{
+    if (moveId >= MOVES_COUNT_ALL)
+        return MOVE_NONE;
+    else
+        return moveId;
+}
+
+static inline u32 GetMoveEffect(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].effect;
+}
 
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
