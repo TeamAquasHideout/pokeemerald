@@ -1031,16 +1031,37 @@ static u8 GetFirstViableSwitchIn(u32 battler)
         if (partyslot != battlerOnField1 && partyslot != battlerOnField2
           && GetMonData(&party[partyslot], MON_DATA_HP) != 0
           && GetMonData(&party[partyslot], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
-          && GetMonData(&party[partyslot], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+          && GetMonData(&party[partyslot], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG
+          && !IsAceMon(battler, partyslot))
         {
-            for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+            // check if no moves affect opponents
+            if (IsDoubleBattle())
             {
-                aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
-                if (AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
-                  && aiMove != MOVE_NONE
-                  && gMovesInfo[aiMove].power != 0
-                  && switchIn == PARTY_SIZE)
-                    switchIn = partyslot;
+                u32 opposingPartner = GetBattlerAtPosition(BATTLE_PARTNER(opposingBattler));
+                for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                {
+                    aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
+                    if ((AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
+                        || AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0))
+                      && aiMove != MOVE_NONE
+                      && (gMovesInfo[aiMove].power != 0
+                        || HasViableAIScore(moveIndex, battler, opposingBattler, 100)
+                        || HasViableAIScore(moveIndex, battler, opposingPartner, 100)))
+                            switchIn = partyslot;
+                }
+            }
+            else
+            {
+                for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                {
+                    aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
+                    if (AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
+                      && aiMove != MOVE_NONE
+                      && (gMovesInfo[aiMove].power != 0
+                        || HasViableAIScore(moveIndex, battler, opposingBattler, 100))
+                      && switchIn == PARTY_SIZE)
+                        switchIn = partyslot;
+                }
             }
         }
     }
@@ -2106,10 +2127,10 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         else if (defensiveMonId != PARTY_SIZE)          return defensiveMonId;
         else if (batonPassId != PARTY_SIZE)             return batonPassId;
     }
+
     // If ace mon is the last available Pokemon and U-Turn/Volt Switch was used - switch to the mon.
-    if (aceMonId != PARTY_SIZE
-      && CountUsablePartyMons(battler) <= aceMonCount
-      && (gMovesInfo[gLastUsedMove].effect == EFFECT_HIT_ESCAPE || gMovesInfo[gLastUsedMove].effect == EFFECT_PARTING_SHOT || gMovesInfo[gLastUsedMove].effect == EFFECT_BATON_PASS))
+    if (aceMonId != PARTY_SIZE && CountUsablePartyMons(battler) <= aceMonCount
+      && IsSwitchOutEffect(GetMoveEffect(gCurrentMove)))
         return aceMonId;
 
     return PARTY_SIZE;
@@ -2231,7 +2252,7 @@ u32 GetMostSuitableMonToSwitchInto(u32 battler, bool32 switchAfterMonKOd)
 
         // If ace mon is the last available Pokemon and U-Turn/Volt Switch was used - switch to the mon.
         if (aceMonId != PARTY_SIZE && CountUsablePartyMons(battler) <= aceMonCount
-          && (gMovesInfo[gLastUsedMove].effect == EFFECT_HIT_ESCAPE || gMovesInfo[gLastUsedMove].effect == EFFECT_PARTING_SHOT || gMovesInfo[gLastUsedMove].effect == EFFECT_BATON_PASS))
+          && IsSwitchOutEffect(GetMoveEffect(gCurrentMove)))
             return aceMonId;
 
         return PARTY_SIZE;

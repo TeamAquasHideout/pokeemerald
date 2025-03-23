@@ -153,6 +153,7 @@ bool32 HasSubstituteIgnoringMove(u32 battler);
 bool32 HasHighCritRatioMove(u32 battler);
 bool32 HasMagicCoatAffectedMove(u32 battler);
 bool32 HasSnatchAffectedMove(u32 battler);
+bool32 IsSwitchOutEffect(u32 effect);
 
 // status checks
 bool32 AI_CanGetFrostbite(u32 battler, u32 ability);

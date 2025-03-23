@@ -2374,6 +2374,25 @@ bool32 HasSnatchAffectedMove(u32 battler)
     CHECK_MOVE_FLAG(snatchAffected);
 }
 
+bool32 IsSwitchOutEffect(u32 effect)
+{
+    // Switch out effects like U-Turn, Volt Switch, etc.
+    switch (effect)
+    {
+    case EFFECT_HIT_ESCAPE:
+    case EFFECT_PARTING_SHOT:
+    case EFFECT_BATON_PASS:
+    case EFFECT_CHILLY_RECEPTION:
+    case EFFECT_SHED_TAIL:
+        return TRUE;
+    case EFFECT_TELEPORT:
+        if (B_TELEPORT_BEHAVIOR >= GEN_8)
+            return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 bool32 IsTwoTurnNotSemiInvulnerableMove(u32 battlerAtk, u32 move)
 {
     switch (gMovesInfo[move].effect)
