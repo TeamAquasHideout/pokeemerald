@@ -106,6 +106,9 @@ struct RandomTrainerNPC
 #define ITEM_DROPS_1     1
 #define ITEM_DROPS_2     2
 #define ITEM_DROPS_3     3
+#define DEBUG_FULL       0
+#define DEBUG_DISP_DATA  1
+#define DEBUG_DISP_MOVES 2
 
 #define TRAINER_GIMMICKS_RANDOM 0
 #define TRAINER_GIMMICKS_PROGRESSIVE 1
