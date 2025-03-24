@@ -367,8 +367,10 @@ void Ai_InitPartyStruct(void)
 
                 if(gSaveBlock2Ptr->mode50Floors)
                 {
-                    if (VarGet(VAR_PIT_FLOOR) <= 25)
-                        dynamax_odds = 2;
+                    if (VarGet(VAR_PIT_FLOOR) <= 15)
+                        dynamax_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                        dynamax_odds = 5;
                     else
                         dynamax_odds = 15;
                 }
@@ -393,8 +395,10 @@ void Ai_InitPartyStruct(void)
 
                 if(gSaveBlock2Ptr->mode50Floors)
                 {
-                    if (VarGet(VAR_PIT_FLOOR) <= 25)
-                        tera_odds = 4;
+                    if (VarGet(VAR_PIT_FLOOR) <= 15)
+                        tera_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                        tera_odds = 5;
                     else
                         tera_odds = 15;
                 }
