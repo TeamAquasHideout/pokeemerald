@@ -124,7 +124,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeSingleFloors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
-        gSaveBlock2Ptr->modeNoBagUse = FALSE;
+        gSaveBlock2Ptr->modeDebug = DEBUG_DISP_DATA;
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
@@ -146,6 +146,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeDynamax = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_NONE;
+        gSaveBlock2Ptr->modeNoBagUse = FALSE;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather

@@ -74,6 +74,7 @@ enum MenuItems_Run
     MENUITEM_RUN_SINGLE_FLOORS,
     MENUITEM_RUN_50_FLOORS,
     MENUITEM_RUN_INVERSE_BATTLES,
+    MENUITEM_RUN_BATTLE_DEBUG,
     MENUITEM_RUN_CANCEL,
     MENUITEM_RUN_COUNT,
 };
@@ -305,6 +306,7 @@ static void DrawChoices_3MonsOnly(int selection, int y);
 static void DrawChoices_SingleFloors(int selection, int y);
 static void DrawChoices_50Floors(int selection, int y);
 static void DrawChoices_InverseBattles(int selection, int y);
+static void DrawChoices_BattleDebug(int selection, int y);
 static void DrawChoices_NoCaseChoice(int selection, int y);
 static void DrawChoices_BossHeal(int selection, int y);
 static void DrawChoices_ItemDrops(int selection, int y);
@@ -347,6 +349,7 @@ struct Menu_Run //MENU_RUN
     [MENUITEM_RUN_SINGLE_FLOORS]   = {DrawChoices_SingleFloors,   ProcessInput_Options_Two},
     [MENUITEM_RUN_50_FLOORS]       = {DrawChoices_50Floors,       ProcessInput_Options_Two},
     [MENUITEM_RUN_INVERSE_BATTLES] = {DrawChoices_InverseBattles, ProcessInput_Options_Two},
+    [MENUITEM_RUN_BATTLE_DEBUG]    = {DrawChoices_BattleDebug,    ProcessInput_Options_Three},
     [MENUITEM_RUN_CANCEL]          = {NULL, NULL},
 };
 
@@ -438,6 +441,7 @@ static const u8 sText_MonoType[]        = _("MONO TYPE");
 static const u8 sText_SingleFloors[]    = _("SINGLE FLOORS");
 static const u8 sText_50Floors[]        = _("50 FLOORS");
 static const u8 sText_InverseBattles[]  = _("INVERSE BTLS");
+static const u8 sText_BattleDebug[]     = _("BATTLE DEBUG");
 
 static const u8 sText_B_Weather[]    = _("BATTLE WEATHER");
 static const u8 sText_Moves[]        = _("MOVES");
@@ -460,6 +464,7 @@ static const u8 *const sModeMenuItemsNamesRun[MENUITEM_RUN_COUNT] =
     [MENUITEM_RUN_SINGLE_FLOORS]   = sText_SingleFloors,
     [MENUITEM_RUN_50_FLOORS]       = sText_50Floors,
     [MENUITEM_RUN_INVERSE_BATTLES] = sText_InverseBattles,
+    [MENUITEM_RUN_BATTLE_DEBUG]    = sText_BattleDebug,
     [MENUITEM_RUN_CANCEL]          = sText_Cancel,
 };
 
@@ -538,6 +543,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_RUN_SINGLE_FLOORS:   return TRUE;
                 case MENUITEM_RUN_50_FLOORS:       return TRUE;
                 case MENUITEM_RUN_INVERSE_BATTLES: return TRUE;
+                case MENUITEM_RUN_BATTLE_DEBUG:    return TRUE;
                 case MENUITEM_RUN_CANCEL:          return TRUE;
                 case MENUITEM_RUN_COUNT:           return TRUE;
                 default:                           return FALSE;
@@ -655,6 +661,9 @@ static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience th
 static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
 static const u8 sText_Desc_InverseBattles_On[]  = _("The type chart is inversed.");
 static const u8 sText_Desc_InverseBattles_Off[] = _("The regular type chart is used.");
+static const u8 sText_Desc_BattleDebug_On[]     = _("The battle debug menu (SELECT)\n is fully available.");
+static const u8 sText_Desc_BattleDebug_Data[]   = _("The battle debug menu (SELECT)\nonly displays battler data.");
+static const u8 sText_Desc_BattleDebug_Moves[]  = _("The battle debug menu (SELECT)\nonly displays move data.");
 static const u8 sText_Desc_NoBagUse_On[]        = _("The bag can be used in battle.");
 static const u8 sText_Desc_NoBagUse_Off[]       = _("The bag cannot be used in battle.");
 static const u8 sText_Desc_Dynamax_On[]         = _("Dynamaxing is possible. A Dynamax\nBand can be bought from the merchant.");
@@ -688,6 +697,7 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
     [MENUITEM_RUN_SINGLE_FLOORS]   = {sText_Desc_SingleFloors_On,     sText_Desc_SingleFloors_Off,    sText_Empty},
     [MENUITEM_RUN_50_FLOORS]       = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
     [MENUITEM_RUN_INVERSE_BATTLES] = {sText_Desc_InverseBattles_On,   sText_Desc_InverseBattles_Off,  sText_Empty},
+    [MENUITEM_RUN_BATTLE_DEBUG]    = {sText_Desc_BattleDebug_On,      sText_Desc_BattleDebug_Data,    sText_Desc_BattleDebug_Moves},
     [MENUITEM_RUN_CANCEL]          = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
 };
 
@@ -923,6 +933,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = !(gSaveBlock2Ptr->modeSingleFloors);
         sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = !(gSaveBlock2Ptr->mode50Floors);
         sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = !(gSaveBlock2Ptr->modeInverseBattles);
+        sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = gSaveBlock2Ptr->modeDebug;
         //difficulty settings
         sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = gSaveBlock2Ptr->modeXP;
         sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = gSaveBlock2Ptr->modeStatChanger;
@@ -1491,6 +1502,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeSingleFloors   = !(sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]);
     gSaveBlock2Ptr->mode50Floors       = !(sOptions->sel_run[MENUITEM_RUN_50_FLOORS]);
     gSaveBlock2Ptr->modeInverseBattles = !(sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES]);
+    gSaveBlock2Ptr->modeDebug          = sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG];
 
     //difficulty settings
     gSaveBlock2Ptr->modeXP           = sOptions->sel_diff[MENUITEM_DIFF_XPMODE];
@@ -1809,6 +1821,9 @@ static const u8 sText_Type_Dark[]           = _("DARK");
 static const u8 sText_Type_Fairy[]          = _("FAIRY");
 static const u8 sText_Arrows_Left[]         = _("<<");
 static const u8 sText_Arrows_Right[]        = _(">>");
+static const u8 sText_BattleDebug_Full[]    = _("FULL");
+static const u8 sText_BattleDebug_Data[]    = _("DATA");
+static const u8 sText_BattleDebug_Moves[]   = _("MOVES");
 
 static void DrawChoices_SpeciesArray(int selection, int y)
 {
@@ -1868,6 +1883,17 @@ static void DrawChoices_InverseBattles(int selection, int y)
 
     DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+}
+
+static void DrawChoices_BattleDebug(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_RUN_BATTLE_DEBUG);
+    u8 styles[3] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_BattleDebug_Full, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_BattleDebug_Data, GetStringRightAlignXOffset(FONT_NORMAL, sText_BattleDebug_Data, 198 - 38), y, styles[1], active);
+    DrawModeMenuChoice(sText_BattleDebug_Moves, GetStringRightAlignXOffset(FONT_NORMAL, sText_BattleDebug_Moves, 198), y, styles[2], active);
 }
 
 static void DrawChoices_BossHeal(int selection, int y)
@@ -2292,6 +2318,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = DEBUG_DISP_DATA;
     //difficulty settings
     sOptions->sel_diff[MENUITEM_DIFF_DOUBLE_CASH]   = CASH_1X;
     sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_5;
@@ -2337,6 +2364,7 @@ static void ApplyPresets(void)
             //run settings
             sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_ON;
             sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
+            sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = DEBUG_DISP_MOVES;
             //difficulty settings
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;

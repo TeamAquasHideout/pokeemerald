@@ -733,7 +733,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeSingleFloors    = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->modeInverseBattles  = FALSE; //this doesn't use the OPTIONS defines!
-    gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+    gSaveBlock2Ptr->modeDebug           = DEBUG_DISP_DATA;
     
     //difficulty settings
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
@@ -742,6 +742,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeMonoType        = TYPE_NONE;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
+    gSaveBlock2Ptr->modeNoBagUse        = FALSE;
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;
