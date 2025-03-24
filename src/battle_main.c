@@ -2224,8 +2224,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     
                         if(gSaveBlock2Ptr->mode50Floors)
                         {
-                            if (VarGet(VAR_PIT_FLOOR) <= 25)
-                                odds = 5;
+                            if (VarGet(VAR_PIT_FLOOR) <= 15)
+                                odds = 0;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                                odds = 10;
                             else
                                 odds = 25;
                         }
