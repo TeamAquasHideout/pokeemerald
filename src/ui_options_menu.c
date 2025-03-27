@@ -161,6 +161,7 @@ static void ScrollMenu(int direction);
 static void ScrollAll(int direction); // to bottom or top
 static int GetMiddleX(const u8 *txt1, const u8 *txt2, const u8 *txt3);
 static int XOptions_ProcessInput(int x, int selection);
+static int ProcessInput_Options_One(int selection);
 static int ProcessInput_Options_Two(int selection);
 static int ProcessInput_Options_Three(int selection);
 static int ProcessInput_Options_Four(int selection);
@@ -244,7 +245,7 @@ struct Menu_Vanilla// MENU_VANILLA
 {
     [MENUITEM_VANILLA_TEXTSPEED]    = {DrawChoices_TextSpeed,   ProcessInput_Options_Three},
     [MENUITEM_VANILLA_BATTLESCENE]  = {DrawChoices_BattleScene, ProcessInput_Options_Two},
-    [MENUITEM_VANILLA_BATTLESTYLE]  = {DrawChoices_BattleStyle, ProcessInput_Options_Two},
+    [MENUITEM_VANILLA_BATTLESTYLE]  = {DrawChoices_BattleStyle, ProcessInput_Options_One},
     [MENUITEM_VANILLA_SOUND]        = {DrawChoices_Sound,       ProcessInput_Options_Two},
     [MENUITEM_VANILLA_BUTTONMODE]   = {DrawChoices_ButtonMode,  ProcessInput_Options_Three},
     [MENUITEM_VANILLA_CANCEL]       = {NULL, NULL},
@@ -364,7 +365,7 @@ static const u8 *const sOptionsMenuItemDescriptionsVan[MENUITEM_VANILLA_COUNT][3
 {
     [MENUITEM_VANILLA_TEXTSPEED]   = {sText_Desc_TextSpeed,            sText_Desc_TextSpeed,          sText_Desc_TextSpeed},
     [MENUITEM_VANILLA_BATTLESCENE] = {sText_Desc_BattleScene_On,       sText_Desc_BattleScene_Off,    sText_Empty},
-    [MENUITEM_VANILLA_BATTLESTYLE] = {sText_Desc_BattleStyle_Shift,    sText_Desc_BattleStyle_Set,    sText_Empty},
+    [MENUITEM_VANILLA_BATTLESTYLE] = {sText_Desc_BattleStyle_Set,      sText_Empty,                   sText_Empty},
     [MENUITEM_VANILLA_SOUND]       = {sText_Desc_SoundMono,            sText_Desc_SoundStereo,        sText_Empty},
     [MENUITEM_VANILLA_BUTTONMODE]  = {sText_Desc_ButtonMode,           sText_Desc_ButtonMode_LR,      sText_Desc_ButtonMode_LA},
     [MENUITEM_VANILLA_CANCEL]      = {sText_Desc_Save,                 sText_Empty,                   sText_Empty},
@@ -704,7 +705,7 @@ void CB2_InitOptionsMenu(void)
         sOptions->sel_pit[MENUITEM_PIT_RANDOM_MUSIC]    = gSaveBlock2Ptr->optionsRandomMusic;
         sOptions->sel_pit[MENUITEM_PIT_FOLLOWMONS]      = gSaveBlock2Ptr->optionsFollowMonsOff;
         sOptions->sel_van[MENUITEM_VANILLA_BATTLESCENE] = gSaveBlock2Ptr->optionsBattleSceneOff;
-        sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE] = gSaveBlock2Ptr->optionsBattleStyle;
+        sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE] = 0;
         sOptions->sel_van[MENUITEM_VANILLA_SOUND]       = gSaveBlock2Ptr->optionsSound;
         sOptions->sel_van[MENUITEM_VANILLA_BUTTONMODE]  = gSaveBlock2Ptr->optionsButtonMode;
 //        sOptions->sel_van[MENUITEM_VANILLA_FRAMETYPE]    = gSaveBlock2Ptr->optionsWindowFrameType;
@@ -925,7 +926,7 @@ static void Task_OptionsMenuSave(u8 taskId)
     //vanilla settings
     gSaveBlock2Ptr->optionsTextSpeed        = sOptions->sel_van[MENUITEM_VANILLA_TEXTSPEED] + 1; //ignore SLOW
     gSaveBlock2Ptr->optionsBattleSceneOff   = sOptions->sel_van[MENUITEM_VANILLA_BATTLESCENE];
-    gSaveBlock2Ptr->optionsBattleStyle      = sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE];
+    gSaveBlock2Ptr->optionsBattleStyle      = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->optionsSound            = sOptions->sel_van[MENUITEM_VANILLA_SOUND];
     gSaveBlock2Ptr->optionsButtonMode       = sOptions->sel_van[MENUITEM_VANILLA_BUTTONMODE];
 
@@ -1060,6 +1061,11 @@ static int XOptions_ProcessInput(int x, int selection)
         if (--selection < 0)
             selection = (x - 1);
     }
+    return selection;
+}
+
+static int ProcessInput_Options_One(int selection)
+{
     return selection;
 }
 
@@ -1257,11 +1263,11 @@ static void DrawChoices_BattleScene(int selection, int y)
 static void DrawChoices_BattleStyle(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_VANILLA_BATTLESTYLE);
-    u8 styles[2] = {0};
+    u8 styles[1] = {0};
     styles[selection] = 1;
 
-    DrawOptionsMenuChoice(sText_Shift, 104, y, styles[0], active);
-    DrawOptionsMenuChoice(sText_Set, GetStringRightAlignXOffset(FONT_NORMAL, sText_Set, 198), y, styles[1], active);
+    DrawOptionsMenuChoice(sText_Set, 104, y, styles[0], active);
+    // DrawOptionsMenuChoice(sText_Set, GetStringRightAlignXOffset(FONT_NORMAL, sText_Set, 198), y, styles[1], active);
 }
 
 static void DrawChoices_Sound(int selection, int y)
