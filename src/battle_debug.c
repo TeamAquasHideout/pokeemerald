@@ -2629,7 +2629,7 @@ static void SetOptionListTemplate(void)
 
     //dynamically create list items
     if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_DATA)
-        itemsCount = 4;
+        itemsCount = 5;
     else if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_MOVES)
         itemsCount = 1;
     else
@@ -2652,8 +2652,10 @@ static void SetOptionListTemplate(void)
         debugListItems[1].id = LIST_ITEM_ABILITY;
         debugListItems[2].name = sText_HeldItem;
         debugListItems[2].id = LIST_ITEM_HELD_ITEM;
-        debugListItems[3].name = sText_StatStages;
-        debugListItems[3].id = LIST_ITEM_STAT_STAGES;
+        debugListItems[3].name = sText_Stats;
+        debugListItems[3].id = LIST_ITEM_STATS;
+        debugListItems[4].name = sText_StatStages;
+        debugListItems[4].id = LIST_ITEM_STAT_STAGES;
     }
 
     gMultiuseListMenuTemplate = sMainListTemplate;
