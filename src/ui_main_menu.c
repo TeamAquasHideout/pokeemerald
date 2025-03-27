@@ -647,6 +647,9 @@ void MainMenu_Init(MainCallback callback)
         sMainMenuDataPtr->iconBoxSpriteIds[i] = SPRITE_NONE;
         sMainMenuDataPtr->iconMonSpriteIds[i] = SPRITE_NONE;
     }
+
+    // always set battle style to SET
+    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     
     SetMainCallback2(MainMenu_RunSetup);
 }
@@ -743,6 +746,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
     gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;
