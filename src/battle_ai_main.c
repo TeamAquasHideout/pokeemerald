@@ -2082,7 +2082,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_SKETCH:
-            if (gLastMoves[battlerDef] == MOVE_NONE)
+            if (gLastMoves[battlerDef] == MOVE_NONE && AI_IsFaster(battlerAtk, battlerDef, move))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_DESTINY_BOND:
@@ -3397,6 +3397,10 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         || (gBattleMons[battlerAtk].status1 & STATUS1_FROSTBITE && HasOnlyMovesWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL, TRUE)))
             ADJUST_SCORE(-20); // Force switch if all your attacking moves are physical and you have Natural Cure.
     }
+
+    //increase base score of TRANSFORM and SKETCH for switch AI
+    if (move == MOVE_TRANSFORM || move == MOVE_SKETCH)
+        ADJUST_SCORE(2);
 
     // move effect checks
     switch (moveEffect)
