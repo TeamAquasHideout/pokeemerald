@@ -2145,7 +2145,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                                     evolutions = GetSpeciesEvolutions(newSpecies);
                                 }
                             }
-                            bst = (gSpeciesInfo[newSpecies].baseHP + gSpeciesInfo[newSpecies].baseAttack + gSpeciesInfo[newSpecies].baseDefense + gSpeciesInfo[newSpecies].baseSpAttack + gSpeciesInfo[newSpecies].baseSpDefense + gSpeciesInfo[newSpecies].baseSpeed);
+                            bst = GetSpeciesBST(newSpecies);
                         } while (bst < minBST //make the final boss have only minBST+ mons
                             || newSpecies == GetRandomBossEncounterAcePokemon()->species); //no duplicate with boss ace
                     }

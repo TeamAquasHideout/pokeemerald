@@ -125,6 +125,8 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeDebug = DEBUG_DISP_DATA;
+        gSaveBlock2Ptr->modeBSTmin = 0;
+        gSaveBlock2Ptr->modeBSTmax = 0;
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;

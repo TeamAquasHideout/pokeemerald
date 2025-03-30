@@ -628,7 +628,10 @@ struct SaveBlock2
              u16 statsPadding2;
     // #### running stats for The Pit - END ####
 
-            u32 extraPitPadding[8];
+             u16 modeBSTmin;
+             u16 modeBSTmax;
+
+             u32 extraPitPadding[7];
 
     // #### Secret Bases for The Pit - START ####
     /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];
