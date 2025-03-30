@@ -1578,8 +1578,14 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
             // BST checks
             if (!rerollMon && (gSaveBlock2Ptr->modeBSTmin != 0 || gSaveBlock2Ptr->modeBSTmax != 0))
             {
-                if (GetSpeciesBST(species) < gSaveBlock2Ptr->modeBSTmin
-                  || GetSpeciesBST(species) > gSaveBlock2Ptr->modeBSTmax)
+                u16 minValue = gSaveBlock2Ptr->modeBSTmin;
+                u16 maxValue = gSaveBlock2Ptr->modeBSTmax;
+
+                if (maxValue == 0)
+                    maxValue = MAX_BST;
+
+                if (GetSpeciesBST(species) < minValue
+                  || GetSpeciesBST(species) > maxValue)
                 {
                     rerollMon = TRUE;
                 }

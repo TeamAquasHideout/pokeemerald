@@ -1290,9 +1290,6 @@ static void Task_ModeMenuQuitOut(u8 taskId)
     }
 }
 
-#define MAX_BST 540
-#define MIN_BST 440
-
 static void Task_ModeMenuMainInput(u8 taskId)
 {
     u8 optionsToDraw = min(OPTIONS_ON_SCREEN , MenuItemCount());
