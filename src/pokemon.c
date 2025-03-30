@@ -3863,6 +3863,12 @@ const u16 *GetSpeciesEggMoves(u16 species)
     return learnset;
 }
 
+u16 GetSpeciesBST(u16 species)
+{
+    u16 bst = (gSpeciesInfo[species].baseHP + gSpeciesInfo[species].baseAttack + gSpeciesInfo[species].baseDefense + gSpeciesInfo[species].baseSpAttack + gSpeciesInfo[species].baseSpDefense + gSpeciesInfo[species].baseSpeed);
+    return bst;
+}
+
 const struct Evolution *GetSpeciesEvolutions(u16 species)
 {
     const struct Evolution *evolutions = gSpeciesInfo[SanitizeSpeciesId(species)].evolutions;

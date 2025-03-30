@@ -1574,9 +1574,20 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                 default:
                     break;
             }
+
+            // BST checks
+            if (!rerollMon && (gSaveBlock2Ptr->modeBSTmin != 0 || gSaveBlock2Ptr->modeBSTmax != 0))
+            {
+                if (GetSpeciesBST(species) < gSaveBlock2Ptr->modeBSTmin
+                  || GetSpeciesBST(species) > gSaveBlock2Ptr->modeBSTmax)
+                {
+                    rerollMon = TRUE;
+                }
+            }
             
-            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
-              (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5)) // for performance reasons only 10 rerolls in case of mono type runs
+            //duplicates check
+            if (!rerollMon && (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
+              (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5))) // for performance reasons only 5 rerolls in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
@@ -1588,7 +1599,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
 
                 //check for duplicates against the player's party
                 partyCount = CalculatePlayerPartyCount();
-                if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
+                if (partyCount > 2 && !rerollMon) //only the case after obtaining the third mon
                 {
                     for (i = 0; i < partyCount; i++)
                     {
@@ -1597,13 +1608,13 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     }
                 }
             }
-
             
             if (counter2 == 100) //exit in case of infinite loop
             {
                 rerollMon = FALSE;
                 //DebugPrintf("no valid species found. Default: %d", species);
             }
+
             //reroll
             if (rerollMon)
             {
