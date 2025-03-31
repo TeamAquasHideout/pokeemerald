@@ -56,6 +56,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("None"),
         .name_short = _("None"),
+        .name_code = _("NON"),
         .generic = _("a move"),
         .palette = 15, // Uses TYPE_MYSTERY's icon
         .teraTypeRGBValue = RGB_WHITE,
@@ -68,6 +69,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Normal"),
         .name_short = _("Norml"),
+        .name_code = _("NML"),
         .generic = _("a NORMAL move"),
         .palette = 13,
         .zMove = MOVE_BREAKNECK_BLITZ,
@@ -88,6 +90,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = HANDLE_EXPANDED_TYPE_NAME("Fight", "Fighting"),
         .name_short = _("Fight"),
+        .name_code = _("FGT"),
         .generic = _("a FIGHTING move"),
         .palette = 13,
         .zMove = MOVE_ALL_OUT_PUMMELING,
@@ -110,6 +113,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Flying"),
         .name_short = _("Fly"),
+        .name_code = _("FLY"),
         .generic = _("a FLYING move"),
         .palette = 14,
         .zMove = MOVE_SUPERSONIC_SKYSTRIKE,
@@ -132,6 +136,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Poison"),
         .name_short = _("Poisn"),
+        .name_code = _("PSN"),
         .generic = _("a POISON move"),
         .palette = 14,
         .zMove = MOVE_ACID_DOWNPOUR,
@@ -154,6 +159,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Ground"),
         .name_short = _("Grnd"),
+        .name_code = _("GRD"),
         .generic = _("a GROUND move"),
         .palette = 13,
         .zMove = MOVE_TECTONIC_RAGE,
@@ -176,6 +182,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Rock"),
         .name_short = _("Rock"),
+        .name_code = _("RCK"),
         .generic = _("a ROCK move"),
         .palette = 13,
         .zMove = MOVE_CONTINENTAL_CRUSH,
@@ -198,6 +205,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Bug"),
         .name_short = _("Bug"),
+        .name_code = _("BUG"),
         .generic = _("a BUG move"),
         .palette = 15,
         .zMove = MOVE_SAVAGE_SPIN_OUT,
@@ -220,6 +228,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Ghost"),
         .name_short = _("Ghost"),
+        .name_code = _("GST"),
         .generic = _("a GHOST move"),
         .palette = 14,
         .zMove = MOVE_NEVER_ENDING_NIGHTMARE,
@@ -242,6 +251,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Steel"),
         .name_short = _("Steel"),
+        .name_code = _("STL"),
         .generic = _("a STEEL move"),
         .palette = 13,
         .zMove = MOVE_CORKSCREW_CRASH,
@@ -264,6 +274,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("???"),
         .name_short = _("???"),
+        .name_code = _("???"),
         .generic = _("a ??? move"),
         .palette = 15,
         .teraTypeRGBValue = RGB_WHITE,
@@ -275,6 +286,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Fire"),
         .name_short = _("Fire"),
+        .name_code = _("FIR"),
         .generic = _("a FIRE move"),
         .palette = 13,
         .zMove = MOVE_INFERNO_OVERDRIVE,
@@ -297,6 +309,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Water"),
         .name_short = _("Water"),
+        .name_code = _("WTR"),
         .generic = _("a WATER move"),
         .palette = 14,
         .zMove = MOVE_HYDRO_VORTEX,
@@ -319,6 +332,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Grass"),
         .name_short = _("Grass"),
+        .name_code = _("GRS"),
         .generic = _("a GRASS move"),
         .palette = 15,
         .zMove = MOVE_BLOOM_DOOM,
@@ -341,6 +355,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = HANDLE_EXPANDED_TYPE_NAME("Electr", "Electric"),
         .name_short = _("Elctr"),
+        .name_code = _("ELC"),
         .generic = _("an ELECTRIC move"),
         .palette = 13,
         .zMove = MOVE_GIGAVOLT_HAVOC,
@@ -363,6 +378,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = HANDLE_EXPANDED_TYPE_NAME("Psychc", "Psychic"),
         .name_short = _("Psych"),
+        .name_code = _("PSY"),
         .generic = _("a PSYCHIC move"),
         .palette = 14,
         .zMove = MOVE_SHATTERED_PSYCHE,
@@ -385,6 +401,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Ice"),
         .name_short = _("Ice"),
+        .name_code = _("ICE"),
         .generic = _("an ICE move"),
         .palette = 14,
         .zMove = MOVE_SUBZERO_SLAMMER,
@@ -407,6 +424,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Dragon"),
         .name_short = _("Dragn"),
+        .name_code = _("DRG"),
         .generic = _("a DRAGON move"),
         .palette = 15,
         .zMove = MOVE_DEVASTATING_DRAKE,
@@ -429,6 +447,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Dark"),
         .name_short = _("Dark"),
+        .name_code = _("DRK"),
         .generic = _("a DARK move"),
         .palette = 13,
         .zMove = MOVE_BLACK_HOLE_ECLIPSE,
@@ -451,6 +470,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = _("Fairy"),
         .name_short = _("Fairy"),
+        .name_code = _("FRY"),
         .generic = _("a FAIRY move"),
         .palette = 14,
         .zMove = MOVE_TWINKLE_TACKLE,
@@ -473,6 +493,7 @@ const struct TypeInfo gTypesInfo[NUMBER_OF_MON_TYPES] =
     {
         .name = HANDLE_EXPANDED_TYPE_NAME("Stellr", "Stellar"),
         .name_short = _("Stellr"),
+        .name_code = _("SLR"),
         .generic = _("a STELLAR move"),
         .palette = 15,
         .zMove = MOVE_BREAKNECK_BLITZ,
