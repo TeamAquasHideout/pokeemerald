@@ -1648,10 +1648,35 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
     switch (data->currentMainListItemId)
     {
     case LIST_ITEM_MOVES:
-    case LIST_ITEM_PP:
         for (i = 0; i < 4; i++)
         {
             PadString(GetMoveName(gBattleMons[data->battlerId].moves[i]), text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        // Allow changing all moves at once. Useful for testing in wild doubles.
+        if (data->currentMainListItemId == LIST_ITEM_MOVES)
+        {
+            PadString(sTextAll, text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        break;
+    case LIST_ITEM_PP:
+        for (i = 0; i < 4; i++)
+        {
+            u8 stringValue[5];
+            
+            StringCopy(text, GetMoveName(gBattleMons[data->battlerId].moves[i]));
+            StringAppend(text, gText_Space);
+            
+            ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].pp[i], STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+            StringAppend(text, gText_Slash);
+            ConvertIntToDecimalStringN(stringValue, gMovesInfo[gBattleMons[data->battlerId].moves[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+
+            PadString(text, text);
             printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
             AddTextPrinter(&printer, 0, NULL);
         }
@@ -2629,7 +2654,7 @@ static void SetOptionListTemplate(void)
 
     //dynamically create list items
     if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_DATA)
-        itemsCount = 5;
+        itemsCount = 6;
     else if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_MOVES)
         itemsCount = 1;
     else
@@ -2656,6 +2681,8 @@ static void SetOptionListTemplate(void)
         debugListItems[3].id = LIST_ITEM_STATS;
         debugListItems[4].name = sText_StatStages;
         debugListItems[4].id = LIST_ITEM_STAT_STAGES;
+        debugListItems[5].name = sText_PP;
+        debugListItems[5].id = LIST_ITEM_PP;
     }
 
     gMultiuseListMenuTemplate = sMainListTemplate;
