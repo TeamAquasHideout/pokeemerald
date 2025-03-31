@@ -577,7 +577,7 @@ struct SaveBlock2
              u16 regionMapZoom:1; // whether the map is zoomed in
              u16 modeNoBagUse:1;
              u16 modeSingleFloors:1; // force only single trainer floors
-             u16 padding1:2; // uncommented because its free padding space
+             u16 mode3MonsOnly:2; // 0 = 6 mons, 1 = 3 mons only, 2 = single mon
             // end of u16
              u16 mode50Floors:1;
              u16 modeBossHeal:1;
@@ -602,7 +602,7 @@ struct SaveBlock2
              u16 modeMegas:1;
              u16 optionsFollowMonsOff:1;
              u16 modeCashRewards:2;
-             u16 mode3MonsOnly:1;
+             u16 padding3:1; // uncommented because its free padding space
              // end of u16
              u16 randomMoves:1;
              u16 randomAbilities:1;

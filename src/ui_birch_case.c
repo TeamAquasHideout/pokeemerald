@@ -909,7 +909,8 @@ static void Task_BirchCaseRecievedMon(u8 taskId)
 {
     if(JOY_NEW(A_BUTTON) || gTasks[taskId].data[12] > 30)
     {
-        if(FlagGet(FLAG_CASE_STARTER_MODE) && (sBirchCaseDataPtr->monState < 2))
+        if(FlagGet(FLAG_CASE_STARTER_MODE) && (sBirchCaseDataPtr->monState < 2)
+          && gSaveBlock2Ptr->mode3MonsOnly != MON_AMOUNT_1)
         {
             DestroySprite(&gSprites[sBirchCaseDataPtr->pokeballSpriteIds[sBirchCaseDataPtr->handPosition]]);
             sBirchCaseDataPtr->pokeballSpriteIds[sBirchCaseDataPtr->handPosition] = SPRITE_NONE;
@@ -1093,7 +1094,3 @@ static void Task_BirchCaseMain(u8 taskId)
         }
     }
 }
-
-
-
-

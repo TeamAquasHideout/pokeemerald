@@ -38,6 +38,8 @@ PitBoss_ContinueAfterBattleScript::
 PitBoss_NoAutoSave::
 	lock
 	callnative BufferMapFloorString
+	callnative Check1MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_IronmonMode
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_NoCaseModeMode
 	callnative SetRandomGiveMonRewardEncounters
@@ -65,11 +67,13 @@ PitBoss_NoCaseModeMode::
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
 PitBoss_NoCaseModeMode2::
 	callnative AddNewMonNoCaseMode
+PitBoss_IronmonMode::
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9
 	waitstate
 	release
 	end
+
 
 PitBoss_FinalBossAfterBattle::
 	msgbox Pit_EndGameStatue_Text1, MSGBOX_DEFAULT

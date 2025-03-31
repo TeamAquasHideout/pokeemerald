@@ -129,7 +129,8 @@ enum Game_Presets
 {
     PRESET_NORMAL,
     PRESET_HARD,
-    PRESET_RACE
+    PRESET_RACE,
+    PRESET_IRONMON,
 };
 
 static EWRAM_DATA struct ModeMenuState *sModeMenuState = NULL;
@@ -350,7 +351,7 @@ struct Menu_Run //MENU_RUN
 {
     [MENUITEM_RUN_SPECIES_ARRAY]   = {DrawChoices_SpeciesArray,   ProcessInput_Options_Two},
     [MENUITEM_RUN_BATTLEMODE]      = {DrawChoices_BattleMode,     ProcessInput_Options_Three},
-    [MENUITEM_RUN_3_MONS_ONLY]     = {DrawChoices_3MonsOnly,      ProcessInput_Options_Two},
+    [MENUITEM_RUN_3_MONS_ONLY]     = {DrawChoices_3MonsOnly,      ProcessInput_Options_Three},
     [MENUITEM_RUN_NO_CASE_CHOICE]  = {DrawChoices_NoCaseChoice,   ProcessInput_Options_Two},
     [MENUITEM_RUN_SINGLE_FLOORS]   = {DrawChoices_SingleFloors,   ProcessInput_Options_Two},
     [MENUITEM_RUN_50_FLOORS]       = {DrawChoices_50Floors,       ProcessInput_Options_Two},
@@ -414,7 +415,7 @@ struct Menu_Presets //MENU_PRESETS
     int (*processInput)(int selection);
 } static const sItemFunctionsPresets[MENUITEM_PRESET_COUNT] =
 {
-    [MENUITEM_PRESET_MODE] = {DrawChoices_PresetsMode,     ProcessInput_Options_Three},
+    [MENUITEM_PRESET_MODE] = {DrawChoices_PresetsMode,     ProcessInput_Options_Four},
     [MENUITEM_PRESET_CANCEL] = {NULL, NULL},
     [MENUITEM_PRESET_SAVE]   = {NULL, NULL},
 };
@@ -438,7 +439,7 @@ static const u8 sText_Dynamax[]      = _("DYNAMAX");
 static const u8 sText_Tera[]         = _("TERASTAL");
 static const u8 sText_ZMoves[]       = _("Z-MOVES");
 
-static const u8 sText_3MonsOnly[]       = _("3 MONS ONLY");
+static const u8 sText_3MonsOnly[]       = _("MON AMOUNT");
 static const u8 sText_NoCaseChoice[]    = _("NO BIRCH CASE");
 static const u8 sText_BossHeal[]        = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]      = _("CASH RATE");
@@ -621,6 +622,7 @@ static const u8 sText_Desc_SpeciesArrayProg[]   = _("Trainer Pokémon scale with
 static const u8 sText_Desc_NormalMode[]         = _("HOPE mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_HardMode[]           = _("DESPAIR mode settings are used as\nintended by the devs.");
 static const u8 sText_Desc_RaceMode[]           = _("A single-trainer floor RACE mode\nfor fast paced challenge runs.");
+static const u8 sText_Desc_IronmonMode[]        = _("An IRONMON like mode with a single\nPokémon and randomizer settings.");
 static const u8 sText_Desc_Defaults_Normal[]    = _("Sets all options for HOPE Mode below.");
 static const u8 sText_Desc_Defaults_Hard[]      = _("Sets all options for DESPAIR Mode below.");
 static const u8 sText_Desc_Defaults_Custom[]    = _("Is shown when manually changing\nmode settings.");
@@ -645,12 +647,13 @@ static const u8 sText_Desc_Duplicates_On[]      = _("Truly random. Duplicates ar
 static const u8 sText_Desc_Duplicates_Off[]     = _("Birch Case can't hold duplicates.");
 static const u8 sText_Desc_Megas_On[]           = _("Mega Evolution is possible.\nA Mega Ring is added to the shop.");
 static const u8 sText_Desc_Megas_Off[]          = _("Mega Evolution is not available.");
-static const u8 sText_Desc_ZMoves_On[]           = _("Using Z-Moves is possible.\nA Z Power Ring is added to the shop.");
-static const u8 sText_Desc_ZMoves_Off[]          = _("Using Z-Moves is not available.");
+static const u8 sText_Desc_ZMoves_On[]          = _("Using Z-Moves is possible.\nA Z Power Ring is added to the shop.");
+static const u8 sText_Desc_ZMoves_Off[]         = _("Using Z-Moves is not available.");
 static const u8 sText_Desc_HealFloors_5[]       = _("Get a rest stop to heal every\n5 floors.");
 static const u8 sText_Desc_HealFloors_10[]      = _("SUPER HARD! Get a rest stop to heal\nevery 10 floors.");
-static const u8 sText_Desc_3Mons_On[]           = _("Party size will never increase and\nremain at three (incl. trainers).");
-static const u8 sText_Desc_3Mons_Off[]          = _("Party size will increase by one\nevery 25 floors.");
+static const u8 sText_Desc_3Mons_1[]            = _("You will choose a single Pokémon and\nwon't get another one (trainers will).");
+static const u8 sText_Desc_3Mons_3[]            = _("Party size will never increase and\nremain at three (incl. trainers).");
+static const u8 sText_Desc_3Mons_6[]            = _("Party size will increase by one\nevery 25 floors (6 in total).");
 static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party\nand will be given random species.");
 static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe random Birch Case options.");
 static const u8 sText_Desc_BossHeal_On[]        = _("Your party will be healed before\nstarting a boss battle.");
@@ -705,7 +708,7 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
 {
     [MENUITEM_RUN_SPECIES_ARRAY]   = {sText_Desc_SpeciesArrayRand,    sText_Desc_SpeciesArrayProg,    sText_Empty},
     [MENUITEM_RUN_BATTLEMODE]      = {sText_Desc_BattleMode_Singles,  sText_Desc_BattleMode_Doubles,  sText_Desc_BattleMode_Mix},
-    [MENUITEM_RUN_3_MONS_ONLY]     = {sText_Desc_3Mons_On,            sText_Desc_3Mons_Off,           sText_Empty},
+    [MENUITEM_RUN_3_MONS_ONLY]     = {sText_Desc_3Mons_6,             sText_Desc_3Mons_3,             sText_Desc_3Mons_1},
     [MENUITEM_RUN_NO_CASE_CHOICE]  = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
     [MENUITEM_RUN_SINGLE_FLOORS]   = {sText_Desc_SingleFloors_On,     sText_Desc_SingleFloors_Off,    sText_Empty},
     [MENUITEM_RUN_50_FLOORS]       = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
@@ -751,11 +754,11 @@ static const u8 *const sModeMenuItemDescriptionsRand[MENUITEM_RAND_COUNT][3] =
     [MENUITEM_RAND_CANCEL]        = {sText_Desc_Save,              sText_Empty,                   sText_Empty},
 };
 
-static const u8 *const sModeMenuItemDescriptionsPresets[MENUITEM_PRESET_COUNT][3] =
+static const u8 *const sModeMenuItemDescriptionsPresets[MENUITEM_PRESET_COUNT][4] =
 {
-    [MENUITEM_PRESET_MODE]        = {sText_Desc_NormalMode,    sText_Desc_HardMode,           sText_Desc_RaceMode},
-    [MENUITEM_PRESET_CANCEL]      = {sText_Desc_CancelPreset,  sText_Empty,                   sText_Empty},
-    [MENUITEM_PRESET_SAVE]        = {sText_Desc_SavePreset,    sText_Empty,                   sText_Empty},
+    [MENUITEM_PRESET_MODE]        = {sText_Desc_NormalMode,    sText_Desc_HardMode,           sText_Desc_RaceMode,  sText_Desc_IronmonMode},
+    [MENUITEM_PRESET_CANCEL]      = {sText_Desc_CancelPreset,  sText_Empty,                   sText_Empty,          sText_Empty},
+    [MENUITEM_PRESET_SAVE]        = {sText_Desc_SavePreset,    sText_Empty,                   sText_Empty,          sText_Empty},
 };
 
 static const u8 *const OptionTextDescription(void)
@@ -1878,8 +1881,9 @@ static void ReDrawAll(void)
 
 // Process Input functions ****SPECIFIC****
 static const u8 sText_ModeNormal[]          = _("HOPE");
-static const u8 sText_ModeHard[]            = _("DESP");
+static const u8 sText_ModeHard[]            = _("DESPAIR");
 static const u8 sText_ModeRace[]            = _("RACE");
+static const u8 sText_ModeIronmon[]         = _("IRONMON");
 static const u8 sText_ModeCustom[]          = _("CUST");
 static const u8 sText_Autosave_Off[]        = _("OFF");
 static const u8 sText_Autosave_5[]          = _("5FLRS");
@@ -1943,6 +1947,9 @@ static const u8 sText_BattleDebug_Data[]    = _("DATA");
 static const u8 sText_BattleDebug_Moves[]   = _("MOVES");
 static const u8 sText_BST_Min[]             = _("MIN");
 static const u8 sText_BST_Max[]             = _("MAX");
+static const u8 sText_MonAmount_6[]         = _("PARTY");
+static const u8 sText_MonAmount_3[]         = _("TRIO");
+static const u8 sText_MonAmount_1[]         = _("SOLO");
 
 static void DrawChoices_SpeciesArray(int selection, int y)
 {
@@ -1957,11 +1964,12 @@ static void DrawChoices_SpeciesArray(int selection, int y)
 static void DrawChoices_3MonsOnly(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RUN_3_MONS_ONLY);
-    u8 styles[2] = {0};
+    u8 styles[3] = {0};
     styles[selection] = 1;
 
-    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+    DrawModeMenuChoice(sText_MonAmount_6, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_MonAmount_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_MonAmount_3, 198 - 32), y, styles[1], active);
+    DrawModeMenuChoice(sText_MonAmount_1, GetStringRightAlignXOffset(FONT_NORMAL, sText_MonAmount_1, 198), y, styles[2], active);
 }
 
 static void DrawChoices_NoCaseChoice(int selection, int y)
@@ -2206,10 +2214,6 @@ static void DrawChoices_EvoStage(int selection, int y)
 
 static void DrawChoices_MonoType(int selection, int y)
 {
-    // DrawModeMenuChoice(sText_Autosave_Off, 104, y, styles[0], active);
-    // DrawModeMenuChoice(sText_Type_Normal, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Normal, 198 - 35), y, styles[1], active);
-    // DrawModeMenuChoice(sText_Type_Fighting, GetStringRightAlignXOffset(FONT_NORMAL, sText_Type_Fighting, 198), y, styles[2], active);
-
     bool8 active = CheckConditions(MENUITEM_DIFF_MONOTYPE);
     u16 xMid = 0;
 
@@ -2393,13 +2397,39 @@ static void DrawChoices_RandEvos(int selection, int y)
 
 static void DrawChoices_PresetsMode(int selection, int y)
 {
-    bool8 active = CheckConditions(MENUITEM_PRESET_MODE);
-    u8 styles[3] = {0};
-    styles[selection] = 1;
+    // bool8 active = CheckConditions(MENUITEM_PRESET_MODE);
+    // u8 styles[4] = {0};
+    // styles[selection] = 1;
 
-    DrawModeMenuChoice(sText_ModeNormal, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_ModeHard, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeHard, 198 - 35), y, styles[1], active);
-    DrawModeMenuChoice(sText_ModeRace, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeRace, 198), y, styles[2], active);
+    // DrawModeMenuChoice(sText_ModeNormal, 104, y, styles[0], active);
+    // DrawModeMenuChoice(sText_ModeHard, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeHard, 198 - 35), y, styles[1], active);
+    // DrawModeMenuChoice(sText_ModeRace, GetStringRightAlignXOffset(FONT_NORMAL, sText_ModeRace, 198), y, styles[2], active);
+    bool8 active = CheckConditions(MENUITEM_DIFF_MONOTYPE);
+    u16 xMid = 0;
+
+    DrawModeMenuChoice(sText_Arrows_Left, 104, y, 0, active);
+
+    switch (selection)
+    {
+    case 0:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_ModeNormal, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_ModeNormal, xMid, y, 1, active);
+        break;
+    case 1:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_ModeHard, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_ModeHard, xMid, y, 1, active);
+        break;
+    case 2:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_ModeRace, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_ModeRace, xMid, y, 1, active);
+        break;
+    case 3:
+        xMid = GetMiddleX(sText_Arrows_Left, sText_ModeIronmon, sText_Arrows_Left);
+        DrawModeMenuChoice(sText_ModeIronmon, xMid, y, 1, active);
+        break;
+    }
+
+    DrawModeMenuChoice(sText_Arrows_Right, GetStringRightAlignXOffset(FONT_NORMAL, sText_Arrows_Right, 198), y, 0, active);
 }
 
 // Background tilemap
@@ -2460,7 +2490,7 @@ static void ApplyPresets(void)
     //run settings
     sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY]   = ARRAY_RANDOM;
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
-    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_6;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
@@ -2475,7 +2505,7 @@ static void ApplyPresets(void)
     sBSTmax = 0;
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
-    sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_ON;
+    sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = FALSE;
 #ifdef PIT_GEN_9_MODE
     sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = OPTIONS_OFF;
@@ -2523,10 +2553,27 @@ static void ApplyPresets(void)
             sOptions->sel_diff[MENUITEM_DIFF_HEALFLOORS]    = HEAL_FLOORS_10;
             sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
             sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_2;
-            sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = TRUE;
         #ifdef PIT_GEN_9_MODE
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
         #endif
+            break;
+        case PRESET_IRONMON:
+            //run settings
+            sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_SINGLES;
+            sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_1;
+            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
+            //difficulty settings
+            sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
+            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
+            sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
+            //randomizer settings
+            sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_ON;
+            sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = OPTIONS_ON;
+            break;
         default:
             break;
     }
