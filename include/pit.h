@@ -111,6 +111,9 @@ struct RandomTrainerNPC
 #define DEBUG_DISP_MOVES 2
 #define BST_STATE_INACTIVE 0
 #define BST_STATE_ACTIVE 1
+#define MON_AMOUNT_6     0
+#define MON_AMOUNT_3     1
+#define MON_AMOUNT_1     2
 
 #define MIN_BST 440
 #define MAX_BST 540
