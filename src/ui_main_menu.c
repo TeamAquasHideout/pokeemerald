@@ -731,7 +731,7 @@ static void LoadDefaultSettings(void)
     //run settings
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_RANDOM;
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
-    gSaveBlock2Ptr->mode3MonsOnly       = MON_AMOUNT_6;
+    gSaveBlock2Ptr->mode3MonsOnly       = PARTY_SIZE_6;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeSingleFloors    = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->mode50Floors        = FLOORS_100;

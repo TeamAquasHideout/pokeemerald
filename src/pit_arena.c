@@ -3755,7 +3755,7 @@ void LevelUpParty(void)
 
 void Check3MonMode(void)
 {
-    if(gSaveBlock2Ptr->mode3MonsOnly == MON_AMOUNT_3)
+    if(gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_3)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3763,7 +3763,7 @@ void Check3MonMode(void)
 
 void Check1MonMode(void)
 {
-    if(gSaveBlock2Ptr->mode3MonsOnly == MON_AMOUNT_1)
+    if(gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3806,7 +3806,7 @@ void AddInitial3MonsNoCaseMode(void)
     int i = 0;
     int maxMons = 3;
 
-    if (gSaveBlock2Ptr->mode3MonsOnly == MON_AMOUNT_1)
+    if (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
         maxMons = 1;
     if(gPlayerPartyCount == 1)
         i = 1;

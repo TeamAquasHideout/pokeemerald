@@ -1951,9 +1951,9 @@ static const u8 sText_BattleDebug_Data[]    = _("DATA");
 static const u8 sText_BattleDebug_Moves[]   = _("MOVES");
 static const u8 sText_BST_Min[]             = _("MIN");
 static const u8 sText_BST_Max[]             = _("MAX");
-static const u8 sText_MonAmount_6[]         = _("PARTY");
-static const u8 sText_MonAmount_3[]         = _("TRIO");
-static const u8 sText_MonAmount_1[]         = _("SOLO");
+static const u8 sText_PartySize_6[]         = _("PARTY");
+static const u8 sText_PartySize_3[]         = _("TRIO");
+static const u8 sText_PartySize_1[]         = _("SOLO");
 
 static void DrawChoices_SpeciesArray(int selection, int y)
 {
@@ -1971,9 +1971,9 @@ static void DrawChoices_3MonsOnly(int selection, int y)
     u8 styles[3] = {0};
     styles[selection] = 1;
 
-    DrawModeMenuChoice(sText_MonAmount_6, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_MonAmount_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_MonAmount_3, 198 - 32), y, styles[1], active);
-    DrawModeMenuChoice(sText_MonAmount_1, GetStringRightAlignXOffset(FONT_NORMAL, sText_MonAmount_1, 198), y, styles[2], active);
+    DrawModeMenuChoice(sText_PartySize_6, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_PartySize_3, GetStringRightAlignXOffset(FONT_NORMAL, sText_PartySize_3, 198 - 32), y, styles[1], active);
+    DrawModeMenuChoice(sText_PartySize_1, GetStringRightAlignXOffset(FONT_NORMAL, sText_PartySize_1, 198), y, styles[2], active);
 }
 
 static void DrawChoices_NoCaseChoice(int selection, int y)
@@ -2495,7 +2495,7 @@ static void ApplyPresets(void)
     //run settings
     sOptions->sel_run[MENUITEM_RUN_SPECIES_ARRAY]   = ARRAY_RANDOM;
     sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_MIXED;
-    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_6;
+    sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = PARTY_SIZE_6;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_100;
@@ -2566,7 +2566,7 @@ static void ApplyPresets(void)
         case PRESET_IRONMON:
             //run settings
             sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_SINGLES;
-            sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_1;
+            sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = PARTY_SIZE_1;
             sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_75;
             //difficulty settings
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
