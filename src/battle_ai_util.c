@@ -3725,7 +3725,7 @@ static u32 IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, u32 statI
         }
         break;
     case STAT_CHANGE_SPEED:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (!aiIsFaster && (noOfHitsToFaint >= 3 || noOfHitsToFaint == UNKNOWN_NO_OF_HITS))
             tempScore += DECENT_EFFECT;
         break;
     case STAT_CHANGE_SPATK:
@@ -3755,7 +3755,7 @@ static u32 IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, u32 statI
         }
         break;
     case STAT_CHANGE_SPEED_2:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (!aiIsFaster && (noOfHitsToFaint >= 3 || noOfHitsToFaint == UNKNOWN_NO_OF_HITS))
             tempScore += GOOD_EFFECT;
         break;
     case STAT_CHANGE_SPATK_2:
