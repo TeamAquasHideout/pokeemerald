@@ -473,6 +473,8 @@ PitGiveMonCommon::
 	goto_if_eq VAR_RESULT, 6, PitGiveMonCommon_PartyFullRemoveOne
 	callnative Check3MonMode
 	goto_if_eq VAR_TEMP_A, 1, PitGiveMonCommon_PartyFullRemoveOne
+	callnative Check1MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitGiveMonCommon_PartyFullRemoveOne
 PitGiveMonCommon_NewMon2::
 	callnative GiveRandomMonRewardEncounter
 	callnative BufferNameText_RandomMonRewardEncounter

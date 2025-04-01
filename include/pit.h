@@ -111,9 +111,9 @@ struct RandomTrainerNPC
 #define DEBUG_DISP_MOVES 2
 #define BST_STATE_INACTIVE 0
 #define BST_STATE_ACTIVE 1
-#define MON_AMOUNT_6     0
-#define MON_AMOUNT_3     1
-#define MON_AMOUNT_1     2
+#define PARTY_SIZE_6     0
+#define PARTY_SIZE_3     1
+#define PARTY_SIZE_1     2
 #define FLOORS_100       0
 #define FLOORS_75        1
 #define FLOORS_50        2

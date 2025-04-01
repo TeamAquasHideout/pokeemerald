@@ -2047,7 +2047,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
         if(!isPlayer)
         {
-            if ((VarGet(VAR_PIT_FLOOR) <= 25) || (gSaveBlock2Ptr->mode3MonsOnly == MON_AMOUNT_3))
+            if ((VarGet(VAR_PIT_FLOOR) <= 25) || (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_3))
                 monsCount = 3;
             else if (VarGet(VAR_PIT_FLOOR) <= 50)
                 monsCount = 4;
