@@ -354,7 +354,7 @@ struct Menu_Run //MENU_RUN
     [MENUITEM_RUN_3_MONS_ONLY]     = {DrawChoices_3MonsOnly,      ProcessInput_Options_Three},
     [MENUITEM_RUN_NO_CASE_CHOICE]  = {DrawChoices_NoCaseChoice,   ProcessInput_Options_Two},
     [MENUITEM_RUN_SINGLE_FLOORS]   = {DrawChoices_SingleFloors,   ProcessInput_Options_Two},
-    [MENUITEM_RUN_50_FLOORS]       = {DrawChoices_50Floors,       ProcessInput_Options_Two},
+    [MENUITEM_RUN_50_FLOORS]       = {DrawChoices_50Floors,       ProcessInput_Options_Three},
     [MENUITEM_RUN_INVERSE_BATTLES] = {DrawChoices_InverseBattles, ProcessInput_Options_Two},
     [MENUITEM_RUN_BATTLE_DEBUG]    = {DrawChoices_BattleDebug,    ProcessInput_Options_Three},
     [MENUITEM_RUN_CANCEL]          = {NULL, NULL},
@@ -439,7 +439,7 @@ static const u8 sText_Dynamax[]      = _("DYNAMAX");
 static const u8 sText_Tera[]         = _("TERASTAL");
 static const u8 sText_ZMoves[]       = _("Z-MOVES");
 
-static const u8 sText_3MonsOnly[]       = _("MON AMOUNT");
+static const u8 sText_3MonsOnly[]       = _("PARTY SIZE");
 static const u8 sText_NoCaseChoice[]    = _("NO BIRCH CASE");
 static const u8 sText_BossHeal[]        = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]      = _("CASH RATE");
@@ -448,7 +448,7 @@ static const u8 sText_TrainerGimmicks[] = _("FOE GIMMICKS");
 static const u8 sText_MonoType[]        = _("MONO TYPE");
 static const u8 sText_BST[]             = _("BST LIMITS");
 static const u8 sText_SingleFloors[]    = _("SINGLE FLOORS");
-static const u8 sText_50Floors[]        = _("50 FLOORS");
+static const u8 sText_50Floors[]        = _("FLOORS");
 static const u8 sText_InverseBattles[]  = _("INVERSE BTLS");
 static const u8 sText_BattleDebug[]     = _("BATTLE DEBUG");
 
@@ -670,8 +670,9 @@ static const u8 sText_Desc_EvoStage_Basic[]     = _("Pokémon to choose from wil
 static const u8 sText_Desc_EvoStage_Full[]      = _("Pokémon to choose from will always\nbe fully evolved Pokémon.");
 static const u8 sText_Desc_SingleFloors_On[]    = _("Fight only one trainer per floor.\nADVICE: Use no EXP mode!");
 static const u8 sText_Desc_SingleFloors_Off[]   = _("Fight 1-4 trainers per floor.\nThe number is randomized.");
-static const u8 sText_Desc_50Floors_On[]        = _("A shorter Pit experience that\nonly goes 50 floors deep.");
-static const u8 sText_Desc_50Floors_Off[]       = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
+static const u8 sText_Desc_50Floors[]           = _("A shorter Pit experience that\nonly goes 50 floors deep.");
+static const u8 sText_Desc_75Floors[]           = _("A medium length Pit experience that\ngoes 75 floors deep.");
+static const u8 sText_Desc_100Floors[]          = _("The regular Pit experience that\ngoes 100 floors deep and beyond.");
 static const u8 sText_Desc_InverseBattles_On[]  = _("The type chart is inversed.");
 static const u8 sText_Desc_InverseBattles_Off[] = _("The regular type chart is used.");
 static const u8 sText_Desc_BattleDebug_On[]     = _("The battle debug menu (SELECT)\n is fully available.");
@@ -711,7 +712,7 @@ static const u8 *const sModeMenuItemDescriptionsRun[MENUITEM_RUN_COUNT][3] =
     [MENUITEM_RUN_3_MONS_ONLY]     = {sText_Desc_3Mons_6,             sText_Desc_3Mons_3,             sText_Desc_3Mons_1},
     [MENUITEM_RUN_NO_CASE_CHOICE]  = {sText_Desc_NoCaseChoice_On,     sText_Desc_NoCaseChoice_Off,    sText_Empty},
     [MENUITEM_RUN_SINGLE_FLOORS]   = {sText_Desc_SingleFloors_On,     sText_Desc_SingleFloors_Off,    sText_Empty},
-    [MENUITEM_RUN_50_FLOORS]       = {sText_Desc_50Floors_On,         sText_Desc_50Floors_Off,        sText_Empty},
+    [MENUITEM_RUN_50_FLOORS]       = {sText_Desc_100Floors,           sText_Desc_75Floors,            sText_Desc_50Floors},
     [MENUITEM_RUN_INVERSE_BATTLES] = {sText_Desc_InverseBattles_On,   sText_Desc_InverseBattles_Off,  sText_Empty},
     [MENUITEM_RUN_BATTLE_DEBUG]    = {sText_Desc_BattleDebug_On,      sText_Desc_BattleDebug_Data,    sText_Desc_BattleDebug_Moves},
     [MENUITEM_RUN_CANCEL]          = {sText_Desc_Save,                sText_Empty,                    sText_Empty},
@@ -950,7 +951,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = gSaveBlock2Ptr->mode3MonsOnly;
         sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = gSaveBlock2Ptr->modeNoCaseChoice;
         sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = !(gSaveBlock2Ptr->modeSingleFloors);
-        sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = !(gSaveBlock2Ptr->mode50Floors);
+        sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = gSaveBlock2Ptr->mode50Floors;
         sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = !(gSaveBlock2Ptr->modeInverseBattles);
         sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = gSaveBlock2Ptr->modeDebug;
         //difficulty settings
@@ -1617,7 +1618,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->mode3MonsOnly      = sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY];
     gSaveBlock2Ptr->modeNoCaseChoice   = sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE];
     gSaveBlock2Ptr->modeSingleFloors   = !(sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]);
-    gSaveBlock2Ptr->mode50Floors       = !(sOptions->sel_run[MENUITEM_RUN_50_FLOORS]);
+    gSaveBlock2Ptr->mode50Floors       = sOptions->sel_run[MENUITEM_RUN_50_FLOORS];
     gSaveBlock2Ptr->modeInverseBattles = !(sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES]);
     gSaveBlock2Ptr->modeDebug          = sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG];
 
@@ -1904,6 +1905,9 @@ static const u8 sText_TrainerEVs_On[]       = _("ACTIVE");
 static const u8 sText_TrainerEVs_Off[]      = _("INACTIVE");
 static const u8 sText_Choice_Yes[]          = _("YES");
 static const u8 sText_Choice_No[]           = _("NO");
+static const u8 sText_Floors_50[]           = _("50");
+static const u8 sText_Floors_75[]           = _("75");
+static const u8 sText_Floors_100[]          = _("100");
 static const u8 sText_HealFloors_5[]        = _("5FLRS");
 static const u8 sText_HealFloors_10[]       = _("10FLRS");
 static const u8 sText_B_Weather_On[]        = _("YES");
@@ -1995,11 +1999,12 @@ static void DrawChoices_SingleFloors(int selection, int y)
 static void DrawChoices_50Floors(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RUN_50_FLOORS);
-    u8 styles[2] = {0};
+    u8 styles[3] = {0};
     styles[selection] = 1;
 
-    DrawModeMenuChoice(sText_Choice_Yes, 104, y, styles[0], active);
-    DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
+    DrawModeMenuChoice(sText_Floors_100, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Floors_75, GetStringRightAlignXOffset(FONT_NORMAL, sText_Floors_75, 198 - 40), y, styles[1], active);
+    DrawModeMenuChoice(sText_Floors_50, GetStringRightAlignXOffset(FONT_NORMAL, sText_Floors_50, 198), y, styles[2], active);
 }
 
 static void DrawChoices_InverseBattles(int selection, int y)
@@ -2493,7 +2498,7 @@ static void ApplyPresets(void)
     sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_6;
     sOptions->sel_run[MENUITEM_RUN_NO_CASE_CHOICE]  = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_OFF;
-    sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_OFF;
+    sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_100;
     sOptions->sel_run[MENUITEM_RUN_INVERSE_BATTLES] = OPTIONS_OFF;
     sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = DEBUG_DISP_DATA;
     //difficulty settings
@@ -2542,7 +2547,7 @@ static void ApplyPresets(void)
         case PRESET_RACE:
             //run settings
             sOptions->sel_run[MENUITEM_RUN_SINGLE_FLOORS]   = OPTIONS_ON;
-            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
+            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_50;
             sOptions->sel_run[MENUITEM_RUN_BATTLE_DEBUG]    = DEBUG_DISP_MOVES;
             //difficulty settings
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
@@ -2562,14 +2567,18 @@ static void ApplyPresets(void)
             //run settings
             sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_SINGLES;
             sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = MON_AMOUNT_1;
-            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = OPTIONS_ON;
+            sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_75;
             //difficulty settings
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
-            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_ON;
-            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_OFF;
-            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
+            sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
-            sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
+            sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_RAND;
+            
+        #ifdef PIT_GEN_9_MODE
+            sOptions->sel_diff[MENUITEM_DIFF_TRAINER_GIMMICKS]    = TRAINER_GIMMICKS_RANDOM;
+        #endif
             //randomizer settings
             sOptions->sel_rand[MENUITEM_RAND_MOVES]         = OPTIONS_ON;
             sOptions->sel_rand[MENUITEM_RAND_ABILITIES]     = OPTIONS_ON;
