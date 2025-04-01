@@ -5253,13 +5253,24 @@ u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
         return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
     else
     {
-        if(gSaveBlock2Ptr->mode50Floors)
+        if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
         {
             if (floor <= 15)
                 return RANDOM_DYNAMIC_SPECIES_COUNT_1_15;
             if (floor <= 25)
                 return RANDOM_DYNAMIC_SPECIES_COUNT_36_50;
             if (floor <= 35)
+                return RANDOM_DYNAMIC_SPECIES_COUNT_51_75;
+            return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
+        }
+
+        if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+        {
+            if (floor <= 20)
+                return RANDOM_DYNAMIC_SPECIES_COUNT_1_15;
+            if (floor <= 35)
+                return RANDOM_DYNAMIC_SPECIES_COUNT_36_50;
+            if (floor <= 55)
                 return RANDOM_DYNAMIC_SPECIES_COUNT_51_75;
             return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
         }
@@ -5283,13 +5294,24 @@ u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
         return sRandomDynamicSpecies_76_100[index];
     else
     {
-        if(gSaveBlock2Ptr->mode50Floors)
+        if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
         {
             if (floor <= 15)
                 return sRandomDynamicSpecies_16_25[index];
             if (floor <= 25)
                 return sRandomDynamicSpecies_36_50[index];
             if (floor <= 35)
+                return sRandomDynamicSpecies_51_75[index];
+            return sRandomDynamicSpecies_76_100[index];
+        }
+
+        if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+        {
+            if (floor <= 20)
+                return sRandomDynamicSpecies_16_25[index];
+            if (floor <= 35)
+                return sRandomDynamicSpecies_36_50[index];
+            if (floor <= 55)
                 return sRandomDynamicSpecies_51_75[index];
             return sRandomDynamicSpecies_76_100[index];
         }

@@ -846,14 +846,21 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             VarSet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY, 0);
             y = 14;
 
-            if(gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 50))
+            if(gSaveBlock2Ptr->mode50Floors == FLOORS_50 && (VarGet(VAR_PIT_FLOOR) == 50))
             {
                 mapNum = MAP_PIT_FINAL_BOSS;
                 x = 15;
                 y = 17;
                 ChooseFinalBossEncounter();
             }
-            else if(!gSaveBlock2Ptr->mode50Floors && (VarGet(VAR_PIT_FLOOR) == 100))
+            else if(gSaveBlock2Ptr->mode50Floors == FLOORS_75 && (VarGet(VAR_PIT_FLOOR) == 75))
+            {
+                mapNum = MAP_PIT_FINAL_BOSS;
+                x = 15;
+                y = 17;
+                ChooseFinalBossEncounter();
+            }
+            else if(gSaveBlock2Ptr->mode50Floors == FLOORS_100 && (VarGet(VAR_PIT_FLOOR) == 100))
             {
                 mapNum = MAP_PIT_FINAL_BOSS;
                 x = 15;

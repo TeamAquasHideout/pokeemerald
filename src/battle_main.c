@@ -2118,14 +2118,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     u32 minBST = 0;
                     const struct Evolution *evolutions;
 
-                    if (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50)
+                    if (gSaveBlock2Ptr->mode50Floors == FLOORS_50 && VarGet(VAR_PIT_FLOOR) == 50)
                         minBST = 500;
                     else
                         minBST = 525;
 
                     //final boss floor special BST rule
                     if (VarGet(VAR_PIT_FLOOR) == 100
-                      || (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50))
+                      || (gSaveBlock2Ptr->mode50Floors == FLOORS_50 && VarGet(VAR_PIT_FLOOR) == 50)
+                      || (gSaveBlock2Ptr->mode50Floors == FLOORS_75 && VarGet(VAR_PIT_FLOOR) == 75))
                     {
                         do
                         {
@@ -2222,7 +2223,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         else
                             odds = 35;
                     
-                        if(gSaveBlock2Ptr->mode50Floors)
+                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                         {
                             if (VarGet(VAR_PIT_FLOOR) <= 15)
                                 odds = 0;
@@ -2230,6 +2231,18 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                                 odds = 10;
                             else
                                 odds = 25;
+                        }
+                    
+                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                        {
+                            if (VarGet(VAR_PIT_FLOOR) <= 20)
+                                odds = 0;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                                odds = 10;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                                odds = 20;
+                            else
+                                odds = 30;
                         }
                     }
                     

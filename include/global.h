@@ -579,10 +579,10 @@ struct SaveBlock2
              u16 modeSingleFloors:1; // force only single trainer floors
              u16 mode3MonsOnly:2; // 0 = 6 mons, 1 = 3 mons only, 2 = single mon
             // end of u16
-             u16 mode50Floors:1;
+             u16 padding1:1; // uncommented because its free padding space
              u16 modeBossHeal:1;
              u16 modeChoiceEvoStage:2; //0 = All, 1 = basic pokemon, 2 = fully evolved
-             u16 modeDebug:2; // uncommented because its free padding space
+             u16 modeDebug:2; 
              u16 modeSpeciesArray:1; //0 = Random, 1 = progressive
              u16 modeDynamax:1;
              u16 modeTera:1;
@@ -630,8 +630,11 @@ struct SaveBlock2
 
              u16 modeBSTmin;
              u16 modeBSTmax;
+             u16 mode50Floors:2;
+             u16 padding4:14;
+             u16 padding5;
 
-             u32 extraPitPadding[7];
+             u32 extraPitPadding[6];
 
     // #### Secret Bases for The Pit - START ####
     /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];

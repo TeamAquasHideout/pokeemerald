@@ -365,12 +365,24 @@ void Ai_InitPartyStruct(void)
                 else
                     dynamax_odds = 15;
 
-                if(gSaveBlock2Ptr->mode50Floors)
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                 {
                     if (VarGet(VAR_PIT_FLOOR) <= 15)
                         dynamax_odds = 0;
                     else if (VarGet(VAR_PIT_FLOOR) <= 25)
                         dynamax_odds = 5;
+                    else
+                        dynamax_odds = 15;
+                }
+
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                {
+                    if (VarGet(VAR_PIT_FLOOR) <= 20)
+                        dynamax_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                        dynamax_odds = 5;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                        dynamax_odds = 10;
                     else
                         dynamax_odds = 15;
                 }
@@ -393,12 +405,24 @@ void Ai_InitPartyStruct(void)
                 else
                     tera_odds = 15;
 
-                if(gSaveBlock2Ptr->mode50Floors)
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                 {
                     if (VarGet(VAR_PIT_FLOOR) <= 15)
                         tera_odds = 0;
                     else if (VarGet(VAR_PIT_FLOOR) <= 25)
                         tera_odds = 5;
+                    else
+                        tera_odds = 15;
+                }
+
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                {
+                    if (VarGet(VAR_PIT_FLOOR) <= 20)
+                        tera_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                        tera_odds = 5;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                        tera_odds = 10;
                     else
                         tera_odds = 15;
                 }

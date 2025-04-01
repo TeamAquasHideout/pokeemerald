@@ -122,7 +122,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->mode3MonsOnly = MON_AMOUNT_6;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
         gSaveBlock2Ptr->modeSingleFloors = FALSE; //this doesn't use the OPTIONS defines!
-        gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
+        gSaveBlock2Ptr->mode50Floors = FLOORS_100;
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeDebug = DEBUG_DISP_DATA;
         gSaveBlock2Ptr->modeBSTmin = 0;

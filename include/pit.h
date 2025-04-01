@@ -114,6 +114,9 @@ struct RandomTrainerNPC
 #define MON_AMOUNT_6     0
 #define MON_AMOUNT_3     1
 #define MON_AMOUNT_1     2
+#define FLOORS_100       0
+#define FLOORS_75        1
+#define FLOORS_50        2
 
 #define MIN_BST 440
 #define MAX_BST 540

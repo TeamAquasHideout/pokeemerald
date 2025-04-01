@@ -23,8 +23,9 @@ int GameClear(void)
 
     UpdateRunningStats();
 
-    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && !gSaveBlock2Ptr->mode50Floors) \
-                                         || ((VarGet(VAR_PIT_FLOOR) <= 50)  &&  gSaveBlock2Ptr->mode50Floors))))
+    if(!(FlagGet(FLAG_RUN_ENDED_SCREEN) && (((VarGet(VAR_PIT_FLOOR) <= 100) && gSaveBlock2Ptr->mode50Floors == FLOORS_100) \
+                                         || ((VarGet(VAR_PIT_FLOOR) <= 50)  && gSaveBlock2Ptr->mode50Floors == FLOORS_50)
+                                         || ((VarGet(VAR_PIT_FLOOR) <= 75)  && gSaveBlock2Ptr->mode50Floors == FLOORS_75))))
     {
         FlagSet(FLAG_TEMP_HOF_VICTORY);
         gSaveBlock2Ptr->statsAllClears = gSaveBlock2Ptr->statsAllClears + 1;

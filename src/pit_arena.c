@@ -3771,7 +3771,15 @@ void Check1MonMode(void)
 
 void Check50FloorMode(void)
 {
-    if(gSaveBlock2Ptr->mode50Floors)
+    if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void Check75FloorMode(void)
+{
+    if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3990,14 +3998,11 @@ void ChooseRandomRewardNumberForFloor(void)
     }
 
     // fallthrough if set to Random
-    if(random_val < 10 && !FlagGet(FLAG_DOUBLES_MODE)) // doubles mode shouldn't give single items
+    if(random_val < 33)
     {
-        if(VarGet(VAR_PIT_FLOOR) < 5)
-            VarSet(VAR_RESULT, 1);
-        else
             VarSet(VAR_RESULT, 0);
     }
-    else if(random_val < 40)
+    else if(random_val < 66)
     {
         VarSet(VAR_RESULT, 1);
     }
