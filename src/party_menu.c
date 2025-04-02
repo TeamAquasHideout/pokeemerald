@@ -4970,15 +4970,21 @@ void Task_AbilityCapsule(u8 taskId)
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16 *data = gTasks[taskId].data;
+    u16 seededSpecies = tSpecies;
+    
+    if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
+        seededSpecies = GetSpeciesRandomSeeded(tSpecies);
+
+    //wiz1989
 
     switch (tState)
     {
     case 0:
         // Can't use.
-        if (gSpeciesInfo[tSpecies].abilities[0] == gSpeciesInfo[tSpecies].abilities[1]
-            || gSpeciesInfo[tSpecies].abilities[1] == 0
+        if (gSpeciesInfo[seededSpecies].abilities[0] == gSpeciesInfo[seededSpecies].abilities[1]
+            || gSpeciesInfo[seededSpecies].abilities[1] == 0
             || tAbilityNum > 1
-            || !tSpecies)
+            || !seededSpecies)
         {
             gPartyMenuUseExitCallback = FALSE;
             PlaySE(SE_SELECT);
@@ -5058,13 +5064,20 @@ void Task_AbilityPatch(u8 taskId)
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16 *data = gTasks[taskId].data;
+    u16 seededSpecies = tSpecies;
+    
+    if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
+        seededSpecies = GetSpeciesRandomSeeded(tSpecies);
+
+    //wiz1989
+    DebugPrintf("AP species = %S", gSpeciesInfo[seededSpecies].speciesName);
 
     switch (tState)
     {
     case 0:
         // Can't use.
-        if (gSpeciesInfo[tSpecies].abilities[tAbilityNum] == 0
-            || !tSpecies
+        if (gSpeciesInfo[seededSpecies].abilities[tAbilityNum] == 0
+            || !seededSpecies
             )
         {
             gPartyMenuUseExitCallback = FALSE;
