@@ -1748,13 +1748,15 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_SPIKES:
             if (gSideTimers[GetBattlerSide(battlerDef)].spikesAmount >= 3)
                 ADJUST_SCORE(-10);
-            else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
+            else if ((PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
               && gSideTimers[GetBattlerSide(battlerDef)].spikesAmount == 2)
+              || !AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
                 ADJUST_SCORE(-10); // only one mon needs to set up the last layer of Spikes
             break;
         case EFFECT_STEALTH_ROCK:
             if (gSideTimers[GetBattlerSide(battlerDef)].stealthRockAmount > 0
-              || PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)) //Only one mon needs to set up Stealth Rocks
+              || PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
+              || !AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA)) //Only one mon needs to set up Stealth Rocks
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_TOXIC_SPIKES:
@@ -1762,12 +1764,16 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove) && gSideTimers[GetBattlerSide(battlerDef)].toxicSpikesAmount == 1)
                 ADJUST_SCORE(-10); // only one mon needs to set up the last layer of Toxic Spikes
+            else if (!AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_STICKY_WEB:
             if (gSideTimers[GetBattlerSide(battlerDef)].stickyWebAmount)
                 ADJUST_SCORE(-10);
             else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove) && gSideTimers[GetBattlerSide(battlerDef)].stickyWebAmount)
                 ADJUST_SCORE(-10); // only one mon needs to set up Sticky Web
+            else if (!AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_FORESIGHT:
             if (gBattleMons[battlerDef].status2 & STATUS2_FORESIGHT)
