@@ -2568,12 +2568,14 @@ static void ApplyPresets(void)
             sOptions->sel_run[MENUITEM_RUN_BATTLEMODE]      = MODE_SINGLES;
             sOptions->sel_run[MENUITEM_RUN_3_MONS_ONLY]     = PARTY_SIZE_1;
             sOptions->sel_run[MENUITEM_RUN_50_FLOORS]       = FLOORS_75;
+
             //difficulty settings
             sOptions->sel_diff[MENUITEM_DIFF_XPMODE]        = XP_75;
             sOptions->sel_diff[MENUITEM_DIFF_STAT_CHANGER]  = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_TRAINER_EVS]   = OPTIONS_ON;
             sOptions->sel_diff[MENUITEM_DIFF_LEGENDARIES]   = OPTIONS_OFF;
             sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE]      = EVOSTAGE_FULL;
+            sBSTmax = MAX_BST;
             sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_RAND;
             
         #ifdef PIT_GEN_9_MODE
