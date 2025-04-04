@@ -1392,7 +1392,16 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 
 u16 GetSpeciesRandomSeeded(u16 species)
 {
-    return GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    u16 seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    u8 i = 0;
+
+    while (seededSpecies == species)
+    {
+        i++;
+        seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species + i, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    }
+    
+    return seededSpecies;
 }
 
 EWRAM_DATA u16 gMonoTypeArray[NUM_SPECIES] = {0};
