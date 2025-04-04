@@ -5763,10 +5763,8 @@ static void Task_DoLearnedMoveFanfareAfterText(u8 taskId)
     if (IsPartyMenuTextPrinterActive() != TRUE)
     {
         //deduct money if a tutor move was taught
-#ifdef PIT_GEN_9_MODE
         if(VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_TUTOR_MOVES)
-            RemoveMoney(&gSaveBlock1Ptr->money, 10000);
-#endif
+            RemoveMoney(&gSaveBlock1Ptr->money, 8000);
         PlayFanfare(MUS_LEVEL_UP);
         gTasks[taskId].func = Task_LearnNextMoveOrClosePartyMenu;
     }

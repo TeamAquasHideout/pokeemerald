@@ -142,9 +142,10 @@ def construct_compatibility_dict(force_custom_check):
                 # for move in data[mon]['EggMoves']:
                 #     if not move in dict_out[mon]:
                 #         dict_out[mon].append(move)
-                for move in data[mon]['TutorMoves']:
-                    if not move in dict_out[mon]:
-                        dict_out[mon].append(move)
+                # for move in data[mon]['TutorMoves']:
+                #     if not move in dict_out[mon]:
+                #         dict_out[mon].append(move)
+                #         print("Tutor move %s - %s" % (mon, move))
 
     # if the file was not previously generated, check if there is custom data there that needs to be preserved
     with open("./src/data/pokemon/teachable_learnsets.h", 'r') as file:

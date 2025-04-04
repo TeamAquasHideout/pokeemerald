@@ -285,7 +285,7 @@ PitArena_MoveDeleterText:
 PitArena_EggMovesText:
 	.string "Egg Moves (¥8,000/ea)$"
 PitArena_TutorMovesText:
-	.string "Tutor Moves (¥10,000/ea)$"
+	.string "Tutor Moves (¥8,000/ea)$"
 PitArena_PreEvoMovesText:
 	.string "PreEvo Moves (¥5,000/ea)$"
 PitShop_ShopNPC_OptionVitamin:
