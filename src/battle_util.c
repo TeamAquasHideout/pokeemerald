@@ -11416,7 +11416,11 @@ bool32 CanStealItem(u32 battlerStealing, u32 battlerItem, u16 item)
     {
         return FALSE;
     }
-    else if (stealerSide == B_SIDE_PLAYER && GetBattlerSide(gBattlerTarget) == stealerSide) //don't allow stealing from your own partner as it can be used to multiply items
+    else if (IsDoubleBattle() && stealerSide == B_SIDE_PLAYER && GetBattlerSide(battlerItem) == stealerSide) //don't allow stealing from your own partner as it can be used to multiply items
+        return FALSE;
+    
+    // It's supposed to pop before trying to steal but this also works
+    if (ItemId_GetHoldEffect(item) == HOLD_EFFECT_AIR_BALLOON)
         return FALSE;
 
     if (!CanBattlerGetOrLoseItem(battlerItem, item)      // Battler with item cannot have it stolen
