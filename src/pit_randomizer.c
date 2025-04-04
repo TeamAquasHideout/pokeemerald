@@ -1591,7 +1591,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                 u16 maxValue = gSaveBlock2Ptr->modeBSTmax;
 
                 if (maxValue == 0)
-                    maxValue = MAX_BST;
+                    maxValue = BST_MAX;
 
                 if (GetSpeciesBST(species) < minValue
                   || GetSpeciesBST(species) > maxValue)

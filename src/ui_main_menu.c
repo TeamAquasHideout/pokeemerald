@@ -746,6 +746,8 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
     gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+    gSaveBlock2Ptr->modeBSTmin          = 0;
+    gSaveBlock2Ptr->modeBSTmax          = 0;
 
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
