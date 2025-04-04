@@ -241,6 +241,7 @@
 // - MOVE_DIVE                                            //
 // ****************************************************** //
 // Tutor moves found in "src/data/pokemon/tutor_moves.h": //
+// - MOVE_NONE                                            //
 // ****************************************************** //
 // Near-universal moves found in sUniversalMoves:         //
 // - MOVE_BIDE                                            //

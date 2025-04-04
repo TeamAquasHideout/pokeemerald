@@ -1203,7 +1203,7 @@ static bool8 DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(u8 slot)
         default:
             return FALSE;
         case 1: // TM/HM
-            DisplayPartyPokemonDataToTeachMove(slot, ItemIdToBattleMoveId(item));
+                DisplayPartyPokemonDataToTeachMove(slot, ItemIdToBattleMoveId(item));
             break;
         case 2: // Evolution stone
             if (!GetMonData(currentPokemon, MON_DATA_IS_EGG) && GetEvolutionTargetSpecies(currentPokemon, EVO_MODE_ITEM_CHECK, item, NULL) != SPECIES_NONE)
@@ -4975,8 +4975,6 @@ void Task_AbilityCapsule(u8 taskId)
     if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
         seededSpecies = GetSpeciesRandomSeeded(tSpecies);
 
-    //wiz1989
-
     switch (tState)
     {
     case 0:
@@ -5068,9 +5066,6 @@ void Task_AbilityPatch(u8 taskId)
     
     if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
         seededSpecies = GetSpeciesRandomSeeded(tSpecies);
-
-    //wiz1989
-    DebugPrintf("AP species = %S", gSpeciesInfo[seededSpecies].speciesName);
 
     switch (tState)
     {
@@ -5645,7 +5640,6 @@ void ItemUseCB_PPUp(u8 taskId, TaskFunc task)
     ShowMoveSelectWindow(gPartyMenu.slotId);
     gTasks[taskId].func = Task_HandleWhichMoveInput;
 }
-
 
 u16 ItemIdToBattleMoveIdRandom(u16 item)
 {
@@ -8120,11 +8114,11 @@ static void CB2_ChooseMonForMoveRelearner(void)
             case TUTOR_STATE_EGG_MOVES:
                 gSpecialVar_0x8005 = GetNumberOfEggMoves(&gPlayerParty[gSpecialVar_0x8004]);
                 break;
-#ifndef PIT_GEN_9_MODE    
+// #ifndef PIT_GEN_9_MODE    
             case TUTOR_STATE_TUTOR_MOVES:
                 gSpecialVar_0x8005 = GetNumberOfTutorMoves(&gPlayerParty[gSpecialVar_0x8004]);
                 break;
-#endif
+// #endif
             case TUTOR_STATE_PREEVO_MOVES:
                 gSpecialVar_0x8005 = GetPreEvoMoves(&gPlayerParty[gSpecialVar_0x8004], *dummyMoves, FALSE); //sMoveRelearnerStruct->movesToLearn
                 break;

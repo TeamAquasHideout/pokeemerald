@@ -944,15 +944,15 @@ static void CreateLearnableMovesList(void)
         case TUTOR_STATE_EGG_MOVES:
 			sMoveRelearnerStruct->numMenuChoices = GetEggMoveTutorMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn);
 		    break;
-#ifdef PIT_GEN_9_MODE
-        case TUTOR_STATE_TUTOR_MOVES:
-			sMoveRelearnerStruct->numMenuChoices = GetStaticTutorMoves(sMoveRelearnerStruct->movesToLearn);
-		    break;
-#else
+// #ifdef PIT_GEN_9_MODE
+        // case TUTOR_STATE_TUTOR_MOVES:
+		// 	sMoveRelearnerStruct->numMenuChoices = GetStaticTutorMoves(sMoveRelearnerStruct->movesToLearn);
+		//     break;
+// #else
         case TUTOR_STATE_TUTOR_MOVES:
 			sMoveRelearnerStruct->numMenuChoices = GetTutorMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn);
 		    break;
-#endif
+// #endif
         case TUTOR_STATE_PREEVO_MOVES:
             sMoveRelearnerStruct->numMenuChoices = GetPreEvoMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn, FALSE);
             break;
