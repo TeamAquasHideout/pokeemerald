@@ -842,7 +842,7 @@ u8 GetEggMovesBySpecies(u16 species, u16 *eggMoves)
     return numEggMoves;
 }
 
-u8 GetTutorMovesSpecies(u16 species, u16 *tutorMoves)
+u8 GetTutorMovesBySpecies(u16 species, u16 *tutorMoves)
 {
     u16 tutorMoveIdx;
     u16 numTutorMoves;
@@ -873,7 +873,7 @@ u8 GetTutorMovesSpecies(u16 species, u16 *tutorMoves)
             tutorMoves[i] = gTutorMoves[tutorMoveIdx + i];
         numTutorMoves++;
     }
-
+    
     return numTutorMoves;
 }
 

@@ -2295,7 +2295,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
     if (learnset[sLearningMoveTableID].level == level)
     {
         if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            gMoveToLearn = gRandomValidMoves[Random() % GetRandomValidMovesCount()];
+            gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species); //check wiz1989
         else
             gMoveToLearn = learnset[sLearningMoveTableID].move;
         sLearningMoveTableID++;
@@ -5943,7 +5943,7 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
     {
         species = GetSpeciesRandomSeeded(species + move);
         if(species % 4)
-            return FALSE; 
+        return FALSE;
         else
             return TRUE;
     }
@@ -6076,13 +6076,35 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
     for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            moves[numMoves++] = GetRandomMoveNotSeeded(learnset[i].move, species);
+            moves[numMoves++] = GetRandomMove(learnset[i].move, species);
         else
             moves[numMoves++] = learnset[i].move;
     }
-        
 
-     return numMoves;
+    return numMoves;
+}
+
+u8 GetTMHMMovesBySpecies(u16 species, u16 *TMHMMoves, u16 *TMHM_itemID)
+{
+    u16 TMHMMoveIdx = 0;
+    u16 numTMHMMoves = 0;
+    u16 i, j;
+    const u16 *learnset = GetSpeciesTeachableLearnset(species);
+
+    if (learnset == NULL || gSaveBlock2Ptr->randomMoves == OPTIONS_ON) //don't return TM data for random moves
+        return 0;
+
+    for (i = 0; learnset[i] != MOVE_UNAVAILABLE; i++)
+        numTMHMMoves++;
+
+    for (int move = 0; move < numTMHMMoves; move++)
+    {
+        if (learnset[move] == MOVE_UNAVAILABLE) //end of TM, HM list
+            break;
+        TMHMMoves[move] = learnset[move];
+    }
+
+    return numTMHMMoves;
 }
 
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
@@ -7155,10 +7177,10 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
     {
         while (learnset[sLearningMoveTableID].level == 0 || learnset[sLearningMoveTableID].level == level)
         {
-        
+            
             if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-                gMoveToLearn = GetRandomMoveNotSeeded(learnset[sLearningMoveTableID].move, species);
-            else
+                gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species);
+            else //check wiz1989
                 gMoveToLearn = learnset[sLearningMoveTableID].move;
 
             sLearningMoveTableID++;

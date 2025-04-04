@@ -14659,8 +14659,13 @@ const u16 gTutorMoves[] = {
         MOVE_SLEEP_TALK,
         MOVE_SNORE,
         MOVE_ZEN_HEADBUTT),
-#endif
 // END PIT_GEN_5
+#elif defined PIT_GEN_9_MODE
+// #### GEN 9 Tutor Moves #### // or better: Tutor moves from last appearance
+    tutor_moves(CHARIZARD,
+        MOVE_NONE), // Placeholder to fill out!!! wiz1989
+#endif // END PIT_GEN_9
+
 
     TUTOR_MOVES_TERMINATOR
 };
