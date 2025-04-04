@@ -551,7 +551,9 @@ static const u8 sText_Legends[]           = _("Lgnd");
 static const u8 sText_StatEdit[]           = _("Edit");
 static const u8 sText_Megas[]           = _("Mega");
 static const u8 sText_ModeColon[]           = _("Mode: ");
+static const u8 sText_6MonMode[]           = _("6Mon");
 static const u8 sText_3MonMode[]           = _("3Mon");
+static const u8 sText_1MonMode[]           = _("1Mon");
 static const u8 sText_SkipChoice[]           = _("Skip");
 
 static const u8 sText_EvoChoice_All[]           = _("Evo: All");
@@ -823,12 +825,20 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     
 
 
-	// 3 Mon Mode
+	// 3 Mon Mode / Party size
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeColon);
-    if(!gSaveBlock2Ptr->mode3MonsOnly)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
-	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+    switch (gSaveBlock2Ptr->mode3MonsOnly)
+    {
+    case PARTY_SIZE_6:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_6MonMode);
+        break;
+    case PARTY_SIZE_3:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+        break;
+    case PARTY_SIZE_1:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_1MonMode);
+        break;
+    }
     
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
 	// Skip Choice

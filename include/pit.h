@@ -120,6 +120,7 @@ struct RandomTrainerNPC
 
 #define MIN_BST 440
 #define MAX_BST 580
+#define BST_MAX 1000
 
 #define TRAINER_GIMMICKS_RANDOM 0
 #define TRAINER_GIMMICKS_PROGRESSIVE 1
