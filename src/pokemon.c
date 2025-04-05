@@ -6025,6 +6025,7 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+    u16 nextMove = MOVE_NONE;
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
 
@@ -6042,24 +6043,21 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 
         if (moveLevel <= level)
         {
-            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnset[i].move; j++)
+            if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
+                nextMove = GetRandomMove(learnset[i].move, species);
+            else
+                nextMove = learnset[i].move;
+
+            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != nextMove; j++)
                 ;
 
             if (j == MAX_MON_MOVES)
             {
-                for (k = 0; k < numMoves && moves[k] != learnset[i].move; k++)
+                for (k = 0; k < numMoves && moves[k] != nextMove; k++)
                     ;
-            
-                if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-                {
-                    if (k == numMoves)
-                        moves[numMoves++] = GetRandomMove(learnset[i].move, species);
-                }
-                else
-                {
-                    if (k == numMoves)
-                        moves[numMoves++] = learnset[i].move;
-                }
+                
+                if (k == numMoves)
+                    moves[numMoves++] = nextMove;
             }
         }
     }
