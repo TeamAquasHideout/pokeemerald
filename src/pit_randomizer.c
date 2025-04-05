@@ -2928,9 +2928,7 @@ u8 GetNumberOfEggMoves(struct Pokemon *mon)
     u16 learnedMoves[MAX_MON_MOVES];
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u16 firstStage = GetEggSpecies(species);
-    u8 numEggMoves = GetEggMovesBySpecies(firstStage, eggMoveBuffer);
-    //u16 moves[numEggMoves];
+    u8 numEggMoves = GetEggMovesBySpecies(species, eggMoveBuffer);
     int i, j;
     bool8 hasMonMove = FALSE;
 
@@ -2961,8 +2959,7 @@ u8 GetEggMoveTutorMoves(struct Pokemon *mon, u16 *moves)
     u8 numMoves = 0;
     u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u16 eggSpecies = GetEggSpecies(species);
-    u16 numEggMoves = GetEggMovesBySpecies(eggSpecies, eggMoveBuffer);
+    u16 numEggMoves = GetEggMovesBySpecies(species, eggMoveBuffer);
     int i, j;
     bool8 hasMonMove = FALSE;
 
