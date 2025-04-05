@@ -168,7 +168,7 @@ PitEntrance_ExecuteWarp:
 	end
 
 PitEntrance_Warp_1MonMode::
-	additem ITEM_RARE_CANDY, 3
+	additem ITEM_RARE_CANDY, 2
 	goto PitEntrance_Warp_CheckShinyDust
 
 PitEntrance_Sign_Luck:
