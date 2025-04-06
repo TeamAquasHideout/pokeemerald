@@ -1395,7 +1395,9 @@ u16 GetSpeciesRandomSeeded(u16 species)
     u16 seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     u8 i = 0;
 
-    while (seededSpecies == species)
+    //make sure to not roll similar species
+    while (GetAbilityBySpeciesNotRandom(seededSpecies, 0) == GetAbilityBySpeciesNotRandom(species, 0)
+      && GetAbilityBySpeciesNotRandom(seededSpecies, 1) == GetAbilityBySpeciesNotRandom(species, 1))
     {
         i++;
         seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species + i, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
@@ -3257,6 +3259,31 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
         }
     } while (reroll);
 
+    return gLastUsedAbility;
+}
+
+u16 GetAbilityBySpeciesNotRandom(u16 species, u8 abilityNum)
+{
+    int i;
+
+    if (abilityNum < NUM_ABILITY_SLOTS)
+        gLastUsedAbility = gSpeciesInfo[species].abilities[abilityNum];
+    else
+        gLastUsedAbility = ABILITY_NONE;
+
+    if (abilityNum >= NUM_NORMAL_ABILITY_SLOTS) // if abilityNum is empty hidden ability, look for other hidden abilities
+    {
+        for (i = NUM_NORMAL_ABILITY_SLOTS; i < NUM_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
+        {
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
+        }
+    }
+
+    for (i = 0; i < NUM_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++) // look for any non-empty ability
+    {
+        gLastUsedAbility = gSpeciesInfo[species].abilities[i];
+    }
+    
     return gLastUsedAbility;
 }
 
