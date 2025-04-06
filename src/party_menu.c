@@ -7993,7 +7993,12 @@ static void BufferMonSelection(void)
 {
     gSpecialVar_0x8004 = GetCursorSelectionMonId();
     if (gSpecialVar_0x8004 >= PARTY_SIZE)
+    {
         gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
+        VarSet(VAR_TEMP_F, VarGet(VAR_PIT_FLOOR)); //save level of chosen mon to temporary var
+    }
+    else 
+        VarSet(VAR_TEMP_F, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL));
     gFieldCallback2 = CB2_FadeFromPartyMenu;
     SetMainCallback2(CB2_ReturnToField);
 }
