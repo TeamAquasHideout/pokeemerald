@@ -516,6 +516,11 @@ static const u8 sText_Money1x[]          = _("¥: 1x");
 static const u8 sText_Money2x[]          = _("¥: 2x");
 static const u8 sText_Money12x[]          = _("¥: 0.5x");
 
+static const u8 sText_ItemDropRandom[]     = _("/Itm: X");
+static const u8 sText_ItemDrop1[]          = _("/Itm: 1");
+static const u8 sText_ItemDrop2[]          = _("/Itm: 2");
+static const u8 sText_ItemDrop3[]          = _("/Itm: 3");
+
 static const u8 sText_PitStp5x[]          = _("Shop: 5 fl.");
 static const u8 sText_PitStp10x[]          = _("Shop: 10 fl.");
 
@@ -696,11 +701,31 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
             break;
     }
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
-    if (gSaveBlock2Ptr->modeNoBagUse)
+    
+    // //Bag in battle
+    // if (gSaveBlock2Ptr->modeNoBagUse)
+    // {
+    //     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+    //     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_NoBag);
+    // }
+
+    //Item Drops
+    switch(gSaveBlock2Ptr->modeChoiceItemReward)
     {
-        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
-        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_NoBag);
+        case ITEM_DROPS_RAND:
+            modeText = sText_ItemDropRandom;
+            break;
+        case ITEM_DROPS_1:
+            modeText = sText_ItemDrop1;
+            break;
+        case ITEM_DROPS_2:
+            modeText = sText_ItemDrop2;
+            break;
+        case ITEM_DROPS_3:
+            modeText = sText_ItemDrop3;
+            break;
     }
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 33, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
 
 	// Pit Stop
     if(!gSaveBlock2Ptr->modeHealFloors10)
