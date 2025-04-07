@@ -564,6 +564,7 @@ static const u8 sText_TrainerMode_Random[]           = _("/Rand");
 static const u8 sText_TrainerMode_Prog[]           = _("/Prog");
 
 static const u8 sText_Slash[]           = _("/");
+static const u8 sText_Dot[]        = _(".");
 
 static const u8 sText_Type_All[]            = _("All");
 static const u8 sText_Type_Solo[]            = _("Type:");
@@ -846,7 +847,10 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
 	else
 		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
-    
+
+    // secret full Debug info
+    if(gSaveBlock2Ptr->modeDebug == DEBUG_FULL)
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Dot);    
 
 
 	// sText_Randomizer_Moves
