@@ -6307,27 +6307,28 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
             sPokedexView->sEvoScreenData.menuPos = pos;
         }
 
-        if (JOY_NEW(A_BUTTON))
-        {
-            u16 targetSpecies   = sPokedexView->sEvoScreenData.targetSpecies[sPokedexView->sEvoScreenData.menuPos];
-            u16 dexNum          = SpeciesToNationalPokedexNum(targetSpecies);
-            if (sPokedexView->isSearchResults && sPokedexView->originalSearchSelectionNum == 0)
-                sPokedexView->originalSearchSelectionNum = sPokedexListItem->dexNum;
+        // deactivated due to open expansion issue #6546
+        // if (JOY_NEW(A_BUTTON))
+        // {
+        //     u16 targetSpecies   = sPokedexView->sEvoScreenData.targetSpecies[sPokedexView->sEvoScreenData.menuPos];
+        //     u16 dexNum          = SpeciesToNationalPokedexNum(targetSpecies);
+        //     if (sPokedexView->isSearchResults && sPokedexView->originalSearchSelectionNum == 0)
+        //         sPokedexView->originalSearchSelectionNum = sPokedexListItem->dexNum;
                 
-            sPokedexListItem->dexNum = dexNum;
-            sPokedexListItem->seen   = GetSetPokedexFlag(dexNum, FLAG_GET_SEEN);
-            sPokedexListItem->owned  = GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
+        //     sPokedexListItem->dexNum = dexNum;
+        //     sPokedexListItem->seen   = GetSetPokedexFlag(dexNum, FLAG_GET_SEEN);
+        //     sPokedexListItem->owned  = GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
 
-                if (GetSpeciesFormTable(targetSpecies) != NULL)
-                    sPokedexView->formSpecies = targetSpecies;
-                else
-                    sPokedexView->formSpecies = 0;
+        //         if (GetSpeciesFormTable(targetSpecies) != NULL)
+        //             sPokedexView->formSpecies = targetSpecies;
+        //         else
+        //             sPokedexView->formSpecies = 0;
 
-            sPokedexView->sEvoScreenData.fromEvoPage = TRUE;
-            PlaySE(SE_PIN);
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            gTasks[taskId].func = Task_LoadInfoScreenWaitForFade;
-        }
+        //     sPokedexView->sEvoScreenData.fromEvoPage = TRUE;
+        //     PlaySE(SE_PIN);
+        //     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        //     gTasks[taskId].func = Task_LoadInfoScreenWaitForFade;
+        // }
     }
 
     //Exit to overview
