@@ -3124,7 +3124,11 @@ u8 GetPreEvoMoves(struct Pokemon *mon, u16 *moves, bool8 PreEvoCheckOnly)
                     {
                         if (PreEvoCheckOnly)
                             return TRUE;
-                        moves[numMoves++] = learnset[i].move;
+                        
+                        if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
+                            moves[numMoves++] = GetRandomMove(learnset[i].move, speciesOriginal);
+                        else
+                            moves[numMoves++] = learnset[i].move;
                     }
                 }
             }
