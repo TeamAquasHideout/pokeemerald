@@ -4460,7 +4460,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             break;
         case ABILITY_IMPOSTER:
         {
-            u32 diagonalBattler = BATTLE_PARTNER(BATTLE_OPPOSITE(battler));
+            u32 diagonalBattler = BATTLE_OPPOSITE(battler);
+                if (IsDoubleBattle())
+                    diagonalBattler = BATTLE_PARTNER(diagonalBattler);
             if (IsBattlerAlive(diagonalBattler)
                 && !(gBattleMons[diagonalBattler].status2 & (STATUS2_TRANSFORMED | STATUS2_SUBSTITUTE))
                 && !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
