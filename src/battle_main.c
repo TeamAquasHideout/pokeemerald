@@ -2179,13 +2179,13 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
                 else
                 {
-                    if (i == 0) // ### test snippet for forced test encounters
-                        CreateMon(&party[i], SPECIES_GOLISOPOD, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // if (i == 0) // ### test snippet for forced test encounters
+                    //     CreateMon(&party[i], SPECIES_GOLISOPOD, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 1)
                     //     CreateMon(&party[i], SPECIES_APPLETUN, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 2)
                     //     CreateMon(&party[i], SPECIES_BARRASKEWDA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    else // ### end test snippet
+                    // else // ### end test snippet
                     CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(TRAINER_MONS), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                 }
             }
