@@ -60,7 +60,8 @@ with open("./src/data/pokemon/tutor_moves.h", 'r') as file:
     elif gen_latest == 5:
         before_end = file.read().split("PIT_GEN_5")[1]
     else:
-        before_end = []
+        before_end = file.read().split("PIT_GEN_9")[1]
+        # before_end = []
     # only proceed if a file could be read
     if not before_end:
         print("No Tutor Moves available")
@@ -141,9 +142,10 @@ def construct_compatibility_dict(force_custom_check):
                 # for move in data[mon]['EggMoves']:
                 #     if not move in dict_out[mon]:
                 #         dict_out[mon].append(move)
-                for move in data[mon]['TutorMoves']:
-                    if not move in dict_out[mon]:
-                        dict_out[mon].append(move)
+                # for move in data[mon]['TutorMoves']:
+                #     if not move in dict_out[mon]:
+                #         dict_out[mon].append(move)
+                #         print("Tutor move %s - %s" % (mon, move))
 
     # if the file was not previously generated, check if there is custom data there that needs to be preserved
     with open("./src/data/pokemon/teachable_learnsets.h", 'r') as file:

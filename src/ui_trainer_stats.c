@@ -512,9 +512,14 @@ static const u8 sText_ExpNormal[]          = _("Exp: Normal");
 static const u8 sText_ExpHard[]            = _("Exp: Hard");
 static const u8 sText_ExpNone[]          = _("Exp: None");
 
-static const u8 sText_Money1x[]          = _("Money: 1x");
-static const u8 sText_Money2x[]          = _("Money: 2x");
-static const u8 sText_Money12x[]          = _("Money: 1/2x");
+static const u8 sText_Money1x[]          = _("¥: 1x");
+static const u8 sText_Money2x[]          = _("¥: 2x");
+static const u8 sText_Money12x[]          = _("¥: 0.5x");
+
+static const u8 sText_ItemDropRandom[]     = _("/Itm: X");
+static const u8 sText_ItemDrop1[]          = _("/Itm: 1");
+static const u8 sText_ItemDrop2[]          = _("/Itm: 2");
+static const u8 sText_ItemDrop3[]          = _("/Itm: 3");
 
 static const u8 sText_PitStp5x[]          = _("Shop: 5 fl.");
 static const u8 sText_PitStp10x[]          = _("Shop: 10 fl.");
@@ -551,7 +556,9 @@ static const u8 sText_Legends[]           = _("Lgnd");
 static const u8 sText_StatEdit[]           = _("Edit");
 static const u8 sText_Megas[]           = _("Mega");
 static const u8 sText_ModeColon[]           = _("Mode: ");
+static const u8 sText_6MonMode[]           = _("6Mon");
 static const u8 sText_3MonMode[]           = _("3Mon");
+static const u8 sText_1MonMode[]           = _("1Mon");
 static const u8 sText_SkipChoice[]           = _("Skip");
 
 static const u8 sText_EvoChoice_All[]           = _("Evo: All");
@@ -562,9 +569,16 @@ static const u8 sText_TrainerMode_Random[]           = _("/Rand");
 static const u8 sText_TrainerMode_Prog[]           = _("/Prog");
 
 static const u8 sText_Slash[]           = _("/");
+static const u8 sText_Dot[]        = _(".");
 
 static const u8 sText_Type_All[]            = _("All");
 static const u8 sText_Type_Solo[]            = _("Type:");
+
+static const u8 sText_BST[]            = _("BST:");
+static const u8 sText_BST_All[]        = _("All");
+static const u8 sText_Plus[]           = _("+");
+
+static const u8 sText_NoBag[]            = _("No Bag");
 
 #define SETTINGS_X_POS 20
 #define SETTINGS2_X_POSITION 88
@@ -585,13 +599,13 @@ static const u8 sText_Type_Solo[]            = _("Type:");
 static const u8 sWinMarkerGfx[]         = INCBIN_U8("graphics/ui_main_menu/star.4bpp");
 
 #ifdef PIT_GEN_3_MODE
-const u8 gText_VersionText[] = _("v2.3.2 Gen3");
+const u8 gText_VersionText[] = _("v2.4.0 Gen3");
 #endif
 #ifdef PIT_GEN_5_MODE
-const u8 gText_VersionText[] = _("v2.3.2 Gen5");
+const u8 gText_VersionText[] = _("v2.4.0 Gen5");
 #endif
 #ifdef PIT_GEN_9_MODE
-const u8 gText_VersionText[] = _("v2.3.2 Gen9");
+const u8 gText_VersionText[] = _("v2.4.0 Gen9");
 #endif
 
 static void PrintToWindow(u8 windowId, u8 colorIdx)
@@ -687,6 +701,31 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
             break;
     }
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
+    
+    // //Bag in battle
+    // if (gSaveBlock2Ptr->modeNoBagUse)
+    // {
+    //     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+    //     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 29 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, sText_NoBag);
+    // }
+
+    //Item Drops
+    switch(gSaveBlock2Ptr->modeChoiceItemReward)
+    {
+        case ITEM_DROPS_RAND:
+            modeText = sText_ItemDropRandom;
+            break;
+        case ITEM_DROPS_1:
+            modeText = sText_ItemDrop1;
+            break;
+        case ITEM_DROPS_2:
+            modeText = sText_ItemDrop2;
+            break;
+        case ITEM_DROPS_3:
+            modeText = sText_ItemDrop3;
+            break;
+    }
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS_X_POS + 33, SETTINGS_Y_START_POS + (SETTINGS_Y_DIFFERENCE * 2), 0, 0, colors2, TEXT_SKIP_DRAW, modeText);
 
 	// Pit Stop
     if(!gSaveBlock2Ptr->modeHealFloors10)
@@ -785,21 +824,47 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     if(gSaveBlock2Ptr->modeMonoType != TYPE_NONE)
     {
         AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Type_Solo);
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, gTypesInfo[gSaveBlock2Ptr->modeMonoType].name);
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, gTypesInfo[gSaveBlock2Ptr->modeMonoType].name_code);
     }
 	else
     {
         AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Type_Solo);
     	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 25, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_Type_All);
     }
-		
+    // BST in same line
+    static u8 stringBST[4];
+	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 22 + 18, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
+    AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 22 + 18 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, colors2, TEXT_SKIP_DRAW, sText_BST);
+    if (gSaveBlock2Ptr->modeBSTmin != 0 && gSaveBlock2Ptr->modeBSTmax == 0)
+    {
+        ConvertIntToDecimalStringN(stringBST, gSaveBlock2Ptr->modeBSTmin, STR_CONV_MODE_LEFT_ALIGN, 3);
+        StringAppend(stringBST, sText_Plus);
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 22 + 18 + 6 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, stringBST);
+    }
+    else if (gSaveBlock2Ptr->modeBSTmax != 0)
+    {
+        ConvertIntToDecimalStringN(stringBST, gSaveBlock2Ptr->modeBSTmax, STR_CONV_MODE_LEFT_ALIGN, 3);
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 22 + 18 + 6 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, green_colors, TEXT_SKIP_DRAW, stringBST);
+    }
+    else
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 22 + 18 + 6 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 3), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_BST_All);
+    
 
-	// 3 Mon Mode
+
+	// 3 Mon Mode / Party size
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_ModeColon);
-    if(!gSaveBlock2Ptr->mode3MonsOnly)
-    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
-	else
-		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+    switch (gSaveBlock2Ptr->mode3MonsOnly)
+    {
+    case PARTY_SIZE_6:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_6MonMode);
+        break;
+    case PARTY_SIZE_3:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_3MonMode);
+        break;
+    case PARTY_SIZE_1:
+        AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_1MonMode);
+        break;
+    }
     
     AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 20 + 6 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Slash);
 	// Skip Choice
@@ -807,7 +872,10 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, green_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
 	else
 		AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, red_colors, TEXT_SKIP_DRAW, sText_SkipChoice);
-    
+
+    // secret full Debug info
+    if(gSaveBlock2Ptr->modeDebug == DEBUG_FULL)
+    	AddTextPrinterParameterized4(WINDOW_MIDDLE, FONT_SMALL_NARROW, SETTINGS2_X_POSITION + 12 + 20 + 5 + 16 + 20, SETTINGS_Y_START_POS + (SETTINGS2_Y_DIFFERENCE * 4), 0, 0, colors2, TEXT_SKIP_DRAW, sText_Dot);    
 
 
 	// sText_Randomizer_Moves

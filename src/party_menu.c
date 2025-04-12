@@ -1203,7 +1203,7 @@ static bool8 DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(u8 slot)
         default:
             return FALSE;
         case 1: // TM/HM
-            DisplayPartyPokemonDataToTeachMove(slot, ItemIdToBattleMoveId(item));
+                DisplayPartyPokemonDataToTeachMove(slot, ItemIdToBattleMoveId(item));
             break;
         case 2: // Evolution stone
             if (!GetMonData(currentPokemon, MON_DATA_IS_EGG) && GetEvolutionTargetSpecies(currentPokemon, EVO_MODE_ITEM_CHECK, item, NULL) != SPECIES_NONE)
@@ -4970,15 +4970,19 @@ void Task_AbilityCapsule(u8 taskId)
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16 *data = gTasks[taskId].data;
+    u16 seededSpecies = tSpecies;
+    
+    if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
+        seededSpecies = GetSpeciesRandomSeeded(tSpecies);
 
     switch (tState)
     {
     case 0:
         // Can't use.
-        if (gSpeciesInfo[tSpecies].abilities[0] == gSpeciesInfo[tSpecies].abilities[1]
-            || gSpeciesInfo[tSpecies].abilities[1] == 0
+        if (gSpeciesInfo[seededSpecies].abilities[0] == gSpeciesInfo[seededSpecies].abilities[1]
+            || gSpeciesInfo[seededSpecies].abilities[1] == 0
             || tAbilityNum > 1
-            || !tSpecies)
+            || !seededSpecies)
         {
             gPartyMenuUseExitCallback = FALSE;
             PlaySE(SE_SELECT);
@@ -5058,13 +5062,17 @@ void Task_AbilityPatch(u8 taskId)
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
     static const u8 doneText[] = _("{STR_VAR_1}'s ability became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
     s16 *data = gTasks[taskId].data;
+    u16 seededSpecies = tSpecies;
+    
+    if (gSaveBlock2Ptr->randomAbilities == OPTIONS_ON)
+        seededSpecies = GetSpeciesRandomSeeded(tSpecies);
 
     switch (tState)
     {
     case 0:
         // Can't use.
-        if (gSpeciesInfo[tSpecies].abilities[tAbilityNum] == 0
-            || !tSpecies
+        if (gSpeciesInfo[seededSpecies].abilities[tAbilityNum] == 0
+            || !seededSpecies
             )
         {
             gPartyMenuUseExitCallback = FALSE;
@@ -5633,7 +5641,6 @@ void ItemUseCB_PPUp(u8 taskId, TaskFunc task)
     gTasks[taskId].func = Task_HandleWhichMoveInput;
 }
 
-
 u16 ItemIdToBattleMoveIdRandom(u16 item)
 {
     u16 moveID = 0;
@@ -5756,10 +5763,8 @@ static void Task_DoLearnedMoveFanfareAfterText(u8 taskId)
     if (IsPartyMenuTextPrinterActive() != TRUE)
     {
         //deduct money if a tutor move was taught
-#ifdef PIT_GEN_9_MODE
         if(VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_TUTOR_MOVES)
-            RemoveMoney(&gSaveBlock1Ptr->money, 10000);
-#endif
+            RemoveMoney(&gSaveBlock1Ptr->money, 8000);
         PlayFanfare(MUS_LEVEL_UP);
         gTasks[taskId].func = Task_LearnNextMoveOrClosePartyMenu;
     }
@@ -7988,7 +7993,12 @@ static void BufferMonSelection(void)
 {
     gSpecialVar_0x8004 = GetCursorSelectionMonId();
     if (gSpecialVar_0x8004 >= PARTY_SIZE)
+    {
         gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
+        VarSet(VAR_TEMP_F, VarGet(VAR_PIT_FLOOR)); //save level of chosen mon to temporary var
+    }
+    else 
+        VarSet(VAR_TEMP_F, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_LEVEL));
     gFieldCallback2 = CB2_FadeFromPartyMenu;
     SetMainCallback2(CB2_ReturnToField);
 }
@@ -8107,11 +8117,11 @@ static void CB2_ChooseMonForMoveRelearner(void)
             case TUTOR_STATE_EGG_MOVES:
                 gSpecialVar_0x8005 = GetNumberOfEggMoves(&gPlayerParty[gSpecialVar_0x8004]);
                 break;
-#ifndef PIT_GEN_9_MODE    
+// #ifndef PIT_GEN_9_MODE    
             case TUTOR_STATE_TUTOR_MOVES:
                 gSpecialVar_0x8005 = GetNumberOfTutorMoves(&gPlayerParty[gSpecialVar_0x8004]);
                 break;
-#endif
+// #endif
             case TUTOR_STATE_PREEVO_MOVES:
                 gSpecialVar_0x8005 = GetPreEvoMoves(&gPlayerParty[gSpecialVar_0x8004], *dummyMoves, FALSE); //sMoveRelearnerStruct->movesToLearn
                 break;

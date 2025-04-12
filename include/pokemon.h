@@ -6,6 +6,7 @@
 #include "constants/region_map_sections.h"
 #include "constants/map_groups.h"
 #include "contest_effect.h"
+#include "constants/moves.h"
 
 #define GET_BASE_SPECIES_ID(speciesId) (GetFormSpeciesId(speciesId, 0))
 #define FORM_SPECIES_END (0xffff)
@@ -700,6 +701,19 @@ extern const u32 sExpCandyExperienceTable[];
 extern const struct Ability gAbilitiesInfo[];
 extern const struct NatureInfo gNaturesInfo[];
 
+static inline u32 SanitizeMoveId(u32 moveId)
+{
+    if (moveId >= MOVES_COUNT_ALL)
+        return MOVE_NONE;
+    else
+        return moveId;
+}
+
+static inline u32 GetMoveEffect(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].effect;
+}
+
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
 void ZeroPlayerPartyMons(void);
@@ -782,6 +796,7 @@ u16 GetSpeciesWeight(u16 species);
 const struct LevelUpMove *GetSpeciesLevelUpLearnset(u16 species);
 const u16 *GetSpeciesTeachableLearnset(u16 species);
 const u16 *GetSpeciesEggMoves(u16 species);
+u16 GetSpeciesBST(u16 species);
 const struct Evolution *GetSpeciesEvolutions(u16 species);
 const u16 *GetSpeciesFormTable(u16 species);
 const struct FormChange *GetSpeciesFormChanges(u16 species);
@@ -824,6 +839,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon);
 u8 CanLearnTeachableMove(u16 species, u16 move);
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves);
 u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves);
+u8 GetTMHMMovesBySpecies(u16 species, u16 *TMHMMoves, u16 *TMHM_itemID);
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon);
 u16 SpeciesToPokedexNum(u16 species);
 bool32 IsSpeciesInHoennDex(u16 species);
@@ -913,6 +929,7 @@ u16 GetAverageEVsFromParty(void);
 void ForceIncrementMonLevel(struct Pokemon *mon);
 u16 GetRandomValidMovesCount(void);
 u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum);
+u16 GetAbilityBySpeciesNotRandom(u16 species, u8 abilityNum);
 extern const u16 gRandomValidMoves[];
 bool8 hasMultipleGenders (u16 species);
 bool8 PartyMonHasGigantamaxFactor(u32 partyIndex);

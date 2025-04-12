@@ -506,6 +506,7 @@ static const struct BitfieldInfo sAIBitfield[] =
 static const struct ListMenuItem sMainListItems[] =
 {
     {sText_Moves, LIST_ITEM_MOVES},
+#if DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
     {sText_Ability, LIST_ITEM_ABILITY},
     {sText_HeldItem, LIST_ITEM_HELD_ITEM},
     {sText_PP, LIST_ITEM_PP},
@@ -522,6 +523,7 @@ static const struct ListMenuItem sMainListItems[] =
     {sText_AiKnowledge, LIST_ITEM_AI_INFO},
     {sText_AiParty, LIST_ITEM_AI_PARTY},
     {sText_Various, LIST_ITEM_VARIOUS},
+#endif
 };
 
 static const struct ListMenuItem sStatsListItems[] =
@@ -670,10 +672,10 @@ static const struct ListMenuItem sSecondaryListItems[] =
 
 static const struct ListMenuTemplate sMainListTemplate =
 {
-    .items = sMainListItems,
+    .items = NULL,
     .moveCursorFunc = NULL,
     .itemPrintFunc = NULL,
-    .totalItems = ARRAY_COUNT(sMainListItems),
+    .totalItems = 0,
     .maxShowed = 6,
     .windowId = 0,
     .header_X = 0,
@@ -800,6 +802,7 @@ static const bool8 sHasChangeableEntries[LIST_ITEM_COUNT] =
     [LIST_ITEM_ABILITY] = TRUE,
     [LIST_ITEM_TYPES] = TRUE,
     [LIST_ITEM_HELD_ITEM] = TRUE,
+    [LIST_ITEM_STATS] = TRUE,
     [LIST_ITEM_STAT_STAGES] = TRUE,
 };
 
@@ -822,6 +825,7 @@ static u8 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus,
 static bool32 TryMoveDigit(struct BattleDebugModifyArrows *modArrows, bool32 moveUp);
 static void SwitchToDebugView(u8 taskId);
 static void SwitchToDebugViewFromAiParty(u8 taskId);
+static void SetOptionListTemplate(void);
 
 // code
 static struct BattleDebugMenu *GetStructPtr(u8 taskId)
@@ -906,7 +910,8 @@ void CB2_BattleDebugMenu(void)
 
         data->mainListWindowId = AddWindow(&sMainListWindowTemplate);
 
-        gMultiuseListMenuTemplate = sMainListTemplate;
+        SetOptionListTemplate();
+        //gMultiuseListMenuTemplate = sMainListTemplate;
         gMultiuseListMenuTemplate.windowId = data->mainListWindowId;
         data->mainListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
 
@@ -1402,7 +1407,9 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             data->activeWindow = ACTIVE_WIN_MAIN;
             data->secondaryListTaskId = 0xFF;
         }
-        else if (listItemId != LIST_NOTHING_CHOSEN)
+        else if (listItemId != LIST_NOTHING_CHOSEN
+          && DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
+          && gSaveBlock2Ptr->modeDebug == DEBUG_FULL)
         {
             data->currentSecondaryListItemId = listItemId;
             data->modifyWindowId = AddWindow(&sModifyWindowTemplate);
@@ -1542,7 +1549,6 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         itemsCount = 4;
         break;
     case LIST_ITEM_STATS:
-        listTemplate.items = sStatsListItems;
         itemsCount = ARRAY_COUNT(sStatsListItems);
         break;
     case LIST_ITEM_STAT_STAGES:
@@ -1642,10 +1648,35 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
     switch (data->currentMainListItemId)
     {
     case LIST_ITEM_MOVES:
-    case LIST_ITEM_PP:
         for (i = 0; i < 4; i++)
         {
             PadString(GetMoveName(gBattleMons[data->battlerId].moves[i]), text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        // Allow changing all moves at once. Useful for testing in wild doubles.
+        if (data->currentMainListItemId == LIST_ITEM_MOVES)
+        {
+            PadString(sTextAll, text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        break;
+    case LIST_ITEM_PP:
+        for (i = 0; i < 4; i++)
+        {
+            u8 stringValue[5];
+            
+            StringCopy(text, GetMoveName(gBattleMons[data->battlerId].moves[i]));
+            StringAppend(text, gText_Space);
+            
+            ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].pp[i], STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+            StringAppend(text, gText_Slash);
+            ConvertIntToDecimalStringN(stringValue, gMovesInfo[gBattleMons[data->battlerId].moves[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+
+            PadString(text, text);
             printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
             AddTextPrinter(&printer, 0, NULL);
         }
@@ -1673,6 +1704,27 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
             u8 *types = &gBattleMons[data->battlerId].types[0];
 
             PadString(gTypesInfo[types[i]].name, text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        break;
+    case LIST_ITEM_STATS:
+        for (i = 0; i < ARRAY_COUNT(sStatsListItems); i++)
+        {
+            u8 stringValue[5];
+            
+            StringCopy(text, sStatsListItems[i].name);
+            StringAppend(text, gText_Space);
+            
+            if (i == LIST_STAT_HP_CURRENT)
+                ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].hp, STR_CONV_MODE_LEFT_ALIGN, 4);
+            else if (i == LIST_STAT_HP_MAX)
+                ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].maxHP, STR_CONV_MODE_LEFT_ALIGN, 4);
+            else
+                ConvertIntToDecimalStringN(stringValue, *(u16 *)((&gBattleMons[data->battlerId].attack) + (i - 2)), STR_CONV_MODE_LEFT_ALIGN, 4);
+
+            StringAppend(text, stringValue);
+            PadString(text, text);
             printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
             AddTextPrinter(&printer, 0, NULL);
         }
@@ -2593,4 +2645,47 @@ static const u8 *GetHoldEffectName(u16 holdEffect)
     if (holdEffect > ARRAY_COUNT(sHoldEffectNames))
         return sHoldEffectNames[0];
     return sHoldEffectNames[holdEffect];
+}
+
+static void SetOptionListTemplate(void)
+{
+    u16 i;
+    u16 itemsCount;
+
+    //dynamically create list items
+    if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_DATA)
+        itemsCount = 6;
+    else if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_MOVES)
+        itemsCount = 1;
+    else
+        itemsCount = ARRAY_COUNT(sMainListItems);
+    
+    struct ListMenuItem *debugListItems = Alloc(itemsCount * sizeof(struct ListMenuItem));
+
+    for (i = 0; i < itemsCount; i++)
+    {
+        debugListItems[i].name = sMainListItems[i].name;
+        debugListItems[i].id = i;
+    }
+
+    //special selection for DEBUG_DISP_DATA
+    if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_DATA)
+    {
+        debugListItems[0].name = sText_Moves;
+        debugListItems[0].id = LIST_ITEM_MOVES;
+        debugListItems[1].name = sText_Ability;
+        debugListItems[1].id = LIST_ITEM_ABILITY;
+        debugListItems[2].name = sText_HeldItem;
+        debugListItems[2].id = LIST_ITEM_HELD_ITEM;
+        debugListItems[3].name = sText_Stats;
+        debugListItems[3].id = LIST_ITEM_STATS;
+        debugListItems[4].name = sText_StatStages;
+        debugListItems[4].id = LIST_ITEM_STAT_STAGES;
+        debugListItems[5].name = sText_PP;
+        debugListItems[5].id = LIST_ITEM_PP;
+    }
+
+    gMultiuseListMenuTemplate = sMainListTemplate;
+    gMultiuseListMenuTemplate.totalItems = itemsCount;
+    gMultiuseListMenuTemplate.items = debugListItems;
 }

@@ -943,7 +943,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
         PrintTitleToWindowMainState();
         return;
     }
-    if (JOY_NEW(DPAD_LEFT))
+    if (JOY_NEW(DPAD_LEFT) || JOY_HELD(DPAD_LEFT))
     {
         PlaySE(SE_SELECT);
         if(sMenuDataPtr->selector_x == 0)
@@ -980,7 +980,7 @@ static void Task_MenuEditingStat(u8 taskId) // This function should be refactore
         }
         
     }
-    if (JOY_NEW(DPAD_RIGHT))
+    if (JOY_NEW(DPAD_RIGHT) || JOY_HELD(DPAD_RIGHT))
     {
         PlaySE(SE_SELECT);
         if(sMenuDataPtr->selector_x == 0)

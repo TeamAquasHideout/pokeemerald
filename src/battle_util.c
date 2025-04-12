@@ -411,8 +411,6 @@ void HandleAction_Switch(void)
     if (gBattleResults.playerSwitchesCounter < 255)
         gBattleResults.playerSwitchesCounter++;
 
-    if (GetActiveGimmick(gBattlerAttacker) == GIMMICK_DYNAMAX)
-        UndoDynamax(gBattlerAttacker); // this is better performed here instead of SwitchInClearSetData
     TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_SWITCH);
 }
 
@@ -4461,17 +4459,22 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             }
             break;
         case ABILITY_IMPOSTER:
-            if (IsBattlerAlive(BATTLE_OPPOSITE(battler))
-                && !(gBattleMons[BATTLE_OPPOSITE(battler)].status2 & (STATUS2_TRANSFORMED | STATUS2_SUBSTITUTE))
+        {
+            u32 diagonalBattler = BATTLE_OPPOSITE(battler);
+                if (IsDoubleBattle())
+                    diagonalBattler = BATTLE_PARTNER(diagonalBattler);
+            if (IsBattlerAlive(diagonalBattler)
+                && !(gBattleMons[diagonalBattler].status2 & (STATUS2_TRANSFORMED | STATUS2_SUBSTITUTE))
                 && !(gBattleMons[battler].status2 & STATUS2_TRANSFORMED)
-                && !(gBattleStruct->illusion[BATTLE_OPPOSITE(battler)].on)
-                && !(gStatuses3[BATTLE_OPPOSITE(battler)] & STATUS3_SEMI_INVULNERABLE_NO_COMMANDER))
+                && !(gBattleStruct->illusion[diagonalBattler].on)
+                && !(gStatuses3[diagonalBattler] & STATUS3_SEMI_INVULNERABLE_NO_COMMANDER))
             {
                 gBattlerAttacker = battler;
-                gBattlerTarget = BATTLE_OPPOSITE(battler);
+                gBattlerTarget = diagonalBattler;
                 BattleScriptPushCursorAndCallback(BattleScript_ImposterActivates);
                 effect++;
             }
+        }
             break;
         case ABILITY_MOLD_BREAKER:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
@@ -11418,7 +11421,11 @@ bool32 CanStealItem(u32 battlerStealing, u32 battlerItem, u16 item)
     {
         return FALSE;
     }
-    else if (stealerSide == B_SIDE_PLAYER && GetBattlerSide(gBattlerTarget) == stealerSide) //don't allow stealing from your own partner as it can be used to multiply items
+    else if (IsDoubleBattle() && stealerSide == B_SIDE_PLAYER && GetBattlerSide(battlerItem) == stealerSide) //don't allow stealing from your own partner as it can be used to multiply items
+        return FALSE;
+    
+    // It's supposed to pop before trying to steal but this also works
+    if (ItemId_GetHoldEffect(item) == HOLD_EFFECT_AIR_BALLOON)
         return FALSE;
 
     if (!CanBattlerGetOrLoseItem(battlerItem, item)      // Battler with item cannot have it stolen

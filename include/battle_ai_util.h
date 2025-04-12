@@ -15,6 +15,13 @@ enum DamageRollType
     DMG_ROLL_HIGHEST,
 };
 
+static inline bool32 IsMoveUnusable(u32 moveIndex, u32 move, u32 moveLimitations)
+{
+    return move == MOVE_NONE
+        || move == MOVE_UNAVAILABLE
+        || moveLimitations & 1u << moveIndex;
+}
+
 bool32 AI_IsFaster(u32 battlerAi, u32 battlerDef, u32 move);
 bool32 AI_IsSlower(u32 battlerAi, u32 battlerDef, u32 move);
 bool32 AI_RandLessThan(u32 val);
@@ -64,7 +71,7 @@ u32 GetBattlerSideSpeedAverage(u32 battler);
 bool32 ShouldAbsorb(u32 battlerAtk, u32 battlerDef, u32 move, s32 damage);
 bool32 ShouldRecover(u32 battlerAtk, u32 battlerDef, u32 move, u32 healPercent);
 bool32 ShouldSetScreen(u32 battlerAtk, u32 battlerDef, u32 moveEffect);
-bool32 ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 moveIndex);
+bool32 ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbility, u32 move, u32 moveIndex);
 bool32 IsRecycleEncouragedItem(u32 item);
 bool32 ShouldRestoreHpBerry(u32 battlerAtk, u32 item);
 bool32 IsStatBoostingBerry(u32 item);
@@ -146,6 +153,7 @@ bool32 HasSubstituteIgnoringMove(u32 battler);
 bool32 HasHighCritRatioMove(u32 battler);
 bool32 HasMagicCoatAffectedMove(u32 battler);
 bool32 HasSnatchAffectedMove(u32 battler);
+bool32 IsSwitchOutEffect(u32 effect);
 
 // status checks
 bool32 AI_CanGetFrostbite(u32 battler, u32 ability);
@@ -185,6 +193,7 @@ bool32 ShouldUseWishAromatherapy(u32 battlerAtk, u32 battlerDef, u32 move);
 struct BattlePokemon *AllocSaveBattleMons(void);
 void FreeRestoreBattleMons(struct BattlePokemon *savedBattleMons);
 s32 CountUsablePartyMons(u32 battlerId);
+s32 CountUsablePartyMonsWithoutAce(u32 battlerId);
 bool32 IsPartyFullyHealedExceptBattler(u32 battler);
 bool32 PartyHasMoveCategory(u32 battlerId, u32 category);
 bool32 SideHasMoveCategory(u32 battlerId, u32 category);
@@ -205,5 +214,6 @@ bool32 AI_ShouldCopyStatChanges(u32 battlerAtk, u32 battlerDef);
 bool32 AI_ShouldSetUpHazards(u32 battlerAtk, u32 battlerDef, struct AiLogicData *aiData);
 void IncreaseTidyUpScore(u32 battlerAtk, u32 battlerDef, u32 move, s32 *score);
 bool32 AI_ShouldSpicyExtract(u32 battlerAtk, u32 battlerAtkPartner, u32 move, struct AiLogicData *aiData);
+bool32 HasViableAIScore(u32 move, u32 battlerAtk, u32 battlerDef, u16 minimumScore);
 
 #endif //GUARD_BATTLE_AI_UTIL_H

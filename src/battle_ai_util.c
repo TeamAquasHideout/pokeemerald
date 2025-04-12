@@ -764,7 +764,7 @@ static bool32 AI_IsMoveEffectInPlus(u32 battlerAtk, u32 battlerDef, u32 move, s3
     switch (gMovesInfo[move].effect)
     {
     case EFFECT_HIT_ESCAPE:
-        if (CountUsablePartyMons(battlerAtk) != 0 && ShouldPivot(battlerAtk, battlerDef, abilityDef, move, AI_THINKING_STRUCT->movesetIndex))
+        if (CountUsablePartyMons(battlerAtk) != 0 && ShouldPivot(battlerAtk, battlerDef, abilityAtk, abilityDef, move, AI_THINKING_STRUCT->movesetIndex))
             return TRUE;
         break;
     case EFFECT_FELL_STINGER:
@@ -1235,22 +1235,30 @@ bool32 CanTargetMoveFaintAi(u32 move, u32 battlerDef, u32 battlerAtk, u32 nHits)
 // Check if target has means to faint ai mon after modding hp/dmg
 bool32 CanTargetFaintAiWithMod(u32 battlerDef, u32 battlerAtk, s32 hpMod, s32 dmgMod)
 {
-    u32 i;
-    u32 unusable = AI_DATA->moveLimitations[battlerDef];
-    s32 dmg;
-    u16 *moves = gBattleResources->battleHistory->usedMoves[battlerDef];
+    u32 moveIndex;
+    s32 dmg = 0;
+    u16 *moves = GetMovesArray(battlerDef);
     u32 hpCheck = gBattleMons[battlerAtk].hp + hpMod;
+    u32 moveLimitations = AI_DATA->moveLimitations[battlerAtk];
 
     if (hpCheck > gBattleMons[battlerAtk].maxHP)
         hpCheck = gBattleMons[battlerAtk].maxHP;
 
-    for (i = 0; i < MAX_MON_MOVES; i++)
+    for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
     {
-        dmg = AI_DATA->simulatedDmg[battlerAtk][battlerDef][i].expected;
+        if (IsMoveUnusable(moveIndex, moves[moveIndex], moveLimitations))
+            continue;
+        
+        dmg = AI_DATA->simulatedDmg[battlerDef][battlerAtk][moveIndex].expected;
+        
         if (dmgMod)
             dmg *= dmgMod;
 
-        if (moves[i] != MOVE_NONE && moves[i] != MOVE_UNAVAILABLE && !(unusable & gBitTable[i]) && dmg >= hpCheck)
+        // DebugPrintf("Can %S be fainted?", gSpeciesInfo[GetMonData(&gEnemyParty[gBattlerPartyIndexes[battlerAtk]], MON_DATA_SPECIES, NULL)].speciesName);
+        // DebugPrintf("checked HP amount: %d", hpCheck);
+        // DebugPrintf("%S does %d damage", gMovesInfo[moves[moveIndex]].name, dmg);
+
+        if (dmg >= hpCheck)
         {
             return TRUE;
         }
@@ -2366,6 +2374,25 @@ bool32 HasSnatchAffectedMove(u32 battler)
     CHECK_MOVE_FLAG(snatchAffected);
 }
 
+bool32 IsSwitchOutEffect(u32 effect)
+{
+    // Switch out effects like U-Turn, Volt Switch, etc.
+    switch (effect)
+    {
+    case EFFECT_HIT_ESCAPE:
+    case EFFECT_PARTING_SHOT:
+    case EFFECT_BATON_PASS:
+    case EFFECT_CHILLY_RECEPTION:
+    case EFFECT_SHED_TAIL:
+        return TRUE;
+    case EFFECT_TELEPORT:
+        if (B_TELEPORT_BEHAVIOR >= GEN_8)
+            return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 bool32 IsTwoTurnNotSemiInvulnerableMove(u32 battlerAtk, u32 move)
 {
     switch (gMovesInfo[move].effect)
@@ -2634,7 +2661,7 @@ enum {
     CAN_TRY_PIVOT,
     PIVOT,
 };
-bool32 ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32 moveIndex)
+bool32 ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 atkAbility, u32 defAbility, u32 move, u32 moveIndex)
 {
     bool32 hasStatBoost = AnyUsefulStatIsRaised(battlerAtk) || gBattleMons[battlerDef].statStages[STAT_EVASION] >= 9; //Significant boost in evasion for any class
     bool32 shouldSwitch;
@@ -2642,6 +2669,12 @@ bool32 ShouldPivot(u32 battlerAtk, u32 battlerDef, u32 defAbility, u32 move, u32
 
     shouldSwitch = ShouldSwitch(battlerAtk, FALSE);
     battlerToSwitch = gBattleStruct->AI_monToSwitchIntoId[battlerAtk];
+
+    // Palafin has a unique playstyle where it should pivot as soon as possible no matter what in order to transform. It can ignore any other checks to achieve this.
+    if (gBattleMons[battlerAtk].species == SPECIES_PALAFIN_ZERO
+        && atkAbility == ABILITY_ZERO_TO_HERO
+        && CountUsablePartyMons(battlerAtk) != 0)
+        return PIVOT;
 
     if (PartyBattlerShouldAvoidHazards(battlerAtk, battlerToSwitch))
         return DONT_PIVOT;
@@ -3479,6 +3512,43 @@ s32 CountUsablePartyMons(u32 battlerId)
     return ret;
 }
 
+s32 CountUsablePartyMonsWithoutAce(u32 battlerId)
+{
+    s32 battlerOnField1, battlerOnField2, i, ret;
+    struct Pokemon *party;
+
+    if (GetBattlerSide(battlerId) == B_SIDE_PLAYER)
+        party = gPlayerParty;
+    else
+        party = gEnemyParty;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battlerId)))];
+    }
+    else // In singles there's only one battlerId by side.
+    {
+        battlerOnField1 = gBattlerPartyIndexes[battlerId];
+        battlerOnField2 = gBattlerPartyIndexes[battlerId];
+    }
+
+    ret = 0;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (i != battlerOnField1 && i != battlerOnField2
+         && GetMonData(&party[i], MON_DATA_HP) != 0
+         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+         && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG
+         && !IsAceMon(battlerId, i))
+        {
+            ret++;
+        }
+    }
+
+    return ret;
+}
+
 bool32 IsPartyFullyHealedExceptBattler(u32 battlerId)
 {
     struct Pokemon *party;
@@ -3655,7 +3725,7 @@ static u32 IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, u32 statI
         }
         break;
     case STAT_CHANGE_SPEED:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (!aiIsFaster && (noOfHitsToFaint >= 3 || noOfHitsToFaint == UNKNOWN_NO_OF_HITS))
             tempScore += DECENT_EFFECT;
         break;
     case STAT_CHANGE_SPATK:
@@ -3685,7 +3755,7 @@ static u32 IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, u32 statI
         }
         break;
     case STAT_CHANGE_SPEED_2:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (!aiIsFaster && (noOfHitsToFaint >= 3 || noOfHitsToFaint == UNKNOWN_NO_OF_HITS))
             tempScore += GOOD_EFFECT;
         break;
     case STAT_CHANGE_SPATK_2:
@@ -4008,4 +4078,12 @@ bool32 AI_ShouldSpicyExtract(u32 battlerAtk, u32 battlerAtkPartner, u32 move, st
     return (preventsStatLoss
          && AI_IsFaster(battlerAtk, battlerAtkPartner, TRUE)
          && HasMoveWithCategory(battlerAtkPartner, DAMAGE_CATEGORY_PHYSICAL));
+}
+
+bool32 HasViableAIScore(u32 move, u32 battlerAtk, u32 battlerDef, u16 minimumScore)
+{
+    if (gBattleStruct->aiFinalScore[battlerAtk][battlerDef][move] >= minimumScore)
+        return TRUE;
+
+    return FALSE;
 }

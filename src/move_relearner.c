@@ -754,10 +754,8 @@ static void DoMoveRelearnerMain(void)
                 RemoveMoney(&gSaveBlock1Ptr->money, 8000);
             if(VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_PREEVO_MOVES)
                 RemoveMoney(&gSaveBlock1Ptr->money, 5000);
-#ifndef PIT_GEN_9_MODE
             if (VarGet(VAR_PIT_TUTOR_STATE) == TUTOR_STATE_TUTOR_MOVES)
-                RemoveMoney(&gSaveBlock1Ptr->money, 10000);
-#endif
+                RemoveMoney(&gSaveBlock1Ptr->money, 8000);
             PlayFanfare(MUS_LEVEL_UP);
             sMoveRelearnerStruct->state = MENU_STATE_WAIT_FOR_FANFARE;
         }
@@ -944,15 +942,15 @@ static void CreateLearnableMovesList(void)
         case TUTOR_STATE_EGG_MOVES:
 			sMoveRelearnerStruct->numMenuChoices = GetEggMoveTutorMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn);
 		    break;
-#ifdef PIT_GEN_9_MODE
-        case TUTOR_STATE_TUTOR_MOVES:
-			sMoveRelearnerStruct->numMenuChoices = GetStaticTutorMoves(sMoveRelearnerStruct->movesToLearn);
-		    break;
-#else
+// #ifdef PIT_GEN_9_MODE
+        // case TUTOR_STATE_TUTOR_MOVES:
+		// 	sMoveRelearnerStruct->numMenuChoices = GetStaticTutorMoves(sMoveRelearnerStruct->movesToLearn);
+		//     break;
+// #else
         case TUTOR_STATE_TUTOR_MOVES:
 			sMoveRelearnerStruct->numMenuChoices = GetTutorMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn);
 		    break;
-#endif
+// #endif
         case TUTOR_STATE_PREEVO_MOVES:
             sMoveRelearnerStruct->numMenuChoices = GetPreEvoMoves(&gPlayerParty[sMoveRelearnerStruct->partyMon], sMoveRelearnerStruct->movesToLearn, FALSE);
             break;
@@ -1115,13 +1113,13 @@ static void DoMoveTutorListMain(void)
         {
             s8 selection = Menu_ProcessInputNoWrapClearOnChoose();
 
-            if (selection == 0 && IsEnoughMoney(&gSaveBlock1Ptr->money, 10000))
+            if (selection == 0 && IsEnoughMoney(&gSaveBlock1Ptr->money, 8000))
             {
                 gSpecialVar_0x8005 = GetCurrentSelectedMove();
                 ChooseMonForMoveTutor();
                 sMoveRelearnerStruct->state = MENU_STATE_FADE_AND_RETURN;
             }
-            else if ((selection == MENU_B_PRESSED || selection == 1) && IsEnoughMoney(&gSaveBlock1Ptr->money, 10000))
+            else if ((selection == MENU_B_PRESSED || selection == 1) && IsEnoughMoney(&gSaveBlock1Ptr->money, 8000))
             {
                 if (sMoveRelearnerMenuSate.showContestInfo == FALSE)
                 {
@@ -1132,7 +1130,7 @@ static void DoMoveTutorListMain(void)
                     sMoveRelearnerStruct->state = MENU_STATE_SETUP_CONTEST_MODE;
                 }
             }
-            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, 10000))
+            else if (!IsEnoughMoney(&gSaveBlock1Ptr->money, 8000))
             {
                 gSpecialVar_Result = 99; // 99=not enough money
                 sMoveRelearnerStruct->state = MENU_STATE_FADE_AND_RETURN;

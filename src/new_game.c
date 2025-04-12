@@ -107,7 +107,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->regionMapZoom = FALSE;
         gSaveBlock2Ptr->optionsFollowMonsOff = FALSE;
         gSaveBlock2Ptr->optionsBattleSpeed = BATTLESPEED_2X;
-        gSaveBlock2Ptr->optionsAutosave = AUTOSAVE_5F;
+        gSaveBlock2Ptr->optionsAutosave = AUTOSAVE_ON;
         gSaveBlock2Ptr->optionsRandomMaps = ON;
         gSaveBlock2Ptr->optionsRandomMusic = ON;
     }
@@ -119,12 +119,14 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeDefault = 0;
         gSaveBlock2Ptr->modeSpeciesArray = ARRAY_PROG;
         gSaveBlock2Ptr->modeBattleMode = MODE_MIXED;
-        gSaveBlock2Ptr->mode3MonsOnly = OFF;
+        gSaveBlock2Ptr->mode3MonsOnly = PARTY_SIZE_6;
         gSaveBlock2Ptr->modeNoCaseChoice = OFF;
         gSaveBlock2Ptr->modeSingleFloors = FALSE; //this doesn't use the OPTIONS defines!
-        gSaveBlock2Ptr->mode50Floors = FALSE; //this doesn't use the OPTIONS defines!
+        gSaveBlock2Ptr->mode50Floors = FLOORS_100;
         gSaveBlock2Ptr->modeInverseBattles = FALSE; //this doesn't use the OPTIONS defines!
-        gSaveBlock2Ptr->modeNoBagUse = FALSE;
+        gSaveBlock2Ptr->modeDebug = DEBUG_DISP_DATA;
+        gSaveBlock2Ptr->modeBSTmin = 0;
+        gSaveBlock2Ptr->modeBSTmax = 0;
 
         //difficulty settings
         gSaveBlock2Ptr->modeXP = 0;
@@ -146,6 +148,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeDynamax = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_NONE;
+        gSaveBlock2Ptr->modeNoBagUse = FALSE;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather

@@ -33,7 +33,7 @@ bool8 NameHasGenderSymbol(const u8 *name, u8 genderRatio);
 void ShowDaycareLevelMenu(void);
 void ChooseSendDaycareMon(void);
 u8 GetEggMovesBySpecies(u16 species, u16 *eggMoves);
-u8 GetTutorMovesSpecies(u16 species, u16 *eggMoves);
+u8 GetTutorMovesBySpecies(u16 species, u16 *eggMoves);
 bool8 SpeciesCanLearnEggMove(u16 species, u16 move);
 u16 GetEggSpecies(u16 species);
 

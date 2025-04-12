@@ -647,6 +647,9 @@ void MainMenu_Init(MainCallback callback)
         sMainMenuDataPtr->iconBoxSpriteIds[i] = SPRITE_NONE;
         sMainMenuDataPtr->iconMonSpriteIds[i] = SPRITE_NONE;
     }
+
+    // always set battle style to SET
+    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     
     SetMainCallback2(MainMenu_RunSetup);
 }
@@ -728,12 +731,12 @@ static void LoadDefaultSettings(void)
     //run settings
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_RANDOM;
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
-    gSaveBlock2Ptr->mode3MonsOnly       = OPTIONS_OFF;
+    gSaveBlock2Ptr->mode3MonsOnly       = PARTY_SIZE_6;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeSingleFloors    = FALSE; //this doesn't use the OPTIONS defines!
-    gSaveBlock2Ptr->mode50Floors        = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->mode50Floors        = FLOORS_100;
     gSaveBlock2Ptr->modeInverseBattles  = FALSE; //this doesn't use the OPTIONS defines!
-    gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+    gSaveBlock2Ptr->modeDebug           = DEBUG_DISP_DATA;
     
     //difficulty settings
     gSaveBlock2Ptr->modeCashRewards     = CASH_1X;
@@ -742,6 +745,10 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeMonoType        = TYPE_NONE;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
+    gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+    gSaveBlock2Ptr->modeBSTmin          = 0;
+    gSaveBlock2Ptr->modeBSTmax          = 0;
+
     //randomizer settings
     gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_OFF;

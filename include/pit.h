@@ -104,7 +104,23 @@ struct RandomTrainerNPC
 #define ARRAY_PROG       1
 #define ITEM_DROPS_RAND  0
 #define ITEM_DROPS_1     1
-#define ITEM_DROPS_3     2
+#define ITEM_DROPS_2     2
+#define ITEM_DROPS_3     3
+#define DEBUG_FULL       0
+#define DEBUG_DISP_DATA  1
+#define DEBUG_DISP_MOVES 2
+#define BST_STATE_INACTIVE 0
+#define BST_STATE_ACTIVE 1
+#define PARTY_SIZE_6     0
+#define PARTY_SIZE_3     1
+#define PARTY_SIZE_1     2
+#define FLOORS_100       0
+#define FLOORS_75        1
+#define FLOORS_50        2
+
+#define MIN_BST 440
+#define MAX_BST 580
+#define BST_MAX 1000
 
 #define TRAINER_GIMMICKS_RANDOM 0
 #define TRAINER_GIMMICKS_PROGRESSIVE 1

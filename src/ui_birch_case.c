@@ -47,6 +47,7 @@
 #include "gba/isagbprint.h"
 #include "random.h"
 #include "money.h"
+#include "battle_main.h"
 
  /*
     9 Starter Selection Birch Case
@@ -839,11 +840,23 @@ static void PrintTextToBottomBar(u8 textId)
     if(textId != 2)
     {
 #ifdef POKEMON_EXPANSION
-        speciesCategoryText = GetSpeciesCategory(species);
+        // add typings under Pokémon sprite
+        u16 type0 = gSpeciesInfo[species].types[0];
+        u16 type1 = gSpeciesInfo[species].types[1];
+
+        StringCopy(gStringVar1, gTypesInfo[type0].name);
+        if (type1 != type0 && type1 != TYPE_NONE)
+        {
+            StringCopy(gStringVar1, gTypesInfo[type0].name_short);
+            StringAppend(gStringVar1, gText_Slash);
+            StringAppend(gStringVar1, gTypesInfo[type1].name_short);
+        }
+        speciesCategoryText = gStringVar1;
+        
 #else
         speciesCategoryText = GetPokedexCategoryName(dexNum);
 #endif
-        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 178 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
+        AddTextPrinterParameterized4(WINDOW_BOTTOM_BAR, FONT_NARROW, x + 176 + GetStringCenterAlignXOffset(FONT_NARROW, speciesCategoryText, 52), 140, 0, 0, sMenuWindowFontColors[FONT_WHITE], 0xFF, speciesCategoryText);
     }
 
     PutWindowTilemap(WINDOW_BOTTOM_BAR);
@@ -896,7 +909,8 @@ static void Task_BirchCaseRecievedMon(u8 taskId)
 {
     if(JOY_NEW(A_BUTTON) || gTasks[taskId].data[12] > 30)
     {
-        if(FlagGet(FLAG_CASE_STARTER_MODE) && (sBirchCaseDataPtr->monState < 2))
+        if(FlagGet(FLAG_CASE_STARTER_MODE) && (sBirchCaseDataPtr->monState < 2)
+          && gSaveBlock2Ptr->mode3MonsOnly != PARTY_SIZE_1)
         {
             DestroySprite(&gSprites[sBirchCaseDataPtr->pokeballSpriteIds[sBirchCaseDataPtr->handPosition]]);
             sBirchCaseDataPtr->pokeballSpriteIds[sBirchCaseDataPtr->handPosition] = SPRITE_NONE;
@@ -1080,7 +1094,3 @@ static void Task_BirchCaseMain(u8 taskId)
         }
     }
 }
-
-
-
-

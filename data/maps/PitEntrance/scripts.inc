@@ -143,15 +143,18 @@ PitEntrance_Warp::
 	callnative BufferMapFloorString
 	callnative SetRandomTrainers
 	callnative SetRandomMonEncounter
-	additem ITEM_SACRED_ASH, 1
 	additem ITEM_POTION, 5
 	additem ITEM_SUPER_POTION, 2
 	additem ITEM_FULL_RESTORE, 1
-	additem ITEM_REVIVE, 2
 	additem ITEM_FULL_HEAL, 3
 	additem ITEM_ETHER, 2
 	additem ITEM_ELIXIR, 1
 	additem ITEM_ESCAPE_ROPE, 1
+	callnative Check1MonMode
+	goto_if_eq VAR_TEMP_A, 1, PitEntrance_Warp_1MonMode
+	additem ITEM_SACRED_ASH, 1
+	additem ITEM_REVIVE, 2
+PitEntrance_Warp_CheckShinyDust:
 	callnative CheckAndGiveShinyDust
 	goto_if_eq VAR_RESULT, 0, PitEntrance_Warp_SkipShinyDust
 	additem ITEM_SHINY_DUST, 1
@@ -163,6 +166,10 @@ PitEntrance_ExecuteWarp:
 	waitstate
 	releaseall
 	end
+
+PitEntrance_Warp_1MonMode::
+	additem ITEM_RARE_CANDY, 2
+	goto PitEntrance_Warp_CheckShinyDust
 
 PitEntrance_Sign_Luck:
 	.string "Good Luck...$"
