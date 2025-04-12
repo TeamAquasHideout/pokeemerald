@@ -8159,9 +8159,9 @@ static void Task_HandleSearchTopBarInput(u8 taskId)
             gTasks[taskId].func = Task_SwitchToSearchMenu;
             break;
         case SEARCH_TOPBAR_SHIFT:
-            PlaySE(SE_PIN);
-            gTasks[taskId].tMenuItem = SEARCH_ORDER;
-            gTasks[taskId].func = Task_SwitchToSearchMenu;
+            PlaySE(SE_PC_OFF);
+            // gTasks[taskId].tMenuItem = SEARCH_ORDER;
+            // gTasks[taskId].func = Task_SwitchToSearchMenu;
             break;
         case SEARCH_TOPBAR_CANCEL:
             PlaySE(SE_PC_OFF);
@@ -8334,7 +8334,7 @@ static void Task_SearchCompleteWaitForInput(u8 taskId)
         {
             // Return to dex list and show search results
             sPokedexView->screenSwitchState = 1;
-            sPokedexView->dexMode = GetSearchModeSelection(taskId, SEARCH_MODE);
+            sPokedexView->dexMode = DEX_MODE_NATIONAL; //GetSearchModeSelection(taskId, SEARCH_MODE);
             sPokedexView->dexOrder = GetSearchModeSelection(taskId, SEARCH_ORDER);
             gTasks[taskId].func = Task_ExitSearch;
             PlaySE(SE_PC_OFF);
@@ -8565,9 +8565,9 @@ static void SetInitialSearchMenuBgHighlights(u8 topBarItem)
         DrawSearchMenuItemBgHighlight(SEARCH_BG_TYPE_TITLE, TRUE, TRUE);
         DrawSearchMenuItemBgHighlight(SEARCH_BG_TYPE_SELECTION_LEFT, TRUE, TRUE);
         DrawSearchMenuItemBgHighlight(SEARCH_BG_TYPE_SELECTION_RIGHT, TRUE, TRUE);
-        DrawSearchMenuItemBgHighlight(SEARCH_BG_ORDER, TRUE, FALSE);
-        DrawSearchMenuItemBgHighlight(SEARCH_BG_MODE, TRUE, FALSE);
-        DrawSearchMenuItemBgHighlight(SEARCH_BG_OK, TRUE, FALSE);
+        DrawSearchMenuItemBgHighlight(SEARCH_BG_ORDER, TRUE, TRUE);
+        DrawSearchMenuItemBgHighlight(SEARCH_BG_MODE, TRUE, TRUE);
+        DrawSearchMenuItemBgHighlight(SEARCH_BG_OK, TRUE, TRUE);
         break;
     case SEARCH_TOPBAR_CANCEL:
         DrawSearchMenuItemBgHighlight(SEARCH_BG_SEARCH, TRUE, FALSE);
