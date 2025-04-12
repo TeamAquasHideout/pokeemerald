@@ -2047,7 +2047,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
         if(!isPlayer)
         {
-            if ((VarGet(VAR_PIT_FLOOR) <= 25) || (gSaveBlock2Ptr->mode3MonsOnly == 0))
+            if ((VarGet(VAR_PIT_FLOOR) <= 25) || (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_3))
                 monsCount = 3;
             else if (VarGet(VAR_PIT_FLOOR) <= 50)
                 monsCount = 4;
@@ -2115,39 +2115,76 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     // = fully evolved mons for every trainer from Floor 100 on and for bosses!
                     u16 newSpecies;
                     u32 bst = 0;
+                    u32 minBST = 0;
                     const struct Evolution *evolutions;
 
-                    do
+                    if (gSaveBlock2Ptr->mode50Floors == FLOORS_50 && VarGet(VAR_PIT_FLOOR) == 50)
+                        minBST = 500;
+                    else
+                        minBST = 525;
+
+                    //final boss floor special BST rule
+                    if (VarGet(VAR_PIT_FLOOR) == 100
+                      || (gSaveBlock2Ptr->mode50Floors == FLOORS_50 && VarGet(VAR_PIT_FLOOR) == 50)
+                      || (gSaveBlock2Ptr->mode50Floors == FLOORS_75 && VarGet(VAR_PIT_FLOOR) == 75))
                     {
-                        newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
-                        evolutions = GetSpeciesEvolutions(newSpecies);
-                        while (evolutions != NULL)
+                        do
                         {
-                            u16 tempSpecies = evolutions[0].targetSpecies;
-                            if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                            newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+                            evolutions = GetSpeciesEvolutions(newSpecies);
+                            while (evolutions != NULL)
                             {
-                                evolutions = NULL;
-                                break;
+                                u16 tempSpecies = evolutions[0].targetSpecies;
+                                if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                                {
+                                    evolutions = NULL;
+                                    break;
+                                }
+                                else
+                                {
+                                    newSpecies = tempSpecies;
+                                    evolutions = GetSpeciesEvolutions(newSpecies);
+                                }
                             }
-                            else
+                            bst = GetSpeciesBST(newSpecies);
+                        } while (bst < minBST //make the final boss have only minBST+ mons
+                            || newSpecies == GetRandomBossEncounterAcePokemon()->species); //no duplicate with boss ace
+                    }
+                    else
+                    {
+                        do
+                        {
+                            newSpecies = GetRandomSpeciesFlattenedCurve(ALL_MONS);
+                            evolutions = GetSpeciesEvolutions(newSpecies);
+                            while (evolutions != NULL)
                             {
-                                newSpecies = tempSpecies;
-                                evolutions = GetSpeciesEvolutions(newSpecies);
+                                u16 tempSpecies = evolutions[0].targetSpecies;
+                                if(GetIndexOfSpeciesInValidSpeciesArray(tempSpecies) == 0xFFFF)
+                                {
+                                    evolutions = NULL;
+                                    break;
+                                }
+                                else
+                                {
+                                    newSpecies = tempSpecies;
+                                    evolutions = GetSpeciesEvolutions(newSpecies);
+                                }
                             }
-                        }
-                        bst = (gSpeciesInfo[newSpecies].baseHP + gSpeciesInfo[newSpecies].baseAttack + gSpeciesInfo[newSpecies].baseDefense + gSpeciesInfo[newSpecies].baseSpAttack + gSpeciesInfo[newSpecies].baseSpDefense + gSpeciesInfo[newSpecies].baseSpeed);
-                    } while ((VarGet(VAR_PIT_FLOOR) == 100
-                        || (gSaveBlock2Ptr->mode50Floors && VarGet(VAR_PIT_FLOOR) == 50))
-                      && bst < 525); //make the final boss have only BST 525+ mons
-                    
+                        } while (newSpecies == GetRandomBossEncounterAcePokemon()->species); //no duplicate with boss ace
+                    }
+                    // if (i < 2) // ### test snippet for forced test encounters for bosses
+                    //     CreateMon(&party[i], SPECIES_ABRA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
                 else
                 {
                     // if (i == 0) // ### test snippet for forced test encounters
-                    //     CreateMon(&party[i], SPECIES_RAYQUAZA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    //     CreateMon(&party[i], SPECIES_GOLISOPOD, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 1)
-                    //     CreateMon(&party[i], SPECIES_ALTARIA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    //     CreateMon(&party[i], SPECIES_APPLETUN, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else if (i == 2)
+                    //     CreateMon(&party[i], SPECIES_BARRASKEWDA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else // ### end test snippet
                     CreateMon(&party[i], GetRandomSpeciesFlattenedCurve(TRAINER_MONS), monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                 }
@@ -2186,12 +2223,26 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                         else
                             odds = 35;
                     
-                        if(gSaveBlock2Ptr->mode50Floors)
+                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                         {
-                            if (VarGet(VAR_PIT_FLOOR) <= 25)
-                                odds = 5;
+                            if (VarGet(VAR_PIT_FLOOR) <= 15)
+                                odds = 0;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                                odds = 10;
                             else
                                 odds = 25;
+                        }
+                    
+                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                        {
+                            if (VarGet(VAR_PIT_FLOOR) <= 20)
+                                odds = 0;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                                odds = 10;
+                            else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                                odds = 20;
+                            else
+                                odds = 30;
                         }
                     }
                     
@@ -2215,7 +2266,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 }
 #endif
                 if(isAcePokemon)
-                    item = partyData[j].heldItem;
+                {
+                    if((gSaveBlock2Ptr->modeSpeciesArray == ARRAY_PROG) && (VarGet(VAR_PIT_FLOOR) == 25))
+                    {
+                        //set default item for first boss in prog runs, so they don't mega
+                        item = ITEM_LEFTOVERS;
+                    }
+                    else
+                        item = partyData[j].heldItem;
+                }
 
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &item);
             }
@@ -3741,9 +3800,6 @@ const u8* FaintClearSetData(u32 battler)
             }
         }
     }
-
-    // Clear Dynamax data
-    UndoDynamax(battler);
 
     return result;
 }

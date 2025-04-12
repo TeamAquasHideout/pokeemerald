@@ -1392,7 +1392,18 @@ u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
 
 u16 GetSpeciesRandomSeeded(u16 species)
 {
-    return GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    u16 seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    u8 i = 0;
+
+    //make sure to not roll similar species
+    while (GetAbilityBySpeciesNotRandom(seededSpecies, 0) == GetAbilityBySpeciesNotRandom(species, 0)
+      && GetAbilityBySpeciesNotRandom(seededSpecies, 1) == GetAbilityBySpeciesNotRandom(species, 1))
+    {
+        i++;
+        seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species + i, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
+    }
+    
+    return seededSpecies;
 }
 
 EWRAM_DATA u16 gMonoTypeArray[NUM_SPECIES] = {0};
@@ -1574,9 +1585,26 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                 default:
                     break;
             }
+
+            // BST checks
+            if (!rerollMon && (gSaveBlock2Ptr->modeBSTmin != 0 || gSaveBlock2Ptr->modeBSTmax != 0))
+            {
+                u16 minValue = gSaveBlock2Ptr->modeBSTmin;
+                u16 maxValue = gSaveBlock2Ptr->modeBSTmax;
+
+                if (maxValue == 0)
+                    maxValue = BST_MAX;
+
+                if (GetSpeciesBST(species) < minValue
+                  || GetSpeciesBST(species) > maxValue)
+                {
+                    rerollMon = TRUE;
+                }
+            }
             
-            if (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
-              (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5)) // for performance reasons only 10 rerolls in case of mono type runs
+            //duplicates check
+            if (!rerollMon && (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
+              (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5))) // for performance reasons only 5 rerolls in case of mono type runs
             {
                 for (i=0; i < 9; i++) //check for duplicates within the case
                 {
@@ -1588,7 +1616,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
 
                 //check for duplicates against the player's party
                 partyCount = CalculatePlayerPartyCount();
-                if (partyCount > 2 && rerollMon == FALSE) //only the case after obtaining the third mon
+                if (partyCount > 2 && !rerollMon) //only the case after obtaining the third mon
                 {
                     for (i = 0; i < partyCount; i++)
                     {
@@ -1597,13 +1625,13 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     }
                 }
             }
-
             
             if (counter2 == 100) //exit in case of infinite loop
             {
                 rerollMon = FALSE;
                 //DebugPrintf("no valid species found. Default: %d", species);
             }
+
             //reroll
             if (rerollMon)
             {
@@ -1681,10 +1709,10 @@ static const u16 sRandomConsumableValidItems[] =
     ITEM_SODA_POP,
     ITEM_LEMONADE,
     ITEM_MOOMOO_MILK,
-    ITEM_ENERGY_POWDER,
-    ITEM_ENERGY_ROOT,
-    ITEM_HEAL_POWDER,
-    ITEM_REVIVAL_HERB,
+    ITEM_SUPER_POTION,//ITEM_ENERGY_POWDER,
+    ITEM_HYPER_POTION,//ITEM_ENERGY_ROOT,
+    ITEM_FULL_HEAL,//ITEM_HEAL_POWDER,
+    ITEM_MAX_REVIVE,//ITEM_REVIVAL_HERB,
     ITEM_ANTIDOTE,
     ITEM_PARALYZE_HEAL,
     ITEM_BURN_HEAL,
@@ -2902,9 +2930,7 @@ u8 GetNumberOfEggMoves(struct Pokemon *mon)
     u16 learnedMoves[MAX_MON_MOVES];
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u16 firstStage = GetEggSpecies(species);
-    u8 numEggMoves = GetEggMovesBySpecies(firstStage, eggMoveBuffer);
-    //u16 moves[numEggMoves];
+    u8 numEggMoves = GetEggMovesBySpecies(species, eggMoveBuffer);
     int i, j;
     bool8 hasMonMove = FALSE;
 
@@ -2935,8 +2961,7 @@ u8 GetEggMoveTutorMoves(struct Pokemon *mon, u16 *moves)
     u8 numMoves = 0;
     u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
-    u16 eggSpecies = GetEggSpecies(species);
-    u16 numEggMoves = GetEggMovesBySpecies(eggSpecies, eggMoveBuffer);
+    u16 numEggMoves = GetEggMovesBySpecies(species, eggMoveBuffer);
     int i, j;
     bool8 hasMonMove = FALSE;
 
@@ -2966,7 +2991,7 @@ u8 GetNumberOfTutorMoves(struct Pokemon *mon)
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     //u16 firstStage = GetEggSpecies(species);
-    u16 numTutorMoves = GetTutorMovesSpecies(species, tutorMoveBuffer);
+    u16 numTutorMoves = GetTutorMovesBySpecies(species, tutorMoveBuffer);
     //u16 moves[numTutorMoves];
     int i, j;
     bool8 hasMonMove = FALSE;
@@ -2999,7 +3024,7 @@ u8 GetTutorMoves(struct Pokemon *mon, u16 *moves)
     u16 tutorMoveBuffer[TUTOR_MOVES_ARRAY_COUNT];
     u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG, 0);
     //u16 eggSpecies = GetEggSpecies(species);
-    u16 numTutorMoves = GetTutorMovesSpecies(species, tutorMoveBuffer);
+    u16 numTutorMoves = GetTutorMovesBySpecies(species, tutorMoveBuffer);
     int i, j;
     bool8 hasMonMove = FALSE;
 
@@ -3099,7 +3124,11 @@ u8 GetPreEvoMoves(struct Pokemon *mon, u16 *moves, bool8 PreEvoCheckOnly)
                     {
                         if (PreEvoCheckOnly)
                             return TRUE;
-                        moves[numMoves++] = learnset[i].move;
+                        
+                        if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
+                            moves[numMoves++] = GetRandomMove(learnset[i].move, speciesOriginal);
+                        else
+                            moves[numMoves++] = learnset[i].move;
                     }
                 }
             }
@@ -3234,6 +3263,31 @@ u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
         }
     } while (reroll);
 
+    return gLastUsedAbility;
+}
+
+u16 GetAbilityBySpeciesNotRandom(u16 species, u8 abilityNum)
+{
+    int i;
+
+    if (abilityNum < NUM_ABILITY_SLOTS)
+        gLastUsedAbility = gSpeciesInfo[species].abilities[abilityNum];
+    else
+        gLastUsedAbility = ABILITY_NONE;
+
+    if (abilityNum >= NUM_NORMAL_ABILITY_SLOTS) // if abilityNum is empty hidden ability, look for other hidden abilities
+    {
+        for (i = NUM_NORMAL_ABILITY_SLOTS; i < NUM_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++)
+        {
+            gLastUsedAbility = gSpeciesInfo[species].abilities[i];
+        }
+    }
+
+    for (i = 0; i < NUM_ABILITY_SLOTS && gLastUsedAbility == ABILITY_NONE; i++) // look for any non-empty ability
+    {
+        gLastUsedAbility = gSpeciesInfo[species].abilities[i];
+    }
+    
     return gLastUsedAbility;
 }
 

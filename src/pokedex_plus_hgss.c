@@ -5225,26 +5225,30 @@ static void PrintStatsScreen_DestroyMoveItemIcon(u8 taskId)
 static bool8 CalculateMoves(void)
 {
     u16 species = NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum);
-    const u16 *teachableLearnset = GetSpeciesTeachableLearnset(species);
-
     u16 statsMovesEgg[EGG_MOVES_ARRAY_COUNT] = {0};
     u16 statsMovesLevelUp[MAX_LEVEL_UP_MOVES] = {0};
-    u16 move;
+    u16 statsMovesTutor[TUTOR_MOVES_ARRAY_COUNT] = {0};
+    u16 statsMovesTMHM[MAX_TMHM_MOVES] = {0};
+    u16 statsMovesTMHMItemId[MAX_TMHM_MOVES] = {0};
+    //u16 move;
 
     u8 numEggMoves = 0;
     u8 numLevelUpMoves = 0;
     u8 numTMHMMoves = 0;
     u8 numTutorMoves = 0;
     u16 movesTotal = 0;
-    u8 i,j;
+    u8 i;
+    //,j;
 
     // Mega pokemon don't have distinct learnsets from their base form; so use base species for calculation
     if (species >= SPECIES_VENUSAUR_MEGA && species <= SPECIES_GROUDON_PRIMAL)
         species = GetFormSpeciesId(species, 0);
 
-    //Calculate amount of Egg and LevelUp moves
+    //Calculate amount of Egg, LevelUp and Tutor moves
     numEggMoves = GetEggMovesBySpecies(species, statsMovesEgg);
     numLevelUpMoves = GetLevelUpMovesBySpecies(species, statsMovesLevelUp);
+    numTMHMMoves = GetTMHMMovesBySpecies(species, statsMovesTMHM, statsMovesTMHMItemId);
+    numTutorMoves = GetTutorMovesBySpecies(species, statsMovesTutor);
 
     //Egg moves
     for (i=0; i < numEggMoves; i++)
@@ -5260,39 +5264,19 @@ static bool8 CalculateMoves(void)
         movesTotal++;
     }
 
-    for (i = 0; teachableLearnset[i] != MOVE_UNAVAILABLE; i++)
+    //TMs, HMs
+    for (i = 0; i < numTMHMMoves; i++)
     {
-        move = teachableLearnset[i];
-        for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
-        {
-            if (ItemIdToBattleMoveId(ITEM_TM01 + j) == move)
-            {
-                sStatsMovesTMHM_ID[numTMHMMoves] = (ITEM_TM01 + j);
-                numTMHMMoves++;
-
-                sStatsMoves[movesTotal] = move;
-                movesTotal++;
-                break;
-            }
-        }
+        sStatsMovesTMHM_ID[i] = statsMovesTMHMItemId[i];
+        sStatsMoves[movesTotal] = statsMovesTMHM[i];
+        movesTotal++;
     }
 
-    for (i = 0; teachableLearnset[i] != MOVE_UNAVAILABLE; i++)
+    //Tutor moves
+    for (i=0; i < numTutorMoves; i++)
     {
-        move = teachableLearnset[i];
-        for (j = 0; j < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; j++)
-        {
-            if (ItemIdToBattleMoveId(ITEM_TM01 + j) == move)
-                break;
-        }
-
-        if (j >= NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
-        {
-            numTutorMoves++;
-
-            sStatsMoves[movesTotal] = move;
-            movesTotal++;
-        }
+        sStatsMoves[movesTotal] = statsMovesTutor[i];
+        movesTotal++;
     }
 
     sPokedexView->numEggMoves = numEggMoves;
@@ -6323,27 +6307,28 @@ static void Task_HandleEvolutionScreenInput(u8 taskId)
             sPokedexView->sEvoScreenData.menuPos = pos;
         }
 
-        if (JOY_NEW(A_BUTTON))
-        {
-            u16 targetSpecies   = sPokedexView->sEvoScreenData.targetSpecies[sPokedexView->sEvoScreenData.menuPos];
-            u16 dexNum          = SpeciesToNationalPokedexNum(targetSpecies);
-            if (sPokedexView->isSearchResults && sPokedexView->originalSearchSelectionNum == 0)
-                sPokedexView->originalSearchSelectionNum = sPokedexListItem->dexNum;
+        // deactivated due to open expansion issue #6546
+        // if (JOY_NEW(A_BUTTON))
+        // {
+        //     u16 targetSpecies   = sPokedexView->sEvoScreenData.targetSpecies[sPokedexView->sEvoScreenData.menuPos];
+        //     u16 dexNum          = SpeciesToNationalPokedexNum(targetSpecies);
+        //     if (sPokedexView->isSearchResults && sPokedexView->originalSearchSelectionNum == 0)
+        //         sPokedexView->originalSearchSelectionNum = sPokedexListItem->dexNum;
                 
-            sPokedexListItem->dexNum = dexNum;
-            sPokedexListItem->seen   = GetSetPokedexFlag(dexNum, FLAG_GET_SEEN);
-            sPokedexListItem->owned  = GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
+        //     sPokedexListItem->dexNum = dexNum;
+        //     sPokedexListItem->seen   = GetSetPokedexFlag(dexNum, FLAG_GET_SEEN);
+        //     sPokedexListItem->owned  = GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT);
 
-                if (GetSpeciesFormTable(targetSpecies) != NULL)
-                    sPokedexView->formSpecies = targetSpecies;
-                else
-                    sPokedexView->formSpecies = 0;
+        //         if (GetSpeciesFormTable(targetSpecies) != NULL)
+        //             sPokedexView->formSpecies = targetSpecies;
+        //         else
+        //             sPokedexView->formSpecies = 0;
 
-            sPokedexView->sEvoScreenData.fromEvoPage = TRUE;
-            PlaySE(SE_PIN);
-            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
-            gTasks[taskId].func = Task_LoadInfoScreenWaitForFade;
-        }
+        //     sPokedexView->sEvoScreenData.fromEvoPage = TRUE;
+        //     PlaySE(SE_PIN);
+        //     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        //     gTasks[taskId].func = Task_LoadInfoScreenWaitForFade;
+        // }
     }
 
     //Exit to overview

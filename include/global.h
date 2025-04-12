@@ -577,18 +577,19 @@ struct SaveBlock2
              u16 regionMapZoom:1; // whether the map is zoomed in
              u16 modeNoBagUse:1;
              u16 modeSingleFloors:1; // force only single trainer floors
-             u16 padding1:2; // uncommented because its free padding space
+             u16 mode3MonsOnly:2; // 0 = 6 mons, 1 = 3 mons only, 2 = single mon
             // end of u16
-             u16 mode50Floors:1;
+             u16 padding1:1; // uncommented because its free padding space
              u16 modeBossHeal:1;
              u16 modeChoiceEvoStage:2; //0 = All, 1 = basic pokemon, 2 = fully evolved
-             u16 modeChoiceItemReward:2; //0 = Random, 1 = always 1, 2 = always 3
+             u16 modeDebug:2; 
              u16 modeSpeciesArray:1; //0 = Random, 1 = progressive
              u16 modeDynamax:1;
              u16 modeTera:1;
              u16 modeZMoves:1;
              u16 trainerGimmicks:2; // 0 = Random, 1 = Progressive, 2 = Off
-             u16 padding2:4; // uncommented because its free padding space
+             u16 modeChoiceItemReward:3; //0 = Random, 1 = always 1, 2 = always 2, 3 = always 3
+             u16 padding2:1; // uncommented because its free padding space
             // end of u16
     /*0x90*/ u16 modeDefault:2;
              u16 modeBattleMode:2;
@@ -601,7 +602,7 @@ struct SaveBlock2
              u16 modeMegas:1;
              u16 optionsFollowMonsOff:1;
              u16 modeCashRewards:2;
-             u16 mode3MonsOnly:1;
+             u16 padding3:1; // uncommented because its free padding space
              // end of u16
              u16 randomMoves:1;
              u16 randomAbilities:1;
@@ -627,7 +628,13 @@ struct SaveBlock2
              u16 statsPadding2;
     // #### running stats for The Pit - END ####
 
-            u32 extraPitPadding[8];
+             u16 modeBSTmin;
+             u16 modeBSTmax;
+             u16 mode50Floors:2;
+             u16 padding4:14;
+             u16 padding5;
+
+             u32 extraPitPadding[6];
 
     // #### Secret Bases for The Pit - START ####
     /*0x1A9C*/ struct SecretBase secretBases[SECRET_BASES_COUNT];

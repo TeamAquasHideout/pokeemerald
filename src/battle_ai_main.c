@@ -365,10 +365,24 @@ void Ai_InitPartyStruct(void)
                 else
                     dynamax_odds = 15;
 
-                if(gSaveBlock2Ptr->mode50Floors)
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                 {
-                    if (VarGet(VAR_PIT_FLOOR) <= 25)
-                        dynamax_odds = 2;
+                    if (VarGet(VAR_PIT_FLOOR) <= 15)
+                        dynamax_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                        dynamax_odds = 5;
+                    else
+                        dynamax_odds = 15;
+                }
+
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                {
+                    if (VarGet(VAR_PIT_FLOOR) <= 20)
+                        dynamax_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                        dynamax_odds = 5;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                        dynamax_odds = 10;
                     else
                         dynamax_odds = 15;
                 }
@@ -391,10 +405,24 @@ void Ai_InitPartyStruct(void)
                 else
                     tera_odds = 15;
 
-                if(gSaveBlock2Ptr->mode50Floors)
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                 {
-                    if (VarGet(VAR_PIT_FLOOR) <= 25)
-                        tera_odds = 4;
+                    if (VarGet(VAR_PIT_FLOOR) <= 15)
+                        tera_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 25)
+                        tera_odds = 5;
+                    else
+                        tera_odds = 15;
+                }
+
+                if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                {
+                    if (VarGet(VAR_PIT_FLOOR) <= 20)
+                        tera_odds = 0;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                        tera_odds = 5;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 55)
+                        tera_odds = 10;
                     else
                         tera_odds = 15;
                 }
@@ -521,6 +549,8 @@ static void SetBattlerAiMovesData(struct AiLogicData *aiData, u32 battlerAtk, u3
     {
         if (battlerAtk == battlerDef || !IsBattlerAlive(battlerDef))
             continue;
+        // if (GetBattlerSide(battlerDef) != B_SIDE_PLAYER)
+        //     DebugPrintf("battlerDef = %d, species = %S", battlerDef, gSpeciesInfo[gBattleMons[battlerDef].species].speciesName);
 
         SaveBattlerData(battlerDef);
         SetBattlerData(battlerDef);
@@ -545,6 +575,10 @@ static void SetBattlerAiMovesData(struct AiLogicData *aiData, u32 battlerAtk, u3
             }
             aiData->simulatedDmg[battlerAtk][battlerDef][i] = dmg;
             aiData->effectiveness[battlerAtk][battlerDef][i] = effectiveness;
+
+            // if (GetBattlerSide(battlerAtk) == B_SIDE_PLAYER
+            //   && GetBattlerSide(battlerDef) == B_SIDE_OPPONENT)
+            //     DebugPrintf("### %S's %S does %d damage", gSpeciesInfo[gBattleMons[battlerAtk].species].speciesName, gMovesInfo[move].name, dmg);
         }
         RestoreBattlerData(battlerDef);
     }
@@ -1083,6 +1117,10 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 break;
             case ABILITY_EARTH_EATER:
                 if (moveType == TYPE_GROUND)
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case ABILITY_GOOD_AS_GOLD:
+                if (IS_MOVE_STATUS(move))
                     RETURN_SCORE_MINUS(20);
                 break;
             } // def ability checks
@@ -1710,13 +1748,15 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_SPIKES:
             if (gSideTimers[GetBattlerSide(battlerDef)].spikesAmount >= 3)
                 ADJUST_SCORE(-10);
-            else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
+            else if ((PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
               && gSideTimers[GetBattlerSide(battlerDef)].spikesAmount == 2)
+              || !AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
                 ADJUST_SCORE(-10); // only one mon needs to set up the last layer of Spikes
             break;
         case EFFECT_STEALTH_ROCK:
             if (gSideTimers[GetBattlerSide(battlerDef)].stealthRockAmount > 0
-              || PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)) //Only one mon needs to set up Stealth Rocks
+              || PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove)
+              || !AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA)) //Only one mon needs to set up Stealth Rocks
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_TOXIC_SPIKES:
@@ -1724,12 +1764,16 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove) && gSideTimers[GetBattlerSide(battlerDef)].toxicSpikesAmount == 1)
                 ADJUST_SCORE(-10); // only one mon needs to set up the last layer of Toxic Spikes
+            else if (!AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_STICKY_WEB:
             if (gSideTimers[GetBattlerSide(battlerDef)].stickyWebAmount)
                 ADJUST_SCORE(-10);
             else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove) && gSideTimers[GetBattlerSide(battlerDef)].stickyWebAmount)
                 ADJUST_SCORE(-10); // only one mon needs to set up Sticky Web
+            else if (!AI_ShouldSetUpHazards(battlerAtk, battlerDef, AI_DATA))
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_FORESIGHT:
             if (gBattleMons[battlerDef].status2 & STATUS2_FORESIGHT)
@@ -2068,7 +2112,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-8);
             break;
         case EFFECT_SKETCH:
-            if (gLastMoves[battlerDef] == MOVE_NONE)
+            if (gLastMoves[battlerDef] == MOVE_NONE && AI_IsFaster(battlerAtk, battlerDef, move))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_DESTINY_BOND:
@@ -3384,6 +3428,10 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             ADJUST_SCORE(-20); // Force switch if all your attacking moves are physical and you have Natural Cure.
     }
 
+    //increase base score of TRANSFORM and SKETCH for switch AI
+    if (move == MOVE_TRANSFORM || move == MOVE_SKETCH)
+        ADJUST_SCORE(2);
+
     // move effect checks
     switch (moveEffect)
     {
@@ -3725,7 +3773,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
     case EFFECT_PARTING_SHOT:
         if (!IsDoubleBattle())
         {
-            switch (ShouldPivot(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, movesetIndex))
+            switch (ShouldPivot(battlerAtk, battlerDef, aiData->abilities[battlerAtk], aiData->abilities[battlerDef], move, movesetIndex))
             {
             case 0: // no
                 ADJUST_SCORE(-10);    // technically should go in CheckBadMove, but this is easier/less computationally demanding

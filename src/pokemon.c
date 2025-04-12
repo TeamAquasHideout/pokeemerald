@@ -2279,10 +2279,23 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
         }
     }
 
+    //  Handler for if Zacian or Zamazenta should learn Iron Head
+    //  since it transforms in the Behemoth Blade/Bash move in
+    //  battle in the Crowned forms.
+    if (learnset[sLearningMoveTableID].move == MOVE_IRON_HEAD && (species == SPECIES_ZAMAZENTA_CROWNED || species == SPECIES_ZACIAN_CROWNED))
+    {
+        for (u32 accessor = MON_DATA_MOVE1; accessor <= MON_DATA_MOVE4; accessor++)
+        {
+            u32 move = GetMonData(mon, accessor);
+            if (move == MOVE_BEHEMOTH_BLADE || move == MOVE_BEHEMOTH_BASH)
+                return MOVE_NONE;
+        }
+    }
+
     if (learnset[sLearningMoveTableID].level == level)
     {
         if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            gMoveToLearn = gRandomValidMoves[Random() % GetRandomValidMovesCount()];
+            gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species); //check wiz1989
         else
             gMoveToLearn = learnset[sLearningMoveTableID].move;
         sLearningMoveTableID++;
@@ -3848,6 +3861,12 @@ const u16 *GetSpeciesEggMoves(u16 species)
     if (learnset == NULL)
         return gSpeciesInfo[SPECIES_NONE].eggMoveLearnset;
     return learnset;
+}
+
+u16 GetSpeciesBST(u16 species)
+{
+    u16 bst = (gSpeciesInfo[species].baseHP + gSpeciesInfo[species].baseAttack + gSpeciesInfo[species].baseDefense + gSpeciesInfo[species].baseSpAttack + gSpeciesInfo[species].baseSpDefense + gSpeciesInfo[species].baseSpeed);
+    return bst;
 }
 
 const struct Evolution *GetSpeciesEvolutions(u16 species)
@@ -5924,7 +5943,7 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
     {
         species = GetSpeciesRandomSeeded(species + move);
         if(species % 4)
-            return FALSE; 
+        return FALSE;
         else
             return TRUE;
     }
@@ -6006,6 +6025,7 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+    u16 nextMove = MOVE_NONE;
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
 
@@ -6023,24 +6043,21 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 
         if (moveLevel <= level)
         {
-            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnset[i].move; j++)
+            if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
+                nextMove = GetRandomMove(learnset[i].move, species);
+            else
+                nextMove = learnset[i].move;
+
+            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != nextMove; j++)
                 ;
 
             if (j == MAX_MON_MOVES)
             {
-                for (k = 0; k < numMoves && moves[k] != learnset[i].move; k++)
+                for (k = 0; k < numMoves && moves[k] != nextMove; k++)
                     ;
-            
-                if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-                {
-                    if (k == numMoves)
-                        moves[numMoves++] = GetRandomMove(learnset[i].move, species);
-                }
-                else
-                {
-                    if (k == numMoves)
-                        moves[numMoves++] = learnset[i].move;
-                }
+                
+                if (k == numMoves)
+                    moves[numMoves++] = nextMove;
             }
         }
     }
@@ -6057,13 +6074,35 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves)
     for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
     {
         if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            moves[numMoves++] = GetRandomMoveNotSeeded(learnset[i].move, species);
+            moves[numMoves++] = GetRandomMove(learnset[i].move, species);
         else
             moves[numMoves++] = learnset[i].move;
     }
-        
 
-     return numMoves;
+    return numMoves;
+}
+
+u8 GetTMHMMovesBySpecies(u16 species, u16 *TMHMMoves, u16 *TMHM_itemID)
+{
+    u16 TMHMMoveIdx = 0;
+    u16 numTMHMMoves = 0;
+    u16 i, j;
+    const u16 *learnset = GetSpeciesTeachableLearnset(species);
+
+    if (learnset == NULL || gSaveBlock2Ptr->randomMoves == OPTIONS_ON) //don't return TM data for random moves
+        return 0;
+
+    for (i = 0; learnset[i] != MOVE_UNAVAILABLE; i++)
+        numTMHMMoves++;
+
+    for (int move = 0; move < numTMHMMoves; move++)
+    {
+        if (learnset[move] == MOVE_UNAVAILABLE) //end of TM, HM list
+            break;
+        TMHMMoves[move] = learnset[move];
+    }
+
+    return numTMHMMoves;
 }
 
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
@@ -7136,10 +7175,10 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
     {
         while (learnset[sLearningMoveTableID].level == 0 || learnset[sLearningMoveTableID].level == level)
         {
-        
+            
             if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-                gMoveToLearn = GetRandomMoveNotSeeded(learnset[sLearningMoveTableID].move, species);
-            else
+                gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species);
+            else //check wiz1989
                 gMoveToLearn = learnset[sLearningMoveTableID].move;
 
             sLearningMoveTableID++;

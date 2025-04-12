@@ -3408,6 +3408,8 @@ void GiveRandomMonRewardEncounter(void)
     u8 evs[] = {0, 0, 0, 0, 0, 0};
     u8 ivs[] = {31, 31, 31, 31, 31, 31};
     u16 moves[] = {0, 0, 0, 0};
+    if (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
+        level = VarGet(VAR_TEMP_F);
     gSpecialVar_Result = ScriptGiveMonParameterized(species, level, ITEM_NONE, 0, NUM_NATURES, 3, 0, (u8 *) &evs, (u8 *) &ivs, (u16 *) &moves, 0, NUMBER_OF_MON_TYPES, 0);
 }
 
@@ -3755,7 +3757,15 @@ void LevelUpParty(void)
 
 void Check3MonMode(void)
 {
-    if(gSaveBlock2Ptr->mode3MonsOnly == 0)
+    if(gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_3)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void Check1MonMode(void)
+{
+    if(gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3763,7 +3773,15 @@ void Check3MonMode(void)
 
 void Check50FloorMode(void)
 {
-    if(gSaveBlock2Ptr->mode50Floors)
+    if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void Check75FloorMode(void)
+{
+    if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3788,10 +3806,14 @@ void CheckNoExpMode(void)
 void AddInitial3MonsNoCaseMode(void)
 {   
     int i = 0;
+    int maxMons = 3;
+
+    if (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
+        maxMons = 1;
     if(gPlayerPartyCount == 1)
         i = 1;
     SetRandomGiveMonRewardEncounters();
-    for(; i < 3; i++)
+    for(; i < maxMons; i++)
     {
         u16 species = gSaveBlock1Ptr->wildEncounterFloorSpecies[i];
         u16 level = 5;
@@ -3812,6 +3834,8 @@ void AddNewMonNoCaseMode(void)
     u8 evs[] = {0, 0, 0, 0, 0, 0};
     u8 ivs[] = {31, 31, 31, 31, 31, 31};
     u16 moves[] = {0, 0, 0, 0};
+    if (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
+        level = VarGet(VAR_TEMP_F);
     ScriptGiveMonParameterized(species, level, ITEM_NONE, 0, NUM_NATURES, 3, 0, (u8 *) &evs, (u8 *) &ivs, (u16 *) &moves, 0, NUMBER_OF_MON_TYPES, 0);
 }
 
@@ -3969,20 +3993,20 @@ void ChooseRandomRewardNumberForFloor(void)
         case ITEM_DROPS_1: // always 1 reward
             VarSet(VAR_RESULT, 0);
             return;
+        case ITEM_DROPS_2: // always 2 reward2
+            VarSet(VAR_RESULT, 1);
+            return;
         case ITEM_DROPS_3: // always 3 rewards
             VarSet(VAR_RESULT, 2);
             return;
     }
 
     // fallthrough if set to Random
-    if(random_val < 10 && !FlagGet(FLAG_DOUBLES_MODE)) // doubles mode shouldn't give single items
+    if(random_val < 33)
     {
-        if(VarGet(VAR_PIT_FLOOR) < 5)
-            VarSet(VAR_RESULT, 1);
-        else
             VarSet(VAR_RESULT, 0);
     }
-    else if(random_val < 40)
+    else if(random_val < 66)
     {
         VarSet(VAR_RESULT, 1);
     }
