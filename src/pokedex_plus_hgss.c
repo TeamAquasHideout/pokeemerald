@@ -205,6 +205,9 @@ static const u8 sText_Stats_eggGroup_NO_EGGS_DISCOVERED[] = _("---");
 static const u8 sText_Stats_eggGroup_UNKNOWN[] = _("???");
 static const u8 sText_Dex_SEEN[] = _("SEEN");
 static const u8 sText_Dex_OWN[] = _("OWN");
+static const u8 sText_PRE[] = _("Pre");
+static const u8 sText_Tutor[] = _("Tutor");
+static const u8 sText_Egg[] = _("Egg");
 
 static const u8 sText_EVO_Buttons[] = _("{DPAD_UPDOWN}EVOs  {A_BUTTON}CHECK");
 static const u8 sText_EVO_Buttons_Decapped[] = _("{DPAD_UPDOWN}Evos  {A_BUTTON}Check");
@@ -384,7 +387,7 @@ static EWRAM_DATA u16 sLastSelectedPokemon = 0;
 static EWRAM_DATA u8 sPokeBallRotation = 0;
 static EWRAM_DATA struct PokedexListItem *sPokedexListItem = NULL;
 //Pokedex Plus HGSS_Ui
-#define MOVES_COUNT_TOTAL (EGG_MOVES_ARRAY_COUNT + MAX_LEVEL_UP_MOVES + NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
+#define MOVES_COUNT_TOTAL (EGG_MOVES_ARRAY_COUNT + PREEVO_MOVES_ARRAY_COUNT + MAX_LEVEL_UP_MOVES + NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES + TUTOR_MOVES_ARRAY_COUNT)
 EWRAM_DATA static u16 sStatsMoves[MOVES_COUNT_TOTAL] = {0};
 EWRAM_DATA static u16 sStatsMovesTMHM_ID[NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES] = {0};
 
@@ -504,6 +507,7 @@ struct PokedexView
     u8 numLevelUpMoves;
     u8 numTMHMMoves;
     u8 numTutorMoves;
+    u8 numPreEvoMoves;
     u8 numPreEvolutions;
     struct PokemonStats sPokemonStats;
     struct EvoScreenData sEvoScreenData;
@@ -5230,12 +5234,14 @@ static bool8 CalculateMoves(void)
     u16 statsMovesTutor[TUTOR_MOVES_ARRAY_COUNT] = {0};
     u16 statsMovesTMHM[MAX_TMHM_MOVES] = {0};
     u16 statsMovesTMHMItemId[MAX_TMHM_MOVES] = {0};
+    u16 statsMovesPreEvo[TUTOR_MOVES_ARRAY_COUNT] = {0};
     //u16 move;
 
     u8 numEggMoves = 0;
     u8 numLevelUpMoves = 0;
     u8 numTMHMMoves = 0;
     u8 numTutorMoves = 0;
+    u8 numPreEvoMoves = 0;
     u16 movesTotal = 0;
     u8 i;
     //,j;
@@ -5249,11 +5255,19 @@ static bool8 CalculateMoves(void)
     numLevelUpMoves = GetLevelUpMovesBySpecies(species, statsMovesLevelUp);
     numTMHMMoves = GetTMHMMovesBySpecies(species, statsMovesTMHM, statsMovesTMHMItemId);
     numTutorMoves = GetTutorMovesBySpecies(species, statsMovesTutor);
+    numPreEvoMoves = GetPreEvoMovesBySpecies(species, statsMovesPreEvo, FALSE);
 
     //Egg moves
     for (i=0; i < numEggMoves; i++)
     {
         sStatsMoves[movesTotal] = statsMovesEgg[i];
+        movesTotal++;
+    }
+
+    //Pre Evo moves
+    for (i=0; i < numPreEvoMoves; i++)
+    {
+        sStatsMoves[movesTotal] = statsMovesPreEvo[i];
         movesTotal++;
     }
 
@@ -5280,6 +5294,7 @@ static bool8 CalculateMoves(void)
     }
 
     sPokedexView->numEggMoves = numEggMoves;
+    sPokedexView->numPreEvoMoves = numPreEvoMoves;
     sPokedexView->numLevelUpMoves = numLevelUpMoves;
     sPokedexView->numTMHMMoves = numTMHMMoves;
     sPokedexView->numTutorMoves = numTutorMoves;
@@ -5291,6 +5306,7 @@ static bool8 CalculateMoves(void)
 static void PrintStatsScreen_Moves_Top(u8 taskId)
 {
     u8 numEggMoves      = sPokedexView->numEggMoves;
+    u8 numPreEvoMoves   = sPokedexView->numPreEvoMoves;
     u8 numLevelUpMoves  = sPokedexView->numLevelUpMoves;
     u8 numTMHMMoves     = sPokedexView->numTMHMMoves;
     u8 numTutorMoves    = sPokedexView->numTutorMoves;
@@ -5337,26 +5353,32 @@ static void PrintStatsScreen_Moves_Top(u8 taskId)
     //Calculate and retrieve correct move from the arrays
     if (selected < numEggMoves)
     {
-        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, gText_ThreeDashes, moves_x + 113, moves_y + 9);
+        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, sText_Egg, moves_x + 113, moves_y + 9);
         item = ITEM_LUCKY_EGG;
     }
-    else if (selected < (numEggMoves + numLevelUpMoves))
+    else if (selected < (numEggMoves + numPreEvoMoves))
     {
-        level = GetSpeciesLevelUpLearnset(species)[(selected-numEggMoves)].level;
+        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, sText_PRE, moves_x + 113, moves_y + 9);
+        item = ITEM_EVERSTONE;
+    }
+    else if (selected < (numEggMoves + numPreEvoMoves + numLevelUpMoves))
+    {
+        level = GetSpeciesLevelUpLearnset(species)[(selected - numEggMoves)].level;
         ConvertIntToDecimalStringN(gStringVar1, level, STR_CONV_MODE_LEFT_ALIGN, 3); //Move learn lvl
         PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, sText_Stats_MoveLevel, moves_x + 113, moves_y + 3); //Level text
         PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, gStringVar1, moves_x + 113, moves_y + 14); //Print level
         item = ITEM_RARE_CANDY;
     }
-    else if (selected < (numEggMoves + numLevelUpMoves + numTMHMMoves))
+    else if (selected < (numEggMoves + numPreEvoMoves + numLevelUpMoves + numTMHMMoves))
     {
-        //CopyItemName(sStatsMovesTMHM_ID[(selected-numEggMoves-numLevelUpMoves)], gStringVar1); //TM name
-        //PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, gStringVar1, moves_x + 113, moves_y + 9);
-        item = sStatsMovesTMHM_ID[(selected-numEggMoves-numLevelUpMoves)];
+        StringCopy(gStringVar1, gItemsInfo[sStatsMovesTMHM_ID[(selected - numEggMoves - numPreEvoMoves - numLevelUpMoves)]].name);
+        // CopyItemName(gItemsInfo[sStatsMovesTMHM_ID[(selected-numEggMoves-numLevelUpMoves)]].name, gStringVar1); //TM name
+        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, gStringVar1, moves_x + 113, moves_y + 9);
+        item = sStatsMovesTMHM_ID[(selected - numEggMoves - numPreEvoMoves - numLevelUpMoves)];
     }
-    else if (selected < (numEggMoves + numLevelUpMoves + numTMHMMoves + numTutorMoves))
+    else if (selected < (numEggMoves + numPreEvoMoves + numLevelUpMoves + numTMHMMoves + numTutorMoves))
     {
-        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, gText_ThreeDashes, moves_x + 113, moves_y + 9);
+        PrintStatsScreenTextSmall(WIN_STATS_MOVES_TOP, sText_Tutor, moves_x + 113, moves_y + 9);
         item = ITEM_TEACHY_TV;
     }
     else
@@ -5365,7 +5387,7 @@ static void PrintStatsScreen_Moves_Top(u8 taskId)
         item = ITEM_MASTER_BALL;
     }
 
-    //Egg/TM/Level/Tutor Item Icon
+    //Egg/PreEvo/TM/Level/Tutor Item Icon
     gTasks[taskId].data[3] = AddItemIconSprite(ITEM_TAG, ITEM_TAG, item);
     gSprites[gTasks[taskId].data[3]].x2 = 203;
     gSprites[gTasks[taskId].data[3]].y2 = 39;
