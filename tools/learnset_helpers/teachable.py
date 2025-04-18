@@ -229,6 +229,7 @@ for mon in list_of_mons:
                 continue
     tm_learnset.sort()
     tutor_learnset.sort()
+    tm_learnset.append("MOVE_UNAVAILABLE")
     tm_learnset += tutor_learnset
     repl = "static const u16 s%sTeachableLearnset[] = {\n    " % mon
     if len(tm_learnset) > 0:

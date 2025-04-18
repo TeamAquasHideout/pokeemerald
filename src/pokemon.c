@@ -6098,8 +6098,16 @@ u8 GetTMHMMovesBySpecies(u16 species, u16 *TMHMMoves, u16 *TMHM_itemID)
     for (int move = 0; move < numTMHMMoves; move++)
     {
         if (learnset[move] == MOVE_UNAVAILABLE) //end of TM, HM list
-            break;
+            break; //ISSUE: Learnset does contain TMs AND Tutor Moves!
+
         TMHMMoves[move] = learnset[move];
+
+        //get item ID from move ID
+        for (int j = 0; j < (NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES); j++)
+        {
+            if (ItemIdToBattleMoveId(ITEM_TM01 + j) == TMHMMoves[move])
+                TMHM_itemID[move] = (ITEM_TM01 + j);
+        }
     }
 
     return numTMHMMoves;
