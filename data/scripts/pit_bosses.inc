@@ -6,7 +6,6 @@ PitBoss_BossEncounter::
 	goto_if_set FLAG_DOUBLES_MODE, PitBoss_CommonScriptDoubles
 PitBoss_CommonScriptSingles:
 	trainerbattle_single TRAINER_RANDOM_PIT_BOSS, PitArena_Text_Intro, PitArena_Text_Defeat, PitBoss_CommonAfterBattleScript
-	clearflag FLAG_START_BOSS_ENCOUNTER
 	goto PitBoss_CommonAfterBattleScript
 	release
 	end
@@ -23,6 +22,8 @@ PitBoss_CommonScriptDoubles::
 	end
 
 PitBoss_CommonAfterBattleScript::
+	settrainerflag TRAINER_RANDOM_PIT_BOSS
+	settrainerflag TRAINER_RANDOM_PIT_BOSS_DOUBLES
 	clearflag FLAG_START_BOSS_ENCOUNTER
 	goto_if_eq VAR_PIT_FLOOR, 100, PitBoss_FinalBossAfterBattle
 	callnative Check50FloorMode
