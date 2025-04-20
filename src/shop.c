@@ -90,8 +90,7 @@ struct MartInfo
 {
     void (*callback)(void);
     const struct MenuAction *menuActions;
-    const u16 *itemSource;
-    u16 *itemList;
+    const u16 *itemList;
     u16 itemCount;
     u8 windowId;
     u8 martType;
@@ -476,34 +475,15 @@ static void SetShopItemsForSale(const u16 *items)
 {
     u16 i = 0;
 
-    sMartInfo.itemSource = items;
+    sMartInfo.itemList = items;
     sMartInfo.itemCount = 0;
 
     // Read items until ITEM_NONE / DECOR_NONE is reached
-    while (items[i])
+    while (sMartInfo.itemList[i])
     {
         sMartInfo.itemCount++;
         i++;
     }
-    DebugPrintf("Shop Item Count: %d", sMartInfo.itemCount);
-}
-
-void InitShopItemsForSale()
-{
-    u16 i = 0;
-    u16 *itemList;
-
-    sMartInfo.itemList      = (u16 *) AllocZeroed(sMartInfo.itemCount + 1);
-
-    i = 0;
-    while (sMartInfo.itemSource[i])
-    {
-        sMartInfo.itemList[i] = sMartInfo.itemSource[i];
-        i++;
-    }
-    sMartInfo.itemList[i] = ITEM_NONE;
-
-    DebugPrintf("Finished Loading Shop Items");
 }
 
 static void UNUSED Task_ShopMenu(u8 taskId)
@@ -563,8 +543,6 @@ static void Task_HandleShopMenuQuit(u8 taskId)
 
     if (sMartInfo.callback)
         sMartInfo.callback();
-
-    Free((sMartInfo.itemList));
 }
 
 static void Task_GoToBuyOrSellMenu(u8 taskId)
@@ -610,7 +588,6 @@ static void CB2_BuyMenu(void)
     BuildOamBuffer();
     DoScheduledBgTilemapCopiesToVram();
     UpdatePaletteFade();
-    DebugPrintf("CB2_BuyMenu ");
 }
 
 static void VBlankCB_BuyMenu(void)
@@ -651,7 +628,6 @@ static void CB2_InitBuyMenu(void)
         sShopData->iconMonSpriteIds[3] = SPRITE_NONE;
         sShopData->iconMonSpriteIds[4] = SPRITE_NONE;
         sShopData->iconMonSpriteIds[5] = SPRITE_NONE;
-        InitShopItemsForSale();
         if(FlagGet(FLAG_TM_SHOP))
         {
             CreatePartyMonIcons();
@@ -706,15 +682,11 @@ static void CB2_InitBuyMenu(void)
         BuyMenuDrawGraphics();
         BuyMenuAddScrollIndicatorArrows();
         taskId = CreateTask(Task_BuyMenu, 8);
-        DebugPrintf("CB2_InitBuyMenu 7");
         gTasks[taskId].tListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
-        DebugPrintf("CB2_InitBuyMenu 6");
         BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
-
         SetVBlankCallback(VBlankCB_BuyMenu);
         SetMainCallback2(CB2_BuyMenu);
-        DebugPrintf("CB2_InitBuyMenu 5");
         break;
     }
 }
@@ -735,11 +707,7 @@ static void BuyMenuBuildListMenuTemplate(void)
     sListMenuItems = Alloc((sMartInfo.itemCount + 1) * sizeof(*sListMenuItems));
     sItemNames = Alloc((sMartInfo.itemCount + 1) * sizeof(*sItemNames));
     for (i = 0; i < sMartInfo.itemCount; i++)
-    {
-        BuyMenuSetListEntry(&sListMenuItems[i], (u16) (sMartInfo.itemList)[i], sItemNames[i]);
-        DebugPrintf("Shop Item Loaded: %d", (u16) (sMartInfo.itemList)[i]);
-    }
-        
+        BuyMenuSetListEntry(&sListMenuItems[i], sMartInfo.itemList[i], sItemNames[i]);
 
     StringCopy(sItemNames[i], gText_Cancel2);
     sListMenuItems[i].name = sItemNames[i];
