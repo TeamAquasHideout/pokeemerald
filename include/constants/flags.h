@@ -687,7 +687,7 @@
 #define FLAG_TRAINER_7							0x280 // Unused Flag
 #define FLAG_FOLLOWERS_OFF						0x281 // Unused Flag
 #define FLAG_HARDER_MON_CURVE					0x282 // Unused Flag
-#define FLAG_UNUSED_0x283						0x283 // Unused Flag
+#define FLAG_SORT_SHOP_ITEMS    				0x283 // Unused Flag
 #define FLAG_UNUSED_0x284						0x284 // Unused Flag
 #define FLAG_UNUSED_0x285						0x285 // Unused Flag
 #define FLAG_UNUSED_0x286						0x286 // Unused Flag
