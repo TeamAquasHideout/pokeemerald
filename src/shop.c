@@ -90,7 +90,8 @@ struct MartInfo
 {
     void (*callback)(void);
     const struct MenuAction *menuActions;
-    const u16 *itemList;
+    const u16 *itemSource;
+    u16 *itemList;
     u16 itemCount;
     u8 windowId;
     u8 martType;
@@ -118,6 +119,7 @@ static EWRAM_DATA struct ListMenuItem *sListMenuItems = NULL;
 static EWRAM_DATA u8 (*sItemNames)[ITEM_NAME_LENGTH + 2] = {0};
 static EWRAM_DATA u8 sPurchaseHistoryId = 0;
 EWRAM_DATA struct ItemSlot gMartPurchaseHistory[SMARTSHOPPER_NUM_ITEMS] = {0};
+static EWRAM_DATA u16 *sUniqueItemBuffer = NULL; // static buffer to hold cleaned list
 
 static void Task_ShopMenu(u8 taskId);
 static void Task_HandleShopMenuQuit(u8 taskId);
@@ -475,15 +477,130 @@ static void SetShopItemsForSale(const u16 *items)
 {
     u16 i = 0;
 
-    sMartInfo.itemList = items;
+    sMartInfo.itemSource = items;
     sMartInfo.itemCount = 0;
 
     // Read items until ITEM_NONE / DECOR_NONE is reached
-    while (sMartInfo.itemList[i])
+    while (items[i])
     {
         sMartInfo.itemCount++;
         i++;
     }
+    
+    DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
+}
+
+static void InitShopItemsForSale()
+{
+    u16 i = 0;
+    u16 *itemList;
+
+    sMartInfo.itemList = AllocZeroed((sMartInfo.itemCount + 1) * sizeof(u16));
+    i = 0;
+
+    while (sMartInfo.itemSource[i])
+    {
+        sMartInfo.itemList[i] = sMartInfo.itemSource[i];
+        i++;
+    }
+    sMartInfo.itemList[i] = ITEM_NONE;
+    DebugPrintf("Finished Loading Shop Items");
+}
+
+static void SortItemsByName(u16 *buffer, u16 count)
+{
+    DebugPrintf("SortItemsByName");
+    for (int i = 0; i < count - 1; i++)
+    {
+        for (int j = 0; j < count - 1 - i; j++)
+        {
+            const u8 *nameA = ItemId_GetName(buffer[j]);
+            const u8 *nameB = ItemId_GetName(buffer[j + 1]);
+
+            // DebugPrintf("nameA = %S", nameA);
+            // DebugPrintf("nameB = %S", nameB);
+
+            // Swap if nameA > nameB
+            if (StringCompare(nameA, nameB) > 0)
+            {
+                u16 temp = buffer[j];
+                buffer[j] = buffer[j + 1];
+                buffer[j + 1] = temp;
+            }
+        }
+    }
+}
+
+static void CleanUpShopItemsForSale()
+{
+    u16 i = 0;
+    u16 uniqueCount = 0;
+
+    // Free previously allocated buffer if needed
+    if (sUniqueItemBuffer != NULL)
+    {
+        Free(sUniqueItemBuffer);
+        sUniqueItemBuffer = NULL;
+    }
+
+    // Allocate new buffer
+    sUniqueItemBuffer = Alloc(sizeof(u16) * sMartInfo.itemCount);
+
+    // Handle memory allocation failure
+    if (sUniqueItemBuffer == NULL)
+    {
+        sMartInfo.itemSource = NULL;
+        sMartInfo.itemCount = 0;
+        return;
+    }
+
+    // Create items list without duplicates
+    while (sMartInfo.itemSource[i])
+    {
+        u16 current = sMartInfo.itemSource[i];
+        bool8 isDuplicate = FALSE;
+
+        // Check if current is already in unique list
+        for (int j = 0; j < sMartInfo.itemCount; j++)
+        {
+            if (ItemId_GetName(sUniqueItemBuffer[j]) == ItemId_GetName(current))
+            {
+                isDuplicate = TRUE;
+                DebugPrintf("duplicate %d", current);
+                break;
+            }
+        }
+
+        if (!isDuplicate)
+        {
+            sUniqueItemBuffer[uniqueCount] = current;
+            uniqueCount++;
+        }
+
+        i++;
+    }
+
+    // Sort the items
+    if((gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(sUniqueItemBuffer[0]) == POCKET_TM_HM)
+      || FlagGet(FLAG_SORT_SHOP_ITEMS))
+        SortItemsByName(sUniqueItemBuffer, uniqueCount);
+
+    sMartInfo.itemSource = sUniqueItemBuffer;
+    sMartInfo.itemCount = uniqueCount;
+
+    // Update itemList
+    i = 0;
+    while (sMartInfo.itemSource[i])
+    {
+        sMartInfo.itemList[i] = sMartInfo.itemSource[i];
+        i++;
+    }
+
+    for (int i = 0; i < sMartInfo.itemCount; i++)
+        DebugPrintf("item %d - %d %S", i, sMartInfo.itemList[i], ItemId_GetName(sMartInfo.itemList[i]));
+
+    DebugPrintf("Finished Cleaning Up Shop Items List");
+    DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
 }
 
 static void UNUSED Task_ShopMenu(u8 taskId)
@@ -541,8 +658,13 @@ static void Task_HandleShopMenuQuit(u8 taskId)
     UnlockPlayerFieldControls();
     DestroyTask(taskId);
 
+    FlagClear(FLAG_SORT_SHOP_ITEMS);
+
     if (sMartInfo.callback)
         sMartInfo.callback();
+
+    Free((sMartInfo.itemList));
+    Free(sUniqueItemBuffer);
 }
 
 static void Task_GoToBuyOrSellMenu(u8 taskId)
@@ -628,6 +750,8 @@ static void CB2_InitBuyMenu(void)
         sShopData->iconMonSpriteIds[3] = SPRITE_NONE;
         sShopData->iconMonSpriteIds[4] = SPRITE_NONE;
         sShopData->iconMonSpriteIds[5] = SPRITE_NONE;
+        InitShopItemsForSale();
+        CleanUpShopItemsForSale();
         if(FlagGet(FLAG_TM_SHOP))
         {
             CreatePartyMonIcons();
@@ -706,8 +830,12 @@ static void BuyMenuBuildListMenuTemplate(void)
 
     sListMenuItems = Alloc((sMartInfo.itemCount + 1) * sizeof(*sListMenuItems));
     sItemNames = Alloc((sMartInfo.itemCount + 1) * sizeof(*sItemNames));
+
     for (i = 0; i < sMartInfo.itemCount; i++)
-        BuyMenuSetListEntry(&sListMenuItems[i], sMartInfo.itemList[i], sItemNames[i]);
+    {
+        BuyMenuSetListEntry(&sListMenuItems[i], (u16) (sMartInfo.itemList)[i], sItemNames[i]);
+        DebugPrintf("Shop Item Loaded: %d", (u16) (sMartInfo.itemList)[i]);
+    }
 
     StringCopy(sItemNames[i], gText_Cancel2);
     sListMenuItems[i].name = sItemNames[i];

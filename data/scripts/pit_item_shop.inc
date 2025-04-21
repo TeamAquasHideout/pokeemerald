@@ -19,6 +19,7 @@ PitShop_ShopNPC::
 	lock
 	faceplayer
 	setvar VAR_TEMP_9, 0
+	clearflag FLAG_SORT_SHOP_ITEMS
 PitShop_ShopNPCHook::
 	message PitShop_ShopNPC_Text
 
@@ -168,6 +169,7 @@ PitArena_MartScript_Mints::
 	end
 
 PitArena_MartScript_Gems::
+	setflag FLAG_SORT_SHOP_ITEMS
 	pokemart PitArena_Mart_Gems
 	goto PitShop_ShopNPCHook
 	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
