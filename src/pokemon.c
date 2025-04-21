@@ -2295,7 +2295,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
     if (learnset[sLearningMoveTableID].level == level)
     {
         if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
-            gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species); //check wiz1989
+            gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species);
         else
             gMoveToLearn = learnset[sLearningMoveTableID].move;
         sLearningMoveTableID++;
@@ -7186,7 +7186,7 @@ u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
             
             if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                 gMoveToLearn = GetRandomMove(learnset[sLearningMoveTableID].move, species);
-            else //check wiz1989
+            else
                 gMoveToLearn = learnset[sLearningMoveTableID].move;
 
             sLearningMoveTableID++;

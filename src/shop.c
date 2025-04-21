@@ -487,8 +487,6 @@ static void SetShopItemsForSale(const u16 *items)
         sMartInfo.itemCount++;
         i++;
     }
-    
-    DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
 }
 
 static void InitShopItemsForSale()
@@ -505,7 +503,6 @@ static void InitShopItemsForSale()
         i++;
     }
     sMartInfo.itemList[i] = ITEM_NONE;
-    DebugPrintf("Finished Loading Shop Items");
 }
 
 static void SortItemsByName(u16 *buffer, u16 count)
@@ -541,72 +538,91 @@ static void SortItemsByName(u16 *buffer, u16 count)
     }
 }
 
+static bool8 ShouldAddItem(const u8 *name)
+{
+    if (GEN_LATEST != GEN_9)
+        return FALSE;
+
+    switch (VarGet(VAR_SHOP_TM_RANGE))
+    {
+        case A_F: return (name[0] >= CHAR_A && name[0] <= CHAR_F);
+        case G_R: return (name[0] >= CHAR_G && name[0] <= CHAR_R);
+        case S_Z: return (name[0] >= CHAR_S && name[0] <= CHAR_Z);
+        default: return FALSE;
+    }
+}
+
 static void CleanUpShopItemsForSale()
 {
     u16 i = 0;
     u16 uniqueCount = 0;
 
-    // Free previously allocated buffer if needed
-    if (sUniqueItemBuffer != NULL)
+    if((gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(sMartInfo.itemSource[0]) == POCKET_TM_HM)
+      || FlagGet(FLAG_SORT_SHOP_ITEMS))
     {
-        Free(sUniqueItemBuffer);
-        sUniqueItemBuffer = NULL;
-    }
-
-    // Allocate new buffer
-    sUniqueItemBuffer = Alloc(sizeof(u16) * sMartInfo.itemCount);
-
-    // Handle memory allocation failure
-    if (sUniqueItemBuffer == NULL)
-    {
-        sMartInfo.itemSource = NULL;
-        sMartInfo.itemCount = 0;
-        return;
-    }
-
-    // Create items list without duplicates
-    while (sMartInfo.itemSource[i] && uniqueCount < sMartInfo.itemCount)
-    {
-        u16 current = sMartInfo.itemSource[i];
-        const u8 *currentName = ItemId_GetName(current);
-        bool8 isDuplicate = FALSE;
-
-        // Check if current is already in unique list
-        for (int j = 0; j < sMartInfo.itemCount; j++)
+        // Free previously allocated buffer if needed
+        if (sUniqueItemBuffer != NULL)
         {
-            if (!StringCompare(ItemId_GetName(sUniqueItemBuffer[j]), currentName))
-            {
-                isDuplicate = TRUE;
-                // DebugPrintf("duplicate %d", current);
-                break;
-            }
+            Free(sUniqueItemBuffer);
+            sUniqueItemBuffer = NULL;
         }
 
-        if (!isDuplicate)
-            sUniqueItemBuffer[uniqueCount++] = current;
+        // Allocate new buffer
+        sUniqueItemBuffer = Alloc(sizeof(u16) * sMartInfo.itemCount);
 
-        i++;
-    }
+        // Handle memory allocation failure
+        if (sUniqueItemBuffer == NULL)
+        {
+            sMartInfo.itemSource = NULL;
+            sMartInfo.itemCount = 0;
+            return;
+        }
 
-    // Sort the items
-    if((gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(sUniqueItemBuffer[0]) == POCKET_TM_HM)
-      || FlagGet(FLAG_SORT_SHOP_ITEMS))
+        // Create items list without duplicates
+        while (sMartInfo.itemSource[i] && uniqueCount < sMartInfo.itemCount)
+        {
+            u16 current = sMartInfo.itemSource[i];
+            const u8 *currentName = ItemId_GetName(current);
+            bool8 isDuplicate = FALSE;
+
+            // Handle the multiple TM brackets in Gen 9 mode by not adding invalid members to the buffer
+            if (GetPocketByItemId(sMartInfo.itemSource[0]) == POCKET_TM_HM)
+            {
+                if (!ShouldAddItem(currentName))
+                {
+                    i++;
+                    continue;
+                }
+            }
+                
+            // Check if current is already in unique list
+            for (int j = 0; j < uniqueCount; j++)//sMartInfo.itemCount
+            {
+                if (!StringCompare(ItemId_GetName(sUniqueItemBuffer[j]), currentName))
+                {
+                    isDuplicate = TRUE;
+                    break;
+                }
+            }
+
+            if (!isDuplicate)
+                sUniqueItemBuffer[uniqueCount++] = current;
+
+            i++;
+        }
+
+        // Sort the items
         SortItemsByName(sUniqueItemBuffer, uniqueCount);
 
-    sMartInfo.itemSource = sUniqueItemBuffer;
-    sMartInfo.itemCount = uniqueCount;
+        sMartInfo.itemSource = sUniqueItemBuffer;
+        sMartInfo.itemCount = uniqueCount;
 
-    // Update itemList
-    for (i = 0; i < uniqueCount; i++)
-    {
-        sMartInfo.itemList[i] = sUniqueItemBuffer[i];
+        // Update itemList
+        for (i = 0; i < uniqueCount; i++)
+        {
+            sMartInfo.itemList[i] = sUniqueItemBuffer[i];
+        }
     }
-
-    // for (int i = 0; i < sMartInfo.itemCount; i++)
-    //     DebugPrintf("item %d - %d %S", i, sMartInfo.itemList[i], ItemId_GetName(sMartInfo.itemList[i]));
-
-    // DebugPrintf("Finished Cleaning Up Shop Items List");
-    // DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
 }
 
 static void UNUSED Task_ShopMenu(u8 taskId)
@@ -840,7 +856,6 @@ static void BuyMenuBuildListMenuTemplate(void)
     for (i = 0; i < sMartInfo.itemCount; i++)
     {
         BuyMenuSetListEntry(&sListMenuItems[i], (u16) (sMartInfo.itemList)[i], sItemNames[i]);
-        DebugPrintf("Shop Item Loaded: %d", (u16) (sMartInfo.itemList)[i]);
     }
 
     StringCopy(sItemNames[i], gText_Cancel2);

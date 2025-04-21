@@ -208,9 +208,15 @@ void SetOnMapLoadDefaultOptions(void)
     {
         FlagSet(FLAG_MEGA_ACTIVE);
     }
+
     if(gSaveBlock2Ptr->modeZMoves == OPTIONS_ON)
     {
         FlagSet(FLAG_ZMOVES);
+    }
+
+    if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
+    {
+        FlagSet(FLAG_RANDOM_MOVES);
     }
 }
 
