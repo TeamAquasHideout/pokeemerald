@@ -135,6 +135,11 @@ struct RandomTrainerNPC
 #define SAVE_5_FLOORS   1
 #define SAVE_EACH_FLOOR 2
 
+//mart TM list defimes
+#define A_F             0
+#define G_R             1
+#define S_Z             2
+
 extern const struct RandomTrainerNPC RandomNPCTrainers[];
 extern const struct RandomTrainerNPC RandomNPCTrainers_Doubles[];
 extern u8 gCanRayquazaMega;
