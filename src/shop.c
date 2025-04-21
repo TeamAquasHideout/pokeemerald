@@ -49,6 +49,7 @@
 #define TAG_ITEM_ICON_BASE 2110
 
 #define MAX_ITEMS_SHOWN 8
+#define MAX_SHOP_ITEMS 300
 
 enum {
     WIN_BUY_SELL_QUIT,
@@ -509,25 +510,34 @@ static void InitShopItemsForSale()
 
 static void SortItemsByName(u16 *buffer, u16 count)
 {
-    DebugPrintf("SortItemsByName");
-    for (int i = 0; i < count - 1; i++)
+    struct ListMenuItem items[MAX_SHOP_ITEMS];
+
+    // Cache names and ids
+    for (int i = 0; i < count; i++)
     {
-        for (int j = 0; j < count - 1 - i; j++)
+        items[i].id = buffer[i];
+        items[i].name = ItemId_GetName(buffer[i]);
+    }
+
+    // Sort alphabetical
+    for (int i = 0; i < count; i++)
+    {
+        struct ListMenuItem key = items[i];
+        u16 j = i;
+
+        while (j > 0 && StringCompare(items[j - 1].name, key.name) > 0)
         {
-            const u8 *nameA = ItemId_GetName(buffer[j]);
-            const u8 *nameB = ItemId_GetName(buffer[j + 1]);
-
-            // DebugPrintf("nameA = %S", nameA);
-            // DebugPrintf("nameB = %S", nameB);
-
-            // Swap if nameA > nameB
-            if (StringCompare(nameA, nameB) > 0)
-            {
-                u16 temp = buffer[j];
-                buffer[j] = buffer[j + 1];
-                buffer[j + 1] = temp;
-            }
+            items[j] = items[j - 1];
+            j--;
         }
+
+        items[j] = key;
+    }
+
+    // Write back to buffer
+    for (u16 i = 0; i < count; i++)
+    {
+        buffer[i] = items[i].id;
     }
 }
 
@@ -555,27 +565,25 @@ static void CleanUpShopItemsForSale()
     }
 
     // Create items list without duplicates
-    while (sMartInfo.itemSource[i])
+    while (sMartInfo.itemSource[i] && uniqueCount < sMartInfo.itemCount)
     {
         u16 current = sMartInfo.itemSource[i];
+        const u8 *currentName = ItemId_GetName(current);
         bool8 isDuplicate = FALSE;
 
         // Check if current is already in unique list
         for (int j = 0; j < sMartInfo.itemCount; j++)
         {
-            if (ItemId_GetName(sUniqueItemBuffer[j]) == ItemId_GetName(current))
+            if (!StringCompare(ItemId_GetName(sUniqueItemBuffer[j]), currentName))
             {
                 isDuplicate = TRUE;
-                DebugPrintf("duplicate %d", current);
+                // DebugPrintf("duplicate %d", current);
                 break;
             }
         }
 
         if (!isDuplicate)
-        {
-            sUniqueItemBuffer[uniqueCount] = current;
-            uniqueCount++;
-        }
+            sUniqueItemBuffer[uniqueCount++] = current;
 
         i++;
     }
@@ -589,18 +597,16 @@ static void CleanUpShopItemsForSale()
     sMartInfo.itemCount = uniqueCount;
 
     // Update itemList
-    i = 0;
-    while (sMartInfo.itemSource[i])
+    for (i = 0; i < uniqueCount; i++)
     {
-        sMartInfo.itemList[i] = sMartInfo.itemSource[i];
-        i++;
+        sMartInfo.itemList[i] = sUniqueItemBuffer[i];
     }
 
-    for (int i = 0; i < sMartInfo.itemCount; i++)
-        DebugPrintf("item %d - %d %S", i, sMartInfo.itemList[i], ItemId_GetName(sMartInfo.itemList[i]));
+    // for (int i = 0; i < sMartInfo.itemCount; i++)
+    //     DebugPrintf("item %d - %d %S", i, sMartInfo.itemList[i], ItemId_GetName(sMartInfo.itemList[i]));
 
-    DebugPrintf("Finished Cleaning Up Shop Items List");
-    DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
+    // DebugPrintf("Finished Cleaning Up Shop Items List");
+    // DebugPrintf("sMartInfo.itemCount = %d",sMartInfo.itemCount);
 }
 
 static void UNUSED Task_ShopMenu(u8 taskId)
