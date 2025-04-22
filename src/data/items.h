@@ -9580,8 +9580,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets HP EVs."),
+            "friendly and resets\n"
+            "HP EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
@@ -9598,8 +9598,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets Attack EVs."),
+            "friendly and resets\n"
+            "Attack EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
@@ -9616,8 +9616,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets Defense EVs."),
+            "friendly and resets\n"
+            "Defense EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
@@ -9634,8 +9634,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets Sp. Atk. EVs."),
+            "friendly and resets\n"
+            "Sp. Atk. EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
@@ -9652,8 +9652,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets Sp. Def. EVs."),
+            "friendly and resets\n"
+            "Sp. Def. EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,
@@ -9670,8 +9670,8 @@ const struct Item gItemsInfo[] =
         .price = 500, // EV BERRY
         .description = COMPOUND_STRING(
             "Makes a Pokémon\n"
-            "friendly but lowers\n"
-            "Resets Speed EVs."),
+            "friendly and resets\n"
+            "Speed EVs."),
         .pocket = POCKET_POWER_UP,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_ResetEVs,

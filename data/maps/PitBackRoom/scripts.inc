@@ -111,10 +111,11 @@ PitBackRoom_EventScript_wiz1989::
 
 PitBackRoom_EventScript_wiz1989_Text_0:
 	.string "wiz1989: I'm a coding guy and\n"
-	.string "puzzle master.\p"
-	.string "What I have prepared for you\n"
-	.string "can be very PITtyful, if you\l"
-	.string "dare to take a challenge!$"
+	.string "infamous puzzle master.\p"
+	.string "I started this as a side project to\n"
+	.string "help Archie and ended up getting\l"
+	.string "swallowed by the pit.\p"
+	.string "Hot take: Rest TM is my hidden gem!$"
 
 // PitBackRoom_EventScript_wiz1989_Text_0:
 // 	.string "I am the Game Master.\p"
@@ -167,8 +168,47 @@ PitBackRoom_EventScript_Aereon_text::
 	.string "attempts in The Pit, I'm rooting for\l"
 	.string "you!$"
 
-PitBackRoom_EventScript_Vase::
+PitBackRoom_EventScript_twoicicki::
 	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_twoicicki_text, MSGBOX_DEFAULT
 	release
 	end
 
+PitBackRoom_EventScript_twoicicki_text::
+	.string "What's up!\p"
+	.string "I'm twoicicki and I probably have the\n"
+	.string "most runs of any player under my belt.\p"
+	.string "Trust me, Gliscor is high mid-tier at best!$"
+
+PitBackRoom_EventScript_HunarPG::
+	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_HunarPG_text, MSGBOX_DEFAULT
+	release
+	end
+
+PitBackRoom_EventScript_HunarPG_text::
+	.string "Welcome to the tester's table!\p"
+	.string "I am Hunar and I'll finish a run\n"
+	.string "while Typ.Null07 is still bag resetting.\p"
+	.string "Everyone else is playing so slow...\p"
+	.string "You should try out the RACE mode\n"
+	.string "and set a new speed record!$"
+
+PitBackRoom_EventScript_TypNull07::
+	lock
+	faceplayer
+	msgbox PitBackRoom_EventScript_TypNull07_text, MSGBOX_DEFAULT
+	release
+	end
+
+PitBackRoom_EventScript_TypNull07_text::
+	.string "Hi there!\n"
+	.string "I am Typ.Null07 and I am a passionate\l"
+	.string "tester of this hack.\p"
+	.string "Pretty sure that I am the one spending\n"
+	.string "the most time at this table.\p"
+	.string "My recipe for success???\n"
+	.string "Resetting until my fingers bleed.\l"
+	.string "But keep this our little secret!$"
