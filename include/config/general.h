@@ -54,8 +54,8 @@
 #define ITEM_EXPANSION
 
 // ### SWITCH Generations for different game version! ###
-//#define PIT_GEN_3_MODE
-//#define PIT_GEN_5_MODE
+// #define PIT_GEN_3_MODE
+// #define PIT_GEN_5_MODE
 #define PIT_GEN_9_MODE
 
 // Generation constants used in configs to define behavior
