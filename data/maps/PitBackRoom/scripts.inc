@@ -210,5 +210,5 @@ PitBackRoom_EventScript_TypNull07_text::
 	.string "Pretty sure that I am the one spending\n"
 	.string "the most time at this table.\p"
 	.string "My recipe for success???\n"
-	.string "Resetting until my fingers bleed.\l"
+	.string "Bag resetting until my fingers bleed.\l"
 	.string "But keep this our little secret!$"
