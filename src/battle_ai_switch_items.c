@@ -962,8 +962,8 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
               || AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0))
                 && aiMove != MOVE_NONE
                 && (gMovesInfo[aiMove].power != 0
-                  || HasViableAIScore(aiMove, battler, opposingBattler, 100)
-                  || HasViableAIScore(aiMove, battler, opposingPartner, 100)))
+                  || HasViableAIScore(moveIndex, battler, opposingBattler, 101)
+                  || HasViableAIScore(moveIndex, battler, opposingPartner, 101)))
                     return FALSE;
         }
     }
@@ -975,7 +975,7 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
             if (AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
               && aiMove != MOVE_NONE
               && (gMovesInfo[aiMove].power != 0
-                || HasViableAIScore(aiMove, battler, opposingBattler, 100)))
+                || HasViableAIScore(moveIndex, battler, opposingBattler, 100)))
                 return FALSE;
         }
     }
@@ -1955,8 +1955,8 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
             || gBattlerPartyIndexes[battlerIn1] == i
             || gBattlerPartyIndexes[battlerIn2] == i
             || i == gBattleStruct->monToSwitchIntoId[battlerIn1]
-            || i == gBattleStruct->monToSwitchIntoId[battlerIn2]
-            || IsMonViableSwitchIn(battler, party, i))
+            || i == gBattleStruct->monToSwitchIntoId[battlerIn2])
+            // || IsMonViableSwitchIn(battler, party, i)) // ToDo
         {
             continue;
         }
@@ -1983,7 +1983,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         if(hitsToKOAI > maxHitsToKO)
         {
             maxHitsToKO = hitsToKOAI;
-            if(maxHitsToKO > defensiveMonHitKOThreshold)
+            if(maxHitsToKO > defensiveMonHitKOThreshold)// && IsMonViableSwitchIn(battler, party, i))
                 defensiveMonId = i;
         }
 
@@ -1994,128 +1994,134 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         {
             if ((hitsToKOAI > hitsToKOAIThreshold && AI_DATA->switchinCandidate.battleMon.speed > playerMonSpeed) || hitsToKOAI > hitsToKOAIThreshold + 1) // Need to take an extra hit if slower
             {
-                bestResist = typeMatchup;
-                typeMatchupId = i;
+                // if (IsMonViableSwitchIn(battler, party, i))
+                // {
+                    bestResist = typeMatchup;
+                    typeMatchupId = i;
+                // }
             }
         }
 
         aiMonSpeed = AI_DATA->switchinCandidate.battleMon.speed;
 
         // Check through current mon's moves
-        for (j = 0; j < MAX_MON_MOVES; j++)
-        {
-            aiMove = AI_DATA->switchinCandidate.battleMon.moves[j];
-            aiMovePriority = gMovesInfo[aiMove].priority;
-
-            // Only do damage calc if switching after KO, don't need it otherwise and saves ~0.02s per turn
-            if (isSwitchAfterKO && aiMove != MOVE_NONE && gMovesInfo[aiMove].power != 0)
+        // if (IsMonViableSwitchIn(battler, party, i))
+        // {
+            for (j = 0; j < MAX_MON_MOVES; j++)
             {
-                if (AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_CONSERVATIVE)
-                    damageDealt = AI_CalcPartyMonDamage(aiMove, battler, opposingBattler, AI_DATA->switchinCandidate.battleMon, TRUE, DMG_ROLL_LOWEST);
-                else
-                    damageDealt = AI_CalcPartyMonDamage(aiMove, battler, opposingBattler, AI_DATA->switchinCandidate.battleMon, TRUE, DMG_ROLL_DEFAULT);
-            }
+                aiMove = AI_DATA->switchinCandidate.battleMon.moves[j];
+                aiMovePriority = gMovesInfo[aiMove].priority;
 
-            // Check for Baton Pass; hitsToKO requirements mean mon can boost and BP without dying whether it's slower or not
-            if (aiMove == MOVE_BATON_PASS && ((hitsToKOAI > hitsToKOAIThreshold + 1 && AI_DATA->switchinCandidate.battleMon.speed < playerMonSpeed) || (hitsToKOAI > hitsToKOAIThreshold && AI_DATA->switchinCandidate.battleMon.speed > playerMonSpeed)))
-                bits |= gBitTable[i];
-
-            // Check for mon with resistance and super effective move for GetBestMonTypeMatchup
-            if (aiMove != MOVE_NONE && gMovesInfo[aiMove].power != 0)
-            {
-                if (typeMatchup < bestResistEffective)
+                // Only do damage calc if switching after KO, don't need it otherwise and saves ~0.02s per turn
+                if (isSwitchAfterKO && aiMove != MOVE_NONE && gMovesInfo[aiMove].power != 0)
                 {
-                    if (AI_GetTypeEffectiveness(aiMove, battler, opposingBattler) >= UQ_4_12(2.0))
-                    {
-                        // Assuming a super effective move would do significant damage or scare the player out, so not being as conservative here
-                        if (hitsToKOAI > hitsToKOAIThreshold)
-                        {
-                            bestResistEffective = typeMatchup;
-                            typeMatchupEffectiveId = i;
-                        }
-                    }
-                }
-
-                // If a self destruction move doesn't OHKO, don't factor it into revenge killing
-                if (gMovesInfo[aiMove].effect == EFFECT_EXPLOSION && damageDealt < playerMonHP)
-                    continue;
-
-                // Check that mon isn't one shot and set GetBestMonDmg if applicable
-                if (damageDealt > maxDamageDealt)
-                {
-                    if(hitsToKOAI > hitsToKOAIThreshold)
-                    {
-                        maxDamageDealt = damageDealt;
-                        damageMonId = i;
-                    }
-                }
-
-                // Check if current mon can revenge kill in some capacity
-                // If AI mon can one shot
-                if (damageDealt > playerMonHP)
-                {
-                    // If AI mon outspeeds and doesn't die to hazards
-                    if ((((aiMonSpeed > playerMonSpeed && !(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)) || aiMovePriority > 0) // Outspeed if not Trick Room
-                        || ((gFieldStatuses & STATUS_FIELD_TRICK_ROOM) // Trick Room
-                        && (aiMonSpeed < playerMonSpeed || (ItemId_GetHoldEffect(AI_DATA->switchinCandidate.battleMon.item) == HOLD_EFFECT_ROOM_SERVICE && aiMonSpeed * 2 / 3 < playerMonSpeed)))) // Trick Room speeds
-                        && AI_DATA->switchinCandidate.battleMon.hp > GetSwitchinHazardsDamage(battler, &AI_DATA->switchinCandidate.battleMon)) // Hazards
-                    {
-                        // We have a revenge killer
-                        revengeKillerId = i;
-                    }
-
-                    // If AI mon is outsped
+                    if (AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_CONSERVATIVE)
+                        damageDealt = AI_CalcPartyMonDamage(aiMove, battler, opposingBattler, AI_DATA->switchinCandidate.battleMon, TRUE, DMG_ROLL_LOWEST);
                     else
-                    {
-                        // If AI mon can't be OHKO'd
-                        if (hitsToKOAI > hitsToKOAIThreshold)
-                        {
-                            // We have a slow revenge killer
-                            slowRevengeKillerId = i;
-                        }
-                    }
+                        damageDealt = AI_CalcPartyMonDamage(aiMove, battler, opposingBattler, AI_DATA->switchinCandidate.battleMon, TRUE, DMG_ROLL_DEFAULT);
                 }
 
-                // If AI mon can two shot
-                if (damageDealt > playerMonHP / 2)
-                {
-                    // If AI mon outspeeds
-                    if (((aiMonSpeed > playerMonSpeed && !(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)) || aiMovePriority > 0) // Outspeed if not Trick Room
-                        || (((gFieldStatuses & STATUS_FIELD_TRICK_ROOM) && gFieldTimers.trickRoomTimer > 1) // Trick Room has at least 2 turns left
-                        && (aiMonSpeed < playerMonSpeed || (ItemId_GetHoldEffect(AI_DATA->switchinCandidate.battleMon.item) == HOLD_EFFECT_ROOM_SERVICE && aiMonSpeed * 2/ 3 < playerMonSpeed)))) // Trick Room speeds
-                    {
-                        // If AI mon can't be OHKO'd
-                        if (hitsToKOAI > hitsToKOAIThreshold)
-                        {
-                            // We have a fast threaten
-                            fastThreatenId = i;
-                        }
-                    }
-                    // If AI mon is outsped
-                    else
-                    {
-                        // If AI mon can't be 2HKO'd
-                        if (hitsToKOAI > hitsToKOAIThreshold + 1)
-                        {
-                            // We have a slow threaten
-                            slowThreatenId = i;
-                        }
-                    }
-                }
+                // Check for Baton Pass; hitsToKO requirements mean mon can boost and BP without dying whether it's slower or not
+                if (aiMove == MOVE_BATON_PASS && ((hitsToKOAI > hitsToKOAIThreshold + 1 && AI_DATA->switchinCandidate.battleMon.speed < playerMonSpeed) || (hitsToKOAI > hitsToKOAIThreshold && AI_DATA->switchinCandidate.battleMon.speed > playerMonSpeed)))
+                    bits |= gBitTable[i];
 
-                // If mon can trap
-                if (CanAbilityTrapOpponent(AI_DATA->switchinCandidate.battleMon.ability, opposingBattler))
+                // Check for mon with resistance and super effective move for GetBestMonTypeMatchup
+                if (aiMove != MOVE_NONE && gMovesInfo[aiMove].power != 0)
                 {
-                    hitsToKOPlayer = GetNoOfHitsToKOBattlerDmg(damageDealt, opposingBattler);
-                    if (CountUsablePartyMons(opposingBattler) > 0
-                    && (((hitsToKOAI > hitsToKOPlayer && isSwitchAfterKO) // If can 1v1 after a KO
-                    || (hitsToKOAI == hitsToKOPlayer && isSwitchAfterKO && (aiMonSpeed > playerMonSpeed || aiMovePriority > 0)))
-                    || ((hitsToKOAI > hitsToKOPlayer + 1 && !isSwitchAfterKO) // If can 1v1 after mid battle
-                    || (hitsToKOAI == hitsToKOPlayer + 1 && !isSwitchAfterKO && (aiMonSpeed > playerMonSpeed || aiMovePriority > 0)))))
-                        trapperId = i;
+                    if (typeMatchup < bestResistEffective)
+                    {
+                        if (AI_GetTypeEffectiveness(aiMove, battler, opposingBattler) >= UQ_4_12(2.0))
+                        {
+                            // Assuming a super effective move would do significant damage or scare the player out, so not being as conservative here
+                            if (hitsToKOAI > hitsToKOAIThreshold)
+                            {
+                                bestResistEffective = typeMatchup;
+                                typeMatchupEffectiveId = i;
+                            }
+                        }
+                    }
+
+                    // If a self destruction move doesn't OHKO, don't factor it into revenge killing
+                    if (gMovesInfo[aiMove].effect == EFFECT_EXPLOSION && damageDealt < playerMonHP)
+                        continue;
+
+                    // Check that mon isn't one shot and set GetBestMonDmg if applicable
+                    if (damageDealt > maxDamageDealt)
+                    {
+                        if(hitsToKOAI > hitsToKOAIThreshold)
+                        {
+                            maxDamageDealt = damageDealt;
+                            damageMonId = i;
+                        }
+                    }
+
+                    // Check if current mon can revenge kill in some capacity
+                    // If AI mon can one shot
+                    if (damageDealt > playerMonHP)
+                    {
+                        // If AI mon outspeeds and doesn't die to hazards
+                        if ((((aiMonSpeed > playerMonSpeed && !(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)) || aiMovePriority > 0) // Outspeed if not Trick Room
+                            || ((gFieldStatuses & STATUS_FIELD_TRICK_ROOM) // Trick Room
+                            && (aiMonSpeed < playerMonSpeed || (ItemId_GetHoldEffect(AI_DATA->switchinCandidate.battleMon.item) == HOLD_EFFECT_ROOM_SERVICE && aiMonSpeed * 2 / 3 < playerMonSpeed)))) // Trick Room speeds
+                            && AI_DATA->switchinCandidate.battleMon.hp > GetSwitchinHazardsDamage(battler, &AI_DATA->switchinCandidate.battleMon)) // Hazards
+                        {
+                            // We have a revenge killer
+                            revengeKillerId = i;
+                        }
+
+                        // If AI mon is outsped
+                        else
+                        {
+                            // If AI mon can't be OHKO'd
+                            if (hitsToKOAI > hitsToKOAIThreshold)
+                            {
+                                // We have a slow revenge killer
+                                slowRevengeKillerId = i;
+                            }
+                        }
+                    }
+
+                    // If AI mon can two shot
+                    if (damageDealt > playerMonHP / 2)
+                    {
+                        // If AI mon outspeeds
+                        if (((aiMonSpeed > playerMonSpeed && !(gFieldStatuses & STATUS_FIELD_TRICK_ROOM)) || aiMovePriority > 0) // Outspeed if not Trick Room
+                            || (((gFieldStatuses & STATUS_FIELD_TRICK_ROOM) && gFieldTimers.trickRoomTimer > 1) // Trick Room has at least 2 turns left
+                            && (aiMonSpeed < playerMonSpeed || (ItemId_GetHoldEffect(AI_DATA->switchinCandidate.battleMon.item) == HOLD_EFFECT_ROOM_SERVICE && aiMonSpeed * 2/ 3 < playerMonSpeed)))) // Trick Room speeds
+                        {
+                            // If AI mon can't be OHKO'd
+                            if (hitsToKOAI > hitsToKOAIThreshold)
+                            {
+                                // We have a fast threaten
+                                fastThreatenId = i;
+                            }
+                        }
+                        // If AI mon is outsped
+                        else
+                        {
+                            // If AI mon can't be 2HKO'd
+                            if (hitsToKOAI > hitsToKOAIThreshold + 1)
+                            {
+                                // We have a slow threaten
+                                slowThreatenId = i;
+                            }
+                        }
+                    }
+
+                    // If mon can trap
+                    if (CanAbilityTrapOpponent(AI_DATA->switchinCandidate.battleMon.ability, opposingBattler))
+                    {
+                        hitsToKOPlayer = GetNoOfHitsToKOBattlerDmg(damageDealt, opposingBattler);
+                        if (CountUsablePartyMons(opposingBattler) > 0
+                        && (((hitsToKOAI > hitsToKOPlayer && isSwitchAfterKO) // If can 1v1 after a KO
+                        || (hitsToKOAI == hitsToKOPlayer && isSwitchAfterKO && (aiMonSpeed > playerMonSpeed || aiMovePriority > 0)))
+                        || ((hitsToKOAI > hitsToKOPlayer + 1 && !isSwitchAfterKO) // If can 1v1 after mid battle
+                        || (hitsToKOAI == hitsToKOPlayer + 1 && !isSwitchAfterKO && (aiMonSpeed > playerMonSpeed || aiMovePriority > 0)))))
+                            trapperId = i;
+                    }
                 }
             }
-        }
+        // }
     }
 
     batonPassId = GetRandomSwitchinWithBatonPass(aliveCount, bits, firstId, lastId, i);
