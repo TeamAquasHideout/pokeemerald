@@ -1037,11 +1037,14 @@ uq4_12_t AI_GetTypeEffectiveness(u32 move, u32 battlerAtk, u32 battlerDef)
 
 u32 AI_GetMoveEffectiveness(u32 move, u32 battlerAtk, u32 battlerDef)
 {
-    if (battlerAtk >= MAX_BATTLERS_COUNT)
-        return 1; //ToDo - remove again after fixing IsMonViableSwitchIn()
-
     gMoveResultFlags = 0;
     return AI_GetEffectiveness(AI_GetTypeEffectiveness(move, battlerAtk, battlerDef));
+}
+
+u32 AI_GetMoveEffectivenessBySpecies(u32 move, u32 speciesDef, u32 abilityDef)
+{
+    gMoveResultFlags = 0;
+    return AI_GetEffectiveness(CalcPartyMonTypeEffectivenessMultiplier(move, speciesDef, abilityDef));
 }
 
 static u32 AI_GetEffectiveness(uq4_12_t multiplier)
