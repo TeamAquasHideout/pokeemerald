@@ -440,7 +440,7 @@ static const u8 sText_Tera[]         = _("TERASTAL");
 static const u8 sText_ZMoves[]       = _("Z-MOVES");
 
 static const u8 sText_3MonsOnly[]       = _("PARTY SIZE");
-static const u8 sText_NoCaseChoice[]    = _("NO BIRCH CASE");
+static const u8 sText_NoCaseChoice[]    = _("NO MON CHOICE");
 static const u8 sText_BossHeal[]        = _("BOSS HEALS");
 static const u8 sText_DoubleCash[]      = _("CASH RATE");
 static const u8 sText_EvoStage[]        = _("EVO STAGES");
@@ -655,7 +655,7 @@ static const u8 sText_Desc_3Mons_1[]            = _("You will choose a single Po
 static const u8 sText_Desc_3Mons_3[]            = _("Party size will never increase and\nremain at three (incl. trainers).");
 static const u8 sText_Desc_3Mons_6[]            = _("Party size will increase by one\nevery 25 floors (6 in total).");
 static const u8 sText_Desc_NoCaseChoice_On[]    = _("You can't choose your party\nand will be given random species.");
-static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe random Birch Case options.");
+static const u8 sText_Desc_NoCaseChoice_Off[]   = _("You can choose your party from\nthe Birch Case and encounter floors.");
 static const u8 sText_Desc_BossHeal_On[]        = _("Your party will be healed before\nstarting a boss battle.");
 static const u8 sText_Desc_BossHeal_Off[]       = _("Your party won't be healed before\nstarting a boss battle.");
 static const u8 sText_Desc_DoubleCash_1x[]      = _("Sets the default amount of money\nreceived after a battle.");

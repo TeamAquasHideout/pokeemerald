@@ -67,6 +67,7 @@ PitBoss_NoCaseModeMode::
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
 	callnative Check1MonMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
+	callnative AddNewMonNoCaseMode
 PitBoss_NoCaseModeMode2::
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9

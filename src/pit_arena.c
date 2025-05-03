@@ -3408,6 +3408,7 @@ void GiveRandomMonRewardEncounter(void)
     u8 evs[] = {0, 0, 0, 0, 0, 0};
     u8 ivs[] = {31, 31, 31, 31, 31, 31};
     u16 moves[] = {0, 0, 0, 0};
+    DebugPrintf("GiveRandomMonRewardEncounter");
     if (gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_1)
         level = VarGet(VAR_TEMP_F);
     gSpecialVar_Result = ScriptGiveMonParameterized(species, level, ITEM_NONE, 0, NUM_NATURES, 3, 0, (u8 *) &evs, (u8 *) &ivs, (u16 *) &moves, 0, NUMBER_OF_MON_TYPES, 0);
