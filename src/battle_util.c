@@ -1483,6 +1483,14 @@ u32 TrySetCantSelectMoveBattleScript(u32 battler)
         }
     }
 
+    if (limitations)
+    {
+        //reset gimmick activation
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
+        SetGimmickCursor(GIMMICK_NONE);
+    }
+
     return limitations;
 }
 
