@@ -2172,21 +2172,21 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             }
                         } while (newSpecies == GetRandomBossEncounterAcePokemon()->species); //no duplicate with boss ace
                     }
-                    if (i == 0) // ### test snippet for forced test encounters for bosses
-                        CreateMon(&party[i], SPECIES_ABRA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    else if (i == 1)
-                        CreateMon(&party[i], SPECIES_MAGIKARP, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    else
+                    // if (i == 0) // ### test snippet for forced test encounters for bosses
+                    //     CreateMon(&party[i], SPECIES_ABRA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else if (i == 1)
+                    //     CreateMon(&party[i], SPECIES_MAGIKARP, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    // else // ### end test snippet
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
                 else
                 {
                     // if (i == 0) // ### test snippet for forced test encounters
-                    //     CreateMon(&party[i], SPECIES_BOUNSWEET, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    //     CreateMon(&party[i], SPECIES_PALAFIN, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 1)
-                    //     CreateMon(&party[i], SPECIES_GOLDEEN, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    //     CreateMon(&party[i], SPECIES_BOUNSWEET, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 2)
-                    //     CreateMon(&party[i], SPECIES_RATTATA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    //     CreateMon(&party[i], SPECIES_SNOVER, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else if (i == 3)
                     //     CreateMon(&party[i], SPECIES_SUNKERN, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
                     // else // ### end test snippet
