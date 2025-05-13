@@ -2172,9 +2172,11 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             }
                         } while (newSpecies == GetRandomBossEncounterAcePokemon()->species); //no duplicate with boss ace
                     }
-                    // if (i < 2) // ### test snippet for forced test encounters for bosses
-                    //     CreateMon(&party[i], SPECIES_ABRA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
-                    // else
+                    if (i == 0) // ### test snippet for forced test encounters for bosses
+                        CreateMon(&party[i], SPECIES_ABRA, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    else if (i == 1)
+                        CreateMon(&party[i], SPECIES_MAGIKARP, monLevel, 0, TRUE, personalityValue, otIdType, fixedOtId);
+                    else
                     CreateMon(&party[i], newSpecies, monLevel, MAX_PER_STAT_IVS, TRUE, personalityValue, otIdType, fixedOtId);
                 }
                 else
