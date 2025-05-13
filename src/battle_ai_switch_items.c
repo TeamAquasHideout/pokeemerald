@@ -1167,7 +1167,6 @@ static bool32 AreAttackingStatsLowered(u32 battler, bool32 emitResult)
 
 bool32 ShouldSwitch(u32 battler, bool32 emitResult)
 {
-    DebugPrintf("ShouldSwitch");
     u32 battlerIn1, battlerIn2;
     s32 firstId;
     s32 lastId; // + 1
@@ -2001,7 +2000,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         if(hitsToKOAI > maxHitsToKO)
         {
             maxHitsToKO = hitsToKOAI;
-            if(maxHitsToKO > defensiveMonHitKOThreshold)// && IsMonViableSwitchIn(battler, party, i))
+            if(maxHitsToKO > defensiveMonHitKOThreshold && IsMonViableSwitchIn(battler, party, i))
                 defensiveMonId = i;
         }
 
@@ -2012,19 +2011,19 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         {
             if ((hitsToKOAI > hitsToKOAIThreshold && AI_DATA->switchinCandidate.battleMon.speed > playerMonSpeed) || hitsToKOAI > hitsToKOAIThreshold + 1) // Need to take an extra hit if slower
             {
-                // if (IsMonViableSwitchIn(battler, party, i))
-                // {
+                if (IsMonViableSwitchIn(battler, party, i))
+                {
                     bestResist = typeMatchup;
                     typeMatchupId = i;
-                // }
+                }
             }
         }
 
         aiMonSpeed = AI_DATA->switchinCandidate.battleMon.speed;
 
         // Check through current mon's moves
-        // if (IsMonViableSwitchIn(battler, party, i))
-        // {
+        if (IsMonViableSwitchIn(battler, party, i))
+        {
             for (j = 0; j < MAX_MON_MOVES; j++)
             {
                 aiMove = AI_DATA->switchinCandidate.battleMon.moves[j];
@@ -2139,7 +2138,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
                     }
                 }
             }
-        // }
+        }
     }
 
     batonPassId = GetRandomSwitchinWithBatonPass(aliveCount, bits, firstId, lastId, i);
@@ -2169,7 +2168,6 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
     }
 
     // If ace mon is the last available Pokemon and U-Turn/Volt Switch was used - switch to the mon.
-    DebugPrintf("A %d %d %d", aceMonId, CountUsablePartyMons(battler), aceMonCount);
     if (aceMonId != PARTY_SIZE && CountUsablePartyMons(battler) <= aceMonCount
       && IsSwitchOutEffect(GetMoveEffect(gCurrentMove)))
         return aceMonId;
@@ -2292,7 +2290,6 @@ u32 GetMostSuitableMonToSwitchInto(u32 battler, bool32 switchAfterMonKOd)
             return bestMonId;
 
         // If ace mon is the last available Pokemon and U-Turn/Volt Switch was used - switch to the mon.
-        DebugPrintf("B %d %d %d", aceMonId, CountUsablePartyMons(battler), aceMonCount);
         if (aceMonId != PARTY_SIZE && CountUsablePartyMons(battler) <= aceMonCount
           && IsSwitchOutEffect(GetMoveEffect(gCurrentMove)))
             return aceMonId;
