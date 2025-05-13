@@ -2652,6 +2652,8 @@ static void SetOptionListTemplate(void)
     u16 i;
     u16 itemsCount;
 
+    // gSaveBlock2Ptr->modeDebug = DEBUG_FULL; //TEST LINE FOR FULL DEBUG ACCESS!
+
     //dynamically create list items
     if (gSaveBlock2Ptr->modeDebug == DEBUG_DISP_DATA)
         itemsCount = 6;
