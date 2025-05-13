@@ -741,14 +741,6 @@ static void Task_MainMenuWaitFadeIn(u8 taskId)
 
 static void LoadDefaultSettings(void)
 {
-    //reset flags
-    FlagClear(FLAG_MIXED_MODE);
-    FlagClear(FLAG_DOUBLES_MODE);
-    FlagClear(FLAG_STAT_CHANGER);
-    FlagClear(FLAG_TRAINER_EVS);
-    FlagClear(FLAG_INVERSE_BATTLE);
-    FlagClear(FLAG_NO_BAG_USE);
-
     //run settings
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_RANDOM;
     gSaveBlock2Ptr->mode3MonsOnly       = PARTY_SIZE_6;
@@ -783,11 +775,9 @@ void LoadNormalModePresets(void)
 {
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
-    FlagSet(FLAG_MIXED_MODE);
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_PROG;
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
-    FlagSet(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_OFF;
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
 #ifdef PIT_GEN_9_MODE
@@ -803,11 +793,9 @@ void LoadHardModePresets(void)
 {
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
-    FlagSet(FLAG_MIXED_MODE);
     gSaveBlock2Ptr->modeXP              = XP_50;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
-    FlagSet(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
 #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
@@ -827,7 +815,6 @@ void LoadIronmonPresets(void)
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
-    FlagSet(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
     gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_FULL;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_RAND;
@@ -846,13 +833,11 @@ void LoadRaceModePresets(void)
 {
     LoadDefaultSettings();
     gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
-    FlagSet(FLAG_MIXED_MODE);
     gSaveBlock2Ptr->modeSingleFloors    = TRUE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->mode50Floors        = FLOORS_50;
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
-    FlagSet(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
     gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_FULL;
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_2;
@@ -866,7 +851,6 @@ void LoadRaceModePresets(void)
     gSaveBlock2Ptr->modeCashRewards     = CASH_2X;
     gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_10;
     gSaveBlock2Ptr->modeNoBagUse        = TRUE;
-    FlagSet(FLAG_NO_BAG_USE);
     gSaveBlock2Ptr->modeDebug           = DEBUG_DISP_MOVES;
 }
 
