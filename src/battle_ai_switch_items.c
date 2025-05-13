@@ -2392,10 +2392,12 @@ static bool32 ShouldUseItem(u32 battler)
         case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
             healAmount = GetHPAmount(itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)], &gEnemyParty[gBattlerPartyIndexes[battler]]);
             shouldUse = AI_ShouldHeal(battler, healAmount);
+            DebugPrintf("shouldUse 1 = %d", shouldUse);
             break;
         case EFFECT_ITEM_RESTORE_HP:
             healAmount = GetHPAmount(itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)], &gEnemyParty[gBattlerPartyIndexes[battler]]);
             shouldUse = AI_ShouldHeal(battler, healAmount);
+            DebugPrintf("shouldUse 2 = %d", shouldUse);
             break;
         case EFFECT_ITEM_CURE_STATUS:
             if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[battler].status1 & STATUS1_SLEEP)
@@ -2439,7 +2441,7 @@ static bool32 ShouldUseItem(u32 battler)
         default:
             return FALSE;
         }
-        // DebugPrintf("should use item? %d", shouldUse);
+        DebugPrintf("should use item? %d", shouldUse);
         if (shouldUse)
         {
             // Set selected party ID to current battler if none chosen.
