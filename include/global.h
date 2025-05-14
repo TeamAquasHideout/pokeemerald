@@ -602,7 +602,7 @@ struct SaveBlock2
              u16 modeMegas:1;
              u16 optionsFollowMonsOff:1;
              u16 modeCashRewards:2;
-             u16 padding3:1; // uncommented because its free padding space
+             u16 optionsSkipMoveLoop:1;
              // end of u16
              u16 randomMoves:1;
              u16 randomAbilities:1;
