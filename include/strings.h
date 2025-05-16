@@ -2332,12 +2332,19 @@ extern const u8 gText_PkmnTransferredSomeonesPC[];
 extern const u8 gText_PkmnTransferredLanettesPC[];
 
 // hall of fame
+extern const u8 gText_VersionText[];
 extern const u8 gText_LeagueChamp[];
 extern const u8 gText_HOFNumber[];
 extern const u8 gText_LostRunChamp[];
 extern const u8 gText_LostRunNumber[];
 extern const u8 gText_LostRunHOF[];
 extern const u8 gText_WonRunHOF[];
+extern const u8 gText_ThePit[];
+extern const u8 gText_GameModeCustom[];
+extern const u8 gText_GameModeHope[];
+extern const u8 gText_GameModeDespair[];
+extern const u8 gText_GameModeRace[];
+extern const u8 gText_GameModeIronmon[];
 extern const u8 gText_PickNextCancel[];
 extern const u8 gText_PickCancel[];
 extern const u8 gText_AButtonExit[];
