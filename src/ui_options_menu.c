@@ -248,7 +248,7 @@ struct Menu_Vanilla// MENU_VANILLA
 {
     [MENUITEM_VANILLA_TEXTSPEED]    = {DrawChoices_TextSpeed,   ProcessInput_Options_Three},
     [MENUITEM_VANILLA_BATTLESCENE]  = {DrawChoices_BattleScene, ProcessInput_Options_Two},
-    [MENUITEM_VANILLA_BATTLESTYLE]  = {DrawChoices_BattleStyle, ProcessInput_Options_One},
+    [MENUITEM_VANILLA_BATTLESTYLE]  = {DrawChoices_BattleStyle, ProcessInput_Options_Two},
     [MENUITEM_VANILLA_SOUND]        = {DrawChoices_Sound,       ProcessInput_Options_Two},
     [MENUITEM_VANILLA_BUTTONMODE]   = {DrawChoices_ButtonMode,  ProcessInput_Options_Three},
     [MENUITEM_VANILLA_CANCEL]       = {NULL, NULL},
@@ -321,7 +321,7 @@ static bool8 CheckConditions(int selection)
             {
                 case MENUITEM_VANILLA_TEXTSPEED:       return TRUE;
                 case MENUITEM_VANILLA_BATTLESCENE:     return TRUE;
-                case MENUITEM_VANILLA_BATTLESTYLE:     return TRUE;
+                case MENUITEM_VANILLA_BATTLESTYLE:     return FALSE;
                 case MENUITEM_VANILLA_SOUND:           return TRUE;
                 case MENUITEM_VANILLA_BUTTONMODE:      return TRUE;
                 case MENUITEM_VANILLA_CANCEL:          return TRUE;
@@ -352,6 +352,7 @@ static const u8 sText_Desc_BattleScene_On[]     = _("Show the POKéMON battle an
 static const u8 sText_Desc_BattleScene_Off[]    = _("Skip the POKéMON battle animations.");
 static const u8 sText_Desc_BattleStyle_Shift[]  = _("Get the option to switch your\nPOKéMON after the enemies faints.");
 static const u8 sText_Desc_BattleStyle_Set[]    = _("No free switch after fainting the\nenemies POKéMON.");
+static const u8 sText_Desc_BattleStyle_Default[] = _("Battle style is SET by default.\nYou can change it in a CUSTOM run.");
 static const u8 sText_Desc_SoundMono[]          = _("Sound is the same in all speakers.\nRecommended for original hardware.");
 static const u8 sText_Desc_SoundStereo[]        = _("Play the left and right audio channel\nseperatly. Great with headphones.");
 static const u8 sText_Desc_ButtonMode[]         = _("All buttons work as normal.");
@@ -372,12 +373,12 @@ static const u8 *const sOptionsMenuItemDescriptionsPit[MENUITEM_PIT_COUNT][4] =
 
 static const u8 *const sOptionsMenuItemDescriptionsVan[MENUITEM_VANILLA_COUNT][3] =
 {
-    [MENUITEM_VANILLA_TEXTSPEED]   = {sText_Desc_TextSpeed,            sText_Desc_TextSpeed,          sText_Desc_TextSpeed},
-    [MENUITEM_VANILLA_BATTLESCENE] = {sText_Desc_BattleScene_On,       sText_Desc_BattleScene_Off,    sText_Empty},
-    [MENUITEM_VANILLA_BATTLESTYLE] = {sText_Desc_BattleStyle_Set,      sText_Empty,                   sText_Empty},
-    [MENUITEM_VANILLA_SOUND]       = {sText_Desc_SoundMono,            sText_Desc_SoundStereo,        sText_Empty},
-    [MENUITEM_VANILLA_BUTTONMODE]  = {sText_Desc_ButtonMode,           sText_Desc_ButtonMode_LR,      sText_Desc_ButtonMode_LA},
-    [MENUITEM_VANILLA_CANCEL]      = {sText_Desc_Save,                 sText_Empty,                   sText_Empty},
+    [MENUITEM_VANILLA_TEXTSPEED]   = {sText_Desc_TextSpeed,            sText_Desc_TextSpeed,           sText_Desc_TextSpeed},
+    [MENUITEM_VANILLA_BATTLESCENE] = {sText_Desc_BattleScene_On,       sText_Desc_BattleScene_Off,     sText_Empty},
+    [MENUITEM_VANILLA_BATTLESTYLE] = {sText_Desc_BattleStyle_Default,  sText_Desc_BattleStyle_Default, sText_Empty},
+    [MENUITEM_VANILLA_SOUND]       = {sText_Desc_SoundMono,            sText_Desc_SoundStereo,         sText_Empty},
+    [MENUITEM_VANILLA_BUTTONMODE]  = {sText_Desc_ButtonMode,           sText_Desc_ButtonMode_LR,       sText_Desc_ButtonMode_LA},
+    [MENUITEM_VANILLA_CANCEL]      = {sText_Desc_Save,                 sText_Empty,                    sText_Empty},
 };
 
 /*
@@ -715,7 +716,7 @@ void CB2_InitOptionsMenu(void)
         sOptions->sel_pit[MENUITEM_PIT_FOLLOWMONS]      = gSaveBlock2Ptr->optionsFollowMonsOff;
         sOptions->sel_pit[MENUITEM_PIT_SKIP_MOVE_LOOP]  = !(gSaveBlock2Ptr->optionsSkipMoveLoop);
         sOptions->sel_van[MENUITEM_VANILLA_BATTLESCENE] = gSaveBlock2Ptr->optionsBattleSceneOff;
-        sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE] = 0;
+        sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE] = gSaveBlock2Ptr->optionsBattleStyle;
         sOptions->sel_van[MENUITEM_VANILLA_SOUND]       = gSaveBlock2Ptr->optionsSound;
         sOptions->sel_van[MENUITEM_VANILLA_BUTTONMODE]  = gSaveBlock2Ptr->optionsButtonMode;
 //        sOptions->sel_van[MENUITEM_VANILLA_FRAMETYPE]    = gSaveBlock2Ptr->optionsWindowFrameType;
@@ -937,7 +938,7 @@ static void Task_OptionsMenuSave(u8 taskId)
     //vanilla settings
     gSaveBlock2Ptr->optionsTextSpeed        = sOptions->sel_van[MENUITEM_VANILLA_TEXTSPEED] + 1; //ignore SLOW
     gSaveBlock2Ptr->optionsBattleSceneOff   = sOptions->sel_van[MENUITEM_VANILLA_BATTLESCENE];
-    gSaveBlock2Ptr->optionsBattleStyle      = OPTIONS_BATTLE_STYLE_SET;
+    gSaveBlock2Ptr->optionsBattleStyle      = sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE];
     gSaveBlock2Ptr->optionsSound            = sOptions->sel_van[MENUITEM_VANILLA_SOUND];
     gSaveBlock2Ptr->optionsButtonMode       = sOptions->sel_van[MENUITEM_VANILLA_BUTTONMODE];
 
@@ -1284,11 +1285,11 @@ static void DrawChoices_BattleScene(int selection, int y)
 static void DrawChoices_BattleStyle(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_VANILLA_BATTLESTYLE);
-    u8 styles[1] = {0};
+    u8 styles[2] = {0};
     styles[selection] = 1;
 
-    DrawOptionsMenuChoice(sText_Set, 104, y, styles[0], active);
-    // DrawOptionsMenuChoice(sText_Set, GetStringRightAlignXOffset(FONT_NORMAL, sText_Set, 198), y, styles[1], active);
+    DrawOptionsMenuChoice(sText_Shift, 104, y, styles[0], active);
+    DrawOptionsMenuChoice(sText_Set, GetStringRightAlignXOffset(FONT_NORMAL, sText_Set, 198), y, styles[1], active);
 }
 
 static void DrawChoices_Sound(int selection, int y)

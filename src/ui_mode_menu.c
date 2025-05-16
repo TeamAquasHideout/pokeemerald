@@ -101,6 +101,7 @@ enum MenuItems_Difficulty
     MENUITEM_DIFF_ITEM_DROPS,
     MENUITEM_DIFF_STAT_CHANGER,
     MENUITEM_DIFF_NO_BAG_USE,
+    MENUITEM_DIFF_BATTLESTYLE,
     MENUITEM_DIFF_CANCEL,
     MENUITEM_DIFF_COUNT,
 };
@@ -336,6 +337,7 @@ static void DrawChoices_Megas(int selection, int y);
 static void DrawChoices_ZMoves(int selection, int y);
 static void DrawChoices_HealFloors(int selection, int y);
 static void DrawChoices_NoBagUse(int selection, int y);
+static void DrawChoices_BattleStyle(int selection, int y);
 static void DrawChoices_Dynamax(int selection, int y);
 static void DrawChoices_Tera(int selection, int y);
 static void DrawChoices_PresetsMode(int selection, int y);
@@ -387,6 +389,7 @@ struct Menu_Diff //MENU_DIFF
     [MENUITEM_DIFF_BOSS_HEAL]     = {DrawChoices_BossHeal,     ProcessInput_Options_Two},
     [MENUITEM_DIFF_ITEM_DROPS]    = {DrawChoices_ItemDrops,    ProcessInput_Options_Four},
     [MENUITEM_DIFF_NO_BAG_USE]    = {DrawChoices_NoBagUse,     ProcessInput_Options_Two},
+    [MENUITEM_DIFF_BATTLESTYLE]   = {DrawChoices_BattleStyle,  ProcessInput_Options_Two},
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_DYNAMAX]       = {DrawChoices_Dynamax,      ProcessInput_Options_Two},
     [MENUITEM_DIFF_TERA]          = {DrawChoices_Tera,         ProcessInput_Options_Two},
@@ -435,6 +438,7 @@ static const u8 sText_Megas[]        = _("MEGA EVO");
 static const u8 sText_HealFloors[]   = _("HEAL FLOORS");
 static const u8 sText_ItemDrops[]    = _("ITEM DROPS");
 static const u8 sText_NoBagUse[]     = _("BAG IN BATTLE");
+static const u8 sText_BattleStyle[]  = _("BATTLE STYLE");
 static const u8 sText_Dynamax[]      = _("DYNAMAX");
 static const u8 sText_Tera[]         = _("TERASTAL");
 static const u8 sText_ZMoves[]       = _("Z-MOVES");
@@ -496,6 +500,7 @@ static const u8 *const sModeMenuItemsNamesDiff[MENUITEM_DIFF_COUNT] =
     [MENUITEM_DIFF_BOSS_HEAL]     = sText_BossHeal,
     [MENUITEM_DIFF_ITEM_DROPS]    = sText_ItemDrops,
     [MENUITEM_DIFF_NO_BAG_USE]    = sText_NoBagUse,
+    [MENUITEM_DIFF_BATTLESTYLE]   = sText_BattleStyle,
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_DYNAMAX]       = sText_Dynamax,
     [MENUITEM_DIFF_TERA]          = sText_Tera,
@@ -578,6 +583,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_DIFF_BOSS_HEAL:     return TRUE;
                 case MENUITEM_DIFF_ITEM_DROPS:    return TRUE;
                 case MENUITEM_DIFF_NO_BAG_USE:    return TRUE;
+                case MENUITEM_DIFF_BATTLESTYLE:   return TRUE;
             #ifdef PIT_GEN_9_MODE
                 case MENUITEM_DIFF_DYNAMAX:       return TRUE;
                 case MENUITEM_DIFF_TERA:          return TRUE;
@@ -680,6 +686,8 @@ static const u8 sText_Desc_BattleDebug_Data[]   = _("The battle debug menu (SELE
 static const u8 sText_Desc_BattleDebug_Moves[]  = _("The battle debug menu (SELECT)\nonly displays move data.");
 static const u8 sText_Desc_NoBagUse_On[]        = _("The bag can be used in battle.");
 static const u8 sText_Desc_NoBagUse_Off[]       = _("The bag cannot be used in battle.");
+static const u8 sText_Desc_BattleStyle_Shift[]  = _("Get the option to switch your\nPokémon after the enemies faints.");
+static const u8 sText_Desc_BattleStyle_Set[]    = _("No free switch after fainting the\nenemies Pokémon.");
 static const u8 sText_Desc_Dynamax_On[]         = _("Dynamaxing is possible. A Dynamax\nBand can be bought from the merchant.");
 static const u8 sText_Desc_Dynamax_Off[]        = _("Dynamaxing is not available.");
 static const u8 sText_Desc_Tera_On[]            = _("Tera is avlb and recharges each floor.\nA Tera Orb is added to the shop.");
@@ -737,6 +745,7 @@ static const u8 *const sModeMenuItemDescriptionsDiff[MENUITEM_DIFF_COUNT][4] =
     [MENUITEM_DIFF_BOSS_HEAL]     = {sText_Desc_BossHeal_On,      sText_Desc_BossHeal_Off,      sText_Empty,                sText_Empty},
     [MENUITEM_DIFF_ITEM_DROPS]    = {sText_Desc_ItemDrops_Rand,   sText_Desc_ItemDrops_1,       sText_Desc_ItemDrops_2,     sText_Desc_ItemDrops_3},
     [MENUITEM_DIFF_NO_BAG_USE]    = {sText_Desc_NoBagUse_On,      sText_Desc_NoBagUse_Off,      sText_Empty,                sText_Empty},
+    [MENUITEM_DIFF_BATTLESTYLE]   = {sText_Desc_BattleStyle_Shift,sText_Desc_BattleStyle_Set,   sText_Empty,                sText_Empty},
 #ifdef PIT_GEN_9_MODE
     [MENUITEM_DIFF_DYNAMAX]       = {sText_Desc_Dynamax_On,       sText_Desc_Dynamax_Off,       sText_Empty,                sText_Empty},
     [MENUITEM_DIFF_TERA]          = {sText_Desc_Tera_On,          sText_Desc_Tera_Off,          sText_Empty,                sText_Empty},
@@ -978,6 +987,7 @@ static void ModeMenu_SetupCB(void)
         sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = gSaveBlock2Ptr->modeBossHeal;
         sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = gSaveBlock2Ptr->modeChoiceItemReward;
         sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = gSaveBlock2Ptr->modeNoBagUse;
+        sOptions->sel_diff[MENUITEM_DIFF_BATTLESTYLE]   = gSaveBlock2Ptr->optionsBattleStyle;
     #ifdef PIT_GEN_9_MODE
         sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]       = !(gSaveBlock2Ptr->modeDynamax);
         sOptions->sel_diff[MENUITEM_DIFF_TERA]          = !(gSaveBlock2Ptr->modeTera);
@@ -1638,6 +1648,7 @@ static void Task_ModeMenuSave(u8 taskId)
     gSaveBlock2Ptr->modeChoiceItemReward = sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS];
     gSaveBlock2Ptr->modeChoiceEvoStage   = sOptions->sel_diff[MENUITEM_DIFF_EVOSTAGE];
     gSaveBlock2Ptr->modeNoBagUse         = sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE];
+    gSaveBlock2Ptr->optionsBattleStyle   = sOptions->sel_diff[MENUITEM_DIFF_BATTLESTYLE];
 #ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeDynamax          = !(sOptions->sel_diff[MENUITEM_DIFF_DYNAMAX]);
     gSaveBlock2Ptr->modeTera             = !(sOptions->sel_diff[MENUITEM_DIFF_TERA]);
@@ -1954,6 +1965,8 @@ static const u8 sText_BST_Max[]             = _("MAX");
 static const u8 sText_PartySize_6[]         = _("PARTY");
 static const u8 sText_PartySize_3[]         = _("TRIO");
 static const u8 sText_PartySize_1[]         = _("SOLO");
+static const u8 sText_Style_Shift[]         = _("SHIFT");
+static const u8 sText_Style_Set[]           = _("SET");
 
 static void DrawChoices_SpeciesArray(int selection, int y)
 {
@@ -2339,6 +2352,16 @@ static void DrawChoices_NoBagUse(int selection, int y)
     DrawModeMenuChoice(sText_Choice_No, GetStringRightAlignXOffset(FONT_NORMAL, sText_Choice_No, 198), y, styles[1], active);
 }
 
+static void DrawChoices_BattleStyle(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_DIFF_BATTLESTYLE);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawModeMenuChoice(sText_Style_Shift, 104, y, styles[0], active);
+    DrawModeMenuChoice(sText_Style_Set, GetStringRightAlignXOffset(FONT_NORMAL, sText_Style_Set, 198), y, styles[1], active);
+}
+
 static void DrawChoices_RandBattleWeather(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_RAND_B_WEATHER);
@@ -2511,6 +2534,7 @@ static void ApplyPresets(void)
     sOptions->sel_diff[MENUITEM_DIFF_BOSS_HEAL]     = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ITEM_DROPS]    = ITEM_DROPS_3;
     sOptions->sel_diff[MENUITEM_DIFF_NO_BAG_USE]    = FALSE;
+    sOptions->sel_diff[MENUITEM_DIFF_BATTLESTYLE]   = OPTIONS_BATTLE_STYLE_SET;
 #ifdef PIT_GEN_9_MODE
     sOptions->sel_diff[MENUITEM_DIFF_MEGAS]         = OPTIONS_ON;
     sOptions->sel_diff[MENUITEM_DIFF_ZMOVES]        = OPTIONS_OFF;
