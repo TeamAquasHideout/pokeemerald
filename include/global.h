@@ -631,7 +631,8 @@ struct SaveBlock2
              u16 modeBSTmin;
              u16 modeBSTmax;
              u16 mode50Floors:2;
-             u16 padding4:14;
+             u16 gameMode:4; // 0 = NONE, 1 = CUSTOM, 2 = HOPE, 3 = DESPAIR, 4 = IRONMON, 5 = RACE
+             u16 padding4:10;
              u16 padding5;
 
              u32 extraPitPadding[6];

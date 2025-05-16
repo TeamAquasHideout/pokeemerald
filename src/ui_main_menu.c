@@ -880,6 +880,7 @@ static void Task_MainMenuTurnOff(u8 taskId)
         {
             if (sNewGameSelectedOption == SELECT_CUSTOM)
             {
+                gSaveBlock2Ptr->gameMode = GAME_MODE_CUSTOM;
                 gTasks[taskId].func = Task_OpenModeMenu;
                 MainMenu_FreeResources();
                 return;
@@ -887,21 +888,25 @@ static void Task_MainMenuTurnOff(u8 taskId)
             if (sNewGameSelectedOption == SELECT_HOPE)
             {
                 LoadNormalModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_HOPE;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
             if (sNewGameSelectedOption == SELECT_DESPAIR)
             {
                 LoadHardModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_DESPAIR;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
             if (sNewGameSelectedOption == SELECT_IRONMON)
             {
                 LoadIronmonPresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_IRONMON;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
             if (sNewGameSelectedOption == SELECT_RACE)
             {
                 LoadRaceModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_RACE;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
         }
