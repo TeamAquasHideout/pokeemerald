@@ -1483,6 +1483,14 @@ u32 TrySetCantSelectMoveBattleScript(u32 battler)
         }
     }
 
+    if (limitations)
+    {
+        //reset gimmick activation
+        gBattleStruct->gimmick.chosenGimmick[battler] = GIMMICK_NONE;
+        gBattleStruct->gimmick.playerSelect = FALSE;
+        SetGimmickCursor(GIMMICK_NONE);
+    }
+
     return limitations;
 }
 
@@ -8508,7 +8516,8 @@ u32 GetBattlerHoldEffectInternal(u32 battler, bool32 checkNegating, bool32 check
             return HOLD_EFFECT_NONE;
         if (gFieldStatuses & STATUS_FIELD_MAGIC_ROOM)
             return HOLD_EFFECT_NONE;
-        if (checkAbility && GetBattlerAbility(battler) == ABILITY_KLUTZ)
+        if (checkAbility && GetBattlerAbility(battler) == ABILITY_KLUTZ
+          && gBattleMons[battler].item != ITEM_AMULET_COIN)
             return HOLD_EFFECT_NONE;
     }
 

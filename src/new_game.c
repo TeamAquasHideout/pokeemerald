@@ -106,6 +106,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
         gSaveBlock2Ptr->regionMapZoom = FALSE;
         gSaveBlock2Ptr->optionsFollowMonsOff = FALSE;
+        gSaveBlock2Ptr->optionsSkipMoveLoop = FALSE;
         gSaveBlock2Ptr->optionsBattleSpeed = BATTLESPEED_2X;
         gSaveBlock2Ptr->optionsAutosave = AUTOSAVE_ON;
         gSaveBlock2Ptr->optionsRandomMaps = ON;
@@ -149,6 +150,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->modeTera = FALSE; //this doesn't use the OPTIONS defines!
         gSaveBlock2Ptr->trainerGimmicks = TRAINER_GIMMICKS_NONE;
         gSaveBlock2Ptr->modeNoBagUse = FALSE;
+        gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
 
         //randomizer settings
         gSaveBlock2Ptr->randomBattleWeather = 2; // = no random battle weather

@@ -83,6 +83,8 @@ enum {
     HW_WIN_CUSTOM,
     HW_WIN_NORMAL,
     HW_WIN_HARD,
+    HW_WIN_IRONMON,
+    HW_WIN_RACE,
 };
 
 
@@ -92,6 +94,15 @@ enum Colors
     FONT_WHITE,
     FONT_RED,
     FONT_BLUE,
+};
+
+enum ModeSelections
+{
+    SELECT_CUSTOM,
+    SELECT_HOPE,
+    SELECT_DESPAIR,
+    SELECT_IRONMON,
+    SELECT_RACE,
 };
 
 enum
@@ -212,8 +223,10 @@ static const struct HWWindowPosition HWinCoords[6] =
 static const struct HWWindowPosition HWinNewGameCoords[6] = 
 {
     [HW_WIN_CUSTOM]        = {{7, 233},   {7, 40},},
-    [HW_WIN_NORMAL]        = {{7, 233},   {40, 70},},
-    [HW_WIN_HARD]          = {{7, 233},   {70, 100},},
+    [HW_WIN_NORMAL]        = {{7, 118},   {40, 70},},
+    [HW_WIN_HARD]          = {{119, 233}, {40, 70},},
+    [HW_WIN_IRONMON]       = {{7, 118},   {70, 100},},
+    [HW_WIN_RACE]          = {{119, 233}, {70, 100},},
 };
 
 
@@ -647,9 +660,6 @@ void MainMenu_Init(MainCallback callback)
         sMainMenuDataPtr->iconBoxSpriteIds[i] = SPRITE_NONE;
         sMainMenuDataPtr->iconMonSpriteIds[i] = SPRITE_NONE;
     }
-
-    // always set battle style to SET
-    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     
     SetMainCallback2(MainMenu_RunSetup);
 }
@@ -730,7 +740,6 @@ static void LoadDefaultSettings(void)
 {
     //run settings
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_RANDOM;
-    gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
     gSaveBlock2Ptr->mode3MonsOnly       = PARTY_SIZE_6;
     gSaveBlock2Ptr->modeNoCaseChoice    = OPTIONS_OFF;
     gSaveBlock2Ptr->modeSingleFloors    = FALSE; //this doesn't use the OPTIONS defines!
@@ -746,6 +755,7 @@ static void LoadDefaultSettings(void)
     gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_3;
     gSaveBlock2Ptr->modeBossHeal        = OPTIONS_ON;
     gSaveBlock2Ptr->modeNoBagUse        = FALSE;
+    gSaveBlock2Ptr->optionsBattleStyle  = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->modeBSTmin          = 0;
     gSaveBlock2Ptr->modeBSTmax          = 0;
 
@@ -762,42 +772,84 @@ static void LoadDefaultSettings(void)
 void LoadNormalModePresets(void)
 {
     LoadDefaultSettings();
+    gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
     gSaveBlock2Ptr->modeSpeciesArray    = ARRAY_PROG;
     gSaveBlock2Ptr->modeXP              = XP_75;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_ON;
-    FlagSet(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_OFF;
-    FlagClear(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_ON;
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
     gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
     gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_NONE;
-    #endif
-
-    FlagClear(FLAG_DOUBLES_MODE);
+#endif
 }
 
 void LoadHardModePresets(void)
 {
     LoadDefaultSettings();
+    gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
     gSaveBlock2Ptr->modeXP              = XP_50;
     gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
-    FlagClear(FLAG_STAT_CHANGER);
     gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
-    FlagSet(FLAG_TRAINER_EVS);
     gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
-    #ifdef PIT_GEN_9_MODE
+#ifdef PIT_GEN_9_MODE
     gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
     gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
     gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
-    #endif
+#endif
+}
 
-    FlagClear(FLAG_DOUBLES_MODE);
+void LoadIronmonPresets(void)
+{
+    LoadDefaultSettings();
+    gSaveBlock2Ptr->modeBattleMode      = MODE_SINGLES;
+    gSaveBlock2Ptr->mode3MonsOnly       = PARTY_SIZE_1;
+    gSaveBlock2Ptr->mode50Floors        = FLOORS_75;
+    gSaveBlock2Ptr->modeXP              = XP_75;
+    gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
+    gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_FULL;
+    gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_RAND;
+#ifdef PIT_GEN_9_MODE
+    gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
+#endif
+    gSaveBlock2Ptr->randomMoves         = OPTIONS_ON;
+    gSaveBlock2Ptr->randomAbilities     = OPTIONS_ON;
+}
+
+void LoadRaceModePresets(void)
+{
+    LoadDefaultSettings();
+    gSaveBlock2Ptr->modeBattleMode      = MODE_MIXED;
+    gSaveBlock2Ptr->modeSingleFloors    = TRUE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->mode50Floors        = FLOORS_50;
+    gSaveBlock2Ptr->modeXP              = XP_75;
+    gSaveBlock2Ptr->modeStatChanger     = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeTrainerEVs      = OPTIONS_ON;
+    gSaveBlock2Ptr->modeLegendaries     = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeChoiceEvoStage  = EVOSTAGE_FULL;
+    gSaveBlock2Ptr->modeChoiceItemReward = ITEM_DROPS_2;
+#ifdef PIT_GEN_9_MODE
+    gSaveBlock2Ptr->modeMegas           = OPTIONS_ON;
+    gSaveBlock2Ptr->modeZMoves          = OPTIONS_OFF;
+    gSaveBlock2Ptr->modeDynamax         = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
+    gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
+#endif
+    gSaveBlock2Ptr->modeCashRewards     = CASH_2X;
+    gSaveBlock2Ptr->modeHealFloors10    = HEAL_FLOORS_10;
+    gSaveBlock2Ptr->modeNoBagUse        = TRUE;
+    gSaveBlock2Ptr->modeDebug           = DEBUG_DISP_MOVES;
 }
 
 void LoadCustomModePresets(void)
@@ -824,20 +876,35 @@ static void Task_MainMenuTurnOff(u8 taskId)
 
         if (sNewGameSelectedOption != 0xFF)
         {
-            if (sNewGameSelectedOption == 0)
+            if (sNewGameSelectedOption == SELECT_CUSTOM)
             {
+                gSaveBlock2Ptr->gameMode = GAME_MODE_CUSTOM;
                 gTasks[taskId].func = Task_OpenModeMenu;
                 MainMenu_FreeResources();
                 return;
             }
-            if (sNewGameSelectedOption == 1)
+            if (sNewGameSelectedOption == SELECT_HOPE)
             {
                 LoadNormalModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_HOPE;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
-            if (sNewGameSelectedOption == 2)
+            if (sNewGameSelectedOption == SELECT_DESPAIR)
             {
                 LoadHardModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_DESPAIR;
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+            }
+            if (sNewGameSelectedOption == SELECT_IRONMON)
+            {
+                LoadIronmonPresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_IRONMON;
+                sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
+            }
+            if (sNewGameSelectedOption == SELECT_RACE)
+            {
+                LoadRaceModePresets();
+                gSaveBlock2Ptr->gameMode = GAME_MODE_RACE;
                 sMainMenuDataPtr->savedCallback = CB2_NewGameBirchSpeech_FromNewMainMenu;
             }
         }
@@ -1481,9 +1548,11 @@ static const u8 sText_NewGame_Button_Custom[] = _("Custom");
 static const u8 sText_NewGame_Button_Normal[] = _("Hope");
 static const u8 sText_NewGame_Button_Hard[] = _("Despair");
 
-static const u8 sText_NewGame_Text_Custom[] = _(" CUSTOM Mode lets you choose your own\n ruleset. This is the real deal!");
-static const u8 sText_NewGame_Text_Normal[] = _(" HOPE Mode is challenging but fair,\n a fun way to play through The Pit.");
-static const u8 sText_NewGame_Text_Hard[] = _(" DESPAIR Mode is trying to destroy your\n morale. Less XP and harder battles.");
+static const u8 sText_NewGame_Text_Custom[] = _("CUSTOM Mode lets you choose your own\nruleset. This is the real deal!");
+static const u8 sText_NewGame_Text_Normal[] = _("HOPE Mode is challenging but fair,\na fun way to play through The Pit.");
+static const u8 sText_NewGame_Text_Hard[] = _("DESPAIR Mode is trying to destroy your\nmorale. Less XP and harder battles.");
+static const u8 sText_NewGame_Text_Ironmon[] = _("IRONMON Mode gives you a single Pokémon\nto play with random moves & abilities.");
+static const u8 sText_NewGame_Text_Race[] = _("RACE Mode is a challenging 50 floor run\nwith only single trainer floors.");
 
 static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
 {
@@ -1497,12 +1566,16 @@ static void PrintNewGameToWindow(u8 windowId, u8 colorIdx)
     //AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Normal, 14 * 8) + 64, 50, 0, 0, colors, 0xFF, sText_NewGame_Button_Normal);
     //AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, sText_NewGame_Button_Hard, 14 * 8) + 64, 82, 0, 0, colors, 0xFF, sText_NewGame_Button_Hard);
 
-    if (sNewGameSelectedOption == 0)
+    if (sNewGameSelectedOption == SELECT_CUSTOM)
         AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Custom);
-    else if(sNewGameSelectedOption == 1)
+    else if(sNewGameSelectedOption == SELECT_HOPE)
         AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Normal);
-    else
+    else if(sNewGameSelectedOption == SELECT_DESPAIR)
         AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Hard);
+    else if(sNewGameSelectedOption == SELECT_IRONMON)
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Ironmon);
+    else if(sNewGameSelectedOption == SELECT_RACE)
+        AddTextPrinterParameterized4(WINDOW_HEADER, FONT_NORMAL, 16, 120 - 4, 0, 0, colors2, 0xFF, sText_NewGame_Text_Race);
 
     PutWindowTilemap(WINDOW_HEADER);
     CopyWindowToVram(WINDOW_HEADER, 3);
@@ -1591,20 +1664,34 @@ static void Task_MainNewGameMenu(u8 taskId)
     if (JOY_NEW(DPAD_UP))
     {
         PlaySE(SE_SELECT);
-        if (sNewGameSelectedOption == 0)
-            sNewGameSelectedOption = 2;
-        else
+        if (sNewGameSelectedOption == SELECT_CUSTOM)
+            sNewGameSelectedOption = SELECT_IRONMON;
+        else if (sNewGameSelectedOption == SELECT_HOPE)
             sNewGameSelectedOption--;
+        else
+            sNewGameSelectedOption = sNewGameSelectedOption - 2;
         MoveNewGameHWindowsWithInput();
         PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
     }
     if (JOY_NEW(DPAD_DOWN))
     {
         PlaySE(SE_SELECT);
-        if (sNewGameSelectedOption == 2)
-            sNewGameSelectedOption = 0;
-        else
+        if (sNewGameSelectedOption == SELECT_CUSTOM)
             sNewGameSelectedOption++;
+        else if (sNewGameSelectedOption >= SELECT_IRONMON)
+            sNewGameSelectedOption = SELECT_CUSTOM;
+        else
+            sNewGameSelectedOption = sNewGameSelectedOption + 2;
+        MoveNewGameHWindowsWithInput();
+        PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
+    }
+    if (JOY_NEW(DPAD_RIGHT) || JOY_NEW(DPAD_LEFT))
+    {
+        PlaySE(SE_SELECT);
+        if (sNewGameSelectedOption == SELECT_HOPE || sNewGameSelectedOption == SELECT_IRONMON)
+            sNewGameSelectedOption++;
+        else if (sNewGameSelectedOption == SELECT_DESPAIR || sNewGameSelectedOption == SELECT_RACE)
+            sNewGameSelectedOption--;
         MoveNewGameHWindowsWithInput();
         PrintNewGameToWindow(WINDOW_HEADER, FONT_WHITE);
     }

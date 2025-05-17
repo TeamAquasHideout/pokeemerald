@@ -442,6 +442,13 @@ void CB2_DoHallOfFameScreenDontSaveData(void)
     }
 }
 
+//used as a callnative from debug.inc
+void ShowHoFScreen(void)
+{
+    FlagSet(FLAG_TEMP_HOF_VICTORY);
+    SetMainCallback2(CB2_DoHallOfFameScreen);
+}
+
 void SaveTempHofData(void)
 {
     u16 i, j;
@@ -1196,7 +1203,37 @@ static void HallOfFame_PrintWelcomeText(u8 unusedPossiblyWindowId, u8 unused2)
     if(!FlagGet(FLAG_TEMP_HOF_VICTORY))
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_LostRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_LostRunHOF);
     else
+    {
+        u8 text[40];
+            
+        StringCopy(text, gText_ThePit);
+        StringAppend(text, gText_VersionText);
+
+        switch(gSaveBlock2Ptr->gameMode)
+        {
+            case GAME_MODE_NONE:
+                //do nothing
+                break;
+            case GAME_MODE_CUSTOM:
+                StringAppend(text, gText_GameModeCustom);
+                break;
+            case GAME_MODE_HOPE:
+                StringAppend(text, gText_GameModeHope);
+                break;
+            case GAME_MODE_DESPAIR:
+                StringAppend(text, gText_GameModeDespair);
+                break;
+            case GAME_MODE_IRONMON:
+                StringAppend(text, gText_GameModeIronmon);
+                break;
+            case GAME_MODE_RACE:
+                StringAppend(text, gText_GameModeRace);
+                break;
+        }
+
         AddTextPrinterParameterized3(0, FONT_NORMAL, GetStringCenterAlignXOffset(FONT_NORMAL, gText_WonRunHOF, 0xD0), 1, sMonInfoTextColors, 0, gText_WonRunHOF);
+        AddTextPrinterParameterized3(0, FONT_SMALL, GetStringCenterAlignXOffset(FONT_SMALL, text, 0xD0), 20, sMonInfoTextColors, 0, text);
+    }
     CopyWindowToVram(0, COPYWIN_FULL);
 }
 

@@ -178,21 +178,27 @@ const u8 gText_EmptySpace[] = _(" "); // Unused
 const u8 gText_WelcomeToHOF[] = _("Welcome to the End of the Pit!");
 const u8 gText_LostRunHOF[] = _("Your run has ended... Try again!"); // when losing you don't get confetti so there is no time for this message
 const u8 gText_WonRunHOF[] =  _("Congratulations! You have made it!");
+const u8 gText_ThePit[] =  _("The Pit ");
+const u8 gText_GameModeCustom[] =  _(" - Custom Mode");
+const u8 gText_GameModeHope[] =  _(" - Hope Mode");
+const u8 gText_GameModeDespair[] =  _(" - Despair Mode");
+const u8 gText_GameModeRace[] =  _(" - Race Mode");
+const u8 gText_GameModeIronmon[] =  _(" - Ironmon Mode");
 const u8 gText_HOFDexRating[] = _("Spotted POKéMON: {STR_VAR_1}!\nOwned POKéMON: {STR_VAR_2}!\pPROF. BIRCH's POKéDEX rating!\pPROF. BIRCH: Let's see…\p");
 const u8 gText_HOFDexSaving[] = _("SAVING…\nDON'T TURN OFF THE POWER.");
 const u8 gText_HOFCorrupted[] = _("The HALL OF FAME data is corrupted.");
 const u8 gText_HOFNumber[] = _("THE PIT HALL OF FAME");
 #ifdef PIT_GEN_3_MODE
-const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.1 Gen3");
-const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.1 Gen3");
+const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.3 Gen3");
+const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.3 Gen3");
 #endif
 #ifdef PIT_GEN_5_MODE
-const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.1 Gen5");
-const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.1 Gen5");
+const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.3 Gen5");
+const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.3 Gen5");
 #endif
 #ifdef PIT_GEN_9_MODE
-const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.1 Gen9");
-const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.1 Gen9");
+const u8 gText_LeagueChamp[] = _("THE PIT CHAMPION!\nCONGRATULATIONS!                   v2.4.3 Gen9");
+const u8 gText_LostRunChamp[] = _("Good Progress!\nand Good Luck Next Time!         v2.4.3 Gen9");
 #endif
 const u8 gText_LostRunNumber[] = _("FLOOR                     {STR_VAR_1}");
 const u8 gText_Number[] = _("No. ");

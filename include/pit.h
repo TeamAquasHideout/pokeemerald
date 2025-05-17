@@ -140,6 +140,14 @@ struct RandomTrainerNPC
 #define G_R             1
 #define S_Z             2
 
+//game mode defines for HoF screen
+#define GAME_MODE_NONE    0
+#define GAME_MODE_CUSTOM  1
+#define GAME_MODE_HOPE    2
+#define GAME_MODE_DESPAIR 3
+#define GAME_MODE_IRONMON 4
+#define GAME_MODE_RACE    5
+
 extern const struct RandomTrainerNPC RandomNPCTrainers[];
 extern const struct RandomTrainerNPC RandomNPCTrainers_Doubles[];
 extern u8 gCanRayquazaMega;
