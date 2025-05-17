@@ -602,7 +602,7 @@ struct SaveBlock2
              u16 modeMegas:1;
              u16 optionsFollowMonsOff:1;
              u16 modeCashRewards:2;
-             u16 padding3:1; // uncommented because its free padding space
+             u16 optionsSkipMoveLoop:1;
              // end of u16
              u16 randomMoves:1;
              u16 randomAbilities:1;
@@ -631,7 +631,8 @@ struct SaveBlock2
              u16 modeBSTmin;
              u16 modeBSTmax;
              u16 mode50Floors:2;
-             u16 padding4:14;
+             u16 gameMode:4; // 0 = NONE, 1 = CUSTOM, 2 = HOPE, 3 = DESPAIR, 4 = IRONMON, 5 = RACE
+             u16 padding4:10;
              u16 padding5;
 
              u32 extraPitPadding[6];

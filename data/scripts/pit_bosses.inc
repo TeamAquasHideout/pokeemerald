@@ -27,8 +27,9 @@ PitBoss_CommonAfterBattleScript::
 	clearflag FLAG_START_BOSS_ENCOUNTER
 	goto_if_eq VAR_PIT_FLOOR, 100, PitBoss_FinalBossAfterBattle
 	callnative Check50FloorMode
-	goto_if_eq VAR_TEMP_A, 0, PitBoss_ContinueAfterBattleScript
-	goto_if_eq VAR_PIT_FLOOR, 50, PitBoss_FinalBossAfterBattle
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_50FloorMode
+	callnative Check75FloorMode
+	goto_if_eq VAR_TEMP_A, 1, PitBoss_75FloorMode
 PitBoss_ContinueAfterBattleScript::
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitBoss_NoAutoSave
@@ -46,6 +47,15 @@ PitBoss_NoAutoSave::
 	waitstate
 	release
 	end
+
+PitBoss_50FloorMode::
+	goto_if_eq VAR_PIT_FLOOR, 50, PitBoss_FinalBossAfterBattle
+	goto PitBoss_ContinueAfterBattleScript
+
+PitBoss_75FloorMode::
+	goto_if_eq VAR_PIT_FLOOR, 75, PitBoss_FinalBossAfterBattle
+	goto PitBoss_ContinueAfterBattleScript
+
 
 PitBoss_PartyFullRemoveOne::
 	message PitGiveMonCommon_GiveMonFullNothingChosen_Text1
@@ -67,6 +77,7 @@ PitBoss_NoCaseModeMode::
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
 	callnative Check1MonMode
 	goto_if_eq VAR_TEMP_A, 1, PitBoss_PartyFullRemoveOne
+	callnative AddNewMonNoCaseMode
 PitBoss_NoCaseModeMode2::
 	callnative BufferMapFloorString
 	warpteleport MAP_PIT_REST_FLOOR, 9, 9

@@ -5622,6 +5622,7 @@ static void Cmd_moveend(void)
             else if (gMovesInfo[gCurrentMove].recoil > 0
                   && !(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
                   && IsBattlerAlive(gBattlerAttacker)
+                  && TARGET_TURN_DAMAGED
                   && gBattleScripting.savedDmg != 0) // Some checks may be redundant alongside this one
             {
                 gBattleMoveDamage = max(1, gBattleScripting.savedDmg * max(1, gMovesInfo[gCurrentMove].recoil) / 100);
@@ -7784,7 +7785,11 @@ static void Cmd_yesnoboxstoplearningmove(void)
         else if (JOY_NEW(B_BUTTON))
         {
             PlaySE(SE_SELECT);
-            gBattlescriptCurrInstr += 5;
+            if (gSaveBlock2Ptr->optionsSkipMoveLoop)
+                gBattlescriptCurrInstr += 5;
+            else
+                gBattlescriptCurrInstr = cmd->noInstr;
+                
             HandleBattleWindow(YESNOBOX_X_Y, WINDOW_CLEAR);
         }
         break;

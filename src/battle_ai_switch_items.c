@@ -944,24 +944,32 @@ static bool32 ShouldSwitchIfBadChoiceLock(u32 battler, bool32 emitResult)
     return FALSE;
 }
 
-static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
+static bool32 ShouldSwitchIfCantHitAtAll(u32 battler, bool32 emitResult)
 {
     u32 moveIndex, partyslot;
     u32 opposingBattler = GetOppositeBattler(battler);
     u32 aiMove;
+    u8 aiMovePP;
     u32 switchIn;
 
     // Switch if no moves affect opponents
     if (IsDoubleBattle())
     {
         u32 opposingPartner = GetBattlerAtPosition(BATTLE_PARTNER(opposingBattler));
+
         for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
         {
             aiMove = gBattleMons[battler].moves[moveIndex];
-            if ((AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
-              || AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0))
+            aiMovePP = gBattleMons[battler].pp[moveIndex];
+
+            if (((AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
+                  && GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingBattler]], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+              || (AI_GetMoveEffectiveness(aiMove, battler, opposingPartner) > UQ_4_12(0.0)
+                  && GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingPartner]], MON_DATA_SPECIES, NULL) != SPECIES_NONE))
                 && aiMove != MOVE_NONE
+                && aiMovePP > 0
                 && (gMovesInfo[aiMove].power != 0
+                  || aiMove == MOVE_TELEPORT
                   || HasViableAIScore(moveIndex, battler, opposingBattler, 101)
                   || HasViableAIScore(moveIndex, battler, opposingPartner, 101)))
                     return FALSE;
@@ -972,9 +980,13 @@ static bool32 ShouldSwitchIfAllMovesBad(u32 battler, bool32 emitResult)
         for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
         {
             aiMove = gBattleMons[battler].moves[moveIndex];
+            aiMovePP = gBattleMons[battler].pp[moveIndex];
+
             if (AI_GetMoveEffectiveness(aiMove, battler, opposingBattler) > UQ_4_12(0.0)
               && aiMove != MOVE_NONE
+              && aiMovePP > 0
               && (gMovesInfo[aiMove].power != 0
+                || aiMove == MOVE_TELEPORT
                 || HasViableAIScore(moveIndex, battler, opposingBattler, 100)))
                 return FALSE;
         }
@@ -1047,16 +1059,31 @@ static bool8 IsMonViableSwitchIn(u32 battler, struct Pokemon *party, u8 partyslo
     u32 moveIndex;
     u32 opposingBattler = GetOppositeBattler(battler);
     u32 aiMove;
+    u8 aiMovePP;
+    u32 speciesAtk = GetMonData(&party[partyslot], MON_DATA_SPECIES);
+    u32 speciesDef = GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingBattler]], MON_DATA_SPECIES);
+    u32 abilityDef = gSpeciesInfo[speciesDef].abilities[GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingBattler]], MON_DATA_ABILITY_NUM)];
     
     if (IsDoubleBattle())
     {
         u32 opposingPartner = GetBattlerAtPosition(BATTLE_PARTNER(opposingBattler));
+        u32 speciesDefPartner = GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingPartner]], MON_DATA_SPECIES);
+        u32 abilityDefPartner = gSpeciesInfo[speciesDefPartner].abilities[GetMonData(&gPlayerParty[gBattlerPartyIndexes[opposingPartner]], MON_DATA_ABILITY_NUM)];
+
         for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
         {
             aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
-            if ((AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
-                || AI_GetMoveEffectiveness(aiMove, partyslot, opposingPartner) > UQ_4_12(0.0))
+            aiMovePP = GetMonData(&party[partyslot], MON_DATA_PP1 + moveIndex);
+
+            // DebugPrintf("%S by %S has effectiveness of %d against %S", gMovesInfo[aiMove].name, gSpeciesInfo[speciesAtk].speciesName, AI_GetMoveEffectivenessBySpecies(aiMove, speciesDef, abilityDef), gSpeciesInfo[speciesDef].speciesName);
+            // DebugPrintf("%S by %S has effectiveness of %d against %S", gMovesInfo[aiMove].name, gSpeciesInfo[speciesAtk].speciesName, AI_GetMoveEffectivenessBySpecies(aiMove, speciesDefPartner, abilityDefPartner), gSpeciesInfo[speciesDefPartner].speciesName);
+
+            if (((AI_GetMoveEffectivenessBySpecies(aiMove, speciesDef, abilityDef) > AI_EFFECTIVENESS_x0
+                  && speciesDef != SPECIES_NONE)
+              || (AI_GetMoveEffectivenessBySpecies(aiMove, speciesDefPartner, abilityDefPartner) > AI_EFFECTIVENESS_x0
+                  && speciesDefPartner != SPECIES_NONE))
                 && aiMove != MOVE_NONE
+                && aiMovePP > 0
                 && (gMovesInfo[aiMove].power != 0
                 || aiMove == MOVE_TRANSFORM
                 || aiMove == MOVE_SKETCH))
@@ -1070,8 +1097,11 @@ static bool8 IsMonViableSwitchIn(u32 battler, struct Pokemon *party, u8 partyslo
         for (moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
         {
             aiMove = GetMonData(&party[partyslot], MON_DATA_MOVE1 + moveIndex);
-            if (AI_GetMoveEffectiveness(aiMove, partyslot, opposingBattler) > UQ_4_12(0.0)
+            aiMovePP = GetMonData(&party[partyslot], MON_DATA_PP1 + moveIndex);
+
+            if (AI_GetMoveEffectivenessBySpecies(aiMove, speciesDef, abilityDef) > AI_EFFECTIVENESS_x0
               && aiMove != MOVE_NONE
+              && aiMovePP > 0
               && (gMovesInfo[aiMove].power != 0
                 || aiMove == MOVE_TRANSFORM
                 || aiMove == MOVE_SKETCH))
@@ -1227,10 +1257,10 @@ bool32 ShouldSwitch(u32 battler, bool32 emitResult)
     if (FindMonThatAbsorbsOpponentsMove(battler, emitResult))
         return TRUE;
 
-    //These Functions can prompt switch to generic pary members
+    //These Functions can prompt switch to generic party members
     if ((AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_SMART_SWITCHING) && (CanMonSurviveHazardSwitchin(battler) == FALSE))
         return FALSE;
-    if (ShouldSwitchIfAllMovesBad(battler, emitResult))
+    if (ShouldSwitchIfCantHitAtAll(battler, emitResult))
         return TRUE;
     if (ShouldSwitchIfAllBadMoves(battler, emitResult))
         return TRUE;
@@ -1261,6 +1291,30 @@ bool32 ShouldSwitch(u32 battler, bool32 emitResult)
     return FALSE;
 }
 
+bool32 IsSwitchinValid(u32 battler)
+{
+    // Edge case: See if partner already chose to switch into the same mon
+    if (IsDoubleBattle())
+    {
+        u32 partner = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerAtPosition(battler)));
+        if (gBattleStruct->AI_monToSwitchIntoId[battler] == PARTY_SIZE) // Generic switch
+        {
+            if (ShouldSwitch(partner, TRUE) && AI_DATA->monToSwitchInId[partner] == AI_DATA->mostSuitableMonId[battler])
+            {
+                return FALSE;
+            }
+        }
+        else // Override switch
+        {
+            if (ShouldSwitch(partner, TRUE) && AI_DATA->monToSwitchInId[partner] == gBattleStruct->AI_monToSwitchIntoId[battler])
+            {
+                return FALSE;
+            }
+        }
+    }
+    return TRUE;
+}
+
 void AI_TrySwitchOrUseItem(u32 battler)
 {
     struct Pokemon *party;
@@ -1276,7 +1330,7 @@ void AI_TrySwitchOrUseItem(u32 battler)
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
-        if (ShouldSwitch(battler, TRUE))
+        if (ShouldSwitch(battler, TRUE) && IsSwitchinValid(battler))
         {
             if (gBattleStruct->AI_monToSwitchIntoId[battler] == PARTY_SIZE)
             {
@@ -1319,6 +1373,7 @@ void AI_TrySwitchOrUseItem(u32 battler)
             }
 
             *(gBattleStruct->monToSwitchIntoId + battler) = gBattleStruct->AI_monToSwitchIntoId[battler];
+            AI_DATA->monToSwitchInId[battler] = gBattleStruct->AI_monToSwitchIntoId[battler];
             return;
         }
         else if (ShouldUseItem(battler))
@@ -1956,7 +2011,6 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
             || gBattlerPartyIndexes[battlerIn2] == i
             || i == gBattleStruct->monToSwitchIntoId[battlerIn1]
             || i == gBattleStruct->monToSwitchIntoId[battlerIn2])
-            // || IsMonViableSwitchIn(battler, party, i)) // ToDo
         {
             continue;
         }
@@ -1983,7 +2037,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         if(hitsToKOAI > maxHitsToKO)
         {
             maxHitsToKO = hitsToKOAI;
-            if(maxHitsToKO > defensiveMonHitKOThreshold)// && IsMonViableSwitchIn(battler, party, i))
+            if(maxHitsToKO > defensiveMonHitKOThreshold && IsMonViableSwitchIn(battler, party, i))
                 defensiveMonId = i;
         }
 
@@ -1994,19 +2048,19 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
         {
             if ((hitsToKOAI > hitsToKOAIThreshold && AI_DATA->switchinCandidate.battleMon.speed > playerMonSpeed) || hitsToKOAI > hitsToKOAIThreshold + 1) // Need to take an extra hit if slower
             {
-                // if (IsMonViableSwitchIn(battler, party, i))
-                // {
+                if (IsMonViableSwitchIn(battler, party, i))
+                {
                     bestResist = typeMatchup;
                     typeMatchupId = i;
-                // }
+                }
             }
         }
 
         aiMonSpeed = AI_DATA->switchinCandidate.battleMon.speed;
 
         // Check through current mon's moves
-        // if (IsMonViableSwitchIn(battler, party, i))
-        // {
+        if (IsMonViableSwitchIn(battler, party, i))
+        {
             for (j = 0; j < MAX_MON_MOVES; j++)
             {
                 aiMove = AI_DATA->switchinCandidate.battleMon.moves[j];
@@ -2121,7 +2175,7 @@ static u32 GetBestMonIntegrated(struct Pokemon *party, int firstId, int lastId, 
                     }
                 }
             }
-        // }
+        }
     }
 
     batonPassId = GetRandomSwitchinWithBatonPass(aliveCount, bits, firstId, lastId, i);

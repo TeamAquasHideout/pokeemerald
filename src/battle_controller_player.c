@@ -953,7 +953,7 @@ void HandleInputChooseMove(u32 battler)
         bool8 dontDestroySprite = FALSE;
         u32 firstValidGimmick = GetFirstValidGimmick(battler);
 
-        // cycle through available gimmicks, except for Z Moves as they are skippped and handled separately
+        // cycle through available gimmicks, except for Z Moves as they are skipped and handled separately
         if (firstValidGimmick != GIMMICK_NONE
           && gBattleStruct->gimmick.gimmickMode == GIMMICK_MODE_CYCLE)
         {

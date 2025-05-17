@@ -179,7 +179,7 @@ Debug_EventScript_Script_3::
 	end
 
 Debug_EventScript_Script_4::
-	setteratype TYPE_WATER, 0
+	callnative ShowHoFScreen
 	end
 
 Debug_EventScript_Script_5::

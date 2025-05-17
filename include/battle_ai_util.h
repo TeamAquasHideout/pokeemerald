@@ -111,6 +111,7 @@ u32 GetNoOfHitsToKOBattler(u32 battlerAtk, u32 battlerDef, u32 moveIndex);
 u32 GetCurrDamageHpPercent(u32 battlerAtk, u32 battlerDef);
 uq4_12_t AI_GetTypeEffectiveness(u32 move, u32 battlerAtk, u32 battlerDef);
 u32 AI_GetMoveEffectiveness(u32 move, u32 battlerAtk, u32 battlerDef);
+u32 AI_GetMoveEffectivenessBySpecies(u32 move, u32 speciesDef, u32 abilityDef);
 u16 *GetMovesArray(u32 battler);
 bool32 IsConfusionMoveEffect(u32 moveEffect);
 bool32 HasMove(u32 battlerId, u32 move);
