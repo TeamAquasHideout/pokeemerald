@@ -46,6 +46,7 @@ enum MenuItems_Pit
     MENUITEM_PIT_RANDOM_MAPS,
     MENUITEM_PIT_RANDOM_MUSIC,
     MENUITEM_PIT_FOLLOWMONS,
+    MENUITEM_PIT_AUTORUN,
     MENUITEM_PIT_SKIP_MOVE_LOOP,
     MENUITEM_PIT_CANCEL,
     MENUITEM_PIT_COUNT,
@@ -181,6 +182,7 @@ static void DrawChoices_Autosave(int selection, int y);
 static void DrawChoices_RandomMaps(int selection, int y);
 static void DrawChoices_RandomMusic(int selection, int y);
 static void DrawChoices_FollowMons(int selection, int y);
+static void DrawChoices_Autorun(int selection, int y);
 static void DrawChoices_SkipMoveLoop(int selection, int y);
 static void DrawChoices_BattleScene(int selection, int y);
 static void DrawChoices_BattleStyle(int selection, int y);
@@ -236,6 +238,7 @@ struct Menu_Pit// MENU_PIT
     [MENUITEM_PIT_RANDOM_MAPS]    = {DrawChoices_RandomMaps,   ProcessInput_Options_Two},
     [MENUITEM_PIT_RANDOM_MUSIC]   = {DrawChoices_RandomMusic,  ProcessInput_Options_Two},
     [MENUITEM_PIT_FOLLOWMONS]     = {DrawChoices_FollowMons,   ProcessInput_Options_Two},
+    [MENUITEM_PIT_AUTORUN]        = {DrawChoices_Autorun,      ProcessInput_Options_Two},
     [MENUITEM_PIT_SKIP_MOVE_LOOP] = {DrawChoices_SkipMoveLoop, ProcessInput_Options_Two},
     [MENUITEM_PIT_CANCEL]         = {NULL, NULL},
 };
@@ -261,6 +264,7 @@ static const u8 sText_Autosave[]     = _("AUTOSAVE");
 static const u8 sText_RandomMaps[]   = _("RANDOM MAPS");
 static const u8 sText_RandomMusic[]  = _("RANDOM MUSIC");
 static const u8 sText_FollowMons[]   = _("FOLLOWER MONS");
+static const u8 sText_Autorun[]      = _("AUTORUN");
 static const u8 sText_SkipMoveLoop[] = _("SKIP MOVE LOOP");
 static const u8 sText_Cancel[]       = _("SAVE & LEAVE");
 
@@ -271,6 +275,7 @@ static const u8 *const sOptionsMenuItemsNamesPit[MENUITEM_PIT_COUNT] =
     [MENUITEM_PIT_RANDOM_MAPS]    = sText_RandomMaps,
     [MENUITEM_PIT_RANDOM_MUSIC]   = sText_RandomMusic,
     [MENUITEM_PIT_FOLLOWMONS]     = sText_FollowMons,
+    [MENUITEM_PIT_AUTORUN]        = sText_Autorun,
     [MENUITEM_PIT_SKIP_MOVE_LOOP] = sText_SkipMoveLoop,
     [MENUITEM_PIT_CANCEL]         = sText_Cancel,
 };
@@ -311,6 +316,7 @@ static bool8 CheckConditions(int selection)
                 case MENUITEM_PIT_RANDOM_MAPS:     return TRUE;
                 case MENUITEM_PIT_RANDOM_MUSIC:    return TRUE;
                 case MENUITEM_PIT_FOLLOWMONS:      return TRUE;
+                case MENUITEM_PIT_AUTORUN:         return TRUE;
                 case MENUITEM_PIT_SKIP_MOVE_LOOP:  return TRUE;
                 case MENUITEM_PIT_CANCEL:          return TRUE;
                 case MENUITEM_PIT_COUNT:           return TRUE;
@@ -346,6 +352,8 @@ static const u8 sText_Desc_RandomMusic_On[]     = _("Activate randomized music\n
 static const u8 sText_Desc_RandomMusic_Off[]    = _("Use the default music\nfor each floor of the pit.");
 static const u8 sText_Desc_FollowMon_On[]       = _("Activate to have your first\nPokémon following you around.");
 static const u8 sText_Desc_FollowMon_Off[]      = _("Deactivate to have no\nPokémon following you around.");
+static const u8 sText_Desc_Autorun_On[]         = _("Activate to automatically\nrun when moving.");
+static const u8 sText_Desc_Autorun_Off[]        = _("Deactivate to only run\nwhen pressing the B button.");
 static const u8 sText_Desc_SkipMoveLoop_On[]    = _("When learning a new move mid battle\njust mash B to skip the questions.");
 static const u8 sText_Desc_SkipMovLoop_Off[]    = _("Vanilla behavior when learning a\nnew move mid battle.");
 static const u8 sText_Desc_BattleScene_On[]     = _("Show the POKéMON battle animations.");
@@ -367,6 +375,7 @@ static const u8 *const sOptionsMenuItemDescriptionsPit[MENUITEM_PIT_COUNT][4] =
     [MENUITEM_PIT_RANDOM_MAPS]    = {sText_Desc_RandomMaps_On,        sText_Desc_RandomMaps_Off,  sText_Empty,             sText_Empty},
     [MENUITEM_PIT_RANDOM_MUSIC]   = {sText_Desc_RandomMusic_Off,      sText_Desc_RandomMusic_On,  sText_Empty,             sText_Empty},
     [MENUITEM_PIT_FOLLOWMONS]     = {sText_Desc_FollowMon_On,         sText_Desc_FollowMon_Off,   sText_Empty,             sText_Empty},
+    [MENUITEM_PIT_AUTORUN]        = {sText_Desc_Autorun_On,           sText_Desc_Autorun_Off,     sText_Empty,             sText_Empty},
     [MENUITEM_PIT_SKIP_MOVE_LOOP] = {sText_Desc_SkipMoveLoop_On,      sText_Desc_SkipMovLoop_Off, sText_Empty,             sText_Empty},
     [MENUITEM_PIT_CANCEL]         = {sText_Desc_Save,                 sText_Empty,                sText_Empty,             sText_Empty},
 };
@@ -714,6 +723,7 @@ void CB2_InitOptionsMenu(void)
         sOptions->sel_pit[MENUITEM_PIT_RANDOM_MAPS]     = gSaveBlock2Ptr->optionsRandomMaps;
         sOptions->sel_pit[MENUITEM_PIT_RANDOM_MUSIC]    = gSaveBlock2Ptr->optionsRandomMusic;
         sOptions->sel_pit[MENUITEM_PIT_FOLLOWMONS]      = gSaveBlock2Ptr->optionsFollowMonsOff;
+        sOptions->sel_pit[MENUITEM_PIT_AUTORUN]         = !(gSaveBlock2Ptr->optionsAutoRun);
         sOptions->sel_pit[MENUITEM_PIT_SKIP_MOVE_LOOP]  = !(gSaveBlock2Ptr->optionsSkipMoveLoop);
         sOptions->sel_van[MENUITEM_VANILLA_BATTLESCENE] = gSaveBlock2Ptr->optionsBattleSceneOff;
         sOptions->sel_van[MENUITEM_VANILLA_BATTLESTYLE] = gSaveBlock2Ptr->optionsBattleStyle;
@@ -933,6 +943,7 @@ static void Task_OptionsMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsRandomMaps       = sOptions->sel_pit[MENUITEM_PIT_RANDOM_MAPS];
     gSaveBlock2Ptr->optionsRandomMusic      = sOptions->sel_pit[MENUITEM_PIT_RANDOM_MUSIC];
     gSaveBlock2Ptr->optionsFollowMonsOff    = sOptions->sel_pit[MENUITEM_PIT_FOLLOWMONS];
+    gSaveBlock2Ptr->optionsAutoRun          = !(sOptions->sel_pit[MENUITEM_PIT_AUTORUN]);
     gSaveBlock2Ptr->optionsSkipMoveLoop     = !(sOptions->sel_pit[MENUITEM_PIT_SKIP_MOVE_LOOP]);
 
     //vanilla settings
@@ -1255,6 +1266,16 @@ static void DrawChoices_RandomMusic(int selection, int y)
 static void DrawChoices_FollowMons(int selection, int y)
 {
     bool8 active = CheckConditions(MENUITEM_PIT_FOLLOWMONS);
+    u8 styles[2] = {0};
+    styles[selection] = 1;
+
+    DrawOptionsMenuChoice(sText_On, 104, y, styles[0], active);
+    DrawOptionsMenuChoice(sText_Off, GetStringRightAlignXOffset(FONT_NORMAL, sText_Off, 198), y, styles[1], active);
+}
+
+static void DrawChoices_Autorun(int selection, int y)
+{
+    bool8 active = CheckConditions(MENUITEM_PIT_AUTORUN);
     u8 styles[2] = {0};
     styles[selection] = 1;
 
