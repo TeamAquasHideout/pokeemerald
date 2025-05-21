@@ -106,6 +106,7 @@ void SetDefaultOptions(void)
         gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
         gSaveBlock2Ptr->regionMapZoom = FALSE;
         gSaveBlock2Ptr->optionsFollowMonsOff = FALSE;
+        gSaveBlock2Ptr->optionsAutoRun = FALSE;
         gSaveBlock2Ptr->optionsSkipMoveLoop = FALSE;
         gSaveBlock2Ptr->optionsBattleSpeed = BATTLESPEED_2X;
         gSaveBlock2Ptr->optionsAutosave = AUTOSAVE_ON;
