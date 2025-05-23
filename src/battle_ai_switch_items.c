@@ -218,22 +218,6 @@ static bool32 HasBadOdds(u32 battler, bool32 emitResult)
     return FALSE;
 }
 
-static bool32 ShouldSwitchIfAllBadMoves(u32 battler, bool32 emitResult)
-{
-    if (AI_DATA->shouldSwitchMon & gBitTable[battler])
-    {
-        AI_DATA->shouldSwitchMon &= ~(gBitTable[battler]);
-        gBattleStruct->AI_monToSwitchIntoId[battler] = AI_DATA->monToSwitchId[battler];
-        if (emitResult)
-            BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_SWITCH, 0);
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-}
-
 static bool32 ShouldSwitchIfWonderGuard(u32 battler, bool32 emitResult)
 {
     u8 opposingPosition;
@@ -1261,8 +1245,6 @@ bool32 ShouldSwitch(u32 battler, bool32 emitResult)
     if ((AI_THINKING_STRUCT->aiFlags[battler] & AI_FLAG_SMART_SWITCHING) && (CanMonSurviveHazardSwitchin(battler) == FALSE))
         return FALSE;
     if (ShouldSwitchIfCantHitAtAll(battler, emitResult))
-        return TRUE;
-    if (ShouldSwitchIfAllBadMoves(battler, emitResult))
         return TRUE;
     if (ShouldSwitchIfAbilityBenefit(battler, emitResult))
         return TRUE;
