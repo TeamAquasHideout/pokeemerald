@@ -4037,9 +4037,9 @@ static const struct SpriteFrameImage sPicTable_Frogadier[] = {
 static const struct SpriteFrameImage sPicTable_Greninja[] = {
     overworld_ascending_frames(gObjectEventPic_Greninja, 4, 4),
 };
-/*static const struct SpriteFrameImage sPicTable_GreninjaAsh[] = {
+static const struct SpriteFrameImage sPicTable_GreninjaAsh[] = {
     overworld_ascending_frames(gObjectEventPic_GreninjaAsh, 4, 4),
-};*/
+};
 #endif //P_FAMILY_FROAKIE
 
 #if P_FAMILY_BUNNELBY
