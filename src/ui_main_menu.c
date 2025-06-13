@@ -823,6 +823,7 @@ void LoadIronmonPresets(void)
     gSaveBlock2Ptr->modeTera            = FALSE; //this doesn't use the OPTIONS defines!
     gSaveBlock2Ptr->trainerGimmicks     = TRAINER_GIMMICKS_RANDOM;
 #endif
+    gSaveBlock2Ptr->modeBSTmax          = MAX_BST;
     gSaveBlock2Ptr->randomMoves         = OPTIONS_ON;
     gSaveBlock2Ptr->randomAbilities     = OPTIONS_ON;
 }
