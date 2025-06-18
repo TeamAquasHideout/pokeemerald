@@ -287,14 +287,14 @@ void ToggleGigantamaxFactor(struct ScriptContext *ctx)
 
     gSpecialVar_Result = 0;
 
+    if (species == SPECIES_NONE)
+        return;
+
     if (GetGMaxTargetSpecies(species) == SPECIES_NONE)
         gSpecialVar_Result = 2; // cannot Gigantamax
     else if (partyIndex < PARTY_SIZE)
     {
         bool32 gigantamaxFactor;
-
-        if (gSpeciesInfo[species].isMythical)
-            return;
 
         gigantamaxFactor = GetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR);
         gigantamaxFactor = !gigantamaxFactor;
