@@ -45,6 +45,22 @@ static const union AnimCmd *const sAnims_Lightning[] =
     sAnim_Lightning,
 };
 
+static const union AnimCmd sAnim_CirclingElectricShock[] =
+{
+    ANIMCMD_FRAME(0, 5),
+    ANIMCMD_FRAME(16, 5),
+    ANIMCMD_FRAME(32, 5),
+    ANIMCMD_FRAME(48, 5),
+    ANIMCMD_FRAME(64, 5),
+    ANIMCMD_FRAME(80, 5),
+    ANIMCMD_JUMP(0),
+};
+
+const union AnimCmd *const sAnims_CirclingElectricShock[] =
+{
+    sAnim_CirclingElectricShock,
+};
+
 const struct SpriteTemplate gLightningSpriteTemplate =
 {
     .tileTag = ANIM_TAG_LIGHTNING,

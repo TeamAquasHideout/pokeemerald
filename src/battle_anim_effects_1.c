@@ -30,6 +30,9 @@ static void AnimPetalDanceSmallFlower_Step(struct Sprite *);
 static void AnimRazorLeafParticle(struct Sprite *);
 static void AnimRazorLeafParticle_Step1(struct Sprite *);
 static void AnimRazorLeafParticle_Step2(struct Sprite *);
+static void AnimTeraStarstormStars_Step(struct Sprite *sprite);
+static void AnimTeraStarstormBeam(struct Sprite *sprite);
+static void AnimTeraStarstormBeam_Step(struct Sprite *);
 static void AnimLeechSeed(struct Sprite *);
 static void AnimLeechSeed_Step(struct Sprite *);
 static void AnimLeechSeedSprouts(struct Sprite *);
@@ -150,7 +153,6 @@ static void AnimDoubleTeam(struct Sprite *);
 static void AnimNightSlash(struct Sprite *);
 static void AnimRockPolishStreak(struct Sprite *);
 static void AnimRockPolishSparkle(struct Sprite *);
-static void AnimPoisonJabProjectile(struct Sprite *);
 static void AnimNightSlash(struct Sprite *);
 static void AnimPluck(struct Sprite *);
 static void AnimAcrobaticsSlashes(struct Sprite *);
@@ -3989,6 +3991,153 @@ static void AnimRazorLeafParticle_Step2(struct Sprite *sprite)
         DestroyAnimSprite(sprite);
 }
 
+//Tera Starstorm
+static const union AnimCmd sAnim_TeraStarstormBeamRing_0[] =
+{
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_TeraStarstormBeamRing_1[] =
+{
+    ANIMCMD_FRAME(4, 1),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd *const sAnims_TeraStarstormBeamRing[] =
+{
+    sAnim_TeraStarstormBeamRing_0,
+    sAnim_TeraStarstormBeamRing_1,
+};
+
+static const union AffineAnimCmd sAffineAnim_TeraStarstormBeamRing[] =
+{
+    AFFINEANIMCMD_FRAME(0x0, 0x0, 0, 1),
+    AFFINEANIMCMD_FRAME(0x60, 0x60, 0, 1),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd *const sAffineAnims_TeraStarstormBeamRing[] =
+{
+    sAffineAnim_TeraStarstormBeamRing,
+};
+
+const struct SpriteTemplate gTeraStarstormBeamSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_STARSTORM,
+    .paletteTag = ANIM_TAG_STARSTORM,
+    .oam = &gOamData_AffineOff_ObjNormal_16x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = AnimTeraStarstormBeam,
+};
+
+//  arg0: start offset x
+//  arg1: start offset y
+//  arg2: end offset x
+//  arg3: end offset y
+//  arg4: duration
+static void AnimTeraStarstormBeam(struct Sprite *sprite)
+{
+    gBattleAnimArgs[0] += 4;
+    gBattleAnimArgs[1] -= 30;
+    InitSpritePosToAnimAttacker(sprite, TRUE);
+
+    sprite->data[0] = gBattleAnimArgs[4];
+    sprite->data[3] = 0;
+    sprite->data[4] = -70;
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimTeraStarstormBeam_Step;
+    sprite->affineAnimPaused = TRUE;
+    sprite->callback(sprite);
+
+}
+
+static void AnimTeraStarstormBeam_Step(struct Sprite *sprite)
+{
+    if (AnimTranslateLinear(sprite))
+        DestroyAnimSprite(sprite);
+}
+
+const union AffineAnimCmd gTeraStarAffineAnimCmds[] = {
+    AFFINEANIMCMD_FRAME(0, 0, 0, 1),
+    AFFINEANIMCMD_JUMP(0),
+};
+
+const union AffineAnimCmd *const gTeraStarAffineAnimTable[] = {
+    gTeraStarAffineAnimCmds,
+};
+
+//  arg0: start offset x
+//  arg1: start offset y
+//  arg2: end offset x
+//  arg3: end offset y
+//  arg4: duration
+//  arg5: target partner
+//  arg6: ?????
+const struct SpriteTemplate gTeraStarSpriteTemplate =
+{
+    .tileTag = ANIM_TAG_YELLOW_STAR,
+    .paletteTag = ANIM_TAG_YELLOW_STAR,
+    .oam = &gOamData_AffineNormal_ObjNormal_32x32,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gTeraStarAffineAnimTable,
+    .callback = AnimTeraStarstormStars,
+};
+
+void AnimTeraStarstormStars(struct Sprite *sprite)
+{
+    gBattleAnimArgs[0] += 4;
+    gBattleAnimArgs[1] -= 100;
+    InitSpritePosToAnimAttacker(sprite, TRUE);
+
+    sprite->data[0] = gBattleAnimArgs[4];
+    sprite->data[1] = sprite->x;
+    sprite->data[3] = sprite->y;
+    if (gBattleAnimArgs[5] == 1)
+    {
+        u32 targetPartner;
+        if (GetBattlerSide(gBattleAnimTarget) == B_SIDE_PLAYER)
+        {
+            if (gBattleAnimTarget == 0)
+                targetPartner = 2;
+            else
+                targetPartner = 0;
+        }
+        else
+        {
+            if (gBattleAnimTarget == 1)
+                targetPartner = 3;
+            else
+                targetPartner = 1;
+        }
+        sprite->data[2] = GetBattlerSpriteCoord(targetPartner, BATTLER_COORD_X_2) + gBattleAnimArgs[2] ;
+        sprite->data[4] = GetBattlerSpriteCoord(targetPartner, BATTLER_COORD_Y_PIC_OFFSET) + gBattleAnimArgs[3];
+    }
+    else
+    {
+        sprite->data[2] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2) + gBattleAnimArgs[2] ;
+        sprite->data[4] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET) + gBattleAnimArgs[3];
+    }
+    InitAnimLinearTranslation(sprite);
+    sprite->callback = AnimTeraStarstormStars_Step;
+    sprite->affineAnimPaused = TRUE;
+    sprite->callback(sprite);
+}
+
+static void AnimTeraStarstormStars_Step(struct Sprite *sprite)
+{
+    if (AnimTranslateLinear(sprite))
+        DestroyAnimSprite(sprite);
+    if ((u16)gBattleAnimArgs[7] == 0xFFFF)
+    {
+        StartSpriteAnim(sprite, 1);
+        sprite->affineAnimPaused = FALSE;
+    }
+}
+
 // Animates a sprite that moves linearly from one location to another, with a
 // single-cycle sine wave added to the y position along the way.
 // Used by Razor Leaf and Magical Leaf.
@@ -7201,7 +7350,7 @@ static void AnimRockPolishSparkle(struct Sprite *sprite)
 // arg 0: initial x pixel offset
 // arg 1: initial y pixel offset
 // arg 2: duration
-static void AnimPoisonJabProjectile(struct Sprite *sprite)
+void AnimPoisonJabProjectile(struct Sprite *sprite)
 {
     s16 targetXPos;
     s16 targetYPos;

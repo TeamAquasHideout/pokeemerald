@@ -270,6 +270,7 @@ void AnimThoughtBubble(struct Sprite *sprite);
 void AnimTranslateLinearSingleSineWave(struct Sprite *sprite);
 void AnimGrantingStars(struct Sprite *sprite);
 void AnimFollowMeFinger(struct Sprite *sprite);
+void AnimTeraStarstormStars(struct Sprite *);
 extern const union AnimCmd *const gRazorLeafParticleAnimTable[];
 extern const union AnimCmd *const gPowerAbsorptionOrbAnimTable[];
 extern const union AffineAnimCmd *const gPowerAbsorptionOrbAffineAnimTable[];
@@ -298,6 +299,9 @@ extern const union AffineAnimCmd *const gStockpileAbsorptionOrbAffineAnimTable[]
 extern const union AnimCmd *const gSlashSliceAnimTable[];
 extern const union AffineAnimCmd* const sSpriteAffineAnimTable_HydroCannonBall[];
 extern const union AffineAnimCmd sSpriteAffineAnim_HydroCannonBall[];
+extern const union AnimCmd *const sAnims_BasicRock[];
+extern const union AnimCmd *const sAnims_MudSlapMud[];
+extern const union AnimCmd *const sAnims_CirclingElectricShock[];
 
 // battle_anim_effects_2.c
 void AnimUproarRing(struct Sprite *sprite);
@@ -307,6 +311,9 @@ void AnimOrbitScatter(struct Sprite *sprite);
 void AnimAngerMark(struct Sprite *sprite);
 void AnimHyperVoiceRing(struct Sprite *sprite);
 void AnimMagentaHeart(struct Sprite *);
+void AnimRockTomb(struct Sprite *);
+void AnimIceBeamParticle(struct Sprite *);
+void AnimPoisonJabProjectile(struct Sprite *);
 extern const union AffineAnimCmd *const gThinRingShrinkingAffineAnimTable[];
 extern const union AffineAnimCmd *const gThinRingExpandingAffineAnimTable[];
 extern const union AnimCmd *const gExplosionAnimTable[];
