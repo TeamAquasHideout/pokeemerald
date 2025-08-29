@@ -56,7 +56,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_3",
       "x": 11,
-      "y": 12,
+      "y": 13,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
       "movement_range_x": 3,
@@ -108,7 +108,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_3",
       "x": 11,
-      "y": 12,
+      "y": 13,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
       "movement_range_x": 3,
