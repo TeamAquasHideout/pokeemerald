@@ -62,6 +62,7 @@ void ApplyBattlerVisualsForTeraAnim(u32 battler)
 bool32 CanTerastallize(u32 battler)
 {
     u32 holdEffect = GetBattlerHoldEffect(battler, FALSE);
+	u32 species = gBattleMons[battler].species;
 
     // Prevents Zigzagoon from terastalizing in vanilla.
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE && GetBattlerSide(battler) == B_SIDE_OPPONENT)
@@ -96,6 +97,10 @@ bool32 CanTerastallize(u32 battler)
     if (GetActiveGimmick(battler) != GIMMICK_NONE)
         return FALSE;
 
+    // Check if battler has undergone a Primal Reversion
+    if (species == SPECIES_KYOGRE_PRIMAL || species == SPECIES_GROUDON_PRIMAL)
+        return FALSE;
+    
     // Check if battler is holding a Z-Crystal or Mega Stone.
     // if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE)) // tests make this check already
     //     return FALSE;

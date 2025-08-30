@@ -107,6 +107,10 @@ bool32 CanDynamax(u32 battler)
     // Check if battler has another gimmick active.
     if (GetActiveGimmick(battler) != GIMMICK_NONE)
         return FALSE;
+        
+    // Check if battler has undergone a Primal Reversion
+    if (species == SPECIES_KYOGRE_PRIMAL || species == SPECIES_GROUDON_PRIMAL)
+        return FALSE;
 
     // Check if battler is holding a Z-Crystal or Mega Stone.
     // if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE))  // tests make this check already
