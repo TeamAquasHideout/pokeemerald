@@ -114,6 +114,7 @@ bool32 IsZMove(u32 move)
 bool32 CanUseZMove(u32 battler)
 {
     u32 holdEffect = GetBattlerHoldEffect(battler, FALSE);
+    u32 species = gBattleMons[battler].species;
 
     // Check if Player has Z-Power Ring.
     if (!TESTING && (battler == B_POSITION_PLAYER_LEFT
@@ -131,6 +132,10 @@ bool32 CanUseZMove(u32 battler)
 
     // Check if battler has another gimmick active.
     if (GetActiveGimmick(battler) != GIMMICK_NONE && GetActiveGimmick(battler) != GIMMICK_ULTRA_BURST)
+        return FALSE;
+
+    // Check if battler has undergone a Primal Reversion
+    if (species == SPECIES_KYOGRE_PRIMAL || species == SPECIES_GROUDON_PRIMAL)
         return FALSE;
 
     // Check if battler isn't holding a Z-Crystal.
