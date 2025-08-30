@@ -13,6 +13,7 @@
 #include "util.h"
 #include "trig.h"
 #include "graphics.h"
+#include "random.h"
 #include "battle_scripts.h"
 #include "battle_controllers.h"
 #include "constants/moves.h"
@@ -9517,6 +9518,16 @@ void AnimTask_SyrupBomb(u8 taskId)
 void AnimTask_StickySyrup(u8 taskId)
 {
     gBattleAnimArgs[0] = gAnimDisableStructPtr->syrupBombIsShiny;
+    DestroyAnimVisualTask(taskId);
+}
+
+void AnimTask_RandomBool(u8 taskId)
+{
+    if (RandomPercentage(RNG_NONE, 50))
+        gBattleAnimArgs[ARG_RET_ID] = TRUE;
+    else
+        gBattleAnimArgs[ARG_RET_ID] = FALSE;
+
     DestroyAnimVisualTask(taskId);
 }
 
