@@ -177,7 +177,7 @@ PitBackRoom_EventScript_twoicicki::
 
 PitBackRoom_EventScript_twoicicki_text::
 	.string "What's up!\p"
-	.string "I'm twoicicki and I probably have the\n"
+	.string "I'm regrt.exe and I probably have the\n"
 	.string "most runs of any player under my belt.\p"
 	.string "Trust me, Gliscor is high mid-tier at best!$"
 
