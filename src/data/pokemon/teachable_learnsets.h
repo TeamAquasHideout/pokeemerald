@@ -3264,7 +3264,6 @@ static const u16 sMeowthTeachableLearnset[] = {
     MOVE_PSYCH_UP,
     MOVE_RAIN_DANCE,
     MOVE_REST,
-    MOVE_SAND_TOMB,
     MOVE_SEED_BOMB,
     MOVE_SHADOW_BALL,
     MOVE_SHADOW_CLAW,
