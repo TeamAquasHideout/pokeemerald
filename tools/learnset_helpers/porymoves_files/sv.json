@@ -28186,6 +28186,10 @@
     "LevelMoves": [
       {
         "Level": 1,
+        "Move": "MOVE_NUZZLE"
+      },
+      {
+        "Level": 1,
         "Move": "MOVE_QUICK_ATTACK"
       },
       {
@@ -28304,7 +28308,6 @@
       "MOVE_ALLURING_VOICE"
     ],
     "EggMoves": [
-      "MOVE_NUZZLE",
       "MOVE_SING",
       "MOVE_SWEET_KISS",
       "MOVE_CHARM",
@@ -28314,6 +28317,10 @@
   },
   "MINUN": {
     "LevelMoves": [
+      {
+        "Level": 1,
+        "Move": "MOVE_NUZZLE"
+      },
       {
         "Level": 1,
         "Move": "MOVE_QUICK_ATTACK"
@@ -28436,7 +28443,6 @@
       "MOVE_SWEET_KISS",
       "MOVE_CHARM",
       "MOVE_WISH",
-      "MOVE_NUZZLE",
       "MOVE_FAKE_TEARS"
     ],
     "TutorMoves": []
@@ -70334,6 +70340,10 @@
     "LevelMoves": [
       {
         "Level": 1,
+        "Move": "MOVE_BELCH"
+      },
+      {
+        "Level": 1,
         "Move": "MOVE_PECK"
       },
       {
@@ -70429,7 +70439,6 @@
       "MOVE_AERIAL_ACE",
       "MOVE_AQUA_CUTTER",
       "MOVE_AQUA_RING",
-      "MOVE_BELCH",
       "MOVE_DEFOG",
       "MOVE_FEATHER_DANCE",
       "MOVE_ROOST"

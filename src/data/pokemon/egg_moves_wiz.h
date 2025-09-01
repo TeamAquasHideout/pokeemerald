@@ -12798,6 +12798,7 @@ const u16 gEggMoves[] = {
     egg_moves(LYCANROC_MIDDAY,
         MOVE_ENDEAVOR,
         MOVE_LAST_RESORT,
+        MOVE_SUCKER_PUNCH,
         MOVE_THRASH),
 
     egg_moves(MAREANIE,
@@ -12841,7 +12842,8 @@ const u16 gEggMoves[] = {
 
     egg_moves(LURANTIS,
         MOVE_DEFOG,
-        MOVE_WORRY_SEED),
+        MOVE_WORRY_SEED,
+        MOVE_SUPERPOWER),
 
     egg_moves(SALANDIT,
         MOVE_BELCH,
@@ -14160,6 +14162,7 @@ const u16 gEggMoves[] = {
     egg_moves(LYCANROC_MIDNIGHT,
         MOVE_ENDEAVOR,
         MOVE_LAST_RESORT,
+        MOVE_SUCKER_PUNCH,
         MOVE_THRASH),
 
     egg_moves(TOXTRICITY_LOW_KEY,
@@ -16493,6 +16496,7 @@ const u16 gEggMoves[] = {
     egg_moves(LYCANROC_DUSK,
         MOVE_ENDEAVOR,
         MOVE_LAST_RESORT,
+        MOVE_SUCKER_PUNCH,
         MOVE_THRASH),
 
     egg_moves(PATRAT,
