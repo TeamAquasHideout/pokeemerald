@@ -9869,7 +9869,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sBisharpLevelUpLearnset,
         .teachableLearnset = sBisharpTeachableLearnset,
-    #ifdef PIT_GEN_9_MODE
+    #if P_GEN_9_CROSS_EVOS
         .evolutions = EVOLUTION({EVO_ITEM_HOLD, ITEM_LEADERS_CREST, SPECIES_KINGAMBIT}),
     #endif
     },
