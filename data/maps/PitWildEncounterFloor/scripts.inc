@@ -16,7 +16,7 @@ PitWildEncounterFloor_TriggerLeaveEarly::
 	goto_if_eq VAR_RESULT, 0, PitWildEncounterFloor_TriggerLeaveEarly_End
 PitWildEncounterFloor_TriggerLeaveEarly_WarpOut::
 	callnative BufferMapFloorString
-	warpteleport MAP_PIT_REST_FLOOR, 9, 9
+	warpteleport MAP_PIT_REST_FLOOR, 9, 10
 	waitstate
 PitWildEncounterFloor_TriggerLeaveEarly_End::
 	release

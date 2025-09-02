@@ -7280,6 +7280,38 @@ void TryLevelUpOverworldEvo(void)
     return;    
 }
 
+void TryLevelUpOverworldEvo_PitStop(void)
+{
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 targetSpecies = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, ITEM_NONE, SPECIES_NONE);
+        if (targetSpecies != SPECIES_NONE && !(sTriedEvolving & gBitTable[i]))
+        {
+            sTriedEvolving |= gBitTable[i];
+            if(gMain.callback2 == TryLevelUpOverworldEvo_PitStop) // This fixes small graphics glitches.
+                EvolutionScene(&gPlayerParty[i], targetSpecies, TRUE, i);
+            else
+                BeginEvolutionScene(&gPlayerParty[i], targetSpecies, TRUE, i);
+            gCB2_AfterEvolution = TryLevelUpOverworldEvo_PitStop;
+            return;
+        }
+    }
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if((sTriedEvolving & gBitTable[i]))
+        {
+            sTriedEvolving = 0;
+            gFieldCallback = FieldCB_ContinueScriptPlease_PitStop;
+            SetMainCallback2(CB2_ReturnToField);
+            return;
+        }
+    }
+    sTriedEvolving = 0;
+    return;    
+}
+
 bool32 SpeciesHasGenderDifferences(u16 species)
 {
     if (gSpeciesInfo[species].frontPicFemale != NULL
