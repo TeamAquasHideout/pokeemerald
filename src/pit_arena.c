@@ -3755,6 +3755,26 @@ void LevelUpParty(void)
     return;
 }
 
+void LevelUpChosenMon(void)
+{   
+    u8 levels_to_gain = 1;
+    for(u8 level = 0; level < levels_to_gain; level++)
+    {
+        u32 i = gSpecialVar_Result;
+        struct Pokemon *mon = &gPlayerParty[i];
+        ForceIncrementMonLevel(mon);
+        MonTryLearningNewMove(mon, TRUE);
+    }
+    return;
+}
+
+void BufferLevelUpMonName(void)
+{
+    struct Pokemon *mon = &gPlayerParty[VarGet(VAR_0x8004)];
+    StringCopy(gStringVar1, GetSpeciesName(GetMonData(mon, MON_DATA_SPECIES)));
+    return;
+}
+
 void Check3MonMode(void)
 {
     if(gSaveBlock2Ptr->mode3MonsOnly == PARTY_SIZE_3)

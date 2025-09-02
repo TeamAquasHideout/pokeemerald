@@ -826,7 +826,7 @@ bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
             mapNum = MAP_PIT_REST_FLOOR;
             mapGroup = 0;
             VarSet(VAR_PIT_CURRENT_MAP_INDEX_IN_ARRAY, 0);
-            y = 9;
+            y = 10;
             //only show move tutor on 10er levels
             FlagClear(FLAG_HIDE_MOVE_TUTOR);
 

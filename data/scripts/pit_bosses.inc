@@ -80,7 +80,7 @@ PitBoss_NoCaseModeMode::
 	callnative AddNewMonNoCaseMode
 PitBoss_NoCaseModeMode2::
 	callnative BufferMapFloorString
-	warpteleport MAP_PIT_REST_FLOOR, 9, 9
+	warpteleport MAP_PIT_REST_FLOOR, 9, 10
 	waitstate
 	release
 	end

@@ -157,6 +157,15 @@ void Task_WaitForFadeAndRestartScriptCtx(u8 taskID)
     }
 }
 
+void Task_WaitForFadeAndRestartScriptCtx_PitStop(u8 taskID)
+{
+    if (WaitForWeatherFadeIn() == TRUE)
+    {
+        DestroyTask(taskID);
+        ScriptContext_SetupScript(PitArenaContinueAfterEvo_PitStop);
+    }
+}
+
 void FieldCB_ContinueScriptHandleMusic(void)
 {
     LockPlayerFieldControls();
@@ -178,6 +187,14 @@ void FieldCB_ContinueScriptPlease(void)
     FadeInFromBlack();
     CreateTask(Task_WaitForFadeAndRestartScriptCtx, 10);
 }
+
+void FieldCB_ContinueScriptPlease_PitStop(void)
+{
+    LockPlayerFieldControls();
+    FadeInFromBlack();
+    CreateTask(Task_WaitForFadeAndRestartScriptCtx_PitStop, 10);
+}
+
 
 
 static void Task_ReturnToFieldCableLink(u8 taskId)
