@@ -17731,10 +17731,10 @@ Move_TERA_BLAST::
 	jumpifmovetypeequal TYPE_STELLAR, TeraBlastStellar
 	end
 TeraBlastNormal:
-	loadspritegfx ANIM_TAG_PINKVIO_ORB
+	@ loadspritegfx ANIM_TAG_PINKVIO_ORB
 	loadspritegfx ANIM_TAG_ORBS
 	loadspritegfx ANIM_TAG_EXPLOSION
-	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_PINKVIO_ORB, 0, 12, 12, RGB_WHITE
+	@ createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_PINKVIO_ORB, 0, 12, 12, RGB_WHITE
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ORBS, 0, 12, 12, RGB_WHITE
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_EXPLOSION, 0, 12, 12, RGB_WHITE
 	createsprite gPinkVioletOrbSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0, 0, 56, 0
