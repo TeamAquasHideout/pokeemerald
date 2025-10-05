@@ -599,13 +599,13 @@ static const u8 sText_NoBag[]            = _("No Bag");
 static const u8 sWinMarkerGfx[]         = INCBIN_U8("graphics/ui_main_menu/star.4bpp");
 
 #ifdef PIT_GEN_3_MODE
-const u8 gText_VersionText[] = _("v2.5.0 Gen3");
+const u8 gText_VersionText[] = _("v2.5.1 Gen3");
 #endif
 #ifdef PIT_GEN_5_MODE
-const u8 gText_VersionText[] = _("v2.5.0 Gen5");
+const u8 gText_VersionText[] = _("v2.5.1 Gen5");
 #endif
 #ifdef PIT_GEN_9_MODE
-const u8 gText_VersionText[] = _("v2.5.0 Gen9");
+const u8 gText_VersionText[] = _("v2.5.1 Gen9");
 #endif
 
 static void PrintToWindow(u8 windowId, u8 colorIdx)
