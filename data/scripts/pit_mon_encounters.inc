@@ -480,7 +480,7 @@ PitGiveMonCommon_NewMon2::
 	callnative BufferNameText_RandomMonRewardEncounter
 	msgbox PitGiveMonCommon_Text_ReceivedMon, MSGBOX_DEFAULT
 	callnative BufferMapFloorString
-	warpteleport MAP_PIT_REST_FLOOR, 9, 9
+	warpteleport MAP_PIT_REST_FLOOR, 9, 10
 	waitstate
 	release
 	end
