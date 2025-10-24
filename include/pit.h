@@ -69,6 +69,8 @@ struct RandomTrainerNPC
     u16 defeatTextVar;
 };
 
+#define MONKEY_MODE TRUE
+
 #define MAX_RANDOM_TRAINERS 4
 #define MAX_TRAINER_OBJECTS 8
 #define BOSS_FLOOR_RATE 25

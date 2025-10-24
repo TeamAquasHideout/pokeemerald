@@ -21,7 +21,7 @@ PitEntrance_OnFrame_CheckForAutoSave_Skip::
 	@Full dex check for Shiny Dust reward
 	callnative CheckAndGiveShinyDust
 	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
-	callnative CheckIfHasRecievedShinyDust
+	callnative CheckIfHasReceivedShinyDust
 	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_SkipShinyDustReward
 	lock
 	clearflag FLAG_HIDE_ARCHIE
@@ -35,7 +35,7 @@ PitEntrance_OnFrame_CheckForAutoSave_Skip::
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
-	msgbox PitEntrance_Text_CheckIfHasRecievedShinyDust, MSGBOX_DEFAULT
+	msgbox PitEntrance_Text_CheckIfHasReceivedShinyDust, MSGBOX_DEFAULT
 	setflag FLAG_DONT_RANDOMIZE_NEXT_ITEM
 	giveitem ITEM_SHINY_DUST, 1
 	closemessage
@@ -98,7 +98,7 @@ PitEntrance_SendShedinjaPC::
 	call Common_EventScript_TransferredToPC
 	goto PitEntrance_OnFrame_CheckForAutoSave_FinishShedinjaScript
 
-PitEntrance_Text_CheckIfHasRecievedShinyDust:
+PitEntrance_Text_CheckIfHasReceivedShinyDust:
 	.string "Congrats on filling out your Pokédex!\n"
 	.string "Here is a reward!$"
 
@@ -191,6 +191,8 @@ PitEntrance_StartBag::
 PitEntrace_ModeMenu::
 	setflag FLAG_CASE_STARTER_MODE
 	callnative InitTrainerIdAndNameData
+	callnative CheckMonkeyMode
+	goto_if_eq VAR_TEMP_A, 1, PitEntrace_NoCaseModeMode
 	callnative CheckNoCaseMode
 	goto_if_eq VAR_TEMP_A, 1, PitEntrace_NoCaseModeMode
 	callnative StartNewPokeballCaseUI

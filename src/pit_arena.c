@@ -3391,7 +3391,23 @@ void SetRandomGiveMonRewardEncounters(void)
         gSaveBlock1Ptr->wildEncounterFloorSpecies[i] = 0;
     }
 
-    GenerateRandomSpeciesRewards(gSaveBlock1Ptr->wildEncounterFloorSpecies);
+    if (MONKEY_MODE)
+    {
+        if (gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL)
+        {
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[0] = SPECIES_SIMIPOUR;
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[1] = SPECIES_SIMISAGE;
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[2] = SPECIES_SIMISEAR;
+        }
+        else
+        {
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[0] = SPECIES_PANPOUR;
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[1] = SPECIES_PANSAGE;
+            gSaveBlock1Ptr->wildEncounterFloorSpecies[2] = SPECIES_PANSEAR;
+        }
+    }
+    else
+        GenerateRandomSpeciesRewards(gSaveBlock1Ptr->wildEncounterFloorSpecies);
 
     for(u8 i = 0; i < 9; i++)
     {
@@ -3808,8 +3824,16 @@ void Check75FloorMode(void)
 }
 
 void CheckNoCaseMode(void)
-{
+{    
     if(gSaveBlock2Ptr->modeNoCaseChoice == 0)
+        VarSet(VAR_TEMP_A, 1);
+    else
+        VarSet(VAR_TEMP_A, 0);
+}
+
+void CheckMonkeyMode(void)
+{
+    if (MONKEY_MODE)
         VarSet(VAR_TEMP_A, 1);
     else
         VarSet(VAR_TEMP_A, 0);
@@ -3953,12 +3977,12 @@ void CheckIfSavedBefore(void)
     return;
 }
 
-void CheckIfHasRecievedShinyDust(void)
+void CheckIfHasReceivedShinyDust(void)
 {
-    if(gSaveBlock2Ptr->hasRecievedShinyDust == 0)
+    if(gSaveBlock2Ptr->hasReceivedShinyDust == 0)
     {
         VarSet(VAR_RESULT, 1);
-        gSaveBlock2Ptr->hasRecievedShinyDust = 1;
+        gSaveBlock2Ptr->hasReceivedShinyDust = 1;
         return;
     }
 
