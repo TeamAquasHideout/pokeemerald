@@ -81,7 +81,7 @@ enum TextIds
 {
     CHOOSE_MON,
     CONFIRM_SELECTION,
-    RECIEVED_MON,
+    Received_MON,
     CHOOSE_FIRST_MON,
     CHOOSE_SECOND_MON,
     CHOOSE_THIRD_MON,
@@ -767,7 +767,7 @@ static void BirchCase_InitWindows(void)
 //
 static const u8 sText_ChooseMon[] = _("Choose a Pokémon!");
 static const u8 sText_AreYouSure[] = _("Are you sure?    {A_BUTTON} Yes  {B_BUTTON} No");
-static const u8 sText_RecievedMon[] = _("You received the Mon!");
+static const u8 sText_ReceivedMon[] = _("You received the Mon!");
 static const u8 sText_Choose1Mon[] = _("Choose your 1st Mon!");
 static const u8 sText_Choose2Mon[] = _("Choose your 2nd Mon!");
 static const u8 sText_Choose3Mon[] = _("Choose your 3rd Mon!");
@@ -796,7 +796,7 @@ static void PrintTextToBottomBar(u8 textId)
             mainBarAlternatingText = sText_AreYouSure;
             break;
         case 2:
-            mainBarAlternatingText = sText_RecievedMon;
+            mainBarAlternatingText = sText_ReceivedMon;
             break;
         case 3:
             mainBarAlternatingText = sText_Choose1Mon;
@@ -905,7 +905,7 @@ static void Task_DelayedSpriteLoad(u8 taskId) // wait 4 frames after changing th
     }
 }
 
-static void Task_BirchCaseRecievedMon(u8 taskId)
+static void Task_BirchCaseReceivedMon(u8 taskId)
 {
     if(JOY_NEW(A_BUTTON) || gTasks[taskId].data[12] > 30)
     {
@@ -937,9 +937,9 @@ static void Task_BirchCaseConfirmSelection(u8 taskId)
     if(JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
-        PrintTextToBottomBar(RECIEVED_MON);
+        PrintTextToBottomBar(Received_MON);
         BirchCase_GiveMon();
-        gTasks[taskId].func = Task_BirchCaseRecievedMon;
+        gTasks[taskId].func = Task_BirchCaseReceivedMon;
         return;
     }
     if (JOY_NEW(B_BUTTON))

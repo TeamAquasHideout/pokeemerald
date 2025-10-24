@@ -5245,6 +5245,50 @@ static const u16 sRandomDynamicSpecies_76_100[] =
 #endif
 };
 
+// used for MONKEY_MODE: no generation checks included; should only ever be released as Gen 9
+#define RANDOM_DYNAMIC_SPECIES_COUNT_MONKEY_MODE ARRAY_COUNT(sRandomDynamicSpecies_MonkeyMode)
+static const u16 sRandomDynamicSpecies_MonkeyMode[] =
+{
+    SPECIES_AIPOM,
+    SPECIES_AMBIPOM,
+    SPECIES_DARUMAKA,
+    SPECIES_DARMANITAN_STANDARD_MODE,
+    SPECIES_DARUMAKA_GALARIAN,
+    SPECIES_DARMANITAN_GALARIAN_STANDARD_MODE,
+    SPECIES_GROOKEY,
+    SPECIES_THWACKEY,
+    SPECIES_RILLABOOM,
+    SPECIES_PASSIMIAN,
+    SPECIES_ORANGURU,
+    SPECIES_SHROODLE,
+    SPECIES_GRAFAIAI,
+    SPECIES_ANNIHILAPE,
+    SPECIES_MANKEY,
+    SPECIES_PRIMEAPE,
+    SPECIES_CHIMCHAR,
+    SPECIES_MONFERNO,
+    SPECIES_INFERNAPE,
+    SPECIES_ZARUDE,
+    SPECIES_MUNKIDORI,
+    SPECIES_PANSAGE,
+    SPECIES_SIMISAGE,
+    SPECIES_PANSEAR,
+    SPECIES_SIMISEAR,
+    SPECIES_PANPOUR,
+    SPECIES_SIMIPOUR
+};
+
+#define RANDOM_DYNAMIC_SPECIES_COUNT_MONKEY_MODE_STARTERS ARRAY_COUNT(sRandomDynamicSpecies_MonkeyModeStarters)
+static const u16 sRandomDynamicSpecies_MonkeyModeStarters[] =
+{
+    SPECIES_PANSAGE,
+    SPECIES_SIMISAGE,
+    SPECIES_PANSEAR,
+    SPECIES_SIMISEAR,
+    SPECIES_PANPOUR,
+    SPECIES_SIMIPOUR
+};
+
 u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
@@ -5329,11 +5373,17 @@ u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 
 u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies)
 {   
+    if (MONKEY_MODE)
+        return RANDOM_DYNAMIC_SPECIES_COUNT_MONKEY_MODE;
+
     return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
 }
 
 u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 {
+    if (MONKEY_MODE)
+        return sRandomDynamicSpecies_MonkeyMode[index];
+
     return sRandomDynamicSpecies_76_100[index];
 }
 

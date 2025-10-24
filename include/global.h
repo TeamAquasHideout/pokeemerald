@@ -656,7 +656,7 @@ struct SaveBlock2
             u8 giveGoldShield:4;
             u8 hasSavedOnce; 
             u16 savedSecretBaseId;
-            u8 hasRecievedShinyDust;
+            u8 hasReceivedShinyDust;
             u8 forceNewRun;
             u8 hasReceivedShedinja;
             u8 modeMonoType; //0 = all types, rest is based on type defines in constants/pokemon.h
