@@ -1474,8 +1474,8 @@ static void InitHofBgs(void)
     ChangeBgY(3, 0, BG_COORD_SET);
 }
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 static bool8 LoadHofBgs(void)
@@ -1496,7 +1496,7 @@ static bool8 LoadHofBgs(void)
     case 4:
         if (FreeTempTileDataBuffersIfPossible())
             return TRUE;
-        LZDecompressWram(sScrollBgTilemap, sHofGfxPtr->tilemap2);
+        DecompressDataWithHeaderWram(sScrollBgTilemap, sHofGfxPtr->tilemap2);
         LoadPalette(sScrollBgPalette, 16, 32);
         break;
     case 5:

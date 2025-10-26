@@ -185,7 +185,7 @@ AI will always switch out after a KO in exactly party order as defined in the tr
 AI will predict the player's ability based to its aiRating. Without this flag the AI randomly assumes an ability with an even distribution between all possible abilities until one is confirmed. With this flag, it instead guesses proportionally to each ability's aiRating, making it far more likely to guess an ability like Water Absorb than Damp if both are options.
 
 ## `AI_FLAG_PREFER_HIGHEST_DAMAGE_MOVE`
-AI will add score to its highest damaging move, regardless of accuracy or secondary effects. Replaces deprecated `AI_FLAG_PREFER_STRONGEST_MOVE`.
+AI will add score to its highest damaging move, regardless of accuracy or secondary effects. Replaces deprecated `AI_FLAG_PREFER_HIGHEST_DAMAGE_MOVE`.
 
 ## `AI_FLAG_PREDICT_SWITCH`
 AI will determine whether it would switch out in the player's situation or not, and predict the player to switch accordingly. In any case where the AI would consider switching, it will assume the player will switch. This is modulated by a 50% failure rate, so the behaviour is non-deterministic and can change from turn to turn to emulate the inconsistency in human predictions. This behaviour is improved significantly by using `AI_FLAG_SMART_SWITCHING` and `AI_FLAG_SMART_MON_CHOICES` as they improve the AI's ability to determine good situations to switch, and also by `AI_FLAG_OMNISCIENT` so the AI can use all its knowledge of the player's team to make the decision.

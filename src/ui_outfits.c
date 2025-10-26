@@ -225,63 +225,63 @@ static const struct HWWindowPosition HWinCoords[12] =
 //
 //  Graphic and Tilemap Pointers for Bgs and Mughsots
 //
-static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_outfits/main_tiles.4bpp.lz");
-static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_outfits/main_tiles.bin.lz");
+static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_outfits/main_tiles.4bpp.smol");
+static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_outfits/main_tiles.bin.smolTM");
 static const u16 sMainBgPalette[] = INCBIN_U16("graphics/ui_outfits/main_tiles.gbapal");
 
-static const u32 sMainBgTilesFem[] = INCBIN_U32("graphics/ui_outfits/main_tiles_fem.4bpp.lz");
-static const u32 sMainBgTilemapFem[] = INCBIN_U32("graphics/ui_outfits/main_tiles_fem.bin.lz");
+static const u32 sMainBgTilesFem[] = INCBIN_U32("graphics/ui_outfits/main_tiles_fem.4bpp.smol");
+static const u32 sMainBgTilemapFem[] = INCBIN_U32("graphics/ui_outfits/main_tiles_fem.bin.smolTM");
 static const u16 sMainBgPaletteFem[] = INCBIN_U16("graphics/ui_outfits/main_tiles_fem.gbapal");
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_outfits/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_outfits/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_outfits/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_outfits/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_outfits/scroll_tiles.gbapal");
 
 static const u16 sIconBox_Pal[] = INCBIN_U16("graphics/ui_outfits/icon_shadow.gbapal");
-static const u32 sIconBox_Gfx[] = INCBIN_U32("graphics/ui_outfits/icon_shadow.4bpp.lz");
+static const u32 sIconBox_Gfx[] = INCBIN_U32("graphics/ui_outfits/icon_shadow.4bpp.smol");
 
 static const u16 sIconBox_PalFem[] = INCBIN_U16("graphics/ui_outfits/icon_shadow_fem.gbapal");
-static const u32 sIconBox_GfxFem[] = INCBIN_U32("graphics/ui_outfits/icon_shadow_fem.4bpp.lz");
+static const u32 sIconBox_GfxFem[] = INCBIN_U32("graphics/ui_outfits/icon_shadow_fem.4bpp.smol");
 
 static const u16 sBrendanMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/brendan_mugshot.gbapal");
-static const u32 sBrendanMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/brendan_mugshot.4bpp.lz");
+static const u32 sBrendanMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/brendan_mugshot.4bpp.smol");
 static const u16 sMayMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/may_mugshot.gbapal");
-static const u32 sMayMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/may_mugshot.4bpp.lz");
+static const u32 sMayMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/may_mugshot.4bpp.smol");
 
 static const u16 sRedMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/red_mugshot.gbapal");
-static const u32 sRedMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/red_mugshot.4bpp.lz");
+static const u32 sRedMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/red_mugshot.4bpp.smol");
 static const u16 sLeafMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/leaf_mugshot.gbapal");
-static const u32 sLeafMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/leaf_mugshot.4bpp.lz");
+static const u32 sLeafMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/leaf_mugshot.4bpp.smol");
 
 static const u16 sLucasMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/lucas_mugshot.gbapal");
-static const u32 sLucasMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lucas_mugshot.4bpp.lz");
+static const u32 sLucasMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lucas_mugshot.4bpp.smol");
 static const u16 sDawnMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/dawn_mugshot.gbapal");
-static const u32 sDawnMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/dawn_mugshot.4bpp.lz");
+static const u32 sDawnMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/dawn_mugshot.4bpp.smol");
 
 static const u16 sStevenMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/steven.gbapal");
-static const u32 sStevenMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/steven.4bpp.lz");
+static const u32 sStevenMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/steven.4bpp.smol");
 static const u16 sCynthiaMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/cynthia.gbapal");
-static const u32 sCynthiaMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/cynthia.4bpp.lz");
+static const u32 sCynthiaMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/cynthia.4bpp.smol");
 
 static const u16 sOakMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/oak.gbapal");
-static const u32 sOakMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/oak.4bpp.lz");
+static const u32 sOakMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/oak.4bpp.smol");
 static const u16 sPhoebeMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/phoebe.gbapal");
-static const u32 sPhoebeMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/phoebe.4bpp.lz");
+static const u32 sPhoebeMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/phoebe.4bpp.smol");
 
 static const u16 sEthanMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/ethan.gbapal");
-static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/ethan.4bpp.lz");
+static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/ethan.4bpp.smol");
 static const u16 sLyraMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/lyra.gbapal");
-static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lyra.4bpp.lz");
+static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lyra.4bpp.smol");
 
 static const u16 sNateMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/nate_mugshot.gbapal");
-static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/nate_mugshot.4bpp.lz");
+static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/nate_mugshot.4bpp.smol");
 static const u16 sRosaMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/rosa_mugshot.gbapal");
-static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/rosa_mugshot.4bpp.lz");
+static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/rosa_mugshot.4bpp.smol");
 
 static const u16 sWallyMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/wally_mugshot.gbapal");
-static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/wally_mugshot.4bpp.lz");
+static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/wally_mugshot.4bpp.smol");
 static const u16 sLillieMugshot_Pal[] = INCBIN_U16("graphics/ui_outfits/lillie_mugshot.gbapal");
-static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lillie_mugshot.4bpp.lz");
+static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_outfits/lillie_mugshot.4bpp.smol");
 
 //
 //  Sprite Data for Mugshots and Icon Shadows 
@@ -1130,7 +1130,7 @@ static bool8 OutfitsMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, 
     case 3:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg2TilemapBuffer);
             sOutfitsMenuDataPtr->gfxLoadState++;
         }
         break;

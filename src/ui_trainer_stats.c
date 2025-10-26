@@ -179,12 +179,12 @@ struct HWWindowPosition {
 //
 //  Graphic and Tilemap Pointers for Bgs and Mughsots
 //
-static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_main_menu/hof_trainer_card_tiles.4bpp.lz");
-static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/hof_trainer_card_tiles.bin.lz");
+static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_main_menu/hof_trainer_card_tiles.4bpp.smol");
+static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/hof_trainer_card_tiles.bin.smolTM");
 static const u16 sMainBgPalette[] = INCBIN_U16("graphics/ui_main_menu/hof_trainer_card.gbapal");
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 
@@ -458,7 +458,7 @@ static bool8 TrainerStats_LoadGraphics(void) // Load all the tilesets, tilemaps,
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sMainBgTilemap, sBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sMainBgTilemap, sBg1TilemapBuffer);
             sTrainerStatsDataPtr->gfxLoadState++;
         }
         break;
@@ -470,7 +470,7 @@ static bool8 TrainerStats_LoadGraphics(void) // Load all the tilesets, tilemaps,
     case 3:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg2TilemapBuffer);
             sTrainerStatsDataPtr->gfxLoadState++;
         }
         break;

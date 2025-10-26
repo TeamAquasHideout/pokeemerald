@@ -172,8 +172,8 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 itemId, u8 y);
 void TMShopDestroyCategoryIcon(void);
 void TmShopShowHideCategoryIcon(s32 moveId);
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 static const struct YesNoFuncTable sShopPurchaseYesNoFuncs =
@@ -807,7 +807,7 @@ static void CB2_InitBuyMenu(void)
         {
             if (FreeTempTileDataBuffersIfPossible() != TRUE)
             {
-                LZDecompressWram(sScrollBgTilemap, sShopData->tilemapBuffers[3]);
+                DecompressDataWithHeaderWram(sScrollBgTilemap, sShopData->tilemapBuffers[3]);
                 sShopData->categoryIconSpriteId = 0xFF;
                 LoadCompressedSpriteSheet(&gSpriteSheet_CategoryIcons);
                 LoadSpritePalette(&gSpritePal_CategoryIcons);

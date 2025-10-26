@@ -103,7 +103,7 @@ static const u16 sAvatarSpecies[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -1331,7 +1331,7 @@ u16 AccessAvatarSpeciesArrayIndex(u16 index)
 }
 
 u16 GetIndexOfSpeciesInAvatarSpeciesArray(u16 species)
-{   
+{
     for(int i = 0; i < AVATAR_SPECIES_COUNT; i++)
     {
         if(sAvatarSpecies[i] == species)
@@ -1380,7 +1380,7 @@ u16 AccessValidSpeciesArrayIndex(u16 index)
 }
 
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
-{   
+{
     for(int i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
         if(GetTrainerSpeciesFromRandomArray(i, TRUE) == species)
@@ -1403,7 +1403,7 @@ u16 GetSpeciesRandomSeeded(u16 species)
         i++;
         seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species + i, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     }
-    
+
     return seededSpecies;
 }
 
@@ -1429,8 +1429,8 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
                     {
                         // if (gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[0] == gSaveBlock2Ptr->modeMonoType
                         //   || gSpeciesInfo[GetPlayerSpeciesFromRandomArray(i, FALSE)].types[1] == gSaveBlock2Ptr->modeMonoType)
-                        if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType
-                          || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, FALSE), 2) == gSaveBlock2Ptr->modeMonoType)
+                        if (GetSpeciesType(GetPlayerSpeciesFromRandomArray(i, FALSE), 0) == gSaveBlock2Ptr->modeMonoType
+                          || GetSpeciesType(GetPlayerSpeciesFromRandomArray(i, FALSE), 1) == gSaveBlock2Ptr->modeMonoType)
                         {
                             gMonoTypeArray[element] = GetPlayerSpeciesFromRandomArray(i, FALSE);
                             //DebugPrintf("Write array %S", gSpeciesInfo[gMonoTypeArray[element]].speciesName);
@@ -1440,9 +1440,9 @@ u16 GetSpeciesRandomNotSeeded(u16 monType)
                 }
 
                 return gMonoTypeArray[RandomModulo(0, maxMonoTypeSpecies)];
-            }   
+            }
             else
-                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE); 
+                return GetPlayerSpeciesFromRandomArray(RandomModulo(0, GetMaxPlayerNumberOfSpecies(FALSE)), FALSE);
         case ALL_MONS:
             return GetTrainerSpeciesFromRandomArray(RandomModulo(0, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
     }
@@ -1474,8 +1474,8 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
         breakOut++;
         if(breakOut > 600)
         {
-            // Looping too much is intentionally used as the new Clear method because the arrays are broken apart, looping through this function is very fast, 
-            // it will maybe slow down a trainer generation by 0.2 seconds every now and then, but thats not a big deal imo, 
+            // Looping too much is intentionally used as the new Clear method because the arrays are broken apart, looping through this function is very fast,
+            // it will maybe slow down a trainer generation by 0.2 seconds every now and then, but thats not a big deal imo,
             // the alternative is very complicated logic and thousands of bytes more of save space
             ClearGeneratedMons();
             breakOut = 0;
@@ -1503,8 +1503,8 @@ void ClearGeneratedMonsByType(void)
     u16 i = 0;
     for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
-        if (GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType
-              || GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 2) == gSaveBlock2Ptr->modeMonoType)
+        if (GetSpeciesType(GetTrainerSpeciesFromRandomArray(i, TRUE), 0) == gSaveBlock2Ptr->modeMonoType
+              || GetSpeciesType(GetTrainerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType)
             gSaveBlock3Ptr->monRolledCounts[GetTrainerSpeciesFromRandomArray(i, TRUE)] = 0;
     }
 }
@@ -1602,7 +1602,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     rerollMon = TRUE;
                 }
             }
-            
+
             //duplicates check
             if (!rerollMon && (gSaveBlock2Ptr->modeMonoType == TYPE_NONE ||
               (gSaveBlock2Ptr->modeMonoType != TYPE_NONE && counter2 < 5))) // for performance reasons only 5 rerolls in case of mono type runs
@@ -1626,7 +1626,7 @@ void GenerateRandomSpeciesRewards(u16 *sRolledSpeciesPtr)
                     }
                 }
             }
-            
+
             if (counter2 == 100) //exit in case of infinite loop
             {
                 rerollMon = FALSE;
@@ -1684,7 +1684,7 @@ void DebugTestRandomness(void)
         //DebugPrintf("Species %S: %d", &gStringVar1, gSaveBlock3Ptr->monRolledCounts[i]);
     }
     //DebugPrintf("Number of Mons Generated: %d", gSaveBlock3Ptr->monsGeneratedCount);
-    
+
     ClearGeneratedMons();
 }
 
@@ -1798,7 +1798,7 @@ static const u16 sRandomBerryValidItems[] =
     ITEM_JABOCA_BERRY,
     ITEM_ROWAP_BERRY,
 #endif
-#ifdef PIT_GEN_9_MODE  
+#ifdef PIT_GEN_9_MODE
     ITEM_ROSELI_BERRY,
     ITEM_KEE_BERRY,
     ITEM_MARANGA_BERRY,
@@ -2031,11 +2031,11 @@ u16 RandomItemId(u16 itemId)
     {
         isSignatureItem = FALSE;
 
-        if (ItemId_GetPocket(itemId) == POCKET_TM_HM)
+        if (GetItemPocket(itemId) == POCKET_TM_HM)
         {
             return itemId;
         }
-        else if (ItemId_GetPocket(itemId) != POCKET_KEY_ITEMS)
+        else if (GetItemPocket(itemId) != POCKET_KEY_ITEMS)
         {
             randomItemCategory = Random32() % 1000;
             if(randomItemCategory < 70)
@@ -2915,11 +2915,6 @@ u16 GetRandomMoveNotSeeded(u16 move, u16 species)
     return final;
 }
 
-const u8 *GetMoveName(u16 moveId)
-{
-    return gMovesInfo[moveId].name;
-}
-
 u16 GetRandomValidMovesCount(void)
 {
 	return RANDOM_MOVES_COUNT;
@@ -3112,7 +3107,7 @@ u8 GetPreEvoMovesBySpecies(u16 species, u16 *moves, bool8 PreEvoCheckOnly)
                 {
                     if (PreEvoCheckOnly)
                         return TRUE;
-                    
+
                     if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                         moves[numMoves++] = GetRandomMove(learnset[i].move, speciesOriginal);
                     else
@@ -3186,7 +3181,7 @@ u8 GetPreEvoMoves(struct Pokemon *mon, u16 *moves, bool8 PreEvoCheckOnly)
                     {
                         if (PreEvoCheckOnly)
                             return TRUE;
-                        
+
                         if (gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
                             moves[numMoves++] = GetRandomMove(learnset[i].move, speciesOriginal);
                         else
@@ -3349,7 +3344,7 @@ u16 GetAbilityBySpeciesNotRandom(u16 species, u8 abilityNum)
     {
         gLastUsedAbility = gSpeciesInfo[species].abilities[i];
     }
-    
+
     return gLastUsedAbility;
 }
 
@@ -3419,22 +3414,6 @@ u8 GetRandomTeraType(void)
     return sValidTeraTypes[Random() % RANDOM_TYPE_COUNT];
 }
 
-u8 GetTypeBySpecies(u16 species, u8 typeNum)
-{
-    u8 type;
-
-    if (typeNum == 1)
-        type = gSpeciesInfo[species].types[0];
-    else
-        type = gSpeciesInfo[species].types[1];
-
-    if (gSaveBlock2Ptr->randomType == OPTIONS_OFF)
-        return type;
-
-    type = sOneTypeChallengeValidTypes[RandomSeededModulo2(type + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2)];
-    return type;
-}
-
 u8 GetTypeEffectivenessRandom(u8 type)
 {
     //if (type == TYPE_NONE)
@@ -3452,7 +3431,7 @@ u8 GetTypeEffectivenessRandom(u8 type)
 //  Secret Base Randomizer
 //
 #define RANDOM_SECRET_BASE_COUNT ARRAY_COUNT(sRandomSecretBase)
-const u16 sRandomSecretBase[] = 
+const u16 sRandomSecretBase[] =
 {
 	SECRET_BASE_RED_CAVE1_1   ,
 	SECRET_BASE_RED_CAVE1_2   ,
@@ -3566,4 +3545,3 @@ u16 GetRandomBattleWeather(void)
     battleWeather = sRandomBattleWeathers[battleWeather];
     return battleWeather;
 }
-

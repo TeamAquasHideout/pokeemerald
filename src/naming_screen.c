@@ -418,8 +418,8 @@ void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGende
     }
 }
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles2.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles2.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 static void CB2_LoadNamingScreen(void)
@@ -460,7 +460,7 @@ static void CB2_LoadNamingScreen(void)
     case 7:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sNamingScreen->tilemapBuffer4);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sNamingScreen->tilemapBuffer4);
             LoadPalette(sScrollBgPalette, (16 * 7), 32);
             gMain.state++;
         }
