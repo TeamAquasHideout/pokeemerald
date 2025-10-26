@@ -3391,7 +3391,7 @@ void SetRandomGiveMonRewardEncounters(void)
         gSaveBlock1Ptr->wildEncounterFloorSpecies[i] = 0;
     }
 
-    if (MONKEY_MODE)
+    if (MONKEY_MODE && FlagGet(FLAG_CASE_STARTER_MODE))
     {
         if (gSaveBlock2Ptr->modeChoiceEvoStage == EVOSTAGE_FULL)
         {

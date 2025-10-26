@@ -1380,7 +1380,7 @@ u16 AccessValidSpeciesArrayIndex(u16 index)
 }
 
 u16 GetIndexOfSpeciesInValidSpeciesArray(u16 species)
-{   
+{
     for(int i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
         if(GetTrainerSpeciesFromRandomArray(i, TRUE) == species)
@@ -1398,7 +1398,8 @@ u16 GetSpeciesRandomSeeded(u16 species)
 
     //make sure to not roll similar species
     while (GetAbilityBySpeciesNotRandom(seededSpecies, 0) == GetAbilityBySpeciesNotRandom(species, 0)
-      && GetAbilityBySpeciesNotRandom(seededSpecies, 1) == GetAbilityBySpeciesNotRandom(species, 1))
+      && GetAbilityBySpeciesNotRandom(seededSpecies, 1) == GetAbilityBySpeciesNotRandom(species, 1)
+      && i < 100)
     {
         i++;
         seededSpecies = GetTrainerSpeciesFromRandomArray(RandomSeededModulo2(species + i, GetMaxTrainerNumberOfSpecies(TRUE)), TRUE);
@@ -1482,6 +1483,7 @@ u16 GetRandomSpeciesFlattenedCurve(u16 monType)
             ClearGeneratedMonsByType();
             breakOut = 0;
             randomSpecies = gMonoTypeArray[RandomModulo(0, GetMonoTypeNumberOfSpecies())]; //default for overflow cases
+            notChosen = FALSE;
         }
     }
 
@@ -1500,9 +1502,10 @@ void ClearGeneratedMonsByType(void)
     u16 i = 0;
     for(i = 0; i < GetMaxTrainerNumberOfSpecies(TRUE); i++)
     {
-        if (GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType
-              || GetTypeBySpecies(GetTrainerSpeciesFromRandomArray(i, TRUE), 2) == gSaveBlock2Ptr->modeMonoType)
-            gSaveBlock3Ptr->monRolledCounts[GetTrainerSpeciesFromRandomArray(i, TRUE)] = 0;
+        u32 species = GetTrainerSpeciesFromRandomArray(i, TRUE);
+        if (GetTypeBySpecies(species, 1) == gSaveBlock2Ptr->modeMonoType
+              || GetTypeBySpecies(species, 2) == gSaveBlock2Ptr->modeMonoType)
+            gSaveBlock3Ptr->monRolledCounts[species] = 0;
     }
 }
 
