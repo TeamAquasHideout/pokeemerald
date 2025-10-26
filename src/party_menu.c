@@ -5766,7 +5766,7 @@ u16 ItemIdToBattleMoveId(u16 item)
     {
         return ItemIdToBattleMoveIdRandom(item);
     }
-    return (GetItemPocket(item) == POCKET_TM_HM) ? GetItemTMHMMoveId(item) : MOVE_NONE;
+    return (GetItemPocket(item) == POCKET_TM_HM) ? gItemsInfo[item].secondaryId : MOVE_NONE;
 }
 
 

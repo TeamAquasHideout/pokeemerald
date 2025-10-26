@@ -685,19 +685,6 @@ extern const struct NatureInfo gNaturesInfo[];
 extern const u16 gTutorMoves[];
 #endif // P_TUTOR_MOVES_ARRAY
 
-static inline u32 SanitizeMoveId(u32 moveId)
-{
-    if (moveId >= MOVES_COUNT_ALL)
-        return MOVE_NONE;
-    else
-        return moveId;
-}
-
-static inline u32 GetMoveEffect(u32 moveId)
-{
-    return gMovesInfo[SanitizeMoveId(moveId)].effect;
-}
-
 void ZeroBoxMonData(struct BoxPokemon *boxMon);
 void ZeroMonData(struct Pokemon *mon);
 void ZeroPlayerPartyMons(void);
@@ -897,7 +884,6 @@ bool8 IsSpeciesLegendary(u16 species);
 bool8 IsSpeciesMythical(u16 species);
 bool8 IsSpeciesUltraBeast(u16 species);
 bool8 IsSpeciesParadoxMon(u16 species);
-const u8 *GetMoveAnimationScript(u16 moveId);
 void UpdateDaysPassedSinceFormChange(u16 days);
 void TrySetDayLimitToFormChange(struct Pokemon *mon);
 u8 GetPreEvoMoves(struct Pokemon *mon, u16 *moves, bool8 PreEvoCheckOnly);

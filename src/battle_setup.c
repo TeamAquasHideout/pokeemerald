@@ -1267,11 +1267,6 @@ static void CB2_EndTrainerBattle(void)
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
             DowngradeBadPoison();
-            if (!InBattlePyramid() && !InTrainerHillChallenge())
-            {
-                RegisterTrainerInMatchCall();
-                SetBattledTrainersFlags();
-            }
         }
         else
             SetMainCallback2(CB2_WhiteOut);

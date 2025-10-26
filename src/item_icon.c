@@ -164,23 +164,32 @@ u8 AddCustomItemIconSprite(const struct SpriteTemplate *customSpriteTemplate, u1
     }
 }
 
+
 const void *GetItemIconPic(u16 itemId)
 {
     if (itemId == ITEM_LIST_END)
         return gItemIcon_ReturnToFieldArrow; // Use last icon, the "return to field" arrow
     if (itemId >= ITEMS_COUNT)
         return gItemsInfo[0].iconPic;
-    if (GetPocketByItemId(itemId) == POCKET_TM_HM)
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
-        if (GetItemTMHMIndex(itemId) > NUM_TECHNICAL_MACHINES)
-            return gItemIcon_HM;
-        return gItemIcon_TM;
+        if (GetPocketByItemId(itemId) == POCKET_TM_HM)
+        {
+            return gTMMoveTypeTable[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type][0];
+        }
+    }
+    else
+    {
+        if (GetPocketByItemId(itemId) == POCKET_TM_HM)
+        {
+            return gTMMoveTypeTable[gMovesInfo[gItemsInfo[itemId].secondaryId].type][0];
+        }
     }
 
     return gItemsInfo[itemId].iconPic;
 }
 
-const u16 *GetItemIconPalette(u16 itemId)
+const void *GetItemIconPalette(u16 itemId)
 {
     if (itemId == ITEM_LIST_END)
         return gItemIconPalette_ReturnToFieldArrow;
@@ -189,12 +198,16 @@ const u16 *GetItemIconPalette(u16 itemId)
     if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON)
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
-            return gTypesInfo[GetMoveType(GetRandomMove(itemId, GetItemTMHMMoveId(itemId)))].paletteTMHM;
+        {
+            return gTMMoveTypeTable[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type][1];
+        }
     }
     else
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
-            return gTypesInfo[GetMoveType(GetItemTMHMMoveId(itemId))].paletteTMHM;
+        {
+            return gTMMoveTypeTable[gMovesInfo[gItemsInfo[itemId].secondaryId].type][1];
+        }
     }
 
     return gItemsInfo[itemId].iconPalette;

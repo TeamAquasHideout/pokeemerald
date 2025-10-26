@@ -56,27 +56,6 @@ EWRAM_DATA u8 sItemIconSpriteId2 = 0;
 #include "data/pokemon/item_effects.h"
 #include "data/items.h"
 
-#define UNPACK_TM_ITEM_ID(_tm) [CAT(ENUM_TM_HM_, _tm) + 1] = { CAT(ITEM_TM_, _tm), CAT(MOVE_, _tm) },
-#define UNPACK_HM_ITEM_ID(_hm) [CAT(ENUM_TM_HM_, _hm) + 1] = { CAT(ITEM_HM_, _hm), CAT(MOVE_, _hm) },
-
-const struct TmHmIndexKey gTMHMItemMoveIds[NUM_ALL_MACHINES + 1] =
-{
-    [0] = { ITEM_NONE, MOVE_NONE }, // Failsafe
-    FOREACH_TM(UNPACK_TM_ITEM_ID)
-    FOREACH_HM(UNPACK_HM_ITEM_ID)
-    /*
-     * Expands to the following:
-     *
-     * [1] = { ITEM_TM_FOCUS_PUNCH, MOVE_FOCUS_PUNCH },
-     * [2] = { ITEM_TM_DRAGON_CLAW, MOVE_DRAGON_CLAW },
-     * [3] = { ITEM_TM_WATER_PULSE, MOVE_WATER_PULSE },
-     * etc etc
-    */
-};
-
-#undef UNPACK_TM_ITEM_ID
-#undef UNPACK_HM_ITEM_ID
-
 static inline struct ItemSlot NONNULL BagPocket_GetSlotDataGeneric(struct BagPocket *pocket, u32 pocketPos)
 {
     return (struct ItemSlot) {
@@ -839,7 +818,7 @@ const u8 *GetItemName(u16 itemId)
     }
     if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
     {
-        return gMovesInfo[GetItemTMHMMoveId(itemId)].name;
+        return gMovesInfo[gItemsInfo[itemId].secondaryId].name;
     }
     else
     {
