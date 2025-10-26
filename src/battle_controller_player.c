@@ -107,6 +107,7 @@ static u32 CheckTargetTypeEffectiveness(u32 battler);
 static void MoveSelectionDisplayMoveEffectiveness(u32 foeEffectiveness, u32 battler);
 
 static void UpdateCategorySprite(u32 battler);
+u8 TypeEffectiveness(u8 targetId, u32 battler);
 
 static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(u32 battler) =
 {
@@ -1126,9 +1127,9 @@ static void MoveSelectionDisplayMoveDescription(u32 battler)
 {
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
     u16 move = moveInfo->moves[gMoveSelectionCursor[battler]];
-    u16 pwr = gMovesInfo[move].power;
-    u16 acc = gMovesInfo[move].accuracy;
-    s16 pri = gMovesInfo[move].priority;
+    u16 pwr = GetMovePower(move);
+    u16 acc = GetMoveAccuracy(move);
+    s16 pri = GetMovePriority(move);
     u8 pwr_num[3], acc_num[3], pri_num[3];
     u8 pwr_desc[7] = _("PWR: ");
     u8 acc_desc[7] = _("ACC: ");
@@ -1582,6 +1583,7 @@ static void Task_GiveExpToMon(u8 taskId)
         u8 level = GetMonData(mon, MON_DATA_LEVEL);
         u32 currExp = GetMonData(mon, MON_DATA_EXP);
         u32 nextLvlExp = gExperienceTables[gSpeciesInfo[species].growthRate][level + 1];
+        u32 expAfterGain = currExp + gainedExp;
         u32 oldMaxHP = GetMonData(mon, MON_DATA_MAX_HP);
 
         if (expAfterGain >= nextLvlExp)
@@ -1855,39 +1857,6 @@ static void MoveSelectionDisplayPpNumber(u32 battler)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP_REMAINING);
 }
 
-u8 TypeEffectiveness(u8 targetId, u32 battler)
-{
-   // u8 moveFlags;
-    u16 move;
-    u32 moveType;
-    uq4_12_t modifier;
-    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct*)(&gBattleResources->bufferA[battler][4]);
-    move = moveInfo->moves[gMoveSelectionCursor[battler]];
-    move = gBattleMons[battler].moves[gMoveSelectionCursor[battler]];
-
-    //moveType = gMovesInfo[move].type;
-    //handle dynamic move types
-    SetTypeBeforeUsingMove(move, battler);
-    GET_MOVE_TYPE(move, moveType); //this sets the moveType var
-
-    if (GetBattlerAbility(targetId) == ABILITY_ILLUSION && GetIllusionMonSpecies(targetId) != SPECIES_NONE) //calc effectiveness for the illusion mon
-        modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), TRUE, TRUE);
-    else
-        modifier = CalcTypeEffectivenessMultiplier(move, moveType, battler, targetId, GetBattlerAbility(targetId), TRUE, FALSE);
-
-    if (modifier == UQ_4_12(0.0)) {
-			return B_WIN_TYPE_NO_EFF; // 26 - no effect
-    }
-    else if (modifier <= UQ_4_12(0.5)) {
-            return B_WIN_TYPE_NOT_VERY_EFF; // 25 - not very effective
-    }
-    else if (modifier >= UQ_4_12(2.0)) {
-            return B_WIN_TYPE_SUPER_EFF; // 24 - super effective
-    }
-    else
-        return 10; // 10 - normal effectiveness
-}
-
 static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId, u32 battler)
 {
 	u8 *txtPtr;
@@ -1903,7 +1872,6 @@ static void MoveSelectionDisplayMoveTypeDoubles(u8 targetId, u32 battler)
 static void MoveSelectionDisplayMoveType(u32 battler)
 {
     u8 *txtPtr, *end;
-    u8 type;
     u8 typeColor = IsDoubleBattle() ? B_WIN_MOVE_TYPE : TypeEffectiveness(GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(battler))), battler);
     u32 speciesId = gBattleMons[battler].species;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
@@ -2482,7 +2450,7 @@ static void PlayerHandleOneReturnValue_Duplicate(u32 battler)
 
 static void PlayerHandleIntroTrainerBallThrow(u32 battler)
 {
-    const u32 *trainerPal = gTrainerBacksprites[ReturnAvatarTrainerBackPicId(gSaveBlock2Ptr->playerGfxType)].palette.data;
+    const u16 *trainerPal = gTrainerBacksprites[ReturnAvatarTrainerBackPicId(gSaveBlock2Ptr->playerGfxType)].palette.data;
     BtlController_HandleIntroTrainerBallThrow(battler, 0xD6F8, trainerPal, 31, Intro_TryShinyAnimShowHealthbox);
 }
 
@@ -2710,4 +2678,25 @@ static void MoveSelectionDisplayMoveEffectiveness(u32 foeEffectiveness, u32 batt
     }
 
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_PP);
+}
+
+u8 TypeEffectiveness(u8 targetId, u32 battler)
+{
+    u32 foeEffectiveness = CheckTypeEffectiveness(battler, targetId);
+
+    switch (foeEffectiveness)
+    {
+    case EFFECTIVENESS_SUPER_EFFECTIVE:
+        return B_WIN_TYPE_SUPER_EFF; // 24 - super effective
+    case EFFECTIVENESS_NOT_VERY_EFFECTIVE:
+        return B_WIN_TYPE_NOT_VERY_EFF; // 25 - not very effective
+    case EFFECTIVENESS_NO_EFFECT:
+        return B_WIN_TYPE_NO_EFF; // 26 - no effect
+    case EFFECTIVENESS_NORMAL:
+        return 10; // 10 - normal effectiveness
+        break;
+    default:
+    case EFFECTIVENESS_CANNOT_VIEW:
+        return 10; // 10 - normal effectiveness
+    }
 }

@@ -463,6 +463,11 @@ static const struct ListMenuItem sVariousListItems[] =
     {COMPOUND_STRING("In Love"),       VARIOUS_IN_LOVE},
 };
 
+static const u8 sText_Moves[] = _("Moves");
+static const u8 sText_PP[] = _("PP");
+static const u8 sText_Stats[] = _("Stats");
+static const u8 sText_StatStages[] = _("Stat Stages");
+
 static const struct ListMenuItem sSecondaryListItems[] =
 {
     {sText_EmptyString, 0},

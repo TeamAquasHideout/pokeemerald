@@ -557,7 +557,6 @@ bool32 MovesWithCategoryUnusable(u32 attacker, u32 target, enum DamageCategory c
     ctx.abilityDef = gAiLogicData->abilities[target];
     ctx.holdEffectAtk = gAiLogicData->items[attacker];
     ctx.holdEffectDef = gAiLogicData->items[target];
-    ctx.calcForIllusion = FALSE;
 
     for (u32 i = 0; i < MAX_MON_MOVES; i++)
     {
@@ -881,7 +880,7 @@ struct SimulatedDamage AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u
         if (gBattleStruct->gimmick.usableGimmick[battlerAtk] & GIMMICK_FLAG_Z_MOVE && IsViableZMove(battlerAtk, move))
             gBattleStruct->zmove.baseMoves[battlerAtk] = move;
 
-        toggledGimmick = TRUE;
+        toggledGimmickAtk = TRUE;
         SetActiveGimmick(battlerAtk, MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battlerAtk]));
     }
 
@@ -1317,7 +1316,6 @@ uq4_12_t AI_GetMoveEffectiveness(u32 move, u32 battlerAtk, u32 battlerDef)
     ctx.abilityDef = gAiLogicData->abilities[battlerDef];
     ctx.holdEffectAtk = gAiLogicData->items[battlerAtk];
     ctx.holdEffectDef = gAiLogicData->items[battlerDef];
-    ctx.calcForIllusion = FALSE;
     typeEffectiveness = CalcTypeEffectivenessMultiplier(&ctx);
 
     RestoreBattlerData(battlerAtk);

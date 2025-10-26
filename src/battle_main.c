@@ -1976,7 +1976,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     u16 averageEVs = 0;
     u16 setTrainerTera = 0;
     bool8 megaStoneAssigned = FALSE;
-
+    
     gCanRayquazaMega = FALSE;
 
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
@@ -2013,7 +2013,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
         averageEVs = GetAverageEVsFromParty() / 6;
 
         for (i = 0; i < monsCount; i++)
-        {
+        {   
             s32 ball = -1;
             u32 personalityHash = GeneratePartyHash(trainer, i);
             const struct TrainerMon *partyData = trainer->party;
@@ -2024,14 +2024,14 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             u8 j = i;
             u8 isAcePokemon = FALSE;
 
-            if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES)) && (j == (monsCount - 1)) && !(isPlayer))
+            if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES)) && (j == (monsCount - 1)) && !(isPlayer)) 
             {
                 partyData = GetRandomBossEncounterAcePokemon();
                 j = 0;
                 isAcePokemon = TRUE;
             }
 
-            if (trainer->battleType != TRAINER_BATTLE_TYPE_SINGLES)
+            if (trainer->battleType == TRAINER_BATTLE_TYPE_DOUBLES)
                 personalityValue = 0x80;
             else if (trainer->encounterMusic_gender & F_TRAINER_FEMALE)
                 personalityValue = 0x78; // Use personality more likely to result in a female Pokémon
@@ -2158,7 +2158,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES))
                   && (item == ITEM_RED_CARD || item == ITEM_EJECT_BUTTON || item == ITEM_EJECT_PACK))
                     item = ITEM_LEFTOVERS; // safety measure: default item in case of switch out items for bosses
-
+                
 #ifdef PIT_GEN_9_MODE
                 //overwrite item with Mega Stones
                 if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
@@ -2167,10 +2167,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
                     if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
                         odds = 0;
-
+                    
                     if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
                         odds = 35;
-
+                    
                     if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
                     {
                         if(VarGet(VAR_PIT_FLOOR) <= 25)
@@ -2181,7 +2181,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             odds = 20;
                         else
                             odds = 35;
-
+                    
                         if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                         {
                             if (VarGet(VAR_PIT_FLOOR) <= 15)
@@ -2191,7 +2191,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                             else
                                 odds = 25;
                         }
-
+                    
                         if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
                         {
                             if (VarGet(VAR_PIT_FLOOR) <= 20)
@@ -2204,7 +2204,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                                 odds = 30;
                         }
                     }
-
+                    
                     if ((Random() % 100) < odds && !megaStoneAssigned
                       && VarGet(VAR_PIT_FLOOR) % 25 != 0) //no additional megas for bosses
                     {
@@ -2242,7 +2242,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[j], isPlayer);
             SetMonData(&party[i], MON_DATA_IVS, &(partyData[j].iv));
-
+        
             //set opponent EVs
             if((FlagGet(FLAG_TRAINER_EVS) \
                 || ((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) \
@@ -2275,8 +2275,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     if (speciesInfo->abilities[ability] == partyData[j].ability)
                         break;
                 }
-                if (abilityNum >= maxAbilityNum)
-                    abilityNum = 0;
+                if (ability >= maxAbilities)
+                    ability = 0;
             }
             else if (B_TRAINER_MON_RANDOM_ABILITY)
             {
@@ -2284,7 +2284,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 ability = personalityHash % 3;
                 while (speciesInfo->abilities[ability] == ABILITY_NONE)
                 {
-                    abilityNum--;
+                    ability--;
                 }
             }
             SetMonData(&party[i], MON_DATA_ABILITY_NUM, &ability);
@@ -2356,6 +2356,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     return trainer->partySize;
 }
 
+
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u8 retVal;
@@ -2368,8 +2369,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
                                                                         | BATTLE_TYPE_TRAINER_HILL)))
-    {
-        gBattleTypeFlags |= gTrainers[trainerNum].doubleBattle;
+    {   
+        if (gTrainers[trainerNum].battleType == TRAINER_BATTLE_TYPE_DOUBLES)
+            gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
     }
     //DebugPrintf("Reached End Of Parent Function: %d", gSpecialVar_TrainerNumber);
     return retVal;
@@ -3568,7 +3570,7 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     gLastHitBy[battler] = 0xFF;
 
     gBattleStruct->lastTakenMove[battler] = 0;
-    gBattleStruct->sameMoveTurns[battler] = 0;
+    gBattleStruct->metronomeItemCounter[battler] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][0] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][1] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][2] = 0;
@@ -3689,7 +3691,7 @@ const u8* FaintClearSetData(u32 battler)
     gLastHitBy[battler] = 0xFF;
 
     gBattleStruct->choicedMove[battler] = MOVE_NONE;
-    gBattleStruct->sameMoveTurns[battler] = 0;
+    gBattleStruct->metronomeItemCounter[battler] = 0;
     gBattleStruct->lastTakenMove[battler] = MOVE_NONE;
     gBattleStruct->lastTakenMoveFrom[battler][0] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][1] = 0;
@@ -3705,16 +3707,6 @@ const u8* FaintClearSetData(u32 battler)
         if (IsBattlerAlive(partner))
         {
             BtlController_EmitSpriteInvisibility(partner, B_COMM_TO_CONTROLLER, FALSE);
-            MarkBattlerForControllerExec(partner);
-        }
-    }
-
-    if (gBattleStruct->commanderActive[battler] != SPECIES_NONE)
-    {
-        u32 partner = BATTLE_PARTNER(battler);
-        if (IsBattlerAlive(partner))
-        {
-            BtlController_EmitSpriteInvisibility(partner, BUFFER_A, FALSE);
             MarkBattlerForControllerExec(partner);
         }
     }
@@ -5495,19 +5487,15 @@ static void TurnValuesCleanUp(bool8 var0)
         if (gBattleMons[i].volatiles.semiInvulnerable != STATE_COMMANDER)
             gBattleStruct->battlerState[i].commandingDondozo = FALSE;
 
-        if (!(gStatuses3[i] & STATUS3_COMMANDER))
-            gBattleStruct->commandingDondozo &= ~(1u << i);
-
         gSpecialStatuses[i].parentalBondState = PARENTAL_BOND_OFF;
         gBattleStruct->battlerState[i].usedEjectItem = FALSE;
         gProtectStructs[i].lashOutAffected = FALSE;
+        gDisableStructs[i].endured = FALSE;
     }
 
     gSideTimers[B_SIDE_PLAYER].followmeTimer = 0;
     gSideTimers[B_SIDE_OPPONENT].followmeTimer = 0;
 
-
-    gBattleStruct->usedEjectItem = 0;
     gBattleStruct->pledgeMove = FALSE; // combined pledge move may not have been used due to a canceller
     ClearPursuitValues();
     ClearDamageCalcResults();
@@ -5544,7 +5532,7 @@ static bool32 TryDoGimmicksBeforeMoves(void)
 {
     if (!(gHitMarker & HITMARKER_RUN) && gBattleStruct->gimmick.toActivate)
     {
-        u32 i;
+        u32 i, battler;
         u8 order[MAX_BATTLERS_COUNT];
 
         PopulateArrayWithBattlers(order);
@@ -5553,12 +5541,20 @@ static bool32 TryDoGimmicksBeforeMoves(void)
         {
             battler = i;
             // Search through each battler and activate their gimmick if they have one prepared.
-            if (TryActivateGimmick(order[i]))
-                return TRUE;
+            if ((gBattleStruct->gimmick.toActivate & (1u << order[i])) && !(gProtectStructs[order[i]].noValidMoves))
+            {
+                battler = gBattlerAttacker = gBattleScripting.battler = order[i];
+                gBattleStruct->gimmick.toActivate &= ~(1u << battler);
+                if (gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick != NULL)
+                {
+                    gGimmicksInfo[gBattleStruct->gimmick.chosenGimmick[battler]].ActivateGimmick(battler);
+                    return TRUE;
+                }
+            }
         }
     }
 
-    if (GetGenConfig(GEN_CONFIG_MEGA_EVO_TURN_ORDER) >= GEN_7)
+    if (B_MEGA_EVO_TURN_ORDER >= GEN_7)
         TryChangeTurnOrder(); // This will just do nothing if no mon has mega evolved.
     return FALSE;
 }

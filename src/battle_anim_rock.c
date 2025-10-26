@@ -278,39 +278,6 @@ const struct SpriteTemplate gTwisterRockSpriteTemplate =
     .callback = AnimMoveTwisterParticle,
 };
 
-const struct SpriteTemplate gSaltCureCrystalSpriteTemplate =
-{
-    .tileTag = ANIM_TAG_SALT_PARTICLE,
-    .paletteTag = ANIM_TAG_SALT_PARTICLE,
-    .oam = &gOamData_AffineNormal_ObjBlend_16x16,
-    .anims = gAnims_IceCrystalLarge,
-    .images = NULL,
-    .affineAnims = gAffineAnims_IceCrystalHit,
-    .callback = AnimIceEffectParticle,
-};
-
-const struct SpriteTemplate gSaltCureSwirlSpriteTemplate =
-{
-    .tileTag = ANIM_TAG_SALT_PARTICLE,
-    .paletteTag = ANIM_TAG_SALT_PARTICLE,
-    .oam = &gOamData_AffineNormal_ObjBlend_16x16,
-    .anims = gAnims_WaterMudOrb,
-    .images = NULL,
-    .affineAnims = gAffineAnims_Whirlpool,
-    .callback = AnimParticleInVortex,
-};
-
-const struct SpriteTemplate gRockPlumeSpriteTemplate =
-{
-    .tileTag = ANIM_TAG_ROCKS,
-    .paletteTag = ANIM_TAG_ROCKS,
-    .oam = &gOamData_AffineOff_ObjNormal_32x32,
-    .anims = gAnims_FlyingRock,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = AnimDirtPlumeParticle,
-};
-
 const struct SpriteTemplate gWeatherBallRockDownSpriteTemplate =
 {
     .tileTag = ANIM_TAG_ROCKS,

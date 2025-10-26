@@ -165,7 +165,7 @@ struct DamageContext
     u32 isCrit:1;
     u32 randomFactor:1;
     u32 updateFlags:1;
-    u32 calcForIllusion:1;
+    u32 isAnticipation :1;
     u32 padding1:1;
     u32 weather:16;
     u32 fixedBasePower:8;
@@ -414,5 +414,6 @@ bool32 CanMoveSkipAccuracyCalc(u32 battlerAtk, u32 battlerDef, u32 abilityAtk, u
 u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u32 defAbility, u32 atkHoldEffect, u32 defHoldEffect);
 bool32 IsSemiInvulnerable(u32 battler, enum SemiInvulnerableExclusion excludeCommander);
 bool32 BreaksThroughSemiInvulnerablity(u32 battler, u32 move);
+bool32 TryChangeBattleTerrain(u32 battler, u32 statusFlag);
 
 #endif // GUARD_BATTLE_UTIL_H

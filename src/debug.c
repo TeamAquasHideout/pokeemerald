@@ -3214,9 +3214,8 @@ static void DebugAction_PCBag_Fill_PocketTMHM(u8 taskId)
 {
     u16 index, itemId;
 
-    for (index = 0; index < NUM_ALL_MACHINES; index++)
+    for (itemId = ITEM_TM01; itemId <= ITEM_HM08; itemId++)
     {
-        itemId = GetTMHMItemId(index + 1);
         if (CheckBagHasSpace(itemId, 1) && ItemIdToBattleMoveId(itemId) != MOVE_NONE)
             AddBagItem(itemId, 1);
     }

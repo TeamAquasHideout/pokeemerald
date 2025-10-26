@@ -174,10 +174,6 @@ static const u8 sText_TwoInGameTrainersDefeated[] = _("You defeated {B_TRAINER1_
 const u8 gText_drastically[] = _("drastically ");
 const u8 gText_severely[] = _("severely ");
 static const u8 sText_TerrainReturnedToNormal[] = _("The terrain returned to normal!"); // Unused
-static const u8 sText_PkmnDynamaxed[] = _("{B_ATK_NAME_WITH_PREFIX} grew huge\ninto its Dynamax form!");
-static const u8 sText_PkmnGigantamaxed[] = _("{B_ATK_NAME_WITH_PREFIX} grew huge\ninto its Gigantamax form!");
-static const u8 sText_TimeToDynamax[] = _("Time to Dynamax!");
-static const u8 sText_TimeToGigantamax[] = _("Time to Gigantamax!");
 
 const u8 *const gBattleStringsTable[STRINGID_COUNT] =
 {
@@ -907,10 +903,6 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_POWERCONSTRUCTPRESENCEOFMANY]         = COMPOUND_STRING("You sense the presence of many!"),
     [STRINGID_POWERCONSTRUCTTRANSFORM]              = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} transformed into its Complete Forme!"),
     [STRINGID_ABILITYSHIELDPROTECTS]                = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX}'s Ability is protected by the effects of its {B_LAST_ITEM}!"),
-    [STRINGID_PKMNDYNAMAXED - BATTLESTRINGS_TABLE_START] = sText_PkmnDynamaxed,
-    [STRINGID_PKMNGIGANTAMAXED - BATTLESTRINGS_TABLE_START] = sText_PkmnGigantamaxed,
-    [STRINGID_TIMETODYNAMAX - BATTLESTRINGS_TABLE_START] = sText_TimeToDynamax,
-    [STRINGID_TIMETOGIGANTAMAX - BATTLESTRINGS_TABLE_START] = sText_TimeToGigantamax,
 };
 
 const u16 gTrainerUsedItemStringIds[] =

@@ -3977,18 +3977,18 @@ static bool32 IsDomeLuckyMove(u32 move)
 static bool32 IsDomePopularMove(u32 move)
 {
     u8 i;
-    for (i = 0; i < NUM_ALL_MACHINES; i++)
+    for (i = 0; i < NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES; i++)
     {
-        if (GetTMHMMoveId(i + 1) == move)
+        if (ItemIdToBattleMoveId(ITEM_TM01 + i) == move)
             return TRUE;
     }
-    if (i == NUM_ALL_MACHINES)
+    if (i == NUM_TECHNICAL_MACHINES + NUM_HIDDEN_MACHINES)
         return FALSE;
     // Filter in TMs/HMs
-    if (GetMovePower(move) >= 90)
+    if (gMovesInfo[move].power >= 90)
         return TRUE;
 
-    switch(GetMoveEffect(move))
+    switch(gMovesInfo[move].effect)
     {
     case EFFECT_PROTECT:
     case EFFECT_MAT_BLOCK:

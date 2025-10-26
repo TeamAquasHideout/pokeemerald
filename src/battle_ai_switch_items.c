@@ -109,7 +109,7 @@ u32 GetSwitchChance(enum ShouldSwitchScenario shouldSwitchScenario)
     }
 }
 
-static bool32 IsAceMon(u32 battler, u32 monPartyId)
+bool32 IsAceMon(u32 battler, u32 monPartyId)
 {
     if (gAiThinkingStruct->aiFlags[battler] & AI_FLAG_ACE_POKEMON
             && !gBattleStruct->battlerState[battler].forcedSwitch
@@ -2489,7 +2489,7 @@ static bool32 ShouldUseItem(u32 battler)
     for (i = 0; i < MAX_TRAINER_ITEMS; i++)
     {
         u16 item;
-        const u8 *itemEffects;
+        const u16 *itemEffects;
         u8 battlerSide;
 
         item = gBattleHistory->trainerItems[i];
