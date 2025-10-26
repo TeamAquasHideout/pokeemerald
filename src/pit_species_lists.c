@@ -491,7 +491,7 @@ static const u16 sRandomDynamicSpecies_16_25[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -1084,7 +1084,7 @@ static const u16 sRandomDynamicSpecies_26_35[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -1908,7 +1908,7 @@ static const u16 sRandomDynamicSpecies_36_50[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -2950,7 +2950,7 @@ static const u16 sRandomDynamicSpecies_51_75[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -4041,7 +4041,7 @@ static const u16 sRandomDynamicSpecies_76_100[] =
 #endif
     SPECIES_RATICATE,
 #ifdef PIT_GEN_9_MODE
-    SPECIES_RATICATE_ALOLAN,
+    SPECIES_RATICATE_ALOLA,
 #endif
     SPECIES_SPEAROW,
     SPECIES_FEAROW,
@@ -5248,7 +5248,7 @@ static const u16 sRandomDynamicSpecies_76_100[] =
 u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
-    
+
     if (gSaveBlock2Ptr->modeSpeciesArray == ARRAY_RANDOM || forceAllSpecies)
         return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
     else
@@ -5289,7 +5289,7 @@ u32 GetMaxTrainerNumberOfSpecies(bool8 forceAllSpecies)
 u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 {
     u8 floor = VarGet(VAR_PIT_FLOOR);
-    
+
     if (gSaveBlock2Ptr->modeSpeciesArray == ARRAY_RANDOM || forceAllSpecies)
         return sRandomDynamicSpecies_76_100[index];
     else
@@ -5328,7 +5328,7 @@ u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies)
 }
 
 u32 GetMaxPlayerNumberOfSpecies(bool8 forceAllSpecies)
-{   
+{
     return RANDOM_DYNAMIC_SPECIES_COUNT_76_100;
 }
 
@@ -5352,11 +5352,11 @@ u32 GetMonoTypeNumberOfSpecies(void)
         //calc size of dynamic array for chosen mono type
         for (i = 0; i < arraySize; i++)
         {
-            if (GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType
-              || GetTypeBySpecies(GetPlayerSpeciesFromRandomArray(i, TRUE), 2) == gSaveBlock2Ptr->modeMonoType)
+            if (GetSpeciesType(GetPlayerSpeciesFromRandomArray(i, TRUE), 0) == gSaveBlock2Ptr->modeMonoType
+              || GetSpeciesType(GetPlayerSpeciesFromRandomArray(i, TRUE), 1) == gSaveBlock2Ptr->modeMonoType)
                 counter++;
         }
     }
-    
+
     return counter;
 }

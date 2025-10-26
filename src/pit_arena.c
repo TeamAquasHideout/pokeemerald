@@ -3439,8 +3439,8 @@ static EWRAM_DATA u8 gOWHUDSprite;
 static EWRAM_DATA u8 gOWHUDSpriteMask;
 static EWRAM_DATA u8 gOWMonHUDSprite;
 static EWRAM_DATA u8 gOWMonHUDSpriteMask;
-static const u32 sTrainerCountGfx[] = INCBIN_U32("graphics/interface/trainercount_hud.4bpp.lz");
-static const u32 sMonRewardGfx[] = INCBIN_U32("graphics/interface/monreward_hud.4bpp.lz");
+static const u32 sTrainerCountGfx[] = INCBIN_U32("graphics/interface/trainercount_hud.4bpp.smol");
+static const u32 sMonRewardGfx[] = INCBIN_U32("graphics/interface/monreward_hud.4bpp.smol");
 
 static const u16 sTrainerCountPal[] = INCBIN_U16("graphics/interface/trainercount_hud.gbapal");
 

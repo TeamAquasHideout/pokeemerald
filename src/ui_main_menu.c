@@ -233,68 +233,68 @@ static const struct HWWindowPosition HWinNewGameCoords[6] =
 //
 //  Graphic and Tilemap Pointers for Bgs and Mughsots
 //
-static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.4bpp.lz");
-static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.bin.lz");
+static const u32 sMainBgTiles[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.4bpp.smol");
+static const u32 sMainBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/main_tiles.bin.smolTM");
 static const u16 sMainBgPalette[] = INCBIN_U16("graphics/ui_main_menu/main_tiles.gbapal");
 
-static const u32 sNewGameBgTiles[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.4bpp.lz");
-static const u32 sNewGameBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.bin.lz");
-static const u32 sNewGameTextBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_text_tiles.bin.lz");
+static const u32 sNewGameBgTiles[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.4bpp.smol");
+static const u32 sNewGameBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_menu_tiles.bin.smolTM");
+static const u32 sNewGameTextBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/new_game_text_tiles.bin.smolTM");
 static const u16 sNewGameBgPalette[] = INCBIN_U16("graphics/ui_main_menu/new_game_menu_tiles.gbapal");
 
-static const u32 sMainBgTilesFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.4bpp.lz");
-static const u32 sMainBgTilemapFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.bin.lz");
+static const u32 sMainBgTilesFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.4bpp.smol");
+static const u32 sMainBgTilemapFem[] = INCBIN_U32("graphics/ui_main_menu/main_tiles_fem.bin.smolTM");
 static const u16 sMainBgPaletteFem[] = INCBIN_U16("graphics/ui_main_menu/main_tiles_fem.gbapal");
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 static const u16 sIconBox_Pal[] = INCBIN_U16("graphics/ui_main_menu/icon_shadow.gbapal");
-static const u32 sIconBox_Gfx[] = INCBIN_U32("graphics/ui_main_menu/icon_shadow.4bpp.lz");
+static const u32 sIconBox_Gfx[] = INCBIN_U32("graphics/ui_main_menu/icon_shadow.4bpp.smol");
 
 static const u16 sIconBox_PalFem[] = INCBIN_U16("graphics/ui_main_menu/icon_shadow_fem.gbapal");
-static const u32 sIconBox_GfxFem[] = INCBIN_U32("graphics/ui_main_menu/icon_shadow_fem.4bpp.lz");
+static const u32 sIconBox_GfxFem[] = INCBIN_U32("graphics/ui_main_menu/icon_shadow_fem.4bpp.smol");
 
 static const u16 sBrendanMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/brendan_mugshot.gbapal");
-static const u32 sBrendanMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/brendan_mugshot.4bpp.lz");
+static const u32 sBrendanMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/brendan_mugshot.4bpp.smol");
 static const u16 sMayMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/may_mugshot.gbapal");
-static const u32 sMayMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/may_mugshot.4bpp.lz");
+static const u32 sMayMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/may_mugshot.4bpp.smol");
 
 static const u16 sRedMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/red_mugshot.gbapal");
-static const u32 sRedMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/red_mugshot.4bpp.lz");
+static const u32 sRedMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/red_mugshot.4bpp.smol");
 static const u16 sLeafMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/leaf_mugshot.gbapal");
-static const u32 sLeafMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/leaf_mugshot.4bpp.lz");
+static const u32 sLeafMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/leaf_mugshot.4bpp.smol");
 
 static const u16 sLucasMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/lucas_mugshot.gbapal");
-static const u32 sLucasMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lucas_mugshot.4bpp.lz");
+static const u32 sLucasMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lucas_mugshot.4bpp.smol");
 static const u16 sDawnMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/dawn_mugshot.gbapal");
-static const u32 sDawnMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/dawn_mugshot.4bpp.lz");
+static const u32 sDawnMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/dawn_mugshot.4bpp.smol");
 
 static const u16 sStevenMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/steven.gbapal");
-static const u32 sStevenMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/steven.4bpp.lz");
+static const u32 sStevenMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/steven.4bpp.smol");
 static const u16 sCynthiaMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/cynthia.gbapal");
-static const u32 sCynthiaMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/cynthia.4bpp.lz");
+static const u32 sCynthiaMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/cynthia.4bpp.smol");
 
 static const u16 sOakMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/oak.gbapal");
-static const u32 sOakMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/oak.4bpp.lz");
+static const u32 sOakMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/oak.4bpp.smol");
 static const u16 sPhoebeMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/phoebe.gbapal");
-static const u32 sPhoebeMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/phoebe.4bpp.lz");
+static const u32 sPhoebeMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/phoebe.4bpp.smol");
 
 static const u16 sEthanMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/ethan.gbapal");
-static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/ethan.4bpp.lz");
+static const u32 sEthanMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/ethan.4bpp.smol");
 static const u16 sLyraMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/lyra.gbapal");
-static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lyra.4bpp.lz");
+static const u32 sLyraMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lyra.4bpp.smol");
 
 static const u16 sNateMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/nate_mugshot.gbapal");
-static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/nate_mugshot.4bpp.lz");
+static const u32 sNateMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/nate_mugshot.4bpp.smol");
 static const u16 sRosaMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/rosa_mugshot.gbapal");
-static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/rosa_mugshot.4bpp.lz");
+static const u32 sRosaMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/rosa_mugshot.4bpp.smol");
 
 static const u16 sWallyMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/wally_mugshot.gbapal");
-static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/wally_mugshot.4bpp.lz");
+static const u32 sWallyMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/wally_mugshot.4bpp.smol");
 static const u16 sLillieMugshot_Pal[] = INCBIN_U16("graphics/ui_main_menu/lillie_mugshot.gbapal");
-static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lillie_mugshot.4bpp.lz");
+static const u32 sLillieMugshot_Gfx[] = INCBIN_U32("graphics/ui_main_menu/lillie_mugshot.4bpp.smol");
 
 //
 //  Sprite Data for Mugshots and Icon Shadows 
@@ -1173,7 +1173,7 @@ static bool8 NewGame_LoadGraphics(u8 fromMainMenu) // Load all the tilesets, til
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sNewGameBgTilemap, sBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sNewGameBgTilemap, sBg1TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -1195,7 +1195,7 @@ static bool8 NewGame_LoadGraphics(u8 fromMainMenu) // Load all the tilesets, til
         }
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg2TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -1212,7 +1212,7 @@ static bool8 NewGame_LoadGraphics(u8 fromMainMenu) // Load all the tilesets, til
     case 5:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sNewGameTextBgTilemap, sBg3TilemapBuffer);
+            DecompressDataWithHeaderWram(sNewGameTextBgTilemap, sBg3TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -1239,7 +1239,7 @@ static bool8 MainMenu_LoadGraphics(u8 reload) // Load all the tilesets, tilemaps
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sMainBgTilemap, sBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sMainBgTilemap, sBg1TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -1261,7 +1261,7 @@ static bool8 MainMenu_LoadGraphics(u8 reload) // Load all the tilesets, tilemaps
         }
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg2TilemapBuffer);
             sMainMenuDataPtr->gfxLoadState++;
         }
         break;

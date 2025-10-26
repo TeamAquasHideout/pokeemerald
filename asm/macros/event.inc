@@ -1892,7 +1892,7 @@
 	.endm
 
 	.macro showdescription
-	.byte 0xe5
+	.byte SCR_OP_SHOWITEMDESC
 	.endm
 
 	.macro showitemdesc
@@ -1906,11 +1906,11 @@
 	.endm
 
 	.macro hideitemdesc
-	.byte 0xe6
+	.byte SCR_OP_HIDEITEMDESC
 	.endm
 
 	.macro pitdefeattext trainerID:req
-	.byte 0xe7
+	.byte SCR_OP_PITDEFEATTEXT
 	.2byte \trainerID
 	.endm
 

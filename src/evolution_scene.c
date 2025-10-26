@@ -77,8 +77,8 @@ static const u16 sUnusedPal3[]  = INCBIN_U16("graphics/evolution_scene/unused_3.
 static const u16 sUnusedPal4[] = INCBIN_U16("graphics/evolution_scene/unused_4.gbapal");
 static const u16 sBgAnim_Pal[] = INCBIN_U16("graphics/evolution_scene/bg_anim.gbapal");
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles3.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles3.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 static const u8 sText_ShedinjaJapaneseName[] = _("ヌケニン");
@@ -246,8 +246,8 @@ void EvolutionScene(struct Pokemon *mon, u16 postEvoSpecies, bool8 canStopEvo, u
     InitBattleBgsVideo();
     SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     LoadBattleTextbox();
-    LZDecompressVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
-    LZDecompressVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
+    DecompressDataWithHeaderVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
+    DecompressDataWithHeaderVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
     LoadPalette(sScrollBgPalette,  32, 32);
     SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     ResetSpriteData();
@@ -357,8 +357,8 @@ static void CB2_EvolutionSceneLoadGraphics(void)
     InitBattleBgsVideo();
     SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     LoadBattleTextbox();
-    LZDecompressVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
-    LZDecompressVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
+    DecompressDataWithHeaderVram(sScrollBgTiles, (void *)(BG_CHAR_ADDR(2)));
+    DecompressDataWithHeaderVram(sScrollBgTilemap, (void *)(BG_SCREEN_ADDR(26)));
     LoadPalette(sScrollBgPalette,  32, 32);
     SetBgAttribute(3, BG_ATTR_SCREENSIZE, 0);
     ResetSpriteData();

@@ -81,7 +81,7 @@ static s32 (*const sBattleAiFuncTable[])(u32, u32, u32, s32) =
     [9] = AI_PowerfulStatus,         // AI_FLAG_POWERFUL_STATUS
     [10] = NULL,                     // AI_FLAG_NEGATE_UNAWARE
     [11] = NULL,                     // AI_FLAG_WILL_SUICIDE
-    [12] = NULL,                     // AI_FLAG_PREFER_STATUS_MOVES
+    [12] = NULL,                     // AI_FLAG_DONT_PREFER_STATUS_MOVES
     [13] = NULL,                     // AI_FLAG_STALL
     [14] = NULL,                     // AI_FLAG_SMART_SWITCHING
     [15] = NULL,                     // AI_FLAG_ACE_POKEMON
@@ -4140,8 +4140,8 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         moveEffect = EFFECT_PROTECT;
 
     // check status move preference
-    if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_PREFER_STATUS_MOVES && IsBattleMoveStatus(move) && effectiveness != UQ_4_12(0.0))
-        ADJUST_SCORE(10);
+    if (gAiThinkingStruct->aiFlags[battlerAtk] & AI_FLAG_DONT_PREFER_STATUS_MOVES && IsBattleMoveStatus(move) && effectiveness != UQ_4_12(0.0))
+        ADJUST_SCORE(-1);
 
     // check thawing moves
     if (gBattleMons[battlerAtk].status1 & STATUS1_ICY_ANY && MoveThawsUser(move))

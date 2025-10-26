@@ -905,7 +905,7 @@ static bool8 LoadBagMenu_Graphics(void)
     case 6:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(gBagScroll_GfxTileMap, gBagMenu->tilemapBuffer2);
+            DecompressDataWithHeaderWram(gBagScroll_GfxTileMap, gBagMenu->tilemapBuffer2);
             gBagMenu->graphicsLoadState++;
         }
         break;

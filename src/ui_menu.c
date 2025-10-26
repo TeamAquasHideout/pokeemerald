@@ -151,12 +151,12 @@ static const struct WindowTemplate sMenuWindowTemplates[] =
     },
 };
 
-static const u32 sMenuTiles[] = INCBIN_U32("graphics/ui_menu/background_tileset.4bpp.lz");
-static const u32 sMenuTilemap[] = INCBIN_U32("graphics/ui_menu/background_tileset.bin.lz");
+static const u32 sMenuTiles[] = INCBIN_U32("graphics/ui_menu/background_tileset.4bpp.smol");
+static const u32 sMenuTilemap[] = INCBIN_U32("graphics/ui_menu/background_tileset.bin.smolTM");
 static const u16 sMenuPalette[] = INCBIN_U16("graphics/ui_menu/background_pal.gbapal");
 
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_main_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_main_menu/scroll_tiles.gbapal");
 
 enum Colors
@@ -177,7 +177,7 @@ static const u8 sMenuWindowFontColors[][3] =
 #define TAG_SELECTOR 30004
 
 static const u16 sSelector_Pal[] = INCBIN_U16("graphics/ui_menu/selector.gbapal");
-static const u32 sSelector_Gfx[] = INCBIN_U32("graphics/ui_menu/selector.4bpp.lz");
+static const u32 sSelector_Gfx[] = INCBIN_U32("graphics/ui_menu/selector.4bpp.smol");
 static const u8 sA_ButtonGfx[]         = INCBIN_U8("graphics/ui_menu/a_button.4bpp");
 static const u8 sB_ButtonGfx[]         = INCBIN_U8("graphics/ui_menu/b_button.4bpp");
 static const u8 sR_ButtonGfx[]         = INCBIN_U8("graphics/ui_menu/r_button.4bpp");
@@ -470,7 +470,7 @@ static bool8 Menu_LoadGraphics(void)
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sMenuTilemap, sBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sMenuTilemap, sBg1TilemapBuffer);
             sMenuDataPtr->gfxLoadState++;
         }
         break;
@@ -482,7 +482,7 @@ static bool8 Menu_LoadGraphics(void)
     case 3:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg2TilemapBuffer);
             sMenuDataPtr->gfxLoadState++;
         }
         break;

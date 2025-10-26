@@ -202,13 +202,13 @@ static const u16 sOptionsMenuBg_Pal[] = {RGB(17, 18, 31)};
 static const u16 sOptionsMenuText_Pal[] = INCBIN_U16("graphics/interface/option_menu_text_custom.gbapal");
 static const u8 sLR_ButtonGfx[]      = INCBIN_U8("graphics/ui_menu/r_button.4bpp");
 
-static const u32 sOptionsMenuTiles[] = INCBIN_U32("graphics/ui_options_menu/options_menu_tiles.4bpp.lz");
+static const u32 sOptionsMenuTiles[] = INCBIN_U32("graphics/ui_options_menu/options_menu_tiles.4bpp.smol");
 static const u16 sOptionsMenuPalette[] = INCBIN_U16("graphics/ui_options_menu/options_menu_tiles.gbapal");
-static const u32 sOptionsMenuTilemap[] = INCBIN_U32("graphics/ui_options_menu/options_menu_tiles.bin.lz");
+static const u32 sOptionsMenuTilemap[] = INCBIN_U32("graphics/ui_options_menu/options_menu_tiles.bin.smolTM");
 
 // Scrolling Background
-static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_options_menu/scroll_tiles.4bpp.lz");
-static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_options_menu/scroll_tiles.bin.lz");
+static const u32 sScrollBgTiles[] = INCBIN_U32("graphics/ui_options_menu/scroll_tiles.4bpp.smol");
+static const u32 sScrollBgTilemap[] = INCBIN_U32("graphics/ui_options_menu/scroll_tiles.bin.smolTM");
 static const u16 sScrollBgPalette[] = INCBIN_U16("graphics/ui_options_menu/scroll_tiles.gbapal");
 
 #define TEXT_COLOR_OPTIONS_WHITE                1
@@ -614,7 +614,7 @@ static bool8 OptionsMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, 
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sOptionsMenuTilemap, sBg2TilemapBuffer);
+            DecompressDataWithHeaderWram(sOptionsMenuTilemap, sBg2TilemapBuffer);
             sOptions->gfxLoadState++;
         }
         break;
@@ -626,7 +626,7 @@ static bool8 OptionsMenu_LoadGraphics(void) // Load all the tilesets, tilemaps, 
     case 3:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sScrollBgTilemap, sBg3TilemapBuffer);
+            DecompressDataWithHeaderWram(sScrollBgTilemap, sBg3TilemapBuffer);
             sOptions->gfxLoadState++;
         }
         break;
