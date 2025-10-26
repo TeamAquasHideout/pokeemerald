@@ -331,11 +331,11 @@
 #define PH_NURSE_HELD                     320
 #define PH_NURSE_SOLO                     321
 
-#define SOUND_EFFECTS_END                 PH_NURSE_SOLO
+#define END_SE                 PH_NURSE_SOLO
 
-#define SONGS_START                       (SOUND_EFFECTS_END + 1)
+#define START_MUS                       (END_SE + 1)
 // Ruby & Sapphire Music 
-#define RS_MUSIC_START                    SONGS_START
+#define RS_MUSIC_START                    START_MUS
 
 #define MUS_LITTLEROOT_TEST               322 // MUS_TETSUJI
 #define MUS_GSC_ROUTE38                   323 // MUS_FIELD13
@@ -947,7 +947,7 @@
 
 #define HG_MUSIC_END                      MUS_HG_WIN_MINIGAME
 
-#define SONGS_END                         HG_MUSIC_END
+#define END_MUS                         HG_MUSIC_END
 
 #define MUS_ROUTE118                      0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

@@ -1022,7 +1022,7 @@ static const u16 sPikachuFormSpeciesIdTable[] = {
     SPECIES_PIKACHU_PH_D,
     SPECIES_PIKACHU_LIBRE,
     SPECIES_PIKACHU_ORIGINAL_CAP,
-    SPECIES_PIKACHU_HOENN_CAP,
+    SPECIES_PIKACHU_HOENN,
     SPECIES_PIKACHU_SINNOH_CAP,
     SPECIES_PIKACHU_UNOVA_CAP,
     SPECIES_PIKACHU_KALOS_CAP,
@@ -1042,7 +1042,7 @@ We register the table for each form in `gSpeciesInfo`.
         .teachableLearnset = sPikachuTeachableLearnset,
 +       .formSpeciesIdTable = sPikachuFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_THUNDER_STONE, SPECIES_RAICHU},
-                                {EVO_NONE, 0, SPECIES_RAICHU_ALOLAN}),
+                                {EVO_NONE, 0, SPECIES_RAICHU_ALOLA}),
     },
 
     [SPECIES_PIKACHU_COSPLAY] =

@@ -2291,7 +2291,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sRattataAlolaEggMoveLearnset,
         .formSpeciesIdTable = sRattataFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_RATICATE_ALOLA},
-                                {EVO_NONE, 0, SPECIES_RATICATE_ALOLAN_TOTEM}),
+                                {EVO_NONE, 0, SPECIES_RATICATE_ALOLA_TOTEM}),
     },
 
     [SPECIES_RATICATE_ALOLA] =
@@ -7043,7 +7043,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .eggMoveLearnset = sMeowthAlolaEggMoveLearnset,
         .formSpeciesIdTable = sMeowthFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_PERSIAN_ALOLA, CONDITIONS({IF_MIN_FRIENDSHIP, FRIENDSHIP_EVO_THRESHOLD})}
-                                {EVO_ITEM, ITEM_RUNNING_SHOES, SPECIES_PERSIAN_ALOLAN}),
+                                {EVO_ITEM, ITEM_RUNNING_SHOES, SPECIES_PERSIAN_ALOLA}),
     },
 
     [SPECIES_PERSIAN_ALOLA] =

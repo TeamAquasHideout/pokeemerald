@@ -93,5 +93,5 @@ Otherwise if you use [`src/data/trainers.h`](./src/data/trainers.h), change the 
 -        .trainerPic = TRAINER_PIC_RS_BRENDAN,
 +        .trainerPic = TRAINER_PIC_NEW_ONE,
          .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_MALE,
-         .doubleBattle = FALSE,
+         .battleType = TRAINER_BATTLE_TYPE_SINGLES,
 ```

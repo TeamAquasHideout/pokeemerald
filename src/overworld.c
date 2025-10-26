@@ -3680,12 +3680,5 @@ bool8 ScrFunc_settimeofday(struct ScriptContext *ctx)
 void CB2_ReturnToFullScreenStartMenu(void)
 {
     FieldClearVBlankHBlankCallbacks();
-
-    if (GetSafariZoneFlag() || InBattlePyramid() || InBattlePike() || InUnionRoom() || InMultiPartnerRoom())
-    {
-        SetMainCallback2(CB2_ReturnToFieldWithOpenMenu);
-        return;
-    }
-
 	StartMenuFull_Init(CB2_ReturnToField);
 }

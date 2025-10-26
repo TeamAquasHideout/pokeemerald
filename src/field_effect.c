@@ -857,7 +857,7 @@ void FieldEffectScript_LoadFadedPalette_TallGrass(u8 **script)
             break;
     }
     LoadSpritePalette(&palettes[palId]);
-    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(palettes[palId].tag));
+    UpdateSpritePaletteWithWeather(IndexOfSpritePaletteTag(palettes[palId].tag), TRUE);
     (*script) += 4;
 }
 

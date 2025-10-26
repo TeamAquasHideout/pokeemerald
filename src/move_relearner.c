@@ -33,6 +33,7 @@
 #include "gba/isagbprint.h"
 #include "party_menu.h"
 #include "money.h"
+#include "bw_summary_screen.h"
 
 /*
  * Move relearner state machine
@@ -1084,10 +1085,10 @@ static void CB2_InitShowTutorMoveList(void)
 
     InitMoveRelearnerBackgroundLayers();
     InitMoveRelearnerWindows(FALSE);
-
-    sMoveRelearnerMenuSate.listOffset = 0;
-    sMoveRelearnerMenuSate.listRow = 0;
-    sMoveRelearnerMenuSate.showContestInfo = FALSE;
+    
+    sMoveRelearnerMenuState.listOffset = 0;
+    sMoveRelearnerMenuState.listRow = 0;
+    sMoveRelearnerMenuState.showContestInfo = FALSE;
 
     CreateLearnableMovesList();
 
@@ -1095,7 +1096,7 @@ static void CB2_InitShowTutorMoveList(void)
     LoadSpritePalette(&sMoveRelearnerPalette);
     CreateUISprites();
 
-    sMoveRelearnerStruct->moveListMenuTask = ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearnerMenuSate.listOffset, sMoveRelearnerMenuSate.listRow);
+    sMoveRelearnerStruct->moveListMenuTask = ListMenuInit(&gMultiuseListMenuTemplate, sMoveRelearnerMenuState.listOffset, sMoveRelearnerMenuState.listRow);
     SetBackdropFromColor(RGB_BLACK);
     SetMainCallback2(CB2_MoveTutorListMain);
 }
@@ -1164,11 +1165,11 @@ static void DoMoveTutorListMain(void)
             }
             else if ((selection == MENU_B_PRESSED || selection == 1) && IsEnoughMoney(&gSaveBlock1Ptr->money, 8000))
             {
-                if (sMoveRelearnerMenuSate.showContestInfo == FALSE)
+                if (sMoveRelearnerMenuState.showContestInfo == FALSE)
                 {
                     sMoveRelearnerStruct->state = MENU_STATE_SETUP_BATTLE_MODE;
                 }
-                else if (sMoveRelearnerMenuSate.showContestInfo == TRUE)
+                else if (sMoveRelearnerMenuState.showContestInfo == TRUE)
                 {
                     sMoveRelearnerStruct->state = MENU_STATE_SETUP_CONTEST_MODE;
                 }
@@ -1198,11 +1199,11 @@ static void DoMoveTutorListMain(void)
             }
             else if (selection == MENU_B_PRESSED || selection == 1)
             {
-                if (sMoveRelearnerMenuSate.showContestInfo == FALSE)
+                if (sMoveRelearnerMenuState.showContestInfo == FALSE)
                 {
                     sMoveRelearnerStruct->state = MENU_STATE_SETUP_BATTLE_MODE;
                 }
-                else if (sMoveRelearnerMenuSate.showContestInfo == TRUE)
+                else if (sMoveRelearnerMenuState.showContestInfo == TRUE)
                 {
                     sMoveRelearnerStruct->state = MENU_STATE_SETUP_CONTEST_MODE;
                 }

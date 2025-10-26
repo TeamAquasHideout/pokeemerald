@@ -824,7 +824,7 @@ We want Mewthree to evolve from Mewtwo by reaching level 100.
 Edit [src/data/pokemon/evolution.h](https://github.com/rh-hideout/pokeemerald-expansion/blob/master/src/data/pokemon/evolution.h):
 
 ```diff
-    [SPECIES_SNEASEL_HISUIAN]       = {{EVO_ITEM_DAY, ITEM_RAZOR_CLAW, SPECIES_SNEASLER},
+    [SPECIES_SNEASEL_HISUI]       = {{EVO_ITEM_DAY, ITEM_RAZOR_CLAW, SPECIES_SNEASLER},
                                        {EVO_ITEM_HOLD_DAY, ITEM_RAZOR_CLAW, SPECIES_SNEASLER}},
 +   [SPECIES_MEWTWO]                = {{EVO_LEVEL, 100, SPECIES_MEWTHREE}},
 #endif
