@@ -5,9 +5,13 @@
 #include "config/battle.h"
 #include "config/debug.h"
 #include "config/item.h"
-#include "config/level_caps.h"
+#include "config/caps.h"
 #include "config/pokemon.h"
 #include "config/overworld.h"
+#include "config/dexnav.h"
+#include "config/summary_screen.h"
+#include "config/ai.h"
+#include "config/follower_npc.h"
 
 // Invalid Versions show as "----------" in Gen 4 and Gen 5's summary screen.
 // In Gens 6 and 7, invalid versions instead show "a distant land" in the summary screen.
@@ -56,21 +60,9 @@
 #define POKEBLOCKS_COUNT 40
 #define OBJECT_EVENTS_COUNT 16
 #define MAIL_COUNT (10 + PARTY_SIZE)
-
 #define SECRET_BASES_COUNT 2
 #define POKE_NEWS_COUNT 1
 #define PC_ITEMS_COUNT 1
-#define BAG_ITEMS_COUNT 20
-#define BAG_KEYITEMS_COUNT 10
-#define BAG_POKEBALLS_COUNT 10
-#define BAG_TMHM_COUNT 50
-#define BAG_BERRIES_COUNT 50
-#define BAG_MEDICINE_COUNT 30
-#define BAG_BATTLEITEMS_COUNT 50
-#define BAG_POWERUP_COUNT 50
-#define BAG_MEGASTONES_COUNT 50
-#define BAG_ZCRYSTALS_COUNT 35
-
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define DECOR_MAX_SECRET_BASE 16
 #define DECOR_MAX_PLAYERS_HOUSE 12
@@ -83,6 +75,18 @@
 #define SAVED_TRENDS_COUNT 5
 #define PYRAMID_BAG_ITEMS_COUNT 10
 #define ROAMER_COUNT 1 // Number of maximum concurrent active roamers
+
+// Bag constants
+#define BAG_ITEMS_COUNT 20
+#define BAG_KEYITEMS_COUNT 10
+#define BAG_POKEBALLS_COUNT 10
+#define BAG_TMHM_COUNT 50
+#define BAG_BERRIES_COUNT 50
+#define BAG_MEDICINE_COUNT 30
+#define BAG_BATTLEITEMS_COUNT 50
+#define BAG_POWERUP_COUNT 50
+#define BAG_MEGASTONES_COUNT 50
+#define BAG_ZCRYSTALS_COUNT 35
 
 // Number of facilities for Ranking Hall.
 // 7 facilities for single mode + tower double mode + tower multi mode.
@@ -110,7 +114,7 @@
 #define CONTEST_CATEGORIES_COUNT  5
 
 // string lengths
-#define ITEM_NAME_LENGTH ((I_EXPANDED_ITEM_NAMES == TRUE) ? 20 : 14)
+#define ITEM_NAME_LENGTH 20
 #define ITEM_NAME_PLURAL_LENGTH ITEM_NAME_LENGTH + 2 // 2 is used for the instance where a word's suffix becomes y->ies
 #define POKEMON_NAME_LENGTH 12
 #define VANILLA_POKEMON_NAME_LENGTH 10
@@ -118,16 +122,17 @@
 #define PLAYER_NAME_LENGTH 7
 #define MAIL_WORDS_COUNT 9
 #define EASY_CHAT_BATTLE_WORDS_COUNT 6
-#define MOVE_NAME_LENGTH ((B_EXPANDED_MOVE_NAMES == TRUE) ? 16 : 12)
+#define MOVE_NAME_LENGTH 16
 #define NUM_QUESTIONNAIRE_WORDS 4
 #define QUIZ_QUESTION_LEN 9
 #define WONDER_CARD_TEXT_LENGTH 40
 #define WONDER_NEWS_TEXT_LENGTH 40
 #define WONDER_CARD_BODY_TEXT_LINES 4
 #define WONDER_NEWS_BODY_TEXT_LINES 10
-#define TYPE_NAME_LENGTH ((B_EXPANDED_TYPE_NAMES == TRUE) ? 8 : 6)
-#define ABILITY_NAME_LENGTH ((B_EXPANDED_ABILITY_NAMES == TRUE) ? 16 : 12)
+#define TYPE_NAME_LENGTH 8
+#define ABILITY_NAME_LENGTH 16
 #define TRAINER_NAME_LENGTH 10
+#define CODE_NAME_LENGTH 11
 
 #define MAX_STAMP_CARD_STAMPS 7
 
@@ -135,7 +140,7 @@
 #define FEMALE 1
 #define GENDER_COUNT 2
 
-#define BARD_SONG_LENGTH       6
+#define NUM_BARD_SONG_WORDS    6
 #define NUM_STORYTELLER_TALES  4
 #define NUM_TRADER_ITEMS       4
 #define GIDDY_MAX_TALES       10

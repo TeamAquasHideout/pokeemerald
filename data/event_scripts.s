@@ -20,15 +20,18 @@
 #include "constants/contest.h"
 #include "constants/daycare.h"
 #include "constants/decorations.h"
+#include "constants/difficulty.h"
 #include "constants/easy_chat.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
 #include "constants/field_effects.h"
+#include "constants/field_move.h"
 #include "constants/field_poison.h"
 #include "constants/field_specials.h"
 #include "constants/field_tasks.h"
 #include "constants/field_weather.h"
 #include "constants/flags.h"
+#include "constants/follower_npc.h"
 #include "constants/frontier_util.h"
 #include "constants/game_stat.h"
 #include "constants/item.h"
@@ -42,10 +45,13 @@
 #include "constants/metatile_labels.h"
 #include "constants/moves.h"
 #include "constants/party_menu.h"
+#include "constants/pokedex.h"
 #include "constants/pokemon.h"
+#include "constants/rtc.h"
 #include "constants/roulette.h"
 #include "constants/script_menu.h"
 #include "constants/secret_bases.h"
+#include "constants/siirtc.h"
 #include "constants/songs.h"
 #include "constants/sound.h"
 #include "constants/species.h"
@@ -62,6 +68,7 @@
 
 	.section script_data, "aw", %progbits
 
+	.set ALLOCATE_SCRIPT_CMD_TABLE, 1
 	.include "data/script_cmd_table.inc"
 
 gSpecialVars::
@@ -86,7 +93,7 @@ gSpecialVars::
 	.4byte gSpecialVar_MonBoxId
 	.4byte gSpecialVar_MonBoxPos
 	.4byte gSpecialVar_TrainerNumber
-	.4byte gTrainerBattleOpponent_A
+	.4byte gTrainerBattleParameter + 2 // gTrainerBattleParameter.params.opponentA
 
 	.include "data/specials.inc"
 
@@ -587,6 +594,37 @@ EventScript_WhiteOut::
 	goto EventScript_ResetMrBriney
 	end
 
+EventScript_AfterWhiteOutHeal::
+	lockall
+	msgbox gText_FirstShouldRestoreMonsHealth
+	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
+	call_if_unset FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsgPreRoxanne
+	call_if_set FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsg
+	applymovement VAR_LAST_TALKED, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
+	fadedefaultbgm
+	releaseall
+	end
+
+EventScript_AfterWhiteOutHealMsgPreRoxanne::
+	msgbox gText_MonsHealedShouldBuyPotions
+	return
+
+EventScript_AfterWhiteOutHealMsg::
+	msgbox gText_MonsHealed
+	return
+
+EventScript_AfterWhiteOutMomHeal::
+	lockall
+	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox gText_HadQuiteAnExperienceTakeRest
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox gText_MomExplainHPGetPotions
+	fadedefaultbgm
+	releaseall
+	end
+
 EventScript_ResetMrBriney::
 	goto_if_eq VAR_BRINEY_LOCATION, 1, EventScript_MoveMrBrineyToHouse
 	goto_if_eq VAR_BRINEY_LOCATION, 2, EventScript_MoveMrBrineyToDewford
@@ -693,6 +731,11 @@ EventScript_BackupMrBrineyLocation::
 	.include "data/scripts/rival_graphics.inc"
 	.include "data/scripts/set_gym_trainers.inc"
 
+EventScript_CancelMessageBox::
+	special UseBlankMessageToCancelPokemonPic
+	release
+	end
+
 Common_EventScript_ShowBagIsFull::
 	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
 	release
@@ -721,12 +764,12 @@ Common_EventScript_PlayGymBadgeFanfare::
 	return
 
 Common_EventScript_OutOfCenterPartyHeal::
-	fadescreen FADE_TO_BLACK
+	fadescreenswapbuffers FADE_TO_BLACK
 	playfanfare MUS_HEAL
 	waitfanfare
 	special HealPlayerParty
 	callnative UpdateFollowingPokemon
-	fadescreen FADE_FROM_BLACK
+	fadescreenswapbuffers FADE_FROM_BLACK
 	return
 
 EventScript_RegionMap::
@@ -780,8 +823,8 @@ EventScript_HideMrBriney::
 	return
 
 RusturfTunnel_EventScript_SetRusturfTunnelOpen::
-	removeobject LOCALID_WANDAS_BF
-	removeobject LOCALID_WANDA
+	removeobject LOCALID_RUSTURF_TUNNEL_WANDAS_BF
+	removeobject LOCALID_RUSTURF_TUNNEL_WANDA
 	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDAS_BOYFRIEND
 	clearflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WANDA
 	setvar VAR_RUSTURF_TUNNEL_STATE, 6
@@ -790,11 +833,11 @@ RusturfTunnel_EventScript_SetRusturfTunnelOpen::
 
 EventScript_UnusedBoardFerry::
 	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	showobjectat OBJ_EVENT_ID_PLAYER, 0
+	showobjectat LOCALID_PLAYER, 0
 	delay 30
-	applymovement OBJ_EVENT_ID_PLAYER, Movement_UnusedBoardFerry
+	applymovement LOCALID_PLAYER, Movement_UnusedBoardFerry
 	waitmovement 0
 	delay 30
 	return
@@ -807,7 +850,7 @@ Common_EventScript_FerryDepartIsland::
 	call_if_eq VAR_FACING, DIR_SOUTH, Ferry_EventScript_DepartIslandSouth
 	call_if_eq VAR_FACING, DIR_WEST, Ferry_EventScript_DepartIslandWest
 	delay 30
-	hideobjectat OBJ_EVENT_ID_PLAYER, 0
+	hideobjectat LOCALID_PLAYER, 0
 	call Common_EventScript_FerryDepart
 	return
 
@@ -886,6 +929,48 @@ gText_UnusedNicknameReceivedPokemon::
 gText_PlayerWhitedOut::
 	.string "{PLAYER} is out of usable\n"
 	.string "POKéMON!\p{PLAYER} whited out!$"
+
+gText_FirstShouldRestoreMonsHealth::
+	.string "First, you should restore your\n"
+	.string "POKéMON to full health.$"
+
+gText_MonsHealedShouldBuyPotions::
+	.string "Your POKéMON have been healed\n"
+	.string "to perfect health.\p"
+	.string "If your POKéMON's energy, HP,\n"
+	.string "is down, please come see us.\p"
+	.string "If you're planning to go far in the\n"
+	.string "field, you should buy some POTIONS\l"
+	.string "at the POKéMON MART.\p"
+	.string "We hope you excel!$"
+
+gText_MonsHealed::
+	.string "Your POKéMON have been healed\n"
+	.string "to perfect health.\p"
+	.string "We hope you excel!$"
+
+gText_HadQuiteAnExperienceTakeRest::
+	.string "MOM: {PLAYER}!\n"
+	.string "Welcome home.\p"
+	.string "It sounds like you had quite\n"
+	.string "an experience.\p"
+	.string "Maybe you should take a quick\n"
+	.string "rest.$"
+
+gText_MomExplainHPGetPotions::
+	.string "MOM: Oh, good! You and your\n"
+	.string "POKéMON are looking great.\p"
+	.string "I just heard from PROF. BIRCH.\p"
+	.string "He said that POKéMON's energy is\n"
+	.string "measured in HP.\p"
+	.string "If your POKéMON lose their HP,\n"
+	.string "you can restore them at any\l"
+	.string "POKéMON CENTER.\p"
+	.string "If you're going to travel far away,\n"
+	.string "the smart TRAINER stocks up on\l"
+	.string "POTIONS at the POKéMON MART.\p"
+	.string "Make me proud, honey!\p"
+	.string "Take care!$"
 
 gText_RegisteredTrainerinPokeNav::
 	.string "Registered {STR_VAR_1} {STR_VAR_2}\n"
@@ -1103,7 +1188,6 @@ EventScript_End:
 	.include "data/text/contest_strings.inc"
 	.include "data/text/contest_link.inc"
 	.include "data/text/contest_painting.inc"
-	.include "data/text/trick_house_mechadolls.inc"
 	.include "data/scripts/tv.inc"
 	.include "data/text/tv.inc"
 	.include "data/scripts/interview.inc"
@@ -1144,7 +1228,6 @@ EventScript_End:
 	.include "data/scripts/trainer_hill.inc"
 	.include "data/scripts/test_signpost.inc"
 	.include "data/scripts/follower.inc"
-	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
 
@@ -1236,3 +1319,5 @@ EventScript_End:
 	.include "data/maps/PitBackRoom/scripts.inc"
 
 	.include "data/maps/PitFinalBoss/scripts.inc"
+
+	.include "data/scripts/dexnav.inc"

@@ -57,7 +57,7 @@ SINGLE_BATTLE_TEST("Antidote resets Toxic Counter")
         TURN { ; }
         TURN { USE_ITEM(player, ITEM_ANTIDOTE, partyIndex: 0); }
     } SCENE {
-        MESSAGE("Foe Wobbuffet used Toxic!");
+        MESSAGE("The opposing Wobbuffet used Toxic!");
         MESSAGE("Wobbuffet had its status healed!");
     } THEN {
         EXPECT_EQ(player->status1, STATUS1_NONE);
@@ -389,6 +389,6 @@ SINGLE_BATTLE_TEST("Full Heal, Heal Powder and Local Specialties heal a battler 
     } SCENE {
         MESSAGE("Wobbuffet had its status healed!");
     } THEN {
-        EXPECT_EQ(player->status2, STATUS1_NONE); // because we dont have STATUS2_NONE
+        EXPECT(player->volatiles.confusionTurns == 0);
     }
 }

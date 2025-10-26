@@ -3,6 +3,14 @@
 
 #include "battle_controllers.h"
 
+// used for sBattlerCoords and sBattlerHealthboxCoords
+enum BattleCoordTypes
+{
+    BATTLE_COORDS_SINGLES,
+    BATTLE_COORDS_DOUBLES,
+    BATTLE_COORDS_COUNT,
+};
+
 enum
 {
     HP_CURRENT,
@@ -47,6 +55,9 @@ enum
 
 #define TAG_HEALTHBAR_PAL               TAG_HEALTHBAR_PLAYER1_TILE
 #define TAG_HEALTHBOX_PAL               TAG_HEALTHBOX_PLAYER1_TILE
+#define TAG_SHADOW_PAL                  TAG_HEALTHBOX_PLAYER1_TILE
+
+#define TAG_SHADOW_TILE                 0xD759
 
 #define TAG_GIMMICK_TRIGGER_TILE        0xD777
 #define TAG_MEGA_INDICATOR_TILE         0xD778
@@ -97,13 +108,13 @@ enum
     HEALTHBOX_SAFARI_BALLS_TEXT
 };
 
-u32 WhichBattleCoords(u32 battlerId);
+enum BattleCoordTypes GetBattlerCoordsIndex(u32 battler);
 u8 CreateBattlerHealthboxSprites(u8 battler);
 u8 CreateSafariPlayerHealthboxSprites(void);
-void SetBattleBarStruct(u8 battler, u8 healthboxSpriteId, s32 maxVal, s32 currVal, s32 receivedValue);
+void SetBattleBarStruct(u8 battler, u8 healthboxSpriteId, s32 maxVal, s32 oldVal, s32 receivedValue);
 void SetHealthboxSpriteInvisible(u8 healthboxSpriteId);
 void SetHealthboxSpriteVisible(u8 healthboxSpriteId);
-void DummyBattleInterfaceFunc(u8 healthboxSpriteId, bool8 isDoubleBattleBankOnly);
+void DummyBattleInterfaceFunc(u8 healthboxSpriteId, bool8 isDoubleBattleBattlerOnly);
 void UpdateOamPriorityInAllHealthboxes(u8 priority, bool32 hideHpBoxes);
 void InitBattlerHealthboxCoords(u8 battler);
 void GetBattlerHealthboxCoords(u8 battler, s16 *x, s16 *y);
@@ -127,5 +138,7 @@ void UpdateAbilityPopup(u8 battlerId);
 void TryToAddMoveInfoWindow(void);
 void TryToHideMoveInfoWindow(void);
 void CategoryIcons_LoadSpritesGfx(void);
+void TryToAddMoveInfoWindow(void);
+void TryToHideMoveInfoWindow(void);
 
 #endif // GUARD_BATTLE_INTERFACE_H

@@ -32,12 +32,6 @@
 #define ITEM_BEAST_BALL 26
 #define ITEM_CHERISH_BALL 27
 
-// Note: If moving ball IDs around, updating FIRST_BALL/LAST_BALL is not sufficient
-//       Several places expect the ball IDs to be first and contiguous (e.g. MON_DATA_POKEBALL)
-//       If adding new balls, it's easiest to insert them after the last ball and increment the below IDs (and removing ITEM_034 for example)
-#define FIRST_BALL ITEM_POKE_BALL
-#define LAST_BALL  ITEM_CHERISH_BALL
-
 // Medicine
 #define ITEM_POTION 28
 #define ITEM_SUPER_POTION 29
@@ -1135,10 +1129,12 @@
 #define ITEM_MAX_SOUP 960 // activate the gigantamax factor
 #define ITEM_TERA_SHOT 961 // recharge Tera Orb
 
+#define ITEM_STRANGE_BALL 962
+
 // HOPO BERRY
 // LEGEND PLATE
 
-#define ITEMS_COUNT 962
+#define ITEMS_COUNT 963
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
@@ -1167,9 +1163,6 @@
 #define ITEM_TO_MAIL(itemId) ((itemId) - FIRST_MAIL_INDEX)
 #define MAIL_NONE 0xFF
 #define ITEM_TO_MULCH(itemId)(((itemId) - ITEM_GROWTH_MULCH) + 1)
-
-#define NUM_TECHNICAL_MACHINES 230
-#define NUM_HIDDEN_MACHINES 8
 
 #define MAX_BAG_ITEM_CAPACITY         999
 #define MAX_PC_ITEM_CAPACITY          999
@@ -1215,6 +1208,7 @@
 #define EFFECT_ITEM_REVIVE                  9
 #define EFFECT_ITEM_RESTORE_PP              10
 #define EFFECT_ITEM_INCREASE_ALL_STATS      11
+#define EFFECT_ITEM_USE_POKE_FLUTE          12
 
 // Enigma Berry dummy constant
 #define EFFECT_ITEM_ENIGMA_BERRY_EREADER    1

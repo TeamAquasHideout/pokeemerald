@@ -8433,7 +8433,7 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "WORMADAM_PLANT_CLOAK": {
+  "WORMADAM_PLANT": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -14495,7 +14495,7 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MEOWSTIC_MALE": {
+  "MEOWSTIC_M": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
@@ -16049,7 +16049,7 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "INDEEDEE_MALE": {
+  "INDEEDEE_M": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
@@ -16161,7 +16161,7 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "URSHIFU_SINGLE_STRIKE_STYLE": {
+  "URSHIFU_SINGLE_STRIKE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
@@ -16630,21 +16630,21 @@
       "MOVE_ZEN_HEADBUTT"
     ]
   },
-  "RATTATA_ALOLAN": {
+  "RATTATA_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "RATICATE_ALOLAN": {
+  "RATICATE_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "RAICHU_ALOLAN": {
+  "RAICHU_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -16699,21 +16699,21 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "SANDSHREW_ALOLAN": {
+  "SANDSHREW_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "SANDSLASH_ALOLAN": {
+  "SANDSLASH_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "VULPIX_ALOLAN": {
+  "VULPIX_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -16765,7 +16765,7 @@
       "MOVE_ZEN_HEADBUTT"
     ]
   },
-  "NINETALES_ALOLAN": {
+  "NINETALES_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -16820,35 +16820,35 @@
       "MOVE_ZEN_HEADBUTT"
     ]
   },
-  "DIGLETT_ALOLAN": {
+  "DIGLETT_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "DUGTRIO_ALOLAN": {
+  "DUGTRIO_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MEOWTH_ALOLAN": {
+  "MEOWTH_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "PERSIAN_ALOLAN": {
+  "PERSIAN_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "GEODUDE_ALOLAN": {
+  "GEODUDE_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -16903,7 +16903,7 @@
       "MOVE_THUNDER_PUNCH"
     ]
   },
-  "GRAVELER_ALOLAN": {
+  "GRAVELER_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -16958,7 +16958,7 @@
       "MOVE_THUNDER_PUNCH"
     ]
   },
-  "GOLEM_ALOLAN": {
+  "GOLEM_ALOLA": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17020,154 +17020,154 @@
       "MOVE_THUNDER_PUNCH"
     ]
   },
-  "GRIMER_ALOLAN": {
+  "GRIMER_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MUK_ALOLAN": {
+  "MUK_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "EXEGGUTOR_ALOLAN": {
+  "EXEGGUTOR_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MAROWAK_ALOLAN": {
+  "MAROWAK_ALOLA": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MEOWTH_GALARIAN": {
+  "MEOWTH_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "PONYTA_GALARIAN": {
+  "PONYTA_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "RAPIDASH_GALARIAN": {
+  "RAPIDASH_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "SLOWPOKE_GALARIAN": {
+  "SLOWPOKE_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "SLOWBRO_GALARIAN": {
+  "SLOWBRO_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "FARFETCHD_GALARIAN": {
+  "FARFETCHD_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "WEEZING_GALARIAN": {
+  "WEEZING_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "ARTICUNO_GALARIAN": {
+  "ARTICUNO_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "ZAPDOS_GALARIAN": {
+  "ZAPDOS_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MOLTRES_GALARIAN": {
+  "MOLTRES_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "SLOWKING_GALARIAN": {
+  "SLOWKING_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "CORSOLA_GALARIAN": {
+  "CORSOLA_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "ZIGZAGOON_GALARIAN": {
+  "ZIGZAGOON_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "LINOONE_GALARIAN": {
+  "LINOONE_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "DARUMAKA_GALARIAN": {
+  "DARUMAKA_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "DARMANITAN_GALARIAN": {
+  "DARMANITAN_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "YAMASK_GALARIAN": {
+  "YAMASK_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "STUNFISK_GALARIAN": {
+  "STUNFISK_GALAR": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
@@ -17195,7 +17195,7 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "WORMADAM_SANDY_CLOAK": {
+  "WORMADAM_SANDY": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17240,7 +17240,7 @@
       "MOVE_STEALTH_ROCK"
     ]
   },
-  "WORMADAM_TRASH_CLOAK": {
+  "WORMADAM_TRASH": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17575,14 +17575,14 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "FLOETTE_ETERNAL_FLOWER": {
+  "FLOETTE_ETERNAL": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "MEOWSTIC_FEMALE": {
+  "MEOWSTIC_F": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
@@ -17617,35 +17617,35 @@
     "EggMoves": [],
     "TutorMoves": []
   },
-  "INDEEDEE_FEMALE": {
+  "INDEEDEE_F": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "URSHIFU_RAPID_STRIKE_STYLE": {
+  "URSHIFU_RAPID_STRIKE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "CALYREX_ICE_RIDER": {
+  "CALYREX_ICE": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "CALYREX_SHADOW_RIDER": {
+  "CALYREX_SHADOW": {
     "LevelMoves": [],
     "PreEvoMoves": [],
     "TMMoves": [],
     "EggMoves": [],
     "TutorMoves": []
   },
-  "GROWLITHE_HISUIAN": {
+  "GROWLITHE_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17698,7 +17698,7 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "ARCANINE_HISUIAN": {
+  "ARCANINE_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17761,7 +17761,7 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "VOLTORB_HISUIAN": {
+  "VOLTORB_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17810,7 +17810,7 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "ELECTRODE_HISUIAN": {
+  "ELECTRODE_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17865,7 +17865,7 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "TYPHLOSION_HISUIAN": {
+  "TYPHLOSION_HISUI": {
     "LevelMoves": [
       {
         "Level": 0,
@@ -17933,7 +17933,7 @@
       "MOVE_WILD_CHARGE"
     ]
   },
-  "QWILFISH_HISUIAN": {
+  "QWILFISH_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -17994,7 +17994,7 @@
       "MOVE_WATER_PULSE"
     ]
   },
-  "SNEASEL_HISUIAN": {
+  "SNEASEL_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18046,7 +18046,7 @@
       "MOVE_X_SCISSOR"
     ]
   },
-  "SAMUROTT_HISUIAN": {
+  "SAMUROTT_HISUI": {
     "LevelMoves": [
       {
         "Level": 0,
@@ -18112,7 +18112,7 @@
       "MOVE_X_SCISSOR"
     ]
   },
-  "LILLIGANT_HISUIAN": {
+  "LILLIGANT_HISUI": {
     "LevelMoves": [
       {
         "Level": 0,
@@ -18232,7 +18232,7 @@
       "MOVE_ZEN_HEADBUTT"
     ]
   },
-  "ZORUA_HISUIAN": {
+  "ZORUA_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18278,7 +18278,7 @@
       "MOVE_SWIFT"
     ]
   },
-  "ZOROARK_HISUIAN": {
+  "ZOROARK_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18337,7 +18337,7 @@
       "MOVE_SWIFT"
     ]
   },
-  "BRAVIARY_HISUIAN": {
+  "BRAVIARY_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18401,7 +18401,7 @@
       "MOVE_ZEN_HEADBUTT"
     ]
   },
-  "SLIGGOO_HISUIAN": {
+  "SLIGGOO_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18453,7 +18453,7 @@
       "MOVE_WATER_PULSE"
     ]
   },
-  "GOODRA_HISUIAN": {
+  "GOODRA_HISUI": {
     "LevelMoves": [
       {
         "Level": 1,
@@ -18512,7 +18512,7 @@
       "MOVE_WATER_PULSE"
     ]
   },
-  "AVALUGG_HISUIAN": {
+  "AVALUGG_HISUI": {
     "LevelMoves": [
       {
         "Level": 0,
@@ -18583,7 +18583,7 @@
       "MOVE_WATER_PULSE"
     ]
   },
-  "DECIDUEYE_HISUIAN": {
+  "DECIDUEYE_HISUI": {
     "LevelMoves": [
       {
         "Level": 0,

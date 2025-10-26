@@ -13,6 +13,9 @@
 *.8bpp
 *.gbapal
 *.lz
+*.smol
+*.fastSmol
+*.smolTM
 *.rl
 *.latfont
 *.hwjpnfont
@@ -48,7 +51,6 @@ prefabs.json
 *.sym
 *.js
 /pokeemerald-*.png
-/pokeemerald_agbcc-*.png
 src/data/map_group_count.h
 tools/poryscript/command_config.json
 tools/poryscript/command_config.json:Zone.Identifier
@@ -57,3 +59,14 @@ tools/poryscript/font_config.json:Zone.Identifier
 tools/poryscript/poryscript
 tools/poryscript/poryscript:Zone.Identifier
 install-devkitpro-pacman
+include/constants/heal_locations.h
+src/data/battle_partners.h
+src/data/debug_trainers.h
+test/battle/trainer_control.h
+tools/compresSmol/compresSmol
+tools/compresSmol/compresSmolTilemap
+*.Identifier
+*.smol
+*.fastSmol
+*.smolTM
+__pycache__

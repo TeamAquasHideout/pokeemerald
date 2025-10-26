@@ -37,6 +37,7 @@ extern const u8 EventScript_TryDoNormalTrainerBattle[];
 extern const u8 EventScript_TryDoDoubleRematchBattle[];
 extern const u8 EventScript_TryDoRematchBattle[];
 extern const u8 EventScript_TurnTrainer[];
+extern const u8 EventScript_ObjectApproachPlayer[];
 
 extern const u8 BerryTreeScript[];
 
@@ -406,6 +407,8 @@ extern const u8 EventScript_UseFlash[];
 extern const u8 EventScript_UseCut[];
 extern const u8 EventScript_UseRockSmash[];
 extern const u8 EventScript_UseDig[];
+extern const u8 EventScript_UseCutGrass[];
+extern const u8 EventScript_UseDefog[];
 
 //player pc
 extern const u8 LittlerootTown_BrendansHouse_2F_EventScript_TurnOffPlayerPC[];
@@ -571,6 +574,7 @@ extern const u8 EventScript_UseWaterfall[];
 extern const u8 EventScript_CannotUseWaterfall[];
 extern const u8 EventScript_UseDive[];
 extern const u8 EventScript_UseDiveUnderwater[];
+extern const u8 EventScript_UseRockClimb[];
 extern const u8 EventScript_FallDownHole[];
 extern const u8 EventScript_FieldPoison[];
 extern const u8 EventScript_EggHatch[];
@@ -625,6 +629,8 @@ extern const u8 EventScript_SelectWithoutRegisteredItem[];
 
 // overworld
 extern const u8 EventScript_WhiteOut[];
+extern const u8 EventScript_AfterWhiteOutMomHeal[];
+extern const u8 EventScript_AfterWhiteOutHeal[];
 extern const u8 EventScript_ResetMrBriney[];
 extern const u8 EventScript_DoLinkRoomExit[];
 extern const u8 CableClub_EventScript_TooBusyToNotice[];
@@ -682,5 +688,38 @@ extern const u8 PitEncounter_LeftoversDrop_alreadyUsed[];
 extern const u8 PitEntrance_MakePokemonShiny[];
 extern const u8 EventScript_SetGigantamaxFactor[];
 extern const u8 EventScript_RechargeTeraOrb[];
+
+extern const u8 Common_Movement_WalkUpSlow[];
+extern const u8 Common_Movement_WalkDownSlow[];
+extern const u8 Common_Movement_WalkRightSlow[];
+extern const u8 Common_Movement_WalkLeftSlow[];
+extern const u8 Common_Movement_WalkUp[];
+extern const u8 Common_Movement_WalkDown[];
+extern const u8 Common_Movement_WalkRight[];
+extern const u8 Common_Movement_WalkLeft[];
+extern const u8 Common_Movement_WalkUpFast[];
+extern const u8 Common_Movement_WalkDownFast[];
+extern const u8 Common_Movement_WalkRightFast[];
+extern const u8 Common_Movement_WalkLeftFast[];
+extern const u8 Common_Movement_WalkUpFaster[];
+extern const u8 Common_Movement_WalkDownFaster[];
+extern const u8 Common_Movement_WalkRightFaster[];
+extern const u8 Common_Movement_WalkLeftFaster[];
+extern const u8 Common_Movement_FaceUp[];
+extern const u8 Common_Movement_FaceDown[];
+extern const u8 Common_Movement_FaceRight[];
+extern const u8 Common_Movement_FaceLeft[];
+
+extern const u8 EventScript_CancelMessageBox[];
+extern const u8 Common_EventScript_ShowPokemonCenterSign[];
+extern const u8 Common_EventScript_ShowPokemartSign[];
+// DexNav
+extern const u8 EventScript_StartDexNavBattle[];
+extern const u8 EventScript_NotFoundNearby[];
+extern const u8 EventScript_PokemonGotAway[];
+extern const u8 EventScript_LostSignal[];
+extern const u8 EventScript_TooDark[];
+extern const u8 EventScript_MovedTooFast[];
+
 
 #endif // GUARD_EVENT_SCRIPTS_H

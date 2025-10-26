@@ -20,8 +20,6 @@
 // Sets flags and variables upon a battler's Terastallization.
 void ActivateTera(u32 battler)
 {
-    u32 side = GetBattlerSide(battler);
-
     // Set appropriate flags.
     SetActiveGimmick(battler, GIMMICK_TERA);
     SetGimmickAsActivated(battler, GIMMICK_TERA);
@@ -29,8 +27,8 @@ void ActivateTera(u32 battler)
     // Remove Tera Orb charge.
     if (B_FLAG_TERA_ORB_CHARGED != 0
         && (B_FLAG_TERA_ORB_NO_COST == 0 || !FlagGet(B_FLAG_TERA_ORB_NO_COST))
-        && side == B_SIDE_PLAYER
-        && !(gBattleTypeFlags & BATTLE_TYPE_DOUBLE && !IsPartnerMonFromSameTrainer(battler)))
+        && IsOnPlayerSide(battler)
+        && !(IsDoubleBattle() && !IsPartnerMonFromSameTrainer(battler)))
     {
         FlagClear(B_FLAG_TERA_ORB_CHARGED);
     }
@@ -39,6 +37,9 @@ void ActivateTera(u32 battler)
     PREPARE_TYPE_BUFFER(gBattleTextBuff1, GetBattlerTeraType(battler));
     if (TryBattleFormChange(gBattlerAttacker, FORM_CHANGE_BATTLE_TERASTALLIZATION))
         BattleScriptExecute(BattleScript_TeraFormChange);
+    else if (gBattleStruct->illusion[gBattlerAttacker].state == ILLUSION_ON
+          && DoesSpeciesHaveFormChangeMethod(GetIllusionMonSpecies(gBattlerAttacker), FORM_CHANGE_BATTLE_TERASTALLIZATION))
+        BattleScriptExecute(BattleScript_IllusionOffAndTerastallization);
     else
         BattleScriptExecute(BattleScript_Terastallization);
 }
@@ -61,14 +62,17 @@ void ApplyBattlerVisualsForTeraAnim(u32 battler)
 // Returns whether a battler can Terastallize.
 bool32 CanTerastallize(u32 battler)
 {
-    u32 holdEffect = GetBattlerHoldEffect(battler, FALSE);
+    enum ItemHoldEffect holdEffect = GetBattlerHoldEffect(battler, FALSE);
 	u32 species = gBattleMons[battler].species;
 
-    // Prevents Zigzagoon from terastalizing in vanilla.
-    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE && GetBattlerSide(battler) == B_SIDE_OPPONENT)
+    if (gBattleMons[battler].volatiles.transformed && GET_BASE_SPECIES_ID(gBattleMons[battler].species) == SPECIES_TERAPAGOS)
         return FALSE;
 
-    if (TESTING || GetBattlerSide(battler) == B_SIDE_OPPONENT)
+    // Prevents Zigzagoon from terastalizing in vanilla.
+    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE && !IsOnPlayerSide(battler))
+        return FALSE;
+
+    if (TESTING || !IsOnPlayerSide(battler))
     {
         // Skip all other checks in this block, go to HasTrainerUsedGimmick
     }
@@ -100,7 +104,7 @@ bool32 CanTerastallize(u32 battler)
     // Check if battler has undergone a Primal Reversion
     if (species == SPECIES_KYOGRE_PRIMAL || species == SPECIES_GROUDON_PRIMAL)
         return FALSE;
-    
+
     // Check if battler is holding a Z-Crystal or Mega Stone.
     // if (!TESTING && (holdEffect == HOLD_EFFECT_Z_CRYSTAL || holdEffect == HOLD_EFFECT_MEGA_STONE)) // tests make this check already
     //     return FALSE;
@@ -112,21 +116,21 @@ bool32 CanTerastallize(u32 battler)
 // Returns a battler's Tera type.
 u32 GetBattlerTeraType(u32 battler)
 {
-    return GetMonData(&GetBattlerParty(battler)[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE);
+    return GetMonData(GetBattlerMon(battler), MON_DATA_TERA_TYPE);
 }
 
 // Uses up a type's Stellar boost.
 void ExpendTypeStellarBoost(u32 battler, u32 type)
 {
     if (type < 32 && gBattleMons[battler].species != SPECIES_TERAPAGOS_STELLAR) // avoid OOB access
-        gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] |= gBitTable[type];
+        gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] |= 1u << type;
 }
 
 // Checks whether a type's Stellar boost has been expended.
 bool32 IsTypeStellarBoosted(u32 battler, u32 type)
 {
     if (type < 32) // avoid OOB access
-        return !(gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] & gBitTable[type]);
+        return !(gBattleStruct->stellarBoostFlags[GetBattlerSide(battler)] & (1u << type));
     else
         return FALSE;
 }

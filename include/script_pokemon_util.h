@@ -1,12 +1,12 @@
 #ifndef GUARD_SCRIPT_POKEMON_UTIL_H
 #define GUARD_SCRIPT_POKEMON_UTIL_H
 
-u32 ScriptGiveMon(u16, u8, u16);
-u8 ScriptGiveEgg(u16);
+u32 ScriptGiveMon(u16 species, u8 level, u16 item);
+u8 ScriptGiveEgg(u16 species);
 bool8 CheckPartyMonHasHeldItem(u16 item);
-void CreateScriptedWildMon(u16, u8, u16);
-void CreateScriptedDoubleWildMon(u16, u8, u16, u16, u8, u16);
-void ScriptSetMonMoveSlot(u8, u16, u8);
+void CreateScriptedWildMon(u16 species, u8 level, u16 item);
+void CreateScriptedDoubleWildMon(u16 species, u8 level, u16 item, u16 species2, u8 level2, u16 item2);
+void ScriptSetMonMoveSlot(u8 monIndex, u16 move, u8 slot);
 void ReducePlayerPartyToSelectedMons(void);
 void HealPlayerParty(void);
 u32 ScriptGiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 nature, u8 abilityNum, u8 gender, u8 *evs, u8 *ivs, u16 *moves, bool8 ggMaxFactor, u8 teraType, bool8 isShinyExpansion);

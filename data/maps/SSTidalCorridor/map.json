@@ -15,6 +15,7 @@
   "connections": null,
   "object_events": [
     {
+      "local_id": "LOCALID_SS_TIDAL_EXIT_SAILOR",
       "graphics_id": "OBJ_EVENT_GFX_SAILOR",
       "x": 1,
       "y": 11,

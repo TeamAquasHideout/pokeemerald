@@ -85,12 +85,21 @@ s32 MathUtil_Inv32(s32 y)
     return x / y;
 }
 
+u32 MathUtil_Exponent(u32 x, u32 y)
+{
+    u32 result = 1;
+    for (u32 index = 0; index < y; index++)
+        result *= x;
+
+    return result;
+}
+
 // Function to return trailing
 // 0s in binary of n
 s32 MathUtil_FindTrailingZeros(s32 n)
 {
     // Negative Number Edge Case
-    if (n < 0) 
+    if (n < 0)
         return -1;
 
     // Initialize result
@@ -107,9 +116,9 @@ s32 MathUtil_FindTrailingZeros(s32 n)
 
 u32 MathUtil_GetFirstBitmaskFlag(s32 n)
 {
-    if (n < 0) 
+    if (n < 0)
         return -1;
-    
+
     if (n == 0)
         return 0;
 

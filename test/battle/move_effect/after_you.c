@@ -3,7 +3,7 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gMovesInfo[MOVE_AFTER_YOU].effect == EFFECT_AFTER_YOU);
+    ASSUME(GetMoveEffect(MOVE_AFTER_YOU) == EFFECT_AFTER_YOU);
 }
 
 DOUBLE_BATTLE_TEST("After You makes the target move after user")
@@ -46,13 +46,13 @@ DOUBLE_BATTLE_TEST("After You does nothing if the target has already moved")
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, playerLeft);
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponentLeft);
-        MESSAGE("Foe Wynaut used After You!");
+        MESSAGE("The opposing Wynaut used After You!");
         MESSAGE("But it failed!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, playerRight);
     }
 }
 
-DOUBLE_BATTLE_TEST("After You calculates correct turn order if only one pokemon is left on the opposing side")
+DOUBLE_BATTLE_TEST("After You calculates correct turn order if only one Pokémon is left on the opposing side")
 {
     GIVEN {
         PLAYER(SPECIES_GRENINJA) { Speed(120); }
@@ -75,7 +75,7 @@ DOUBLE_BATTLE_TEST("After You calculates correct turn order if only one pokemon 
         MESSAGE("Regirock took the kind offer!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_STONE_EDGE, playerRight);
         HP_BAR(opponentLeft);
-        MESSAGE("Foe Pidgeot fainted!");
+        MESSAGE("The opposing Pidgeot fainted!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponentRight);
 
         ANIMATION(ANIM_TYPE_MOVE, MOVE_AFTER_YOU, playerLeft);
@@ -86,10 +86,35 @@ DOUBLE_BATTLE_TEST("After You calculates correct turn order if only one pokemon 
     }
 }
 
+DOUBLE_BATTLE_TEST("After You fails if the turn order remains the same after After You (Gen5-7)")
+{
+    GIVEN {
+        WITH_CONFIG(GEN_CONFIG_AFTER_YOU_TURN_ORDER, GEN_7);
+        PLAYER(SPECIES_WOBBUFFET) { Speed(4); }
+        PLAYER(SPECIES_WYNAUT) { Speed(1); }
+        OPPONENT(SPECIES_WOBBUFFET) { Speed(2); }
+        OPPONENT(SPECIES_WYNAUT) { Speed(3); }
+    } WHEN {
+        TURN {
+            MOVE(playerLeft, MOVE_CELEBRATE);
+            MOVE(playerRight, MOVE_CELEBRATE);
+            MOVE(opponentLeft, MOVE_CELEBRATE);
+            MOVE(opponentRight, MOVE_AFTER_YOU, target: opponentLeft);
+        }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, playerLeft);
+        MESSAGE("The opposing Wynaut used After You!");
+        NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_AFTER_YOU, opponentRight);
+        MESSAGE("But it failed!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponentLeft);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, playerRight);
+    }
+}
+
 DOUBLE_BATTLE_TEST("After You doesn't fail if the turn order remains the same after After You (Gen8+)")
 {
     GIVEN {
-        ASSUME(B_AFTER_YOU_TURN_ORDER >= GEN_8);
+        WITH_CONFIG(GEN_CONFIG_AFTER_YOU_TURN_ORDER, GEN_8);
         PLAYER(SPECIES_WOBBUFFET) { Speed(4); }
         PLAYER(SPECIES_WYNAUT) { Speed(1); }
         OPPONENT(SPECIES_WOBBUFFET) { Speed(2); }
@@ -112,7 +137,7 @@ DOUBLE_BATTLE_TEST("After You doesn't fail if the turn order remains the same af
 DOUBLE_BATTLE_TEST("After You ignores the effects of Quash")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_QUASH].effect == EFFECT_QUASH);
+        ASSUME(GetMoveEffect(MOVE_QUASH) == EFFECT_QUASH);
         PLAYER(SPECIES_WOBBUFFET) { Speed(4); }
         PLAYER(SPECIES_WYNAUT) { Speed(1); }
         OPPONENT(SPECIES_WOBBUFFET) { Speed(2); }

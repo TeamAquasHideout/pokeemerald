@@ -96,8 +96,12 @@ static u8 CreatePokeblockCaseSpriteForFeeding(void);
 static u8 CreateMonSprite(struct Pokemon *);
 static void SpriteCB_ThrownPokeblock(struct Sprite *);
 
+static const u8 sText_Var1AteTheVar2[] = _("{STR_VAR_1} ate the\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_Var1HappilyAteVar2[] = _("{STR_VAR_1} happily ate the\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}");
+static const u8 sText_Var1DisdainfullyAteVar2[] = _("{STR_VAR_1} disdainfully ate the\n{STR_VAR_2}.{PAUSE_UNTIL_PRESS}");
+
 EWRAM_DATA static struct PokeblockFeed *sPokeblockFeed = NULL;
-EWRAM_DATA static struct CompressedSpritePalette sPokeblockSpritePal = {0};
+EWRAM_DATA static struct SpritePalette sPokeblockSpritePal = {0};
 
 // Data for the animation the Pokémon does while readying to jump for the Pokéblock
 // Each nature can have up to 8 anim 'stages' it progresses through, and each stage has its own array of data.
@@ -395,7 +399,7 @@ static const struct WindowTemplate sWindowTemplates[] =
 };
 
 // - 1 excludes PBLOCK_CLR_NONE
-static const u32 *const sPokeblocksPals[] =
+static const u16 *const sPokeblocksPals[] =
 {
     [PBLOCK_CLR_RED - 1]       = gPokeblockRed_Pal,
     [PBLOCK_CLR_BLUE - 1]      = gPokeblockBlue_Pal,
@@ -664,7 +668,7 @@ static bool8 LoadMonAndSceneGfx(struct Pokemon *mon)
         species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
         personality = GetMonData(mon, MON_DATA_PERSONALITY);
         isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
-        LoadCompressedSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
+        LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
         SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_OPPONENT_LEFT);
         sPokeblockFeed->loadGfxState++;
         break;
@@ -673,7 +677,7 @@ static bool8 LoadMonAndSceneGfx(struct Pokemon *mon)
         sPokeblockFeed->loadGfxState++;
         break;
     case 3:
-        LoadCompressedSpritePalette(&gPokeblockCase_SpritePal);
+        LoadSpritePalette(&gPokeblockCase_SpritePal);
         sPokeblockFeed->loadGfxState++;
         break;
     case 4:
@@ -682,23 +686,23 @@ static bool8 LoadMonAndSceneGfx(struct Pokemon *mon)
         break;
     case 5:
         SetPokeblockSpritePal(gSpecialVar_ItemId);
-        LoadCompressedSpritePalette(&sPokeblockSpritePal);
+        LoadSpritePalette(&sPokeblockSpritePal);
         sPokeblockFeed->loadGfxState++;
         break;
     case 6:
         ResetTempTileDataBuffers();
-        DecompressAndCopyTileDataToVram(1, gBattleTerrainTiles_Building, 0, 0, 0);
+        DecompressAndCopyTileDataToVram(1, gBattleEnvironmentTiles_Building, 0, 0, 0);
         sPokeblockFeed->loadGfxState++;
         break;
     case 7:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(gPokeblockFeedBg_Tilemap, sPokeblockFeed->tilemapBuffer);
+            DecompressDataWithHeaderWram(gPokeblockFeedBg_Tilemap, sPokeblockFeed->tilemapBuffer);
             sPokeblockFeed->loadGfxState++;
         }
         break;
     case 8:
-        LoadCompressedPalette(gBattleTerrainPalette_Frontier, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
+        LoadPalette(gBattleEnvironmentPalette_Frontier, BG_PLTT_ID(2), 3 * PLTT_SIZE_4BPP);
         sPokeblockFeed->loadGfxState = 0;
         return TRUE;
     }
@@ -792,11 +796,11 @@ static void Task_PrintAtePokeblockMessage(u8 taskId)
     PokeblockCopyName(pokeblock, gStringVar2);
 
     if (gPokeblockGain == 0)
-        StringExpandPlaceholders(gStringVar4, gText_Var1AteTheVar2);
+        StringExpandPlaceholders(gStringVar4, sText_Var1AteTheVar2);
     else if (gPokeblockGain > 0)
-        StringExpandPlaceholders(gStringVar4, gText_Var1HappilyAteVar2);
+        StringExpandPlaceholders(gStringVar4, sText_Var1HappilyAteVar2);
     else
-        StringExpandPlaceholders(gStringVar4, gText_Var1DisdainfullyAteVar2);
+        StringExpandPlaceholders(gStringVar4, sText_Var1DisdainfullyAteVar2);
 
     gTextFlags.canABSpeedUpPrint = TRUE;
     AddTextPrinterParameterized2(0, FONT_NORMAL, gStringVar4, GetPlayerTextSpeedDelay(), NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
