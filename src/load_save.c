@@ -269,23 +269,23 @@ void LoadPlayerBag(void)
 
     // load player medicine.
     for (i = 0; i < BAG_MEDICINE_COUNT; i++)
-        gLoadedSaveData.medicine[i] = gSaveBlock1Ptr->bagPocket_Medicine[i];
+        gLoadedSaveData.medicine[i] = gSaveBlock1Ptr->bag.medicine[i];
 
     // load player battle items.
     for (i = 0; i < BAG_BATTLEITEMS_COUNT; i++)
-        gLoadedSaveData.battleItems[i] = gSaveBlock1Ptr->bagPocket_BattleItems[i];
+        gLoadedSaveData.battleItems[i] = gSaveBlock1Ptr->bag.battleItems[i];
 
     // load player power up.
     for (i = 0; i < BAG_POWERUP_COUNT; i++)
-        gLoadedSaveData.powerUp[i] = gSaveBlock1Ptr->bagPocket_PowerUp[i];
+        gLoadedSaveData.powerUp[i] = gSaveBlock1Ptr->bag.powerUp[i];
 
     // load player mega stones.
     for (i = 0; i < BAG_MEGASTONES_COUNT; i++)
-        gLoadedSaveData.megastones[i] = gSaveBlock1Ptr->bagPocket_MegaStones[i];
+        gLoadedSaveData.megastones[i] = gSaveBlock1Ptr->bag.megaStones[i];
 
     // load player Z-Crystals.
     for (i = 0; i < BAG_ZCRYSTALS_COUNT; i++)
-        gLoadedSaveData.zcrystals[i] = gSaveBlock1Ptr->bagPocket_ZCrystals[i];
+        gLoadedSaveData.zcrystals[i] = gSaveBlock1Ptr->bag.zCrystals[i];
 
     gLastEncryptionKey = gSaveBlock2Ptr->encryptionKey;
 }
@@ -304,23 +304,23 @@ void SavePlayerBag(void)
 
     // save player medicine.
     for (i = 0; i < BAG_MEDICINE_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_Medicine[i] = gLoadedSaveData.medicine[i];
+        gSaveBlock1Ptr->bag.medicine[i] = gLoadedSaveData.medicine[i];
 
     // save player battle items.
     for (i = 0; i < BAG_BATTLEITEMS_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_BattleItems[i] = gLoadedSaveData.battleItems[i];
+        gSaveBlock1Ptr->bag.battleItems[i] = gLoadedSaveData.battleItems[i];
 
     // save player power up.
     for (i = 0; i < BAG_POWERUP_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_PowerUp[i] = gLoadedSaveData.powerUp[i];
+        gSaveBlock1Ptr->bag.powerUp[i] = gLoadedSaveData.powerUp[i];
 
     // save player mega stones.
     for (i = 0; i < BAG_MEGASTONES_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_MegaStones[i] = gLoadedSaveData.megastones[i];
+        gSaveBlock1Ptr->bag.megaStones[i] = gLoadedSaveData.megastones[i];
 
     // save player z-crystals.
     for (i = 0; i < BAG_ZCRYSTALS_COUNT; i++)
-        gSaveBlock1Ptr->bagPocket_ZCrystals[i] = gLoadedSaveData.zcrystals[i];
+        gSaveBlock1Ptr->bag.zCrystals[i] = gLoadedSaveData.zcrystals[i];
 
     encryptionKeyBackup = gSaveBlock2Ptr->encryptionKey;
     gSaveBlock2Ptr->encryptionKey = gLastEncryptionKey;

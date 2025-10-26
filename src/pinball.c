@@ -502,8 +502,8 @@ static const u32 sBallPokeballGfx[] = INCBIN_U32("graphics/pinball/ball_pokeball
 static const u16 sBallPokeballPalette[] = INCBIN_U16("graphics/pinball/ball_pokeball.gbapal");
 static const u32 sFlipperGfx[] = INCBIN_U32("graphics/pinball/flipper.4bpp.smol");
 static const u16 sFlipperPalette[] = INCBIN_U16("graphics/pinball/flipper.gbapal");
-static const u8 sFlipperLeftMinigameCollisionMasks[][0x80] = INCBIN_U8("graphics/pinball/flipper_left_masks_minigame.1bpp");
-static const u8 sFlipperRightMinigameCollisionMasks[][0x80] = INCBIN_U8("graphics/pinball/flipper_right_masks_minigame.1bpp");
+static const u8 sFlipperLeftMinigameCollisionMasks[] = INCBIN_U8("graphics/pinball/flipper_left_masks_minigame.1bpp");
+static const u8 sFlipperRightMinigameCollisionMasks[] = INCBIN_U8("graphics/pinball/flipper_right_masks_minigame.1bpp");
 static const u32 sTimerDigitsGfx[] = INCBIN_U32("graphics/pinball/timer_digits.4bpp.smol");
 static const u16 sTimerDigitsPalette[] = INCBIN_U16("graphics/pinball/timer_digits.gbapal");
 
@@ -3254,9 +3254,9 @@ static u8 GetCollisionMaskRow(u8 gameType, int collisionAttribute, int row)
         offset = 2;
 
     if (collisionAttribute < 0xF0)
-        flipperStateMasks = sFlipperLeftMinigameCollisionMasks[offset];
+        flipperStateMasks = (const u8 *) &sFlipperLeftMinigameCollisionMasks[offset];
     else
-        flipperStateMasks = sFlipperRightMinigameCollisionMasks[offset];
+        flipperStateMasks = (const u8 *) &sFlipperRightMinigameCollisionMasks[offset];
 
     mask = flipperStateMasks[(collisionAttribute % 0x10) * 0x8 + row];
 

@@ -32,15 +32,6 @@ enum PokemonSummaryScreenMode
     SUMMARY_MODE_RELEARNER_CONTEST, // returning from move relearner initiated from contest moves page
 };
 
-enum PokemonSummaryScreenPage
-{
-    PSS_PAGE_INFO,
-    PSS_PAGE_SKILLS,
-    PSS_PAGE_BATTLE_MOVES,
-    PSS_PAGE_CONTEST_MOVES,
-    PSS_PAGE_COUNT,
-};
-
 enum PokemonSummarySkillsMode
 {
     SUMMARY_SKILLS_MODE_STATS,

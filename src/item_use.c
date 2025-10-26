@@ -917,6 +917,9 @@ void ItemUseOutOfBattle_DynamaxCandy(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+const u8 gText_BootedUpTM[] = _("Booted up a TM.");
+const u8 gText_BootedUpHM[] = _("Booted up an HM.");
+
 void ItemUseOutOfBattle_TMHM(u8 taskId)
 {
     if (gSpecialVar_ItemId >= ITEM_HM01)
@@ -1234,7 +1237,7 @@ void ItemUseInBattle_PartyMenuChooseMove(u8 taskId)
 
 static bool32 IteamHealsMonVolatile(u32 battler, u16 itemId)
 {
-    const u8 *effect = GetItemEffect(itemId);
+    const u16 *effect = GetItemEffect(itemId);
     if (effect[3] & ITEM3_STATUS_ALL)
         return (gBattleMons[battler].volatiles.infatuation || gBattleMons[battler].volatiles.confusionTurns > 0);
     else if (effect[0] & ITEM0_INFATUATION)

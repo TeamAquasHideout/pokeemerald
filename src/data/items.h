@@ -1,4 +1,5 @@
 #include "config/general.h"
+#include "constants/moves.h"
 
 #if I_USE_EVO_HELD_ITEMS_FROM_BAG == TRUE
     #define EVO_HELD_ITEM_TYPE ITEM_USE_PARTY_MENU

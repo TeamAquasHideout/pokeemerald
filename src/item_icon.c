@@ -175,21 +175,21 @@ const void *GetItemIconPic(u16 itemId)
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {
-            return gTMMoveTypeTable[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type][0];
+            return gTMMoveTypeTable_Gfx[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type];
         }
     }
     else
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {
-            return gTMMoveTypeTable[gMovesInfo[gItemsInfo[itemId].secondaryId].type][0];
+            return gTMMoveTypeTable_Gfx[gMovesInfo[gItemsInfo[itemId].secondaryId].type];
         }
     }
 
     return gItemsInfo[itemId].iconPic;
 }
 
-const void *GetItemIconPalette(u16 itemId)
+const u16 *GetItemIconPalette(u16 itemId)
 {
     if (itemId == ITEM_LIST_END)
         return gItemIconPalette_ReturnToFieldArrow;
@@ -199,14 +199,14 @@ const void *GetItemIconPalette(u16 itemId)
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {
-            return gTMMoveTypeTable[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type][1];
+            return gTMMoveTypeTable_Pal[gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].type];
         }
     }
     else
     {
         if (GetPocketByItemId(itemId) == POCKET_TM_HM)
         {
-            return gTMMoveTypeTable[gMovesInfo[gItemsInfo[itemId].secondaryId].type][1];
+            return gTMMoveTypeTable_Pal[gMovesInfo[gItemsInfo[itemId].secondaryId].type];
         }
     }
 

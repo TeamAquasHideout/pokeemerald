@@ -3328,6 +3328,8 @@ static void DebugAction_Sound_SE_SelectId(u8 taskId)
     }
 }
 
+
+
 static void DebugAction_Sound_MUS(u8 taskId)
 {
     u8 windowId;
@@ -3344,8 +3346,8 @@ static void DebugAction_Sound_MUS(u8 taskId)
 
     // Display initial song
     StringCopy(gStringVar2, gText_DigitIndicator[0]);
-    ConvertIntToDecimalStringN(gStringVar3, SONGS_START, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_ITEMS);
-    StringCopyPadded(gStringVar1, sBGMNames[0], CHAR_SPACE, 35);
+    ConvertIntToDecimalStringN(gStringVar3, START_MUS, STR_CONV_MODE_LEADING_ZEROS, DEBUG_NUMBER_DIGITS_ITEMS);
+    StringCopyPadded(gStringVar1, sDebugText_Empty, CHAR_SPACE, 35);
     StringExpandPlaceholders(gStringVar4, sDebugText_Sound_Music_ID);
     AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
 
@@ -3353,7 +3355,7 @@ static void DebugAction_Sound_MUS(u8 taskId)
 
     gTasks[taskId].func = DebugAction_Sound_MUS_SelectId;
     gTasks[taskId].tSubWindowId = windowId;
-    gTasks[taskId].tInput = SONGS_START;
+    gTasks[taskId].tInput = START_MUS;
     gTasks[taskId].tDigit = 0;
     gTasks[taskId].tCurrentSong = gTasks[taskId].tInput;
 }
@@ -3366,7 +3368,7 @@ static void DebugAction_Sound_MUS_SelectId(u8 taskId)
         Debug_HandleInput_Numeric(taskId, START_MUS, END_MUS, DEBUG_NUMBER_DIGITS_ITEMS);
 
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
-        bgmName = sBGMNames[gTasks[taskId].tInput - START_MUS];
+        bgmName = sDebugText_Empty;
         if (bgmName == NULL)
             bgmName = sDebugText_Dashes;
         StringCopyPadded(gStringVar1, bgmName, CHAR_SPACE, 35);
@@ -3499,7 +3501,7 @@ static void DebugAction_DestroyFollowerNPC(u8 taskId)
     X(MUS_MT_CHIMNEY)               \
     X(MUS_ENCOUNTER_FEMALE)         \
     X(MUS_LILYCOVE)                 \
-    X(MUS_DESERT)                   \
+    X(MUS_ROUTE111)                   \
     X(MUS_HELP)                     \
     X(MUS_UNDERWATER)               \
     X(MUS_VICTORY_TRAINER)          \
@@ -3921,18 +3923,6 @@ static void DebugAction_DestroyFollowerNPC(u8 taskId)
     X(SE_PIKE_CURTAIN_OPEN)         \
     X(SE_SUDOWOODO_SHAKE)
 
-// Create BGM list
-#define X(songId) static const u8 sBGMName_##songId[] = _(#songId);
-SOUND_LIST_BGM
-#undef X
-
-#define X(songId) [songId - START_MUS] = sBGMName_##songId,
-static const u8 *const sBGMNames[END_MUS - START_MUS + 1] =
-{
-SOUND_LIST_BGM
-};
-#undef X
-
 // Create SE list
 #define X(songId) static const u8 sSEName_##songId[] = _(#songId);
 SOUND_LIST_SE
@@ -4077,7 +4067,7 @@ enum DebugTrainerIds
 
 const struct Trainer sDebugTrainers[DIFFICULTY_COUNT][DEBUG_TRAINERS_COUNT] =
 {
-#include "data/debug_trainers.h"
+
 };
 
 const struct Trainer* GetDebugAiTrainer(void)
@@ -4088,7 +4078,7 @@ const struct Trainer* GetDebugAiTrainer(void)
 static void DebugAction_Party_SetParty(u8 taskId)
 {
     ZeroPlayerPartyMons();
-    CreateNPCTrainerPartyFromTrainer(gPlayerParty, &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_PLAYER], TRUE, BATTLE_TYPE_TRAINER);
+    CreateNPCTrainerPartyFromTrainer(gPlayerParty, &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_PLAYER], TRUE, BATTLE_TYPE_TRAINER, TRUE);
     ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }
@@ -4097,8 +4087,8 @@ static void DebugAction_Party_BattleSingle(u8 taskId)
 {
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
-    CreateNPCTrainerPartyFromTrainer(gPlayerParty, &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_PLAYER], TRUE, BATTLE_TYPE_TRAINER);
-    CreateNPCTrainerPartyFromTrainer(gEnemyParty, GetDebugAiTrainer(), FALSE, BATTLE_TYPE_TRAINER);
+    CreateNPCTrainerPartyFromTrainer(gPlayerParty, &sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_PLAYER], TRUE, BATTLE_TYPE_TRAINER, TRUE);
+    CreateNPCTrainerPartyFromTrainer(gEnemyParty, GetDebugAiTrainer(), FALSE, BATTLE_TYPE_TRAINER, FALSE);
 
     gBattleTypeFlags = BATTLE_TYPE_TRAINER;
     gDebugAIFlags = sDebugTrainers[DIFFICULTY_NORMAL][DEBUG_TRAINER_AI].aiFlags;

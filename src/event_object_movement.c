@@ -1730,7 +1730,7 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
     //     DebugPrintf("Check Here GraphicsId: %d", objectEvent->graphicsId);
 
     if (objectEvent->graphicsId == OBJ_EVENT_GFX_ZIGZAGOON_2)
-        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_GFX_MON_BASE);
+        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_MON);
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
     if (spriteTemplate->paletteTag != TAG_NONE && spriteTemplate->paletteTag != OBJ_EVENT_PAL_TAG_DYNAMIC)
         LoadObjectEventPalette(spriteTemplate->paletteTag);
@@ -2941,7 +2941,7 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
     }
 
     if (objectEvent->graphicsId == OBJ_EVENT_GFX_ZIGZAGOON_2)
-        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_GFX_MON_BASE);
+        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_MON);
     
     subspriteTables = NULL;
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
@@ -3394,7 +3394,7 @@ void MoveObjectEventToMapCoords(struct ObjectEvent *objectEvent, s16 x, s16 y)
 
     sprite = &gSprites[objectEvent->spriteId];
     if (objectEvent->graphicsId == OBJ_EVENT_GFX_ZIGZAGOON_2)
-        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_GFX_MON_BASE);
+        objectEvent->graphicsId = (VarGet(VAR_OVERWORLD_MON_SPECIES) + OBJ_EVENT_MON);
     graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
     SetObjectEventCoords(objectEvent, x, y);
     SetSpritePosToMapCoords(objectEvent->currentCoords.x, objectEvent->currentCoords.y, &sprite->x, &sprite->y);
