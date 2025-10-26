@@ -1,6 +1,7 @@
 #ifndef GUARD_SPRITE_H
 #define GUARD_SPRITE_H
 
+#define OAM_MATRIX_COUNT 32
 #define MAX_SPRITES 64
 #define SPRITE_NONE 0xFF
 #define TAG_NONE 0xFFFF
@@ -37,12 +38,6 @@ struct SpriteFrameImage
 struct SpritePalette
 {
     const u16 *data;  // Raw uncompressed palette data
-    u16 tag;
-};
-
-struct CompressedSpritePalette
-{
-    const u32 *data;  // LZ77 compressed palette data
     u16 tag;
 };
 
@@ -260,12 +255,12 @@ extern const union AffineAnimCmd *const gDummySpriteAffineAnimTable[];
 extern const struct SpriteTemplate gDummySpriteTemplate;
 
 extern u8 gReservedSpritePaletteCount;
-extern struct Sprite gSprites[];
+extern struct Sprite gSprites[MAX_SPRITES + 1];
 extern u8 gOamLimit;
 extern u16 gReservedSpriteTileCount;
 extern s16 gSpriteCoordOffsetX;
 extern s16 gSpriteCoordOffsetY;
-extern struct OamMatrix gOamMatrices[];
+extern struct OamMatrix gOamMatrices[OAM_MATRIX_COUNT];
 extern bool8 gAffineAnimsDisabled;
 
 void ResetSpriteData(void);
@@ -305,25 +300,21 @@ u16 LoadSpriteSheet(const struct SpriteSheet *sheet);
 u16 LoadSpriteSheetByTemplate(const struct SpriteTemplate *template, u32 frame, s32 offset);
 void LoadSpriteSheets(const struct SpriteSheet *sheets);
 s16 AllocSpriteTiles(u16 tileCount);
-u16 AllocTilesForSpriteSheet(struct SpriteSheet *sheet);
-void AllocTilesForSpriteSheets(struct SpriteSheet *sheets);
-void LoadTilesForSpriteSheet(const struct SpriteSheet *sheet);
-void LoadTilesForSpriteSheets(struct SpriteSheet *sheets);
 void FreeSpriteTilesByTag(u16 tag);
 void FreeSpriteTileRanges(void);
 u16 GetSpriteTileStartByTag(u16 tag);
 u16 GetSpriteTileTagByTileStart(u16 start);
-void RequestSpriteSheetCopy(const struct SpriteSheet *sheet);
-u16 LoadSpriteSheetDeferred(const struct SpriteSheet *sheet);
 void FreeAllSpritePalettes(void);
-u8 LoadSpritePalette(const struct SpritePalette *palette);
+u32 LoadSpritePalette(const struct SpritePalette *palette);
+u32 LoadSpritePaletteWithTag(const u16 *pal, u16 tag);
+u8 LoadSpritePaletteInSlot(const struct SpritePalette *palette, u8 paletteNum);
 void LoadSpritePalettes(const struct SpritePalette *palettes);
-u8 AllocSpritePalette(u16 tag);
-u8 IndexOfSpritePaletteTag(u16 tag);
+u32 AllocSpritePalette(u16 tag);
+u32 IndexOfSpritePaletteTag(u16 tag);
 u16 GetSpritePaletteTagByPaletteNum(u8 paletteNum);
 void FreeSpritePaletteByTag(u16 tag);
 void SetSubspriteTables(struct Sprite *sprite, const struct SubspriteTable *subspriteTables);
-bool8 AddSpriteToOamBuffer(struct Sprite *object, u8 *oamIndex);
+bool8 AddSpriteToOamBuffer(struct Sprite *sprite, u8 *oamIndex);
 bool8 AddSubspritesToOamBuffer(struct Sprite *sprite, struct OamData *destOam, u8 *oamIndex);
 void CopyToSprites(u8 *src);
 void CopyFromSprites(u8 *dest);
@@ -331,5 +322,8 @@ u8 SpriteTileAllocBitmapOp(u16 bit, u8 op);
 void ClearSpriteCopyRequests(void);
 void ResetAffineAnimData(void);
 u32 GetSpanPerImage(u32 shape, u32 size);
+void RequestSpriteFrameImageCopy(u16 index, u16 tileNum, const struct SpriteFrameImage *images);
+void SetSpriteOamFlipBits(struct Sprite *sprite, u8 hFlip, u8 vFlip);
+u8 IndexOfSpriteTileTag(u16 tag);
 
 #endif //GUARD_SPRITE_H

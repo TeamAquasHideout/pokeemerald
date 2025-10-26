@@ -4,42 +4,6 @@
 #include "palette.h"
 #include "constants/rgb.h"
 
-const u32 gBitTable[] =
-{
-    1 << 0,
-    1 << 1,
-    1 << 2,
-    1 << 3,
-    1 << 4,
-    1 << 5,
-    1 << 6,
-    1 << 7,
-    1 << 8,
-    1 << 9,
-    1 << 10,
-    1 << 11,
-    1 << 12,
-    1 << 13,
-    1 << 14,
-    1 << 15,
-    1 << 16,
-    1 << 17,
-    1 << 18,
-    1 << 19,
-    1 << 20,
-    1 << 21,
-    1 << 22,
-    1 << 23,
-    1 << 24,
-    1 << 25,
-    1 << 26,
-    1 << 27,
-    1 << 28,
-    1 << 29,
-    1 << 30,
-    1 << 31,
-};
-
 static const struct SpriteTemplate sInvisibleSpriteTemplate =
 {
     .tileTag = 0,
@@ -264,6 +228,7 @@ u32 CalcByteArraySum(const u8 *data, u32 length)
 void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blendColor)
 {
     u16 i;
+    struct PlttData *data2 = (struct PlttData *) & blendColor;
     for (i = 0; i < numEntries; i++)
     {
         u16 index = i + palOffset;
@@ -271,7 +236,7 @@ void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blendColor)
         s8 r = data1->r;
         s8 g = data1->g;
         s8 b = data1->b;
-        struct PlttData *data2 = (struct PlttData *)&blendColor;
+
         gPlttBufferFaded[index] = RGB(r + (((data2->r - r) * coeff) >> 4),
                                       g + (((data2->g - g) * coeff) >> 4),
                                       b + (((data2->b - b) * coeff) >> 4));

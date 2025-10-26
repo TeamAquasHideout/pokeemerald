@@ -193,7 +193,7 @@ bool8 HasAnotherPlayerGivenFavorLadyItem(void)
 
 static void BufferItemName(u8 *dest, u16 itemId)
 {
-    StringCopy(dest, ItemId_GetName(itemId));
+    StringCopy(dest, GetItemName(itemId));
 }
 
 void BufferFavorLadyItemName(void)
@@ -452,7 +452,7 @@ static u8 GetPlayerNameLength(const u8 *playerName)
 
 void BufferQuizPrizeName(void)
 {
-    StringCopy(gStringVar1, ItemId_GetName(sQuizLadyPtr->prize));
+    StringCopy(gStringVar1, GetItemName(sQuizLadyPtr->prize));
 }
 
 bool8 BufferQuizAuthorNameAndCheckIfLady(void)

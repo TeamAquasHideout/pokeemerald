@@ -477,7 +477,7 @@ static const u8 sFrontierBrainStreakAppearances[NUM_FRONTIER_FACILITIES][4] =
     [FRONTIER_FACILITY_PYRAMID] = {21,  70, 35, 0},
 };
 
-static void (* const sBattlePikeFunctions[])(void) =
+static void (*const sBattlePikeFunctions[])(void) =
 {
     [BATTLE_PIKE_FUNC_SET_ROOM_TYPE]           = SetRoomType,
     [BATTLE_PIKE_FUNC_GET_DATA]                = GetBattlePikeData,
@@ -532,7 +532,7 @@ static const u8 sNumMonsToHealBeforePikeQueen[][3] =
     {0, 1, 2},
 };
 
-static bool8 (* const sStatusInflictionScreenFlashFuncs[])(struct Task *) =
+static bool8 (*const sStatusInflictionScreenFlashFuncs[])(struct Task *) =
 {
     StatusInflictionFadeOut, StatusInflictionFadeIn
 };
@@ -852,22 +852,22 @@ static bool8 DoesTypePreventStatus(u16 species, u32 status)
     switch (status)
     {
     case STATUS1_TOXIC_POISON:
-        if (GetTypeBySpecies(species, 1) == TYPE_STEEL || GetTypeBySpecies(species, 1) == TYPE_POISON
-            || GetTypeBySpecies(species, 2) == TYPE_STEEL || GetTypeBySpecies(species, 2) == TYPE_POISON)
+        if (GetSpeciesType(species, 0) == TYPE_STEEL || GetSpeciesType(species, 0) == TYPE_POISON
+            || GetSpeciesType(species, 1) == TYPE_STEEL || GetSpeciesType(species, 1) == TYPE_POISON)
             ret = TRUE;
         break;
     case STATUS1_FREEZE:
     case STATUS1_FROSTBITE:
-        if (GetTypeBySpecies(species, 1) == TYPE_ICE || GetTypeBySpecies(species, 2) == TYPE_ICE)
+        if (GetSpeciesType(species, 0) == TYPE_ICE || GetSpeciesType(species, 1) == TYPE_ICE)
             ret = TRUE;
         break;
     case STATUS1_PARALYSIS:
-        if (GetTypeBySpecies(species, 1) == TYPE_GROUND || GetTypeBySpecies(species, 2) == TYPE_GROUND
-            || (B_PARALYZE_ELECTRIC >= GEN_6 && (GetTypeBySpecies(species, 1) == TYPE_ELECTRIC || GetTypeBySpecies(species, 2) == TYPE_ELECTRIC)))
+        if (GetSpeciesType(species, 0) == TYPE_GROUND || GetSpeciesType(species, 1) == TYPE_GROUND
+            || (B_PARALYZE_ELECTRIC >= GEN_6 && (GetSpeciesType(species, 0) == TYPE_ELECTRIC || GetSpeciesType(species, 1) == TYPE_ELECTRIC)))
             ret = TRUE;
         break;
     case STATUS1_BURN:
-        if (GetTypeBySpecies(species, 1) == TYPE_FIRE || GetTypeBySpecies(species, 2) == TYPE_FIRE)
+        if (GetSpeciesType(species, 0) == TYPE_FIRE || GetSpeciesType(species, 1) == TYPE_FIRE)
             ret = TRUE;
         break;
     case STATUS1_SLEEP:
@@ -1142,7 +1142,7 @@ bool32 TryGenerateBattlePikeWildMon(bool8 checkKeenEyeIntimidate)
                MON_DATA_EXP,
                &gExperienceTables[gSpeciesInfo[wildMons[headerId][pikeMonId].species].growthRate][monLevel]);
 
-    if (gSpeciesInfo[wildMons[headerId][pikeMonId].species].abilities[1])
+    if (GetSpeciesAbility(wildMons[headerId][pikeMonId].species, 1))
         abilityNum = Random() % 2;
     else
         abilityNum = 0;
@@ -1404,11 +1404,11 @@ static void PrepareOneTrainer(bool8 difficult)
         }
     } while (i != gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1);
 
-    gTrainerBattleOpponent_A = trainerId;
+    TRAINER_BATTLE_PARAM.opponentA = trainerId;
     gFacilityTrainers = gBattleFrontierTrainers;
-    SetBattleFacilityTrainerGfxId(gTrainerBattleOpponent_A, 0);
+    SetBattleFacilityTrainerGfxId(TRAINER_BATTLE_PARAM.opponentA, 0);
     if (gSaveBlock1Ptr->frontier.curChallengeBattleNum < NUM_PIKE_ROOMS)
-        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1] = gTrainerBattleOpponent_A;
+        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1] = TRAINER_BATTLE_PARAM.opponentA;
 }
 
 static void PrepareTwoTrainers(void)
@@ -1430,10 +1430,10 @@ static void PrepareTwoTrainers(void)
         }
     } while (i != gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1);
 
-    gTrainerBattleOpponent_A = trainerId;
-    SetBattleFacilityTrainerGfxId(gTrainerBattleOpponent_A, 0);
+    TRAINER_BATTLE_PARAM.opponentA = trainerId;
+    SetBattleFacilityTrainerGfxId(TRAINER_BATTLE_PARAM.opponentA, 0);
     if (gSaveBlock1Ptr->frontier.curChallengeBattleNum <= NUM_PIKE_ROOMS)
-        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1] = gTrainerBattleOpponent_A;
+        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 1] = TRAINER_BATTLE_PARAM.opponentA;
 
     do
     {
@@ -1446,10 +1446,10 @@ static void PrepareTwoTrainers(void)
         }
     } while (i != gSaveBlock1Ptr->frontier.curChallengeBattleNum);
 
-    gTrainerBattleOpponent_B = trainerId;
-    SetBattleFacilityTrainerGfxId(gTrainerBattleOpponent_B, 1);
+    TRAINER_BATTLE_PARAM.opponentB = trainerId;
+    SetBattleFacilityTrainerGfxId(TRAINER_BATTLE_PARAM.opponentB, 1);
     if (gSaveBlock1Ptr->frontier.curChallengeBattleNum < NUM_PIKE_ROOMS)
-        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 2] = gTrainerBattleOpponent_B;
+        gSaveBlock1Ptr->frontier.trainerIds[gSaveBlock1Ptr->frontier.curChallengeBattleNum - 2] = TRAINER_BATTLE_PARAM.opponentB;
 }
 
 static void ClearPikeTrainerIds(void)
@@ -1464,13 +1464,13 @@ static void BufferTrainerIntro(void)
 {
     if (gSpecialVar_0x8005 == 0)
     {
-        if (gTrainerBattleOpponent_A < FRONTIER_TRAINERS_COUNT)
-            FrontierSpeechToString(gFacilityTrainers[gTrainerBattleOpponent_A].speechBefore);
+        if (TRAINER_BATTLE_PARAM.opponentA < FRONTIER_TRAINERS_COUNT)
+            FrontierSpeechToString(gFacilityTrainers[TRAINER_BATTLE_PARAM.opponentA].speechBefore);
     }
     else if (gSpecialVar_0x8005 == 1)
     {
-        if (gTrainerBattleOpponent_B < FRONTIER_TRAINERS_COUNT)
-            FrontierSpeechToString(gFacilityTrainers[gTrainerBattleOpponent_B].speechBefore);
+        if (TRAINER_BATTLE_PARAM.opponentB < FRONTIER_TRAINERS_COUNT)
+            FrontierSpeechToString(gFacilityTrainers[TRAINER_BATTLE_PARAM.opponentB].speechBefore);
     }
 }
 
@@ -1588,7 +1588,7 @@ static void SaveMonHeldItems(void)
 
     for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
     {
-        int heldItem = GetMonData(&gSaveBlock1Ptr->playerParty[gSaveBlock1Ptr->frontier.selectedPartyMons[i] - 1],
+        int heldItem = GetMonData(GetSavedPlayerPartyMon(gSaveBlock1Ptr->frontier.selectedPartyMons[i] - 1),
                                   MON_DATA_HELD_ITEM);
         gSaveBlock1Ptr->frontier.pikeHeldItemsBackup[i] = heldItem;
     }
@@ -1616,7 +1616,7 @@ static void InitPikeChallenge(void)
     if (!(gSaveBlock1Ptr->frontier.winStreakActiveFlags & sWinStreakFlags[lvlMode]))
         gSaveBlock1Ptr->frontier.pikeWinStreaks[lvlMode] = 0;
 
-    gTrainerBattleOpponent_A = 0;
+    TRAINER_BATTLE_PARAM.opponentA = 0;
     gBattleOutcome = 0;
 }
 

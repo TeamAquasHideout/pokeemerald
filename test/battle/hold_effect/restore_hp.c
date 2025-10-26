@@ -22,9 +22,9 @@ DOUBLE_BATTLE_TEST("Restore HP Item effects do not miss timing")
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_FIRE_PLEDGE, playerRight);
         MESSAGE("A sea of fire enveloped the opposing team!");
-        MESSAGE("The opposing Foe Wynaut was hurt by the sea of fire!");
+        MESSAGE("The opposing Wynaut was hurt by the sea of fire!");
         ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, opponentLeft);
-        MESSAGE("The opposing Foe Wobbuffet was hurt by the sea of fire!");
+        MESSAGE("The opposing Wobbuffet was hurt by the sea of fire!");
     }
 }
 
@@ -37,7 +37,7 @@ DOUBLE_BATTLE_TEST("Restore HP Item effects do not miss timing after a recoil mo
     PARAMETRIZE { item = ITEM_SITRUS_BERRY; }
 
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_TAKE_DOWN].recoil == 25);
+        ASSUME(GetMoveRecoil(MOVE_TAKE_DOWN) == 25);
         ASSUME(gItemsInfo[ITEM_ORAN_BERRY].holdEffect == HOLD_EFFECT_RESTORE_HP);
         ASSUME(gItemsInfo[ITEM_BERRY_JUICE].holdEffect == HOLD_EFFECT_RESTORE_HP);
         ASSUME(gItemsInfo[ITEM_SITRUS_BERRY].holdEffect == HOLD_EFFECT_RESTORE_PCT_HP);
@@ -63,3 +63,20 @@ DOUBLE_BATTLE_TEST("Restore HP Item effects do not miss timing after a recoil mo
         ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, playerRight);
     }
 }
+
+#if B_HP_BERRIES <= GEN_3
+SINGLE_BATTLE_TEST("Restore HP Berry triggers only during the end turn")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WYNAUT) { MaxHP(100); HP(51); Item(ITEM_ORAN_BERRY); }
+    } WHEN {
+        TURN { MOVE(player, MOVE_TACKLE); }
+        TURN {}
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_TACKLE, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_CELEBRATE, opponent);
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, opponent);
+    }
+}
+#endif

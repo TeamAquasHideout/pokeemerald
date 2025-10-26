@@ -4,7 +4,7 @@
 SINGLE_BATTLE_TEST("Oblivious prevents Infatuation")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_ATTRACT].effect == EFFECT_ATTRACT);
+        ASSUME(GetMoveEffect(MOVE_ATTRACT) == EFFECT_ATTRACT);
         PLAYER(SPECIES_SLOWPOKE) { Ability(ABILITY_OBLIVIOUS); Gender(MON_MALE); }
         OPPONENT(SPECIES_WOBBUFFET) { Gender(MON_FEMALE); }
     } WHEN {
@@ -19,11 +19,11 @@ SINGLE_BATTLE_TEST("Oblivious prevents Infatuation")
 SINGLE_BATTLE_TEST("Oblivious prevents Captivate")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_CAPTIVATE].effect == EFFECT_CAPTIVATE);
+        ASSUME(GetMoveEffect(MOVE_CAPTIVATE) == EFFECT_CAPTIVATE);
         PLAYER(SPECIES_SLOWPOKE) { Ability(ABILITY_OBLIVIOUS); Gender(MON_MALE); }
         OPPONENT(SPECIES_WOBBUFFET) { Gender(MON_FEMALE); }
     } WHEN {
-        TURN { MOVE(opponent, MOVE_ATTRACT); }
+        TURN { MOVE(opponent, MOVE_CAPTIVATE); }
     } SCENE {
         ABILITY_POPUP(player, ABILITY_OBLIVIOUS);
         NONE_OF { ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player); }
@@ -34,7 +34,7 @@ SINGLE_BATTLE_TEST("Oblivious prevents Captivate")
 SINGLE_BATTLE_TEST("Oblivious prevents Taunt")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_TAUNT].effect == EFFECT_TAUNT);
+        ASSUME(GetMoveEffect(MOVE_TAUNT) == EFFECT_TAUNT);
         ASSUME(B_OBLIVIOUS_TAUNT >= GEN_6);
         PLAYER(SPECIES_SLOWPOKE) { Ability(ABILITY_OBLIVIOUS); }
         OPPONENT(SPECIES_WOBBUFFET);
@@ -50,10 +50,30 @@ SINGLE_BATTLE_TEST("Oblivious prevents Taunt")
     }
 }
 
-SINGLE_BATTLE_TEST("Oblivious prevents Intimidate")
+SINGLE_BATTLE_TEST("Oblivious doesn't prevent Intimidate (Gen3-7)")
 {
     GIVEN {
-        ASSUME(B_UPDATED_INTIMIDATE >= GEN_8);
+        WITH_CONFIG(GEN_CONFIG_UPDATED_INTIMIDATE, GEN_7);
+        PLAYER(SPECIES_SLOWPOKE) { Ability(ABILITY_OBLIVIOUS); }
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_EKANS) { Ability(ABILITY_INTIMIDATE); }
+    } WHEN {
+        TURN { SWITCH(opponent, 1); }
+    } SCENE {
+        ABILITY_POPUP(opponent, ABILITY_INTIMIDATE);
+        NONE_OF {
+            ABILITY_POPUP(player, ABILITY_OBLIVIOUS);
+            MESSAGE("Slowpoke's Oblivious prevents stat loss!");
+        }
+        ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_STATS_CHANGE, player);
+        MESSAGE("The opposing Ekans's Intimidate cuts Slowpoke's Attack!");
+    }
+}
+
+SINGLE_BATTLE_TEST("Oblivious prevents Intimidate (Gen8+)")
+{
+    GIVEN {
+        WITH_CONFIG(GEN_CONFIG_UPDATED_INTIMIDATE, GEN_8);
         PLAYER(SPECIES_SLOWPOKE) { Ability(ABILITY_OBLIVIOUS); }
         OPPONENT(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_EKANS) { Ability(ABILITY_INTIMIDATE); }

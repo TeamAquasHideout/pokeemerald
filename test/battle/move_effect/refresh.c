@@ -3,7 +3,7 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gMovesInfo[MOVE_REFRESH].effect == EFFECT_REFRESH);
+    ASSUME(GetMoveEffect(MOVE_REFRESH) == EFFECT_REFRESH);
 }
 
 SINGLE_BATTLE_TEST("Refresh cures the user of burn, frostbite, poison, and paralysis")
@@ -45,8 +45,9 @@ SINGLE_BATTLE_TEST("Refresh does not cure the user of Freeze")
 SINGLE_BATTLE_TEST("Refresh does not cure sleep when used by Sleep Talk")
 {
     GIVEN {
-        ASSUME(gMovesInfo[MOVE_SPORE].effect == EFFECT_SLEEP);
-        ASSUME(gMovesInfo[MOVE_SLEEP_TALK].effect == EFFECT_SLEEP_TALK);
+        ASSUME(GetMoveEffect(MOVE_SPORE) == EFFECT_NON_VOLATILE_STATUS);
+        ASSUME(GetMoveNonVolatileStatus(MOVE_SPORE) == MOVE_EFFECT_SLEEP);
+        ASSUME(GetMoveEffect(MOVE_SLEEP_TALK) == EFFECT_SLEEP_TALK);
         PLAYER(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET) { Moves(MOVE_SLEEP_TALK, MOVE_REFRESH); }
     } WHEN {
@@ -56,10 +57,10 @@ SINGLE_BATTLE_TEST("Refresh does not cure sleep when used by Sleep Talk")
         MESSAGE("Wobbuffet used Spore!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SPORE, player);
         ANIMATION(ANIM_TYPE_STATUS, B_ANIM_STATUS_SLP, opponent);
-        MESSAGE("Foe Wobbuffet fell asleep!");
-        MESSAGE("Foe Wobbuffet used Sleep Talk!");
+        MESSAGE("The opposing Wobbuffet fell asleep!");
+        MESSAGE("The opposing Wobbuffet used Sleep Talk!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_SLEEP_TALK, opponent);
-        MESSAGE("Foe Wobbuffet used Refresh!");
+        MESSAGE("The opposing Wobbuffet used Refresh!");
         NONE_OF { 
             ANIMATION(ANIM_TYPE_MOVE, MOVE_REFRESH, player);
             STATUS_ICON(player, none: TRUE); }

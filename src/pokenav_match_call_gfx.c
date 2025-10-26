@@ -115,14 +115,19 @@ static u32 ExitCheckPage(s32);
 static u32 ExitMatchCall(s32);
 
 static const u16 sMatchCallUI_Pal[] = INCBIN_U16("graphics/pokenav/match_call/ui.gbapal");
-static const u32 sMatchCallUI_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/ui.4bpp.lz");
-static const u32 sMatchCallUI_Tilemap[] = INCBIN_U32("graphics/pokenav/match_call/ui.bin.lz");
+static const u32 sMatchCallUI_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/ui.4bpp.smol");
+static const u32 sMatchCallUI_Tilemap[] = INCBIN_U32("graphics/pokenav/match_call/ui.bin.smolTM");
 static const u16 sOptionsCursor_Pal[] = INCBIN_U16("graphics/pokenav/match_call/options_cursor.gbapal");
-static const u32 sOptionsCursor_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/options_cursor.4bpp.lz");
+static const u32 sOptionsCursor_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/options_cursor.4bpp.smol");
 static const u16 sCallWindow_Pal[] = INCBIN_U16("graphics/pokenav/match_call/call_window.gbapal");
 static const u16 sListWindow_Pal[] = INCBIN_U16("graphics/pokenav/match_call/list_window.gbapal");
 static const u16 sPokeball_Pal[] = INCBIN_U16("graphics/pokenav/match_call/pokeball.gbapal");
-static const u32 sPokeball_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/pokeball.4bpp.lz");
+static const u32 sPokeball_Gfx[] = INCBIN_U32("graphics/pokenav/match_call/pokeball.4bpp.smol");
+
+static const u8 gText_NumberRegistered[] = _("No. registered");
+static const u8 gText_NumberOfBattles[] = _("No. of battles");
+static const u8 gText_TrainerCloseBy[] = _("That TRAINER is close by.\nTalk to the TRAINER in person!");
+static const u8 gText_Unknown[] = _("UNKNOWN");
 
 static const struct BgTemplate sMatchCallBgTemplates[3] =
 {
@@ -199,9 +204,9 @@ static const struct WindowTemplate sMatchCallInfoBoxWindowTemplate =
 
 static const u8 *const sMatchCallOptionTexts[MATCH_CALL_OPTION_COUNT] =
 {
-    [MATCH_CALL_OPTION_CALL]   = gText_Call,
-    [MATCH_CALL_OPTION_CHECK]  = gText_Check,
-    [MATCH_CALL_OPTION_CANCEL] = gText_Cancel6
+    [MATCH_CALL_OPTION_CALL]   = COMPOUND_STRING("CALL"),
+    [MATCH_CALL_OPTION_CHECK]  = COMPOUND_STRING("CHECK"),
+    [MATCH_CALL_OPTION_CANCEL] = COMPOUND_STRING("CANCEL")
 };
 
 // The series of 5 dots that appear when someone is called with Match Call
@@ -1248,7 +1253,7 @@ static void LoadCheckPageTrainerPic(struct Pokenav_MatchCallGfx *gfx)
     if (trainerPic >= 0)
     {
         DecompressPicFromTable(&gTrainerSprites[trainerPic].frontPic, gfx->trainerPicGfx);
-        LZ77UnCompWram(gTrainerSprites[trainerPic].palette.data, gfx->trainerPicPal);
+        memcpy(gfx->trainerPicPal, gTrainerSprites[trainerPic].palette.data, 32);
         cursor = RequestDma3Copy(gfx->trainerPicGfx, gfx->trainerPicGfxPtr, sizeof(gfx->trainerPicGfx), 1);
         LoadPalette(gfx->trainerPicPal, gfx->trainerPicPalOffset, sizeof(gfx->trainerPicPal));
         gfx->trainerPicSprite->data[0] = 0;
