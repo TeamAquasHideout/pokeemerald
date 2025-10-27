@@ -37,13 +37,13 @@ SlateportCity_EventScript_SetReadyForScottScene::
 	setflag FLAG_HIDE_MAP_NAME_POPUP
 	getplayerxy VAR_0x8004, VAR_0x8005
 	goto_if_eq VAR_0x8004, 30, SlateportCity_EventScript_MoveScottLeft
-	setobjectxyperm LOCALID_SLATEPORT_SCOTT, 23, 27
-	setobjectmovementtype LOCALID_SLATEPORT_SCOTT, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm 1, 23, 27
+	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_RIGHT
 	return
 
 SlateportCity_EventScript_MoveScottLeft::
-	setobjectxyperm LOCALID_SLATEPORT_SCOTT, 22, 27
-	setobjectmovementtype LOCALID_SLATEPORT_SCOTT, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm 1, 22, 27
+	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_RIGHT
 	return
 
 SlateportCity_OnFrame:
@@ -52,17 +52,17 @@ SlateportCity_OnFrame:
 
 SlateportCity_EventScript_ScottScene::
 	lockall
-	addobject LOCALID_SLATEPORT_SCOTT
+	addobject 1
 	applymovement LOCALID_PLAYER, SlateportCity_Movement_PlayerFaceScott
-	applymovement LOCALID_SLATEPORT_SCOTT, SlateportCity_Movement_ScottApproachPlayer
+	applymovement 1, SlateportCity_Movement_ScottApproachPlayer
 	waitmovement 0
 	msgbox SlateportCity_Text_YouDroveTeamAquaAway, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_SLATEPORT_SCOTT, Common_Movement_WalkInPlaceFasterLeft
+	applymovement 1, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	delay 60
 	msgbox SlateportCity_Text_MaybeThisTrainer, MSGBOX_DEFAULT
-	applymovement LOCALID_SLATEPORT_SCOTT, Common_Movement_WalkInPlaceFasterRight
+	applymovement 1, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
 	msgbox SlateportCity_Text_LetsRegisterEachOther, MSGBOX_DEFAULT
 	closemessage
@@ -75,11 +75,11 @@ SlateportCity_EventScript_ScottScene::
 	setflag FLAG_ENABLE_SCOTT_MATCH_CALL
 	msgbox SlateportCity_Text_KeepEyeOnTrainersBeSeeingYou, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_SLATEPORT_SCOTT, SlateportCity_Movement_ScottExit
+	applymovement 1, SlateportCity_Movement_ScottExit
 	waitmovement 0
-	removeobject LOCALID_SLATEPORT_SCOTT
-	setobjectxyperm LOCALID_SLATEPORT_SCOTT, 10, 12
-	setobjectmovementtype LOCALID_SLATEPORT_SCOTT, MOVEMENT_TYPE_FACE_DOWN
+	removeobject 1
+	setobjectxyperm 1, 10, 12
+	setobjectmovementtype 1, MOVEMENT_TYPE_FACE_DOWN
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 2
 	addvar VAR_SCOTT_STATE, 1
@@ -869,18 +869,18 @@ SlateportCity_EventScript_ScottBattleTentScene::
 	waitmovement 0
 	opendoor 10, 12
 	waitdooranim
-	addobject LOCALID_SLATEPORT_SCOTT
+	addobject 1
 	applymovement LOCALID_PLAYER, SlateportCity_Movement_PushPlayerDown
-	applymovement LOCALID_SLATEPORT_SCOTT, SlateportCity_Movement_ScottExitBattleTent
+	applymovement 1, SlateportCity_Movement_ScottExitBattleTent
 	waitmovement 0
 	closedoor 10, 12
 	waitdooranim
 	msgbox SlateportCity_Text_TakingBattleTentChallenge, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_PLAYER, SlateportCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_SLATEPORT_SCOTT, SlateportCity_Movement_ScottExitAfterBattleTent
+	applymovement 1, SlateportCity_Movement_ScottExitAfterBattleTent
 	waitmovement 0
-	removeobject LOCALID_SLATEPORT_SCOTT
+	removeobject 1
 	addvar VAR_SCOTT_STATE, 1
 	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 3
 	releaseall

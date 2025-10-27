@@ -4838,7 +4838,7 @@ void CB2_ShowPartyMenuForItemUseReturnToOverworld(void)
         partyLayout = PARTY_LAYOUT_SINGLE;
     }
 
-    if (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM)
+    if (gItemsInfo[gSpecialVar_ItemId].pocket == POCKET_TM_HM)
         msgId = PARTY_MSG_TEACH_WHICH_MON;
     else
         msgId = PARTY_MSG_USE_ON_WHICH_MON;
@@ -5441,7 +5441,7 @@ void ItemUseCB_TeraShard(u8 taskId, TaskFunc task)
     tState = 0;
     tMonId = gPartyMenu.slotId;
     tOldTeraType = GetMonData(&gPlayerParty[tMonId], MON_DATA_TERA_TYPE);
-    tNewTeraType = ItemId_GetSecondaryId(gSpecialVar_ItemId);
+    tNewTeraType = GetItemSecondaryId(gSpecialVar_ItemId);
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_TeraShard;
 }

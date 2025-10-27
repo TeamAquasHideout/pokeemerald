@@ -3482,11 +3482,7 @@ bool8 GetSetItemObtained(u16 item, enum ItemObtainFlags caseId)
     }
 #endif
     return FALSE;
-}
-
-EWRAM_DATA static u8 sHeaderBoxWindowId = 0;
-EWRAM_DATA u8 sItemIconSpriteId = 0;
-EWRAM_DATA u8 sItemIconSpriteId2 = 0;
+}\
 
 static void ShowItemIconSprite(u16 item, bool8 firstTime, bool8 flash);
 static void DestroyItemIconSprite(void);
@@ -3535,131 +3531,23 @@ static u8 ReformatItemDescription(u16 item, u8 *dest)
 
 void ScriptShowItemDescription(struct ScriptContext *ctx)
 {
-    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF)
-    {
-        (void) ScriptReadByte(ctx);
-        return;
-    }
 
-    u8 headerType = ScriptReadByte(ctx);
-
-    Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
-
-    struct WindowTemplate template;
-    u16 item = gSpecialVar_0x8006;
-    u8 textY;
-    u8 *dst;
-    bool8 handleFlash = FALSE;
-
-    if (GetFlashLevel() > 0 || InBattlePyramid_())
-        handleFlash = TRUE;
-
-    if (headerType == 1) // berry
-        dst = gStringVar3;
-    else
-        dst = gStringVar1;
-
-    if (GetSetItemObtained(item, FLAG_GET_ITEM_OBTAINED))
-    {
-        ShowItemIconSprite(item, FALSE, handleFlash);
-        return; //no box if item obtained previously
-    }
-
-    SetWindowTemplateFields(&template, 0, 1, 1, 28, 3, 15, 8);
-    sHeaderBoxWindowId = AddWindow(&template);
-    FillWindowPixelBuffer(sHeaderBoxWindowId, PIXEL_FILL(0));
-    PutWindowTilemap(sHeaderBoxWindowId);
-    CopyWindowToVram(sHeaderBoxWindowId, 3);
-    SetStandardWindowBorderStyle(sHeaderBoxWindowId, FALSE);
-    DrawStdFrameWithCustomTileAndPalette(sHeaderBoxWindowId, FALSE, 0x214, 14);
-
-    if (ReformatItemDescription(item, dst) == 1)
-        textY = 4;
-    else
-        textY = 0;
-
-    ShowItemIconSprite(item, TRUE, handleFlash);
-    AddTextPrinterParameterized(sHeaderBoxWindowId, 0, dst, ITEM_ICON_X + 2, textY, 0, NULL);
 }
 
 void ScriptHideItemDescription(struct ScriptContext *ctx)
 {
     if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF)
         return;
-
-    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
-
-    DestroyItemIconSprite();
-
-    if (!GetSetItemObtained(gSpecialVar_0x8006, FLAG_GET_ITEM_OBTAINED))
-    {
-        //header box only exists if haven't seen item before
-        GetSetItemObtained(gSpecialVar_0x8006, FLAG_SET_ITEM_OBTAINED);
-        ClearStdWindowAndFrameToTransparent(sHeaderBoxWindowId, FALSE);
-        CopyWindowToVram(sHeaderBoxWindowId, 3);
-        RemoveWindow(sHeaderBoxWindowId);
-    }
 }
 
 static void ShowItemIconSprite(u16 item, bool8 firstTime, bool8 flash)
 {
-    s16 x = 0, y = 0;
-    u8 iconSpriteId;
-    u8 spriteId2 = MAX_SPRITES;
 
-    if (flash)
-    {
-        SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_OBJWIN_ON);
-        SetGpuRegBits(REG_OFFSET_WINOUT, WINOUT_WINOBJ_OBJ);
-    }
-
-    iconSpriteId = AddItemIconSprite(ITEM_TAG, ITEM_TAG, item);
-    if (flash)
-        spriteId2 = AddItemIconSprite(ITEM_TAG, ITEM_TAG, item);
-    if (iconSpriteId != MAX_SPRITES)
-    {
-        if (!firstTime)
-        {
-            //show in message box
-            x = 213;
-            y = 140;
-        }
-        else
-        {
-            // show in header box
-            x = ITEM_ICON_X;
-            y = ITEM_ICON_Y;
-        }
-
-        gSprites[iconSpriteId].x2 = x;
-        gSprites[iconSpriteId].y2 = y;
-        gSprites[iconSpriteId].oam.priority = 0;
-    }
-
-    if (spriteId2 != MAX_SPRITES)
-    {
-        gSprites[spriteId2].x2 = x;
-        gSprites[spriteId2].y2 = y;
-        gSprites[spriteId2].oam.priority = 0;
-        gSprites[spriteId2].oam.objMode = ST_OAM_OBJ_WINDOW;
-        sItemIconSpriteId2 = spriteId2;
-    }
-
-    sItemIconSpriteId = iconSpriteId;
 }
 
 static void DestroyItemIconSprite(void)
 {
-    FreeSpriteTilesByTag(ITEM_TAG);
-    FreeSpritePaletteByTag(ITEM_TAG);
-    FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId]);
-    DestroySprite(&gSprites[sItemIconSpriteId]);
 
-    if ((GetFlashLevel() > 0 || InBattlePyramid_()) && sItemIconSpriteId2 != MAX_SPRITES)
-    {
-        FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId2]);
-        DestroySprite(&gSprites[sItemIconSpriteId2]);
-    }
 }
 
 // returns old sHoursOverride

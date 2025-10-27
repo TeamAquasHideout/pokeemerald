@@ -231,7 +231,7 @@ u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId)
         return 1;
     else if (GetItemFieldFunc(itemId) == ItemUseOutOfBattle_EvolutionStone)
         return 2;
-    else if (ItemId_GetFieldFunc(itemId) == ItemUseOutOfBattle_SwapGender)
+    else if (GetItemFieldFunc(itemId) == ItemUseOutOfBattle_SwapGender)
         return 3;
     else
         return 0;

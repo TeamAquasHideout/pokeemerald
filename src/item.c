@@ -813,7 +813,7 @@ static u16 SanitizeItemId(u16 itemId)
 
 const u8 *ItemId_GetNameRandom(u16 itemId)
 {
-    if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if (gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
     {
         return gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].name;
     }
@@ -827,7 +827,7 @@ const u8 *GetItemName(u16 itemId)
     {
         return ItemId_GetNameRandom(itemId);
     }
-    if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if (gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
     {
         return gMovesInfo[gItemsInfo[itemId].secondaryId].name;
     }
@@ -880,7 +880,7 @@ u32 GetItemHoldEffectParam(u32 itemId)
 EWRAM_DATA u8 tmStringVar[0x100] = {0};
 const u8 *ItemId_GetDescriptionRandom(u16 itemId)
 {
-    if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if (gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
     {
         FormatTextByWidth(tmStringVar, 100, FONT_NORMAL, gMovesInfo[GetRandomMove(itemId, gItemsInfo[itemId].secondaryId)].description, 1);
         return tmStringVar;
@@ -891,12 +891,12 @@ const u8 *ItemId_GetDescriptionRandom(u16 itemId)
 
 const u8 *GetItemDescription(u16 itemId)
 {
-    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if(gSaveBlock2Ptr->randomMoves == OPTIONS_ON && gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
     {
         return ItemId_GetDescriptionRandom(itemId);
     }
 
-    if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if (gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
     {
         FormatTextByWidth(tmStringVar, 100, FONT_SMALL_NARROW, gMovesInfo[gItemsInfo[itemId].secondaryId].description, 1);
         return tmStringVar;
@@ -955,7 +955,7 @@ const u8 *ItemId_GetTMData(u16 itemId)
 
 bool8 IsTM(u16 itemId)
 {
-    if (GetPocketByItemId(SanitizeItemId(itemId)) == POCKET_TM_HM)
+    if (gItemsInfo[SanitizeItemId(itemId)].pocket == POCKET_TM_HM)
         return TRUE;
     return FALSE;
 }
@@ -1065,7 +1065,7 @@ bool32 ItemHasVolatileFlag(u16 itemId, enum Volatile _volatile)
 
 u32 GetItemSellPrice(u32 itemId)
 {
-    if (GetPocketByItemId(itemId) == POCKET_TM_HM || SellsForBuyPrice(itemId))
+    if (gItemsInfo[itemId].pocket == POCKET_TM_HM || SellsForBuyPrice(itemId))
         return GetItemPrice(itemId);
     else
         return GetItemPrice(itemId) / ITEM_SELL_FACTOR;

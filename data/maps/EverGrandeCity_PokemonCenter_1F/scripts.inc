@@ -41,17 +41,17 @@ EverGrandeCity_PokemonCenter_1F_EventScript_Scott::
 	setflag FLAG_MET_SCOTT_IN_EVERGRANDE
 	playse SE_EXIT
 	waitse
-	removeobject LOCALID_EVER_GRANDE_SCOTT
+	removeobject 1
 	release
 	end
 
 EverGrandeCity_PokemonCenter_1F_EventScript_ScottExitNorth::
-	applymovement LOCALID_EVER_GRANDE_SCOTT, EverGrandeCity_PokemonCenter_1F_Movement_ScottExitNorth
+	applymovement 1, EverGrandeCity_PokemonCenter_1F_Movement_ScottExitNorth
 	waitmovement 0
 	return
 
 EverGrandeCity_PokemonCenter_1F_EventScript_ScottExit::
-	applymovement LOCALID_EVER_GRANDE_SCOTT, EverGrandeCity_PokemonCenter_1F_Movement_ScottExit
+	applymovement 1, EverGrandeCity_PokemonCenter_1F_Movement_ScottExit
 	waitmovement 0
 	return
 
