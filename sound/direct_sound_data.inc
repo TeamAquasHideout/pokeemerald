@@ -872,7 +872,7 @@ Cry_SlowbroMega::
 .if P_GALARIAN_FORMS == TRUE
 	.align 2
 Cry_SlowpokeGalarian::
-	.incbin "sound/direct_sound_samples/cries/slowpoke_galarian.bin"
+	.incbin "sound/direct_sound_samples/cries/slowpoke_galar.bin"
 
 .endif @ P_GALARIAN_FORMS
 .endif @ P_FAMILY_SLOWPOKE
@@ -5479,11 +5479,11 @@ Cry_Kubfu::
 
 	.align 2
 Cry_UrshifuSingleStrikeStyle::
-	.incbin "sound/direct_sound_samples/cries/urshifu_single_strike_style.bin"
+	.incbin "sound/direct_sound_samples/cries/urshifu_single_strike.bin"
 
 	.align 2
 Cry_UrshifuRapidStrikeStyle::
-	.incbin "sound/direct_sound_samples/cries/urshifu_rapid_strike_style.bin"
+	.incbin "sound/direct_sound_samples/cries/urshifu_rapid_strike.bin"
 .endif @ P_FAMILY_KUBFU
 
 .if P_FAMILY_ZARUDE == TRUE
