@@ -12,7 +12,7 @@
   "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": 0,
+  "connections": null,
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_VAR_0",
@@ -171,9 +171,7 @@
       "flag": "FLAG_OVERWORLD_MON_ENCOUNTER"
     }
   ],
-  "warp_events": [
-
-  ],
+  "warp_events": [],
   "coord_events": [
     {
       "type": "trigger",
@@ -185,7 +183,5 @@
       "script": "PitArena_Warp"
     }
   ],
-  "bg_events": [
-
-  ]
+  "bg_events": []
 }
