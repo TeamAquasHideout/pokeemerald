@@ -58,20 +58,20 @@ static u8 GetWonderTradeOT(u8 *name)
     if (randGender == MALE) // male OT selected
     {
         randGender = 0;
-        for (i = 0; i < 8; ++i)
+        for (i = 0; i < 7; ++i)
         {
             name[i] = maleWTNames[selectedName][i];
         }
-        name[8] = EOS;
+        name[7] = EOS;
     }
     else                    // female OT selected
     {
         randGender = 0xFF;
-        for (i = 0; i < 8; ++i)
+        for (i = 0; i < 7; ++i)
         {
             name[i] = femaleWTNames[selectedName][i];
         }
-        name[8] = EOS;
+        name[7] = EOS;
     }
     return randGender;
 }
