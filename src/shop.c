@@ -674,21 +674,29 @@ void CB2_ExitSellMenu(void)
     SetMainCallback2(CB2_ReturnToField);
 }
 
+
+#define try_free(ptr) ({        \
+    void ** ptr__ = (void **)&(ptr);   \
+    if (*ptr__ != NULL)                \
+        Free(*ptr__);                  \
+})
+
+
 static void Task_HandleShopMenuQuit(u8 taskId)
-{
+{ 
+    FlagClear(FLAG_SORT_SHOP_ITEMS);
+
     ClearStdWindowAndFrameToTransparent(sMartInfo.windowId, 1); // Incorrect use, making it not copy it to vram.
     RemoveWindow(sMartInfo.windowId);
-    TryPutSmartShopperOnAir();
+    
     UnlockPlayerFieldControls();
-    DestroyTask(taskId);
-
-    FlagClear(FLAG_SORT_SHOP_ITEMS);
 
     if (sMartInfo.callback)
         sMartInfo.callback();
 
-    Free((sMartInfo.itemList));
-    Free(sUniqueItemBuffer);
+    try_free(sUniqueItemBuffer);
+
+    DestroyTask(taskId);    
 }
 
 static void Task_GoToBuyOrSellMenu(u8 taskId)
@@ -704,8 +712,8 @@ static void Task_GoToBuyOrSellMenu(u8 taskId)
 static void MapPostLoadHook_ReturnToShopMenu(void)
 {
     FadeInFromBlack();
-
     CreateTask(ShowShopMenuAfterExitingBuyOrSellMenu, 8);
+    gFieldCallback = NULL;
 }
 
 static void UNUSED Task_ReturnToShopMenu(u8 taskId)
@@ -721,10 +729,11 @@ static void UNUSED Task_ReturnToShopMenu(u8 taskId)
 
 static void ShowShopMenuAfterExitingBuyOrSellMenu(u8 taskId)
 {
-    if (IsWeatherNotFadingIn() == TRUE)
+    if ((IsWeatherNotFadingIn() == TRUE))
     {
         CreateShopMenu(sMartInfo.martType);
-        DestroyTask(taskId);    }
+        DestroyTask(taskId);    
+    }
 }
 
 static void CB2_BuyMenu(void)
@@ -844,6 +853,7 @@ static void BuyMenuFreeMemory(void)
     Free(sShopData);
     Free(sListMenuItems);
     Free(sItemNames);
+    try_free(sMartInfo.itemList);
     FreeAllWindowBuffers();
     DestroyMonIcons();
 }
@@ -1709,6 +1719,9 @@ static void Task_ExitBuyMenu(u8 taskId)
     {
         RemoveMoneyLabelObject();
         BuyMenuFreeMemory();
+        SetVBlankHBlankCallbacksToNull();
+        ScanlineEffect_Stop();
+        ScanlineEffect_Clear();
         SetMainCallback2(CB2_ReturnToField);
         DestroyTask(taskId);
     }
