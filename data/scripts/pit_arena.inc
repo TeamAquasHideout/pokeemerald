@@ -88,8 +88,8 @@ Pit_Warp_Advance_Floor::
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitArenaNoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
+	dofieldeffect FLDEFF_SAVING
+	waitfieldeffect FLDEFF_SAVING
 	callnative AutoSave
 PitArenaNoAutoSave::
 	lockall
