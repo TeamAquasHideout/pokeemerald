@@ -961,7 +961,7 @@ $(POKEMONGFXDIR)/pikachu/overworld.4bpp: %.4bpp: %.png
 $(POKEMONGFXDIR)/pikachu/overworldf.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
-$(POKEMONGFXDIR)/pikachu/hoenn_cap/overworld.4bpp: %.4bpp: %.png
+$(POKEMONGFXDIR)/pikachu/hoenn/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
 $(POKEMONGFXDIR)/raichu/overworld.4bpp: %.4bpp: %.png
