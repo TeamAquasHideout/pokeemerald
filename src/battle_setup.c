@@ -622,14 +622,14 @@ static void CB2_EndScriptedWildBattle(void)
     }
 }
 
-enum BattleEnvironments BattleSetup_GetEnvironmentId(void)
-{
-    return GetRandomMapTerrain();
-}
-
 u8 BattleSetup_GetWeatherId(void)
 {
     return GetRandomMapWeather();
+}
+
+enum BattleEnvironments BattleSetup_GetEnvironmentId(void)
+{
+    return GetRandomMapTerrain();
 }
 
 static u8 GetBattleTransitionTypeByMap(void)
@@ -1262,11 +1262,12 @@ static void CB2_EndTrainerBattle(void)
     }
     else
     {
+        SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         DowngradeBadPoison();
         if (gBattleOutcome != B_OUTCOME_RAN && gBattleOutcome != B_OUTCOME_FORFEITED)
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
-            DowngradeBadPoison();
+            SetBattledTrainersFlags();
         }
         else
             SetMainCallback2(CB2_WhiteOut);
