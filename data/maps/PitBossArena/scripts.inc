@@ -16,8 +16,8 @@ PitBossArena_CheckForHeal::
 	special HealPlayerParty
 PitBossArena_OnFrame_AutoSave::
 	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
+	dofieldeffect FLDEFF_SAVING
+	waitfieldeffect FLDEFF_SAVING
 	callnative AutoSave
 PitBossArena_OnFrame_End::
 	setvar VAR_TEMP_0, 1

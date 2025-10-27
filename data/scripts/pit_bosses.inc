@@ -34,8 +34,8 @@ PitBoss_ContinueAfterBattleScript::
 	callnative SetAutosaveFlag
 	goto_if_unset FLAG_AUTO_SAVE, PitBoss_NoAutoSave
 	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
+	dofieldeffect FLDEFF_SAVING
+	waitfieldeffect FLDEFF_SAVING
 	callnative AutoSave
 PitBoss_NoAutoSave::
 	lock
@@ -98,8 +98,8 @@ PitBoss_FinalBossAfterBattle::
 	clearflag FLAG_END_GAME_STATUE
 	fadescreen FADE_FROM_BLACK
 	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
+	dofieldeffect FLDEFF_SAVING
+	waitfieldeffect FLDEFF_SAVING
 	callnative AutoSave
 PitFinalBossNoAutoSave:
 	release
