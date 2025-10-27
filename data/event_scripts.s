@@ -1230,6 +1230,7 @@ EventScript_End:
 	.include "data/scripts/follower.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+	.include "data/text/pit_trainer_text.inc"
 
 	.include "data/scripts/pit_arena.inc"
 	.include "data/scripts/pit_bosses.inc"

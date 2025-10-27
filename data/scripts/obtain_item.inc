@@ -187,7 +187,7 @@ EventScript_PickUpItem::
 
 EventScript_PutBattlePyramidItemInBag::
 	msgbox gText_PlayerPutItemInBag, MSGBOX_DEFAULT
-	hideitemdescription
+	hideitemdesc
 	return
 
 EventScript_FoundTMHM::
@@ -251,14 +251,11 @@ EventScript_FoundHiddenItem::
 	end
 
 EventScript_PutHiddenItemInPocket::
-	delay 10
-	showitemdescription
 	waitmessage
 	waitfanfare
 	bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
 	copyvar VAR_0x8004, VAR_0x8008
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
-	hideitemdescription
 	special TryPutTreasureInvestigatorsOnAir
 	special SetHiddenItemFlag
 	releaseall

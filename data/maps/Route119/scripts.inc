@@ -148,33 +148,33 @@ Route119_EventScript_RivalExitScottArrive::
 	delay 60
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetScottPos1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetScottPos2
-	addobject LOCALID_ROUTE119_SCOTT
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottEnter
+	addobject 1
+	applymovement 1, Route119_Movement_ScottEnter
 	waitmovement 0
 	addvar VAR_SCOTT_STATE, 1
 	msgbox Route119_Text_ScottWayToGoBeSeeingYou, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_ScottExit1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_ScottExit2
-	removeobject LOCALID_ROUTE119_SCOTT
+	removeobject 1
 	releaseall
 	end
 
 Route119_EventScript_SetScottPos1::
-	setobjectxyperm LOCALID_ROUTE119_SCOTT, 27, 25
+	setobjectxyperm 1, 27, 25
 	return
 
 Route119_EventScript_SetScottPos2::
-	setobjectxyperm LOCALID_ROUTE119_SCOTT, 28, 25
+	setobjectxyperm 1, 28, 25
 	return
 
 Route119_EventScript_ScottExit1::
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottExit1
+	applymovement 1, Route119_Movement_ScottExit1
 	waitmovement 0
 	return
 
 Route119_EventScript_ScottExit2::
-	applymovement LOCALID_ROUTE119_SCOTT, Route119_Movement_ScottExit2
+	applymovement 1, Route119_Movement_ScottExit2
 	waitmovement 0
 	return
 

@@ -559,7 +559,7 @@ static void CleanUpShopItemsForSale()
     u16 i = 0;
     u16 uniqueCount = 0;
 
-    if((gSaveBlock2Ptr->randomMoves == OPTIONS_ON && GetPocketByItemId(sMartInfo.itemSource[0]) == POCKET_TM_HM)
+    if((gSaveBlock2Ptr->randomMoves == OPTIONS_ON && gItemsInfo[sMartInfo.itemSource[0]].pocket == POCKET_TM_HM)
       || FlagGet(FLAG_SORT_SHOP_ITEMS))
     {
         // Free previously allocated buffer if needed
@@ -588,7 +588,7 @@ static void CleanUpShopItemsForSale()
             bool8 isDuplicate = FALSE;
 
             // Handle the multiple TM brackets in Gen 9 mode by not adding invalid members to the buffer
-            if (GetPocketByItemId(sMartInfo.itemSource[0]) == POCKET_TM_HM && GEN_LATEST == GEN_9)
+            if (gItemsInfo[sMartInfo.itemSource[0]].pocket == POCKET_TM_HM && GEN_LATEST == GEN_9)
             {
                 if (!ShouldAddItem(currentName))
                 {

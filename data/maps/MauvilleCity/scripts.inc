@@ -167,32 +167,32 @@ MauvilleCity_EventScript_DefeatedWally::
 	addvar VAR_SCOTT_STATE, 1
 	call_if_eq VAR_FACING, DIR_NORTH, MauvilleCity_EventScript_ScottExitNorth
 	call_if_eq VAR_FACING, DIR_EAST, MauvilleCity_EventScript_ScottExitEast
-	removeobject LOCALID_MAUVILLE_SCOTT
+	removeobject 1
 	releaseall
 	end
 
 MauvilleCity_EventScript_ScottApproachPlayerNorth::
-	addobject LOCALID_MAUVILLE_SCOTT
-	applymovement LOCALID_MAUVILLE_SCOTT, MauvilleCity_Movement_ScottApproachPlayerNorth
+	addobject 1
+	applymovement 1, MauvilleCity_Movement_ScottApproachPlayerNorth
 	waitmovement 0
 	return
 
 MauvilleCity_EventScript_ScottApproachPlayerEast::
-	setobjectxyperm LOCALID_MAUVILLE_SCOTT, 12, 13
-	addobject LOCALID_MAUVILLE_SCOTT
-	applymovement LOCALID_MAUVILLE_SCOTT, MauvilleCity_Movement_ScottApproachPlayerEast
+	setobjectxyperm 1, 12, 13
+	addobject 1
+	applymovement 1, MauvilleCity_Movement_ScottApproachPlayerEast
 	waitmovement 0
 	return
 
 MauvilleCity_EventScript_ScottExitNorth::
 	applymovement LOCALID_PLAYER, MauvilleCity_Movement_PlayerWatchScottExitNorth
-	applymovement LOCALID_MAUVILLE_SCOTT, MauvilleCity_Movement_ScottExitNorth
+	applymovement 1, MauvilleCity_Movement_ScottExitNorth
 	waitmovement 0
 	return
 
 MauvilleCity_EventScript_ScottExitEast::
 	applymovement LOCALID_PLAYER, MauvilleCity_Movement_PlayerWatchScottExitEast
-	applymovement LOCALID_MAUVILLE_SCOTT, MauvilleCity_Movement_ScottExitEast
+	applymovement 1, MauvilleCity_Movement_ScottExitEast
 	waitmovement 0
 	return
 

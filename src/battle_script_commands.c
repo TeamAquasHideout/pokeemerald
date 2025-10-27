@@ -8037,15 +8037,9 @@ static void Cmd_handlelearnnewmove(void)
     {
         while (gBattleResources->beforeLvlUp->level <= currLvl)
         {
-            learnMove = MonTryLearningNewMoveAtLevel(&gPlayerParty[monId], cmd->isFirstMove, gBattleResources->beforeLvlUp->level);
-
+            learnMove = MonTryLearningNewMove(&gPlayerParty[monId], cmd->isFirstMove);
             while (learnMove == MON_ALREADY_KNOWS_MOVE)
-                learnMove = MonTryLearningNewMoveAtLevel(&gPlayerParty[monId], FALSE, gBattleResources->beforeLvlUp->level);
-
-            if (learnMove != MOVE_NONE)
-                break;
-
-            gBattleResources->beforeLvlUp->level++;
+                learnMove = MonTryLearningNewMove(&gPlayerParty[monId], FALSE);
         }
     }
     else
@@ -8163,7 +8157,7 @@ static void Cmd_yesnoboxlearnmove(void)
             else
             {
                 u16 move = GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_MOVE1 + movePosition);
-                if (CannotForgetMove(move))
+                if (FALSE)
                 {
                     PrepareStringBattle(STRINGID_HMMOVESCANTBEFORGOTTEN, B_POSITION_PLAYER_LEFT);
                     gBattleScripting.learnMoveState = 6;
@@ -18253,6 +18247,21 @@ void BS_JumpIfSpecies(void)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_JumpIfLeafGuardProtected(void)
+{
+    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+    if (IsLeafGuardProtected(battler, GetBattlerAbility(battler)))
+    {
+        gBattlerAbility = battler;
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+    else
+    {
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 void BS_JumpIfAbilityPreventsRest(void)

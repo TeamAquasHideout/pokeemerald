@@ -256,19 +256,19 @@ MossdeepCity_EventScript_Scott::
 	call_if_eq VAR_FACING, DIR_NORTH, MossdeepCity_EventScript_ScottExitNorth
 	call_if_eq VAR_FACING, DIR_EAST, MossdeepCity_EventScript_ScottExitEast
 	addvar VAR_SCOTT_STATE, 1
-	removeobject LOCALID_MOSSDEEP_SCOTT
+	removeobject 1
 	release
 	end
 
 MossdeepCity_EventScript_ScottExitNorth::
 	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitNorth
+	applymovement 1, MossdeepCity_Movement_ScottExitNorth
 	waitmovement 0
 	return
 
 MossdeepCity_EventScript_ScottExitEast::
 	applymovement LOCALID_PLAYER, MossdeepCity_Movement_PlayerWatchScottExit
-	applymovement LOCALID_MOSSDEEP_SCOTT, MossdeepCity_Movement_ScottExitEast
+	applymovement 1, MossdeepCity_Movement_ScottExitEast
 	waitmovement 0
 	return
 
