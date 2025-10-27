@@ -446,3 +446,13 @@ static const union AnimCmd *const sAnims_Kommo_O[] =
     },
 };
 #endif //P_FAMILY_JANGMO_O
+
+static const union AnimCmd sAnim_None_1[] =
+{
+    ANIMCMD_FRAME(0, 30),
+    ANIMCMD_FRAME(1, 30),
+    ANIMCMD_FRAME(0, 1),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd *const sAnims_None[] = { sAnim_GeneralFrame0, sAnim_None_1, };

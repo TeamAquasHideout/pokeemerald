@@ -50,7 +50,7 @@ void Task_CreatePokemonAvatarBob(u8 taskId);
 void Task_PokemonAvatar_HandleBob(u8 taskId);
 u32 GetMaxNumberOfSpeciesAvatars(void);
 void ClearAllRandomBossEncounters(void);
-
+u8 GetOneTypeChallengeId(u8 index);
 u32 GetTrainerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies);
 u32 GetPlayerSpeciesFromRandomArray(u16 index, bool8 forceAllSpecies);
 u32 GetMonoTypeNumberOfSpecies(void);

@@ -5221,11 +5221,6 @@ static void PrintStatsScreen_DestroyMoveItemIcon(u8 taskId)
     DestroySprite(&gSprites[gTasks[taskId].data[3]]);       //Destroy item icon
 }
 
-static u16 AddTMTutorMoves(u16 species, u16 movesTotal, u8 *numTMHMMoves, u8 *numTutorMoves)
-{
-    return movesTotal;
-}
-
 static bool8 CalculateMoves(void)
 {
     u16 species = NationalPokedexNumToSpeciesHGSS(sPokedexListItem->dexNum);
@@ -6600,8 +6595,6 @@ static void PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 dept
     u32 depth_offset = 8 * (depth + 1);
     int fontId;
     u16 targetSpecies = 0;
-
-    u16 item = ITEM_NONE;
 
     bool8 left = TRUE;
     u32 base_x = 21;

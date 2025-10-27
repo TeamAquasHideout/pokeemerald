@@ -3384,6 +3384,11 @@ static const u8  sOneTypeChallengeValidTypes[VALID_TYPES_COUNT] =
     #endif
 };
 
+u8 GetOneTypeChallengeId(u8 index)
+{
+    return sOneTypeChallengeValidTypes[index];
+}
+
 #define RANDOM_TERA_TYPE_COUNT ARRAY_COUNT(sValidTeraTypes)
 static const u8  sValidTeraTypes[] =
 {

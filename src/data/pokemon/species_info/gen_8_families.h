@@ -7924,7 +7924,7 @@ const struct SpeciesInfo gSpeciesInfoGen8[] =
         .isFrontierBanned = TRUE,
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sCalyrexLevelUpLearnset,
-        .teachableLearnset = sCalyrexTeachableLearnset,
+        .teachableLearnset = sCalyrexIceTeachableLearnset,
         .formSpeciesIdTable = sCalyrexFormSpeciesIdTable,
     },
 

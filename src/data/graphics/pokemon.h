@@ -955,8 +955,8 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
     const u16 gOverworldPalette_Pikachu[] = INCBIN_U16("graphics/pokemon/pikachu/overworld_normal.gbapal");
     const u16 gShinyOverworldPalette_Pikachu[] = INCBIN_U16("graphics/pokemon/pikachu/overworld_shiny.gbapal");
-    const u16 gOverworldPalette_PikachuHoennCap[] = INCBIN_U16("graphics/pokemon/pikachu/hoenn_cap/overworld_normal.gbapal");
-    const u16 gShinyOverworldPalette_PikachuHoennCap[] = INCBIN_U16("graphics/pokemon/pikachu/hoenn_cap/overworld_shiny.gbapal");
+    const u16 gOverworldPalette_PikachuHoennCap[] = INCBIN_U16("graphics/pokemon/pikachu/hoenn/overworld_normal.gbapal");
+    const u16 gShinyOverworldPalette_PikachuHoennCap[] = INCBIN_U16("graphics/pokemon/pikachu/hoenn/overworld_shiny.gbapal");
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 

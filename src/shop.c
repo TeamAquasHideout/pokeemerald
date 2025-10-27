@@ -952,10 +952,9 @@ void TmShopShowHideCategoryIcon(s32 moveId)
 
 void TMShopDestroyCategoryIcon(void)
 {
-    if (sShopData->categoryIconSpriteId != 0xFF)
+    if (sShopData->categoryIconSpriteId != SPRITE_NONE)
         DestroySprite(&gSprites[sShopData->categoryIconSpriteId]);
-    sShopData->categoryIconSpriteId = 0xFF;
-    gSprites[sShopData->categoryIconSpriteId].invisible = TRUE;
+    sShopData->categoryIconSpriteId = SPRITE_NONE;
 }
 
 

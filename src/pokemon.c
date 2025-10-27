@@ -2117,6 +2117,7 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
 {
     u32 retVal = MOVE_NONE;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
 
     // since you can learn more than one move per level
@@ -2161,10 +2162,10 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
     return retVal;
 }
 
-u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
-{
-    return MonTryLearningNewMoveAtLevel(mon, firstMove, GetMonData(mon, MON_DATA_LEVEL, NULL));
-}
+//u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
+//{
+//    return MonTryLearningNewMoveAtLevel(mon, firstMove, GetMonData(mon, MON_DATA_LEVEL, NULL));
+//}
 
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move)
 {
@@ -2911,17 +2912,18 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
             retVal = GetSubstruct3(boxMon)->gigantamaxFactor;
             break;
         case MON_DATA_TERA_TYPE:
+            if (gSpeciesInfo[GetSubstruct0(boxMon)->species].forceTeraType)
             {
-               retVal = gSpeciesInfo[substruct0->species].forceTeraType;
+               retVal = gSpeciesInfo[GetSubstruct0(boxMon)->species].forceTeraType;
             }
-            else if (substruct0->teraType == TYPE_NONE) // Tera Type hasn't been modified so we can just use the personality
+            else if (GetSubstruct0(boxMon)->teraType == TYPE_NONE) // Tera Type hasn't been modified so we can just use the personality
             {
-               const u8 *types = gSpeciesInfo[substruct0->species].types;
+               const u8 *types = gSpeciesInfo[GetSubstruct0(boxMon)->species].types;
                retVal = (boxMon->personality & 0x1) == 0 ? types[0] : types[1];
             }
             else
             {
-               retVal = substruct0->teraType;
+               retVal = GetSubstruct0(boxMon)->teraType;
             }
             break;
         case MON_DATA_EVOLUTION_TRACKER:
@@ -3695,7 +3697,7 @@ u32 GetSpeciesType(u16 species, u8 slot)
     if (gSaveBlock2Ptr->randomType == OPTIONS_OFF)
         return type;
 
-    type = sOneTypeChallengeValidTypes[RandomSeededModulo2(type + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2)];
+    type = GetOneTypeChallengeId(RandomSeededModulo2(type + species, RANDOM_MON_TYPES - 2) % (RANDOM_MON_TYPES - 2));
     return type;
 }
 
@@ -5082,30 +5084,6 @@ u32 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 
                 if (canStopEvo != NULL)
                     *canStopEvo = FALSE;
                 break;
-            case EVO_ITEM_SPECIFIC_MON_IN_PARTY:
-                if (evolutions[i].param == evolutionItem)
-                {
-                    switch(GetMonData(mon, MON_DATA_SPECIES))
-                    {
-                        case SPECIES_KARRABLAST:
-                            for (k=0; k<PARTY_SIZE; k++)
-                            {
-                                if (GetMonData(&gPlayerParty[k], MON_DATA_SPECIES) == SPECIES_SHELMET)
-                                targetSpecies = evolutions[i].targetSpecies;
-                            }
-                            //DebugPrintf("target species = %d", targetSpecies);
-                            break;
-                        case SPECIES_SHELMET:
-                            for (k=0; k<PARTY_SIZE; k++)
-                            {
-                                if (GetMonData(&gPlayerParty[k], MON_DATA_SPECIES) == SPECIES_KARRABLAST)
-                                    targetSpecies = evolutions[i].targetSpecies;
-                            }
-                            //DebugPrintf("target species = %d", targetSpecies);
-                            break;
-                    }
-                }
-                break;
             }
         }
         break;
@@ -6304,7 +6282,7 @@ const u16 *GetMonSpritePalFromSpecies(u16 species, bool32 isShiny, bool32 isFema
     }
 }
 
-bool8 IsMoveHM(u16 move)
+bool32 IsMoveHM(u16 move)
 {
     return FALSE;
 }
