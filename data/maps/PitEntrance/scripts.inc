@@ -14,8 +14,8 @@ PitEntrance_CheckForAutoSave::
 	callnative CheckIfSavedBefore
 	goto_if_eq VAR_RESULT, 0, PitEntrance_OnFrame_CheckForAutoSave_Skip
 	clearflag FLAG_SAVING_FIELD_EFFECT
-	dofieldeffect(FLDEFF_SAVING)
-	waitfieldeffect(FLDEFF_SAVING)
+	dofieldeffect FLDEFF_SAVING
+	waitfieldeffect FLDEFF_SAVING
 	callnative AutoSave
 PitEntrance_OnFrame_CheckForAutoSave_Skip::
 	@Full dex check for Shiny Dust reward
@@ -109,6 +109,9 @@ PitEntrance_Text_CheckIfHasReceivedShedinja:
 
 PitEntrance_Text_ObtainedShedinja:
 	.string "{PLAYER} obtained a SHEDINJA.$"
+
+PitEntrance_Text_Debuug:
+	.string "Debug.$"
 
 PitArena_Entrance:
 	setflag FLAG_HIDE_ARCHIE @always hide these NPCs
