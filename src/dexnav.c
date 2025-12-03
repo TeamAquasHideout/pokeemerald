@@ -36,6 +36,7 @@
 #include "pokemon_summary_screen.h"
 #include "random.h"
 #include "region_map.h"
+#include "rtc.h"
 #include "scanline_effect.h"
 #include "script.h"
 #include "script_pokemon_util.h"
@@ -49,7 +50,6 @@
 #include "text_window.h"
 #include "wild_encounter.h"
 #include "window.h"
-#include "constants/map_types.h"
 #include "constants/species.h"
 #include "constants/maps.h"
 #include "constants/field_effects.h"
@@ -134,7 +134,7 @@ struct DexNavGUI
 EWRAM_DATA static struct DexNavSearch *sDexNavSearchDataPtr = NULL;
 EWRAM_DATA static struct DexNavGUI *sDexNavUiDataPtr = NULL;
 EWRAM_DATA static u8 *sBg1TilemapBuffer = NULL;
-EWRAM_DATA bool8 gDexNavBattle = FALSE;
+EWRAM_DATA u16 gDexNavSpecies = SPECIES_NONE;
 
 //// Function Declarations
 //GUI
@@ -142,16 +142,16 @@ static void Task_DexNavWaitFadeIn(u8 taskId);
 static void Task_DexNavMain(u8 taskId);
 static void PrintCurrentSpeciesInfo(void);
 // SEARCH
-static bool8 TryStartHiddenMonFieldEffect(u8 environment, u8 xSize, u8 ySize, bool8 smallScan);
-static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst);
+static bool8 TryStartHiddenMonFieldEffect(enum EncounterType environment, u8 xSize, u8 ySize, bool8 smallScan);
+static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16 *moveDst);
 static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel);
 static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel);
 static u8 DexNavGeneratePotential(u8 searchLevel);
-static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment);
-static u8 GetEncounterLevelFromMapData(u16 species, u8 environment);
-static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityNum, u16 item, u16* moves);
+static u8 DexNavTryGenerateMonLevel(u16 species, enum EncounterType environment);
+static u8 GetEncounterLevelFromMapData(u16 species, enum EncounterType environment);
+static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityNum, u16 item, u16 *moves);
 static u8 GetPlayerDistance(s16 x, s16 y);
-static u8 DexNavPickTile(u8 environment, u8 xSize, u8 ySize, bool8 smallScan);
+static u8 DexNavPickTile(enum EncounterType environment, u8 xSize, u8 ySize, bool8 smallScan);
 static void DexNavProximityUpdate(void);
 static void DexNavDrawIcons(void);
 static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel);
@@ -163,21 +163,21 @@ static void DrawHiddenSearchWindow(u8 width);
 
 //// Const Data
 // gui image data
-static const u32 sDexNavGuiTiles[] = INCBIN_U32("graphics/dexnav/gui_tiles.4bpp.lz");
-static const u32 sDexNavGuiTilemap[] = INCBIN_U32("graphics/dexnav/gui_tilemap.bin.lz");
+static const u32 sDexNavGuiTiles[] = INCBIN_U32("graphics/dexnav/gui_tiles.4bpp.smol");
+static const u32 sDexNavGuiTilemap[] = INCBIN_U32("graphics/dexnav/gui_tilemap.bin.smolTM");
 static const u32 sDexNavGuiPal[] = INCBIN_U32("graphics/dexnav/gui.gbapal");
 
-static const u32 sSelectionCursorGfx[] = INCBIN_U32("graphics/dexnav/cursor.4bpp.lz");
+static const u32 sSelectionCursorGfx[] = INCBIN_U32("graphics/dexnav/cursor.4bpp.smol");
 static const u16 sSelectionCursorPal[] = INCBIN_U16("graphics/dexnav/cursor.gbapal");
-static const u32 sCapturedAllMonsTiles[] = INCBIN_U32("graphics/dexnav/captured_all.4bpp.lz");  //uses selection cursor pal
+static const u32 sCapturedAllMonsTiles[] = INCBIN_U32("graphics/dexnav/captured_all.4bpp.smol");  //uses selection cursor pal
 
-static const u32 sNoDataGfx[] = INCBIN_U32("graphics/dexnav/no_data.4bpp.lz");
+static const u32 sNoDataGfx[] = INCBIN_U32("graphics/dexnav/no_data.4bpp.smol");
 
 // searching image data
-static const u32 sPotentialStarGfx[] = INCBIN_U32("graphics/dexnav/star.4bpp.lz");
-static const u32 sHiddenSearchIconGfx[] = INCBIN_U32("graphics/dexnav/hidden_search.4bpp.lz");
-static const u32 sOwnedIconGfx[] = INCBIN_U32("graphics/dexnav/owned_icon.4bpp.lz");
-static const u32 sHiddenMonIconGfx[] = INCBIN_U32("graphics/dexnav/hidden.4bpp.lz");
+static const u32 sPotentialStarGfx[] = INCBIN_U32("graphics/dexnav/star.4bpp.smol");
+static const u32 sHiddenSearchIconGfx[] = INCBIN_U32("graphics/dexnav/hidden_search.4bpp.smol");
+static const u32 sOwnedIconGfx[] = INCBIN_U32("graphics/dexnav/owned_icon.4bpp.smol");
+static const u32 sHiddenMonIconGfx[] = INCBIN_U32("graphics/dexnav/hidden.4bpp.smol");
 
 // strings
 static const u8 sText_DexNav_NoInfo[] = _("--------");
@@ -336,10 +336,6 @@ static const struct SpriteTemplate sNoDataIconTemplate =
     .tileTag = ICON_GFX_TAG,
     .paletteTag = ICON_PAL_TAG,
     .oam = &sNoDataIconOam,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sCaptureAllMonsSpriteTemplate =
@@ -347,10 +343,6 @@ static const struct SpriteTemplate sCaptureAllMonsSpriteTemplate =
     .tileTag = CAPTURED_ALL_TAG,
     .paletteTag = 0xFFFF,
     .oam = &sCapturedAllOam,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sSelectionCursorSpriteTemplate =
@@ -359,9 +351,6 @@ static const struct SpriteTemplate sSelectionCursorSpriteTemplate =
     .paletteTag = 0xFFFF,
     .oam = &sSelectionCursorOam,
     .anims =  gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 // search window sprite templates
@@ -370,10 +359,6 @@ static const struct SpriteTemplate sHeldItemTemplate =
     .tileTag = HELD_ITEM_TAG,
     .paletteTag = 0xFFFF,
     .oam = &sHeldItemOam,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sPotentialStarTemplate =
@@ -381,10 +366,6 @@ static const struct SpriteTemplate sPotentialStarTemplate =
     .tileTag = LIT_STAR_TILE_TAG,
     .paletteTag = 0xFFFF,   //held item pal
     .oam = &sHeldItemOam,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sSearchIconSpriteTemplate =
@@ -393,9 +374,6 @@ static const struct SpriteTemplate sSearchIconSpriteTemplate =
     .paletteTag = 0xFFFF,   //held item pal
     .oam = &sSearchIconOam,
     .anims =  gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sOwnedIconTemplate =
@@ -404,9 +382,6 @@ static const struct SpriteTemplate sOwnedIconTemplate =
     .paletteTag = 0xFFFF,   //held item pal
     .oam = &sHeldItemOam,
     .anims =  gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct SpriteTemplate sHiddenMonIconTemplate =
@@ -415,9 +390,6 @@ static const struct SpriteTemplate sHiddenMonIconTemplate =
     .paletteTag = 0xFFFF,   //held item pal
     .oam = &sHeldItemOam,
     .anims =  gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 // gui sprite sheets
@@ -472,8 +444,8 @@ static void AddSearchWindow(u8 width)
 }
 
 #define WINDOW_COL_0        (SPECIES_ICON_X + 4)
-#define WINDOW_COL_1        (WINDOW_COL_0 + (GetFontAttribute(sDexNavSearchDataPtr->windowId, FONTATTR_MAX_LETTER_WIDTH) * (POKEMON_NAME_LENGTH)))
-#define WINDOW_MOVE_NAME_X  (WINDOW_COL_1 + (GetFontAttribute(sDexNavSearchDataPtr->windowId, FONTATTR_MAX_LETTER_WIDTH) * 6))
+#define WINDOW_COL_1        (WINDOW_COL_0 + (GetFontAttribute(FONT_SMALL, FONTATTR_MAX_LETTER_WIDTH) * (POKEMON_NAME_LENGTH)))
+#define WINDOW_MOVE_NAME_X  (WINDOW_COL_1 + (GetFontAttribute(FONT_SMALL, FONTATTR_MAX_LETTER_WIDTH) * 6))
 #define SEARCH_ARROW_X      (WINDOW_MOVE_NAME_X + 90)
 #define SEARCH_ARROW_Y      0
 
@@ -485,19 +457,19 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
     if (hidden)
     {
         StringCopy(gStringVar4, sText_ThreeQmarks);
-        AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, WINDOW_COL_0, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+        AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, FONT_SMALL, WINDOW_COL_0, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
         return;
     }
     else
     {
         StringCopy(gStringVar1, GetSpeciesName(species));
-        AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, WINDOW_COL_0, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar1);
+        AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, FONT_SMALL, WINDOW_COL_0, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar1);
     }
 
     //level - always present
     ConvertIntToDecimalStringN(gStringVar1, sDexNavSearchDataPtr->monLevel, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringExpandPlaceholders(gStringVar4, sText_MonLevel);
-    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, WINDOW_COL_1, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, FONT_SMALL, WINDOW_COL_1, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
 
     if (proximity <= SNEAKING_PROXIMITY)
     {
@@ -507,21 +479,21 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
         {
             StringCopy(gStringVar1, GetMoveName(sDexNavSearchDataPtr->moves[0]));
             StringExpandPlaceholders(gStringVar4, sText_EggMove);
-            AddTextPrinterParameterized3(windowId, 0, WINDOW_MOVE_NAME_X, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+            AddTextPrinterParameterized3(windowId, FONT_SMALL, WINDOW_MOVE_NAME_X, 0, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
         }
 
         if (searchLevel > 2)
         {
             // ability name
             StringCopy(gStringVar1, gAbilitiesInfo[GetAbilityBySpecies(species, sDexNavSearchDataPtr->abilityNum)].name);
-            AddTextPrinterParameterized3(windowId, 0, WINDOW_COL_1 + 16, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar1);
+            AddTextPrinterParameterized3(windowId, FONT_SMALL, WINDOW_COL_1 + 16, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar1);
 
             // item name
             if (sDexNavSearchDataPtr->heldItem)
             {
                 CopyItemName(sDexNavSearchDataPtr->heldItem, gStringVar1);
                 StringExpandPlaceholders(gStringVar4, sText_HeldItem);
-                AddTextPrinterParameterized3(windowId, 0, WINDOW_COL_0, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+                AddTextPrinterParameterized3(windowId, FONT_SMALL, WINDOW_COL_0, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
             }
         }
     }
@@ -532,7 +504,7 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
         StringExpandPlaceholders(gStringVar4, sText_DexNavChainLong);
     else
         StringExpandPlaceholders(gStringVar4, sText_DexNavChain);
-    AddTextPrinterParameterized3(windowId, 0, SEARCH_ARROW_X - 16, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized3(windowId, FONT_SMALL, SEARCH_ARROW_X - 16, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
 
     CopyWindowToVram(sDexNavSearchDataPtr->windowId, 2);
 }
@@ -602,7 +574,7 @@ static void DexNavProximityUpdate(void)
 }
 
 //Pick a specific tile based on environment
-static bool8 DexNavPickTile(u8 environment, u8 areaX, u8 areaY, bool8 smallScan)
+static bool8 DexNavPickTile(enum EncounterType environment, u8 areaX, u8 areaY, bool8 smallScan)
 {
     // area of map to cover starting from camera position {-7, -7}
     s16 topX = gSaveBlock1Ptr->pos.x - SCANSTART_X + (smallScan * 5);
@@ -613,7 +585,7 @@ static bool8 DexNavPickTile(u8 environment, u8 areaX, u8 areaY, bool8 smallScan)
     bool8 nextIter;
     u8 scale = 0;
     u8 weight = 0;
-    u8 currMapType = GetCurrentMapType();
+    enum MapType currMapType = GetCurrentMapType();
     u8 tileBehaviour;
     u8 tileBuffer = 2;
     u8 *xPos = AllocZeroed((botX - topX) * (botY - topY) * sizeof(u8));
@@ -723,9 +695,9 @@ static bool8 DexNavPickTile(u8 environment, u8 areaX, u8 areaY, bool8 smallScan)
 }
 
 
-static bool8 TryStartHiddenMonFieldEffect(u8 environment, u8 xSize, u8 ySize, bool8 smallScan)
+static bool8 TryStartHiddenMonFieldEffect(enum EncounterType environment, u8 xSize, u8 ySize, bool8 smallScan)
 {
-    u8 currMapType = GetCurrentMapType();
+    enum MapType currMapType = GetCurrentMapType();
     u8 fldEffId = 0;
 
     if (DexNavPickTile(environment, xSize, ySize, smallScan))
@@ -789,7 +761,7 @@ static bool8 TryStartHiddenMonFieldEffect(u8 environment, u8 xSize, u8 ySize, bo
     return FALSE;
 }
 
-static void DrawDexNavSearchHeldItem(u8* dst)
+static void DrawDexNavSearchHeldItem(u8 *dst)
 {
     *dst = CreateSprite(&sHeldItemTemplate, SPECIES_ICON_X + 6, GetSearchWindowY() + 18, 0);
     if (*dst != MAX_SPRITES)
@@ -807,11 +779,11 @@ static void LoadSearchIconData(void)
     LoadCompressedSpriteSheetUsingHeap(&sHiddenMonIconSpriteSheet);
 }
 
-static u8 GetSearchLevel(u16 dexNum)
+static u8 GetSearchLevel(u16 species)
 {
     u8 searchLevel;
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
-    searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[dexNum];
+    searchLevel = gSaveBlock3Ptr->dexNavSearchLevels[species];
 #else
     searchLevel = 0;
 #endif
@@ -829,7 +801,7 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     struct Task *task = &gTasks[taskId];
 
     u16 species = sDexNavSearchDataPtr->species;
-    u8 searchLevel = GetSearchLevel(SpeciesToNationalPokedexNum(species));
+    u8 searchLevel = GetSearchLevel(species);
 
     // init sprites
     sDexNavSearchDataPtr->iconSpriteId = MAX_SPRITES;
@@ -911,7 +883,7 @@ static void Task_InitDexNavSearch(u8 taskId)
     task->func = Task_SetUpDexNavSearch;
 }
 
-static void DexNavDrawPotentialStars(u8 potential, u8* dst)
+static void DexNavDrawPotentialStars(u8 potential, u8 *dst)
 {
     u8 spriteId;
     u32 i;
@@ -932,8 +904,8 @@ static void DexNavUpdateDirectionArrow(void)
 {
     u16 tileX = sDexNavSearchDataPtr->tileX;
     u16 tileY = sDexNavSearchDataPtr->tileY;
-    u16 playerX = gSaveBlock1Ptr->pos.x + 7;
-    u16 playerY = gSaveBlock1Ptr->pos.y + 7;
+    u16 playerX = gSaveBlock1Ptr->pos.x + MAP_OFFSET;
+    u16 playerY = gSaveBlock1Ptr->pos.y + MAP_OFFSET;
     u16 deltaX = abs(tileX - playerX);
     u16 deltaY = abs(tileY - playerY);
     const u8 *str;
@@ -959,7 +931,7 @@ static void DexNavUpdateDirectionArrow(void)
             str = sText_ArrowDown;  //player above
     }
 
-    AddTextPrinterParameterized3(windowId, 1, SEARCH_ARROW_X, SEARCH_ARROW_Y, sSearchFontColor, TEXT_SKIP_DRAW, str);
+    AddTextPrinterParameterized3(windowId, FONT_NORMAL, SEARCH_ARROW_X, SEARCH_ARROW_Y, sSearchFontColor, TEXT_SKIP_DRAW, str);
     CopyWindowToVram(windowId, 2);
 }
 
@@ -1110,7 +1082,7 @@ static void Task_DexNavSearch(u8 taskId)
 
     if (sDexNavSearchDataPtr->proximity < 1)
     {
-        gDexNavBattle = TRUE;
+        gDexNavSpecies = sDexNavSearchDataPtr->species;
         CreateDexNavWildMon(sDexNavSearchDataPtr->species, sDexNavSearchDataPtr->potential, sDexNavSearchDataPtr->monLevel,
                             sDexNavSearchDataPtr->abilityNum, sDexNavSearchDataPtr->heldItem, sDexNavSearchDataPtr->moves);
 
@@ -1212,9 +1184,9 @@ static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 //////////////////////////////
 //// DEXNAV MON GENERATOR ////
 //////////////////////////////
-static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityNum, u16 item, u16* moves)
+static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityNum, u16 item, u16 *moves)
 {
-    struct Pokemon* mon = &gEnemyParty[0];
+    struct Pokemon *mon = &gEnemyParty[0];
     u8 iv[3] = {NUM_STATS};
     u8 i;
     u8 perfectIv = 31;
@@ -1252,7 +1224,7 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
 
 // gets a random level of the species based on map data.
 //if it was a hidden encounter, updates the environment it is to be found from the wildheader encounterRate
-static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
+static u8 DexNavTryGenerateMonLevel(u16 species, enum EncounterType environment)
 {
     u8 levelBase = GetEncounterLevelFromMapData(species, environment);
     u8 levelBonus = gSaveBlock3Ptr->dexNavChain / 5;
@@ -1269,7 +1241,7 @@ static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
         return levelBase + levelBonus;
 }
 
-static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst)
+static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16 *moveDst)
 {
     bool8 genMove = FALSE;
     u16 randVal = Random() % 100;
@@ -1402,7 +1374,7 @@ static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
     }
 
     if (genAbility
-            && gSpeciesInfo[species].abilities[2] != ABILITY_NONE
+            && GetSpeciesAbility(species, 2) != ABILITY_NONE
             && GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {
         //Only give hidden ability if Pokemon has been caught before
@@ -1411,7 +1383,7 @@ static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
     else
     {
         //Pick a normal ability of that Pokemon
-        if (gSpeciesInfo[species].abilities[1] != ABILITY_NONE)
+        if (GetSpeciesAbility(species, 1) != ABILITY_NONE)
             abilityNum = Random() & 1;
         else
             abilityNum = 0;
@@ -1513,19 +1485,20 @@ static u8 DexNavGeneratePotential(u8 searchLevel)
     return 0;   // No potential
 }
 
-static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
+static u8 GetEncounterLevelFromMapData(u16 species, enum EncounterType environment)
 {
-    u16 headerId = GetCurrentMapWildMonHeaderId();
-    const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
-    const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
-    u8 min = 100;
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
+    u8 min = MAX_LEVEL;
     u8 max = 0;
     u8 i;
 
     switch (environment)
     {
     case ENCOUNTER_TYPE_LAND:    // grass
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND);
+        const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo;
+
         if (landMonsInfo == NULL)
             return MON_LEVEL_NONEXISTENT; //Hidden pokemon should only appear on walkable tiles or surf tiles
 
@@ -1539,6 +1512,9 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
         }
         break;
     case ENCOUNTER_TYPE_WATER:    //water
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_WATER);
+        const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
+
         if (waterMonsInfo == NULL)
             return MON_LEVEL_NONEXISTENT; //Hidden pokemon should only appear on walkable tiles or surf tiles
 
@@ -1552,6 +1528,9 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
         }
         break;
     case ENCOUNTER_TYPE_HIDDEN:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_HIDDEN);
+        const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
+
         if (hiddenMonsInfo == NULL)
             return MON_LEVEL_NONEXISTENT;
 
@@ -1648,7 +1627,7 @@ static bool8 DexNav_LoadGraphics(void)
     case 1:
         if (FreeTempTileDataBuffersIfPossible() != TRUE)
         {
-            LZDecompressWram(sDexNavGuiTilemap, sBg1TilemapBuffer);
+            DecompressDataWithHeaderWram(sDexNavGuiTilemap, sBg1TilemapBuffer);
             sDexNavUiDataPtr->state++;
         }
         break;
@@ -1724,11 +1703,13 @@ static void CreateNoDataIcon(s16 x, s16 y)
     CreateSprite(&sNoDataIconTemplate, x, y, 0);
 }
 
-static bool8 CapturedAllLandMons(u16 headerId)
+static bool8 CapturedAllLandMons(u32 headerId)
 {
     u16 i, species;
     int count = 0;
-    const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+    enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND);
+
+    const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo;
 
     if (landMonsInfo != NULL)
     {
@@ -1756,12 +1737,14 @@ static bool8 CapturedAllLandMons(u16 headerId)
 }
 
 //Checks if all Pokemon that can be encountered while surfing have been capture
-static bool8 CapturedAllWaterMons(u16 headerId)
+static bool8 CapturedAllWaterMons(u32 headerId)
 {
     u32 i;
     u16 species;
     u8 count = 0;
-    const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
+    enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_WATER);
+
+    const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
 
     if (waterMonsInfo != NULL)
     {
@@ -1787,12 +1770,14 @@ static bool8 CapturedAllWaterMons(u16 headerId)
     return FALSE;
 }
 
-static bool8 CapturedAllHiddenMons(u16 headerId)
+static bool8 CapturedAllHiddenMons(u32 headerId)
 {
     u32 i;
     u16 species;
     u8 count = 0;
-    const struct WildPokemonInfo* hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
+    enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_HIDDEN);
+
+        const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
 
     if (hiddenMonsInfo != NULL)
     {
@@ -1820,7 +1805,7 @@ static bool8 CapturedAllHiddenMons(u16 headerId)
 
 static void DexNavLoadCapturedAllSymbols(void)
 {
-    u16 headerId = GetCurrentMapWildMonHeaderId();
+    u32 headerId = GetCurrentMapWildMonHeaderId();
 
     LoadCompressedSpriteSheetUsingHeap(&sCapturedAllPokemonSpriteSheet);
 
@@ -1896,7 +1881,7 @@ static void DexNavFadeAndExit(void)
 static bool8 SpeciesInArray(u16 species, u8 section)
 {
     u32 i;
-    u16 dexNum = SpeciesToNationalPokedexNum(species);
+    enum NationalDexOrder dexNum = SpeciesToNationalPokedexNum(species);
 
     switch (section)
     {
@@ -1936,10 +1921,15 @@ static void DexNavLoadEncounterData(void)
     u8 hiddenIndex = 0;
     u16 species;
     u32 i;
-    u16 headerId = GetCurrentMapWildMonHeaderId();
-    const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
-    const struct WildPokemonInfo* hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
+    u32 headerId = GetCurrentMapWildMonHeaderId();
+    enum TimeOfDay timeOfDay;
+
+    timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND);
+    const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo;
+    timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_WATER);
+    const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
+    timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_HIDDEN);
+    const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
 
     // nop struct data
     memset(sDexNavUiDataPtr->landSpecies, 0, sizeof(sDexNavUiDataPtr->landSpecies));
@@ -2104,8 +2094,8 @@ static void SetTypeIconPosAndPal(u8 typeId, u8 x, u8 y, u8 spriteArrayId)
 static void PrintCurrentSpeciesInfo(void)
 {
     u16 species = DexNavGetSpecies();
-    u16 dexNum = SpeciesToNationalPokedexNum(species);
-    u8 type1, type2;
+    enum NationalDexOrder dexNum = SpeciesToNationalPokedexNum(species);
+    enum Type type1, type2;
 
     if (!GetSetPokedexFlag(dexNum, FLAG_GET_SEEN))
         species = SPECIES_NONE;
@@ -2115,13 +2105,13 @@ static void PrintCurrentSpeciesInfo(void)
 
     //species name
     if (species == SPECIES_NONE)
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, SPECIES_INFO_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, SPECIES_INFO_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
     else
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, SPECIES_INFO_Y, sFontColor_Black, 0, GetSpeciesName(species));
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, SPECIES_INFO_Y, sFontColor_Black, 0, GetSpeciesName(species));
 
     //type icon(s)
-    type1 = gSpeciesInfo[species].types[0];
-    type2 = gSpeciesInfo[species].types[1];
+    type1 = GetSpeciesType(species, 0);
+    type2 = GetSpeciesType(species, 1);
     if (species == SPECIES_NONE)
         type1 = type2 = TYPE_MYSTERY;
 
@@ -2139,34 +2129,34 @@ static void PrintCurrentSpeciesInfo(void)
     //search level
     if (species == SPECIES_NONE)
     {
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, SEARCH_LEVEL_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, SEARCH_LEVEL_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
     }
     else
     {
-        ConvertIntToDecimalStringN(gStringVar4, GetSearchLevel(dexNum), 0, 4);
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, SEARCH_LEVEL_Y, sFontColor_Black, 0, gStringVar4);
+        ConvertIntToDecimalStringN(gStringVar4, GetSearchLevel(species), 0, 4);
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, SEARCH_LEVEL_Y, sFontColor_Black, 0, gStringVar4);
     }
 
     //hidden ability
     if (species == SPECIES_NONE)
     {
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, HA_INFO_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, HA_INFO_Y, sFontColor_Black, 0, sText_DexNav_NoInfo);
     }
     else if (GetSetPokedexFlag(dexNum, FLAG_GET_CAUGHT))
     {
-        if (gSpeciesInfo[species].abilities[2] != ABILITY_NONE)
-            AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, HA_INFO_Y, sFontColor_Black, 0, gAbilitiesInfo[gSpeciesInfo[species].abilities[2]].name);
+        if (GetSpeciesAbility(species, 2) != ABILITY_NONE)
+            AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, HA_INFO_Y, sFontColor_Black, 0, gAbilitiesInfo[GetSpeciesAbility(species, 2)].name);
         else
-            AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, HA_INFO_Y, sFontColor_Black, 0, gText_None);
+            AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, HA_INFO_Y, sFontColor_Black, 0, gText_None);
     }
     else
     {
-        AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, HA_INFO_Y, sFontColor_Black, 0, sText_DexNav_CaptureToSee);
+        AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, HA_INFO_Y, sFontColor_Black, 0, sText_DexNav_CaptureToSee);
     }
 
     //current chain
     ConvertIntToDecimalStringN(gStringVar1, gSaveBlock3Ptr->dexNavChain, STR_CONV_MODE_LEFT_ALIGN, 3);
-    AddTextPrinterParameterized3(WINDOW_INFO, 0, 0, CHAIN_BONUS_Y, sFontColor_Black, 0, gStringVar1);
+    AddTextPrinterParameterized3(WINDOW_INFO, FONT_SMALL, 0, CHAIN_BONUS_Y, sFontColor_Black, 0, gStringVar1);
 
     CopyWindowToVram(WINDOW_INFO, 3);
     PutWindowTilemap(WINDOW_INFO);
@@ -2175,7 +2165,7 @@ static void PrintCurrentSpeciesInfo(void)
 static void PrintMapName(void)
 {
     GetMapName(gStringVar3, GetCurrentRegionMapSectionId(), 0);
-    AddTextPrinterParameterized3(WINDOW_REGISTERED, 1, 108 +
+    AddTextPrinterParameterized3(WINDOW_REGISTERED, FONT_NORMAL, 108 +
                                  GetStringRightAlignXOffset(1, gStringVar3, MAP_NAME_LENGTH * GetFontAttribute(1, FONTATTR_MAX_LETTER_WIDTH)),
                                  0, sFontColor_White, 0, gStringVar3);
     CopyWindowToVram(WINDOW_REGISTERED, 3);
@@ -2187,13 +2177,13 @@ static void PrintSearchableSpecies(u16 species)
     PutWindowTilemap(WINDOW_REGISTERED);
     if (species == SPECIES_NONE)
     {
-        AddTextPrinterParameterized3(WINDOW_REGISTERED, 1, 0, 0, sFontColor_White, TEXT_SKIP_DRAW, sText_DexNav_PressRToRegister);
+        AddTextPrinterParameterized3(WINDOW_REGISTERED, FONT_NORMAL, 0, 0, sFontColor_White, TEXT_SKIP_DRAW, sText_DexNav_PressRToRegister);
     }
     else
     {
         StringCopy(gStringVar1, GetSpeciesName(species));
         StringExpandPlaceholders(gStringVar4, sText_DexNav_SearchForRegisteredSpecies);
-        AddTextPrinterParameterized3(WINDOW_REGISTERED, 1, 0, 0, sFontColor_White, TEXT_SKIP_DRAW, gStringVar4);
+        AddTextPrinterParameterized3(WINDOW_REGISTERED, FONT_NORMAL, 0, 0, sFontColor_White, TEXT_SKIP_DRAW, gStringVar4);
     }
 
     PrintMapName();
@@ -2204,7 +2194,7 @@ static void CreateTypeIconSprites(void)
     u8 i;
 
     LoadCompressedSpriteSheet(&gSpriteSheet_MoveTypes);
-    LoadCompressedPalette(gMoveTypes_Pal, 0x1D0, 0x60);
+    LoadPalette(gMoveTypes_Pal, 0x1D0, 0x60);
     for (i = 0; i < 2; i++)
     {
         if (sDexNavUiDataPtr->typeIconSpriteIds[i] == 0xFF)
@@ -2509,12 +2499,14 @@ bool8 TryFindHiddenPokemon(void)
     if ((*stepPtr) == 0 && (Random() % 100 < HIDDEN_MON_SEARCH_RATE))
     {
         // hidden pokemon
-        u16 headerId = GetCurrentMapWildMonHeaderId();
+        u32 headerId = GetCurrentMapWildMonHeaderId();
         u8 index;
         u16 species;
-        u8 environment;
+        enum EncounterType environment;
         u8 taskId;
-        const struct WildPokemonInfo* hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
+        enum TimeOfDay timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_HIDDEN);
+
+        const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].hiddenMonsInfo;
         bool8 isHiddenMon = FALSE;
 
         // while you can still technically find hidden pokemon if there are not hidden-only pokemon on a map,
@@ -2539,7 +2531,7 @@ bool8 TryFindHiddenPokemon(void)
             }
             else
             {
-                species = gWildMonHeaders[headerId].landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
+                species = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
                 environment = ENCOUNTER_TYPE_LAND;
             }
             break;
@@ -2557,7 +2549,7 @@ bool8 TryFindHiddenPokemon(void)
                 }
                 else
                 {
-                    species = gWildMonHeaders[headerId].waterMonsInfo->wildPokemon[ChooseWildMonIndex_WaterRock()].species;
+                    species = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo->wildPokemon[ChooseWildMonIndex_Water()].species;
                     environment = ENCOUNTER_TYPE_WATER;
 
                 }
@@ -2631,11 +2623,11 @@ static void DrawSearchIcon(void)
 static void DrawHiddenSearchWindow(u8 width)
 {
     AddSearchWindow(width);
-    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, SPECIES_ICON_X + 4, 0, sSearchFontColor, TEXT_SKIP_DRAW, sText_ThreeQmarks);
+    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, FONT_SMALL, SPECIES_ICON_X + 4, 0, sSearchFontColor, TEXT_SKIP_DRAW, sText_ThreeQmarks);
 
     ConvertIntToDecimalStringN(gStringVar1, sDexNavSearchDataPtr->searchLevel, STR_CONV_MODE_LEFT_ALIGN, 2);
     StringExpandPlaceholders(gStringVar4, sText_SearchLevel);
-    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, SPECIES_ICON_X + 4, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
+    AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, FONT_SMALL, SPECIES_ICON_X + 4, 12, sSearchFontColor, TEXT_SKIP_DRAW, gStringVar4);
     CopyWindowToVram(sDexNavSearchDataPtr->windowId, 2);
 }
 
@@ -2666,11 +2658,11 @@ u32 CalculateDexNavShinyRolls(void)
     return chainBonus + rndBonus;
 }
 
-void TryIncrementSpeciesSearchLevel(u16 dexNum)
+void TryIncrementSpeciesSearchLevel()
 {
 #if USE_DEXNAV_SEARCH_LEVELS == TRUE
-    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && gSaveBlock3Ptr->dexNavSearchLevels[dexNum] < 255)
-        gSaveBlock3Ptr->dexNavSearchLevels[dexNum]++;
+    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER && gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies] < 255)
+        gSaveBlock3Ptr->dexNavSearchLevels[gDexNavSpecies]++;
 #endif
 }
 

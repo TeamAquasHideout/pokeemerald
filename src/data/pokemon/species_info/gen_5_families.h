@@ -59,10 +59,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VictiniDitto,
         //.backPicDitto = gMonBackPic_VictiniDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 4, SHADOW_SIZE_S)
         FOOTPRINT(Victini)
         OVERWORLD(
-            gObjectEventPic_Victini,
+            sPicTable_Victini,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -134,10 +135,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SnivyDitto,
         //.backPicDitto = gMonBackPic_SnivyDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Snivy)
         OVERWORLD(
-            gObjectEventPic_Snivy,
+            sPicTable_Snivy,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -210,10 +212,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ServineDitto,
         //.backPicDitto = gMonBackPic_ServineDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 7, SHADOW_SIZE_S)
         FOOTPRINT(Servine)
         OVERWORLD(
-            gObjectEventPic_Servine,
+            sPicTable_Servine,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -283,10 +286,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SerperiorDitto,
         //.backPicDitto = gMonBackPic_SerperiorDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 8, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Serperior)
         OVERWORLD(
-            gObjectEventPic_Serperior,
+            sPicTable_Serperior,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -357,10 +361,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TepigDitto,
         //.backPicDitto = gMonBackPic_TepigDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(0, -2, SHADOW_SIZE_S)
         FOOTPRINT(Tepig)
         OVERWORLD(
-            gObjectEventPic_Tepig,
+            sPicTable_Tepig,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -429,10 +434,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PigniteDitto,
         //.backPicDitto = gMonBackPic_PigniteDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 6, SHADOW_SIZE_M)
         FOOTPRINT(Pignite)
         OVERWORLD(
-            gObjectEventPic_Pignite,
+            sPicTable_Pignite,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -520,10 +526,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_EmboarDitto,
         //.backPicDitto = gMonBackPic_EmboarDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 12, SHADOW_SIZE_L)
         FOOTPRINT(Emboar)
         OVERWORLD(
-            gObjectEventPic_Emboar,
+            sPicTable_Emboar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -533,7 +540,84 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEmboarLevelUpLearnset,
         .teachableLearnset = sEmboarTeachableLearnset,
+        .formSpeciesIdTable = sEmboarFormSpeciesIdTable,
+        .formChangeTable = sEmboarFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_EMBOAR_MEGA] =
+    {
+        .baseHP        = 110,
+        .baseAttack    = 148,
+        .baseDefense   = 75,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 110,
+        .baseSpDefense = 110,
+        .types = MON_TYPES(TYPE_FIRE, TYPE_FIGHTING),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 264 : 238,
+        .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(12.5),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_BLAZE, ABILITY_NONE, ABILITY_RECKLESS },
+        .bodyColor = BODY_COLOR_RED,
+        .noFlip = TRUE,
+        .speciesName = _("Emboar"),
+        .cryId = CRY_EMBOAR, // CRY_EMBOAR_MEGA,
+        .natDexNum = NATIONAL_DEX_EMBOAR,
+        .categoryName = _("Fire Pig"),
+        .height = 18,
+        .weight = 1803,
+        .description = COMPOUND_STRING(
+            "Brandishing a blazing flame\n"
+            "shaped like a serpentine spear,\n"
+            "it rushes in to save its\n"
+            "imperiled allies."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sEmboarLevelUpLearnset,
+        .teachableLearnset = sEmboarTeachableLearnset,
+        .formSpeciesIdTable = sEmboarFormSpeciesIdTable,
+        .formChangeTable = sEmboarFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_TEPIG
 
 #if P_FAMILY_OSHAWOTT
@@ -596,10 +680,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_OshawottDitto,
         //.backPicDitto = gMonBackPic_OshawottDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(-3, 0, SHADOW_SIZE_S)
         FOOTPRINT(Oshawott)
         OVERWORLD(
-            gObjectEventPic_Oshawott,
+            sPicTable_Oshawott,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -670,10 +755,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DewottDitto,
         //.backPicDitto = gMonBackPic_DewottDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 6, SHADOW_SIZE_S)
         FOOTPRINT(Dewott)
         OVERWORLD(
-            gObjectEventPic_Dewott,
+            sPicTable_Dewott,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -683,8 +769,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sDewottLevelUpLearnset,
         .teachableLearnset = sDewottTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SAMUROTT},
-                                {EVO_NONE, 0, SPECIES_SAMUROTT_HISUI}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SAMUROTT, CONDITIONS({IF_NOT_REGION, REGION_HISUI})},
+                                {EVO_LEVEL, 36, SPECIES_SAMUROTT_HISUI, CONDITIONS({IF_REGION, REGION_HISUI})}),
     },
 
     [SPECIES_SAMUROTT] =
@@ -741,10 +827,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SamurottDitto,
         //.backPicDitto = gMonBackPic_SamurottDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 13, SHADOW_SIZE_L)
         FOOTPRINT(Samurott)
         OVERWORLD(
-            gObjectEventPic_Samurott,
+            sPicTable_Samurott,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -809,10 +896,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SamurottHisuiDitto,
         //.backPicDitto = gMonBackPic_SamurottHisuiDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 13, SHADOW_SIZE_L)
         FOOTPRINT(Samurott)
         OVERWORLD(
-            gObjectEventPic_SamurottHisui,
+            sPicTable_SamurottHisui,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -883,10 +971,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PatratDitto,
         //.backPicDitto = gMonBackPic_PatratDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Patrat)
         OVERWORLD(
-            gObjectEventPic_Patrat,
+            sPicTable_Patrat,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -959,10 +1048,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_WatchogDitto,
         //.backPicDitto = gMonBackPic_WatchogDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-4, 11, SHADOW_SIZE_S)
         FOOTPRINT(Watchog)
         OVERWORLD(
-            gObjectEventPic_Watchog,
+            sPicTable_Watchog,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1035,10 +1125,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LillipupDitto,
         //.backPicDitto = gMonBackPic_LillipupDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(2, 1, SHADOW_SIZE_S)
         FOOTPRINT(Lillipup)
         OVERWORLD(
-            gObjectEventPic_Lillipup,
+            sPicTable_Lillipup,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1110,10 +1201,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_HerdierDitto,
         //.backPicDitto = gMonBackPic_HerdierDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 5, SHADOW_SIZE_M)
         FOOTPRINT(Herdier)
         OVERWORLD(
-            gObjectEventPic_Herdier,
+            sPicTable_Herdier,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1189,10 +1281,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_StoutlandDitto,
         //.backPicDitto = gMonBackPic_StoutlandDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-4, 9, SHADOW_SIZE_L)
         FOOTPRINT(Stoutland)
         OVERWORLD(
-            gObjectEventPic_Stoutland,
+            sPicTable_Stoutland,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1261,10 +1354,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PurrloinDitto,
         //.backPicDitto = gMonBackPic_PurrloinDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(0, 2, SHADOW_SIZE_S)
         FOOTPRINT(Purrloin)
         OVERWORLD(
-            gObjectEventPic_Purrloin,
+            sPicTable_Purrloin,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1333,10 +1427,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LiepardDitto,
         //.backPicDitto = gMonBackPic_LiepardDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 11, SHADOW_SIZE_M)
         FOOTPRINT(Liepard)
         OVERWORLD(
-            gObjectEventPic_Liepard,
+            sPicTable_Liepard,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1407,10 +1502,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PansageDitto,
         //.backPicDitto = gMonBackPic_PansageDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(0, 3, SHADOW_SIZE_S)
         FOOTPRINT(Pansage)
         OVERWORLD(
-            gObjectEventPic_Pansage,
+            sPicTable_Pansage,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1479,10 +1575,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SimisageDitto,
         //.backPicDitto = gMonBackPic_SimisageDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 12, SHADOW_SIZE_M)
         FOOTPRINT(Simisage)
         OVERWORLD(
-            gObjectEventPic_Simisage,
+            sPicTable_Simisage,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1551,10 +1648,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PansearDitto,
         //.backPicDitto = gMonBackPic_PansearDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(1, 3, SHADOW_SIZE_S)
         FOOTPRINT(Pansear)
         OVERWORLD(
-            gObjectEventPic_Pansear,
+            sPicTable_Pansear,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1626,10 +1724,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SimisearDitto,
         //.backPicDitto = gMonBackPic_SimisearDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 8, SHADOW_SIZE_M)
         FOOTPRINT(Simisear)
         OVERWORLD(
-            gObjectEventPic_Simisear,
+            sPicTable_Simisear,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1698,10 +1797,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PanpourDitto,
         //.backPicDitto = gMonBackPic_PanpourDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(-3, 4, SHADOW_SIZE_S)
         FOOTPRINT(Panpour)
         OVERWORLD(
-            gObjectEventPic_Panpour,
+            sPicTable_Panpour,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1769,10 +1869,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SimipourDitto,
         //.backPicDitto = gMonBackPic_SimipourDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Simipour)
         OVERWORLD(
-            gObjectEventPic_Simipour,
+            sPicTable_Simipour,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1847,10 +1948,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MunnaDitto,
         //.backPicDitto = gMonBackPic_MunnaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 2, SHADOW_SIZE_S)
         FOOTPRINT(Munna)
         OVERWORLD(
-            gObjectEventPic_Munna,
+            sPicTable_Munna,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1922,10 +2024,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MusharnaDitto,
         //.backPicDitto = gMonBackPic_MusharnaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(6, 10, SHADOW_SIZE_M)
         FOOTPRINT(Musharna)
         OVERWORLD(
-            gObjectEventPic_Musharna,
+            sPicTable_Musharna,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -1994,10 +2097,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PidoveDitto,
         //.backPicDitto = gMonBackPic_PidoveDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 1, SHADOW_SIZE_S)
         FOOTPRINT(Pidove)
         OVERWORLD(
-            gObjectEventPic_Pidove,
+            sPicTable_Pidove,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2066,10 +2170,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TranquillDitto,
         //.backPicDitto = gMonBackPic_TranquillDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 6, SHADOW_SIZE_S)
         FOOTPRINT(Tranquill)
         OVERWORLD(
-            gObjectEventPic_Tranquill,
+            sPicTable_Tranquill,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2149,10 +2254,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .iconSpriteFemale = gMonIcon_UnfezantF,
         .iconPalIndexFemale = 1,
 #endif //P_GENDER_DIFFERENCES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 12, SHADOW_SIZE_M)
         FOOTPRINT(Unfezant)
         OVERWORLD(
-            gObjectEventPic_Unfezant,
+            sPicTable_Unfezant,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2161,7 +2267,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
             gShinyOverworldPalette_Unfezant
         )
         OVERWORLD_FEMALE(
-            gObjectEventPic_UnfezantF,
+            sPicTable_UnfezantF,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2233,10 +2339,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BlitzleDitto,
         //.backPicDitto = gMonBackPic_BlitzleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 9, SHADOW_SIZE_M)
         FOOTPRINT(Blitzle)
         OVERWORLD(
-            gObjectEventPic_Blitzle,
+            sPicTable_Blitzle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2305,10 +2412,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZebstrikaDitto,
         //.backPicDitto = gMonBackPic_ZebstrikaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 13, SHADOW_SIZE_M)
         FOOTPRINT(Zebstrika)
         OVERWORLD(
-            gObjectEventPic_Zebstrika,
+            sPicTable_Zebstrika,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2383,10 +2491,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_RoggenrolaDitto,
         //.backPicDitto = gMonBackPic_RoggenrolaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Roggenrola)
         OVERWORLD(
-            gObjectEventPic_Roggenrola,
+            sPicTable_Roggenrola,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2465,10 +2574,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BoldoreDitto,
         //.backPicDitto = gMonBackPic_BoldoreDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 3, SHADOW_SIZE_L)
         FOOTPRINT(Boldore)
         OVERWORLD(
-            gObjectEventPic_Boldore,
+            sPicTable_Boldore,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2549,10 +2659,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GigalithDitto,
         //.backPicDitto = gMonBackPic_GigalithDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 8, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Gigalith)
         OVERWORLD(
-            gObjectEventPic_Gigalith,
+            sPicTable_Gigalith,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2638,10 +2749,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_WoobatDitto,
         //.backPicDitto = gMonBackPic_WoobatDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 14, SHADOW_SIZE_S)
         FOOTPRINT(Woobat)
         OVERWORLD(
-            gObjectEventPic_Woobat,
+            sPicTable_Woobat,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2652,7 +2764,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sWoobatLevelUpLearnset,
         .teachableLearnset = sWoobatTeachableLearnset,
         .eggMoveLearnset = sWoobatEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_SWOOBAT}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_SWOOBAT, CONDITIONS({IF_MIN_FRIENDSHIP, FRIENDSHIP_EVO_THRESHOLD})}),
     },
 
     [SPECIES_SWOOBAT] =
@@ -2714,10 +2826,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SwoobatDitto,
         //.backPicDitto = gMonBackPic_SwoobatDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 17, SHADOW_SIZE_M)
         FOOTPRINT(Swoobat)
         OVERWORLD(
-            gObjectEventPic_Swoobat,
+            sPicTable_Swoobat,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2789,10 +2902,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DrilburDitto,
         //.backPicDitto = gMonBackPic_DrilburDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Drilbur)
         OVERWORLD(
-            gObjectEventPic_Drilbur,
+            sPicTable_Drilbur,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2863,10 +2977,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ExcadrillDitto,
         //.backPicDitto = gMonBackPic_ExcadrillDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(3, 8, SHADOW_SIZE_L)
         FOOTPRINT(Excadrill)
         OVERWORLD(
-            gObjectEventPic_Excadrill,
+            sPicTable_Excadrill,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -2876,7 +2991,84 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sExcadrillLevelUpLearnset,
         .teachableLearnset = sExcadrillTeachableLearnset,
+        .formSpeciesIdTable = sExcadrillFormSpeciesIdTable,
+        .formChangeTable = sExcadrillFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_EXCADRILL_MEGA] =
+    {
+        .baseHP        = 110,
+        .baseAttack    = 165,
+        .baseDefense   = 100,
+        .baseSpeed     = 103,
+        .baseSpAttack  = 65,
+        .baseSpDefense = 65,
+        .types = MON_TYPES(TYPE_GROUND, TYPE_STEEL),
+        .catchRate = 60,
+        .expYield = 178,
+        .evYield_Attack = 2,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+        .abilities = { ABILITY_SAND_RUSH, ABILITY_SAND_FORCE, ABILITY_MOLD_BREAKER },
+        .bodyColor = BODY_COLOR_GRAY,
+        .noFlip = TRUE,
+        .speciesName = _("Excadrill"),
+        .cryId = CRY_EXCADRILL, // CRY_EXCADRILL_MEGA,
+        .natDexNum = NATIONAL_DEX_EXCADRILL,
+        .categoryName = _("Subterrene"),
+        .height = 9,
+        .weight = 600,
+        .description = COMPOUND_STRING(
+            "If this Pokémon brings its arms and\n"
+            "head together to form a streamlined\n"
+            "shape and spins at high speeds,\n"
+            "it can destroy anything."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sExcadrillLevelUpLearnset,
+        .teachableLearnset = sExcadrillTeachableLearnset,
+        .formSpeciesIdTable = sExcadrillFormSpeciesIdTable,
+        .formChangeTable = sExcadrillFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_DRILBUR
 
 #if P_FAMILY_AUDINO
@@ -2937,10 +3129,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AudinoDitto,
         //.backPicDitto = gMonBackPic_AudinoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 6, SHADOW_SIZE_S)
         FOOTPRINT(Audino)
         OVERWORLD(
-            gObjectEventPic_Audino,
+            sPicTable_Audino,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3009,11 +3202,12 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AudinoMegaDitto,
         //.backPicDitto = gMonBackPic_AudinoMegaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Audino)
     #if OW_BATTLE_ONLY_FORMS
         OVERWORLD(
-            gObjectEventPic_AudinoMega,
+            sPicTable_AudinoMega,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3088,10 +3282,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TimburrDitto,
         //.backPicDitto = gMonBackPic_TimburrDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Timburr)
         OVERWORLD(
-            gObjectEventPic_Timburr,
+            sPicTable_Timburr,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3164,10 +3359,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GurdurrDitto,
         //.backPicDitto = gMonBackPic_GurdurrDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Gurdurr)
         OVERWORLD(
-            gObjectEventPic_Gurdurr,
+            sPicTable_Gurdurr,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3235,10 +3431,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ConkeldurrDitto,
         //.backPicDitto = gMonBackPic_ConkeldurrDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 3, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Conkeldurr)
         OVERWORLD(
-            gObjectEventPic_Conkeldurr,
+            sPicTable_Conkeldurr,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3306,10 +3503,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TympoleDitto,
         //.backPicDitto = gMonBackPic_TympoleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 0, SHADOW_SIZE_S)
         FOOTPRINT(Tympole)
         OVERWORLD(
-            gObjectEventPic_Tympole,
+            sPicTable_Tympole,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3380,10 +3578,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PalpitoadDitto,
         //.backPicDitto = gMonBackPic_PalpitoadDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 3, SHADOW_SIZE_S)
         FOOTPRINT(Palpitoad)
         OVERWORLD(
-            gObjectEventPic_Palpitoad,
+            sPicTable_Palpitoad,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3461,10 +3660,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SeismitoadDitto,
         //.backPicDitto = gMonBackPic_SeismitoadDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(4, 10, SHADOW_SIZE_L)
         FOOTPRINT(Seismitoad)
         OVERWORLD(
-            gObjectEventPic_Seismitoad,
+            sPicTable_Seismitoad,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3535,10 +3735,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ThrohDitto,
         //.backPicDitto = gMonBackPic_ThrohDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 4, SHADOW_SIZE_M)
         FOOTPRINT(Throh)
         OVERWORLD(
-            gObjectEventPic_Throh,
+            sPicTable_Throh,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3608,10 +3809,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SawkDitto,
         //.backPicDitto = gMonBackPic_SawkDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 6, SHADOW_SIZE_M)
         FOOTPRINT(Sawk)
         OVERWORLD(
-            gObjectEventPic_Sawk,
+            sPicTable_Sawk,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3683,10 +3885,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SewaddleDitto,
         //.backPicDitto = gMonBackPic_SewaddleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Sewaddle)
         OVERWORLD(
-            gObjectEventPic_Sewaddle,
+            sPicTable_Sewaddle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3757,10 +3960,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SwadloonDitto,
         //.backPicDitto = gMonBackPic_SwadloonDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(0, 1, SHADOW_SIZE_L)
         FOOTPRINT(Swadloon)
         OVERWORLD(
-            gObjectEventPic_Swadloon,
+            sPicTable_Swadloon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3770,7 +3974,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sSwadloonLevelUpLearnset,
         .teachableLearnset = sSwadloonTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_FRIENDSHIP, 0, SPECIES_LEAVANNY}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_LEAVANNY, CONDITIONS({IF_MIN_FRIENDSHIP, FRIENDSHIP_EVO_THRESHOLD})}),
     },
 
     [SPECIES_LEAVANNY] =
@@ -3835,10 +4039,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LeavannyDitto,
         //.backPicDitto = gMonBackPic_LeavannyDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 14, SHADOW_SIZE_S)
         FOOTPRINT(Leavanny)
         OVERWORLD(
-            gObjectEventPic_Leavanny,
+            sPicTable_Leavanny,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3916,10 +4121,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VenipedeDitto,
         //.backPicDitto = gMonBackPic_VenipedeDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-2, -3, SHADOW_SIZE_M)
         FOOTPRINT(Venipede)
         OVERWORLD(
-            gObjectEventPic_Venipede,
+            sPicTable_Venipede,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -3996,10 +4202,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_WhirlipedeDitto,
         //.backPicDitto = gMonBackPic_WhirlipedeDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Whirlipede)
         OVERWORLD(
-            gObjectEventPic_Whirlipede,
+            sPicTable_Whirlipede,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4077,10 +4284,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ScolipedeDitto,
         //.backPicDitto = gMonBackPic_ScolipedeDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 12, SHADOW_SIZE_L)
         FOOTPRINT(Scolipede)
         OVERWORLD(
-            gObjectEventPic_Scolipede,
+            sPicTable_Scolipede,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4090,7 +4298,89 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sScolipedeLevelUpLearnset,
         .teachableLearnset = sScolipedeTeachableLearnset,
+        .formSpeciesIdTable = sScolipedeFormSpeciesIdTable,
+        .formChangeTable = sScolipedeFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_SCOLIPEDE_MEGA] =
+    {
+        .baseHP        = 60,
+        .baseAttack    = 140,
+        .baseDefense   = 149,
+        .baseSpeed     = 62,
+        .baseSpAttack  = 75,
+        .baseSpDefense = 99,
+        .types = MON_TYPES(TYPE_BUG, TYPE_POISON),
+        .catchRate = 45,
+    #if P_UPDATED_EXP_YIELDS >= GEN_8
+        .expYield = 243,
+    #elif P_UPDATED_EXP_YIELDS >= GEN_7
+        .expYield = 218,
+    #else
+        .expYield = 214,
+    #endif
+        .evYield_Speed = 3,
+        .itemRare = ITEM_POISON_BARB,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG),
+        .abilities = { ABILITY_POISON_POINT, ABILITY_SWARM, ABILITY_SPEED_BOOST },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Scolipede"),
+        .cryId = CRY_SCOLIPEDE, // CRY_SCOLIPEDE_MEGA,
+        .natDexNum = NATIONAL_DEX_SCOLIPEDE,
+        .categoryName = _("Megapede"),
+        .height = 32,
+        .weight = 2305,
+        .description = COMPOUND_STRING(
+            "Its deadly venom gives off a faint\n"
+            "glow. The venom affects Scolipede's\n"
+            "mind, honing its viciousness."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sScolipedeLevelUpLearnset,
+        .teachableLearnset = sScolipedeTeachableLearnset,
+        .formSpeciesIdTable = sScolipedeFormSpeciesIdTable,
+        .formChangeTable = sScolipedeFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_VENIPEDE
 
 #if P_FAMILY_COTTONEE
@@ -4162,10 +4452,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CottoneeDitto,
         //.backPicDitto = gMonBackPic_CottoneeDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, -5, SHADOW_SIZE_M)
         FOOTPRINT(Cottonee)
         OVERWORLD(
-            gObjectEventPic_Cottonee,
+            sPicTable_Cottonee,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4235,10 +4526,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_WhimsicottDitto,
         //.backPicDitto = gMonBackPic_WhimsicottDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Whimsicott)
         OVERWORLD(
-            gObjectEventPic_Whimsicott,
+            sPicTable_Whimsicott,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4311,10 +4603,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PetililDitto,
         //.backPicDitto = gMonBackPic_PetililDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-2, 6, SHADOW_SIZE_S)
         FOOTPRINT(Petilil)
         OVERWORLD(
-            gObjectEventPic_Petilil,
+            sPicTable_Petilil,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4325,8 +4618,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sPetililLevelUpLearnset,
         .teachableLearnset = sPetililTeachableLearnset,
         .eggMoveLearnset = sPetililEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_SUN_STONE, SPECIES_LILLIGANT},
-                                {EVO_NONE, 0, SPECIES_LILLIGANT_HISUI}),
+        .evolutions = EVOLUTION({EVO_ITEM, ITEM_SUN_STONE, SPECIES_LILLIGANT, CONDITIONS({IF_NOT_REGION, REGION_HISUI})},
+                                {EVO_ITEM, ITEM_SUN_STONE, SPECIES_LILLIGANT_HISUI, CONDITIONS({IF_REGION, REGION_HISUI})}),
     },
 
     [SPECIES_LILLIGANT] =
@@ -4386,10 +4679,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LilligantDitto,
         //.backPicDitto = gMonBackPic_LilligantDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 13, SHADOW_SIZE_M)
         FOOTPRINT(Lilligant)
         OVERWORLD(
-            gObjectEventPic_Lilligant,
+            sPicTable_Lilligant,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4457,10 +4751,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LilligantHisuiDitto,
         //.backPicDitto = gMonBackPic_LilligantHisuiDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-3, 13, SHADOW_SIZE_S)
         FOOTPRINT(Lilligant)
         OVERWORLD(
-            gObjectEventPic_LilligantHisui,
+            sPicTable_LilligantHisui,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4530,10 +4825,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BasculinRedStripedDitto,
         //.backPicDitto = gMonBackPic_BasculinRedStripedDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Basculin)
         OVERWORLD(
-            gObjectEventPic_BasculinRedStriped,
+            sPicTable_BasculinRedStriped,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4600,10 +4896,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BasculinBlueStripedDitto,
         //.backPicDitto = gMonBackPic_BasculinBlueStripedDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Basculin)
         OVERWORLD(
-            gObjectEventPic_BasculinBlueStriped,
+            sPicTable_BasculinBlueStriped,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4671,10 +4968,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BasculinWhiteStripedDitto,
         //.backPicDitto = gMonBackPic_BasculinWhiteStripedDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 5, SHADOW_SIZE_S)
         FOOTPRINT(Basculin)
         OVERWORLD(
-            gObjectEventPic_BasculinWhiteStriped,
+            sPicTable_BasculinWhiteStriped,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4684,9 +4982,10 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sBasculinWhiteStripedLevelUpLearnset,
         .teachableLearnset = sBasculinWhiteStripedTeachableLearnset,
+        .eggMoveLearnset = sBasculinWhiteStripedEggMoveLearnset,
         .formSpeciesIdTable = sBasculinFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_RECOIL_DAMAGE_MALE, 294, SPECIES_BASCULEGION_M},
-                                {EVO_RECOIL_DAMAGE_FEMALE, 294, SPECIES_BASCULEGION_F}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_BASCULEGION_M, CONDITIONS({IF_RECOIL_DAMAGE_GE, 294}, {IF_GENDER, MON_MALE})},
+                                {EVO_LEVEL, 0, SPECIES_BASCULEGION_F, CONDITIONS({IF_RECOIL_DAMAGE_GE, 294}, {IF_GENDER, MON_FEMALE})}),
     },
 
     [SPECIES_BASCULEGION_M] =
@@ -4741,10 +5040,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BasculegionMDitto,
         //.backPicDitto = gMonBackPic_BasculegionMDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 16, SHADOW_SIZE_M)
         FOOTPRINT(Basculegion)
         OVERWORLD(
-            gObjectEventPic_BasculegionM,
+            sPicTable_BasculegionM,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4808,10 +5108,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BasculegionFDitto,
         //.backPicDitto = gMonBackPic_BasculegionFDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 16, SHADOW_SIZE_M)
         FOOTPRINT(Basculegion)
         OVERWORLD(
-            gObjectEventPic_BasculegionF,
+            sPicTable_BasculegionF,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4883,10 +5184,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SandileDitto,
         //.backPicDitto = gMonBackPic_SandileDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(4, -5, SHADOW_SIZE_M)
         FOOTPRINT(Sandile)
         OVERWORLD(
-            gObjectEventPic_Sandile,
+            sPicTable_Sandile,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -4955,10 +5257,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KrokorokDitto,
         //.backPicDitto = gMonBackPic_KrokorokDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 8, SHADOW_SIZE_M)
         FOOTPRINT(Krokorok)
         OVERWORLD(
-            gObjectEventPic_Krokorok,
+            sPicTable_Krokorok,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5035,10 +5338,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KrookodileDitto,
         //.backPicDitto = gMonBackPic_KrookodileDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 12, SHADOW_SIZE_L)
         FOOTPRINT(Krookodile)
         OVERWORLD(
-            gObjectEventPic_Krookodile,
+            sPicTable_Krookodile,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5107,10 +5411,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarumakaDitto,
         //.backPicDitto = gMonBackPic_DarumakaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-3, 1, SHADOW_SIZE_S)
         FOOTPRINT(Darumaka)
         OVERWORLD(
-            gObjectEventPic_Darumaka,
+            sPicTable_Darumaka,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5181,10 +5486,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarmanitanStandardDitto,
         //.backPicDitto = gMonBackPic_DarmanitanStandardDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 5, SHADOW_SIZE_L)
         FOOTPRINT(Darmanitan)
         OVERWORLD(
-            gObjectEventPic_DarmanitanStandard,
+            sPicTable_DarmanitanStandard,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5251,6 +5557,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarmanitanZenDitto,
         //.backPicDitto = gMonBackPic_DarmanitanZenDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, -1, SHADOW_SIZE_S)
         FOOTPRINT(Darmanitan)
         .levelUpLearnset = sDarmanitanLevelUpLearnset,
@@ -5311,10 +5618,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarumakaGalarDitto,
         //.backPicDitto = gMonBackPic_DarumakaGalarDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-3, -1, SHADOW_SIZE_S)
         FOOTPRINT(Darumaka)
         OVERWORLD(
-            gObjectEventPic_DarumakaGalar,
+            sPicTable_DarumakaGalar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5381,10 +5689,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarmanitanGalarStandardDitto,
         //.backPicDitto = gMonBackPic_DarmanitanGalarStandardDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(4, 8, SHADOW_SIZE_L)
         FOOTPRINT(Darmanitan)
         OVERWORLD(
-            gObjectEventPic_DarmanitanGalarStandard,
+            sPicTable_DarmanitanGalarStandard,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5450,6 +5759,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DarmanitanGalarZenDitto,
         //.backPicDitto = gMonBackPic_DarmanitanGalarZenDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 11, SHADOW_SIZE_S)
         FOOTPRINT(Darmanitan)
         .isGalarianForm = TRUE,
@@ -5522,10 +5832,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MaractusDitto,
         //.backPicDitto = gMonBackPic_MaractusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 13, SHADOW_SIZE_S)
         FOOTPRINT(Maractus)
         OVERWORLD(
-            gObjectEventPic_Maractus,
+            sPicTable_Maractus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5602,10 +5913,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DwebbleDitto,
         //.backPicDitto = gMonBackPic_DwebbleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-1, -2, SHADOW_SIZE_S)
         FOOTPRINT(Dwebble)
         OVERWORLD(
-            gObjectEventPic_Dwebble,
+            sPicTable_Dwebble,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5678,10 +5990,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CrustleDitto,
         //.backPicDitto = gMonBackPic_CrustleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 8, SHADOW_SIZE_L)
         FOOTPRINT(Crustle)
         OVERWORLD(
-            gObjectEventPic_Crustle,
+            sPicTable_Crustle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5751,10 +6064,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ScraggyDitto,
         //.backPicDitto = gMonBackPic_ScraggyDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Scraggy)
         OVERWORLD(
-            gObjectEventPic_Scraggy,
+            sPicTable_Scraggy,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5825,10 +6139,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ScraftyDitto,
         //.backPicDitto = gMonBackPic_ScraftyDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 9, SHADOW_SIZE_M)
         FOOTPRINT(Scrafty)
         OVERWORLD(
-            gObjectEventPic_Scrafty,
+            sPicTable_Scrafty,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5838,7 +6153,85 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sScraftyLevelUpLearnset,
         .teachableLearnset = sScraftyTeachableLearnset,
+        .formSpeciesIdTable = sScraftyFormSpeciesIdTable,
+        .formChangeTable = sScraftyFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_SCRAFTY_MEGA] =
+    {
+        .baseHP        = 65,
+        .baseAttack    = 130,
+        .baseDefense   = 135,
+        .baseSpeed     = 68,
+        .baseSpAttack  = 55,
+        .baseSpDefense = 135,
+        .types = MON_TYPES(TYPE_DARK, TYPE_FIGHTING),
+        .catchRate = 90,
+        .expYield = 171,
+        .evYield_Defense = 1,
+        .evYield_SpDefense = 1,
+        .itemRare = ITEM_SHED_SHELL,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 15,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_FAST,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_DRAGON),
+        .abilities = { ABILITY_SHED_SKIN, ABILITY_MOXIE, ABILITY_INTIMIDATE },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Scrafty"),
+        .cryId = CRY_SCRAFTY,
+        .natDexNum = NATIONAL_DEX_SCRAFTY,
+        .categoryName = _("Hoodlum"),
+        .height = 11,
+        .weight = 310,
+        .description = COMPOUND_STRING(
+            "Mega Evolution has caused Scrafty's\n"
+            "shed skin to turn white, growing\n"
+            "tough and supple. Of course, this\n"
+            "Pokémon is still as feisty as ever."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sScraftyLevelUpLearnset,
+        .teachableLearnset = sScraftyTeachableLearnset,
+        .formSpeciesIdTable = sScraftyFormSpeciesIdTable,
+        .formChangeTable = sScraftyFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_SCRAGGY
 
 #if P_FAMILY_SIGILYPH
@@ -5903,10 +6296,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SigilyphDitto,
         //.backPicDitto = gMonBackPic_SigilyphDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 18, SHADOW_SIZE_S)
         FOOTPRINT(Sigilyph)
         OVERWORLD(
-            gObjectEventPic_Sigilyph,
+            sPicTable_Sigilyph,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -5980,10 +6374,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_YamaskDitto,
         //.backPicDitto = gMonBackPic_YamaskDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 6, SHADOW_SIZE_S)
         FOOTPRINT(Yamask)
         OVERWORLD(
-            gObjectEventPic_Yamask,
+            sPicTable_Yamask,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6054,10 +6449,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CofagrigusDitto,
         //.backPicDitto = gMonBackPic_CofagrigusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(6, 12, SHADOW_SIZE_M)
         FOOTPRINT(Cofagrigus)
         OVERWORLD(
-            gObjectEventPic_Cofagrigus,
+            sPicTable_Cofagrigus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6122,10 +6518,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_YamaskGalarDitto,
         //.backPicDitto = gMonBackPic_YamaskGalarDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 2, SHADOW_SIZE_S)
         FOOTPRINT(Yamask)
         OVERWORLD(
-            gObjectEventPic_YamaskGalar,
+            sPicTable_YamaskGalar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6138,7 +6535,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .teachableLearnset = sYamaskGalarTeachableLearnset,
         .eggMoveLearnset = sYamaskGalarEggMoveLearnset,
         .formSpeciesIdTable = sYamaskFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_SCRIPT_TRIGGER_DMG, 49, SPECIES_RUNERIGUS}),
+        .evolutions = EVOLUTION({EVO_SCRIPT_TRIGGER, 0, SPECIES_RUNERIGUS, CONDITIONS({IF_CURRENT_DAMAGE_GE, 49})}),
     },
 
     [SPECIES_RUNERIGUS] =
@@ -6192,10 +6589,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_RunerigusDitto,
         //.backPicDitto = gMonBackPic_RunerigusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(14, 14, SHADOW_SIZE_M)
         FOOTPRINT(Runerigus)
         OVERWORLD(
-            gObjectEventPic_Runerigus,
+            sPicTable_Runerigus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6266,10 +6664,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TirtougaDitto,
         //.backPicDitto = gMonBackPic_TirtougaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, -3, SHADOW_SIZE_M)
         FOOTPRINT(Tirtouga)
         OVERWORLD(
-            gObjectEventPic_Tirtouga,
+            sPicTable_Tirtouga,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6345,10 +6744,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CarracostaDitto,
         //.backPicDitto = gMonBackPic_CarracostaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(4, 8, SHADOW_SIZE_L)
         FOOTPRINT(Carracosta)
         OVERWORLD(
-            gObjectEventPic_Carracosta,
+            sPicTable_Carracosta,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6417,10 +6817,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ArchenDitto,
         //.backPicDitto = gMonBackPic_ArchenDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(-3, -2, SHADOW_SIZE_S)
         FOOTPRINT(Archen)
         OVERWORLD(
-            gObjectEventPic_Archen,
+            sPicTable_Archen,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6495,10 +6896,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ArcheopsDitto,
         //.backPicDitto = gMonBackPic_ArcheopsDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 18, SHADOW_SIZE_M)
         FOOTPRINT(Archeops)
         OVERWORLD(
-            gObjectEventPic_Archeops,
+            sPicTable_Archeops,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6568,10 +6970,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TrubbishDitto,
         //.backPicDitto = gMonBackPic_TrubbishDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(-2, -1, SHADOW_SIZE_S)
         FOOTPRINT(Trubbish)
         OVERWORLD(
-            gObjectEventPic_Trubbish,
+            sPicTable_Trubbish,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6643,10 +7046,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GarbodorDitto,
         //.backPicDitto = gMonBackPic_GarbodorDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 9, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Garbodor)
         OVERWORLD(
-            gObjectEventPic_Garbodor,
+            sPicTable_Garbodor,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6711,6 +7115,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .shinyPalette = gMonShinyPalette_GarbodorGmax,
         .iconSprite = gMonIcon_GarbodorGmax,
         .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         NO_SHADOW
         FOOTPRINT(Garbodor)
         .isGigantamax = TRUE,
@@ -6780,10 +7185,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZoruaDitto,
         //.backPicDitto = gMonBackPic_ZoruaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(0, 2, SHADOW_SIZE_S)
         FOOTPRINT(Zorua)
         OVERWORLD(
-            gObjectEventPic_Zorua,
+            sPicTable_Zorua,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6855,10 +7261,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZoroarkDitto,
         //.backPicDitto = gMonBackPic_ZoroarkDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 8, SHADOW_SIZE_L)
         FOOTPRINT(Zoroark)
         OVERWORLD(
-            gObjectEventPic_Zoroark,
+            sPicTable_Zoroark,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6923,10 +7330,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZoruaHisuiDitto,
         //.backPicDitto = gMonBackPic_ZoruaHisuiDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(2, 12, SHADOW_SIZE_S)
         FOOTPRINT(Zorua)
         OVERWORLD(
-            gObjectEventPic_ZoruaHisui,
+            sPicTable_ZoruaHisui,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -6992,10 +7400,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZoroarkHisuiDitto,
         //.backPicDitto = gMonBackPic_ZoroarkHisuiDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(11, 13, SHADOW_SIZE_L)
         FOOTPRINT(Zoroark)
         OVERWORLD(
-            gObjectEventPic_ZoroarkHisui,
+            sPicTable_ZoroarkHisui,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7067,10 +7476,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MinccinoDitto,
         //.backPicDitto = gMonBackPic_MinccinoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-3, 3, SHADOW_SIZE_S)
         FOOTPRINT(Minccino)
         OVERWORLD(
-            gObjectEventPic_Minccino,
+            sPicTable_Minccino,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7142,10 +7552,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CinccinoDitto,
         //.backPicDitto = gMonBackPic_CinccinoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(0, 6, SHADOW_SIZE_M)
         FOOTPRINT(Cinccino)
         OVERWORLD(
-            gObjectEventPic_Cinccino,
+            sPicTable_Cinccino,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7219,10 +7630,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GothitaDitto,
         //.backPicDitto = gMonBackPic_GothitaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-3, 2, SHADOW_SIZE_S)
         FOOTPRINT(Gothita)
         OVERWORLD(
-            gObjectEventPic_Gothita,
+            sPicTable_Gothita,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7297,10 +7709,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GothoritaDitto,
         //.backPicDitto = gMonBackPic_GothoritaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-2, 7, SHADOW_SIZE_S)
         FOOTPRINT(Gothorita)
         OVERWORLD(
-            gObjectEventPic_Gothorita,
+            sPicTable_Gothorita,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7373,10 +7786,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GothitelleDitto,
         //.backPicDitto = gMonBackPic_GothitelleDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 13, SHADOW_SIZE_M)
         FOOTPRINT(Gothitelle)
         OVERWORLD(
-            gObjectEventPic_Gothitelle,
+            sPicTable_Gothitelle,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7448,10 +7862,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SolosisDitto,
         //.backPicDitto = gMonBackPic_SolosisDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 8, SHADOW_SIZE_S)
         FOOTPRINT(Solosis)
         OVERWORLD(
-            gObjectEventPic_Solosis,
+            sPicTable_Solosis,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7522,10 +7937,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DuosionDitto,
         //.backPicDitto = gMonBackPic_DuosionDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 6, SHADOW_SIZE_M)
         FOOTPRINT(Duosion)
         OVERWORLD(
-            gObjectEventPic_Duosion,
+            sPicTable_Duosion,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7596,10 +8012,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ReuniclusDitto,
         //.backPicDitto = gMonBackPic_ReuniclusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 8, SHADOW_SIZE_M)
         FOOTPRINT(Reuniclus)
         OVERWORLD(
-            gObjectEventPic_Reuniclus,
+            sPicTable_Reuniclus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7672,10 +8089,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DucklettDitto,
         //.backPicDitto = gMonBackPic_DucklettDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Ducklett)
         OVERWORLD(
-            gObjectEventPic_Ducklett,
+            sPicTable_Ducklett,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7743,10 +8161,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SwannaDitto,
         //.backPicDitto = gMonBackPic_SwannaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 12, SHADOW_SIZE_M)
         FOOTPRINT(Swanna)
         OVERWORLD(
-            gObjectEventPic_Swanna,
+            sPicTable_Swanna,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7822,10 +8241,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VanilliteDitto,
         //.backPicDitto = gMonBackPic_VanilliteDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Vanillite)
         OVERWORLD(
-            gObjectEventPic_Vanillite,
+            sPicTable_Vanillite,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7899,10 +8319,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VanillishDitto,
         //.backPicDitto = gMonBackPic_VanillishDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-3, 9, SHADOW_SIZE_S)
         FOOTPRINT(Vanillish)
         OVERWORLD(
-            gObjectEventPic_Vanillish,
+            sPicTable_Vanillish,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -7975,10 +8396,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VanilluxeDitto,
         //.backPicDitto = gMonBackPic_VanilluxeDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 10, SHADOW_SIZE_M)
         FOOTPRINT(Vanilluxe)
         OVERWORLD(
-            gObjectEventPic_Vanilluxe,
+            sPicTable_Vanilluxe,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8043,10 +8465,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DeerlingSpringDitto,
         //.backPicDitto = gMonBackPic_DeerlingSpringDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Deerling)
         OVERWORLD(
-            gObjectEventPic_DeerlingSpring,
+            sPicTable_DeerlingSpring,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8112,10 +8535,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DeerlingSummerDitto,
         //.backPicDitto = gMonBackPic_DeerlingSummerDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Deerling)
         OVERWORLD(
-            gObjectEventPic_DeerlingSummer,
+            sPicTable_DeerlingSummer,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8181,10 +8605,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DeerlingAutumnDitto,
         //.backPicDitto = gMonBackPic_DeerlingAutumnDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Deerling)
         OVERWORLD(
-            gObjectEventPic_DeerlingAutumn,
+            sPicTable_DeerlingAutumn,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8250,10 +8675,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DeerlingWinterDitto,
         //.backPicDitto = gMonBackPic_DeerlingWinterDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Deerling)
         OVERWORLD(
-            gObjectEventPic_DeerlingWinter,
+            sPicTable_DeerlingWinter,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8319,10 +8745,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SawsbuckSpringDitto,
         //.backPicDitto = gMonBackPic_SawsbuckSpringDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(7, 13, SHADOW_SIZE_M)
         FOOTPRINT(Sawsbuck)
         OVERWORLD(
-            gObjectEventPic_SawsbuckSpring,
+            sPicTable_SawsbuckSpring,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8386,10 +8813,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SawsbuckSummerDitto,
         //.backPicDitto = gMonBackPic_SawsbuckSummerDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(7, 13, SHADOW_SIZE_M)
         FOOTPRINT(Sawsbuck)
         OVERWORLD(
-            gObjectEventPic_SawsbuckSummer,
+            sPicTable_SawsbuckSummer,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8453,10 +8881,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SawsbuckAutumnDitto,
         //.backPicDitto = gMonBackPic_SawsbuckAutumnDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(7, 13, SHADOW_SIZE_M)
         FOOTPRINT(Sawsbuck)
         OVERWORLD(
-            gObjectEventPic_SawsbuckAutumn,
+            sPicTable_SawsbuckAutumn,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8520,10 +8949,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_SawsbuckWinterDitto,
         //.backPicDitto = gMonBackPic_SawsbuckWinterDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(7, 13, SHADOW_SIZE_M)
         FOOTPRINT(Sawsbuck)
         OVERWORLD(
-            gObjectEventPic_SawsbuckWinter,
+            sPicTable_SawsbuckWinter,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8596,10 +9026,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_EmolgaDitto,
         //.backPicDitto = gMonBackPic_EmolgaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 13, SHADOW_SIZE_S)
         FOOTPRINT(Emolga)
         OVERWORLD(
-            gObjectEventPic_Emolga,
+            sPicTable_Emolga,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8668,10 +9099,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KarrablastDitto,
         //.backPicDitto = gMonBackPic_KarrablastDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(-1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Karrablast)
         OVERWORLD(
-            gObjectEventPic_Karrablast,
+            sPicTable_Karrablast,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8682,7 +9114,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sKarrablastLevelUpLearnset,
         .teachableLearnset = sKarrablastTeachableLearnset,
         .eggMoveLearnset = sKarrablastEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_TRADE_SPECIFIC_MON, SPECIES_SHELMET, SPECIES_ESCAVALIER}),
+        .evolutions = EVOLUTION({EVO_TRADE, 0, SPECIES_ESCAVALIER, CONDITIONS({IF_TRADE_PARTNER_SPECIES, SPECIES_SHELMET})}),
     },
 
     [SPECIES_ESCAVALIER] =
@@ -8740,10 +9172,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_EscavalierDitto,
         //.backPicDitto = gMonBackPic_EscavalierDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 11, SHADOW_SIZE_M)
         FOOTPRINT(Escavalier)
         OVERWORLD(
-            gObjectEventPic_Escavalier,
+            sPicTable_Escavalier,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8816,10 +9249,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_FoongusDitto,
         //.backPicDitto = gMonBackPic_FoongusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(-1, -3, SHADOW_SIZE_S)
         FOOTPRINT(Foongus)
         OVERWORLD(
-            gObjectEventPic_Foongus,
+            sPicTable_Foongus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8894,10 +9328,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AmoongussDitto,
         //.backPicDitto = gMonBackPic_AmoongussDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Amoonguss)
         OVERWORLD(
-            gObjectEventPic_Amoonguss,
+            sPicTable_Amoonguss,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8973,10 +9408,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .iconSpriteFemale = gMonIcon_FrillishF,
         .iconPalIndexFemale = 1,
 #endif //P_GENDER_DIFFERENCES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 9, SHADOW_SIZE_S)
         FOOTPRINT(Frillish)
         OVERWORLD(
-            gObjectEventPic_Frillish,
+            sPicTable_Frillish,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -8985,7 +9421,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
             gShinyOverworldPalette_Frillish
         )
         OVERWORLD_FEMALE(
-            gObjectEventPic_FrillishF,
+            sPicTable_FrillishF,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9062,10 +9498,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .iconSpriteFemale = gMonIcon_JellicentF,
         .iconPalIndexFemale = 1,
 #endif //P_GENDER_DIFFERENCES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 11, SHADOW_SIZE_M)
         FOOTPRINT(Jellicent)
         OVERWORLD(
-            gObjectEventPic_Jellicent,
+            sPicTable_Jellicent,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9074,7 +9511,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
             gShinyOverworldPalette_Jellicent
         )
         OVERWORLD_FEMALE(
-            gObjectEventPic_JellicentF,
+            sPicTable_JellicentF,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9143,10 +9580,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AlomomolaDitto,
         //.backPicDitto = gMonBackPic_AlomomolaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 15, SHADOW_SIZE_S)
         FOOTPRINT(Alomomola)
         OVERWORLD(
-            gObjectEventPic_Alomomola,
+            sPicTable_Alomomola,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9218,10 +9656,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_JoltikDitto,
         //.backPicDitto = gMonBackPic_JoltikDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(0, -5, SHADOW_SIZE_S)
         FOOTPRINT(Joltik)
         OVERWORLD(
-            gObjectEventPic_Joltik,
+            sPicTable_Joltik,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9295,10 +9734,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GalvantulaDitto,
         //.backPicDitto = gMonBackPic_GalvantulaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, -2, SHADOW_SIZE_L)
         FOOTPRINT(Galvantula)
         OVERWORLD(
-            gObjectEventPic_Galvantula,
+            sPicTable_Galvantula,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9370,10 +9810,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_FerroseedDitto,
         //.backPicDitto = gMonBackPic_FerroseedDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Ferroseed)
         OVERWORLD(
-            gObjectEventPic_Ferroseed,
+            sPicTable_Ferroseed,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9450,10 +9891,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_FerrothornDitto,
         //.backPicDitto = gMonBackPic_FerrothornDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 17, SHADOW_SIZE_M)
         FOOTPRINT(Ferrothorn)
         OVERWORLD(
-            gObjectEventPic_Ferrothorn,
+            sPicTable_Ferrothorn,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9525,10 +9967,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KlinkDitto,
         //.backPicDitto = gMonBackPic_KlinkDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 11, SHADOW_SIZE_S)
         FOOTPRINT(Klink)
         OVERWORLD(
-            gObjectEventPic_Klink,
+            sPicTable_Klink,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9599,10 +10042,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KlangDitto,
         //.backPicDitto = gMonBackPic_KlangDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 12, SHADOW_SIZE_M)
         FOOTPRINT(Klang)
         OVERWORLD(
-            gObjectEventPic_Klang,
+            sPicTable_Klang,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9673,10 +10117,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KlinklangDitto,
         //.backPicDitto = gMonBackPic_KlinklangDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 13, SHADOW_SIZE_L)
         FOOTPRINT(Klinklang)
         OVERWORLD(
-            gObjectEventPic_Klinklang,
+            sPicTable_Klinklang,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9759,10 +10204,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TynamoDitto,
         //.backPicDitto = gMonBackPic_TynamoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-3, 5, SHADOW_SIZE_S)
         FOOTPRINT(Tynamo)
         OVERWORLD(
-            gObjectEventPic_Tynamo,
+            sPicTable_Tynamo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9834,10 +10280,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_EelektrikDitto,
         //.backPicDitto = gMonBackPic_EelektrikDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 13, SHADOW_SIZE_S)
         FOOTPRINT(Eelektrik)
         OVERWORLD(
-            gObjectEventPic_Eelektrik,
+            sPicTable_Eelektrik,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9909,10 +10356,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_EelektrossDitto,
         //.backPicDitto = gMonBackPic_EelektrossDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 13, SHADOW_SIZE_M)
         FOOTPRINT(Eelektross)
         OVERWORLD(
-            gObjectEventPic_Eelektross,
+            sPicTable_Eelektross,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -9922,7 +10370,83 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sEelektrossLevelUpLearnset,
         .teachableLearnset = sEelektrossTeachableLearnset,
+        .formSpeciesIdTable = sEelektrossFormSpeciesIdTable,
+        .formChangeTable = sEelektrossFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_EELEKTROSS_MEGA] =
+    {
+        .baseHP        = 85,
+        .baseAttack    = 145,
+        .baseDefense   = 80,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 135,
+        .baseSpDefense = 90,
+        .types = MON_TYPES(TYPE_ELECTRIC),
+        .catchRate = 30,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 258 : 232,
+        .evYield_Attack = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+        .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
+        .bodyColor = BODY_COLOR_BLUE,
+        .speciesName = _("Eelektross"),
+        .cryId = CRY_EELEKTROSS, // CRY_EELEKTROSS_MEGA,
+        .natDexNum = NATIONAL_DEX_EELEKTROSS,
+        .categoryName = _("EleFish"),
+        .height = 30,
+        .weight = 1800,
+        .description = COMPOUND_STRING(
+            "It now generates 10 times the\n"
+            "electricity it did before Mega\n"
+            "Evolving. It discharges this energy\n"
+            "from its false Eelektrik made of mucus."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sEelektrossLevelUpLearnset,
+        .teachableLearnset = sEelektrossTeachableLearnset,
+        .formSpeciesIdTable = sEelektrossFormSpeciesIdTable,
+        .formChangeTable = sEelektrossFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_TYNAMO
 
 #if P_FAMILY_ELGYEM
@@ -9986,10 +10510,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ElgyemDitto,
         //.backPicDitto = gMonBackPic_ElgyemDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Elgyem)
         OVERWORLD(
-            gObjectEventPic_Elgyem,
+            sPicTable_Elgyem,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10057,10 +10582,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BeheeyemDitto,
         //.backPicDitto = gMonBackPic_BeheeyemDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 10, SHADOW_SIZE_M)
         FOOTPRINT(Beheeyem)
         OVERWORLD(
-            gObjectEventPic_Beheeyem,
+            sPicTable_Beheeyem,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10135,10 +10661,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LitwickDitto,
         //.backPicDitto = gMonBackPic_LitwickDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(1, -1, SHADOW_SIZE_S)
         FOOTPRINT(Litwick)
         OVERWORLD(
-            gObjectEventPic_Litwick,
+            sPicTable_Litwick,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10213,10 +10740,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LampentDitto,
         //.backPicDitto = gMonBackPic_LampentDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 9, SHADOW_SIZE_S)
         FOOTPRINT(Lampent)
         OVERWORLD(
-            gObjectEventPic_Lampent,
+            sPicTable_Lampent,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10289,10 +10817,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ChandelureDitto,
         //.backPicDitto = gMonBackPic_ChandelureDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 13, SHADOW_SIZE_S)
         FOOTPRINT(Chandelure)
         OVERWORLD(
-            gObjectEventPic_Chandelure,
+            sPicTable_Chandelure,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10302,7 +10831,83 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sChandelureLevelUpLearnset,
         .teachableLearnset = sChandelureTeachableLearnset,
+        .formSpeciesIdTable = sChandelureFormSpeciesIdTable,
+        .formChangeTable = sChandelureFormChangeTable,
     },
+
+#if P_GEN_9_MEGA_EVOLUTIONS
+    [SPECIES_CHANDELURE_MEGA] =
+    {
+        .baseHP        = 60,
+        .baseAttack    = 75,
+        .baseDefense   = 110,
+        .baseSpeed     = 90,
+        .baseSpAttack  = 175,
+        .baseSpDefense = 110,
+        .types = MON_TYPES(TYPE_GHOST, TYPE_FIRE),
+        .catchRate = 45,
+        .expYield = (P_UPDATED_EXP_YIELDS >= GEN_8) ? 260 : 234,
+        .evYield_SpAttack = 3,
+        .genderRatio = PERCENT_FEMALE(50),
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_MEDIUM_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+        .abilities = { ABILITY_FLASH_FIRE, ABILITY_FLAME_BODY, ABILITY_INFILTRATOR },
+        .bodyColor = BODY_COLOR_BLACK,
+        .speciesName = _("Chandelure"),
+        .cryId = CRY_CHANDELURE, // CRY_CHANDELURE_MEGA,
+        .natDexNum = NATIONAL_DEX_CHANDELURE,
+        .categoryName = _("Luring"),
+        .height = 25,
+        .weight = 696,
+        .description = COMPOUND_STRING(
+            "One of its eyes is a window linking\n"
+            "our world with the afterlife.\n"
+            "This Pokémon draws in hatred and\n"
+            "converts it into power."),
+        .frontPic = gMonFrontPic_CircledQuestionMark,
+        .frontPicSize = MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = 12,
+        .frontAnimFrames = sAnims_TwoFramePlaceHolder,
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .backPic = gMonBackPic_CircledQuestionMark,
+        .backPicSize = MON_COORDS_SIZE(40, 40),
+        .backPicYOffset = 12,
+        .backAnimId = BACK_ANIM_NONE,
+        .palette = gMonPalette_CircledQuestionMark,
+        .shinyPalette = gMonShinyPalette_CircledQuestionMark,
+        .iconSprite = gMonIcon_QuestionMark,
+        .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
+        FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
+    #if OW_BATTLE_ONLY_FORMS
+        .overworldData = {
+            .tileTag = TAG_NONE,
+            .paletteTag = OBJ_EVENT_PAL_TAG_SUBSTITUTE,
+            .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+            .size = 512,
+            .width = 32,
+            .height = 32,
+            .paletteSlot = PALSLOT_NPC_1,
+            .shadowSize = SHADOW_SIZE_M,
+            .inanimate = FALSE,
+            .compressed = COMP,
+            .tracks = TRACKS_FOOT,
+            .oam = &gObjectEventBaseOam_32x32,
+            .subspriteTables = sOamTables_32x32,
+            .anims = sAnimTable_Following,
+            .images = sPicTable_Substitute,
+        },
+    #endif //OW_BATTLE_ONLY_FORMS
+        .isMegaEvolution = TRUE,
+        .levelUpLearnset = sChandelureLevelUpLearnset,
+        .teachableLearnset = sChandelureTeachableLearnset,
+        .formSpeciesIdTable = sChandelureFormSpeciesIdTable,
+        .formChangeTable = sChandelureFormChangeTable,
+    },
+#endif //P_GEN_9_MEGA_EVOLUTIONS
 #endif //P_FAMILY_LITWICK
 
 #if P_FAMILY_AXEW
@@ -10360,10 +10965,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AxewDitto,
         //.backPicDitto = gMonBackPic_AxewDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(2, 1, SHADOW_SIZE_S)
         FOOTPRINT(Axew)
         OVERWORLD(
-            gObjectEventPic_Axew,
+            sPicTable_Axew,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10431,10 +11037,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_FraxureDitto,
         //.backPicDitto = gMonBackPic_FraxureDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 8, SHADOW_SIZE_L)
         FOOTPRINT(Fraxure)
         OVERWORLD(
-            gObjectEventPic_Fraxure,
+            sPicTable_Fraxure,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10503,10 +11110,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_HaxorusDitto,
         //.backPicDitto = gMonBackPic_HaxorusDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 9, SHADOW_SIZE_L)
         FOOTPRINT(Haxorus)
         OVERWORLD(
-            gObjectEventPic_Haxorus,
+            sPicTable_Haxorus,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10579,10 +11187,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CubchooDitto,
         //.backPicDitto = gMonBackPic_CubchooDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(-2, 0, SHADOW_SIZE_S)
         FOOTPRINT(Cubchoo)
         OVERWORLD(
-            gObjectEventPic_Cubchoo,
+            sPicTable_Cubchoo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10656,10 +11265,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BearticDitto,
         //.backPicDitto = gMonBackPic_BearticDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 13, SHADOW_SIZE_L)
         FOOTPRINT(Beartic)
         OVERWORLD(
-            gObjectEventPic_Beartic,
+            sPicTable_Beartic,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10732,10 +11342,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CryogonalDitto,
         //.backPicDitto = gMonBackPic_CryogonalDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 14, SHADOW_SIZE_M)
         FOOTPRINT(Cryogonal)
         OVERWORLD(
-            gObjectEventPic_Cryogonal,
+            sPicTable_Cryogonal,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10806,10 +11417,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ShelmetDitto,
         //.backPicDitto = gMonBackPic_ShelmetDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(0, -1, SHADOW_SIZE_S)
         FOOTPRINT(Shelmet)
         OVERWORLD(
-            gObjectEventPic_Shelmet,
+            sPicTable_Shelmet,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10820,7 +11432,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sShelmetLevelUpLearnset,
         .teachableLearnset = sShelmetTeachableLearnset,
         .eggMoveLearnset = sShelmetEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_TRADE_SPECIFIC_MON, SPECIES_KARRABLAST, SPECIES_ACCELGOR}),
+        .evolutions = EVOLUTION({EVO_TRADE, 0, SPECIES_ACCELGOR, CONDITIONS({IF_TRADE_PARTNER_SPECIES, SPECIES_KARRABLAST})}),
     },
 
     [SPECIES_ACCELGOR] =
@@ -10877,10 +11489,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_AccelgorDitto,
         //.backPicDitto = gMonBackPic_AccelgorDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-14, 8, SHADOW_SIZE_S)
         FOOTPRINT(Accelgor)
         OVERWORLD(
-            gObjectEventPic_Accelgor,
+            sPicTable_Accelgor,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -10949,10 +11562,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_StunfiskDitto,
         //.backPicDitto = gMonBackPic_StunfiskDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(0, -1, SHADOW_SIZE_M)
         FOOTPRINT(Stunfisk)
         OVERWORLD(
-            gObjectEventPic_Stunfisk,
+            sPicTable_Stunfisk,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11018,10 +11632,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_StunfiskGalarDitto,
         //.backPicDitto = gMonBackPic_StunfiskGalarDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_SLOW,
         SHADOW(0, -1, SHADOW_SIZE_M)
         FOOTPRINT(Stunfisk)
         OVERWORLD(
-            gObjectEventPic_StunfiskGalar,
+            sPicTable_StunfiskGalar,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11093,10 +11708,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MienfooDitto,
         //.backPicDitto = gMonBackPic_MienfooDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Mienfoo)
         OVERWORLD(
-            gObjectEventPic_Mienfoo,
+            sPicTable_Mienfoo,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11169,10 +11785,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MienshaoDitto,
         //.backPicDitto = gMonBackPic_MienshaoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Mienshao)
         OVERWORLD(
-            gObjectEventPic_Mienshao,
+            sPicTable_Mienshao,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11246,10 +11863,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DruddigonDitto,
         //.backPicDitto = gMonBackPic_DruddigonDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 9, SHADOW_SIZE_M)
         FOOTPRINT(Druddigon)
         OVERWORLD(
-            gObjectEventPic_Druddigon,
+            sPicTable_Druddigon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11321,10 +11939,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GolettDitto,
         //.backPicDitto = gMonBackPic_GolettDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Golett)
         OVERWORLD(
-            gObjectEventPic_Golett,
+            sPicTable_Golett,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11393,10 +12012,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_GolurkDitto,
         //.backPicDitto = gMonBackPic_GolurkDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 14, SHADOW_SIZE_L)
         FOOTPRINT(Golurk)
         OVERWORLD(
-            gObjectEventPic_Golurk,
+            sPicTable_Golurk,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11470,10 +12090,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_PawniardDitto,
         //.backPicDitto = gMonBackPic_PawniardDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(4, 4, SHADOW_SIZE_S)
         FOOTPRINT(Pawniard)
         OVERWORLD(
-            gObjectEventPic_Pawniard,
+            sPicTable_Pawniard,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11542,10 +12163,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BisharpDitto,
         //.backPicDitto = gMonBackPic_BisharpDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Bisharp)
         OVERWORLD(
-            gObjectEventPic_Bisharp,
+            sPicTable_Bisharp,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11555,7 +12177,9 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sBisharpLevelUpLearnset,
         .teachableLearnset = sBisharpTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_DEFEAT_THREE_WITH_ITEM, ITEM_LEADERS_CREST, SPECIES_KINGAMBIT}),
+    #if P_GEN_9_CROSS_EVOS
+        .evolutions = EVOLUTION({EVO_LEVEL, 0, SPECIES_KINGAMBIT, CONDITIONS({IF_DEFEAT_X_WITH_ITEMS, SPECIES_BISHARP, ITEM_LEADERS_CREST, 3})}),
+    #endif
     },
 
 #if P_GEN_9_CROSS_EVOS
@@ -11610,10 +12234,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KingambitDitto,
         //.backPicDitto = gMonBackPic_KingambitDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Kingambit)
         OVERWORLD(
-            gObjectEventPic_Kingambit,
+            sPicTable_Kingambit,
             SIZE_64x64,
             SHADOW_SIZE_L,
             TRACKS_NONE,
@@ -11683,10 +12308,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BouffalantDitto,
         //.backPicDitto = gMonBackPic_BouffalantDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(8, 7, SHADOW_SIZE_M)
         FOOTPRINT(Bouffalant)
         OVERWORLD(
-            gObjectEventPic_Bouffalant,
+            sPicTable_Bouffalant,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11758,10 +12384,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_RuffletDitto,
         //.backPicDitto = gMonBackPic_RuffletDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 2, SHADOW_SIZE_S)
         FOOTPRINT(Rufflet)
         OVERWORLD(
-            gObjectEventPic_Rufflet,
+            sPicTable_Rufflet,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11771,8 +12398,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         )
         .levelUpLearnset = sRuffletLevelUpLearnset,
         .teachableLearnset = sRuffletTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 54, SPECIES_BRAVIARY},
-                                {EVO_NONE, 0, SPECIES_BRAVIARY_HISUI}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 54, SPECIES_BRAVIARY, CONDITIONS({IF_NOT_REGION, REGION_HISUI})},
+                                {EVO_LEVEL, 54, SPECIES_BRAVIARY_HISUI, CONDITIONS({IF_REGION, REGION_HISUI})}),
     },
 
     [SPECIES_BRAVIARY] =
@@ -11831,10 +12458,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BraviaryDitto,
         //.backPicDitto = gMonBackPic_BraviaryDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 16, SHADOW_SIZE_M)
         FOOTPRINT(Braviary)
         OVERWORLD(
-            gObjectEventPic_Braviary,
+            sPicTable_Braviary,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11899,10 +12527,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_BraviaryHisuiDitto,
         //.backPicDitto = gMonBackPic_BraviaryHisuiDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 14, SHADOW_SIZE_M)
         FOOTPRINT(Braviary)
         OVERWORLD(
-            gObjectEventPic_BraviaryHisui,
+            sPicTable_BraviaryHisui,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -11974,10 +12603,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VullabyDitto,
         //.backPicDitto = gMonBackPic_VullabyDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 9, SHADOW_SIZE_M)
         FOOTPRINT(Vullaby)
         OVERWORLD(
-            gObjectEventPic_Vullaby,
+            sPicTable_Vullaby,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12046,10 +12676,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MandibuzzDitto,
         //.backPicDitto = gMonBackPic_MandibuzzDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 12, SHADOW_SIZE_M)
         FOOTPRINT(Mandibuzz)
         OVERWORLD(
-            gObjectEventPic_Mandibuzz,
+            sPicTable_Mandibuzz,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12117,10 +12748,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_HeatmorDitto,
         //.backPicDitto = gMonBackPic_HeatmorDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(5, 7, SHADOW_SIZE_L)
         FOOTPRINT(Heatmor)
         OVERWORLD(
-            gObjectEventPic_Heatmor,
+            sPicTable_Heatmor,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12204,10 +12836,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DurantDitto,
         //.backPicDitto = gMonBackPic_DurantDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_FAST,
         SHADOW(0, -3, SHADOW_SIZE_L)
         FOOTPRINT(Durant)
         OVERWORLD(
-            gObjectEventPic_Durant,
+            sPicTable_Durant,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12277,10 +12910,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_DeinoDitto,
         //.backPicDitto = gMonBackPic_DeinoDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 3, SHADOW_SIZE_S)
         FOOTPRINT(Deino)
         OVERWORLD(
-            gObjectEventPic_Deino,
+            sPicTable_Deino,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12348,10 +12982,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZweilousDitto,
         //.backPicDitto = gMonBackPic_ZweilousDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 6, SHADOW_SIZE_L)
         FOOTPRINT(Zweilous)
         OVERWORLD(
-            gObjectEventPic_Zweilous,
+            sPicTable_Zweilous,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12425,10 +13060,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_HydreigonDitto,
         //.backPicDitto = gMonBackPic_HydreigonDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 16, SHADOW_SIZE_M)
         FOOTPRINT(Hydreigon)
         OVERWORLD(
-            gObjectEventPic_Hydreigon,
+            sPicTable_Hydreigon,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12505,10 +13141,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LarvestaDitto,
         //.backPicDitto = gMonBackPic_LarvestaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 0, SHADOW_SIZE_S)
         FOOTPRINT(Larvesta)
         OVERWORLD(
-            gObjectEventPic_Larvesta,
+            sPicTable_Larvesta,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12581,10 +13218,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VolcaronaDitto,
         //.backPicDitto = gMonBackPic_VolcaronaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-4, 14, SHADOW_SIZE_M)
         FOOTPRINT(Volcarona)
         OVERWORLD(
-            gObjectEventPic_Volcarona,
+            sPicTable_Volcarona,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12653,10 +13291,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_CobalionDitto,
         //.backPicDitto = gMonBackPic_CobalionDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Cobalion)
         OVERWORLD(
-            gObjectEventPic_Cobalion,
+            sPicTable_Cobalion,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12731,10 +13370,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TerrakionDitto,
         //.backPicDitto = gMonBackPic_TerrakionDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(3, 6, SHADOW_SIZE_L)
         FOOTPRINT(Terrakion)
         OVERWORLD(
-            gObjectEventPic_Terrakion,
+            sPicTable_Terrakion,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12804,10 +13444,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_VirizionDitto,
         //.backPicDitto = gMonBackPic_VirizionDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 12, SHADOW_SIZE_M)
         FOOTPRINT(Virizion)
         OVERWORLD(
-            gObjectEventPic_Virizion,
+            sPicTable_Virizion,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12898,10 +13539,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TornadusIncarnateDitto,
         //.backPicDitto = gMonBackPic_TornadusIncarnateDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 17, SHADOW_SIZE_M)
         FOOTPRINT(Tornadus)
         OVERWORLD(
-            gObjectEventPic_TornadusIncarnate,
+            sPicTable_TornadusIncarnate,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -12974,10 +13616,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_TornadusTherianDitto,
         //.backPicDitto = gMonBackPic_TornadusTherianDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-5, 12, SHADOW_SIZE_L)
         FOOTPRINT(Tornadus)
         OVERWORLD(
-            gObjectEventPic_TornadusTherian,
+            sPicTable_TornadusTherian,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13070,10 +13713,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ThundurusIncarnateDitto,
         //.backPicDitto = gMonBackPic_ThundurusIncarnateDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 17, SHADOW_SIZE_M)
         FOOTPRINT(Thundurus)
         OVERWORLD(
-            gObjectEventPic_ThundurusIncarnate,
+            sPicTable_ThundurusIncarnate,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13158,10 +13802,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ThundurusTherianDitto,
         //.backPicDitto = gMonBackPic_ThundurusTherianDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(5, 16, SHADOW_SIZE_M)
         FOOTPRINT(Thundurus)
         OVERWORLD(
-            gObjectEventPic_ThundurusTherian,
+            sPicTable_ThundurusTherian,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13233,10 +13878,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ReshiramDitto,
         //.backPicDitto = gMonBackPic_ReshiramDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 12, SHADOW_SIZE_L)
         FOOTPRINT(Reshiram)
         OVERWORLD(
-            gObjectEventPic_Reshiram,
+            sPicTable_Reshiram,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13307,10 +13953,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_ZekromDitto,
         //.backPicDitto = gMonBackPic_ZekromDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 14, SHADOW_SIZE_L)
         FOOTPRINT(Zekrom)
         OVERWORLD(
-            gObjectEventPic_Zekrom,
+            sPicTable_Zekrom,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13402,10 +14049,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LandorusIncarnateDitto,
         //.backPicDitto = gMonBackPic_LandorusIncarnateDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(2, 17, SHADOW_SIZE_M)
         FOOTPRINT(Landorus)
         OVERWORLD(
-            gObjectEventPic_LandorusIncarnate,
+            sPicTable_LandorusIncarnate,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13478,10 +14126,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_LandorusTherianDitto,
         //.backPicDitto = gMonBackPic_LandorusTherianDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 11, SHADOW_SIZE_L)
         FOOTPRINT(Landorus)
         OVERWORLD(
-            gObjectEventPic_LandorusTherian,
+            sPicTable_LandorusTherian,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13558,10 +14207,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KyuremDitto,
         //.backPicDitto = gMonBackPic_KyuremDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 8, SHADOW_SIZE_L)
         FOOTPRINT(Kyurem)
         OVERWORLD(
-            gObjectEventPic_Kyurem,
+            sPicTable_Kyurem,
             SIZE_64x64,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13639,10 +14289,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KyuremWhiteDitto,
         //.backPicDitto = gMonBackPic_KyuremWhiteDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-8, 14, SHADOW_SIZE_L)
         FOOTPRINT(Kyurem)
         OVERWORLD(
-            gObjectEventPic_KyuremWhite,
+            sPicTable_KyuremWhite,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13720,10 +14371,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KyuremBlackDitto,
         //.backPicDitto = gMonBackPic_KyuremBlackDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(4, 14, SHADOW_SIZE_L)
         FOOTPRINT(Kyurem)
         OVERWORLD(
-            gObjectEventPic_KyuremBlack,
+            sPicTable_KyuremBlack,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13797,10 +14449,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KeldeoOrdinaryDitto,
         //.backPicDitto = gMonBackPic_KeldeoOrdinaryDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-2, 8, SHADOW_SIZE_M)
         FOOTPRINT(Keldeo)
         OVERWORLD(
-            gObjectEventPic_KeldeoOrdinary,
+            sPicTable_KeldeoOrdinary,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -13873,6 +14526,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_KeldeoResoluteDitto,
         //.backPicDitto = gMonBackPic_KeldeoResoluteDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 12, SHADOW_SIZE_M)
         FOOTPRINT(Keldeo)
         .isMythical = TRUE,
@@ -13951,10 +14605,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MeloettaAriaDitto,
         //.backPicDitto = gMonBackPic_MeloettaAriaDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(-1, 10, SHADOW_SIZE_S)
         FOOTPRINT(Meloetta)
         OVERWORLD(
-            gObjectEventPic_MeloettaAria,
+            sPicTable_MeloettaAria,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -14034,10 +14689,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         //.frontPicDitto = gMonFrontPic_MeloettaPirouetteDitto,
         //.backPicDitto = gMonBackPic_MeloettaPirouetteDitto,
 #endif //P_DITTO_SPRITES
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 16, SHADOW_SIZE_S)
         FOOTPRINT(Meloetta)
         OVERWORLD(
-            gObjectEventPic_MeloettaPirouette,
+            sPicTable_MeloettaPirouette,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
@@ -14101,10 +14757,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .shinyPalette = gMonShinyPalette_##form,                                    \
         .iconSprite = gMonIcon_Genesect,                                            \
         .iconPalIndex = 2,                                                          \
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,                                     \
         SHADOW(5, 13, SHADOW_SIZE_L)                                                \
         FOOTPRINT(Genesect)                                                         \
         OVERWORLD(                                                                  \
-            gObjectEventPic_Genesect,                                               \
+            sPicTable_Genesect,                                                     \
             SIZE_32x32,                                                             \
             SHADOW_SIZE_M,                                                          \
             TRACKS_FOOT,                                                            \

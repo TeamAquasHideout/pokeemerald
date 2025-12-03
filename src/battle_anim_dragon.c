@@ -9,6 +9,7 @@ static void AnimDragonDanceOrb_Step(struct Sprite *);
 static void AnimOverheatFlame_Step(struct Sprite *);
 static void AnimTask_DragonDanceWaver_Step(u8);
 static void UpdateDragonDanceScanlineEffect(struct Task *);
+static void AnimDragonRush(struct Sprite *sprite);
 static void AnimDragonRushStep(struct Sprite *sprite);
 static void AnimSpinningDracoMeteor(struct Sprite *sprite);
 static void AnimSpinningDracoMeteorFinish(struct Sprite *sprite);
@@ -35,8 +36,6 @@ const struct SpriteTemplate gOutrageFlameSpriteTemplate =
     .paletteTag = ANIM_TAG_SMALL_EMBER,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
     .anims = sAnims_OutrageOverheatFire,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimOutrageFlame,
 };
 
@@ -121,7 +120,6 @@ const struct SpriteTemplate gDragonBreathFireSpriteTemplate =
     .paletteTag = ANIM_TAG_SMALL_EMBER,
     .oam = &gOamData_AffineDouble_ObjNormal_32x32,
     .anims = gAnims_DragonBreathFire,
-    .images = NULL,
     .affineAnims = gAffineAnims_DragonBreathFire,
     .callback = AnimDragonFireToTarget,
 };
@@ -147,8 +145,6 @@ const struct SpriteTemplate gDragonRageFirePlumeSpriteTemplate =
     .paletteTag = ANIM_TAG_FIRE_PLUME,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
     .anims = gAnims_DragonRageFirePlume,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimDragonRageFirePlume,
 };
 
@@ -190,7 +186,6 @@ const struct SpriteTemplate gDragonRageFireSpitSpriteTemplate =
     .paletteTag = ANIM_TAG_SMALL_EMBER,
     .oam = &gOamData_AffineDouble_ObjNormal_32x32,
     .anims = gAnims_DragonRageFire,
-    .images = NULL,
     .affineAnims = gAffineAnims_DragonRageFire,
     .callback = AnimDragonFireToTarget,
 };
@@ -200,9 +195,6 @@ const struct SpriteTemplate gDragonDanceOrbSpriteTemplate =
     .tileTag = ANIM_TAG_HOLLOW_ORB,
     .paletteTag = ANIM_TAG_HOLLOW_ORB,
     .oam = &gOamData_AffineOff_ObjNormal_16x16,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimDragonDanceOrb,
 };
 
@@ -212,8 +204,6 @@ const struct SpriteTemplate gOverheatFlameSpriteTemplate =
     .paletteTag = ANIM_TAG_SMALL_EMBER,
     .oam = &gOamData_AffineOff_ObjNormal_32x32,
     .anims = sAnims_OutrageOverheatFire,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimOverheatFlame,
 };
 
@@ -223,9 +213,6 @@ const struct SpriteTemplate gDracoMeteorRocksSpriteTemplate =
     .tileTag = ANIM_TAG_ROCKS,
     .paletteTag = ANIM_TAG_FAIRY_LOCK_CHAINS,
     .oam = &gOamData_AffineNormal_ObjNormal_32x32,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = AnimDracoMeteorRock,
 };
 
@@ -235,8 +222,6 @@ const struct SpriteTemplate gDracoMeteorTailSpriteTemplate =
     .tileTag = ANIM_TAG_WATER_GUN,
     .paletteTag = ANIM_TAG_WATER_GUN,
     .oam = &gOamData_AffineDouble_ObjBlend_16x16,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
     .affineAnims = sSpriteAffineAnimTable_HydroCannonBall,
     .callback = AnimDracoMeteorRock,
 };
@@ -302,9 +287,8 @@ const struct SpriteTemplate gDragonRushSpriteTemplate =
     .paletteTag = ANIM_TAG_RED_HEART,
     .oam = &gOamData_AffineNormal_ObjNormal_64x64,
     .anims = gDragonRushAnimTable,
-    .images = NULL,
     .affineAnims = gDragonRushAffineAnimTable,
-    .callback = AnimDragonRushStep,
+    .callback = AnimDragonRush,
 };
 
 const struct SpriteTemplate gDracoMetorSpriteTemplate =
@@ -313,7 +297,6 @@ const struct SpriteTemplate gDracoMetorSpriteTemplate =
     .paletteTag = ANIM_TAG_IMPACT,
     .oam = &gOamData_AffineDouble_ObjNormal_32x32,
     .anims = gDracoMeteorAnimCmd,
-    .images = NULL,
     .affineAnims = gDracoMeteorAffineAnims,
     .callback = AnimSpinningDracoMeteor,
 };
@@ -323,16 +306,43 @@ const struct SpriteTemplate gDragonPulseSpriteTemplate =
     .tileTag = ANIM_TAG_DRAGON_PULSE,
     .paletteTag = ANIM_TAG_DRAGON_PULSE,
     .oam = &gOamData_AffineOff_ObjNormal_16x32,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = TranslateAnimSpriteToTargetMonLocation,
 };
 
+// Animates a strike that swipes downard at the target mon.
+// arg 0: initial x pixel offset
+// arg 1: initial y pixel offset
+static void AnimDragonRush(struct Sprite *sprite)
+{
+    if (IsOnPlayerSide(gBattleAnimTarget))
+    {
+        sprite->x -= gBattleAnimArgs[0];
+        sprite->y += gBattleAnimArgs[1];
+        sprite->data[0] = -11;
+        sprite->data[1] = 192;
+        StartSpriteAffineAnim(sprite, 1);
+    }
+    else
+    {
+        sprite->data[0] = 11;
+        sprite->data[1] = 192;
+        sprite->x += gBattleAnimArgs[0];
+        sprite->y += gBattleAnimArgs[1];
+    }
+
+    sprite->callback = AnimDragonRushStep;
+}
+
+// args[0] - initial x delta
+// args[1] - initial y delta
+// args[2] - x delta to end x
+// args[3] - y delta to end y
+// args[4] - num frames
+// args[5] - sprite anim number
 static void AnimDragonRushStep(struct Sprite *sprite)
 {
     // These two cases are identical.
-    if (GetBattlerSide(gBattleAnimTarget) == B_SIDE_PLAYER)
+    if (IsOnPlayerSide(gBattleAnimTarget))
     {
         sprite->data[1] += sprite->data[0];
         sprite->data[1] &= 0xFF;
@@ -375,7 +385,7 @@ void AnimOutrageFlame(struct Sprite *sprite)
 {
     sprite->x = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_X_2);
     sprite->y = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_Y_PIC_OFFSET);
-    if (GetBattlerSide(gBattleAnimAttacker) != B_SIDE_PLAYER)
+    if (!IsOnPlayerSide(gBattleAnimAttacker))
     {
         sprite->x -= gBattleAnimArgs[0];
         gBattleAnimArgs[3] = -gBattleAnimArgs[3];
@@ -401,7 +411,7 @@ static void StartDragonFireTranslation(struct Sprite *sprite)
     SetSpriteCoordsToAnimAttackerCoords(sprite);
     sprite->data[2] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_X_2);
     sprite->data[4] = GetBattlerSpriteCoord(gBattleAnimTarget, BATTLER_COORD_Y_PIC_OFFSET);
-    if (GetBattlerSide(gBattleAnimAttacker) != B_SIDE_PLAYER)
+    if (!IsOnPlayerSide(gBattleAnimAttacker))
     {
         sprite->x -= gBattleAnimArgs[1];
         sprite->y += gBattleAnimArgs[1];
@@ -422,6 +432,9 @@ static void StartDragonFireTranslation(struct Sprite *sprite)
     StoreSpriteCallbackInData6(sprite, DestroySpriteAndMatrix);
 }
 
+// args[0] - attacker or target
+// args[1] - initial x offset
+// args[2] - initial y offset
 void AnimDragonRageFirePlume(struct Sprite *sprite)
 {
     if (gBattleAnimArgs[0] == 0)
@@ -444,7 +457,7 @@ void AnimDragonRageFirePlume(struct Sprite *sprite)
 // For Dragon Breath and Dragon Rage
 void AnimDragonFireToTarget(struct Sprite *sprite)
 {
-    if (GetBattlerSide(gBattleAnimAttacker) != B_SIDE_PLAYER)
+    if (!IsOnPlayerSide(gBattleAnimAttacker))
         StartSpriteAffineAnim(sprite, 1);
 
     StartDragonFireTranslation(sprite);
@@ -622,7 +635,7 @@ static void AnimOverheatFlame_Step(struct Sprite *sprite)
 
 void AnimDracoMeteorRock(struct Sprite *sprite)
 {
-    if (GetBattlerSide(gBattleAnimTarget) == B_SIDE_PLAYER)
+    if (IsOnPlayerSide(gBattleAnimTarget))
     {
         sprite->data[0] = sprite->x - gBattleAnimArgs[0];
         sprite->data[2] = sprite->x - gBattleAnimArgs[2];

@@ -9,10 +9,6 @@ static const struct SpriteTemplate sInvisibleSpriteTemplate =
     .tileTag = 0,
     .paletteTag = 0,
     .oam = &gDummyOamData,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const u8 sSpriteDimensions[3][4][2] =
@@ -228,6 +224,7 @@ u32 CalcByteArraySum(const u8 *data, u32 length)
 void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blendColor)
 {
     u16 i;
+    struct PlttData *data2 = (struct PlttData *) & blendColor;
     for (i = 0; i < numEntries; i++)
     {
         u16 index = i + palOffset;
@@ -235,7 +232,7 @@ void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u32 blendColor)
         s8 r = data1->r;
         s8 g = data1->g;
         s8 b = data1->b;
-        struct PlttData *data2 = (struct PlttData *)&blendColor;
+
         gPlttBufferFaded[index] = RGB(r + (((data2->r - r) * coeff) >> 4),
                                       g + (((data2->g - g) * coeff) >> 4),
                                       b + (((data2->b - b) * coeff) >> 4));

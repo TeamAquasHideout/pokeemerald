@@ -27,6 +27,7 @@
 #include "overworld.h"
 #include "walda_phrase.h"
 #include "main.h"
+#include "decompress.h"
 #include "constants/event_objects.h"
 #include "constants/rgb.h"
 
@@ -1886,7 +1887,7 @@ static void SaveInputText(void)
 
 static void LoadGfx(void)
 {
-    LZ77UnCompWram(gNamingScreenMenu_Gfx, sNamingScreen->tileBuffer);
+    DecompressDataWithHeaderWram(gNamingScreenMenu_Gfx, sNamingScreen->tileBuffer);
     LoadBgTiles(1, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
     LoadBgTiles(2, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
     LoadBgTiles(3, sNamingScreen->tileBuffer, sizeof(sNamingScreen->tileBuffer), 0);
@@ -1981,7 +1982,7 @@ static void PrintKeyboardKeys(u8 window, u8 page)
     PutWindowTilemap(window);
 }
 
-static const u8 *const sNextKeyboardPageTilemaps[] =
+static const u32 *const sNextKeyboardPageTilemaps[] =
 {
     [KBPAGE_SYMBOLS] = gNamingScreenKeyboardUpper_Tilemap,
     [KBPAGE_LETTERS_UPPER] = gNamingScreenKeyboardLower_Tilemap, // lower
@@ -2472,8 +2473,6 @@ static const struct SpriteTemplate sSpriteTemplate_PageSwapFrame =
     .paletteTag = PALTAG_PAGE_SWAP,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_PageSwap
 };
 
@@ -2483,9 +2482,6 @@ static const struct SpriteTemplate sSpriteTemplate_PageSwapButton =
     .paletteTag = PALTAG_PAGE_SWAP_UPPER,
     .oam = &sOam_32x16,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct SpriteTemplate sSpriteTemplate_PageSwapText =
@@ -2494,9 +2490,6 @@ static const struct SpriteTemplate sSpriteTemplate_PageSwapText =
     .paletteTag = PALTAG_PAGE_SWAP,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct SpriteTemplate sSpriteTemplate_BackButton =
@@ -2505,9 +2498,6 @@ static const struct SpriteTemplate sSpriteTemplate_BackButton =
     .paletteTag = PALTAG_BACK_BUTTON,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct SpriteTemplate sSpriteTemplate_OkButton =
@@ -2516,9 +2506,6 @@ static const struct SpriteTemplate sSpriteTemplate_OkButton =
     .paletteTag = PALTAG_OK_BUTTON,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct SpriteTemplate sSpriteTemplate_Cursor =
@@ -2527,8 +2514,6 @@ static const struct SpriteTemplate sSpriteTemplate_Cursor =
     .paletteTag = PALTAG_CURSOR,
     .oam = &sOam_16x16,
     .anims = sAnims_Cursor,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_Cursor
 };
 
@@ -2538,8 +2523,6 @@ static const struct SpriteTemplate sSpriteTemplate_InputArrow =
     .paletteTag = PALTAG_PAGE_SWAP_OTHERS,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_InputArrow
 };
 
@@ -2549,8 +2532,6 @@ static const struct SpriteTemplate sSpriteTemplate_Underscore =
     .paletteTag = PALTAG_PAGE_SWAP_OTHERS,
     .oam = &sOam_8x8,
     .anims = sAnims_Loop,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_Underscore
 };
 
@@ -2561,8 +2542,6 @@ static const struct SpriteTemplate sSpriteTemplate_PCIcon =
     .oam = &sOam_8x8,
     .anims = sAnims_PCIcon,
     .images = sImageTable_PCIcon,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const u8 *const sNamingScreenKeyboardText[KBPAGE_COUNT][KBROW_COUNT] =
