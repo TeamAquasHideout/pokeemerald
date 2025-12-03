@@ -1554,6 +1554,9 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_GEN_2_CROSS_EVOS
+#if P_DITTO_SPRITES
+    const u32 gMonFrontPic_CleffaDitto[] = INCBIN_U32("graphics/pokemon/cleffa/anim_front_ditto.4bpp.smol");
+#endif
 
 #if !P_GBA_STYLE_SPECIES_GFX
     const u32 gMonFrontPic_Clefairy[] = INCBIN_U32("graphics/pokemon/clefairy/anim_front.4bpp.smol");
@@ -1582,8 +1585,7 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 #if P_DITTO_SPRITES
-    //const u32 gMonFrontPic_ClefairyDitto[] = INCBIN_U32("graphics/pokemon/clefairy/anim_front_ditto.4bpp.smol");
-    //const u32 gMonBackPic_ClefairyDitto[] = INCBIN_U32("graphics/pokemon/clefairy/back_ditto.4bpp.smol");
+    const u32 gMonFrontPic_ClefairyDitto[] = INCBIN_U32("graphics/pokemon/clefairy/anim_front_ditto.4bpp.smol");
 #endif
 
 #if !P_GBA_STYLE_SPECIES_GFX
@@ -1613,6 +1615,9 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_CLEFAIRY
+#if P_DITTO_SPRITES
+    const u32 gMonFrontPic_ClefableDitto[] = INCBIN_U32("graphics/pokemon/clefable/anim_front_ditto.4bpp.smol");
+#endif
 
 #if P_FAMILY_VULPIX
 #if !P_GBA_STYLE_SPECIES_GFX

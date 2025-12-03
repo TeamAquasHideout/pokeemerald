@@ -5076,8 +5076,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .iconSprite = gMonIcon_Cleffa,
         .iconPalIndex = 0,
 #if P_DITTO_SPRITES
-        //.frontPicDitto = gMonFrontPic_CleffaDitto,
-        //.backPicDitto = gMonBackPic_CleffaDitto,
+        .frontPicDitto = gMonFrontPic_CleffaDitto,
 #endif //P_DITTO_SPRITES
         .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(0, -4, SHADOW_SIZE_S)
@@ -5156,8 +5155,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .iconSprite = gMonIcon_Clefairy,
         .iconPalIndex = 0,
 #if P_DITTO_SPRITES
-        //.frontPicDitto = gMonFrontPic_ClefairyDitto,
-        //.backPicDitto = gMonBackPic_ClefairyDitto,
+        .frontPicDitto = gMonFrontPic_ClefairyDitto,
 #endif //P_DITTO_SPRITES
         .pokemonJumpType = PKMN_JUMP_TYPE_NORMAL,
         SHADOW(1, 1, SHADOW_SIZE_S)
@@ -5242,8 +5240,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .iconSprite = gMonIcon_Clefable,
         .iconPalIndex = 0,
 #if P_DITTO_SPRITES
-        //.frontPicDitto = gMonFrontPic_ClefableDitto,
-        //.backPicDitto = gMonBackPic_ClefableDitto,
+        .frontPicDitto = gMonFrontPic_ClefableDitto,
 #endif //P_DITTO_SPRITES
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(0, 7, SHADOW_SIZE_M)
