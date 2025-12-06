@@ -1709,10 +1709,10 @@ static void Task_ModeMenuSave(u8 taskId)
 
     if (gSaveBlock2Ptr->modeNoBagUse)
     {
-        FlagSet(FLAG_NO_BAG_USE);
+        VarSet(VAR_NO_BAG_USE, NO_BAG_IN_BATTLE);
     }
     else
-        FlagClear(FLAG_NO_BAG_USE);
+        VarSet(VAR_NO_BAG_USE, NO_BAG_RESTRICTION);
 
 
     //####################### randomizer settings #######################

@@ -3251,7 +3251,7 @@ static const u16 sInvalidRandomAbilities[] =
     ABILITY_AS_ONE_SHADOW_RIDER,
 };
 
-u16 GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
+enum Ability GetRandomAbilityBySpecies(u16 species, u8 abilityNum)
 {
     int i;
     bool8 reroll;
