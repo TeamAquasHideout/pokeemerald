@@ -284,6 +284,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Mario;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RavePossum;
 // phantonomy
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Phantonomy;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_ApricornTree;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_BRENDAN_NORMAL] =           &gObjectEventGraphicsInfo_BrendanNormal,
@@ -555,6 +556,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_RAVEPOSSUM] =               &gObjectEventGraphicsInfo_RavePossum,
     [OBJ_EVENT_GFX_PHANTONOMY] =               &gObjectEventGraphicsInfo_Phantonomy,
     [OBJ_EVENT_GFX_MISTY] =                    &gObjectEventGraphicsInfo_Misty,
+    [OBJ_EVENT_GFX_APRICORN_TREE] =            &gObjectEventGraphicsInfo_ApricornTree,
 };
 
 const struct ObjectEventGraphicsInfo *const gMauvilleOldManGraphicsInfoPointers[] = {

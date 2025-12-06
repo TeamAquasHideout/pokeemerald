@@ -1,5 +1,5 @@
-const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
-    {
+const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
+{
     [ABILITY_NONE] =
     {
         .name = _("-------"),
@@ -1526,6 +1526,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Bulletproof"),
         .description = COMPOUND_STRING("Ignores bomb/ball moves."),
         .description_short = COMPOUND_STRING("Avoids some projectiles."),
+        .breakable = TRUE,
         .aiRating = 7,
     },
 

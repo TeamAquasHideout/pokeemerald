@@ -254,6 +254,7 @@ gScriptCmdTable::
 	script_cmd_table_entry SCR_OP_SHOWITEMDESC					ScrCmd_showitemdesc              	requests_effects=0  @ 0xe5
 	script_cmd_table_entry SCR_OP_HIDEITEMDESC					ScrCmd_hideitemdesc              	requests_effects=0  @ 0xe6
 	script_cmd_table_entry SCR_OP_PITDEFEATTEXT					ScrCmd_pitdefeattext              	requests_effects=0  @ 0xe7
+	script_cmd_table_entry SCR_OP_HIDEFOLLOWER                  ScrCmd_hidefollower,                requests_effects=1  @ 0xe8
 
 	.if ALLOCATE_SCRIPT_CMD_TABLE
 gScriptCmdTableEnd::

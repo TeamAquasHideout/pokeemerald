@@ -32,6 +32,8 @@
 #include "constants/party_menu.h"
 #include "constants/trainers.h"
 #include "math_util.h"
+#include "test/battle.h"
+#include "test/test_runner_battle.h"
 
 static void PlayerPartnerHandleDrawTrainerPic(u32 battler);
 static void PlayerPartnerHandleTrainerSlideBack(u32 battler);
@@ -203,7 +205,15 @@ static void PlayerPartnerHandleDrawTrainerPic(u32 battler)
     s16 xPos, yPos;
     u32 trainerPicId;
 
-    if (gPartnerTrainerId > TRAINER_PARTNER(PARTNER_NONE))
+    enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(gPartnerTrainerId);
+
+    if (IsMultibattleTest())
+    {
+        trainerPicId = TRAINER_BACK_PIC_STEVEN;
+        xPos = 90;
+        yPos = (8 - gTrainerBacksprites[trainerPicId].coordinates.size) * 4 + 80;
+    }
+    else if (gPartnerTrainerId > TRAINER_PARTNER(PARTNER_NONE))
     {
         trainerPicId = gBattlePartners[gPartnerTrainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerBackPic;
         xPos = 90;
@@ -260,14 +270,15 @@ static void PlayerPartnerHandleChooseMove(u32 battler)
             gBattlerTarget = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
     }
     // If partner can and should use a gimmick (considering trainer data), do it
-    if (MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) != GIMMICK_NONE
-        && !(MathUtil_GetFirstBitmaskFlag(gBattleStruct->gimmick.usableGimmick[battler]) == GIMMICK_Z_MOVE
-        && !ShouldUseZMove(battler, gBattlerTarget, moveInfo->moves[moveInfo->moves[chosenMoveIndex]])))
+    enum Gimmick usableGimmick = gBattleStruct->gimmick.usableGimmick[battler];
+    if (usableGimmick != GIMMICK_NONE && IsAIUsingGimmick(battler) && !HasTrainerUsedGimmick(battler, usableGimmick))
     {
+        gBattleStruct->gimmick.toActivate |= 1u << battler;
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (RET_GIMMICK) | (gBattlerTarget << 8));
     }
     else
     {
+        SetAIUsingGimmick(battler, NO_GIMMICK);
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, (chosenMoveIndex) | (gBattlerTarget << 8));
     }
 
@@ -303,15 +314,15 @@ static void PlayerPartnerHandleChoosePokemon(u32 battler)
             }
         }
         gBattleStruct->monToSwitchIntoId[battler] = chosenMonId;
-        GetBattlerPartyState(battler)->sentOut = TRUE;
     }
     else // Mon to switch out has been already chosen.
     {
         chosenMonId = gBattleStruct->monToSwitchIntoId[battler];
         gBattleStruct->AI_monToSwitchIntoId[battler] = PARTY_SIZE;
         gBattleStruct->monToSwitchIntoId[battler] = chosenMonId;
-        GetBattlerPartyState(battler)->sentOut = TRUE;
     }
+    if (TESTING)
+        TestRunner_Battle_CheckSwitch(battler, chosenMonId);
     BtlController_EmitChosenMonReturnValue(battler, B_COMM_TO_ENGINE, chosenMonId, NULL);
     BtlController_Complete(battler);
 }
