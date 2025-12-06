@@ -60,6 +60,8 @@ tools/poryscript/poryscript
 tools/poryscript/poryscript:Zone.Identifier
 install-devkitpro-pacman
 include/constants/heal_locations.h
+include/constants/script_commands.h
+tools/trainerproc/trainerproc
 src/data/battle_partners.h
 src/data/debug_trainers.h
 test/battle/trainer_control.h

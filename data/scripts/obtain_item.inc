@@ -258,6 +258,7 @@ EventScript_PutHiddenItemInPocket::
 	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	special TryPutTreasureInvestigatorsOnAir
 	special SetHiddenItemFlag
+	callnative Script_UpdateDowseState
 	releaseall
 	end
 

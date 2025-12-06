@@ -86,6 +86,8 @@ extern const u8 gQuestionMarksItemName[];
 extern const struct Item gItemsInfo[];
 extern struct BagPocket gBagPockets[];
 
+enum TMHMItemId GetTMHMItemIdFromMoveId(u16 move);
+
 void BagPocket_SetSlotData(struct BagPocket *pocket, u32 pocketPos, struct ItemSlot newSlot);
 struct ItemSlot BagPocket_GetSlotData(struct BagPocket *pocket, u32 pocketPos);
 
@@ -123,6 +125,7 @@ bool32 AddBagItem(u16 itemId, u16 count);
 bool32 RemoveBagItem(u16 itemId, u16 count);
 u8 GetPocketByItemId(u16 itemId);
 u8 SellsForBuyPrice(u16 itemId);
+void RemoveBagItemFromSlot(struct BagPocket *pocket, u16 slotId, u16 count);
 u8 CountUsedPCItemSlots(void);
 bool32 CheckPCHasItem(u16 itemId, u16 count);
 bool32 AddPCItem(u16 itemId, u16 count);
@@ -139,7 +142,7 @@ bool32 RemovePyramidBagItem(u16 itemId, u16 count);
 const u8 *GetItemName(u16 itemId);
 u32 GetItemPrice(u16 itemId);
 const u16 *GetItemEffect(u32 itemId);
-u32 GetItemHoldEffect(u32 itemId);
+enum HoldEffect GetItemHoldEffect(u32 itemId);
 u32 GetItemHoldEffectParam(u32 itemId);
 const u8 *GetItemDescription(u16 itemId);
 const u8 *ItemId_GetTMData(u16 itemId);
@@ -189,6 +192,6 @@ u32 GetItemFlingPower(u32 itemId);
 u32 GetItemStatus1Mask(u16 itemId);
 bool32 ItemHasVolatileFlag(u16 itemId, enum Volatile volatile);
 u32 GetItemSellPrice(u32 itemId);
-bool32 IsHoldEffectChoice(enum ItemHoldEffect holdEffect);
+bool32 IsHoldEffectChoice(enum HoldEffect holdEffect);
 
 #endif // GUARD_ITEM_H

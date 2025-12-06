@@ -54,6 +54,8 @@ void ItemUseOutOfBattle_TownMap(u8 taskId);
 void ItemUseOutOfBattle_ShinyDust(u8 taskId);
 void ItemUseOutOfBattle_SetGigantamaxFactor (u8 taskId);
 void ItemUseOutOfBattle_RechargeTeraOrb (u8 taskId);
+bool8 ItemfinderCheckForHiddenItems(const struct MapEvents *, u8);
+u8 GetDirectionToHiddenItem(s16, s16);
 
 enum {
     BALL_THROW_UNABLE_TWO_MONS,
