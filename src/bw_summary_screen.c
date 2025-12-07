@@ -4508,9 +4508,7 @@ static void PrintContestMoveDescription(u8 moveSlot)
 
     if (move != MOVE_NONE)
     {
-        windowId = AddWindowFromTemplateList(sPageMovesTemplate, PSS_DATA_WINDOW_MOVE_DESCRIPTION);
-        FormatTextByWidth(desc, 119, FONT_BW_SUMMARY_SCREEN, gContestEffectDescriptionPointers[gMovesInfo[move].contestEffect], GetFontAttribute(FONT_BW_SUMMARY_SCREEN, FONTATTR_LETTER_SPACING));
-        PrintTextOnWindow_BW_Font(windowId, desc, 2, 0, 0, 0);
+
     }
 }
 
@@ -4551,12 +4549,11 @@ static void PrintMoveDetails(u16 move)
             HandleAppealJamTilemap(move);
             if (BW_SUMMARY_AUTO_FORMAT_MOVE_DESCRIPTIONS)
             {
-                FormatTextByWidth(desc, 119, FONT_BW_SUMMARY_SCREEN, gContestEffectDescriptionPointers[gMovesInfo[move].contestEffect], GetFontAttribute(FONT_BW_SUMMARY_SCREEN, FONTATTR_LETTER_SPACING));
-                PrintTextOnWindow_BW_Font(windowId, desc, 2, 0, 0, 0);
+
             }
             else
             {
-                PrintTextOnWindow_BW_Font(windowId, gContestEffectDescriptionPointers[gMovesInfo[move].contestEffect], 2, 0, 0, 0);
+
             }
         }
         PutWindowTilemap(windowId);

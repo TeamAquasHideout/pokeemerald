@@ -6631,7 +6631,7 @@ static bool32 IsBattlerGroundedInverseCheck(u32 battler, enum Ability ability, e
 
 bool32 IsBattlerGrounded(u32 battler, enum Ability ability, enum HoldEffect holdEffect)
 {
-    return IsBattlerGroundedInverseCheck(battler, GetBattlerAbility(battler), NOT_INVERSE_BATTLE, CHECK_IRON_BALL, FALSE);
+    return IsBattlerGroundedInverseCheck(battler, GetBattlerAbility(battler), holdEffect, NOT_INVERSE_BATTLE, FALSE);
 }
 
 u32 GetMoveSlot(u16 *moves, u32 move)
@@ -10289,7 +10289,7 @@ u32 GetCalcedMoveBasePower(u32 move, u32 battlerAtk, u32 weather)
     case EFFECT_ACROBATICS:
         if (gBattleMons[battlerAtk].item == ITEM_NONE
             // Edge case, because removal of items happens after damage calculation.
-            || (gSpecialStatuses[battlerAtk].gemBoost && GetBattlerHoldEffect(battlerAtk, FALSE) == HOLD_EFFECT_GEMS))
+            || (gSpecialStatuses[battlerAtk].gemBoost && GetBattlerHoldEffect(battlerAtk) == HOLD_EFFECT_GEMS))
             basePower *= 2;
         break;
     case EFFECT_STORED_POWER:
@@ -10323,7 +10323,7 @@ u32 GetCalcedMoveBasePower(u32 move, u32 battlerAtk, u32 weather)
             basePower *= 2;
         break;
     case EFFECT_EXPLOSION:
-        if (move == MOVE_MISTY_EXPLOSION && gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN && IsBattlerGrounded(battlerAtk))
+        if (move == MOVE_MISTY_EXPLOSION && gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN && IsBattlerGrounded(battlerAtk, GetBattlerAbility(battlerAtk), GetBattlerHoldEffect(battlerAtk)))
             basePower = uq4_12_multiply(basePower, UQ_4_12(1.5));
         break;
     case EFFECT_HIDDEN_POWER:
@@ -10347,11 +10347,11 @@ u32 GetCalcedMoveBasePower(u32 move, u32 battlerAtk, u32 weather)
         break;
     case EFFECT_TERRAIN_PULSE:
         if ((gFieldStatuses & STATUS_FIELD_TERRAIN_ANY)
-            && IsBattlerGrounded(battlerAtk))
+            && IsBattlerGrounded(battlerAtk, GetBattlerAbility(battlerAtk), GetBattlerHoldEffect(battlerAtk)))
             basePower *= 2;
         break;
     case EFFECT_EXPANDING_FORCE:
-        if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_PSYCHIC_TERRAIN))
+        if (IsBattlerTerrainAffected(battlerAtk, GetBattlerAbility(battlerAtk), GetBattlerHoldEffect(battlerAtk), STATUS_FIELD_PSYCHIC_TERRAIN))
             basePower = uq4_12_multiply(basePower, UQ_4_12(1.5));
         break;
     case EFFECT_BEAT_UP:
@@ -10359,7 +10359,7 @@ u32 GetCalcedMoveBasePower(u32 move, u32 battlerAtk, u32 weather)
             basePower = CalcBeatUpPower();
         break;
     case EFFECT_PSYBLADE:
-        if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_ELECTRIC_TERRAIN))
+        if (IsBattlerTerrainAffected(battlerAtk, GetBattlerAbility(battlerAtk), GetBattlerHoldEffect(battlerAtk), STATUS_FIELD_ELECTRIC_TERRAIN))
             basePower = uq4_12_multiply(basePower, UQ_4_12(1.5));
         break;
     case EFFECT_MAX_MOVE:

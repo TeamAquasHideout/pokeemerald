@@ -242,10 +242,9 @@ static void RecordedPartnerHandleChoosePokemon(u32 battler)
 static void RecordedPartnerHandleIntroTrainerBallThrow(u32 battler)
 {
     const u16 *trainerPal;
-    enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(gPartnerTrainerId);
 
     if (gPartnerTrainerId > TRAINER_PARTNER(PARTNER_NONE))
-        trainerPal = gTrainerBacksprites[gBattlePartners[difficulty][gPartnerTrainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic].palette.data;
+        trainerPal = gTrainerBacksprites[gBattlePartners[gPartnerTrainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic].palette.data;
     else if (IsAiVsAiBattle())
         trainerPal = gTrainerSprites[GetTrainerPicFromId(gPartnerTrainerId)].palette.data;
     else

@@ -86,7 +86,7 @@ extern const u8 gQuestionMarksItemName[];
 extern const struct Item gItemsInfo[];
 extern struct BagPocket gBagPockets[];
 
-enum TMHMItemId GetTMHMItemIdFromMoveId(u16 move);
+u16 GetTMHMItemIdFromMoveId(u16 move);
 
 void BagPocket_SetSlotData(struct BagPocket *pocket, u32 pocketPos, struct ItemSlot newSlot);
 struct ItemSlot BagPocket_GetSlotData(struct BagPocket *pocket, u32 pocketPos);
