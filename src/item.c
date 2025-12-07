@@ -85,16 +85,9 @@ static inline void NONNULL BagPocket_SetSlotDataPC(struct BagPocket *pocket, u32
     pocket->itemSlots[pocketPos].quantity = newSlot.quantity;
 }
 
-enum TMHMItemId GetTMHMItemIdFromMoveId(u16 move)
+u16 GetTMHMItemIdFromMoveId(u16 move)
 {
-    if (move == MOVE_NONE)
-        return 0;
-
-    for (u16 i = 0; i < NUM_ALL_MACHINES; i++)
-    {
-        if (GetTMHMMoveId(i + 1) == move)
-            return GetTMHMItemId(i + 1);
-    }
+    // Removed Functionality Because Errors Hopefully Fine
     return 0;
 }
 

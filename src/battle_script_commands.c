@@ -17928,19 +17928,6 @@ void BS_JumpIfAbilityPreventsRest(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-void BS_JumpIfAbilityPreventsRest(void)
-{
-    NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
-    u32 battler = GetBattlerForBattleScript(cmd->battler);
-    u32 ability = GetBattlerAbility(battler);
-    if (B_LEAF_GUARD_PREVENTS_REST >= GEN_5 && IsLeafGuardProtected(battler, ability))
-        gBattlescriptCurrInstr = cmd->jumpInstr;
-    else if (IsShieldsDownProtected(battler, ability))
-        gBattlescriptCurrInstr = cmd->jumpInstr;
-    else
-        gBattlescriptCurrInstr = cmd->nextInstr;
-}
-
 void BS_SetAttackerToStickyWebUser(void)
 {
     NATIVE_ARGS();

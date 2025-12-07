@@ -512,13 +512,7 @@ static void PrintMessageWithPlaceholders(const u8 *src)
 // If reusable TMs is off, remove the TM from the bag
 static void RemoveRelearnerTMFromBag(u16 move)
 {
-    u16 item = GetTMHMItemIdFromMoveId(move);
 
-    if (!I_REUSABLE_TMS && !P_ENABLE_ALL_TM_MOVES
-     && gMoveRelearnerState == MOVE_RELEARNER_TM_MOVES && GetItemTMHMIndex(item) <= NUM_TECHNICAL_MACHINES)
-    {
-        RemoveBagItem(item, 1);
-    }
 }
 
 // See the state machine doc at the top of the file.

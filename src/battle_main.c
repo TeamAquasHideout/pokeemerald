@@ -4785,22 +4785,14 @@ static void HandleTurnActionSelectionState(void)
                     gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
                     return;
                 }
-                else if (CanPlayerForfeitNormalTrainerBattle() && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
-                {
-                    gSelectionBattleScripts[battler] = BattleScript_QuestionForfeitBattle;
-                    gBattleCommunication[battler] = STATE_SELECTION_SCRIPT_MAY_RUN;
-                    gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
-                    gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
-                    return;
-                }
                 else if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER || gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
                       && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
                       && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
                     gSelectionBattleScripts[battler] = BattleScript_AskIfWantsToForfeitMatch;
                     gBattleCommunication[battler] = STATE_SELECTION_SCRIPT_MAY_RUN;
-                    *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
-                    *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                    gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                    gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
                     return;
                 }
                 else if ((IsRunningFromBattleImpossible(battler) != BATTLE_RUN_SUCCESS
