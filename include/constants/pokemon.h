@@ -180,7 +180,6 @@ enum __attribute__((packed)) Stat
 #define LEVEL_UP_MOVE_END  0xFFFF
 
 #define MAX_LEVEL_UP_MOVES   40
-#define MAX_RELEARNER_MOVES  max(MAX_LEVEL_UP_MOVES, 25)
 #define MAX_TMHM_MOVES      240
 
 #define MON_MALE       0x00
