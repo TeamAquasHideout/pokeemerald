@@ -8017,8 +8017,7 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sOgerponLevelUpLearnset,                                                        \
         .teachableLearnset = sOgerponTeachableLearnset,                                                    \
         .formSpeciesIdTable = sOgerponFormSpeciesIdTable,                                                  \
-        .formChangeTable = sOgerpon##Form1##FormChangeTable,                                               \
-        .isSubLegendary = TRUE,                                                                            \
+        .formChangeTable = sOgerponFormChangeTable,                                               \
         .isTeraForm = isTeraform,                                                                          \
         .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,                                                      \
     }
