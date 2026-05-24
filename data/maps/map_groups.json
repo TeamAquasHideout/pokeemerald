@@ -1,5 +1,6 @@
 {
   "group_order": [
+    "gMapGroup_Cam",
     "gMapGroup_TownsAndRoutes",
     "gMapGroup_IndoorLittleroot",
     "gMapGroup_IndoorOldale",
@@ -75,6 +76,9 @@
     "gMapGroup_IndoorTwoIslandRoute_Frlg",
     "gMapGroup_IndoorSixIslandRoute_Frlg",
     "gMapGroup_IndoorSevenIslandRoute_Frlg"
+  ],
+  "gMapGroup_Cam": [
+    "MainPuzzleMap"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
