@@ -664,10 +664,30 @@ struct MapHeader const *const GetDestinationWarpMapHeader(void)
     return Overworld_GetMapHeaderByGroupAndId(sWarpDestination.mapGroup, sWarpDestination.mapNum);
 }
 
-static void LoadCurrentMapData(void)
+void LoadCurrentMapData(void)
 {
     sLastMapSectionId = gMapHeader.regionMapSectionId;
     gMapHeader = *Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum);
+    
+    switch(gMapHeader.mapLayoutId)
+    {
+        case LAYOUT_MAIN_PUZZLE_MAP:
+        case LAYOUT_MAIN_PUZZLE_MAP_LAYOUT_2:
+            if(FlagGet(FLAG_SET_PUZZLE_MAP_LAYOUT_1))
+            {
+                gMapHeader.mapLayoutId = LAYOUT_MAIN_PUZZLE_MAP;
+            }
+            if(FlagGet(FLAG_SET_PUZZLE_MAP_LAYOUT_2))
+            {
+                gMapHeader.mapLayoutId = LAYOUT_MAIN_PUZZLE_MAP_LAYOUT_2;
+            }
+
+            gSaveBlock1Ptr->mapLayoutId = gMapHeader.mapLayoutId;
+            gMapHeader.mapLayout = GetMapLayout(gMapHeader.mapLayoutId);
+            ReinitMapAfterLayoutChange();
+            return;
+    }
+
     gSaveBlock1Ptr->mapLayoutId = gMapHeader.mapLayoutId;
     gMapHeader.mapLayout = GetMapLayout(gMapHeader.mapLayoutId);
 }

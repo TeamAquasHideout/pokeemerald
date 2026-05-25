@@ -1,34 +1,23 @@
 MainPuzzleMap_MapScripts::
-	map_script MAP_SCRIPT_ON_RESUME, MainPuzzleMap_MapScript_OnTransition
+	map_script MAP_SCRIPT_ON_RETURN_TO_FIELD, MainPuzzleMap_MapScript_OnReturnToField
 	.byte 0
 
-MainPuzzleMap_MapScript_OnTransition::
-	goto_if_set FLAG_SET_PUZZLE_MAP_LAYOUT_1, MainPuzzleMap_MapScript_OnTransition1
-	goto_if_set FLAG_SET_PUZZLE_MAP_LAYOUT_2, MainPuzzleMap_MapScript_OnTransition2
-	end
-MainPuzzleMap_MapScript_OnTransition1::
-	setmaplayoutindex LAYOUT_MAIN_PUZZLE_MAP
-	special DrawWholeMapView
-	end
-MainPuzzleMap_MapScript_OnTransition2::
-	setmaplayoutindex LAYOUT_MAIN_PUZZLE_MAP_LAYOUT_2
+MainPuzzleMap_MapScript_OnReturnToField::
+	callnative LoadCurrentMapData
 	special DrawWholeMapView
 	end
 
 MainPuzzleMap_TrainerBattle::
-	goto_if_unset FLAG_SET_PUZZLE_MAP_LAYOUT_1, SetPuzzleMapLayout1Flag
-	goto SetPuzzleMapLayout2Flag
-SetPuzzleMapLayout1Flag::
-	setflag FLAG_SET_PUZZLE_MAP_LAYOUT_1
-	clearflag FLAG_SET_PUZZLE_MAP_LAYOUT_2
-	goto BattleStart
-SetPuzzleMapLayout2Flag::
-	setflag FLAG_SET_PUZZLE_MAP_LAYOUT_2
-	clearflag FLAG_SET_PUZZLE_MAP_LAYOUT_1
-	goto BattleStart
-BattleStart::
-	trainerbattle_single TRAINER_EDGAR, VictoryRoad_1F_Text_EdgarIntro, VictoryRoad_1F_Text_EdgarDefeat
+	trainerbattle_single TRAINER_EDGAR, VictoryRoad_1F_Text_EdgarIntro, VictoryRoad_1F_Text_EdgarDefeat, MainPuzzleMap_TrainerBattleAfter
+MainPuzzleMap_TrainerBattleAfter::
 	cleartrainerflag TRAINER_EDGAR
+	releaseall
+	end
+
+MainPuzzleMap_TrainerBattle2::
+	trainerbattle_single TRAINER_ALBERT, VictoryRoad_1F_Text_EdgarIntro, VictoryRoad_1F_Text_EdgarDefeat, MainPuzzleMap_TrainerBattle2After
+MainPuzzleMap_TrainerBattle2After::
+	cleartrainerflag TRAINER_ALBERT
 	releaseall
 	end
 
