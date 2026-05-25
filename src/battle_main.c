@@ -5669,6 +5669,18 @@ static void ReturnFromBattleToOverworld(void)
         CalculatePlayerPartyCount();
         RandomlyGivePartyPokerus();
         PartySpreadPokerus();
+    }  
+
+    FlagClear(FLAG_SET_PUZZLE_MAP_LAYOUT_1);
+    FlagClear(FLAG_SET_PUZZLE_MAP_LAYOUT_2);
+    if(GetWeather() == B_WEATHER_NONE)
+    {
+        FlagSet(FLAG_SET_PUZZLE_MAP_LAYOUT_1);
+        DebugPrintf("Battle Weather Ended Blank: Set Layout 1");
+    }
+    else {
+        FlagSet(FLAG_SET_PUZZLE_MAP_LAYOUT_2);
+        DebugPrintf("Battle Weather Ended Not Blank: Set Layout 2");
     }
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK && gReceivedRemoteLinkPlayers)
