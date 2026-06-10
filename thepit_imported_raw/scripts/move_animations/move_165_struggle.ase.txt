@@ -1,0 +1,45 @@
+@ animation for MOVE_STRUGGLE (@1CAFB5)
+section0: # 1CAFB5
+  loadspritegfx 0x2797
+  loadspritegfx 0x27E7
+  monbg anim_target
+  setalpha 12 8
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x000C 0x0004
+  createsprite <3E43F8> 2 0x0000 0x0000 0x0002
+{
+tileTag:     10215
+paletteTag:  10215
+oam:         <3AC9D8>
+anims:       <3E43F0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA709>
+}
+  createsprite <3E43F8> 2 0x0000 0x0001 0x0002
+{
+tileTag:     10215
+paletteTag:  10215
+oam:         <3AC9D8>
+anims:       <3E43F0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA709>
+}
+  loopsewithpan se_m_headbutt sound_pan_attacker 12 4
+  waitforvisualfinish
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098CD1> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

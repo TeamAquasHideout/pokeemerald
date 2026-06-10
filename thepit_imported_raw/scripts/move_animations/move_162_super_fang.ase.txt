@@ -1,0 +1,47 @@
+@ animation for MOVE_SUPER_FANG (@1CAEFA)
+section0: # 1CAEFA
+  loadspritegfx 0x27D0
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  delay 20
+  createsprite <3D4E54> 2 0x0004 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  createsprite <3E37EC> 130 
+{
+tileTag:     10192
+paletteTag:  10192
+oam:         <3AC9D8>
+anims:       <3E37E8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A65CD>
+}
+  playsewithpan se_m_bite sound_pan_target
+  delay 8
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x085F 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0007 0x000C 0x0001
+  waitforvisualfinish
+  blendoff
+  end

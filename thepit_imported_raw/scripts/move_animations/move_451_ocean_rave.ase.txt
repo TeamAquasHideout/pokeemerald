@@ -1,0 +1,26 @@
+@ animation for MOVE_OCEAN_RAVE (@1B0B2C0)
+section0: # 1B0B2C0
+  fadetobg bg_thunder
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0x0500 0x0000 0x0000 0xFFFF
+  waitbgfadein
+  loadspritegfx 0x281C
+  loadspritegfx 0x27A4
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  createvisualtask <0AB38D> 2 0x0000
+  delay 24
+  panse se_m_surf sound_pan_attacker sound_pan_target 2 0
+  waitforvisualfinish
+  createvisualtask <0AC00D> 5 
+  playsewithpan se_m_surf sound_pan_target
+  waitforvisualfinish
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

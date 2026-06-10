@@ -1,0 +1,6 @@
+@ animation for MOVE_HARDEN (@1CD0AB)
+section0: # 1CD0AB
+  loopsewithpan se_m_harden sound_pan_attacker 28 2
+  createvisualtask <0B86ED> 5 0x0000 0x0000 0x0000
+  waitforvisualfinish
+  end

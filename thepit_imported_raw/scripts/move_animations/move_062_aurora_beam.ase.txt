@@ -1,0 +1,26 @@
+@ animation for MOVE_AURORA_BEAM (@1CE43F)
+section0: # 1CE43F
+  loadspritegfx 0x279C
+  fadetobg bg_aurora
+  waitbgfadein
+  playsewithpan se_m_bubble_beam sound_pan_attacker
+  setarg 7 0
+  createvisualtask <0AAF61> 10 0x0082
+  call <1CE4C6>
+  createvisualtask <098B1D> 5 0x0001 0x0001 0x0000 0x0011 0x0001
+  call <1CE4C6>
+  call <1CE4C6>
+  call <1CE4C6>
+  setarg 7 0xFFFF
+  createsoundtask <0DCF39> 0x00B0 0xFFC0 0x003F 0x0003 0x0006 0x0000 0x000A
+  createvisualtask <098B1D> 5 0x0001 0x0002 0x0000 0x0028 0x0001
+  call <1CE4C6>
+  call <1CE4C6>
+  call <1CE4C6>
+  call <1CE4C6>
+  call <1CE4C6>
+  call <1CE4C6>
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

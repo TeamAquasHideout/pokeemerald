@@ -1,0 +1,27 @@
+@ battle script for gen3 move-effect 96 (Unused60) @1AEE980
+section0: # 1AEE980
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  call <section1>
+  jumpifcantswitch 129 <1D694E>
+  goto <1D79A0>
+
+section1: # 1AEE99A
+  calculatedamage
+  attackanimation
+  waitanimation
+  if.move.noeffect.goto <1AEE9D0>
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  seteffectwithchance
+  tryfaintmon target 0 <null>
+  return

@@ -1,0 +1,16 @@
+@ battle script for gen3 move-effect 84 (SeedOpponent) @1D73AE
+section0: # 1D73AE
+  attackcanceler
+  attackstring
+  pause 32
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <section1> 0
+
+section1: # 1D73C5
+  setseeded
+  attackanimation
+  waitanimation
+  printfromtable <3FE558>
+  waitmessage 64
+  goto <1D694E>

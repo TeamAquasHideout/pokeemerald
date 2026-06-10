@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 138 (RaiseDefense1HitChance) @1D7A31
+section0: # 1D7A31
+  set.move.effect SelfRaiseDef1
+  goto <1D6900>

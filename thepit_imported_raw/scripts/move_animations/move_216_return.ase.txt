@@ -1,0 +1,412 @@
+@ animation for MOVE_RETURN (@1D36FA)
+section0: # 1D36FA
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <0E38D9> 2 
+  delay 2
+  jumpargeq 7 0 <section2>
+  jumpargeq 7 1 <section3>
+  jumpargeq 7 2 <section4>
+  jumpargeq 7 3 <section5>
+
+section1: # 1D372B
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end
+
+section2: # 1D3730
+  createsprite <3D4E6C> 2 0x0010 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0010 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  delay 5
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0084 0x003F
+  goto <section1>
+
+section3: # 1D3782
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  delay 11
+  createsprite <3D4E54> 2 0x0005 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 6
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  goto <section1>
+
+section4: # 1D37E2
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  waitforvisualfinish
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  delay 8
+  createsprite <3E7C08> 2 0x000A 0x000A 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  delay 8
+  createsprite <3E7C08> 2 0x0003 0xFFFB 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  delay 8
+  createsprite <3E7C08> 2 0xFFFB 0x0003 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  goto <section1>
+
+section5: # 1D38FD
+  createsprite <3E7B24> 2 0x0001 0x0000 0x0000 0x0006 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0010 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  delay 8
+  createsprite <3E7C08> 2 0x0003 0xFFFB 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x000C 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  delay 5
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  delay 4
+  createsprite <3D4E6C> 2 0x0008 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  delay 5
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  delay 2
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0005 0x0001
+  createsprite <3D4E6C> 2 0x0004 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0005 0x0001
+  waitforvisualfinish
+  createsprite <3D4E6C> 2 0x0004 0x0002 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  createvisualtask <0DD411> 5 0x00A0 0xFFC0
+  delay 5
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0074 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0006 0x0000 0x0008 0x0001
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0005 0x0001
+  waitforvisualfinish
+  call <1D3B35>
+  call <1D3B35>
+  call <1D3B35>
+  call <1D3B35>
+  createsprite <3E7C08> 2 0xFFF6 0xFFF8 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  createvisualtask <0989F9> 5 0x0001 0x0008 0x0000 0x0018 0x0001
+  delay 6
+  createsprite <3E7C08> 2 0x000A 0x000A 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  delay 6
+  createsprite <3E7C08> 2 0x0003 0xFFFB 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  delay 6
+  createsprite <3E7C08> 2 0xFFFB 0x0003 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0000 0x0006 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  goto <section1>

@@ -1,0 +1,24 @@
+@ battle script for gen3 move-effect 114 (114) @1D7856
+section0: # 1D7856
+  attackcanceler
+  attackstring
+  ppreduce
+  trysetperishsong <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 254
+  waitmessage 64
+  setbyte 0x02023FDB 0
+
+section1: # 1D786C
+  jumpifability scripting Soundproof <section3>
+
+section2: # 1D7873
+  addbyte 0x02023FDB 1
+  jumpifarraynotequal 0x02023FDB 0x02023BCC 1 <section1>
+  goto <1D694E>
+
+section3: # 1D788C
+  printstring 350
+  waitmessage 64
+  goto <section2>

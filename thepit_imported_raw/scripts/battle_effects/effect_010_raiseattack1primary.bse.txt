@@ -1,0 +1,23 @@
+@ battle script for gen3 move-effect 10 (RaiseAttack1Primary) @771000
+section0: # 771000
+  if.not.move.goto Howl <1D6B77>
+  if.move.goto Howl <section1>
+
+section1: # 771018
+  setbyte 0x02023D60 0
+  set.stat.changer RaiseAtk1
+  attackcanceler
+  attackstring
+  ppreduce
+  statbuffchange 65 <1D694E>
+  jumpifbyte != 0x02023E87 2 <section2>
+  pause 32
+  goto <771060>
+
+section2: # 771040
+  attackanimation
+  waitanimation
+  setgraphicalstatchangevalues
+  playanimation attacker StatChange 0x02023FD4
+  setbyte 0x02023D60 1
+  goto <771060>

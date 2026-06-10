@@ -1,0 +1,78 @@
+@ animation for MOVE_DRAGON_DANCE (@1CCF9A)
+section0: # 1CCF9A
+  loadspritegfx 0x2809
+  monbg anim_attacker
+  splitbgprio anim_attacker
+  delay 1
+  createvisualtask <0B75E1> 5 
+  playsewithpan se_m_teleport sound_pan_attacker
+  delay 8
+  createvisualtask <076289> 5 0x2809 0x4C00 0x000E 0x0000 0x0003
+  createsprite <3E7848> 2 0x0000
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  createsprite <3E7848> 2 0x002B
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  createsprite <3E7848> 2 0x0055
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  createsprite <3E7848> 2 0x0080
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  createsprite <3E7848> 2 0x00AA
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  createsprite <3E7848> 2 0x00D5
+{
+tileTag:     10249
+paletteTag:  10249
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B7449>
+}
+  delay 30
+  playsewithpan se_m_teleport sound_pan_attacker
+  delay 30
+  playsewithpan se_m_teleport sound_pan_attacker
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  delay 1
+  end

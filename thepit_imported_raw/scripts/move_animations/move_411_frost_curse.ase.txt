@@ -1,0 +1,21 @@
+@ animation for MOVE_FROST_CURSE (@128F2C0)
+section0: # 128F2C0
+  fadetobg bg_aurora
+  waitbgfadein
+  loadspritegfx 0x279D
+  loadspritegfx 0x280D
+  monbg anim_attacker
+  splitbgprio_all
+  playsewithpan se_m_psybeam sound_pan_attacker
+  createvisualtask <0B68C9> 3 
+  loopsewithpan se_m_ember sound_pan_attacker 16 4
+  delay 10
+  delay 80
+  playsewithpan se_m_nightmare sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  call <1D540A>
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

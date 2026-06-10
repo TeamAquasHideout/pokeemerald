@@ -5096,6 +5096,8 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
             speed *= 2;
         else if (ability == ABILITY_SLUSH_RUSH  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
             speed *= 2;
+        else if (ability == ABILITY_OMNI_CHASE)
+            speed = (speed * 150) / 100;
     }
 
     // other abilities
@@ -5164,6 +5166,32 @@ s32 GetChosenMovePriority(u32 battler, u32 ability)
     return GetBattleMovePriority(battler, ability, move);
 }
 
+static bool32 IsThePitBotanistPriorityMove(u32 move)
+{
+    switch (move)
+    {
+    case MOVE_TOXIC_HERB:
+    case MOVE_POTION_BOMB:
+    case MOVE_WEIRD_POTION:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
+static bool32 IsThePitOrderPriorityMove(u32 move)
+{
+    switch (move)
+    {
+    case MOVE_NOBLE_ORDER:
+    case MOVE_ROYAL_ORDER:
+    case MOVE_VEIL_ORDER:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
 {
     s32 priority = 0;
@@ -5193,6 +5221,18 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
         priority++;
     }
     else if (GetMoveEffect(move) == EFFECT_GRASSY_GLIDE && IsBattlerTerrainAffected(battler, STATUS_FIELD_GRASSY_TERRAIN) && GetActiveGimmick(gBattlerAttacker) != GIMMICK_DYNAMAX && !IsGimmickSelected(battler, GIMMICK_DYNAMAX))
+    {
+        priority++;
+    }
+    else if (ability == ABILITY_BOTANIST && IsThePitBotanistPriorityMove(move))
+    {
+        priority++;
+    }
+    else if (ability == ABILITY_INTENSE_CARE && IsHealingMove(move))
+    {
+        priority++;
+    }
+    else if (ability == ABILITY_SOVEREIGNTY && IsThePitOrderPriorityMove(move))
     {
         priority++;
     }
@@ -6237,6 +6277,9 @@ u32 TrySetAteType(u32 move, u32 battlerAtk, u32 attackerAbility)
         break;
     case ABILITY_GALVANIZE:
         ateType = TYPE_ELECTRIC;
+        break;
+    case ABILITY_RADIANCE:
+        ateType = TYPE_AETHER;
         break;
     default:
         ateType = TYPE_NONE;

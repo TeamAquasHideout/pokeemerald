@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 204 (LowerSpAttack2Self) @1D841B
+section0: # 1D841B
+  set.move.effect LowerSpAtk2SelfCertain
+  goto <1D6900>

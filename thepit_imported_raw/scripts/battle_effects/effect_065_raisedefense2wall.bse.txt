@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 65 (RaiseDefense2Wall) @1D716E
+section0: # 1D716E
+  attackcanceler
+  attackstring
+  ppreduce
+  setreflect
+
+section1: # 1D7172
+  attackanimation
+  waitanimation
+  printfromtable <3FE54C>
+  waitmessage 64
+  goto <1D694E>

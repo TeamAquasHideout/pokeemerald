@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 148 (DamageIn2Turns) @1D7B97
+section0: # 1D7B97
+  attackcanceler
+  attackstring
+  ppreduce
+  trysetfutureattack <1D7DF2>
+  attackanimation
+  waitanimation
+  printfromtable <3FE5EE>
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,23 @@
+@ animation for MOVE_PSYBEAM (@1D0D50)
+section0: # 1D0D50
+  loadspritegfx 0x27B3
+  playsewithpan se_m_psybeam sound_pan_attacker
+  call <1D59BB>
+  createsoundtask <0DCF39> 0x00C1 0xFFC0 0x003F 0x0003 0x0004 0x0000 0x000F
+  call <1D0DD4>
+  call <1D0DD4>
+  createvisualtask <099705> 5 0x0000 0x0006 0x0800 0x0004 0x0001
+  createvisualtask <0B9BDD> 2 0x0004 0x0002 0x0002 0x0000 0x000C 0x7E5F
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  waitforvisualfinish
+  delay 1
+  call <1D59C7>
+  end

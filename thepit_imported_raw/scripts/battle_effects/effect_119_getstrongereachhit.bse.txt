@@ -1,0 +1,15 @@
+@ battle script for gen3 move-effect 119 (GetStrongerEachHit) @1D7919
+section0: # 1D7919
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <section1> 0
+
+section1: # 1D7923
+  furycuttercalc
+  critcalc
+  damagecalc
+  typecalc
+  if.move.noeffect.goto <section1>
+  adjustnormaldamage
+  goto <1D6934>

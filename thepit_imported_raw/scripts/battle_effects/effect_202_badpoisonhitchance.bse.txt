@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 202 (BadPoisonHitChance) @1D840A
+section0: # 1D840A
+  set.move.effect BadPoison
+  goto <1D6900>

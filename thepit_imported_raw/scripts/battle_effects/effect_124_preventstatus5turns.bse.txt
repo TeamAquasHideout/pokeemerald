@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 124 (PreventStatus5Turns) @1D796E
+section0: # 1D796E
+  attackcanceler
+  attackstring
+  ppreduce
+  setsafeguard
+  goto <1D7172>

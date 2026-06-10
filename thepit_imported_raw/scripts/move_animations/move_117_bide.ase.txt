@@ -1,0 +1,86 @@
+@ animation for MOVE_BIDE (@1D1347)
+section0: # 1D1347
+  choosetwoturnanim <section1> <section2>
+  end
+
+section1: # 1D1351
+  loopsewithpan se_m_take_down sound_pan_attacker 9 2
+  createvisualtask <0B9BDD> 2 0x0002 0x0002 0x0002 0x0000 0x000B 0x001F
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0020 0x0001
+  waitforvisualfinish
+  end
+
+section2: # 1D137D
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  loopsewithpan se_m_take_down sound_pan_attacker 9 2
+  createvisualtask <0BA7F9> 10 0x0002 0x0002 0x0000 0x000B 0x001F
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0020 0x0001
+  waitforvisualfinish
+  createsprite <3D4E9C> 2 0x0000 0x0018 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0002 0x0000 0x000C 0x0001
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0010 0x0001
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E7C08> 1 0x0012 0xFFF8 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 5
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E7C08> 1 0xFFEE 0x0008 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 5
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E7C08> 1 0xFFF8 0xFFFB 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  waitforvisualfinish
+  delay 5
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0007
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0002 0x0002 0x000B 0x0000 0x001F
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

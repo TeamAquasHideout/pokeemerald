@@ -1,0 +1,68 @@
+@ battle script for gen3 move-effect 28 (28) @1D6CB1
+section0: # 1D6CB1
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifability target "Suction Cups" <1D9408>
+  if.status3.goto target 1024 <1D8F27>
+  accuracycheck <1D7DF2> 0xFFFF
+  accuracycheck <1D6960> 0
+  forcerandomswitch <1D7DF2>
+
+section1: # 1D6CD9
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  setmultihitcounter 0
+  initmultihitstring
+  setbyte 0x02023FDA 0
+
+section2: # 1D6CEC
+  jumpifhasnohp attacker <section6>
+  jumpifhasnohp target <section5>
+  jumpifhalfword = 0x02023D4C 214 <section3>
+  jumpifstatus attacker 7 <section5>
+
+section3: # 1D6D0E
+  movevaluescleanup
+  copyarray 0x02023E85 0x02023FDA 1
+  critcalc
+  damagecalc
+  typecalc
+  if.move.noeffect.goto <section4>
+  adjustnormaldamage
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  printstring 304
+  waitmessage 1
+  addbyte 0x02023FD0 1
+  moveend.to 16
+  jumpifbyte & 0x02023DCC 64 <section5>
+  decrementmultihit <section2>
+  goto <section5>
+
+section4: # 1D6D60
+  pause 32
+
+section5: # 1D6D63
+  resultmessage
+  waitmessage 64
+  if.move.noeffect.goto <section6>
+  copyarray 0x02022AB8 0x02023FCC 6
+  printstring 34
+  waitmessage 64
+
+section6: # 1D6D82
+  seteffectwithchance
+  tryfaintmon target 0 <null>
+  moveend.case 2
+  moveend.from 4
+  end

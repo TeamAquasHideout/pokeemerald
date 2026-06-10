@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 155 (2turn) @12744C0
+section0: # 12744C0
+  jumpifstatus2 attacker 4096 <1D7D4F>
+  jumpifword & 0x02023DD0 512 <1D7D4F>
+  if.move.goto PhantomForce <section1>
+  setbyte 0x02023FD3 5
+  goto <1D7D38>
+
+section1: # 12744EF
+  setbyte 0x02023FD3 6
+  goto <1D7D38>

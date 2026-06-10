@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 108 (RaiseEvasivenessAndBecomeSmaller) @1D7740
+section0: # 1D7740
+  attackcanceler
+  setminimize
+  set.stat.changer RaiseEvasion1
+  goto <1D6B9F>

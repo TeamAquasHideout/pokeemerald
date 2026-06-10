@@ -1,0 +1,21 @@
+@ animation for MOVE_EXTRASENSORY (@1CCBD1)
+section0: # 1CCBD1
+  call <1D59BB>
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <07616D> 5 0x0000 0x037B 0x000C 0x0001 0x0001
+  createvisualtask <0B3A59> 5 0x0000
+  playsewithpan se_m_bind sound_pan_target
+  waitforvisualfinish
+  createvisualtask <07616D> 5 0x0000 0x037B 0x000C 0x0001 0x0001
+  createvisualtask <0B3A59> 5 0x0001
+  playsewithpan se_m_bind sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0B3C79> 5 0x0000
+  createvisualtask <0B3A59> 5 0x0002
+  playsewithpan se_m_leer sound_pan_attacker
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_def_partner
+  call <1D59C7>
+  end

@@ -1,0 +1,92 @@
+@ animation for MOVE_STRANGESEEDS (@1B0A8B0)
+section0: # 1B0A8B0
+  loadspritegfx 0x2716
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0x0000 0x0018 0x0023 0xFFE0
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 8
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0xFFF0 0x0018 0x0023 0xFFD8
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 8
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0x0010 0x0018 0x0023 0xFFDB
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 12
+  loopsewithpan se_m_tail_whip sound_pan_target 10 8
+  waitforvisualfinish
+  loadspritegfx 0x27CA
+  loopsewithpan se_m_scratch sound_pan_target 6 4
+  createsprite <3E2D0C> 132 0x0000 0x0010 0x0000 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 7
+  createsprite <3E2D0C> 131 0x0000 0x0000 0x0000 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  createsprite <3E2D0C> 130 0x0000 0x0008 0x0001 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 7
+  createsprite <3E2D0C> 131 0x0000 0xFFF8 0x0001 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 8
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  delay 20
+  playsewithpan se_m_bind sound_pan_target
+  setarg 7 0xFFFF
+  waitforvisualfinish
+  end

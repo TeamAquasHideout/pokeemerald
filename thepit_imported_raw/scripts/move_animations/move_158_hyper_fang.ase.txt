@@ -1,0 +1,11 @@
+@ animation for MOVE_HYPER_FANG (@1D2165)
+section0: # 1D2165
+  loadspritegfx 0x27D0
+  playsewithpan se_m_bite sound_pan_target
+  delay 1
+  delay 2
+  createvisualtask <0BC02D> 2 
+  jumpargeq 7 1 <1D21C5>
+  createvisualtask <0DEAB5> 2 
+  jumpargeq 7 0 <1D21B7>
+  goto <1D21BE>

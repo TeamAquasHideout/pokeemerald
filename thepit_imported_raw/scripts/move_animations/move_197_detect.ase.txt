@@ -1,0 +1,42 @@
+@ animation for MOVE_DETECT (@1C8F72)
+section0: # 1C8F72
+  loadspritegfx 0x2757
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0009 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0002 0x0001 0x0000 0x0009 0x7FFF
+  delay 18
+  playsewithpan se_m_detect sound_pan_attacker
+  createsprite <3BF480> 13 0x0014 0xFFEC
+{
+tileTag:     10071
+paletteTag:  10071
+oam:         <3AC9D8>
+anims:       <3BF47C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <076FD1>
+}
+  waitforvisualfinish
+  delay 10
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0009 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  createvisualtask <0BA7F9> 10 0x0002 0x0002 0x0009 0x0000 0x7FFF
+  waitforvisualfinish
+  end

@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 136 (Rain5turns) @1D7A10
+section0: # 1D7A10
+  attackcanceler
+  attackstring
+  ppreduce
+  setrain
+
+section1: # 1D7A14
+  attackanimation
+  waitanimation
+  printfromtable <3FE528>
+  waitmessage 64
+  call <1D92DC>
+  goto <1D694E>

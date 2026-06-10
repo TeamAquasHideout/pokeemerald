@@ -1,0 +1,6 @@
+@ animation for MOVE_TAIL_WHIP (@1C8311)
+section0: # 1C8311
+  loopsewithpan se_m_tail_whip sound_pan_attacker 24 3
+  createvisualtask <09907D> 2 0x0000 0x000C 0x0004 0x0002 0x0003
+  waitforvisualfinish
+  end

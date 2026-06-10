@@ -1,0 +1,88 @@
+@ animation for MOVE_ROTTEN_EGG (@1B0A6C0)
+section0: # 1B0A6C0
+  loadspritegfx 0x27DA
+  loadspritegfx 0x27DB
+  loadspritegfx 0x272F
+  monbg anim_atk_partner
+  playsewithpan se_m_tail_whip sound_pan_attacker
+  createvisualtask <0989F9> 2 0x0000 0x0000 0x0002 0x0006 0x0001
+  createsprite <3E4028> 4 0x0000 0x0010 0x0000
+{
+tileTag:     10202
+paletteTag:  10202
+oam:         <3ACBB8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E401C>
+callback:    <0A8F39>
+}
+  createsprite <3E4028> 4 0x0000 0x0010 0x0001
+{
+tileTag:     10202
+paletteTag:  10202
+oam:         <3ACBB8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E401C>
+callback:    <0A8F39>
+}
+  delay 120
+  delay 7
+  playsewithpan se_m_horn_attack sound_pan_attacker
+  createsprite <3E7B24> 2 0x001F 0x0003 0x000A 0x0000 0x7B0C
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  createsprite <3E4094> 3 0x001F 0x0010 0x0000 0x0001
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <075D9D>
+}
+  delay 8
+  createsprite <3E4094> 3 0x001F 0x0010 0x0000 0x0001
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <075D9D>
+}
+  delay 60
+  setarg 7 0xFFFF
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  playsewithpan se_m_sand_attack sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x000A 0x0000
+  createsprite <3E7B3C> 0 0x0001 0x0001 0x0001 0x7E17 0x0010 0x7FFF 0x0010
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 0
+  playsewithpan se_m_haze 0
+  createvisualtask <0AFD81> 5 
+  createvisualtask <0BA7F9> 10 0x0004 0x0003 0x0000 0x0010 0x7FFF
+  delay 8
+  createvisualtask <0989F9> 2 0x0001 0x0004 0x0000 0x0046 0x0000
+  delay 70
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0010 0x0000 0x7FFF
+  waitforvisualfinish
+  end

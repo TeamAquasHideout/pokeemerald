@@ -1,0 +1,24 @@
+@ animation for MOVE_SUBMISSION (@1D029C)
+section0: # 1D029C
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  waitplaysewithpan se_m_comet_punch sound_pan_target 10
+  waitplaysewithpan se_m_double_team sound_pan_attacker 20
+  waitplaysewithpan se_m_comet_punch sound_pan_target 30
+  waitplaysewithpan se_m_double_team sound_pan_attacker 40
+  waitplaysewithpan se_m_comet_punch sound_pan_target 50
+  waitplaysewithpan se_m_double_team sound_pan_attacker 60
+  waitplaysewithpan se_m_comet_punch sound_pan_target 70
+  waitplaysewithpan se_m_double_team sound_pan_attacker 80
+  waitplaysewithpan se_m_comet_punch sound_pan_target 90
+  createvisualtask <098F85> 2 0x0000 0xFFEE 0x0006 0x0006 0x0004
+  createvisualtask <098F85> 2 0x0001 0x0012 0x0006 0x0006 0x0004
+  call <1D030B>
+  call <1D030B>
+  call <1D030B>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

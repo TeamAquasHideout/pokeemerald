@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 111 (EvadeNextAttack) @1314140
+section0: # 1314140
+  attackcanceler
+  attackstring
+  ppreduce
+  setprotectlike
+  attackanimation
+  waitanimation
+  printfromtable <3FE546>
+  waitmessage 64
+  goto <1D694E>

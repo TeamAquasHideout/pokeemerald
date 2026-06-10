@@ -1,0 +1,32 @@
+@ animation for MOVE_LEAF_STORM (@1D28BD)
+section0: # 1D28BD
+  loadspritegfx 0x27FE
+  playsewithpan se_m_sweet_scent sound_pan_attacker
+  createsprite <3FF324> 2 0x0064 0x0000 0x0064
+{
+tileTag:     10238
+paletteTag:  10238
+oam:         <3AC9C8>
+anims:       <3FF318>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0791>
+}
+  delay 25
+  setpan 0
+  call <1D2901>
+  createsprite <3FF324> 2 0x0037 0x0000
+{
+tileTag:     10238
+paletteTag:  10238
+oam:         <3AC9C8>
+anims:       <3FF318>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0791>
+}
+  setpan sound_pan_target
+  createvisualtask <0B9BDD> 2 0x0014 0x0001 0x0005 0x0005 0x000D 0x56BF
+  call <1D2901>
+  waitforvisualfinish
+  end

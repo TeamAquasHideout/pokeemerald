@@ -1,0 +1,80 @@
+@ animation for MOVE_HI_JUMP_KICK (@1CFE02)
+section0: # 1CFE02
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  createsprite <3D4E9C> 2 0x0000 0xFFE8 0x0000 0x0000 0x0008
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  delay 10
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 2
+  createsprite <3E66F8> 2 0xFFF0 0x0008 0x0000 0x0000 0x000A 0x0001 0x0001 0x0001
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0929>
+}
+  playsewithpan se_m_jump_kick sound_pan_target
+  waitforvisualfinish
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3D4E9C> 2 0x0001 0xFFE4 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 3
+  createvisualtask <098CD1> 2 0x0001 0x0003 0x0000 0x000B 0x0001
+  waitforvisualfinish
+  delay 5
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

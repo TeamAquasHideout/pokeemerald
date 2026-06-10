@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 164 (Hail5turns) @1D7EA8
+section0: # 1D7EA8
+  attackcanceler
+  attackstring
+  ppreduce
+  sethail
+  goto <1D7A14>

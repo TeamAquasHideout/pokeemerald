@@ -1,0 +1,58 @@
+@ animation for MOVE_ARCANE_BLAST (@1B0AC00)
+section0: # 1B0AC00
+  fadetobg bg_cosmic
+  waitbgfadein
+  loadspritegfx 0x27A3
+  monbg anim_atk_partner
+  setalpha 12 8
+  createvisualtask <0B9BDD> 2 0x0002 0x0001 0x0004 0x0000 0x000B 0x2FFF
+  playsewithpan se_m_mega_kick sound_pan_attacker
+  call <1CE54B>
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  waitforvisualfinish
+  loadspritegfx 0x27A3
+  delay 10
+  playsewithpan se_m_hyper_beam sound_pan_attacker
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0004 0x0001
+  waitforvisualfinish
+  delay 30
+  createsoundtask <0DCF39> 0x00F0 0xFFC0 0x003F 0x0001 0x000F 0x0000 0x0005
+  createvisualtask <0989F9> 2 0x0000 0x0000 0x0004 0x0032 0x0001
+  createvisualtask <0B9F6D> 2 0x27A3 0x0001 0x000C 0x001F 0x0010 0x0000 0x0000
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0032 0x0001
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0000 0x000B 0x6739
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x000B 0x0000 0x6739
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  restorebg
+  waitbgfadein
+  end

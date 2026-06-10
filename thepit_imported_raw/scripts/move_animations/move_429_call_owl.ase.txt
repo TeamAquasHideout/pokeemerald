@@ -1,0 +1,129 @@
+@ animation for MOVE_CALL_OWL (@1B08610)
+section0: # 1B08610
+  loadspritegfx 0x281E
+  monbg anim_def_partner
+  splitbgprio_all
+  playsewithpan se_m_petal_dance sound_pan_target
+  delay 0
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0040 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0020 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0000 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00E0 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0080 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00C0 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00A0 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0060 0x0002 0x0068 0x2C28 0x0005 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  loadspritegfx 0x279A
+  monbg anim_target
+  setalpha 12 8
+  createvisualtask <09907D> 2 0x0000 0x0018 0x0006 0x0001 0x0005
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0007 0x0003
+  createsprite <3E3294> 2 0x0028 0xFFE0 0x0000
+{
+tileTag:     10138
+paletteTag:  10138
+oam:         <3ACAF8>
+anims:       <3E3290>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A44E1>
+}
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  delay 5
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0003 0x000A 0x0001
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x0000 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  createvisualtask <0E1705> 2 0x0001
+  playsewithpan se_m_yawn sound_pan_target
+  waitforvisualfinish
+  end

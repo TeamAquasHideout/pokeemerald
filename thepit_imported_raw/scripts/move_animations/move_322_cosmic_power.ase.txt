@@ -1,0 +1,43 @@
+@ animation for MOVE_COSMIC_POWER (@1D3B89)
+section0: # 1D3B89
+  loadspritegfx 0x2741
+  createvisualtask <0DD411> 5 0x00EC 0x0000
+  playsewithpan se_m_cosmic_power 0
+  createvisualtask <0BB7DD> 2 0x0000 0x0000 0x000F 0x0000
+  waitforvisualfinish
+  fadetobg bg_cosmic
+  waitbgfadeout
+  createvisualtask <0BB82D> 2 0x0000 0x0080 0x0000 0xFFFF
+  waitbgfadein
+  delay 70
+  createvisualtask <0DD3DD> 5 0x00DD 0xFFC0
+  createsprite <3E33F4> 2 0xFFF1 0x0000 0x0000 0x0000 0x0020 0x003C
+{
+tileTag:     10049
+paletteTag:  10049
+oam:         <3AC9D8>
+anims:       <3E33F0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A4D0D>
+}
+  delay 8
+  createsprite <3E33F4> 2 0x000C 0xFFFB 0x0000 0x0000 0x0020 0x003C
+{
+tileTag:     10049
+paletteTag:  10049
+oam:         <3AC9D8>
+anims:       <3E33F0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A4D0D>
+}
+  delay 40
+  createvisualtask <0BB7DD> 2 0x0000 0x000F 0x0000 0x0000
+  waitforvisualfinish
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  waitforvisualfinish
+  end

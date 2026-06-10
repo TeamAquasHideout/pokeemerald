@@ -1,0 +1,22 @@
+@ animation for MOVE_LIGHT_SCREEN (@1CDC28)
+section0: # 1CDC28
+  loadspritegfx 0x2756
+  loadspritegfx 0x27B6
+  setalpha 0 16
+  waitplaysewithpan se_m_reflect sound_pan_attacker 15
+  createsprite <3E6E10> 1 0x0028 0x0000 0x27B6
+{
+tileTag:     10166
+paletteTag:  10166
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  delay 10
+  call <1CDC4F>
+  waitforvisualfinish
+  delay 1
+  blendoff
+  end

@@ -1,0 +1,23 @@
+@ animation for MOVE_ICY_ARIA (@1AFED80)
+section0: # 1AFED80
+  fadetobg bg_aurora
+  waitbgfadein
+  loadspritegfx 0x279E
+  loadspritegfx 0x279D
+  monbg anim_def_partner
+  waitbgfadein
+  waitforvisualfinish
+  panse se_m_blizzard sound_pan_attacker sound_pan_target 2 0
+  call <1CE7B8>
+  call <1CE7B8>
+  playsewithpan se_m_blizzard2 sound_pan_target
+  waitforvisualfinish
+  call <1D548E>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 20
+  call <1D55E2>
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

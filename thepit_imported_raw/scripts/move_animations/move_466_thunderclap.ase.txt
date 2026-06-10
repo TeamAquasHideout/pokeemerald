@@ -1,0 +1,16 @@
+@ animation for MOVE_THUNDERCLAP (@1B121D0)
+section0: # 1B121D0
+  loadspritegfx 0x271B
+  loadspritegfx 0x2735
+  createvisualtask <0AEFA1> 5 
+  playsewithpan se_m_tri_attack2 sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0006 0x0012 0x0001
+  createvisualtask <0BA7F9> 5 0x0001 0x0003 0x0010 0x0000 0x7FFF
+  createvisualtask <0BA7F9> 5 0x0004 0x0000 0x0010 0x0010 0x0000
+  delay 4
+  createvisualtask <0BA7F9> 5 0x0004 0x0000 0x0000 0x0000 0x0000
+  waitforvisualfinish
+  call <1D58D4>
+  waitforvisualfinish
+  end

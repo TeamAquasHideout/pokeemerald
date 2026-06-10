@@ -1,0 +1,80 @@
+@ animation for MOVE_BODY_SLAM (@1C74D0)
+section0: # 1C74D0
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_take_down sound_pan_attacker
+  createsprite <3D4E6C> 2 0x0006 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  waitforvisualfinish
+  delay 11
+  createsprite <3D4E9C> 2 0x0000 0x001A 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 6
+  createsprite <3E7C08> 4 0xFFF6 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  loopsewithpan se_m_mega_kick2 sound_pan_target 10 2
+  delay 1
+  createsprite <3D4E9C> 2 0x0001 0xFFE4 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0001 0x0004 0x0000 0x000C 0x0001
+  waitforvisualfinish
+  delay 10
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 5
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

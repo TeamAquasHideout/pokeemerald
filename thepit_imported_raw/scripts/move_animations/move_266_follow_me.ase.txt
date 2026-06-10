@@ -1,0 +1,19 @@
+@ animation for MOVE_FOLLOW_ME (@1CB951)
+section0: # 1CB951
+  loadspritegfx 0x2750
+  createsprite <3E3A4C> 2 0x0000
+{
+tileTag:     10064
+paletteTag:  10064
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3A2C>
+callback:    <0A6C85>
+}
+  playsewithpan se_m_tail_whip sound_pan_attacker
+  delay 18
+  playsewithpan se_m_attract sound_pan_attacker
+  delay 71
+  loopsewithpan se_m_tail_whip sound_pan_attacker 22 3
+  end

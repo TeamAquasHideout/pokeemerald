@@ -1,0 +1,25 @@
+@ battle script for gen3 move-effect 31 (Flinch) @1AED0F0
+section0: # 1AED0F0
+  set.move.effect Flinch
+  if.move.goto "Fire Fang" <section1>
+  if.move.goto "Ice Fang" <section2>
+  if.move.goto "Thunder Fang" <section3>
+  goto <1D6900>
+
+section1: # 1AED11F
+  call <1AED152>
+  set.move.effect Burn
+  seteffectwithchance
+  goto <1D6947>
+
+section2: # 1AED130
+  call <1AED152>
+  set.move.effect Freeze
+  seteffectwithchance
+  goto <1D6947>
+
+section3: # 1AED141
+  call <1AED152>
+  set.move.effect Paralyze
+  seteffectwithchance
+  goto <1D6947>

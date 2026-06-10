@@ -1,0 +1,43 @@
+@ animation for MOVE_TAIL_GLOW (@1CC0B8)
+section0: # 1CC0B8
+  loadspritegfx 0x27E4
+  monbg anim_attacker
+  setalpha 12 8
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0004 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <3E7378> 66 0x0000
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7374>
+callback:    <0B45D9>
+}
+  delay 18
+  loopsewithpan se_m_morning_sun sound_pan_attacker 16 6
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0004 0x0004 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  clearmonbg anim_attacker
+  blendoff
+  delay 1
+  end

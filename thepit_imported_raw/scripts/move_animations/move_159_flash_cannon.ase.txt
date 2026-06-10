@@ -1,0 +1,38 @@
+@ animation for MOVE_FLASH_CANNON (@1CC212)
+section0: # 1CC212
+  loadspritegfx 0x27AB
+  loadspritegfx 0x281E
+  delay 0
+  playsewithpan se_m_string_shot sound_pan_attacker
+  createsprite <3E64E8> 128 0x0000 0x0000 0x0000 0x0000 0x001E 0x0000
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFD4D>
+}
+  waitforvisualfinish
+  playsewithpan se_m_sand_attack sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x000A 0x0000
+  createsprite <3E7B3C> 0 0x0001 0x0001 0x0001 0x7E17 0x0010 0x7FFF 0x0010
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 0
+  playsewithpan se_m_haze 0
+  createvisualtask <0AFD81> 5 
+  createvisualtask <0BA7F9> 10 0x0004 0x0003 0x0000 0x0010 0x7FFF
+  delay 8
+  createvisualtask <0989F9> 2 0x0001 0x0004 0x0000 0x0046 0x0000
+  delay 70
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0010 0x0000 0x7FFF
+  end

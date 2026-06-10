@@ -1,0 +1,13 @@
+@ animation for MOVE_SKILL_SWAP (@1CBFBC)
+section0: # 1CBFBC
+  loadspritegfx 0x280B
+  call <1D59BB>
+  createvisualtask <0B3835> 3 0x0001
+  createvisualtask <07616D> 5 0x0001 0x7FFF 0x000C 0x0003 0x0001
+  loopsewithpan se_m_reversal sound_pan_attacker 24 3
+  delay 16
+  createvisualtask <0B3835> 3 0x0000
+  createvisualtask <07616D> 5 0x0000 0x7FFF 0x000C 0x0003 0x0001
+  waitforvisualfinish
+  call <1D59C7>
+  end

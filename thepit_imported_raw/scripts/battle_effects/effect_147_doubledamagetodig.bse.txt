@@ -1,0 +1,48 @@
+@ battle script for gen3 move-effect 147 (DoubleDamageToDig) @1D7B13
+section0: # 1D7B13
+  attackcanceler
+  attackstring
+  ppreduce
+  selectfirstvalidtarget
+
+section1: # 1D7B17
+  movevaluescleanup
+  if.not.status3.goto target 128 <section2>
+  orword 0x02023DD0 0x00020000
+  setbyte 0x02023FD2 2
+  goto <section3>
+
+section2: # 1D7B37
+  bicword 0x02023DD0 0x00020000
+  setbyte 0x02023FD2 1
+
+section3: # 1D7B46
+  accuracycheck <section4> 0
+  calculatedamage
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  printstring 304
+  waitmessage 1
+  tryfaintmon target 0 <null>
+  moveend.to 17
+  jumpifnexttargetvalid <section1>
+  end
+
+section4: # 1D7B7F
+  pause 32
+  typecalc
+  effectivenesssound
+  resultmessage
+  waitmessage 64
+  moveend.to 17
+  jumpifnexttargetvalid <section1>
+  end

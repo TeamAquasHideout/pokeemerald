@@ -1,0 +1,27 @@
+@ animation for MOVE_MIMIC (@1D1777)
+section0: # 1D1777
+  loadspritegfx 0x27A3
+  monbg_static anim_def_partner
+  setalpha 11 5
+  panse se_m_minimize sound_pan_target sound_pan_attacker 253 0
+  createvisualtask <0A2F0D> 5 0x0080 0x0018
+  delay 15
+  createsprite <3E2D54> 130 0xFFF4 0x0018
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACA90>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2D4C>
+callback:    <0A3099>
+}
+  delay 10
+  setarg 7 0xFFFF
+  waitforvisualfinish
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <0B9BDD> 2 0x0002 0x0000 0x0002 0x0000 0x000B 0x7FFF
+  waitforvisualfinish
+  clearmonbg_static anim_def_partner
+  blendoff
+  end

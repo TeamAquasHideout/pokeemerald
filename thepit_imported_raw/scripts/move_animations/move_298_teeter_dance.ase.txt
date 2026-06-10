@@ -1,0 +1,65 @@
+@ animation for MOVE_TEETER_DANCE (@1CC371)
+section0: # 1CC371
+  loadspritegfx 0x2758
+  loadspritegfx 0x2759
+  createvisualtask <0E4161> 5 
+  createsprite <3E38C8> 2 0x0000 0x0010 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0x0000 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0xFFF0 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0001 0xFFF8 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0002 0x0008 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  end

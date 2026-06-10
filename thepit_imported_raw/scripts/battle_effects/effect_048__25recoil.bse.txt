@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 48 (25Recoil) @1D7092
+section0: # 1D7092
+  set.move.effect Self25RecoilCertain
+  if.not.move.goto Struggle <1D6900>
+  incrementgamestat 27
+  goto <1D6900>

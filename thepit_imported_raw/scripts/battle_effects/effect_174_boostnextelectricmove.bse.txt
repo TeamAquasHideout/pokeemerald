@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 174 (BoostNextElectricMove) @770F00
+section0: # 770F00
+  attackcanceler
+  attackstring
+  ppreduce
+  setcharge
+  attackanimation
+  waitanimation
+  printstring 165
+  waitmessage 64
+  set.stat.changer RaiseSpDef1
+  statbuffchange 65 <1D6BCC>
+  jumpifbyte = 0x02023E87 2 <1D6BCC>
+  goto <1D6BBC>

@@ -1,0 +1,57 @@
+@ animation for MOVE_CURSE (@1D1829)
+section0: # 1D1829
+  choosetwoturnanim <section1> <1D18AF>
+
+section1: # 1D1832
+  loadspritegfx 0x27D7
+  loadspritegfx 0x27D8
+  monbg anim_atk_partner
+  createvisualtask <0B63B5> 5 
+  waitforvisualfinish
+  delay 20
+  createsprite <3E7680> 2 
+{
+tileTag:     10199
+paletteTag:  10199
+oam:         <3ACB18>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B664D>
+}
+  delay 60
+  call <1D1899>
+  delay 41
+  call <1D1899>
+  delay 41
+  call <1D1899>
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  delay 1
+  monbg anim_def_partner
+  playsewithpan se_m_nightmare sound_pan_target
+  createsprite <3E7698> 130 
+{
+tileTag:     10200
+paletteTag:  10200
+oam:         <3ACAF8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B67D5>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000E 0x0001
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

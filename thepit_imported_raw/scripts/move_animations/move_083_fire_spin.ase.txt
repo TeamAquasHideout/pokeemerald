@@ -1,0 +1,10 @@
+@ animation for MOVE_FIRE_SPIN (@1C8836)
+section0: # 1C8836
+  loadspritegfx 0x272D
+  playsewithpan se_m_sacred_fire2 sound_pan_target
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0002 0x002F 0x0001
+  call <1C885F>
+  call <1C885F>
+  call <1C885F>
+  waitforvisualfinish
+  end

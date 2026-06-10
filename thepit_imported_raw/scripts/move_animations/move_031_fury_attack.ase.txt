@@ -1,0 +1,6 @@
+@ animation for MOVE_FURY_ATTACK (@1CA327)
+section0: # 1CA327
+  loadspritegfx 0x2797
+  loadspritegfx 0x2724
+  createvisualtask <099981> 2 0x0004 0x0100 0x0000 0x0002
+  choosetwoturnanim <1CA358> <1CA37E>

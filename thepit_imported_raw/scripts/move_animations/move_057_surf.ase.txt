@@ -1,0 +1,7 @@
+@ animation for MOVE_SURF (@1CFA01)
+section0: # 1CFA01
+  createvisualtask <0AB38D> 2 0x0000
+  delay 24
+  panse se_m_surf sound_pan_attacker sound_pan_target 2 0
+  waitforvisualfinish
+  end

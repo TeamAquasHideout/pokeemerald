@@ -26737,3 +26737,53 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.smol");
     const u16 gMonPalette_Egg[] = INCBIN_U16("graphics/pokemon/egg/normal.gbapal");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");
+
+// The Pit FireRed imported custom species graphics
+const u32 gMonFrontPic_Gorochu[] = INCBIN_U32("graphics/pokemon/gorochu/anim_front.4bpp.smol");
+const u32 gMonBackPic_Gorochu[] = INCBIN_U32("graphics/pokemon/gorochu/back.4bpp.smol");
+const u16 gMonPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/normal.gbapal");
+const u16 gMonShinyPalette_Gorochu[] = INCBIN_U16("graphics/pokemon/gorochu/shiny.gbapal");
+const u8 gMonIcon_Gorochu[] = INCBIN_U8("graphics/pokemon/gorochu/icon.4bpp");
+
+const u32 gMonFrontPic_Reefsola[] = INCBIN_U32("graphics/pokemon/reefsola/anim_front.4bpp.smol");
+const u32 gMonBackPic_Reefsola[] = INCBIN_U32("graphics/pokemon/reefsola/back.4bpp.smol");
+const u16 gMonPalette_Reefsola[] = INCBIN_U16("graphics/pokemon/reefsola/normal.gbapal");
+const u16 gMonShinyPalette_Reefsola[] = INCBIN_U16("graphics/pokemon/reefsola/shiny.gbapal");
+const u8 gMonIcon_Reefsola[] = INCBIN_U8("graphics/pokemon/reefsola/icon.4bpp");
+
+const u32 gMonFrontPic_Yggdreon[] = INCBIN_U32("graphics/pokemon/yggdreon/anim_front.4bpp.smol");
+const u32 gMonBackPic_Yggdreon[] = INCBIN_U32("graphics/pokemon/yggdreon/back.4bpp.smol");
+const u16 gMonPalette_Yggdreon[] = INCBIN_U16("graphics/pokemon/yggdreon/normal.gbapal");
+const u16 gMonShinyPalette_Yggdreon[] = INCBIN_U16("graphics/pokemon/yggdreon/shiny.gbapal");
+const u8 gMonIcon_Yggdreon[] = INCBIN_U8("graphics/pokemon/yggdreon/icon.4bpp");
+
+const u32 gMonFrontPic_PlusleBattleBond[] = INCBIN_U32("graphics/pokemon/plusle_battle_bond/anim_front.4bpp.smol");
+const u32 gMonBackPic_PlusleBattleBond[] = INCBIN_U32("graphics/pokemon/plusle_battle_bond/back.4bpp.smol");
+const u16 gMonPalette_PlusleBattleBond[] = INCBIN_U16("graphics/pokemon/plusle_battle_bond/normal.gbapal");
+const u16 gMonShinyPalette_PlusleBattleBond[] = INCBIN_U16("graphics/pokemon/plusle_battle_bond/shiny.gbapal");
+const u8 gMonIcon_PlusleBattleBond[] = INCBIN_U8("graphics/pokemon/plusle_battle_bond/icon.4bpp");
+
+const u32 gMonFrontPic_MinunBattleBond[] = INCBIN_U32("graphics/pokemon/minun_battle_bond/anim_front.4bpp.smol");
+const u32 gMonBackPic_MinunBattleBond[] = INCBIN_U32("graphics/pokemon/minun_battle_bond/back.4bpp.smol");
+const u16 gMonPalette_MinunBattleBond[] = INCBIN_U16("graphics/pokemon/minun_battle_bond/normal.gbapal");
+const u16 gMonShinyPalette_MinunBattleBond[] = INCBIN_U16("graphics/pokemon/minun_battle_bond/shiny.gbapal");
+const u8 gMonIcon_MinunBattleBond[] = INCBIN_U8("graphics/pokemon/minun_battle_bond/icon.4bpp");
+
+const u32 gMonFrontPic_KecleonBattleBond[] = INCBIN_U32("graphics/pokemon/kecleon_battle_bond/anim_front.4bpp.smol");
+const u32 gMonBackPic_KecleonBattleBond[] = INCBIN_U32("graphics/pokemon/kecleon_battle_bond/back.4bpp.smol");
+const u16 gMonPalette_KecleonBattleBond[] = INCBIN_U16("graphics/pokemon/kecleon_battle_bond/normal.gbapal");
+const u16 gMonShinyPalette_KecleonBattleBond[] = INCBIN_U16("graphics/pokemon/kecleon_battle_bond/shiny.gbapal");
+const u8 gMonIcon_KecleonBattleBond[] = INCBIN_U8("graphics/pokemon/kecleon_battle_bond/icon.4bpp");
+
+const u32 gMonFrontPic_MawileBattleBond[] = INCBIN_U32("graphics/pokemon/mawile_battle_bond/anim_front.4bpp.smol");
+const u32 gMonBackPic_MawileBattleBond[] = INCBIN_U32("graphics/pokemon/mawile_battle_bond/back.4bpp.smol");
+const u16 gMonPalette_MawileBattleBond[] = INCBIN_U16("graphics/pokemon/mawile_battle_bond/normal.gbapal");
+const u16 gMonShinyPalette_MawileBattleBond[] = INCBIN_U16("graphics/pokemon/mawile_battle_bond/shiny.gbapal");
+const u8 gMonIcon_MawileBattleBond[] = INCBIN_U8("graphics/pokemon/mawile_battle_bond/icon.4bpp");
+
+const u32 gMonFrontPic_BlazikenBattleBond[] = INCBIN_U32("graphics/pokemon/blaziken_battle_bond/anim_front.4bpp.smol");
+const u32 gMonBackPic_BlazikenBattleBond[] = INCBIN_U32("graphics/pokemon/blaziken_battle_bond/back.4bpp.smol");
+const u16 gMonPalette_BlazikenBattleBond[] = INCBIN_U16("graphics/pokemon/blaziken_battle_bond/normal.gbapal");
+const u16 gMonShinyPalette_BlazikenBattleBond[] = INCBIN_U16("graphics/pokemon/blaziken_battle_bond/shiny.gbapal");
+const u8 gMonIcon_BlazikenBattleBond[] = INCBIN_U8("graphics/pokemon/blaziken_battle_bond/icon.4bpp");
+

@@ -1,0 +1,105 @@
+@ animation for MOVE_DOUBLE_EDGE (@1C791A)
+section0: # 1C791A
+  loadspritegfx 0x2797
+  playsewithpan se_m_swift sound_pan_attacker
+  createsprite <3E7B3C> 2 0x0002 0x0004 0x0002 0x7FFF 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  waitforvisualfinish
+  delay 10
+  playsewithpan se_m_swagger sound_pan_attacker
+  waitplaysewithpan se_m_swagger sound_pan_attacker 8
+  createvisualtask <09907D> 2 0x0000 0x0012 0x0006 0x0002 0x0004
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0000 0x0010 0x0010 0x7FFF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  createsprite <3D4E9C> 2 0x0000 0x0014 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 3
+  waitforvisualfinish
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 132 0xFFF6 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3D4E9C> 2 0x0001 0xFFE0 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <099981> 2 0x0008 0xFF00 0x0000 0x0000
+  createvisualtask <099981> 2 0x0008 0xFF00 0x0001 0x0000
+  createvisualtask <098CD1> 2 0x0000 0x0004 0x0000 0x000C 0x0001
+  createvisualtask <098CD1> 2 0x0001 0x0004 0x0000 0x000C 0x0001
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0010 0x0000 0x7FFF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createvisualtask <099981> 2 0x0008 0xFF00 0x0000 0x0001
+  createvisualtask <099981> 2 0x0008 0xFF00 0x0001 0x0001
+  waitforvisualfinish
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 3
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0007
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  end

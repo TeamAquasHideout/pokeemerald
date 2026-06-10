@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 74 (Unused4A) @1AEE470
+section0: # 1AEE470
+  set.move.effect SelfRaiseSpeed1
+  goto <1D6900>

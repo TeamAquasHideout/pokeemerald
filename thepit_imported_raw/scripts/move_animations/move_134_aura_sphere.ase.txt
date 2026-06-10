@@ -1,0 +1,24 @@
+@ animation for MOVE_AURA_SPHERE (@1AD2940)
+section0: # 1AD2940
+  fadetobg bg_highspeed_opponent
+  waitbgfadein
+  createvisualtask <0BB82D> 5 0xF700 0x0000 0x0001 0xFFFF
+  loadspritegfx 0x27C0
+  delay 15
+  createsoundtask <0DCF39> 0x00A1 0xFFC0 0x003F 0x0005 0x0005 0x0000 0x0005
+  createsprite <3E7608> 130 0x0010 0x0010 0x0008
+{
+tileTag:     10176
+paletteTag:  10176
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7604>
+callback:    <0B563D>
+}
+  waitforvisualfinish
+  playsewithpan se_m_sand_attack sound_pan_target
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  call <1D59C7>
+  end

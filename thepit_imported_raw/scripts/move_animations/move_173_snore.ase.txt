@@ -1,0 +1,12 @@
+@ animation for MOVE_SNORE (@1CDB98)
+section0: # 1CDB98
+  loadspritegfx 0x27D5
+  monbg anim_atk_partner
+  setalpha 8 8
+  call <1CDBB1>
+  delay 30
+  call <1CDBB1>
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

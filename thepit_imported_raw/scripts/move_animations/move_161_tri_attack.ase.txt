@@ -1,0 +1,175 @@
+@ animation for MOVE_TRI_ATTACK (@1D21CC)
+section0: # 1D21CC
+  loadspritegfx 0x27F6
+  createsprite <3FF0D8> 130 0x0010 0x0000
+{
+tileTag:     10230
+paletteTag:  10230
+oam:         <3ACAA0>
+anims:       <3FF0A8>
+images:      <null>
+affineAnims: <3FF0D4>
+callback:    <0DF469>
+}
+  playsewithpan se_m_tri_attack sound_pan_attacker
+  delay 20
+  playsewithpan se_m_tri_attack sound_pan_attacker
+  delay 20
+  createsoundtask <0DCF39> 0x00D5 0xFFC0 0x003F 0x0005 0x0006 0x0000 0x0007
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  delay 16
+  loadspritegfx 0x2731
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0x0000
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  playsewithpan se_m_flame_wheel2 sound_pan_target
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0000 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0xFFFF
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0002 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0001 0xFFFF
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0001 0xFFFE
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0003 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 2
+  createvisualtask <0ADAD9> 2 0x0014 0x0003 0x0001 0x0001
+  waitforvisualfinish
+  loadspritegfx 0x2735
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  playsewithpan se_m_tri_attack2 sound_pan_target
+  createsprite <3E5F38> 130 0x0000 0xFFD0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0000 0xFFF0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0000 0x0010
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 20
+  createvisualtask <0ADAD9> 2 0x0014 0x0003 0x0001 0x0000
+  delay 2
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  waitforvisualfinish
+  loadspritegfx 0x279D
+  call <1D540A>
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  end

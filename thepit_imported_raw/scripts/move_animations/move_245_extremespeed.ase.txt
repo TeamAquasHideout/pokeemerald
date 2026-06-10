@@ -1,0 +1,77 @@
+@ animation for MOVE_EXTREMESPEED (@1CB5DE)
+section0: # 1CB5DE
+  loadspritegfx 0x27DF
+  loadspritegfx 0x2797
+  createvisualtask <0BB921> 2 
+  jumpargeq 7 1 <section2>
+  fadetobg bg_highspeed_opponent
+
+section1: # 1CB5F5
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0xF700 0x0000 0x0001 0xFFFF
+  waitbgfadein
+  createvisualtask <0A917D> 2 
+  loopsewithpan se_m_razor_wind2 sound_pan_attacker 8 3
+  waitforvisualfinish
+  delay 1
+  createvisualtask <0BC12D> 2 
+  monbg anim_target
+  setalpha 12 8
+  delay 18
+  createvisualtask <0A9211> 2 
+  delay 2
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E7C68> 130 0x0001 0x0000 0xFFF4 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA6C9>
+}
+  delay 10
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E7C68> 130 0x0001 0x0000 0x000C 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA6C9>
+}
+  delay 10
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C68> 130 0x0001 0x0000 0x0000 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA6C9>
+}
+  waitforvisualfinish
+  createvisualtask <0A94AD> 2 
+  delay 10
+  createvisualtask <0A939D> 2 
+  loopsewithpan se_m_double_team sound_pan_attacker 8 4
+  waitforvisualfinish
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  clearmonbg anim_target
+  blendoff
+  delay 1
+  setarg 7 4096
+  delay 1
+  end
+
+section2: # 1CB695
+  fadetobg bg_highspeed_player
+  goto <section1>

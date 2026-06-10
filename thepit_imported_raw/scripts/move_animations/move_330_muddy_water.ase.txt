@@ -1,0 +1,6 @@
+@ animation for MOVE_MUDDY_WATER (@1D2F28)
+section0: # 1D2F28
+  panse se_m_whirlpool sound_pan_attacker sound_pan_target 2 0
+  createvisualtask <0AB38D> 2 0x0001
+  waitforvisualfinish
+  end

@@ -1,0 +1,45 @@
+@ animation for MOVE_EARTH_POWER (@1CA71E)
+section0: # 1CA71E
+  loadspritegfx 0x275A
+  createvisualtask <0B94B5> 3 0x0005 0x000A 0x0032
+  createvisualtask <0B94B5> 3 0x0001 0x000A 0x0032
+  playsewithpan se_m_earthquake sound_pan_target
+  delay 8
+  call <1CA79F>
+  delay 15
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 15
+  call <1CA7F0>
+  delay 15
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 15
+  call <1CA79F>
+  delay 50
+  fadetobg bg_fissure
+  waitbgfadeout
+  createvisualtask <0B9801> 5 0x0001 0x0005 0xFFFF
+  waitbgfadein
+  delay 40
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

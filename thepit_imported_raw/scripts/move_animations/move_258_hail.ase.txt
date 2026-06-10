@@ -1,0 +1,11 @@
+@ animation for MOVE_HAIL (@1CB816)
+section0: # 1CB816
+  loadspritegfx 0x2817
+  loadspritegfx 0x279D
+  createvisualtask <0BA7F9> 10 0x0001 0x0003 0x0000 0x0006 0x0000
+  waitforvisualfinish
+  createvisualtask <0B038D> 5 
+  loopsewithpan se_m_hail 0 8 10
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0001 0x0003 0x0006 0x0000 0x0000
+  end

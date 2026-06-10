@@ -1,0 +1,9 @@
+@ animation for MOVE_TELEPORT (@1CAA92)
+section0: # 1CAA92
+  call <1D59BB>
+  createvisualtask <0B3481> 2 
+  playsewithpan se_m_teleport sound_pan_attacker
+  delay 15
+  call <1D59C7>
+  waitforvisualfinish
+  end

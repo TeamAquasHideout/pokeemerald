@@ -1,0 +1,20 @@
+@ animation for MOVE_SLUDGE (@1CF1A0)
+section0: # 1CF1A0
+  loadspritegfx 0x27A6
+  playsewithpan se_m_bubble3 sound_pan_attacker
+  createsprite <3E6A20> 130 0x0014 0x0000 0x0028 0x0000
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69DC>
+images:      <null>
+affineAnims: <3E6A18>
+callback:    <0B1621>
+}
+  waitforvisualfinish
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x0005 0x0001
+  createvisualtask <0B9BDD> 2 0x0004 0x0001 0x0002 0x0000 0x000C 0x7C1E
+  call <1D575B>
+  waitforvisualfinish
+  end

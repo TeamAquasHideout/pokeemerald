@@ -1156,6 +1156,10 @@ static const union AnimCmd sSpriteAnim_TypeStellar[] = {
     ANIMCMD_FRAME(TYPE_STELLAR * 8, 0, FALSE, FALSE),
     ANIMCMD_END
 };
+static const union AnimCmd sSpriteAnim_TypeAether[] = {
+    ANIMCMD_FRAME(TYPE_AETHER * 8, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
 static const union AnimCmd sSpriteAnim_CategoryCool[] = {
     ANIMCMD_FRAME((CONTEST_CATEGORY_COOL + NUMBER_OF_MON_TYPES) * 8, 0, FALSE, FALSE),
     ANIMCMD_END
@@ -1199,6 +1203,7 @@ static const union AnimCmd *const sSpriteAnimTable_MoveTypes[NUMBER_OF_MON_TYPES
     [TYPE_DARK] = sSpriteAnim_TypeDark,
     [TYPE_FAIRY] = sSpriteAnim_TypeFairy,
     [TYPE_STELLAR] = sSpriteAnim_TypeStellar,
+    [TYPE_AETHER] = sSpriteAnim_TypeAether,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_COOL] = sSpriteAnim_CategoryCool,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_BEAUTY] = sSpriteAnim_CategoryBeauty,
     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_CUTE] = sSpriteAnim_CategoryCute,
@@ -1321,6 +1326,10 @@ static const union AnimCmd sSpriteAnim_TeraTypeStellar[] = {
     ANIMCMD_FRAME(TYPE_STELLAR * 4, 0, FALSE, FALSE),
     ANIMCMD_END
 };
+static const union AnimCmd sSpriteAnim_TeraTypeAether[] = {
+    ANIMCMD_FRAME(TYPE_AETHER * 4, 0, FALSE, FALSE),
+    ANIMCMD_END
+};
 
 static const union AnimCmd *const sSpriteAnimTable_TeraType[NUMBER_OF_MON_TYPES] = {
     [TYPE_NONE] = sSpriteAnim_TeraTypeNone,
@@ -1343,7 +1352,8 @@ static const union AnimCmd *const sSpriteAnimTable_TeraType[NUMBER_OF_MON_TYPES]
     [TYPE_DRAGON] = sSpriteAnim_TeraTypeDragon,
     [TYPE_DARK] = sSpriteAnim_TeraTypeDark,
     [TYPE_FAIRY] = sSpriteAnim_TeraTypeFairy,
-    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar
+    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar,
+    [TYPE_AETHER] = sSpriteAnim_TeraTypeAether
 };
 
 static const struct OamData sOamData_TeraType =

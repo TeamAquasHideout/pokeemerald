@@ -1,0 +1,7 @@
+@ animation for MOVE_SPLASH (@1CAEC0)
+section0: # 1CAEC0
+  createvisualtask <0A8339> 2 0x0000 0x0003
+  delay 8
+  loopsewithpan se_m_tail_whip sound_pan_attacker 38 3
+  waitforvisualfinish
+  end

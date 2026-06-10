@@ -1,0 +1,59 @@
+@ animation for MOVE_METEOR (@1AE5980)
+section0: # 1AE5980
+  loadspritegfx 0x27D9
+  loadspritegfx 0x27F9
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  playsewithpan se_m_earthquake sound_pan_target
+  fadetobg bg_cosmic
+  waitbgfadein
+  waitforvisualfinish
+  createsprite <1AE5A00> 131 0xFFD0 0xFFC0 0x0048 0x0020 0x001E
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 10
+  createsprite <1AE5A00> 131 0xFF90 0xFFC0 0x0008 0x0020 0x001E
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 40
+  createsprite <1AE5A20> 131 0x0000 0x0000 0x0000 0x001E
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6788>
+callback:    <0B0CED>
+}
+  createsprite <1AE5A00> 131 0xFFB0 0xFFC0 0x0028 0x0020 0x001E
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 20
+  playsewithpan se_m_rock_throw sound_pan_target
+  delay 10
+  restorebg
+  waitbgfadein
+  waitforvisualfinish
+  end

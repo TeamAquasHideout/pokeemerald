@@ -1,0 +1,50 @@
+@ animation for MOVE__5_RING_SWORD (@1AE5DB0)
+section0: # 1AE5DB0
+  loadspritegfx 0x2715
+  monbg anim_attacker
+  setalpha 12 8
+  playsewithpan se_m_swords_dance sound_pan_attacker
+  createvisualtask <09907D> 2 0x0000 0x0010 0x0006 0x0001 0x0004
+  createsprite <3E3BF8> 2 0x0000 0x0000
+{
+tileTag:     10005
+paletteTag:  10005
+oam:         <3ACBA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3BF4>
+callback:    <0A727D>
+}
+  delay 22
+  createvisualtask <0B9F6D> 2 0x2715 0x0002 0x0002 0x7FF2 0x0010 0x0000 0x0000
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  delay 1
+  loadspritegfx 0x27C7
+  createsprite <3E35A4> 130 0x0001 0xFFF8 0x0000
+{
+tileTag:     10183
+paletteTag:  10183
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  delay 4
+  createsprite <1AE5D80> 130 0x0001 0x0008 0x0000
+{
+tileTag:     10183
+paletteTag:  10005
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0012 0x0001
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  end

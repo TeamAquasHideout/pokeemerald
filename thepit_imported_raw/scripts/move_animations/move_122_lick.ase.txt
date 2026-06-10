@@ -1,0 +1,18 @@
+@ animation for MOVE_LICK (@1D12E0)
+section0: # 1D12E0
+  loadspritegfx 0x27C1
+  delay 15
+  playsewithpan se_m_lick sound_pan_target
+  createsprite <3E763C> 130 0x0000 0x0000
+{
+tileTag:     10177
+paletteTag:  10177
+oam:         <3ACA18>
+anims:       <3E7638>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B57F9>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0001 0x0000 0x0010 0x0001
+  waitforvisualfinish
+  end

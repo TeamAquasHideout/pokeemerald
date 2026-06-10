@@ -1,0 +1,31 @@
+@ animation for MOVE_SAND_TOMB (@1D2D96)
+section0: # 1D2D96
+  loadspritegfx 0x275A
+  createsprite <3E7B24> 0 0x0004 0x0002 0x0000 0x0007 0x0233
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0002 0x002B 0x0001
+  playsewithpan se_m_sand_tomb sound_pan_target
+  call <1D2DE3>
+  call <1D2DE3>
+  call <1D2DE3>
+  delay 22
+  createsprite <3E7B24> 0 0x0004 0x0002 0x0007 0x0000 0x0233
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  end

@@ -1,0 +1,4 @@
+@ animation for MOVE_BIND (@1D0D00)
+section0: # 1D0D00
+  createvisualtask <099705> 5 0x0000 0x0006 0x0D00 0x0004 0x0000
+  goto <1D0D16>

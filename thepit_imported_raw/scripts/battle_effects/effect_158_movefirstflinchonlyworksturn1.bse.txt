@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 158 (MoveFirstFlinchOnlyWorksTurn1) @1223C00
+section0: # 1223C00
+  attackcanceler
+  jumpifnotfirstturn <1D7DF0>
+  set.move.effect FlinchCertain
+  goto <1D6900>

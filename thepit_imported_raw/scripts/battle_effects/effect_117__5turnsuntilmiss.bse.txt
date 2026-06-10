@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 117 (5turnsUntilMiss) @1D78A0
+section0: # 1D78A0
+  attackcanceler
+  attackstring
+  jumpifstatus2 attacker 4096 <section1>
+  ppreduce
+
+section1: # 1D78AD
+  accuracycheck <section2> 0
+
+section2: # 1D78B4
+  typecalc2
+  rolloutdamagecalculation
+  goto <1D6930>

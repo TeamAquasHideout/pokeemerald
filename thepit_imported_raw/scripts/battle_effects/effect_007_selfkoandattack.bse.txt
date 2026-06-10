@@ -1,0 +1,50 @@
+@ battle script for gen3 move-effect 7 (SelfKOAndAttack) @1D6A76
+section0: # 1D6A76
+  attackcanceler
+  attackstring
+  ppreduce
+  tryexplosion
+  setatkhptozero
+  waitstate
+  jumpifbyte &~ 0x02023DCC 1 <section1>
+  call <section4>
+  goto <section2>
+
+section1: # 1D6A91
+  attackanimation
+  waitanimation
+
+section2: # 1D6A93
+  movevaluescleanup
+  calculatedamage
+  accuracycheck <section3> 0
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  tryfaintmon target 0 <null>
+  moveend.to 17
+  jumpifnexttargetvalid <section2>
+  tryfaintmon attacker 0 <null>
+  end
+
+section3: # 1D6ACC
+  effectivenesssound
+  resultmessage
+  waitmessage 64
+  moveend.to 17
+  jumpifnexttargetvalid <section2>
+  tryfaintmon attacker 0 <null>
+  end
+
+section4: # 1D6AE7
+  bicbyte 0x02023DCC 1
+  attackanimation
+  waitanimation
+  orbyte 0x02023DCC 1
+  return

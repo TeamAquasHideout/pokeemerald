@@ -1,0 +1,7 @@
+@ animation for MOVE_GROWTH (@1C9953)
+section0: # 1C9953
+  call <1C9960>
+  waitforvisualfinish
+  call <1C9960>
+  waitforvisualfinish
+  end

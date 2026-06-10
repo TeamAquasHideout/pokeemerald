@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 87 (DamageBasedOnLevel) @1D7403
+section0: # 1D7403
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc
+  bicbyte 0x02023DCC 6
+  dmgtolevel
+  adjustsetdamage
+  goto <1D6934>

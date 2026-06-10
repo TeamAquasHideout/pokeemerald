@@ -1,0 +1,93 @@
+@ animation for MOVE_BRIGHT_SONG (@1AEF190)
+section0: # 1AEF190
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0004 0x7BE0
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loadspritegfx 0x271B
+  loadspritegfx 0x2758
+  loadspritegfx 0x2759
+  createvisualtask <0E4161> 5 
+  createsprite <3E38C8> 2 0x0000 0x0010 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0x0000 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0xFFF0 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0001 0xFFF8 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0002 0x0008 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  waitforvisualfinish
+  call <1D58D4>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0004 0x0000 0x7BE0
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

@@ -1,0 +1,43 @@
+@ animation for MOVE_VICEGRIP (@1C9381)
+section0: # 1C9381
+  loadspritegfx 0x279A
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_vicegrip sound_pan_target
+  createsprite <3E3E08> 2 0x0000
+{
+tileTag:     10138
+paletteTag:  10138
+oam:         <3ACAF8>
+anims:       <3E3E00>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A7D65>
+}
+  createsprite <3E3E08> 2 0x0001
+{
+tileTag:     10138
+paletteTag:  10138
+oam:         <3ACAF8>
+anims:       <3E3E00>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A7D65>
+}
+  delay 9
+  createsprite <3E7C08> 1 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 5 0x0001 0x0002 0x0000 0x0005 0x0001
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

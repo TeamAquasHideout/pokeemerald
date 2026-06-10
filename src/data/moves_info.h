@@ -22739,4 +22739,1825 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .ignoresProtect = TRUE,
         .battleAnimScript = gBattleAnimMove_GMaxRapidFlow,
     },
+
+    // The Pit FireRed custom move entries. FireRed animation/effect bytecode is preserved under thepit_imported_raw/;
+    // battleAnimScript uses a safe placeholder until scripts are ported to expansion format.
+    [MOVE_ABYSS_MIASMA] =
+    {
+        .name = COMPOUND_STRING("Abyss Miasma"),
+        .description = COMPOUND_STRING("A wave of miasma\nhits the opponent.\nMay also lower\nthe target Sp. Def."),
+        .effect = EFFECT_HIT,
+        .power = 95,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 50%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+            .chance = 50,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_144_* (effect 72 "LowerSpDefense1HitChance") -> gBattleAnimMove_OminousWind
+        .battleAnimScript = gBattleAnimMove_ThePit_AbyssMiasma,
+    },
+    [MOVE_ABYSS_WRATH] =
+    {
+        .name = COMPOUND_STRING("Abyss Wrath"),
+        .description = COMPOUND_STRING("A retaliation move\nthat counters any\nhit with double\nthe damage."),
+        .effect = EFFECT_THEPIT_ABYSS_WRATH,
+        .power = 1,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_DEPENDS,
+        .priority = -5,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_166_* (effect 89 "DoubleBackPhysicalDamage") -> gBattleAnimMove_MetalBurst
+        .battleAnimScript = gBattleAnimMove_ThePit_AbyssWrath,
+    },
+    [MOVE_AD_NIHILO] =
+    {
+        .name = COMPOUND_STRING("Ad Nihilo"),
+        .description = COMPOUND_STRING("An etheric wind that\nresets stat changes\nto zero."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_HAZE,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_360_* (effect 12 "Unused0C") -> gBattleAnimMove_OminousWind
+        .battleAnimScript = gBattleAnimMove_ThePit_AdNihilo,
+    },
+    [MOVE_AKASHIC_NOVA] =
+    {
+        .name = COMPOUND_STRING("Akashic Nova"),
+        .description = COMPOUND_STRING("The user unleashes\nFafnir's power.\nHits both enemies\nbut causes recoil."),
+        .effect = EFFECT_RECOIL,
+        .power = 100,
+        .type = TYPE_DRAGON,
+        .accuracy = 90,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .recoilPercentage = 33 },
+        // animation ported from FireRed export scripts/move_animations/move_447_* (effect 198 "33Recoil") -> gBattleAnimMove_DracoMeteor
+        .battleAnimScript = gBattleAnimMove_ThePit_AkashicNova,
+    },
+    [MOVE_ARCANE_BLAST] =
+    {
+        .name = COMPOUND_STRING("Arcane Blast"),
+        .description = COMPOUND_STRING("The foe is hit\nby a blast of arcane\nenergy that also\nhurts the user."),
+        .effect = EFFECT_RECOIL,
+        .power = 110,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresKingsRock = TRUE,
+        .argument = { .recoilPercentage = 33 },
+        // animation ported from FireRed export scripts/move_animations/move_442_* (effect 198 "33Recoil") -> gBattleAnimMove_PrismaticLaser
+        .battleAnimScript = gBattleAnimMove_ThePit_ArcaneBlast,
+    },
+    [MOVE_ASTRAL_GLEAM] =
+    {
+        .name = COMPOUND_STRING("Astral Gleam"),
+        .description = COMPOUND_STRING("The user emits\netheric energy\nthat hits both\nopponents."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // animation ported from FireRed export scripts/move_animations/move_356_* (effect 0 "None") -> gBattleAnimMove_DazzlingGleam
+        .battleAnimScript = gBattleAnimMove_ThePit_AstralGleam,
+    },
+    [MOVE_ATROPHIC_EYE] =
+    {
+        .name = COMPOUND_STRING("Atrophic Eye"),
+        .description = COMPOUND_STRING("A mystic eye\nthat lowers Def\nand Sp. Def of\nthe opponents."),
+        .effect = EFFECT_THEPIT_ATROPHIC_EYE,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_439_* (effect 227 "227") -> gBattleAnimMove_Glare
+        .battleAnimScript = gBattleAnimMove_ThePit_AtrophicEye,
+    },
+    [MOVE_AZURE_FLOOD] =
+    {
+        .name = COMPOUND_STRING("Azure Flood"),
+        .description = COMPOUND_STRING("Aether-charged ice\nparticles that may\ninflict frostbite."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_370_* (effect 55 "Unused37") -> gBattleAnimMove_OriginPulse
+        .battleAnimScript = gBattleAnimMove_ThePit_AzureFlood,
+    },
+    [MOVE_BAFFLINGSTEP] =
+    {
+        .name = COMPOUND_STRING("BafflingStep"),
+        .description = COMPOUND_STRING("The foe is stomped\non its head.\nIt may also confuse\nthe target."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_470_* (effect 76 "ConfusionHitChance") -> gBattleAnimMove_DizzyPunch
+        .battleAnimScript = gBattleAnimMove_ThePit_Bafflingstep,
+    },
+    [MOVE_BRIGHT_SONG] =
+    {
+        .name = COMPOUND_STRING("Bright Song"),
+        .description = COMPOUND_STRING("A song that sharply\nraises the team's\nAccuracy and the\npartner's Speed."),
+        .effect = EFFECT_THEPIT_BRIGHT_SONG,
+        .power = 0,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_391_* (effect 110 "Unused6E") -> gBattleAnimMove_RelicSong
+        .battleAnimScript = gBattleAnimMove_ThePit_BrightSong,
+    },
+    [MOVE_CALL_ALLIES] =
+    {
+        .name = COMPOUND_STRING("Call: Allies"),
+        .description = COMPOUND_STRING("Summons the allies\nfor an all-out hit.\nThe more allies,\nthe more damage."),
+        .effect = EFFECT_BEAT_UP,
+        .power = 50,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_431_* (effect 154 "DamageBasedOnPartySize") -> gBattleAnimMove_BeatUp
+        .battleAnimScript = gBattleAnimMove_ThePit_CallAllies,
+    },
+    [MOVE_CALL_LION] =
+    {
+        .name = COMPOUND_STRING("Call: Lion"),
+        .description = COMPOUND_STRING("Summons a Pyroar's\nspirit that may\nburn the opponent."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_FIRE,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_430_* (effect 4 "BurnHitChance") -> gBattleAnimMove_FireFang
+        .battleAnimScript = gBattleAnimMove_ThePit_CallLion,
+    },
+    [MOVE_CALL_OWL] =
+    {
+        .name = COMPOUND_STRING("Call: Owl"),
+        .description = COMPOUND_STRING("Summons a Noctowl's\nspirit that may put\nthe enemy to sleep."),
+        .effect = EFFECT_HIT,
+        .power = 60,
+        .type = TYPE_FLYING,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SLEEP,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_429_* (effect 218 "218") -> gBattleAnimMove_Hurricane
+        .battleAnimScript = gBattleAnimMove_ThePit_CallOwl,
+    },
+    [MOVE_CALL_SNAKE] =
+    {
+        .name = COMPOUND_STRING("Call: Snake"),
+        .description = COMPOUND_STRING("Summons an Ekans's\nspirit that may\nbadly poison\nthe opponent."),
+        .effect = EFFECT_HIT,
+        .power = 50,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_428_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_PoisonFang
+        .battleAnimScript = gBattleAnimMove_ThePit_CallSnake,
+    },
+    [MOVE_CELL_SHIELD] =
+    {
+        .name = COMPOUND_STRING("Cell Shield"),
+        .description = COMPOUND_STRING("The user hardens\nits body to boost\nits Atk, Def and\nSp.Def by 1 stage."),
+        .effect = EFFECT_THEPIT_CELL_SHIELD,
+        .power = 0,
+        .type = TYPE_WATER,
+        .accuracy = 0,
+        .pp = 10,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_460_* (effect 232 "232") -> gBattleAnimMove_AcidArmor
+        .battleAnimScript = gBattleAnimMove_ThePit_CellShield,
+    },
+    [MOVE_CHAINWEATHER] =
+    {
+        .name = COMPOUND_STRING("ChainWeather"),
+        .description = COMPOUND_STRING("A violent slash that\nchanges its type\naccording to the\nweather."),
+        .effect = EFFECT_WEATHER_BALL,
+        .power = 70,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_420_* (effect 203 "WeatherBall") -> gBattleAnimMove_WeatherBall
+        .battleAnimScript = gBattleAnimMove_ThePit_Chainweather,
+    },
+    [MOVE_CHAIN_KILLER] =
+    {
+        .name = COMPOUND_STRING("Chain Killer"),
+        .description = COMPOUND_STRING("An attack that does\ndouble damage to a\ntarget affected by\na status problem."),
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+        .power = 60,
+        .type = TYPE_FLYING,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .status = STATUS1_ANY },
+        // animation ported from FireRed export scripts/move_animations/move_421_* (effect 220 "220") -> gBattleAnimMove_BraveBird
+        .battleAnimScript = gBattleAnimMove_ThePit_ChainKiller,
+    },
+    [MOVE_CORKSCREW] =
+    {
+        .name = COMPOUND_STRING("Corkscrew"),
+        .description = COMPOUND_STRING("A melee bash\nattack that may\nparalyze the foe."),
+        .effect = EFFECT_HIT,
+        .power = 60,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_422_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_DrillRun
+        .battleAnimScript = gBattleAnimMove_ThePit_Corkscrew,
+    },
+    [MOVE_COSMIC_SLASH] =
+    {
+        .name = COMPOUND_STRING("Cosmic Slash"),
+        .description = COMPOUND_STRING("An attack performed\nby edges or claws\nimbued with etheric\nenergy."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_363_* (effect 0 "None") -> gBattleAnimMove_NightSlash
+        .battleAnimScript = gBattleAnimMove_ThePit_CosmicSlash,
+    },
+    [MOVE_CRAZED_SHOUT] =
+    {
+        .name = COMPOUND_STRING("Crazed Shout"),
+        .description = COMPOUND_STRING("The user emits a very\nloud cry that may\nconfuse the foes."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_CONFUSION,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_401_* (effect 76 "ConfusionHitChance") -> gBattleAnimMove_PsychicNoise
+        .battleAnimScript = gBattleAnimMove_ThePit_CrazedShout,
+    },
+    [MOVE_DARKNESSFIST] =
+    {
+        .name = COMPOUND_STRING("DarknessFist"),
+        .description = COMPOUND_STRING("A cursed punch\nthat hits both\nopponents and\ndamages the user."),
+        .effect = EFFECT_RECOIL,
+        .power = 100,
+        .type = TYPE_DARK,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .recoilPercentage = 33 },
+        // animation ported from FireRed export scripts/move_animations/move_426_* (effect 198 "33Recoil") -> gBattleAnimMove_RageFist
+        .battleAnimScript = gBattleAnimMove_ThePit_Darknessfist,
+    },
+    [MOVE_DEMONIC_RUSH] =
+    {
+        .name = COMPOUND_STRING("Demonic Rush"),
+        .description = COMPOUND_STRING("Slashes imbued\nwith miasma that\nmay paralyze\nthe target."),
+        .effect = EFFECT_HIT,
+        .power = 100,
+        .type = TYPE_GHOST,
+        .accuracy = 90,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_461_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PhantomForce
+        .battleAnimScript = gBattleAnimMove_ThePit_DemonicRush,
+    },
+    [MOVE_DIVINE_STORM] =
+    {
+        .name = COMPOUND_STRING("Divine Storm"),
+        .description = COMPOUND_STRING("The opponents are hit\nby a violent storm\nthat breaks the sky.\nMay paralyze the foes."),
+        .effect = EFFECT_HIT,
+        .power = 85,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_412_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_Thunder
+        .battleAnimScript = gBattleAnimMove_ThePit_DivineStorm,
+    },
+    [MOVE_DOUBLEHAMMER] =
+    {
+        .name = COMPOUND_STRING("DoubleHammer"),
+        .description = COMPOUND_STRING("A sequence of 2\nearth-shattering\npunches is thrown\nat the enemy."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_STEEL,
+        .accuracy = 100,
+        .strikeCount = 2,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_404_* (effect 44 "2hits") -> gBattleAnimMove_GigatonHammer
+        .battleAnimScript = gBattleAnimMove_ThePit_Doublehammer,
+    },
+    [MOVE_ELECTROSHOCK] =
+    {
+        .name = COMPOUND_STRING("Electroshock"),
+        .description = COMPOUND_STRING("A flare of\nelectricity\nthat may burn\nthe opponent."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_BURN,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_131_* (effect 4 "BurnHitChance") -> gBattleAnimMove_ElectroBall
+        .battleAnimScript = gBattleAnimMove_ThePit_Electroshock,
+    },
+    [MOVE_ENERGY_EDGE] =
+    {
+        .name = COMPOUND_STRING("Energy Edge"),
+        .description = COMPOUND_STRING("A reckless, etheric\ntackle that may\nlower the opponent's\nDef stat."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_364_* (effect 69 "LowerDefense1HitChance") -> gBattleAnimMove_LeafBlade
+        .battleAnimScript = gBattleAnimMove_ThePit_EnergyEdge,
+    },
+    [MOVE_ETHERIC_BOON] =
+    {
+        .name = COMPOUND_STRING("Etheric Boon"),
+        .description = COMPOUND_STRING("The user charges up\nwith etheric energy.\nRaises its Atk\nand Sp. Atk stat."),
+        .effect = EFFECT_ATTACK_SPATK_UP,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 0,
+        .pp = 20,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_359_* (effect 14 "Unused0E") -> gBattleAnimMove_Moonlight
+        .battleAnimScript = gBattleAnimMove_ThePit_EthericBoon,
+    },
+    [MOVE_FIRST_PRESS] =
+    {
+        .name = COMPOUND_STRING("First Press"),
+        .description = COMPOUND_STRING("Powerful move, but it\nonly works the first\nturn the user is in\nbattle."),
+        .effect = EFFECT_FIRST_TURN_ONLY,
+        .power = 90,
+        .type = TYPE_BUG,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 2,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_386_* (effect 216 "216") -> gBattleAnimMove_FirstImpression
+        .battleAnimScript = gBattleAnimMove_ThePit_FirstPress,
+    },
+    [MOVE_FLARE_MASK] =
+    {
+        .name = COMPOUND_STRING("Flare Mask"),
+        .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Atk and\nSp. Atk by 1 stage."),
+        .effect = EFFECT_ATTACK_SPATK_UP,
+        .power = 0,
+        .type = TYPE_FIRE,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_454_* (effect 230 "230") -> gBattleAnimMove_WillOWisp
+        .battleAnimScript = gBattleAnimMove_ThePit_FlareMask,
+    },
+    [MOVE_FREEZERIPPLE] =
+    {
+        .name = COMPOUND_STRING("FreezeRipple"),
+        .description = COMPOUND_STRING("The foes are hit\nby a freezing howl\nthat may inflict\nfrostbite."),
+        .effect = EFFECT_HIT,
+        .power = 95,
+        .type = TYPE_ICE,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_450_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_FreezeDry
+        .battleAnimScript = gBattleAnimMove_ThePit_Freezeripple,
+    },
+    [MOVE_FREEZE_MASK] =
+    {
+        .name = COMPOUND_STRING("Freeze Mask"),
+        .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Def and\nSp. Def by 1 stage."),
+        .effect = EFFECT_COSMIC_POWER,
+        .power = 0,
+        .type = TYPE_ICE,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_455_* (effect 230 "230") -> gBattleAnimMove_Haze
+        .battleAnimScript = gBattleAnimMove_ThePit_FreezeMask,
+    },
+    [MOVE_FROST_CURSE] =
+    {
+        .name = COMPOUND_STRING("Frost Curse"),
+        .description = COMPOUND_STRING("The user curses\nthe opponent in order\nto inflict frostbite."),
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_ICE,
+        .accuracy = 85,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .magicCoatAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_FROSTBITE },
+        // animation ported from FireRed export scripts/move_animations/move_411_* (effect 215 "215") -> gBattleAnimMove_BitterMalice
+        .battleAnimScript = gBattleAnimMove_ThePit_FrostCurse,
+    },
+    [MOVE_FUKUBARI] =
+    {
+        .name = COMPOUND_STRING("Fukubari"),
+        .description = COMPOUND_STRING("A piercing attack\nmade with ninja tools\nthat may put the\nopponent to sleep."),
+        .effect = EFFECT_HIT,
+        .power = 65,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SLEEP,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_414_* (effect 218 "218") -> gBattleAnimMove_PinMissile
+        .battleAnimScript = gBattleAnimMove_ThePit_Fukubari,
+    },
+    [MOVE_HARVESTPARTY] =
+    {
+        .name = COMPOUND_STRING("HarvestParty"),
+        .description = COMPOUND_STRING("An attack that does\ndouble damage to a\ntarget affected by\na status problem."),
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+        .power = 80,
+        .type = TYPE_GROUND,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .status = STATUS1_ANY },
+        // animation ported from FireRed export scripts/move_animations/move_435_* (effect 220 "220") -> gBattleAnimMove_PetalDance
+        .battleAnimScript = gBattleAnimMove_ThePit_Harvestparty,
+    },
+    [MOVE_HEAL] =
+    {
+        .name = COMPOUND_STRING("Heal"),
+        .description = COMPOUND_STRING("The user\nrestores 50%\nof its target's\nMax health."),
+        .effect = EFFECT_HEAL_PULSE,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 0,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .healingMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_160_* (effect 157 "RestoreHPOrAllyInField") -> gBattleAnimMove_HealPulse
+        .battleAnimScript = gBattleAnimMove_ThePit_Heal,
+    },
+    [MOVE_ICY_ARIA] =
+    {
+        .name = COMPOUND_STRING("Icy Aria"),
+        .description = COMPOUND_STRING("A strong hailstorm\nhits the opponents.\nIt may inflict\nfrostbite."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_ICE,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_406_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_SparklingAria
+        .battleAnimScript = gBattleAnimMove_ThePit_IcyAria,
+    },
+    [MOVE_IRON_DRILL] =
+    {
+        .name = COMPOUND_STRING("Iron Drill"),
+        .description = COMPOUND_STRING("The user spins into\nthe target at high\nspeed. This move\nalways goes first."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_STEEL,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_457_* (effect 0 "None") -> gBattleAnimMove_HyperDrill
+        .battleAnimScript = gBattleAnimMove_ThePit_IronDrill,
+    },
+    [MOVE_IZUNA] =
+    {
+        .name = COMPOUND_STRING("Izuna"),
+        .description = COMPOUND_STRING("A ninja-style\nslash attack that\nmay paralyze\nthe opponent."),
+        .effect = EFFECT_HIT,
+        .power = 50,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_413_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PoisonJab
+        .battleAnimScript = gBattleAnimMove_ThePit_Izuna,
+    },
+    [MOVE_KUMOGAKURE] =
+    {
+        .name = COMPOUND_STRING("Kumogakure"),
+        .description = COMPOUND_STRING("A ninja art that\nhalves the user's HP\nto sharply increase\nits Evasion."),
+        .effect = EFFECT_THEPIT_KUMOGAKURE,
+        .power = 0,
+        .type = TYPE_DARK,
+        .accuracy = 0,
+        .pp = 10,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .ignoresProtect = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_415_* (effect 219 "219") -> gBattleAnimMove_DoubleTeam
+        .battleAnimScript = gBattleAnimMove_ThePit_Kumogakure,
+    },
+    [MOVE_LEADING_BLOW] =
+    {
+        .name = COMPOUND_STRING("Leading Blow"),
+        .description = COMPOUND_STRING("An attack that hits\nanother time if the\ntarget is BRN, PAR,\nPSN or SLP."),
+        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+        .power = 70,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .status = STATUS1_ANY },
+        // animation ported from FireRed export scripts/move_animations/move_425_* (effect 222 "222") -> gBattleAnimMove_FakeOut
+        .battleAnimScript = gBattleAnimMove_ThePit_LeadingBlow,
+    },
+    [MOVE_LIFE_BALLAD] =
+    {
+        .name = COMPOUND_STRING("Life Ballad"),
+        .description = COMPOUND_STRING("A song that raises\nthe team's Speed\nand heals their\nstatus condition."),
+        .effect = EFFECT_THEPIT_LIFE_BALLAD,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_392_* (effect 110 "Unused6E") -> gBattleAnimMove_HealBell
+        .battleAnimScript = gBattleAnimMove_ThePit_LifeBallad,
+    },
+    [MOVE_LIFE_CONTROL] =
+    {
+        .name = COMPOUND_STRING("Life Control"),
+        .description = COMPOUND_STRING("Restores half of the\nuser's maximum HP\nand raises\nthe user's Speed."),
+        .effect = EFFECT_THEPIT_LIFE_CONTROL,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 0,
+        .pp = 5,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .healingMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_381_* (effect 63 "Unused3F") -> gBattleAnimMove_PainSplit
+        .battleAnimScript = gBattleAnimMove_ThePit_LifeControl,
+    },
+    [MOVE_LIGHT_SHOT] =
+    {
+        .name = COMPOUND_STRING("Light Shot"),
+        .description = COMPOUND_STRING("The enemy is hit\nby a weak shot\nof etheric energy."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 25,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // animation ported from FireRed export scripts/move_animations/move_355_* (effect 0 "None") -> gBattleAnimMove_LightOfRuin
+        .battleAnimScript = gBattleAnimMove_ThePit_LightShot,
+    },
+    [MOVE_LIMIT_BREAK] =
+    {
+        .name = COMPOUND_STRING("Limit Break"),
+        .description = COMPOUND_STRING("Raises the user's\noffensive stats,\nat the cost of its\ndefensive stats."),
+        .effect = EFFECT_THEPIT_LIMIT_BREAK,
+        .power = 0,
+        .type = TYPE_DRAGON,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_448_* (effect 212 "RaiseAttack1Speed1Primary") -> gBattleAnimMove_BellyDrum
+        .battleAnimScript = gBattleAnimMove_ThePit_LimitBreak,
+    },
+    [MOVE_LULLABY] =
+    {
+        .name = COMPOUND_STRING("Lullaby"),
+        .description = COMPOUND_STRING("A soothing song\nthat may put the\nopponents to sleep."),
+        .effect = EFFECT_NON_VOLATILE_STATUS,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 50,
+        .pp = 20,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        .soundMove = TRUE,
+        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+        // animation ported from FireRed export scripts/move_animations/move_436_* (effect 1 "SleepPrimary") -> gBattleAnimMove_Sing
+        .battleAnimScript = gBattleAnimMove_ThePit_Lullaby,
+    },
+    [MOVE_MEGALODIVE] =
+    {
+        .name = COMPOUND_STRING("Megalodive"),
+        .description = COMPOUND_STRING("Earth-shattering\ntail slap.\nIt may make the\nfoe flinch."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_369_* (effect 31 "Flinch") -> gBattleAnimMove_Dive
+        .battleAnimScript = gBattleAnimMove_ThePit_Megalodive,
+    },
+    [MOVE_MESMERIZE] =
+    {
+        .name = COMPOUND_STRING("Mesmerize"),
+        .description = COMPOUND_STRING("The foe is hit by\na psychic attack\nthat may put it\nto sleep."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SLEEP,
+            .chance = 30,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_433_* (effect 218 "218") -> gBattleAnimMove_Hypnosis
+        .battleAnimScript = gBattleAnimMove_ThePit_Mesmerize,
+    },
+    [MOVE_METEOR] =
+    {
+        .name = COMPOUND_STRING("Meteor"),
+        .description = COMPOUND_STRING("A mana meteor\nthat also sharply\nreduces the user's\nSp. Atk stat."),
+        .effect = EFFECT_HIT,
+        .power = 140,
+        .type = TYPE_AETHER,
+        .accuracy = 90,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+            .self = TRUE,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_358_* (effect 204 "LowerSpAttack2Self") -> gBattleAnimMove_MeteorBeam
+        .battleAnimScript = gBattleAnimMove_ThePit_Meteor,
+    },
+    [MOVE_MIND_BASH] =
+    {
+        .name = COMPOUND_STRING("Mind Bash"),
+        .description = COMPOUND_STRING("An etheric attack\nin which the user\ncharges, full body,\ninto the foe."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 25,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_362_* (effect 0 "None") -> gBattleAnimMove_PsyshieldBash
+        .battleAnimScript = gBattleAnimMove_ThePit_MindBash,
+    },
+    [MOVE_NOBLE_ORDER] =
+    {
+        .name = COMPOUND_STRING("Noble Order"),
+        .description = COMPOUND_STRING("The user inspires\nits underlings to\nboost the team's\nSp. Atk by 1 stage."),
+        .effect = EFFECT_THEPIT_NOBLE_ORDER,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_417_* (effect 224 "224") -> gBattleAnimMove_AttackOrder
+        .battleAnimScript = gBattleAnimMove_ThePit_NobleOrder,
+    },
+    [MOVE_OCEAN_RAVE] =
+    {
+        .name = COMPOUND_STRING("Ocean Rave"),
+        .description = COMPOUND_STRING("The foes are hit by\na violent tsunami.\nIt has a high\ncritical-hit ratio."),
+        .effect = EFFECT_HIT,
+        .power = 120,
+        .type = TYPE_WATER,
+        .accuracy = 80,
+        .criticalHitStage = 1,
+        .pp = 5,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_451_* (effect 43 "HighCrit") -> gBattleAnimMove_OriginPulse
+        .battleAnimScript = gBattleAnimMove_ThePit_OceanRave,
+    },
+    [MOVE_ONE_TWOPUNCH] =
+    {
+        .name = COMPOUND_STRING("One-TwoPunch"),
+        .description = COMPOUND_STRING("A left hand jab\nfollowed by a right\ncross. Hits 2 times."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .strikeCount = 2,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_424_* (effect 44 "2hits") -> gBattleAnimMove_SurgingStrikes
+        .battleAnimScript = gBattleAnimMove_ThePit_OneTwopunch,
+    },
+    [MOVE_ORIGIN_CRUSH] =
+    {
+        .name = COMPOUND_STRING("Origin Crush"),
+        .description = COMPOUND_STRING("A primordial blow\nthat may make\nthe foes flinch."),
+        .effect = EFFECT_HIT,
+        .power = 100,
+        .type = TYPE_DARK,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_469_* (effect 31 "Flinch") -> gBattleAnimMove_DarkestLariat
+        .battleAnimScript = gBattleAnimMove_ThePit_OriginCrush,
+    },
+    [MOVE_PANIC_SPORES] =
+    {
+        .name = COMPOUND_STRING("Panic Spores"),
+        .description = COMPOUND_STRING("A confusion\ninducing dust\nis scattered\naround a foe."),
+        .effect = EFFECT_CONFUSE,
+        .power = 0,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_438_* (effect 49 "ConfusionPrimary") -> gBattleAnimMove_StunSpore
+        .battleAnimScript = gBattleAnimMove_ThePit_PanicSpores,
+    },
+    [MOVE_PHALANXGUARD] =
+    {
+        .name = COMPOUND_STRING("PhalanxGuard"),
+        .description = COMPOUND_STRING("A defensive formation\nthat boosts the team's\nDefense stat.\nAlways strikes first."),
+        .effect = EFFECT_THEPIT_PHALANX_GUARD,
+        .power = 0,
+        .type = TYPE_FIGHTING,
+        .accuracy = 0,
+        .pp = 20,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_403_* (effect 110 "Unused6E") -> gBattleAnimMove_WideGuard
+        .battleAnimScript = gBattleAnimMove_ThePit_Phalanxguard,
+    },
+    [MOVE_POTION_BOMB] =
+    {
+        .name = COMPOUND_STRING("Potion Bomb"),
+        .description = COMPOUND_STRING("The user throws\nan explosive potion\nthat may make\nthe foe flinch."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FLINCH,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_473_* (effect 235 "235") -> gBattleAnimMove_PollenPuff
+        .battleAnimScript = gBattleAnimMove_ThePit_PotionBomb,
+    },
+    [MOVE_PRIMAL_DRUMS] =
+    {
+        .name = COMPOUND_STRING("Primal Drums"),
+        .description = COMPOUND_STRING("An ancient song\nthat sharply lowers\nthe Defense of\nthe opponents."),
+        .effect = EFFECT_DEFENSE_DOWN_2,
+        .power = 0,
+        .type = TYPE_GROUND,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_432_* (effect 59 "LowerDefense2Primary") -> gBattleAnimMove_DrumBeating
+        .battleAnimScript = gBattleAnimMove_ThePit_PrimalDrums,
+    },
+    [MOVE_RADIANT_STAR] =
+    {
+        .name = COMPOUND_STRING("Radiant Star"),
+        .description = COMPOUND_STRING("A huge sphere of\nmana that may lower\nthe target's Speed."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_357_* (effect 70 "LowerSpeed1HitChance") -> gBattleAnimMove_TeraStarstorm
+        .battleAnimScript = gBattleAnimMove_ThePit_RadiantStar,
+    },
+    [MOVE_RAPID_FIRE] =
+    {
+        .name = COMPOUND_STRING("Rapid Fire"),
+        .description = COMPOUND_STRING("A piercing attack\nthat fires 2 to 5\nbullets at once\nat one enemy."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 30,
+        .type = TYPE_FIRE,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_393_* (effect 29 "2to5hits") -> gBattleAnimMove_FlameBurst
+        .battleAnimScript = gBattleAnimMove_ThePit_RapidFire,
+    },
+    [MOVE_ROCK_HAMMER] =
+    {
+        .name = COMPOUND_STRING("Rock Hammer"),
+        .description = COMPOUND_STRING("The foe is hit by\na hammer blow that\nmay lower its Def\nstat by 1 stage."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_ROCK,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_475_* (effect 69 "LowerDefense1HitChance") -> gBattleAnimMove_StoneEdge
+        .battleAnimScript = gBattleAnimMove_ThePit_RockHammer,
+    },
+    [MOVE_ROTTEN_EGG] =
+    {
+        .name = COMPOUND_STRING("Rotten Egg"),
+        .description = COMPOUND_STRING("The user throws a\nrotten egg that\nlowers Atk and Sp.Atk\nof the opponents."),
+        .effect = EFFECT_THEPIT_ROTTEN_EGG,
+        .power = 0,
+        .type = TYPE_NORMAL,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_434_* (effect 225 "225") -> gBattleAnimMove_EggBomb
+        .battleAnimScript = gBattleAnimMove_ThePit_RottenEgg,
+    },
+    [MOVE_ROYAL_ORDER] =
+    {
+        .name = COMPOUND_STRING("Royal Order"),
+        .description = COMPOUND_STRING("The more the target's\nstats have been\nraised, the stronger\nthe move is."),
+        .effect = EFFECT_PUNISHMENT,
+        .power = 65,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_452_* (effect 229 "229") -> gBattleAnimMove_AttackOrder
+        .battleAnimScript = gBattleAnimMove_ThePit_RoyalOrder,
+    },
+    [MOVE_SCYTHE_DANCE] =
+    {
+        .name = COMPOUND_STRING("Scythe Dance"),
+        .description = COMPOUND_STRING("The foe is slashed\nrepeatedly with a\nscythe two to\nfive times."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 25,
+        .type = TYPE_BUG,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_444_* (effect 29 "2to5hits") -> gBattleAnimMove_SwordsDance
+        .battleAnimScript = gBattleAnimMove_ThePit_ScytheDance,
+    },
+    [MOVE_SEALINGLIGHT] =
+    {
+        .name = COMPOUND_STRING("SealingLight"),
+        .description = COMPOUND_STRING("The user emits an\nimmense amount of\netheric energy that\nhalves the foe's HP."),
+        .effect = EFFECT_FIXED_PERCENT_DAMAGE,
+        .power = 1,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .argument = { .damagePercentage = 50 },
+        // animation ported from FireRed export scripts/move_animations/move_372_* (effect 40 "HalfDamage") -> gBattleAnimMove_LightScreen
+        .battleAnimScript = gBattleAnimMove_ThePit_Sealinglight,
+    },
+    [MOVE_SHATTER_SHOT] =
+    {
+        .name = COMPOUND_STRING("Shatter Shot"),
+        .description = COMPOUND_STRING("The foe is hit by\na violent storm\nof rocks that also\nhurts the user."),
+        .effect = EFFECT_RECOIL,
+        .power = 100,
+        .type = TYPE_ROCK,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_476_* (effect 48 "25Recoil") -> gBattleAnimMove_RockBlast
+        .battleAnimScript = gBattleAnimMove_ThePit_ShatterShot,
+    },
+    [MOVE_SHOGUN_DECOY] =
+    {
+        .name = COMPOUND_STRING("Shogun Decoy"),
+        .description = COMPOUND_STRING("The user draws\nattention to itself\nand boosts its\nAttack and Defense."),
+        .effect = EFFECT_THEPIT_SHOGUN_DECOY,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_USER,
+        .priority = 2,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_366_* (effect 21 "Unused15") -> gBattleAnimMove_Substitute
+        .battleAnimScript = gBattleAnimMove_ThePit_ShogunDecoy,
+    },
+    [MOVE_SLASHRAMPAGE] =
+    {
+        .name = COMPOUND_STRING("SlashRampage"),
+        .description = COMPOUND_STRING("The foe is hit by\nviolent slashes.\nIt has a high\ncritical-hit ratio."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_FLYING,
+        .accuracy = 100,
+        .criticalHitStage = 1,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_449_* (effect 43 "HighCrit") -> gBattleAnimMove_Outrage
+        .battleAnimScript = gBattleAnimMove_ThePit_Slashrampage,
+    },
+    [MOVE_SOLAR_FLAME] =
+    {
+        .name = COMPOUND_STRING("Solar Flame"),
+        .description = COMPOUND_STRING("A reckless move\nthat blasts foes\nwith a solar\ntempest."),
+        .effect = EFFECT_RECOIL,
+        .power = 130,
+        .type = TYPE_FIRE,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .argument = { .recoilPercentage = 33 },
+        // animation ported from FireRed export scripts/move_animations/move_462_* (effect 198 "33Recoil") -> gBattleAnimMove_FlareBlitz
+        .battleAnimScript = gBattleAnimMove_ThePit_SolarFlame,
+    },
+    [MOVE_SONIC_RAID] =
+    {
+        .name = COMPOUND_STRING("Sonic Raid"),
+        .description = COMPOUND_STRING("An almost invisibly\nfast attack that\nis certain to strike\nfirst."),
+        .effect = EFFECT_HIT,
+        .power = 40,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_446_* (effect 0 "None") -> gBattleAnimMove_ElectroDrift
+        .battleAnimScript = gBattleAnimMove_ThePit_SonicRaid,
+    },
+    [MOVE_SOUL_TRADE] =
+    {
+        .name = COMPOUND_STRING("Soul Trade"),
+        .description = COMPOUND_STRING("The user drains the\ntarget's energy and\nrestores HP equal\nto half the damage."),
+        .effect = EFFECT_ABSORB,
+        .power = 85,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_368_* (effect 3 "HealHalfDamage") -> gBattleAnimMove_DrainingKiss
+        .battleAnimScript = gBattleAnimMove_ThePit_SoulTrade,
+    },
+    [MOVE_SPOREBARRAGE] =
+    {
+        .name = COMPOUND_STRING("SporeBarrage"),
+        .description = COMPOUND_STRING("The user shoots\na barrage of spores\nto the enemy.\n2 to 5 hits."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 25,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_419_* (effect 29 "2to5hits") -> gBattleAnimMove_BulletSeed
+        .battleAnimScript = gBattleAnimMove_ThePit_Sporebarrage,
+    },
+    [MOVE_SPRING_TANGO] =
+    {
+        .name = COMPOUND_STRING("Spring Tango"),
+        .description = COMPOUND_STRING("A dance that raises\nthe user's Speed\nand the partner's\nDef and Sp. Def."),
+        .effect = EFFECT_THEPIT_SPRING_TANGO,
+        .power = 0,
+        .type = TYPE_GRASS,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .danceMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_390_* (effect 110 "Unused6E") -> gBattleAnimMove_PetalDance
+        .battleAnimScript = gBattleAnimMove_ThePit_SpringTango,
+    },
+    [MOVE_STAR_DROP] =
+    {
+        .name = COMPOUND_STRING("Star Drop"),
+        .description = COMPOUND_STRING("Causes damage equal\nto the user's level\nand decreases\nthe target's Defense."),
+        .effect = EFFECT_LEVEL_DAMAGE,
+        .power = 1,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_382_* (effect 64 "Unused40") -> gBattleAnimMove_Swift
+        .battleAnimScript = gBattleAnimMove_ThePit_StarDrop,
+    },
+    [MOVE_STOMP_CRUSH] =
+    {
+        .name = COMPOUND_STRING("Stomp Crush"),
+        .description = COMPOUND_STRING("The user violently\nstomps the ground to\ncause a rock slide\nthat hits the foes."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_ROCK,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_405_* (effect 0 "None") -> gBattleAnimMove_Stomp
+        .battleAnimScript = gBattleAnimMove_ThePit_StompCrush,
+    },
+    [MOVE_STRANGESEEDS] =
+    {
+        .name = COMPOUND_STRING("StrangeSeeds"),
+        .description = COMPOUND_STRING("The user plants\nseeds at the enemies'\nfeet that lower their\nSpeed and Evasion."),
+        .effect = EFFECT_THEPIT_STRANGE_SEEDS,
+        .power = 0,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_437_* (effect 226 "226") -> gBattleAnimMove_WorrySeed
+        .battleAnimScript = gBattleAnimMove_ThePit_Strangeseeds,
+    },
+    [MOVE_SUBZERO_GALE] =
+    {
+        .name = COMPOUND_STRING("Subzero Gale"),
+        .description = COMPOUND_STRING("An icy wind hits\nboth opponents.\nIt may also\ninflict frostbite."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_ICE,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+            .chance = 40,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_410_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_Blizzard
+        .battleAnimScript = gBattleAnimMove_ThePit_SubzeroGale,
+    },
+    [MOVE_SUMMER_TANGO] =
+    {
+        .name = COMPOUND_STRING("Summer Tango"),
+        .description = COMPOUND_STRING("A dance that raises\nthe user's Evasion\nand the partner's\nAtk and Sp. Atk."),
+        .effect = EFFECT_THEPIT_SUMMER_TANGO,
+        .power = 0,
+        .type = TYPE_FIRE,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .danceMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_389_* (effect 110 "Unused6E") -> gBattleAnimMove_FieryDance
+        .battleAnimScript = gBattleAnimMove_ThePit_SummerTango,
+    },
+    [MOVE_TAGEN_BATTOU] =
+    {
+        .name = COMPOUND_STRING("Tagen Battou"),
+        .description = COMPOUND_STRING("The foe is hit by\nviolent slashes.\nIt sharply reduces\nthe user's Evasion."),
+        .effect = EFFECT_HIT,
+        .power = 100,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_EVS_MINUS_2,
+            .self = TRUE,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_416_* (effect 217 "217") -> gBattleAnimMove_CrossPoison
+        .battleAnimScript = gBattleAnimMove_ThePit_TagenBattou,
+    },
+    [MOVE_TIME_CIRCLE] =
+    {
+        .name = COMPOUND_STRING("Time Circle"),
+        .description = COMPOUND_STRING("Accelerates time\nto boost the team's\nSpeed by 1. Always\nstrikes first."),
+        .effect = EFFECT_THEPIT_TIME_CIRCLE,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 1,
+        .category = DAMAGE_CATEGORY_STATUS,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_441_* (effect 110 "Unused6E") -> gBattleAnimMove_TrickRoom
+        .battleAnimScript = gBattleAnimMove_ThePit_TimeCircle,
+    },
+    [MOVE_TITAN_KILLER] =
+    {
+        .name = COMPOUND_STRING("Titan Killer"),
+        .description = COMPOUND_STRING("The more HP the\ntarget has, the\ngreater the power."),
+        .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
+        .power = 1,
+        .type = TYPE_FIGHTING,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_423_* (effect 221 "221") -> gBattleAnimMove_LowKick
+        .battleAnimScript = gBattleAnimMove_ThePit_TitanKiller,
+    },
+    [MOVE_TOXIC_HERB] =
+    {
+        .name = COMPOUND_STRING("Toxic Herb"),
+        .description = COMPOUND_STRING("Venom-imbued petals\nthat may badly\npoison are thrown\nat the foes."),
+        .effect = EFFECT_HIT,
+        .power = 70,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 40,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_471_* (effect 236 "236") -> gBattleAnimMove_SweetScent
+        .battleAnimScript = gBattleAnimMove_ThePit_ToxicHerb,
+    },
+    [MOVE_TOXIC_REAP] =
+    {
+        .name = COMPOUND_STRING("Toxic Reap"),
+        .description = COMPOUND_STRING("A poison-imbued\nscythe slash that\nmay badly poison\nthe foe."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 50%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 50,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_394_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_CrossPoison
+        .battleAnimScript = gBattleAnimMove_ThePit_ToxicReap,
+    },
+    [MOVE_VEIL_ORDER] =
+    {
+        .name = COMPOUND_STRING("Veil Order"),
+        .description = COMPOUND_STRING("The user inspires\nits underlings to\nboost the team's\nSp. Def by 1 stage."),
+        .effect = EFFECT_THEPIT_VEIL_ORDER,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_418_* (effect 224 "224") -> gBattleAnimMove_DefendOrder
+        .battleAnimScript = gBattleAnimMove_ThePit_VeilOrder,
+    },
+    [MOVE_VENOM_GUST] =
+    {
+        .name = COMPOUND_STRING("Venom Gust"),
+        .description = COMPOUND_STRING("A poisonous wind hits\nboth opponents.\nIt may also badly\npoison the foes."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
+        .ignoresKingsRock = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_TOXIC,
+            .chance = 40,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_407_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_PoisonGas
+        .battleAnimScript = gBattleAnimMove_ThePit_VenomGust,
+    },
+    [MOVE_VOLT_MASK] =
+    {
+        .name = COMPOUND_STRING("Volt Mask"),
+        .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Speed and\nAccuracy by 1 stage."),
+        .effect = EFFECT_THEPIT_VOLT_MASK,
+        .power = 0,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_453_* (effect 230 "230") -> gBattleAnimMove_EerieImpulse
+        .battleAnimScript = gBattleAnimMove_ThePit_VoltMask,
+    },
+    [MOVE_VOLT_WINGS] =
+    {
+        .name = COMPOUND_STRING("Volt Wings"),
+        .description = COMPOUND_STRING("The foe is struck\nwith large, electric\nwings that may also\ninflict paralysis."),
+        .effect = EFFECT_HIT,
+        .power = 75,
+        .type = TYPE_ELECTRIC,
+        .accuracy = 100,
+        .pp = 20,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 20,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_399_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_ThunderCage
+        .battleAnimScript = gBattleAnimMove_ThePit_VoltWings,
+    },
+    [MOVE_WAKINGCHAKRA] =
+    {
+        .name = COMPOUND_STRING("WakingChakra"),
+        .description = COMPOUND_STRING("The user recovers\nHP every turn and\nraises its speed\nby 1 stage."),
+        .effect = EFFECT_THEPIT_WAKING_CHAKRA,
+        .power = 0,
+        .type = TYPE_PSYCHIC,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        .healingMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_427_* (effect 223 "223") -> gBattleAnimMove_CalmMind
+        .battleAnimScript = gBattleAnimMove_ThePit_Wakingchakra,
+    },
+    [MOVE_WARDING_MIST] =
+    {
+        .name = COMPOUND_STRING("Warding Mist"),
+        .description = COMPOUND_STRING("An etheric mist\nthat protects and\nheals the party\nfrom status problems."),
+        .effect = EFFECT_THEPIT_WARDING_MIST,
+        .power = 0,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_USER,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+        .snatchAffected = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_440_* (effect 228 "228") -> gBattleAnimMove_AromaticMist
+        .battleAnimScript = gBattleAnimMove_ThePit_WardingMist,
+    },
+    [MOVE_WATER_BOMB] =
+    {
+        .name = COMPOUND_STRING("Water Bomb"),
+        .description = COMPOUND_STRING("The user summons a\ntempest to hit\nthe enemy with\na water bomb."),
+        .effect = EFFECT_HIT,
+        .power = 70,
+        .type = TYPE_WATER,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_409_* (effect 214 "214") -> gBattleAnimMove_WaterPulse
+        .battleAnimScript = gBattleAnimMove_ThePit_WaterBomb,
+    },
+    [MOVE_WATER_TACKLE] =
+    {
+        .name = COMPOUND_STRING("Water Tackle"),
+        .description = COMPOUND_STRING("The user hits\nthe enemy while\nsurfing on a wave."),
+        .effect = EFFECT_HIT,
+        .power = 65,
+        .type = TYPE_WATER,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_237_* (effect 0 "None") -> gBattleAnimMove_Waterfall
+        .battleAnimScript = gBattleAnimMove_ThePit_WaterTackle,
+    },
+    [MOVE_WEIRD_POTION] =
+    {
+        .name = COMPOUND_STRING("Weird Potion"),
+        .description = COMPOUND_STRING("A potion that causes\ndamage to the foe.\nIf it targets an ally,\nit heals instead."),
+        .effect = EFFECT_HIT_ENEMY_HEAL_ALLY,
+        .power = 80,
+        .type = TYPE_GRASS,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .healingMove = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_472_* (effect 234 "234") -> gBattleAnimMove_PollenPuff
+        .battleAnimScript = gBattleAnimMove_ThePit_WeirdPotion,
+    },
+    [MOVE_WHIP_RIPPER] =
+    {
+        .name = COMPOUND_STRING("Whip Ripper"),
+        .description = COMPOUND_STRING("The user violently\nwhirls its vines to\nlash the foe. May\ninflict paralysis."),
+        .effect = EFFECT_HIT,
+        .power = 80,
+        .type = TYPE_GROUND,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 25%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 25,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_402_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PowerWhip
+        .battleAnimScript = gBattleAnimMove_ThePit_WhipRipper,
+    },
+    [MOVE_WILT_MIASMA] =
+    {
+        .name = COMPOUND_STRING("Wilt. Miasma"),
+        .description = COMPOUND_STRING("A wave of miasma\nhits both opponents\nand reduces their\nAccuracy and Evasion."),
+        .effect = EFFECT_THEPIT_WILT_MIASMA,
+        .power = 0,
+        .type = TYPE_DARK,
+        .accuracy = 0,
+        .pp = 15,
+        .target = MOVE_TARGET_BOTH,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_STATUS,
+        .ignoresProtect = TRUE,
+        .snatchAffected = TRUE,
+        .mirrorMoveBanned = TRUE,
+        .ignoresKingsRock = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_395_* (effect 131 "Unused83") -> gBattleAnimMove_GMaxMalodor
+        .battleAnimScript = gBattleAnimMove_ThePit_WiltMiasma,
+    },
+    [MOVE_WING_TALON] =
+    {
+        .name = COMPOUND_STRING("Wing Talon"),
+        .description = COMPOUND_STRING("Strikes the foe with\nsharp wing claws\nthat may paralyze\nthe target."),
+        .effect = EFFECT_HIT,
+        .power = 85,
+        .type = TYPE_FLYING,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+        .makesContact = TRUE,
+        .additionalEffects = ADDITIONAL_EFFECTS({
+            .moveEffect = MOVE_EFFECT_PARALYSIS,
+            .chance = 15,
+        }),
+        // animation ported from FireRed export scripts/move_animations/move_474_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_AirSlash
+        .battleAnimScript = gBattleAnimMove_ThePit_WingTalon,
+    },
+    [MOVE_YGGDRAIN] =
+    {
+        .name = COMPOUND_STRING("Yggdrain"),
+        .description = COMPOUND_STRING("An attack imbued\nwith sacred power.\nHeals by half\nthe damage done."),
+        .effect = EFFECT_ABSORB,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_340_* (effect 3 "HealHalfDamage") -> gBattleAnimMove_GigaDrain
+        .battleAnimScript = gBattleAnimMove_ThePit_Yggdrain,
+    },
+    [MOVE_YGGDRASLASH] =
+    {
+        .name = COMPOUND_STRING("Yggdraslash"),
+        .description = COMPOUND_STRING("An attack imbued\nwith sacred power.\nAlways strikes first."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 5,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 2,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_408_* (effect 103 "NormalPlusPriority") -> gBattleAnimMove_NightSlash
+        .battleAnimScript = gBattleAnimMove_ThePit_Yggdraslash,
+    },
+    [MOVE__5_RING_SWORD] =
+    {
+        .name = COMPOUND_STRING("5-Ring Sword"),
+        .description = COMPOUND_STRING("The user imbues its\nswords with etheric\nenergy.\nMulti-hit attack."),
+        .effect = EFFECT_MULTI_HIT,
+        .power = 30,
+        .type = TYPE_AETHER,
+        .accuracy = 100,
+        .pp = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_SPECIAL,
+        .makesContact = TRUE,
+        // animation ported from FireRed export scripts/move_animations/move_365_* (effect 29 "2to5hits") -> gBattleAnimMove_SacredSword
+        .battleAnimScript = gBattleAnimMove_ThePit_5RingSword,
+    },
+
 };

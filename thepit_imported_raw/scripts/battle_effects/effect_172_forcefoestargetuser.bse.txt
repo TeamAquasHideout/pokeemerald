@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 172 (ForceFoesTargetUser) @1D8098
+section0: # 1D8098
+  attackcanceler
+  attackstring
+  ppreduce
+  setforcedtarget
+  attackanimation
+  waitanimation
+  printstring 164
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,109 @@
+@ animation for MOVE_PRIMAL_DRUMS (@1B088C0)
+section0: # 1B088C0
+  fadetobgfromset bg_guillotine_opponent bg_guillotine_player bg_guillotine_contests
+  waitbgfadein
+  loadspritegfx 0x2758
+  loadspritegfx 0x27D1
+  createvisualtask <0A65E9> 2 
+  waitforvisualfinish
+  call <1CD18D>
+  createsprite <3E3914> 2 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  delay 15
+  call <1CD172>
+  createsprite <3E3914> 2 0x0001 0x0001 0x0001 0x0000
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  delay 15
+  call <1CD18D>
+  createsprite <3E3914> 2 0x0000 0x0003 0x0003 0x0080
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  delay 7
+  call <1CD172>
+  createsprite <3E3914> 2 0x0001 0x0002 0x0000 0x0080
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  delay 7
+  call <1CD18D>
+  createsprite <3E3914> 2 0x0000 0x0001 0x0001 0x0000
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  delay 7
+  call <1CD172>
+  createsprite <3E3914> 2 0x0001 0x0000 0x0003 0x0000
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E3910>
+callback:    <0A6A29>
+}
+  playsewithpan se_m_belly_drum sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <0A66A1> 2 
+  waitforvisualfinish
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0016 0x0001
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0000 0x0000 0x7FFF
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x0000 0x0008 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  delay 2
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

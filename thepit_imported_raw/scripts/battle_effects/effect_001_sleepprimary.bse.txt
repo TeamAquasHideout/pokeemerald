@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 1 (SleepPrimary) @771600
+section0: # 771600
+  attackcanceler
+  attackstring
+  ppreduce
+  if.move.goto "Sleep Powder" <771620>
+  if.move.goto Spore <771620>
+  goto <1D6970>

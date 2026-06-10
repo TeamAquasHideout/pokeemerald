@@ -1,0 +1,24 @@
+@ animation for MOVE_DARK_PULSE (@1CB892)
+section0: # 1CB892
+  setalpha 0 16
+  delay 1
+  createvisualtask <0B85B9> 2 
+  delay 1
+  createvisualtask <0B7DA5> 5 
+  playsewithpan se_m_psybeam sound_pan_attacker
+  delay 48
+  playsewithpan se_m_psybeam2 sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <0B8665> 2 
+  delay 12
+  setalpha 0 16
+  delay 1
+  monbg_static anim_target
+  createvisualtask <0B8071> 5 
+  playsewithpan se_m_psybeam sound_pan_target
+  waitforvisualfinish
+  clearmonbg_static anim_target
+  delay 1
+  blendoff
+  delay 1
+  end

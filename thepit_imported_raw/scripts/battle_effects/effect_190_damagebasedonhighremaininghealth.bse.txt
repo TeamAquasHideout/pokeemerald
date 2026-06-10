@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 190 (DamageBasedOnHighRemainingHealth) @1D82A9
+section0: # 1D82A9
+  scaledamagebyhealthratio
+  goto <1D6900>

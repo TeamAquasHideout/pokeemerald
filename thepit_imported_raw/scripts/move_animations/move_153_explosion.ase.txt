@@ -1,0 +1,25 @@
+@ animation for MOVE_EXPLOSION (@1C8E15)
+section0: # 1C8E15
+  loadspritegfx 0x27D6
+  createsprite <3E7B3C> 2 0x0001 0x0008 0x0009 0x211A 0x0008 0x0000 0x0008
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createvisualtask <098B1D> 5 0x0004 0x0008 0x0000 0x0028 0x0001
+  createvisualtask <098B1D> 5 0x0005 0x0008 0x0000 0x0028 0x0001
+  createvisualtask <098B1D> 5 0x0006 0x0008 0x0000 0x0028 0x0001
+  createvisualtask <098B1D> 5 0x0007 0x0008 0x0000 0x0028 0x0001
+  createvisualtask <098B1D> 5 0x0008 0x0008 0x0000 0x0028 0x0001
+  call <1C8EB2>
+  call <1C8EB2>
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0001 0x0001 0x0010 0x0010 0x7FFF
+  delay 50
+  createvisualtask <0BA7F9> 10 0x0001 0x0003 0x0010 0x0000 0x7FFF
+  end

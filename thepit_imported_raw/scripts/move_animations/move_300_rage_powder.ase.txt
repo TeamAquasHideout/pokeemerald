@@ -1,0 +1,191 @@
+@ animation for MOVE_RAGE_POWDER (@1CC3DC)
+section0: # 1CC3DC
+  loadspritegfx 0x275A
+  createvisualtask <0A8339> 2 0x0000 0x0006
+  delay 24
+  createsprite <3E7A94> 130 0x0000 0xFFFC 0xFFF0
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  createsprite <3E7A94> 130 0x0000 0x0004 0xFFF4
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  playsewithpan se_m_dig sound_pan_attacker
+  delay 32
+  createsprite <3E7A94> 130 0x0000 0xFFFD 0xFFF4
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  createsprite <3E7A94> 130 0x0000 0x0005 0xFFF2
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  playsewithpan se_m_dig sound_pan_attacker
+  delay 32
+  createsprite <3E7A94> 130 0x0000 0xFFFB 0xFFEE
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  createsprite <3E7A94> 130 0x0000 0x0003 0xFFF2
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  playsewithpan se_m_dig sound_pan_attacker
+  delay 16
+  createsprite <3E7A94> 130 0x0001 0x00DC 0x003C
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 15
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x003C 0x0064
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 25
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x008C 0x0037
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 14
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x00B4 0x0032
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 10
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x0014 0x005A
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 22
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x005A 0x005A
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 22
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x00A0 0x003C
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 15
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x001E 0x005A
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 22
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x0078 0x003C
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 15
+  delay 2
+  createsprite <3E7A94> 130 0x0001 0x00C8 0x0028
+{
+tileTag:     10074
+paletteTag:  10074
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B8D59>
+}
+  waitplaysewithpan se_m_bubble2 0 10
+  end

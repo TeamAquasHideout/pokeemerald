@@ -1,0 +1,4 @@
+@ animation for MOVE_INFESTATION (@1D0D3A)
+section0: # 1D0D3A
+  createvisualtask <09907D> 2 0x0000 0x0006 0x0004 0x0002 0x0004
+  goto <1D0D16>

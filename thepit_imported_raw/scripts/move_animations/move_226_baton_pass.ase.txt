@@ -1,0 +1,16 @@
+@ animation for MOVE_BATON_PASS (@1D1F1F)
+section0: # 1D1F1F
+  loadspritegfx 0x27F2
+  playsewithpan se_m_baton_pass sound_pan_attacker
+  createvisualtask <0B9BDD> 2 0x001F 0x0001 0x0002 0x0000 0x000B 0x7ADF
+  createsprite <3FF150> 2 
+{
+tileTag:     10226
+paletteTag:  10226
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DF581>
+}
+  end

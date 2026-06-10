@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 93 (ChangeTypeToResistPreviousHit) @1D74D6
+section0: # 1D74D6
+  attackcanceler
+  attackstring
+  ppreduce
+  settypetorandomresistance <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 73
+  waitmessage 64
+  goto <1D694E>

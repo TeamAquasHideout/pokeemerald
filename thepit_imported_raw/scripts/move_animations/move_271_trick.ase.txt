@@ -1,0 +1,46 @@
+@ animation for MOVE_TRICK (@1D24A5)
+section0: # 1D24A5
+  loadspritegfx 0x27F0
+  loadspritegfx 0x27DF
+  createsprite <3E2F60> 2 0xFFD8 0x0050
+{
+tileTag:     10224
+paletteTag:  10224
+oam:         <3ACA38>
+anims:       <3E2E24>
+images:      <null>
+affineAnims: <3E2F50>
+callback:    <0A37BD>
+}
+  createsprite <3E2F60> 2 0xFFD8 0x00D0
+{
+tileTag:     10224
+paletteTag:  10224
+oam:         <3ACA38>
+anims:       <3E2E24>
+images:      <null>
+affineAnims: <3E2F50>
+callback:    <0A37BD>
+}
+  delay 16
+  playsewithpan se_m_sketch 0
+  createvisualtask <0A9A21> 3 
+  createvisualtask <0A9AB1> 3 
+  delay 30
+  playsewithpan se_m_double_team 0
+  delay 24
+  playsewithpan se_m_double_team 0
+  delay 16
+  playsewithpan se_m_double_team 0
+  delay 16
+  playsewithpan se_m_double_team 0
+  delay 16
+  playsewithpan se_m_double_team 0
+  delay 16
+  playsewithpan se_m_double_team 0
+  delay 16
+  playsewithpan se_m_attract 0
+  createvisualtask <0989F9> 3 0x0000 0x0005 0x0000 0x0007 0x0002
+  createvisualtask <0989F9> 3 0x0001 0x0005 0x0000 0x0007 0x0002
+  waitforvisualfinish
+  end

@@ -1,0 +1,45 @@
+@ animation for MOVE_PAY_DAY (@1C9455)
+section0: # 1C9455
+  loadspritegfx 0x2774
+  loadspritegfx 0x2797
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E3D50> 2 0x0014 0x0000 0x0000 0x0000 0x0480
+{
+tileTag:     10100
+paletteTag:  10100
+oam:         <3ACA30>
+anims:       <3E3D38>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A7A89>
+}
+  waitforvisualfinish
+  playsewithpan se_m_pay_day sound_pan_target
+  createsprite <3E7C08> 1 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3E3D68> 2 
+{
+tileTag:     10100
+paletteTag:  10100
+oam:         <3ACA30>
+anims:       <3E3D38>
+images:      <null>
+affineAnims: <3E3D4C>
+callback:    <0A7B3D>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0001 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

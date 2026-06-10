@@ -910,7 +910,116 @@
 
 #define MOVES_COUNT_GEN9 848
 
-#define MOVES_COUNT         MOVES_COUNT_GEN9
+// Aliases for FireRed-import move names used by The Pit data.
+#define MOVE_COTTONSPORE MOVE_COTTON_SPORE // ThePit FireRed import alias
+#define MOVE_DUALWINGBEAT MOVE_DUAL_WINGBEAT // ThePit FireRed import alias
+#define MOVE_HIHORSEPOWER MOVE_HIGH_HORSEPOWER // ThePit FireRed import alias
+#define MOVE_MYSTICALFIRE MOVE_MYSTICAL_FIRE // ThePit FireRed import alias
+#define MOVE_PHANTOMFORCE MOVE_PHANTOM_FORCE // ThePit FireRed import alias
+#define MOVE_POWERUPPUNCH MOVE_POWER_UP_PUNCH // ThePit FireRed import alias
+
+// Custom moves imported from the FireRed The Pit ROM hack.
+#define MOVE_THEPIT_IMPORT_FIRST 848
+#define MOVE_ABYSS_MIASMA                      848
+#define MOVE_ABYSS_WRATH                       849
+#define MOVE_AD_NIHILO                         850
+#define MOVE_AKASHIC_NOVA                      851
+#define MOVE_ARCANE_BLAST                      852
+#define MOVE_ASTRAL_GLEAM                      853
+#define MOVE_ATROPHIC_EYE                      854
+#define MOVE_AZURE_FLOOD                       855
+#define MOVE_BAFFLINGSTEP                      856
+#define MOVE_BRIGHT_SONG                       857
+#define MOVE_CALL_ALLIES                       858
+#define MOVE_CALL_LION                         859
+#define MOVE_CALL_OWL                          860
+#define MOVE_CALL_SNAKE                        861
+#define MOVE_CELL_SHIELD                       862
+#define MOVE_CHAINWEATHER                      863
+#define MOVE_CHAIN_KILLER                      864
+#define MOVE_CORKSCREW                         865
+#define MOVE_COSMIC_SLASH                      866
+#define MOVE_CRAZED_SHOUT                      867
+#define MOVE_DARKNESSFIST                      868
+#define MOVE_DEMONIC_RUSH                      869
+#define MOVE_DIVINE_STORM                      870
+#define MOVE_DOUBLEHAMMER                      871
+#define MOVE_ELECTROSHOCK                      872
+#define MOVE_ENERGY_EDGE                       873
+#define MOVE_ETHERIC_BOON                      874
+#define MOVE_FIRST_PRESS                       875
+#define MOVE_FLARE_MASK                        876
+#define MOVE_FREEZERIPPLE                      877
+#define MOVE_FREEZE_MASK                       878
+#define MOVE_FROST_CURSE                       879
+#define MOVE_FUKUBARI                          880
+#define MOVE_HARVESTPARTY                      881
+#define MOVE_HEAL                              882
+#define MOVE_ICY_ARIA                          883
+#define MOVE_IRON_DRILL                        884
+#define MOVE_IZUNA                             885
+#define MOVE_KUMOGAKURE                        886
+#define MOVE_LEADING_BLOW                      887
+#define MOVE_LIFE_BALLAD                       888
+#define MOVE_LIFE_CONTROL                      889
+#define MOVE_LIGHT_SHOT                        890
+#define MOVE_LIMIT_BREAK                       891
+#define MOVE_LULLABY                           892
+#define MOVE_MEGALODIVE                        893
+#define MOVE_MESMERIZE                         894
+#define MOVE_METEOR                            895
+#define MOVE_MIND_BASH                         896
+#define MOVE_NOBLE_ORDER                       897
+#define MOVE_OCEAN_RAVE                        898
+#define MOVE_ONE_TWOPUNCH                      899
+#define MOVE_ORIGIN_CRUSH                      900
+#define MOVE_PANIC_SPORES                      901
+#define MOVE_PHALANXGUARD                      902
+#define MOVE_POTION_BOMB                       903
+#define MOVE_PRIMAL_DRUMS                      904
+#define MOVE_RADIANT_STAR                      905
+#define MOVE_RAPID_FIRE                        906
+#define MOVE_ROCK_HAMMER                       907
+#define MOVE_ROTTEN_EGG                        908
+#define MOVE_ROYAL_ORDER                       909
+#define MOVE_SCYTHE_DANCE                      910
+#define MOVE_SEALINGLIGHT                      911
+#define MOVE_SHATTER_SHOT                      912
+#define MOVE_SHOGUN_DECOY                      913
+#define MOVE_SLASHRAMPAGE                      914
+#define MOVE_SOLAR_FLAME                       915
+#define MOVE_SONIC_RAID                        916
+#define MOVE_SOUL_TRADE                        917
+#define MOVE_SPOREBARRAGE                      918
+#define MOVE_SPRING_TANGO                      919
+#define MOVE_STAR_DROP                         920
+#define MOVE_STOMP_CRUSH                       921
+#define MOVE_STRANGESEEDS                      922
+#define MOVE_SUBZERO_GALE                      923
+#define MOVE_SUMMER_TANGO                      924
+#define MOVE_TAGEN_BATTOU                      925
+#define MOVE_TIME_CIRCLE                       926
+#define MOVE_TITAN_KILLER                      927
+#define MOVE_TOXIC_HERB                        928
+#define MOVE_TOXIC_REAP                        929
+#define MOVE_VEIL_ORDER                        930
+#define MOVE_VENOM_GUST                        931
+#define MOVE_VOLT_MASK                         932
+#define MOVE_VOLT_WINGS                        933
+#define MOVE_WAKINGCHAKRA                      934
+#define MOVE_WARDING_MIST                      935
+#define MOVE_WATER_BOMB                        936
+#define MOVE_WATER_TACKLE                      937
+#define MOVE_WEIRD_POTION                      938
+#define MOVE_WHIP_RIPPER                       939
+#define MOVE_WILT_MIASMA                       940
+#define MOVE_WING_TALON                        941
+#define MOVE_YGGDRAIN                          942
+#define MOVE_YGGDRASLASH                       943
+#define MOVE__5_RING_SWORD                     944
+#define MOVES_COUNT_THEPIT_IMPORT 945
+
+#define MOVES_COUNT         MOVES_COUNT_THEPIT_IMPORT
 
 // Z Moves
 #define MOVE_BREAKNECK_BLITZ (MOVES_COUNT + 0)

@@ -1,0 +1,3 @@
+@ animation for MOVE_DIG (@1CA841)
+section0: # 1CA841
+  choosetwoturnanim <1CA84B> <1CA8A6>

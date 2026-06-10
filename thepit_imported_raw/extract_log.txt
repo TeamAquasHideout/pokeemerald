@@ -1,0 +1,9 @@
+Types: 18 (1 new: TYPE_AETHER)
+Type chart entries: 121
+Pokemon extracted: 412
+Moves extracted: 483
+Abilities extracted: 256
+Level-up learnsets: 412 species
+Graphics exported for 412 species
+Move particles exported: 289
+Scripts exported (animations + battle effects).

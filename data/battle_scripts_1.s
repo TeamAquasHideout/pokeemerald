@@ -9702,6 +9702,413 @@ BattleScript_SleepClausePreventsEnd2::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+
+@ The Pit FireRed custom move effects.
+@ These scripts translate the export's composite effects into expansion-native battle commands.
+BattleScript_ThePitRaiseAttack::
+	setstatchanger STAT_ATK, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_ThePitRaiseStatRet:
+	return
+
+BattleScript_ThePitRaiseDefense::
+	setstatchanger STAT_DEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseSpeed::
+	setstatchanger STAT_SPEED, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseSpAtk::
+	setstatchanger STAT_SPATK, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseSpDef::
+	setstatchanger STAT_SPDEF, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseAccuracy::
+	setstatchanger STAT_ACC, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseAccuracy2::
+	setstatchanger STAT_ACC, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseEvasion::
+	setstatchanger STAT_EVASION, 1, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaiseEvasion2::
+	setstatchanger STAT_EVASION, 2, FALSE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitLowerDefense::
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitLowerStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_ThePitLowerStatRet
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_ThePitLowerStatRet:
+	return
+
+BattleScript_ThePitLowerSpDef::
+	setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitLowerStatRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_ThePitLowerStatRet
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+BattleScript_ThePitRaisePartnerSpeed:
+	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
+	savetarget
+	setallytonexttarget BattleScript_ThePitRaisePartnerSpeedDo
+	goto BattleScript_ThePitRestorePartnerTarget
+BattleScript_ThePitRaisePartnerSpeedDo:
+	setstatchanger STAT_SPEED, 1, FALSE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_ThePitRestorePartnerTarget:
+	restoretarget
+BattleScript_ThePitPartnerStatRet:
+	return
+
+BattleScript_ThePitRaisePartnerDefense:
+	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
+	savetarget
+	setallytonexttarget BattleScript_ThePitRaisePartnerDefenseDo
+	goto BattleScript_ThePitRestorePartnerTarget
+BattleScript_ThePitRaisePartnerDefenseDo:
+	setstatchanger STAT_DEF, 1, FALSE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_ThePitRestorePartnerTarget
+
+BattleScript_ThePitRaisePartnerSpDef:
+	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
+	savetarget
+	setallytonexttarget BattleScript_ThePitRaisePartnerSpDefDo
+	goto BattleScript_ThePitRestorePartnerTarget
+BattleScript_ThePitRaisePartnerSpDefDo:
+	setstatchanger STAT_SPDEF, 1, FALSE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_ThePitRestorePartnerTarget
+
+BattleScript_ThePitRaisePartnerAttack:
+	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
+	savetarget
+	setallytonexttarget BattleScript_ThePitRaisePartnerAttackDo
+	goto BattleScript_ThePitRestorePartnerTarget
+BattleScript_ThePitRaisePartnerAttackDo:
+	setstatchanger STAT_ATK, 1, FALSE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_ThePitRestorePartnerTarget
+
+BattleScript_ThePitRaisePartnerSpAtk:
+	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
+	savetarget
+	setallytonexttarget BattleScript_ThePitRaisePartnerSpAtkDo
+	goto BattleScript_ThePitRestorePartnerTarget
+BattleScript_ThePitRaisePartnerSpAtkDo:
+	setstatchanger STAT_SPATK, 1, FALSE
+	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+	goto BattleScript_ThePitRestorePartnerTarget
+
+BattleScript_EffectThePitAbyssWrath::
+	attackcanceler
+	thepitabysswrathdamagecalculator BattleScript_FailedFromAtkString
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	typecalc
+	clearmoveresultflags MOVE_RESULT_NOT_VERY_EFFECTIVE | MOVE_RESULT_SUPER_EFFECTIVE
+	adjustdamage
+	goto BattleScript_HitFromAtkAnimation
+
+BattleScript_EffectThePitAtrophicEye::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_DEF, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	setstatchanger STAT_SPDEF, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitBrightSong::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_ACC, 2, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	call BattleScript_ThePitRaisePartnerSpeed
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitCellShield::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	call BattleScript_ThePitRaiseAttack
+	call BattleScript_ThePitRaiseDefense
+	call BattleScript_ThePitRaiseSpDef
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitKumogakure::
+	attackcanceler
+	attackstring
+	ppreduce
+	halvehp BattleScript_ButItFailed
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	attackanimation
+	waitanimation
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	call BattleScript_ThePitRaiseEvasion2
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitLifeBallad::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPEED, 1, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	call BattleScript_MoveEffectAromatherapy
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitLifeControl::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	tryhealhalfhealth BattleScript_ThePitLifeControlSpeed, BS_ATTACKER
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNREGAINEDHEALTH
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_ThePitLifeControlSpeed:
+	call BattleScript_ThePitRaiseSpeed
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitLimitBreak::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	call BattleScript_ThePitRaiseAttack
+	call BattleScript_ThePitRaiseSpAtk
+	call BattleScript_ThePitLowerDefense
+	call BattleScript_ThePitLowerSpDef
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitNobleOrder::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPATK, 1, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitPhalanxGuard::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_DEF, 1, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitRottenEgg::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_ATK, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	setstatchanger STAT_SPATK, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitShogunDecoy::
+	attackcanceler
+	attackstring
+	ppreduce
+	setforcedtarget
+	attackanimation
+	waitanimation
+	printstring STRINGID_PKMNCENTERATTENTION
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_ThePitRaiseAttack
+	call BattleScript_ThePitRaiseDefense
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitSpringTango::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	call BattleScript_ThePitRaiseSpeed
+	call BattleScript_ThePitRaisePartnerDefense
+	call BattleScript_ThePitRaisePartnerSpDef
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitStrangeSeeds::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPEED, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	setstatchanger STAT_EVASION, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitSummerTango::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	call BattleScript_ThePitRaiseEvasion
+	call BattleScript_ThePitRaisePartnerAttack
+	call BattleScript_ThePitRaisePartnerSpAtk
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitTimeCircle::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPEED, 1, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitVeilOrder::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_SPDEF, 1, FALSE
+	call BattleScript_EffectRaiseStatAllies
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitVoltMask::
+	attackcanceler
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	call BattleScript_ThePitRaiseSpeed
+	call BattleScript_ThePitRaiseAccuracy
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitWakingChakra::
+	attackcanceler
+	attackstring
+	ppreduce
+	setvolatile BS_ATTACKER, VOLATILE_AQUA_RING
+	attackanimation
+	waitanimation
+	printstring STRINGID_PKMNSURROUNDEDWITHVEILOFWATER
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_ThePitRaiseSpeed
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitWardingMist::
+	attackcanceler
+	attackstring
+	ppreduce
+	setsafeguard
+	attackanimation
+	waitanimation
+	printfromtable gReflectLightScreenSafeguardStringIds
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_MoveEffectAromatherapy
+	goto BattleScript_MoveEnd
+
+BattleScript_EffectThePitWiltMiasma::
+	attackcanceler
+	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
+	attackstring
+	ppreduce
+	attackanimation
+	waitanimation
+	setstatchanger STAT_ACC, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	setstatchanger STAT_EVASION, 1, TRUE
+	call BattleScript_EffectLowerStatFoes
+	goto BattleScript_MoveEnd
+
 BattleScript_QuestionForfeitBattle::
 	printselectionstring STRINGID_QUESTIONFORFEITBATTLE
 	forfeityesnobox

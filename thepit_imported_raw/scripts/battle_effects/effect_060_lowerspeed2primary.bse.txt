@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 60 (LowerSpeed2Primary) @1D7158
+section0: # 1D7158
+  set.stat.changer LowerSpeed2
+  goto <1D6C13>

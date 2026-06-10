@@ -1,0 +1,22 @@
+@ animation for MOVE_SCRATCH (@1CD97A)
+section0: # 1CD97A
+  loadspritegfx 0x2799
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_scratch sound_pan_target
+  createsprite <3FEE00> 2 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10137
+paletteTag:  10137
+oam:         <3ACAF8>
+anims:       <3FEDFC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  end

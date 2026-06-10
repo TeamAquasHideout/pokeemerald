@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 156 (RaiseDefenseAndImproveRollingMoves) @1D7D8C
+section0: # 1D7D8C
+  attackcanceler
+  attackstring
+  ppreduce
+  setdefensecurlbit
+  set.stat.changer RaiseDef1
+  statbuffchange 65 <section1>
+  jumpifbyte = 0x02023E87 2 <1D6BC4>
+  attackanimation
+  waitanimation
+
+section1: # 1D7DA9
+  goto <1D6BBC>

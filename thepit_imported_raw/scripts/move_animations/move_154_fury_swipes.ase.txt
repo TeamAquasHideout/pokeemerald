@@ -1,0 +1,51 @@
+@ animation for MOVE_FURY_SWIPES (@1D1CB3)
+section0: # 1D1CB3
+  loadspritegfx 0x27EE
+  createsprite <3D4E54> 2 0x0005 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  playsewithpan se_m_scratch sound_pan_target
+  createsprite <3E43B0> 130 0x0010 0x0000 0x0001
+{
+tileTag:     10222
+paletteTag:  10222
+oam:         <3AC9D8>
+anims:       <3E43A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA6B9>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0005 0x0001
+  delay 10
+  createsprite <3D4E54> 130 0x0005 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  playsewithpan se_m_scratch sound_pan_target
+  createsprite <3E43B0> 130 0xFFF0 0x0000 0x0000
+{
+tileTag:     10222
+paletteTag:  10222
+oam:         <3AC9D8>
+anims:       <3E43A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA6B9>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0007 0x0001
+  end

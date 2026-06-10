@@ -1,0 +1,44 @@
+@ animation for MOVE_FOUL_PLAY (@1AFE7B0)
+section0: # 1AFE7B0
+  fadetobg bg_none
+  waitbgfadein
+  loadspritegfx 0x2821
+  playsewithpan se_m_encore sound_pan_attacker
+  createsprite <3D4E54> 2 0x0004 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 25
+  createsprite <3E6D94> 133 0x0000 0x0001
+{
+tileTag:     10273
+paletteTag:  10273
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2BD9>
+}
+  playsewithpan se_m_sketch sound_pan_target
+  createsprite <3E6D94> 133 0x0001 0x0001
+{
+tileTag:     10273
+paletteTag:  10273
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2BD9>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0005 0x0001
+  createvisualtask <0A9A21> 3 
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

@@ -1,0 +1,23 @@
+@ battle script for gen3 move-effect 63 (Unused3F) @1AEDED0
+section0: # 1AEDED0
+  attackcanceler
+  attackstring
+  ppreduce
+  tryhealhalfhealth <1D7DD1> attacker
+  attackanimation
+  waitanimation
+  orword 0x02023DD0 256
+  healthbarupdate attacker
+  datahpupdate attacker
+  printstring 75
+  waitmessage 64
+  set.stat.changer RaiseSpeed1
+  statbuffchange 1 <section1>
+  setgraphicalstatchangevalues
+  playanimation attacker StatChange 0x02023FD4
+  printfromtable <3FE57C>
+  waitmessage 64
+  goto <1D694E>
+
+section1: # 1AEDF0F
+  end

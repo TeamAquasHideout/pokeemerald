@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 191 (SwapAbilityWithTarget) @1D82AF
+section0: # 1D82AF
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0xFFFF
+  tryswapabilities <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 184
+  waitmessage 64
+  goto <1D694E>

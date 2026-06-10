@@ -6740,14 +6740,14 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
     {
         .baseHP        = 110,
         .baseAttack    = 160,
-        .baseDefense   = 110,
+        .baseDefense   = 100,
         .baseSpeed     = 100,
         .baseSpAttack  = 80,
-        .baseSpDefense = 110,
-        .types = MON_TYPES(TYPE_NORMAL),
-        .catchRate = 3,
+        .baseSpDefense = 100,
+        .types = MON_TYPES(TYPE_DARK, TYPE_AETHER),
+        .catchRate = 10,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 335,
+        .expYield = 255,
     #elif P_UPDATED_EXP_YIELDS >= GEN_5
         .expYield = 302,
     #else
@@ -6755,12 +6755,12 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
     #endif
         .evYield_Attack = 3,
         .genderRatio = MON_GENDERLESS,
-        .eggCycles = 120,
-        .friendship = 0,
+        .eggCycles = 15,
+        .friendship = 70,
         .growthRate = GROWTH_SLOW,
-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
-        .abilities = { ABILITY_SLOW_START, ABILITY_NONE, ABILITY_NONE },
-        .bodyColor = BODY_COLOR_WHITE,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_CLEAR_BODY, ABILITY_FILTER, ABILITY_NONE },
+        .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Regigigas"),
         .cryId = CRY_REGIGIGAS,
         .natDexNum = NATIONAL_DEX_REGIGIGAS,

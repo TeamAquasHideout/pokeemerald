@@ -1,0 +1,38 @@
+@ battle script for gen3 move-effect 205 (LowerAttack1Defense1Primary) @1D8426
+section0: # 1D8426
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat target > attack negative_6 <section1>
+  jumpifstat target = defense negative_6 <section4>
+
+section1: # 1D843B
+  accuracycheck <1D7DF2> 0
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDF 0
+  playstatchangeanimation target Atk|Def 5
+  playstatchangeanimation target Atk 1
+  set.stat.changer LowerAtk1
+  statbuffchange 1 <section2>
+  jumpifbyte = 0x02023E87 2 <section2>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section2: # 1D8471
+  playstatchangeanimation target Def 1
+  set.stat.changer LowerDef1
+  statbuffchange 1 <section3>
+  jumpifbyte = 0x02023E87 2 <section3>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section3: # 1D8494
+  goto <1D694E>
+
+section4: # 1D8499
+  pause 32
+  orbyte 0x02023DCC 32
+  printstring 349
+  waitmessage 64
+  goto <1D694E>

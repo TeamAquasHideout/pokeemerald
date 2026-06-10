@@ -1,0 +1,34 @@
+@ animation for MOVE_BONE_RUSH (@1CF4B8)
+section0: # 1CF4B8
+  loadspritegfx 0x2710
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_bonemerang sound_pan_target
+  createsprite <3E7A40> 2 0xFFD6 0xFFE7 0x0000 0x0000 0x000F
+{
+tileTag:     10000
+paletteTag:  10000
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7A24>
+callback:    <0B8C55>
+}
+  delay 12
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0003 0x0005 0x0001
+  playsewithpan se_m_horn_attack sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

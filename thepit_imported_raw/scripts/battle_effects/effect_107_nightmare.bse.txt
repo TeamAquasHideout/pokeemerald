@@ -1,0 +1,18 @@
+@ battle script for gen3 move-effect 107 (Nightmare) @1D7706
+section0: # 1D7706
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  jumpifstatus2 target 0x08000000 <1D7DF2>
+  jumpifstatus target 7 <section1>
+  goto <1D7DF2>
+
+section1: # 1D772C
+  attackanimation
+  waitanimation
+  set.move.effect Nightmare
+  seteffectprimary
+  printstring 144
+  waitmessage 64
+  goto <1D694E>

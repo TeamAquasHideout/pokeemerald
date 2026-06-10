@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 100 (100) @1D7585
+section0: # 1D7585
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0
+  tryspiteppreduce <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 141
+  waitmessage 64
+  goto <1D694E>

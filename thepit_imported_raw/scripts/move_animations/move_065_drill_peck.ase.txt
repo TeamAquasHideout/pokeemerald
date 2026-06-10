@@ -1,0 +1,55 @@
+@ animation for MOVE_DRILL_PECK (@1C8B68)
+section0: # 1C8B68
+  loadspritegfx 0x2797
+  loadspritegfx 0x27B2
+  createsprite <3E3550> 2 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  playsewithpan se_m_headbutt sound_pan_attacker
+  waitforvisualfinish
+  delay 2
+  createsprite <3E3550> 2 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  delay 2
+  loopsewithpan se_m_horn_attack sound_pan_target 4 8
+  createvisualtask <0B2869> 5 
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0012 0x0001
+  waitforvisualfinish
+  createsprite <3E3550> 2 0x0002
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  waitforvisualfinish
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  end

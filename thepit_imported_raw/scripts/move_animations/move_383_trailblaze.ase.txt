@@ -1,0 +1,76 @@
+@ animation for MOVE_TRAILBLAZE (@1AEE680)
+section0: # 1AEE680
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x000C 0x33ED
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createvisualtask <099705> 3 0x0000 0x0006 0x0500 0x0003 0x0000
+  monbg anim_atk_partner
+  setalpha 12 8
+  createvisualtask <09907D> 2 0x0000 0x0018 0x0006 0x0004 0x0004
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0007 0x000A
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  waitforvisualfinish
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  createsprite <3D4E54> 2 0x0004 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 6
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  playsewithpan se_m_comet_punch sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  createsprite <3E7B24> 2 0x0001 0x0001 0x000C 0x0000 0x33ED
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

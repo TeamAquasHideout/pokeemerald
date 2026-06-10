@@ -1,0 +1,38 @@
+@ animation for MOVE_CONFUSE_RAY (@1C9A31)
+section0: # 1C9A31
+  loadspritegfx 0x271D
+  monbg anim_def_partner
+  fadetobg bg_ghost
+  waitbgfadein
+  createvisualtask <0DD445> 2 0xFFC0 0x003F 0x0002 0x0000
+  createvisualtask <0B9E59> 2 0x271D 0x0000 0x0006 0x0000 0x000E 0x015F
+  createsprite <3E75C4> 130 0x001C 0x0000 0x0120
+{
+tileTag:     10013
+paletteTag:  10013
+oam:         <3ACA90>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E75C0>
+callback:    <0B5269>
+}
+  waitforvisualfinish
+  setalpha 8 8
+  playsewithpan se_m_string_shot2 sound_pan_target
+  createsprite <3E75DC> 130 0x0000 0xFFF0
+{
+tileTag:     10013
+paletteTag:  10013
+oam:         <3ACAF0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B5451>
+}
+  waitforvisualfinish
+  delay 0
+  blendoff
+  clearmonbg anim_def_partner
+  restorebg
+  waitbgfadein
+  end

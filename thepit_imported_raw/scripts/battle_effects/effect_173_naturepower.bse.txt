@@ -1,0 +1,9 @@
+@ battle script for gen3 move-effect 173 (NaturePower) @1D80A9
+section0: # 1D80A9
+  attackcanceler
+  attackstring
+  pause 32
+  callterrainattack
+  printstring 166
+  waitmessage 64
+  return

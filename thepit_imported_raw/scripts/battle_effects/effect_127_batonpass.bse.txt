@@ -1,0 +1,23 @@
+@ battle script for gen3 move-effect 127 (BatonPass) @1D7995
+section0: # 1D7995
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifcantswitch 129 <1D7DF2>
+  attackanimation
+  waitanimation
+
+section1: # 1D79A0
+  openpartyscreen 1 <1D7DF2>
+  switchoutabilities attacker
+  waitstate
+  switchhandleorder attacker 2
+  returntoball attacker
+  getswitchedmondata attacker
+  switchindataupdate attacker
+  hpthresholds attacker
+  printstring 3
+  switchinanim attacker 1
+  waitstate
+  switchineffects attacker
+  goto <1D694E>

@@ -1,0 +1,28 @@
+@ animation for MOVE_MORNING_SUN (@1D2829)
+section0: # 1D2829
+  loadspritegfx 0x2801
+  loadspritegfx 0x272F
+  createvisualtask <0DFC51> 5 
+  delay 8
+  createvisualtask <0BA7F9> 10 0x0781 0x0008 0x0000 0x000C 0x7FFF
+  delay 14
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  call <1D28AF>
+  createvisualtask <0BA7F9> 10 0x0781 0x0003 0x000C 0x0000 0x7FFF
+  waitforvisualfinish
+  waitsound
+  call <1D56C9>
+  end

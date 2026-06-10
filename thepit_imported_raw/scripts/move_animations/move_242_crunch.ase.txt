@@ -1,0 +1,82 @@
+@ animation for MOVE_CRUNCH (@1CE1EE)
+section0: # 1CE1EE
+  loadspritegfx 0x279B
+  loadspritegfx 0x2797
+  monbg anim_target
+  fadetobg bg_dark
+  waitbgfadein
+  setalpha 12 8
+  playsewithpan se_m_bite sound_pan_target
+  createsprite <3E7930> 2 0xFFE0 0xFFE0 0x0001 0x0333 0x0333 0x000A
+{
+tileTag:     10139
+paletteTag:  10139
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  createsprite <3E7930> 2 0x0020 0x0020 0x0005 0xFCCD 0xFCCD 0x000A
+{
+tileTag:     10139
+paletteTag:  10139
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  delay 10
+  createsprite <3E7C08> 2 0xFFF8 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0007 0x0005 0x0002
+  waitforvisualfinish
+  playsewithpan se_m_bite sound_pan_target
+  createsprite <3E7930> 2 0x0020 0xFFE0 0x0007 0xFCCD 0x0333 0x000A
+{
+tileTag:     10139
+paletteTag:  10139
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  createsprite <3E7930> 2 0xFFE0 0x0020 0x0003 0x0333 0xFCCD 0x000A
+{
+tileTag:     10139
+paletteTag:  10139
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  delay 10
+  createsprite <3E7C08> 2 0x0008 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0008 0x0004 0x0002
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  delay 1
+  restorebg
+  waitbgfadein
+  end

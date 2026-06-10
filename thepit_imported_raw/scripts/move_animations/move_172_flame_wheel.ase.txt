@@ -1,0 +1,118 @@
+@ animation for MOVE_FLAME_WHEEL (@1C7602)
+section0: # 1C7602
+  loadspritegfx 0x272D
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0000
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0004
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0008
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x000C
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0010
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  delay 2
+  createsprite <3E5DFC> 3 0x0000 0x0000 0x0038 0x0018
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <3E5D48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACDE9>
+}
+  playsewithpan se_m_flame_wheel sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3D4E9C> 2 0x0000 0x0018 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 4
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x0008 0x0001
+  createvisualtask <07616D> 3 0x0001 0x001F 0x000C 0x0001 0x0001
+  playsewithpan se_m_flame_wheel2 sound_pan_target
+  call <1D0950>
+  delay 7
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0009
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

@@ -1,0 +1,82 @@
+@ animation for MOVE_SWEET_KISS (@1D1C03)
+section0: # 1D1C03
+  loadspritegfx 0x27E8
+  loadspritegfx 0x27EC
+  createsprite <3E4320> 130 0x0010 0xFFD0
+{
+tileTag:     10220
+paletteTag:  10220
+oam:         <3AC9D8>
+anims:       <3E431C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA409>
+}
+  playsewithpan se_m_heal_bell sound_pan_target
+  delay 23
+  playsewithpan se_m_heal_bell sound_pan_target
+  delay 23
+  playsewithpan se_m_heal_bell sound_pan_target
+  waitforvisualfinish
+  createsprite <3E4230> 131 0x00A0 0xFFE2
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  playsewithpan se_m_attract sound_pan_target
+  createsprite <3E4230> 131 0xFF00 0xFFD6
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  createsprite <3E4230> 131 0x0080 0xFFF2
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  createsprite <3E4230> 131 0x01A0 0xFFDA
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  createsprite <3E4230> 131 0xFF80 0xFFEA
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  createsprite <3E4230> 131 0xFE80 0xFFE1
+{
+tileTag:     10216
+paletteTag:  10216
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9BC5>
+}
+  end

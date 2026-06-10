@@ -1,0 +1,77 @@
+@ animation for MOVE_ROCK_TOMB (@1D3E50)
+section0: # 1D3E50
+  loadspritegfx 0x280A
+  loadspritegfx 0x274A
+  createvisualtask <0BA47D> 2 0x0002 0x0000 0x000A 0x0001
+  waitforvisualfinish
+  createsprite <3E7508> 130 0x0014 0x000C 0x0040 0x0072 0x0000
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E74A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4FE5>
+}
+  delay 8
+  createvisualtask <0BA47D> 2 0x0000 0x0002 0x0003 0x0001
+  playsewithpan se_m_strength sound_pan_target
+  delay 8
+  createsprite <3E7508> 130 0xFFEC 0x000C 0x0040 0x0062 0x0000
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E74A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4FE5>
+}
+  delay 8
+  createvisualtask <0BA47D> 2 0x0000 0x0002 0x0003 0x0001
+  playsewithpan se_m_strength sound_pan_target
+  delay 8
+  createsprite <3E7508> 194 0x0003 0x0006 0x0040 0x0052 0x0000
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E74A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4FE5>
+}
+  delay 8
+  createvisualtask <0BA47D> 2 0x0000 0x0002 0x0003 0x0001
+  playsewithpan se_m_strength sound_pan_target
+  delay 8
+  createsprite <3E7508> 130 0xFFFD 0x000D 0x0040 0x0042 0x0000
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E74A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4FE5>
+}
+  delay 8
+  createvisualtask <0BA47D> 2 0x0000 0x0002 0x0003 0x0001
+  playsewithpan se_m_strength sound_pan_target
+  delay 24
+  playsewithpan se_m_hyper_beam sound_pan_target
+  createsprite <3E705C> 133 0x0001 0x0032
+{
+tileTag:     10250
+paletteTag:  10250
+oam:         <3AC9E0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B37ED>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x0014 0x0001
+  createvisualtask <0BA47D> 2 0x0002 0x0000 0x000A 0x0001
+  waitforvisualfinish
+  end

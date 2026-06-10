@@ -1,0 +1,1071 @@
+diff --git a/src/data/moves_info.h b/src/data/moves_info.h
+index d7f3fd04..07c8a79f 100644
+--- a/src/data/moves_info.h
++++ b/src/data/moves_info.h
+@@ -22760,8 +22760,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
+             .chance = 50,
+         }),
+-        // animation + sounds: scripts/move_animations/move_144_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_144_* (effect 72 "LowerSpDefense1HitChance") -> gBattleAnimMove_OminousWind
++        .battleAnimScript = gBattleAnimMove_OminousWind,
+     },
+     [MOVE_ABYSS_WRATH] =
+     {
+@@ -22776,8 +22776,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = -5,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_166_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_166_* (effect 89 "DoubleBackPhysicalDamage") -> gBattleAnimMove_MetalBurst
++        .battleAnimScript = gBattleAnimMove_MetalBurst,
+     },
+     [MOVE_AD_NIHILO] =
+     {
+@@ -22795,8 +22795,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .additionalEffects = ADDITIONAL_EFFECTS({
+             .moveEffect = MOVE_EFFECT_HAZE,
+         }),
+-        // animation + sounds: scripts/move_animations/move_360_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_360_* (effect 12 "Unused0C") -> gBattleAnimMove_OminousWind
++        .battleAnimScript = gBattleAnimMove_OminousWind,
+     },
+     [MOVE_AKASHIC_NOVA] =
+     {
+@@ -22813,8 +22813,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .recoilPercentage = 33 },
+-        // animation + sounds: scripts/move_animations/move_447_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_447_* (effect 198 "33Recoil") -> gBattleAnimMove_DracoMeteor
++        .battleAnimScript = gBattleAnimMove_DracoMeteor,
+     },
+     [MOVE_ARCANE_BLAST] =
+     {
+@@ -22830,8 +22830,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
+         .argument = { .recoilPercentage = 33 },
+-        // animation + sounds: scripts/move_animations/move_442_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_442_* (effect 198 "33Recoil") -> gBattleAnimMove_PrismaticLaser
++        .battleAnimScript = gBattleAnimMove_PrismaticLaser,
+     },
+     [MOVE_ASTRAL_GLEAM] =
+     {
+@@ -22845,8 +22845,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+-        // animation + sounds: scripts/move_animations/move_356_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_356_* (effect 0 "None") -> gBattleAnimMove_DazzlingGleam
++        .battleAnimScript = gBattleAnimMove_DazzlingGleam,
+     },
+     [MOVE_ATROPHIC_EYE] =
+     {
+@@ -22862,8 +22862,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_439_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_439_* (effect 227 "227") -> gBattleAnimMove_Glare
++        .battleAnimScript = gBattleAnimMove_Glare,
+     },
+     [MOVE_AZURE_FLOOD] =
+     {
+@@ -22882,8 +22882,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_370_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_370_* (effect 55 "Unused37") -> gBattleAnimMove_OriginPulse
++        .battleAnimScript = gBattleAnimMove_OriginPulse,
+     },
+     [MOVE_BAFFLINGSTEP] =
+     {
+@@ -22903,8 +22903,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_CONFUSION,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_470_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_470_* (effect 76 "ConfusionHitChance") -> gBattleAnimMove_DizzyPunch
++        .battleAnimScript = gBattleAnimMove_DizzyPunch,
+     },
+     [MOVE_BRIGHT_SONG] =
+     {
+@@ -22922,8 +22922,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_391_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_391_* (effect 110 "Unused6E") -> gBattleAnimMove_RelicSong
++        .battleAnimScript = gBattleAnimMove_RelicSong,
+     },
+     [MOVE_CALL_ALLIES] =
+     {
+@@ -22939,8 +22939,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_431_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_431_* (effect 154 "DamageBasedOnPartySize") -> gBattleAnimMove_BeatUp
++        .battleAnimScript = gBattleAnimMove_BeatUp,
+     },
+     [MOVE_CALL_LION] =
+     {
+@@ -22960,8 +22960,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_BURN,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_430_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_430_* (effect 4 "BurnHitChance") -> gBattleAnimMove_FireFang
++        .battleAnimScript = gBattleAnimMove_FireFang,
+     },
+     [MOVE_CALL_OWL] =
+     {
+@@ -22981,8 +22981,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SLEEP,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_429_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_429_* (effect 218 "218") -> gBattleAnimMove_Hurricane
++        .battleAnimScript = gBattleAnimMove_Hurricane,
+     },
+     [MOVE_CALL_SNAKE] =
+     {
+@@ -23002,8 +23002,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_TOXIC,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_428_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_428_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_PoisonFang
++        .battleAnimScript = gBattleAnimMove_PoisonFang,
+     },
+     [MOVE_CELL_SHIELD] =
+     {
+@@ -23020,8 +23020,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .ignoresProtect = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_460_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_460_* (effect 232 "232") -> gBattleAnimMove_AcidArmor
++        .battleAnimScript = gBattleAnimMove_AcidArmor,
+     },
+     [MOVE_CHAINWEATHER] =
+     {
+@@ -23037,8 +23037,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_420_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_420_* (effect 203 "WeatherBall") -> gBattleAnimMove_WeatherBall
++        .battleAnimScript = gBattleAnimMove_WeatherBall,
+     },
+     [MOVE_CHAIN_KILLER] =
+     {
+@@ -23055,8 +23055,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .status = STATUS1_ANY },
+-        // animation + sounds: scripts/move_animations/move_421_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_421_* (effect 220 "220") -> gBattleAnimMove_BraveBird
++        .battleAnimScript = gBattleAnimMove_BraveBird,
+     },
+     [MOVE_CORKSCREW] =
+     {
+@@ -23077,8 +23077,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_422_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_422_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_DrillRun
++        .battleAnimScript = gBattleAnimMove_DrillRun,
+     },
+     [MOVE_COSMIC_SLASH] =
+     {
+@@ -23093,8 +23093,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_363_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_363_* (effect 0 "None") -> gBattleAnimMove_NightSlash
++        .battleAnimScript = gBattleAnimMove_NightSlash,
+     },
+     [MOVE_CRAZED_SHOUT] =
+     {
+@@ -23115,8 +23115,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_CONFUSION,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_401_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_401_* (effect 76 "ConfusionHitChance") -> gBattleAnimMove_PsychicNoise
++        .battleAnimScript = gBattleAnimMove_PsychicNoise,
+     },
+     [MOVE_DARKNESSFIST] =
+     {
+@@ -23134,8 +23134,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .recoilPercentage = 33 },
+-        // animation + sounds: scripts/move_animations/move_426_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_426_* (effect 198 "33Recoil") -> gBattleAnimMove_RageFist
++        .battleAnimScript = gBattleAnimMove_RageFist,
+     },
+     [MOVE_DEMONIC_RUSH] =
+     {
+@@ -23154,8 +23154,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_461_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_461_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PhantomForce
++        .battleAnimScript = gBattleAnimMove_PhantomForce,
+     },
+     [MOVE_DIVINE_STORM] =
+     {
+@@ -23175,8 +23175,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_412_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_412_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_Thunder
++        .battleAnimScript = gBattleAnimMove_Thunder,
+     },
+     [MOVE_DOUBLEHAMMER] =
+     {
+@@ -23193,8 +23193,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .mirrorMoveBanned = TRUE,
+-        // animation + sounds: scripts/move_animations/move_404_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_404_* (effect 44 "2hits") -> gBattleAnimMove_GigatonHammer
++        .battleAnimScript = gBattleAnimMove_GigatonHammer,
+     },
+     [MOVE_ELECTROSHOCK] =
+     {
+@@ -23213,8 +23213,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_BURN,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_131_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_131_* (effect 4 "BurnHitChance") -> gBattleAnimMove_ElectroBall
++        .battleAnimScript = gBattleAnimMove_ElectroBall,
+     },
+     [MOVE_ENERGY_EDGE] =
+     {
+@@ -23234,8 +23234,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_364_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_364_* (effect 69 "LowerDefense1HitChance") -> gBattleAnimMove_LeafBlade
++        .battleAnimScript = gBattleAnimMove_LeafBlade,
+     },
+     [MOVE_ETHERIC_BOON] =
+     {
+@@ -23253,8 +23253,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_359_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_359_* (effect 14 "Unused0E") -> gBattleAnimMove_Moonlight
++        .battleAnimScript = gBattleAnimMove_Moonlight,
+     },
+     [MOVE_FIRST_PRESS] =
+     {
+@@ -23269,8 +23269,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 2,
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_386_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_386_* (effect 216 "216") -> gBattleAnimMove_FirstImpression
++        .battleAnimScript = gBattleAnimMove_FirstImpression,
+     },
+     [MOVE_FLARE_MASK] =
+     {
+@@ -23286,8 +23286,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_454_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_454_* (effect 230 "230") -> gBattleAnimMove_WillOWisp
++        .battleAnimScript = gBattleAnimMove_WillOWisp,
+     },
+     [MOVE_FREEZERIPPLE] =
+     {
+@@ -23307,8 +23307,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_450_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_450_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_FreezeDry
++        .battleAnimScript = gBattleAnimMove_FreezeDry,
+     },
+     [MOVE_FREEZE_MASK] =
+     {
+@@ -23324,8 +23324,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_455_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_455_* (effect 230 "230") -> gBattleAnimMove_Haze
++        .battleAnimScript = gBattleAnimMove_Haze,
+     },
+     [MOVE_FROST_CURSE] =
+     {
+@@ -23342,8 +23342,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .magicCoatAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .nonVolatileStatus = MOVE_EFFECT_FROSTBITE },
+-        // animation + sounds: scripts/move_animations/move_411_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_411_* (effect 215 "215") -> gBattleAnimMove_BitterMalice
++        .battleAnimScript = gBattleAnimMove_BitterMalice,
+     },
+     [MOVE_FUKUBARI] =
+     {
+@@ -23364,8 +23364,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SLEEP,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_414_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_414_* (effect 218 "218") -> gBattleAnimMove_PinMissile
++        .battleAnimScript = gBattleAnimMove_PinMissile,
+     },
+     [MOVE_HARVESTPARTY] =
+     {
+@@ -23382,8 +23382,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .status = STATUS1_ANY },
+-        // animation + sounds: scripts/move_animations/move_435_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_435_* (effect 220 "220") -> gBattleAnimMove_PetalDance
++        .battleAnimScript = gBattleAnimMove_PetalDance,
+     },
+     [MOVE_HEAL] =
+     {
+@@ -23402,8 +23402,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+         .healingMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_160_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_160_* (effect 157 "RestoreHPOrAllyInField") -> gBattleAnimMove_HealPulse
++        .battleAnimScript = gBattleAnimMove_HealPulse,
+     },
+     [MOVE_ICY_ARIA] =
+     {
+@@ -23424,8 +23424,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_406_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_406_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_SparklingAria
++        .battleAnimScript = gBattleAnimMove_SparklingAria,
+     },
+     [MOVE_IRON_DRILL] =
+     {
+@@ -23441,8 +23441,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_457_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_457_* (effect 0 "None") -> gBattleAnimMove_HyperDrill
++        .battleAnimScript = gBattleAnimMove_HyperDrill,
+     },
+     [MOVE_IZUNA] =
+     {
+@@ -23463,8 +23463,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_413_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_413_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PoisonJab
++        .battleAnimScript = gBattleAnimMove_PoisonJab,
+     },
+     [MOVE_KUMOGAKURE] =
+     {
+@@ -23482,8 +23482,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .ignoresProtect = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_415_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_415_* (effect 219 "219") -> gBattleAnimMove_DoubleTeam
++        .battleAnimScript = gBattleAnimMove_DoubleTeam,
+     },
+     [MOVE_LEADING_BLOW] =
+     {
+@@ -23500,8 +23500,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .status = STATUS1_ANY },
+-        // animation + sounds: scripts/move_animations/move_425_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_425_* (effect 222 "222") -> gBattleAnimMove_FakeOut
++        .battleAnimScript = gBattleAnimMove_FakeOut,
+     },
+     [MOVE_LIFE_BALLAD] =
+     {
+@@ -23519,8 +23519,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_392_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_392_* (effect 110 "Unused6E") -> gBattleAnimMove_HealBell
++        .battleAnimScript = gBattleAnimMove_HealBell,
+     },
+     [MOVE_LIFE_CONTROL] =
+     {
+@@ -23539,8 +23539,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+         .healingMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_381_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_381_* (effect 63 "Unused3F") -> gBattleAnimMove_PainSplit
++        .battleAnimScript = gBattleAnimMove_PainSplit,
+     },
+     [MOVE_LIGHT_SHOT] =
+     {
+@@ -23554,8 +23554,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+-        // animation + sounds: scripts/move_animations/move_355_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_355_* (effect 0 "None") -> gBattleAnimMove_LightOfRuin
++        .battleAnimScript = gBattleAnimMove_LightOfRuin,
+     },
+     [MOVE_LIMIT_BREAK] =
+     {
+@@ -23573,8 +23573,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_448_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_448_* (effect 212 "RaiseAttack1Speed1Primary") -> gBattleAnimMove_BellyDrum
++        .battleAnimScript = gBattleAnimMove_BellyDrum,
+     },
+     [MOVE_LULLABY] =
+     {
+@@ -23592,8 +23592,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .ignoresKingsRock = TRUE,
+         .soundMove = TRUE,
+         .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+-        // animation + sounds: scripts/move_animations/move_436_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_436_* (effect 1 "SleepPrimary") -> gBattleAnimMove_Sing
++        .battleAnimScript = gBattleAnimMove_Sing,
+     },
+     [MOVE_MEGALODIVE] =
+     {
+@@ -23613,8 +23613,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FLINCH,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_369_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_369_* (effect 31 "Flinch") -> gBattleAnimMove_Dive
++        .battleAnimScript = gBattleAnimMove_Dive,
+     },
+     [MOVE_MESMERIZE] =
+     {
+@@ -23634,8 +23634,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SLEEP,
+             .chance = 30,
+         }),
+-        // animation + sounds: scripts/move_animations/move_433_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_433_* (effect 218 "218") -> gBattleAnimMove_Hypnosis
++        .battleAnimScript = gBattleAnimMove_Hypnosis,
+     },
+     [MOVE_METEOR] =
+     {
+@@ -23654,8 +23654,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
+             .self = TRUE,
+         }),
+-        // animation + sounds: scripts/move_animations/move_358_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_358_* (effect 204 "LowerSpAttack2Self") -> gBattleAnimMove_MeteorBeam
++        .battleAnimScript = gBattleAnimMove_MeteorBeam,
+     },
+     [MOVE_MIND_BASH] =
+     {
+@@ -23670,8 +23670,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_362_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_362_* (effect 0 "None") -> gBattleAnimMove_PsyshieldBash
++        .battleAnimScript = gBattleAnimMove_PsyshieldBash,
+     },
+     [MOVE_NOBLE_ORDER] =
+     {
+@@ -23689,8 +23689,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_417_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_417_* (effect 224 "224") -> gBattleAnimMove_AttackOrder
++        .battleAnimScript = gBattleAnimMove_AttackOrder,
+     },
+     [MOVE_OCEAN_RAVE] =
+     {
+@@ -23706,8 +23706,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_451_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_451_* (effect 43 "HighCrit") -> gBattleAnimMove_OriginPulse
++        .battleAnimScript = gBattleAnimMove_OriginPulse,
+     },
+     [MOVE_ONE_TWOPUNCH] =
+     {
+@@ -23724,8 +23724,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_424_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_424_* (effect 44 "2hits") -> gBattleAnimMove_SurgingStrikes
++        .battleAnimScript = gBattleAnimMove_SurgingStrikes,
+     },
+     [MOVE_ORIGIN_CRUSH] =
+     {
+@@ -23745,8 +23745,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FLINCH,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_469_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_469_* (effect 31 "Flinch") -> gBattleAnimMove_DarkestLariat
++        .battleAnimScript = gBattleAnimMove_DarkestLariat,
+     },
+     [MOVE_PANIC_SPORES] =
+     {
+@@ -23762,8 +23762,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_438_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_438_* (effect 49 "ConfusionPrimary") -> gBattleAnimMove_StunSpore
++        .battleAnimScript = gBattleAnimMove_StunSpore,
+     },
+     [MOVE_PHALANXGUARD] =
+     {
+@@ -23781,8 +23781,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_403_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_403_* (effect 110 "Unused6E") -> gBattleAnimMove_WideGuard
++        .battleAnimScript = gBattleAnimMove_WideGuard,
+     },
+     [MOVE_POTION_BOMB] =
+     {
+@@ -23801,8 +23801,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FLINCH,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_473_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_473_* (effect 235 "235") -> gBattleAnimMove_PollenPuff
++        .battleAnimScript = gBattleAnimMove_PollenPuff,
+     },
+     [MOVE_PRIMAL_DRUMS] =
+     {
+@@ -23821,8 +23821,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_432_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_432_* (effect 59 "LowerDefense2Primary") -> gBattleAnimMove_DrumBeating
++        .battleAnimScript = gBattleAnimMove_DrumBeating,
+     },
+     [MOVE_RADIANT_STAR] =
+     {
+@@ -23841,8 +23841,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_357_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_357_* (effect 70 "LowerSpeed1HitChance") -> gBattleAnimMove_TeraStarstorm
++        .battleAnimScript = gBattleAnimMove_TeraStarstorm,
+     },
+     [MOVE_RAPID_FIRE] =
+     {
+@@ -23857,8 +23857,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_393_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_393_* (effect 29 "2to5hits") -> gBattleAnimMove_FlameBurst
++        .battleAnimScript = gBattleAnimMove_FlameBurst,
+     },
+     [MOVE_ROCK_HAMMER] =
+     {
+@@ -23878,8 +23878,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_475_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_475_* (effect 69 "LowerDefense1HitChance") -> gBattleAnimMove_StoneEdge
++        .battleAnimScript = gBattleAnimMove_StoneEdge,
+     },
+     [MOVE_ROTTEN_EGG] =
+     {
+@@ -23895,8 +23895,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_434_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_434_* (effect 225 "225") -> gBattleAnimMove_EggBomb
++        .battleAnimScript = gBattleAnimMove_EggBomb,
+     },
+     [MOVE_ROYAL_ORDER] =
+     {
+@@ -23911,8 +23911,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_452_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_452_* (effect 229 "229") -> gBattleAnimMove_AttackOrder
++        .battleAnimScript = gBattleAnimMove_AttackOrder,
+     },
+     [MOVE_SCYTHE_DANCE] =
+     {
+@@ -23929,8 +23929,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_444_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_444_* (effect 29 "2to5hits") -> gBattleAnimMove_SwordsDance
++        .battleAnimScript = gBattleAnimMove_SwordsDance,
+     },
+     [MOVE_SEALINGLIGHT] =
+     {
+@@ -23947,8 +23947,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+         .argument = { .damagePercentage = 50 },
+-        // animation + sounds: scripts/move_animations/move_372_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_372_* (effect 40 "HalfDamage") -> gBattleAnimMove_LightScreen
++        .battleAnimScript = gBattleAnimMove_LightScreen,
+     },
+     [MOVE_SHATTER_SHOT] =
+     {
+@@ -23963,8 +23963,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_476_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_476_* (effect 48 "25Recoil") -> gBattleAnimMove_RockBlast
++        .battleAnimScript = gBattleAnimMove_RockBlast,
+     },
+     [MOVE_SHOGUN_DECOY] =
+     {
+@@ -23982,8 +23982,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_366_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_366_* (effect 21 "Unused15") -> gBattleAnimMove_Substitute
++        .battleAnimScript = gBattleAnimMove_Substitute,
+     },
+     [MOVE_SLASHRAMPAGE] =
+     {
+@@ -24000,8 +24000,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_449_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_449_* (effect 43 "HighCrit") -> gBattleAnimMove_Outrage
++        .battleAnimScript = gBattleAnimMove_Outrage,
+     },
+     [MOVE_SOLAR_FLAME] =
+     {
+@@ -24016,8 +24016,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .argument = { .recoilPercentage = 33 },
+-        // animation + sounds: scripts/move_animations/move_462_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_462_* (effect 198 "33Recoil") -> gBattleAnimMove_FlareBlitz
++        .battleAnimScript = gBattleAnimMove_FlareBlitz,
+     },
+     [MOVE_SONIC_RAID] =
+     {
+@@ -24033,8 +24033,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_446_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_446_* (effect 0 "None") -> gBattleAnimMove_ElectroDrift
++        .battleAnimScript = gBattleAnimMove_ElectroDrift,
+     },
+     [MOVE_SOUL_TRADE] =
+     {
+@@ -24049,8 +24049,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_368_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_368_* (effect 3 "HealHalfDamage") -> gBattleAnimMove_DrainingKiss
++        .battleAnimScript = gBattleAnimMove_DrainingKiss,
+     },
+     [MOVE_SPOREBARRAGE] =
+     {
+@@ -24065,8 +24065,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_419_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_419_* (effect 29 "2to5hits") -> gBattleAnimMove_BulletSeed
++        .battleAnimScript = gBattleAnimMove_BulletSeed,
+     },
+     [MOVE_SPRING_TANGO] =
+     {
+@@ -24085,8 +24085,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+         .danceMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_390_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_390_* (effect 110 "Unused6E") -> gBattleAnimMove_PetalDance
++        .battleAnimScript = gBattleAnimMove_PetalDance,
+     },
+     [MOVE_STAR_DROP] =
+     {
+@@ -24105,8 +24105,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .additionalEffects = ADDITIONAL_EFFECTS({
+             .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
+         }),
+-        // animation + sounds: scripts/move_animations/move_382_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_382_* (effect 64 "Unused40") -> gBattleAnimMove_Swift
++        .battleAnimScript = gBattleAnimMove_Swift,
+     },
+     [MOVE_STOMP_CRUSH] =
+     {
+@@ -24122,8 +24122,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .mirrorMoveBanned = TRUE,
+-        // animation + sounds: scripts/move_animations/move_405_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_405_* (effect 0 "None") -> gBattleAnimMove_Stomp
++        .battleAnimScript = gBattleAnimMove_Stomp,
+     },
+     [MOVE_STRANGESEEDS] =
+     {
+@@ -24139,8 +24139,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_437_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_437_* (effect 226 "226") -> gBattleAnimMove_WorrySeed
++        .battleAnimScript = gBattleAnimMove_WorrySeed,
+     },
+     [MOVE_SUBZERO_GALE] =
+     {
+@@ -24161,8 +24161,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
+             .chance = 40,
+         }),
+-        // animation + sounds: scripts/move_animations/move_410_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_410_* (effect 5 "FreezeHitChance") -> gBattleAnimMove_Blizzard
++        .battleAnimScript = gBattleAnimMove_Blizzard,
+     },
+     [MOVE_SUMMER_TANGO] =
+     {
+@@ -24181,8 +24181,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+         .danceMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_389_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_389_* (effect 110 "Unused6E") -> gBattleAnimMove_FieryDance
++        .battleAnimScript = gBattleAnimMove_FieryDance,
+     },
+     [MOVE_TAGEN_BATTOU] =
+     {
+@@ -24203,8 +24203,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_EVS_MINUS_2,
+             .self = TRUE,
+         }),
+-        // animation + sounds: scripts/move_animations/move_416_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_416_* (effect 217 "217") -> gBattleAnimMove_CrossPoison
++        .battleAnimScript = gBattleAnimMove_CrossPoison,
+     },
+     [MOVE_TIME_CIRCLE] =
+     {
+@@ -24221,8 +24221,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_441_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_441_* (effect 110 "Unused6E") -> gBattleAnimMove_TrickRoom
++        .battleAnimScript = gBattleAnimMove_TrickRoom,
+     },
+     [MOVE_TITAN_KILLER] =
+     {
+@@ -24238,8 +24238,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_423_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_423_* (effect 221 "221") -> gBattleAnimMove_LowKick
++        .battleAnimScript = gBattleAnimMove_LowKick,
+     },
+     [MOVE_TOXIC_HERB] =
+     {
+@@ -24258,8 +24258,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_TOXIC,
+             .chance = 40,
+         }),
+-        // animation + sounds: scripts/move_animations/move_471_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_471_* (effect 236 "236") -> gBattleAnimMove_SweetScent
++        .battleAnimScript = gBattleAnimMove_SweetScent,
+     },
+     [MOVE_TOXIC_REAP] =
+     {
+@@ -24280,8 +24280,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_TOXIC,
+             .chance = 50,
+         }),
+-        // animation + sounds: scripts/move_animations/move_394_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_394_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_CrossPoison
++        .battleAnimScript = gBattleAnimMove_CrossPoison,
+     },
+     [MOVE_VEIL_ORDER] =
+     {
+@@ -24299,8 +24299,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_418_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_418_* (effect 224 "224") -> gBattleAnimMove_DefendOrder
++        .battleAnimScript = gBattleAnimMove_DefendOrder,
+     },
+     [MOVE_VENOM_GUST] =
+     {
+@@ -24320,8 +24320,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_TOXIC,
+             .chance = 40,
+         }),
+-        // animation + sounds: scripts/move_animations/move_407_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_407_* (effect 202 "BadPoisonHitChance") -> gBattleAnimMove_PoisonGas
++        .battleAnimScript = gBattleAnimMove_PoisonGas,
+     },
+     [MOVE_VOLT_MASK] =
+     {
+@@ -24337,8 +24337,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_453_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_453_* (effect 230 "230") -> gBattleAnimMove_EerieImpulse
++        .battleAnimScript = gBattleAnimMove_EerieImpulse,
+     },
+     [MOVE_VOLT_WINGS] =
+     {
+@@ -24359,8 +24359,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 20,
+         }),
+-        // animation + sounds: scripts/move_animations/move_399_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_399_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_ThunderCage
++        .battleAnimScript = gBattleAnimMove_ThunderCage,
+     },
+     [MOVE_WAKINGCHAKRA] =
+     {
+@@ -24379,8 +24379,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+         .healingMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_427_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_427_* (effect 223 "223") -> gBattleAnimMove_CalmMind
++        .battleAnimScript = gBattleAnimMove_CalmMind,
+     },
+     [MOVE_WARDING_MIST] =
+     {
+@@ -24397,8 +24397,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_440_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_440_* (effect 228 "228") -> gBattleAnimMove_AromaticMist
++        .battleAnimScript = gBattleAnimMove_AromaticMist,
+     },
+     [MOVE_WATER_BOMB] =
+     {
+@@ -24414,8 +24414,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_409_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_409_* (effect 214 "214") -> gBattleAnimMove_WaterPulse
++        .battleAnimScript = gBattleAnimMove_WaterPulse,
+     },
+     [MOVE_WATER_TACKLE] =
+     {
+@@ -24430,8 +24430,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_237_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_237_* (effect 0 "None") -> gBattleAnimMove_Waterfall
++        .battleAnimScript = gBattleAnimMove_Waterfall,
+     },
+     [MOVE_WEIRD_POTION] =
+     {
+@@ -24446,8 +24446,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .healingMove = TRUE,
+-        // animation + sounds: scripts/move_animations/move_472_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_472_* (effect 234 "234") -> gBattleAnimMove_PollenPuff
++        .battleAnimScript = gBattleAnimMove_PollenPuff,
+     },
+     [MOVE_WHIP_RIPPER] =
+     {
+@@ -24468,8 +24468,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 25,
+         }),
+-        // animation + sounds: scripts/move_animations/move_402_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_402_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_PowerWhip
++        .battleAnimScript = gBattleAnimMove_PowerWhip,
+     },
+     [MOVE_WILT_MIASMA] =
+     {
+@@ -24487,8 +24487,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+-        // animation + sounds: scripts/move_animations/move_395_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_395_* (effect 131 "Unused83") -> gBattleAnimMove_GMaxMalodor
++        .battleAnimScript = gBattleAnimMove_GMaxMalodor,
+     },
+     [MOVE_WING_TALON] =
+     {
+@@ -24508,8 +24508,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+             .moveEffect = MOVE_EFFECT_PARALYSIS,
+             .chance = 15,
+         }),
+-        // animation + sounds: scripts/move_animations/move_474_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_474_* (effect 6 "ParalyzeHitChance") -> gBattleAnimMove_AirSlash
++        .battleAnimScript = gBattleAnimMove_AirSlash,
+     },
+     [MOVE_YGGDRAIN] =
+     {
+@@ -24524,8 +24524,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_340_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_340_* (effect 3 "HealHalfDamage") -> gBattleAnimMove_GigaDrain
++        .battleAnimScript = gBattleAnimMove_GigaDrain,
+     },
+     [MOVE_YGGDRASLASH] =
+     {
+@@ -24540,8 +24540,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 2,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_408_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_408_* (effect 103 "NormalPlusPriority") -> gBattleAnimMove_NightSlash
++        .battleAnimScript = gBattleAnimMove_NightSlash,
+     },
+     [MOVE__5_RING_SWORD] =
+     {
+@@ -24556,8 +24556,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+-        // animation + sounds: scripts/move_animations/move_365_*
+-        .battleAnimScript = gBattleAnimMove_Tackle,
++        // animation ported from FireRed export scripts/move_animations/move_365_* (effect 29 "2to5hits") -> gBattleAnimMove_SacredSword
++        .battleAnimScript = gBattleAnimMove_SacredSword,
+     },
+ 
+ };

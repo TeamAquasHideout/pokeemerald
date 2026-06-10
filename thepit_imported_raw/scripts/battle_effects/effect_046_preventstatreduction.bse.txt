@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 46 (PreventStatReduction) @1D7062
+section0: # 1D7062
+  attackcanceler
+  attackstring
+  ppreduce
+  setmist
+  attackanimation
+  waitanimation
+  printfromtable <3FE5AC>
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,133 @@
+@ animation for MOVE_DRAGONBREATH (@1CD9AC)
+section0: # 1CD9AC
+  loadspritegfx 0x272D
+  monbg anim_def_partner
+  splitbgprio anim_target
+  loopsewithpan se_m_flame_wheel sound_pan_attacker 7 7
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createvisualtask <0BA7F9> 10 0x0004 0x0001 0x0000 0x0009 0x001F
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0015 0x0001
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  delay 2
+  createsprite <3E77A4> 130 0x0000 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3ACA98>
+anims:       <3E7764>
+images:      <null>
+affineAnims: <3E779C>
+callback:    <0B741D>
+}
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0004 0x0001 0x0009 0x0000 0x001F
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

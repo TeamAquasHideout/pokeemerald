@@ -1,0 +1,108 @@
+@ animation for MOVE_SLEEP_TALK (@1D20AA)
+section0: # 1D20AA
+  loadspritegfx 0x27F4
+  createvisualtask <099705> 5 0x0000 0x0004 0x1000 0x0002 0x0000
+  delay 20
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFF
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  playsewithpan se_m_snore sound_pan_attacker
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFF
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFF
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  delay 20
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFB
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  playsewithpan se_m_snore sound_pan_attacker
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFB
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFB
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  delay 20
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFD
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  playsewithpan se_m_snore sound_pan_attacker
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFD
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  delay 6
+  createsprite <3FEF70> 130 0x0000 0x0014 0x0005 0xFFFD
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3FEF50>
+images:      <null>
+affineAnims: <3FEF6C>
+callback:    <0DE9D9>
+}
+  waitforvisualfinish
+  end

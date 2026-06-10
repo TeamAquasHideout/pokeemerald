@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 149 (DoubleDamageToFly) @1D7BAE
+section0: # 1D7BAE
+  if.not.status3.goto target 64 <1D6900>
+  orword 0x02023DD0 0x00010000
+  setbyte 0x02023FD2 2
+  goto <1D6900>

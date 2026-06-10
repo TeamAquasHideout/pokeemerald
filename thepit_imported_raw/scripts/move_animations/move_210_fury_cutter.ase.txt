@@ -1,0 +1,9 @@
+@ animation for MOVE_FURY_CUTTER (@1C88EA)
+section0: # 1C88EA
+  loadspritegfx 0x279A
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_razor_wind sound_pan_target
+  createvisualtask <0AAB7D> 2 
+  jumpargeq 7 0 <1C8947>
+  goto <1C8959>

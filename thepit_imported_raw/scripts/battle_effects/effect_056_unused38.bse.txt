@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 56 (Unused38) @1AE68A0
+section0: # 1AE68A0
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce

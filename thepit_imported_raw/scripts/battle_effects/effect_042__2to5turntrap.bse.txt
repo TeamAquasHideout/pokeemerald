@@ -1,0 +1,10 @@
+@ battle script for gen3 move-effect 42 (2to5turnTrap) @1D6FC8
+section0: # 1D6FC8
+  if.not.move.goto Whirlpool <section1>
+  if.not.status3.goto target 0x00040000 <section1>
+  orword 0x02023DD0 0x00040000
+  setbyte 0x02023FD2 2
+
+section1: # 1D6FEE
+  set.move.effect 2to5turnTrap
+  goto <1D6900>

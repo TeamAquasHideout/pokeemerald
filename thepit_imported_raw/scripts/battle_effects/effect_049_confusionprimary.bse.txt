@@ -1,0 +1,23 @@
+@ battle script for gen3 move-effect 49 (ConfusionPrimary) @1D70AB
+section0: # 1D70AB
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifability target "Own Tempo" <1D9460>
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  jumpifstatus2 target 7 <section1>
+  accuracycheck <1D7DF2> 0
+  jumpifsideaffecting target 32 <1D8B39>
+  attackanimation
+  waitanimation
+  set.move.effect Confusion
+  seteffectprimary
+  resultmessage
+  waitmessage 64
+  goto <1D694E>
+
+section1: # 1D70EA
+  pause 32
+  printstring 68
+  waitmessage 64
+  goto <1D694E>

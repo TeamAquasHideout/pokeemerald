@@ -1,0 +1,28 @@
+@ battle script for gen3 move-effect 21 (Unused15) @1AE5C40
+section0: # 1AE5C40
+  attackcanceler
+  attackstring
+  ppreduce
+  setforcedtarget
+  attackanimation
+  waitanimation
+  jumpifstat attacker != attack positive_6 <section1>
+  jumpifstat attacker = defense positive_6 <1D7DF2>
+
+section1: # 1AE5C58
+  playstatchangeanimation attacker Atk|Def 0
+  set.stat.changer RaiseAtk1
+  statbuffchange 65 <section2>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section2: # 1AE5C70
+  set.stat.changer RaiseDef1
+  statbuffchange 65 <section3>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section3: # 1AE5C84
+  printstring 164
+  waitmessage 64
+  goto <1D694E>

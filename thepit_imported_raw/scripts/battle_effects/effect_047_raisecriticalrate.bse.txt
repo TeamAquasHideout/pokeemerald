@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 47 (RaiseCriticalRate) @1D7075
+section0: # 1D7075
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 attacker 0x00100000 <1D7DF2>
+  setfocusenergy
+  attackanimation
+  waitanimation
+  printfromtable <3FE5B0>
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,36 @@
+@ animation for MOVE_ATROPHIC_EYE (@1B0AA40)
+section0: # 1B0AA40
+  call <1D59BB>
+  loadspritegfx 0x27CD
+  loadspritegfx 0x27CE
+  loadspritegfx 0x27CF
+  monbg 4
+  playsewithpan se_m_confuse_ray sound_pan_target
+  createsprite <3FEE5C> 5 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10190
+paletteTag:  10190
+oam:         <3AC9D8>
+anims:       <3FEE58>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  createsprite <3FEE74> 5 
+{
+tileTag:     10191
+paletteTag:  10191
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DE39D>
+}
+  delay 40
+  playsewithpan se_m_leer sound_pan_target
+  createvisualtask <0B9BDD> 2 0x0001 0x0001 0x0002 0x0000 0x000A 0x0000
+  call <1CD1EF>
+  waitforvisualfinish
+  clearmonbg 4
+  call <1D59C7>
+  end

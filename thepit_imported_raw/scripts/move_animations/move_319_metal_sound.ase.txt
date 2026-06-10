@@ -1,0 +1,15 @@
+@ animation for MOVE_METAL_SOUND (@1D35E3)
+section0: # 1D35E3
+  loadspritegfx 0x2814
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  createvisualtask <098B1D> 2 0x0000 0x0002 0x0000 0x0008 0x0001
+  call <1D3616>
+  call <1D3616>
+  call <1D3616>
+  call <1D3616>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 0
+  waitforvisualfinish
+  end

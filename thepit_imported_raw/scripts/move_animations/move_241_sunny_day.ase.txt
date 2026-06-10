@@ -1,0 +1,18 @@
+@ animation for MOVE_SUNNY_DAY (@1D033F)
+section0: # 1D033F
+  loadspritegfx 0x27AD
+  monbg anim_atk_partner
+  setalpha 13 3
+  createvisualtask <0BA7F9> 10 0x0781 0x0001 0x0000 0x0006 0x7FFF
+  waitforvisualfinish
+  panse_adjustnone se_m_petal_dance sound_pan_attacker sound_pan_target 1 0
+  call <1D038B>
+  call <1D038B>
+  call <1D038B>
+  call <1D038B>
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0781 0x0001 0x0006 0x0000 0x7FFF
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

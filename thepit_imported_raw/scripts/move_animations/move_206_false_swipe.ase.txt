@@ -1,0 +1,99 @@
+@ animation for MOVE_FALSE_SWIPE (@1CB33F)
+section0: # 1CB33F
+  loadspritegfx 0x282E
+  loadspritegfx 0x2797
+  createsprite <3E35BC> 130 
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59A9>
+}
+  playsewithpan se_m_vital_throw sound_pan_target
+  delay 16
+  createsprite <3E35D4> 130 0x0000
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  playsewithpan se_m_double_team sound_pan_target
+  delay 2
+  createsprite <3E35D4> 130 0x0010
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  delay 2
+  createsprite <3E35D4> 130 0x0020
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  playsewithpan se_m_double_team sound_pan_target
+  delay 2
+  createsprite <3E35D4> 130 0x0030
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  delay 2
+  createsprite <3E35D4> 130 0x0040
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  playsewithpan se_m_double_team sound_pan_target
+  delay 2
+  createsprite <3E35D4> 130 0x0050
+{
+tileTag:     10286
+paletteTag:  10286
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A59F1>
+}
+  delay 2
+  waitforvisualfinish
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x0006 0x0001
+  createsprite <3E7C08> 132 0x0000 0x0000 0x0001 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  end

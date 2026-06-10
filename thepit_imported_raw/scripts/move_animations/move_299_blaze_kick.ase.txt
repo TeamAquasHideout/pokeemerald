@@ -1,0 +1,48 @@
+@ animation for MOVE_BLAZE_KICK (@1D2C85)
+section0: # 1D2C85
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  loadspritegfx 0x272D
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_flame_wheel sound_pan_target
+  createsprite <3E678C> 131 0x0000 0x0000 0x0001 0x001E
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3ACA98>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <3E6788>
+callback:    <0B0CED>
+}
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0000 0x0007 0x7FFF
+  delay 30
+  playsewithpan se_m_fire_punch sound_pan_target
+  createsprite <3E7C08> 130 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x000E 0x0001
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0000 0x0000 0x7FFF
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x0000 0x0008 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  call <1D0950>
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

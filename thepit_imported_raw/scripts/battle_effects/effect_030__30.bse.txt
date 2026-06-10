@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 30 (30) @1D6D9D
+section0: # 1D6D9D
+  attackcanceler
+  attackstring
+  ppreduce
+  tryconversiontypechange <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 73
+  waitmessage 64
+  goto <1D694E>

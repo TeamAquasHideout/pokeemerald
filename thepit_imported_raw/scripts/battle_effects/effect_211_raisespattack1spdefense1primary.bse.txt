@@ -1,0 +1,38 @@
+@ battle script for gen3 move-effect 211 (RaiseSpAttack1SpDefense1Primary) @1AD20F0
+section0: # 1AD20F0
+  if.move.goto "Quiver Dance" <section1>
+  goto <1D8583>
+
+section1: # 1AD2101
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat target < spAttack positive_6 <section2>
+  jumpifstat target < spDefense positive_6 <section2>
+  jumpifstat target = speed positive_6 <1D85E7>
+
+section2: # 1AD211F
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDF 0
+  playstatchangeanimation target Speed|SpAtk|SpDef 0
+  set.stat.changer RaiseSpAtk1
+  statbuffchange 65 <section3>
+  jumpifbyte = 0x02023E87 2 <section3>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section3: # 1AD214A
+  set.stat.changer RaiseSpDef1
+  statbuffchange 65 <section4>
+  jumpifbyte = 0x02023E87 2 <section4>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section4: # 1AD2169
+  set.stat.changer RaiseSpeed1
+  statbuffchange 65 <1D85E2>
+  jumpifbyte = 0x02023E87 2 <1D85E2>
+  printfromtable <3FE57C>
+  waitmessage 64
+  goto <1D694E>

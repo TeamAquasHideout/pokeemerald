@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 112 (Spikes) @1D7829
+section0: # 1D7829
+  attackcanceler
+  trysetspikes <1D7DF0>
+  attackstring
+  ppreduce
+  attackanimation
+  waitanimation
+  printstring 148
+  waitmessage 64
+  goto <1D694E>

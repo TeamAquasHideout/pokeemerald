@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 95 (95) @1D750D
+section0: # 1D750D
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  copymovepermanently <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 138
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,10 @@
+@ animation for MOVE_HAZE (@1D0882)
+section0: # 1D0882
+  waitforvisualfinish
+  playsewithpan se_m_haze 0
+  createvisualtask <0AFAE5> 5 
+  delay 30
+  createvisualtask <0BA7F9> 10 0x0780 0x0002 0x0000 0x0010 0x0000
+  delay 90
+  createvisualtask <0BA7F9> 10 0x0780 0x0001 0x0010 0x0000 0x0000
+  end

@@ -1,0 +1,121 @@
+@ animation for MOVE_WILL_O_WISP (@1D2340)
+section0: # 1D2340
+  loadspritegfx 0x27F8
+  loadspritegfx 0x27F7
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  playsewithpan se_m_ember sound_pan_attacker
+  waitplaysewithpan se_m_ember sound_pan_attacker 10
+  createvisualtask <0DD445> 2 0xFFC0 0xFFC0 0x0001 0x0000
+  createsprite <3E5EB4> 2 0x0000 0x0000 0x0000
+{
+tileTag:     10231
+paletteTag:  10231
+oam:         <3AC9D0>
+anims:       <3E5EA4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD541>
+}
+  delay 3
+  createsprite <3E5EB4> 3 0x0000 0x0000 0x0001
+{
+tileTag:     10231
+paletteTag:  10231
+oam:         <3AC9D0>
+anims:       <3E5EA4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD541>
+}
+  delay 3
+  createsprite <3E5EB4> 4 0x0000 0x0000 0x0002
+{
+tileTag:     10231
+paletteTag:  10231
+oam:         <3AC9D0>
+anims:       <3E5EA4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD541>
+}
+  delay 3
+  createsprite <3E5EB4> 4 0x0000 0x0000 0x0003
+{
+tileTag:     10231
+paletteTag:  10231
+oam:         <3AC9D0>
+anims:       <3E5EA4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD541>
+}
+  delay 40
+  createvisualtask <0DD445> 2 0xFFC0 0x003F 0x0002 0x0000
+  waitforvisualfinish
+  splitbgprio_all
+  playsewithpan se_m_flame_wheel2 sound_pan_target
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x000D 0x0001
+  createsprite <3E5EE4> 2 0x0000
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  createsprite <3E5EE4> 2 0x002A
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  createsprite <3E5EE4> 2 0x0054
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  createsprite <3E5EE4> 2 0x007E
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  createsprite <3E5EE4> 2 0x00A8
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  createsprite <3E5EE4> 2 0x00D2
+{
+tileTag:     10232
+paletteTag:  10232
+oam:         <3AC9D8>
+anims:       <3E5EE0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD6F5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

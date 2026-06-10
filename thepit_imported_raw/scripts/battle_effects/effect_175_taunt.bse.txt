@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 175 (Taunt) @1D80C7
+section0: # 1D80C7
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0
+  settaunt <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 172
+  waitmessage 64
+  goto <1D694E>

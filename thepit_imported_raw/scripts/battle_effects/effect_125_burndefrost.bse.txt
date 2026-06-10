@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 125 (BurnDefrost) @1D7977
+section0: # 1D7977
+  set.move.effect Burn
+  goto <1D6900>

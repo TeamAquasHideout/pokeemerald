@@ -1,0 +1,10 @@
+@ battle script for gen3 move-effect 171 (171) @1D806E
+section0: # 1D806E
+  jumpifstatus2 target 0x01000000 <1D6900>
+  set.move.effect RemoveParalyzeCertain
+  jumpifstatus target 64 <section1>
+  goto <1D6900>
+
+section1: # 1D808D
+  setbyte 0x02023FD2 2
+  goto <1D6900>

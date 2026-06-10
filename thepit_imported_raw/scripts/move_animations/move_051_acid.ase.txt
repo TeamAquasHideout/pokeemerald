@@ -1,0 +1,105 @@
+@ animation for MOVE_ACID (@1CF308)
+section0: # 1CF308
+  loadspritegfx 0x27A6
+  monbg anim_def_partner
+  createsprite <3E6A38> 130 0x0014 0x0000 0x0028 0x0001 0x0000 0x0000
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69DC>
+images:      <null>
+affineAnims: <3E6A18>
+callback:    <0B16A1>
+}
+  playsewithpan se_m_bubble3 sound_pan_attacker
+  delay 5
+  createsprite <3E6A38> 130 0x0014 0x0000 0x0028 0x0001 0x0018 0x0000
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69DC>
+images:      <null>
+affineAnims: <3E6A18>
+callback:    <0B16A1>
+}
+  playsewithpan se_m_bubble3 sound_pan_attacker
+  delay 5
+  createsprite <3E6A38> 130 0x0014 0x0000 0x0028 0x0001 0xFFE8 0x0000
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69DC>
+images:      <null>
+affineAnims: <3E6A18>
+callback:    <0B16A1>
+}
+  playsewithpan se_m_bubble3 sound_pan_attacker
+  delay 15
+  createvisualtask <098B1D> 5 0x0001 0x0002 0x0000 0x000A 0x0001
+  createvisualtask <098B1D> 5 0x0003 0x0002 0x0000 0x000A 0x0001
+  createvisualtask <0B9BDD> 2 0x0014 0x0002 0x0002 0x0000 0x000C 0x7C1E
+  createsprite <3E6A84> 130 0x0000 0xFFEA 0x0000 0x000F 0x0037
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0xFFE6 0xFFE8 0x0000 0x000F 0x0037
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0x000F 0xFFE5 0x0000 0x000F 0x0032
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0xFFF1 0xFFEF 0x0000 0x000A 0x002D
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0x001B 0xFFEA 0x0000 0x000F 0x0032
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

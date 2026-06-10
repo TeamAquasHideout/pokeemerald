@@ -1,0 +1,6 @@
+@ animation for MOVE_WITHDRAW (@1CE432)
+section0: # 1CE432
+  playsewithpan se_m_headbutt sound_pan_attacker
+  createvisualtask <0A70A1> 5 
+  waitforvisualfinish
+  end

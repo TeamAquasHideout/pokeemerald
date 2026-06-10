@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 196 (DamageBasedOnTargetWeight) @1D8324
+section0: # 1D8324
+  attackcanceler
+  attackstring
+  ppreduce
+  weightdamagecalculation
+  accuracycheck <1D6960> 0
+  goto <1D6930>

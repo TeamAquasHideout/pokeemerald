@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 141 (Unused8D) @1AFE740
+section0: # 1AFE740
+  if.not.move.goto Surf <section1>
+  if.not.status3.goto target 0x00040000 <section1>
+  orword 0x02023DD0 0x00040000
+  setbyte 0x02023FD2 2
+
+section1: # 1AFE766
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce

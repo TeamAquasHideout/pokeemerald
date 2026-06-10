@@ -1,0 +1,13 @@
+@ animation for MOVE_ENDURE (@1CB227)
+section0: # 1CB227
+  loadspritegfx 0x27C8
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  call <1CB267>
+  delay 8
+  createvisualtask <0B9BDD> 2 0x0002 0x0002 0x0002 0x0000 0x000B 0x001F
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0020 0x0001
+  call <1CB267>
+  delay 8
+  call <1CB267>
+  waitforvisualfinish
+  end

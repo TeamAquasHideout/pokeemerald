@@ -1,0 +1,41 @@
+@ animation for MOVE_CHARM (@1CB2BB)
+section0: # 1CB2BB
+  loadspritegfx 0x27E2
+  createvisualtask <0E0559> 5 0x0000 0x0002 0x0000
+  createsprite <3E41E8> 3 0x0000 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  delay 15
+  createsprite <3E41E8> 3 0xFFEC 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  delay 15
+  createsprite <3E41E8> 3 0x0014 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  waitforvisualfinish
+  end

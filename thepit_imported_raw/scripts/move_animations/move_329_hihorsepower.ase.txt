@@ -1,0 +1,34 @@
+@ animation for MOVE_HIHORSEPOWER (@1C82CA)
+section0: # 1C82CA
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_double_team sound_pan_target
+  createsprite <3E67D8> 3 0x0000 0xFFE0 0x000F
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66D0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0D59>
+}
+  delay 19
+  createsprite <3E7C08> 2 0x0000 0xFFF8 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0004 0x0009 0x0001
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

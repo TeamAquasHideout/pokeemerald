@@ -1,0 +1,114 @@
+@ animation for MOVE_TOXIC_REAP (@1AFE220)
+section0: # 1AFE220
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x000C 0x7C15
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loadspritegfx 0x27A6
+  loadspritegfx 0x27C7
+  createsprite <3E35A4> 130 0x0001 0xFFF8 0x0000
+{
+tileTag:     10183
+paletteTag:  10183
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  delay 4
+  createsprite <3E35A4> 130 0x0001 0x0008 0x0000
+{
+tileTag:     10183
+paletteTag:  10183
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0012 0x0001
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  createsprite <3E6A84> 130 0x0000 0xFFEA 0x0000 0x000F 0x0037
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0xFFE6 0xFFE8 0x0000 0x000F 0x0037
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0x000F 0xFFE5 0x0000 0x000F 0x0032
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0xFFF1 0xFFEF 0x0000 0x000A 0x002D
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  delay 10
+  createsprite <3E6A84> 130 0x001B 0xFFEA 0x0000 0x000F 0x0032
+{
+tileTag:     10150
+paletteTag:  10150
+oam:         <3ACA90>
+anims:       <3E69E0>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0B17C5>
+}
+  playsewithpan se_m_bubble sound_pan_target
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x000C 0x0000 0x7C15
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

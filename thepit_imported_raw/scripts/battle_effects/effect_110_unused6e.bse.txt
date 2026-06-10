@@ -1,0 +1,29 @@
+@ battle script for gen3 move-effect 110 (Unused6E) @126FE40
+section0: # 126FE40
+  if.move.goto "Summer Tango" <section1>
+  if.move.goto "Spring Tango" <1AEEFA6>
+  if.move.goto "Chime Boost" <1AEF01F>
+  if.move.goto "Time Circle" <126FF60>
+  if.move.goto "Bright Song" <1AEF087>
+  if.move.goto "Life Ballad" <1AEF100>
+  if.move.goto PhalanxGuard <1AFEA40>
+  end
+
+section1: # 126FE95
+  setbyte 0x02023D60 0
+  set.stat.changer RaiseEvasion1
+  attackcanceler
+  attackstring
+  ppreduce
+  statbuffchange 65 <1D694E>
+  jumpifbyte != 0x02023E87 2 <section2>
+  pause 32
+  goto <1AEEF6A>
+
+section2: # 126FEBD
+  attackanimation
+  waitanimation
+  setgraphicalstatchangevalues
+  playanimation attacker StatChange 0x02023FD4
+  setbyte 0x02023D60 1
+  goto <1AEEF6A>

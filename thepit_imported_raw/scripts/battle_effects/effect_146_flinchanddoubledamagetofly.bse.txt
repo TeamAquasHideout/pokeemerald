@@ -1,0 +1,9 @@
+@ battle script for gen3 move-effect 146 (FlinchAndDoubleDamageToFly) @1D7AEE
+section0: # 1D7AEE
+  if.not.status3.goto target 64 <section1>
+  orword 0x02023DD0 0x00010000
+  setbyte 0x02023FD2 2
+
+section1: # 1D7B08
+  set.move.effect Flinch
+  goto <1D6900>

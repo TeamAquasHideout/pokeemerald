@@ -1,0 +1,96 @@
+@ animation for MOVE_ORIGIN_CRUSH (@1B1FB80)
+section0: # 1B1FB80
+  fadetobg bg_none
+  waitbgfadein
+  loadspritegfx 0x27D6
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_double_team sound_pan_target
+  createsprite <3E67D8> 3 0x0000 0xFFE0 0x000F
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66D0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0D59>
+}
+  delay 19
+  createsprite <3E7C08> 2 0x0000 0xFFF8 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0004 0x0009 0x0001
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0xFFF0 0xFFF1 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0x0010 0xFFFB 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0xFFF4 0x0012 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0x0000 0x0005 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

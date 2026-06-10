@@ -1,0 +1,54 @@
+@ animation for MOVE_FUKUBARI (@1291100)
+section0: # 1291100
+  createvisualtask <099705> 3 0x0000 0x0006 0x0500 0x0003 0x0000
+  loadspritegfx 0x27AA
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E6B4C> 2 0x000E 0x0008 0x0000 0x0000 0x0016 0x0002 0x0001
+{
+tileTag:     10154
+paletteTag:  10154
+oam:         <3AC9F8>
+anims:       <3E6B48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1AB9>
+}
+  delay 2
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E6B4C> 2 0x000E 0xFFF8 0x0010 0x000E 0x0016 0x0001 0x0001
+{
+tileTag:     10154
+paletteTag:  10154
+oam:         <3AC9F8>
+anims:       <3E6B48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1AB9>
+}
+  delay 2
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E6B4C> 2 0x000E 0x000C 0xFFF0 0xFFF2 0x0016 0x0000 0x0001
+{
+tileTag:     10154
+paletteTag:  10154
+oam:         <3AC9F8>
+anims:       <3E6B48>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1AB9>
+}
+  delay 17
+  playsewithpan se_m_razor_wind sound_pan_target
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000A 0x0001
+  createvisualtask <098B1D> 2 0x0003 0x0002 0x0000 0x000A 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  createvisualtask <0E1705> 2 0x0001
+  playsewithpan se_m_yawn sound_pan_target
+  waitforvisualfinish
+  end

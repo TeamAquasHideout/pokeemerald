@@ -1,0 +1,45 @@
+@ animation for MOVE_HEAL (@1C9297)
+section0: # 1C9297
+  loadspritegfx 0x2804
+  monbg anim_atk_partner
+  setalpha 8 8
+  playsewithpan se_m_milk_drink sound_pan_attacker
+  createsprite <3E44DC> 2 
+{
+tileTag:     10244
+paletteTag:  10244
+oam:         <3ACBE0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E44D4>
+callback:    <0AAAE5>
+}
+  delay 4
+  createsprite <3E44DC> 2 
+{
+tileTag:     10244
+paletteTag:  10244
+oam:         <3ACBE0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E44D4>
+callback:    <0AAAE5>
+}
+  delay 4
+  createsprite <3E44DC> 2 
+{
+tileTag:     10244
+paletteTag:  10244
+oam:         <3ACBE0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E44D4>
+callback:    <0AAAE5>
+}
+  waitforvisualfinish
+  playsewithpan se_shiny sound_pan_attacker
+  createvisualtask <0B9BDD> 2 0x000A 0x0000 0x0002 0x0000 0x000A 0x7FFF
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

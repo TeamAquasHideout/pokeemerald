@@ -1,0 +1,106 @@
+@ animation for MOVE_MET_ASSAULT (@1CBB43)
+section0: # 1CBB43
+  loadspritegfx 0x27E4
+  loadspritegfx 0x2810
+  loadspritegfx 0x2811
+  monbg anim_atk_partner
+  splitbgprio anim_attacker
+  setalpha 12 8
+  createsprite <3E6864> 130 0x0000
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6860>
+callback:    <0B107D>
+}
+  playsewithpan se_m_mega_kick sound_pan_attacker
+  delay 20
+  createsprite <3E7B88> 2 0x0004 0x0001 0x00B4 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA27D>
+}
+  createvisualtask <0DD411> 5 0x00E3 0x0000
+  delay 40
+  createsprite <3E687C> 41 0x00C8 0x0060 0x0001 0x0078
+{
+tileTag:     10257
+paletteTag:  10257
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1189>
+}
+  delay 8
+  createsprite <3E687C> 41 0x0014 0x00F8 0x0004 0x0070
+{
+tileTag:     10257
+paletteTag:  10257
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1189>
+}
+  delay 8
+  createsprite <3E687C> 41 0x0082 0x00A0 0x0002 0x0068
+{
+tileTag:     10257
+paletteTag:  10257
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1189>
+}
+  delay 8
+  createsprite <3E687C> 41 0x00A0 0x00C0 0x0000 0x0060
+{
+tileTag:     10257
+paletteTag:  10257
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1189>
+}
+  delay 8
+  createsprite <3E687C> 41 0x003C 0x0120 0x0003 0x0058
+{
+tileTag:     10257
+paletteTag:  10257
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1189>
+}
+  delay 74
+  createsprite <3E6894> 131 0x0000
+{
+tileTag:     10256
+paletteTag:  10256
+oam:         <3AC9E0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B12E9>
+}
+  playsewithpan se_m_swagger sound_pan_attacker
+  delay 16
+  createvisualtask <098B1D> 2 0x0001 0x0008 0x0000 0x0010 0x0001
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  end

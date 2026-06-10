@@ -1,0 +1,22 @@
+@ animation for MOVE_MIRROR_COAT (@1CDCB4)
+section0: # 1CDCB4
+  loadspritegfx 0x2756
+  loadspritegfx 0x27B8
+  setalpha 0 16
+  createsprite <3E6E40> 1 0x0028 0x0000 0x27B8
+{
+tileTag:     10168
+paletteTag:  10168
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  delay 10
+  playsewithpan se_m_reflect sound_pan_attacker
+  call <1CDC4F>
+  waitforvisualfinish
+  delay 1
+  blendoff
+  end

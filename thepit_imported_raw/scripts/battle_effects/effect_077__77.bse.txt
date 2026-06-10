@@ -1,0 +1,10 @@
+@ battle script for gen3 move-effect 77 (77) @1D72D4
+section0: # 1D72D4
+  attackcanceler
+  accuracycheck <1D695E> 0
+  setbyte 0x02023FDA 2
+  attackstring
+  ppreduce
+  setmultihitcounter 2
+  initmultihitstring
+  goto <1D6CEC>

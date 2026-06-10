@@ -1,0 +1,40 @@
+@ battle script for gen3 move-effect 104 (3turnTripleHit) @1AF3580
+section0: # 1AF3580
+  attackcanceler
+  attackstring
+  ppreduce
+  setbyte 0x02023FD6 0
+  setbyte 0x02023FD7 0
+  initmultihitstring
+  setmultihit 3
+
+section1: # 1AF3592
+  jumpifhasnohp attacker <1D76B7>
+  jumpifhasnohp target <1D7679>
+  jumpifhalfword = 0x02023D4C 214 <section2>
+  jumpifstatus attacker 7 <1D7679>
+
+section2: # 1AF35B4
+  if.move.goto "Triple Axel" <1B22750>
+  accuracycheck <1D7679> 0
+  movevaluescleanup
+  addbyte 0x02023FD6 10
+  addbyte 0x02023FD0 1
+  copyarray 0x02023F50 0x02023FD6 2
+  calculatedamage
+  if.move.noeffect.goto <1D7679>
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  printstring 304
+  waitmessage 1
+  moveend.to 17
+  jumpifbyte & 0x02023DCC 64 <1D768D>
+  decrementmultihit <section1>
+  goto <1D768D>

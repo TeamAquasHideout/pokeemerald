@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 15 (Unused0F) @1AE5B60
+section0: # 1AE5B60
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc
+  bicbyte 0x02023DCC 6

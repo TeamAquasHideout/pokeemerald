@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 67 (ParalyzePrimary) @771400
+section0: # 771400
+  attackcanceler
+  attackstring
+  ppreduce
+  if.move.goto "Stun Spore" <section1>
+  jumpiftype target Electr <1D7E04>
+  goto <1D71E5>
+
+section1: # 77141B
+  jumpiftype target Grass <1D7E04>
+  jumpiftype target Electr <1D7E04>
+  goto <1D71E5>

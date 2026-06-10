@@ -1,0 +1,10 @@
+@ animation for MOVE_SNARL (@1CCCDC)
+section0: # 1CCCDC
+  loadspritegfx 0x2745
+  createvisualtask <0E1705> 2 0x0000
+  delay 12
+  call <1CDB06>
+  createvisualtask <0DD06D> 2 0x0000 0x0003
+  waitforvisualfinish
+  delay 30
+  end

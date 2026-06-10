@@ -1,0 +1,58 @@
+@ animation for MOVE_LOVELY_KISS (@1D1C6C)
+section0: # 1D1C6C
+  loadspritegfx 0x27EB
+  loadspritegfx 0x27ED
+  createsprite <3E4368> 130 0x0000 0xFFE8
+{
+tileTag:     10221
+paletteTag:  10221
+oam:         <3AC9D8>
+anims:       <3E4360>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA58D>
+}
+  playsewithpan se_m_psybeam2 sound_pan_target
+  waitforvisualfinish
+  playsewithpan se_m_attract sound_pan_target
+  createsprite <3E4338> 131 0xFF00 0xFFD6
+{
+tileTag:     10219
+paletteTag:  10219
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA509>
+}
+  createsprite <3E4338> 131 0x0080 0xFFF2
+{
+tileTag:     10219
+paletteTag:  10219
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA509>
+}
+  createsprite <3E4338> 131 0x01A0 0xFFDA
+{
+tileTag:     10219
+paletteTag:  10219
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA509>
+}
+  createsprite <3E4338> 131 0xFF80 0xFFEA
+{
+tileTag:     10219
+paletteTag:  10219
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA509>
+}
+  end

@@ -1,0 +1,52 @@
+@ animation for MOVE_MACH_PUNCH (@1CB105)
+section0: # 1CB105
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  monbg anim_atk_partner
+  createvisualtask <0BB921> 2 
+  jumpargeq 7 1 <section2>
+  fadetobg bg_highspeed_opponent
+
+section1: # 1CB11E
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0xF700 0x0000 0x0001 0xFFFF
+  waitbgfadein
+  delay 0
+  setalpha 9 8
+  createvisualtask <077031> 2 0x7128 0x000A
+  playsewithpan se_m_jump_kick sound_pan_attacker
+  delay 6
+  createsprite <3E7C08> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3E6710> 132 0x0000 0x0000 0x0008 0x0001 0x0000
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0955>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end
+
+section2: # 1CB186
+  fadetobg bg_highspeed_player
+  goto <section1>

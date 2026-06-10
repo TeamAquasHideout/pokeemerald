@@ -1,0 +1,61 @@
+@ animation for MOVE_RADIANT_STAR (@1AE50C0)
+section0: # 1AE50C0
+  loadspritegfx 0x27D2
+  loadspritegfx 0x27D3
+  setalpha 0 16
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <3E3734> 2 0x0078 0x0020
+{
+tileTag:     10194
+paletteTag:  10194
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5EE1>
+}
+  createvisualtask <076049> 3 0x0000 0x0010 0x0010 0x0000 0x0001
+  playsewithpan se_m_moonlight 0
+  delay 30
+  createsprite <3E3764> 40 0x00F4 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 20
+  createvisualtask <0A5FC1> 2 
+  waitforvisualfinish
+  loadspritegfx 0x27B3
+  playsewithpan se_m_psybeam sound_pan_attacker
+  createsoundtask <0DCF39> 0x00C1 0xFFC0 0x003F 0x0003 0x0004 0x0000 0x000F
+  call <1D0DD4>
+  call <1D0DD4>
+  createvisualtask <099705> 5 0x0000 0x0006 0x0800 0x0004 0x0001
+  createvisualtask <0B9BDD> 2 0x0004 0x0002 0x0002 0x0000 0x000C 0x7E5F
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  call <1D0DD4>
+  waitforvisualfinish
+  delay 1
+  end

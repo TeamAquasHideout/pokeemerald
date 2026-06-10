@@ -1,0 +1,26 @@
+@ animation for MOVE_VEIL_ORDER (@1B04630)
+section0: # 1B04630
+  fadetobg bg_cosmic
+  waitbgfadein
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  createvisualtask <0BACED> 5 
+  waitforvisualfinish
+  loadspritegfx 0x27B9
+  setalpha 0 16
+  waitplaysewithpan se_m_barrier sound_pan_attacker 15
+  createsprite <3E6E58> 3 0x0028 0x0000 0x27B9
+{
+tileTag:     10169
+paletteTag:  10169
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  waitforvisualfinish
+  delay 1
+  blendoff
+  restorebg
+  waitbgfadein
+  end

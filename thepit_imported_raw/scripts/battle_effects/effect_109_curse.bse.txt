@@ -1,0 +1,56 @@
+@ battle script for gen3 move-effect 109 (Curse) @1D774D
+section0: # 1D774D
+  jumpiftype2 attacker Ghost <section5>
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat attacker > speed negative_6 <section1>
+  jumpifstat attacker != attack positive_6 <section1>
+  jumpifstat attacker = defense positive_6 <1D7DF2>
+
+section1: # 1D7772
+  copyarray 0x02023D6C 0x02023D6B 1
+  setbyte 0x02023FDC 1
+  attackanimation
+  waitanimation
+  set.stat.changer LowerSpeed1
+  statbuffchange 65 <section2>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section2: # 1D7798
+  set.stat.changer RaiseAtk1
+  statbuffchange 65 <section3>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section3: # 1D77AC
+  set.stat.changer RaiseDef1
+  statbuffchange 65 <section4>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section4: # 1D77C0
+  goto <1D694E>
+
+section5: # 1D77C5
+  jumpifarraynotequal 0x02023D6B 0x02023D6C 1 <section6>
+  get.move.target
+
+section6: # 1D77D6
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <1D7DF2> 0xFFFF
+  cursetarget <1D7DF2>
+  orword 0x02023DD0 256
+  setbyte 0x02023FDC 0
+  attackanimation
+  waitanimation
+  healthbarupdate attacker
+  datahpupdate attacker
+  printstring 146
+  waitmessage 64
+  tryfaintmon attacker 0 <null>
+  goto <1D694E>

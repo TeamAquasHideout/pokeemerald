@@ -1,0 +1,25 @@
+@ animation for MOVE_DISABLE (@1D169F)
+section0: # 1D169F
+  loadspritegfx 0x2757
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 8 8
+  playsewithpan se_m_detect sound_pan_attacker
+  createsprite <3BF480> 13 0x0018 0xFFF0
+{
+tileTag:     10071
+paletteTag:  10071
+oam:         <3AC9D8>
+anims:       <3BF47C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <076FD1>
+}
+  waitforvisualfinish
+  createvisualtask <0A7FB1> 5 
+  loopsewithpan se_m_bind sound_pan_target 15 4
+  waitforvisualfinish
+  delay 1
+  clearmonbg anim_target
+  blendoff
+  end

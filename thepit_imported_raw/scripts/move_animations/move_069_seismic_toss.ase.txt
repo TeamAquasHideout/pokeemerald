@@ -1,0 +1,53 @@
+@ animation for MOVE_SEISMIC_TOSS (@1D472C)
+section0: # 1D472C
+  loadspritegfx 0x2797
+  loadspritegfx 0x274A
+  setarg 7 0
+  monbg anim_def_partner
+  setalpha 12 8
+  waitforvisualfinish
+  createvisualtask <0B5149> 3 
+  delay 1
+  fadetobg bg_in_air
+  waitbgfadeout
+  createvisualtask <0B5189> 3 
+  playsewithpan se_m_sky_uppercut 0
+  waitbgfadein
+  waitforvisualfinish
+  createvisualtask <0B51ED> 3 
+  jumpargeq 7 0 <section2>
+  jumpargeq 7 1 <section3>
+  jumpargeq 7 2 <section4>
+
+section1: # 1D4774
+  restorebg
+  waitbgfadeout
+  setarg 7 4095
+  waitbgfadein
+  clearmonbg anim_def_partner
+  blendoff
+  end
+
+section2: # 1D477F
+  call <1D47C7>
+  delay 16
+  call <1D4828>
+  goto <section1>
+
+section3: # 1D4790
+  call <1D47C7>
+  delay 14
+  call <1D4828>
+  delay 14
+  call <1D47C7>
+  goto <section1>
+
+section4: # 1D47A8
+  call <1D4828>
+  delay 10
+  call <1D47C7>
+  delay 10
+  call <1D4828>
+  delay 10
+  call <1D47C7>
+  goto <section1>

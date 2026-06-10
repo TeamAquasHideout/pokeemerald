@@ -1,0 +1,19 @@
+@ battle script for gen3 move-effect 151 (ChargeFirstTurn) @1D7BE3
+section0: # 1D7BE3
+  jumpifabilitypresent "Cloud Nine" <section1>
+  jumpifabilitypresent "Air Lock" <section1>
+  jumpifhalfword & 0x02023F1C 96 <section2>
+
+section1: # 1D7BFB
+  jumpifstatus2 attacker 4096 <1D6F29>
+  jumpifword & 0x02023DD0 512 <1D6F29>
+  setbyte 0x02023FD3 1
+  call <1D6F58>
+  goto <1D694E>
+
+section2: # 1D7C23
+  orword 0x02023DD0 0x08000000
+  set.move.effect SelfChargeFirstTurn
+  seteffectprimary
+  ppreduce
+  goto <1D6F29>

@@ -1,0 +1,9 @@
+@ battle script for gen3 move-effect 179 (HealHalfNextTurn) @1D8142
+section0: # 1D8142
+  attackcanceler
+  attackstring
+  ppreduce
+  trywish 0 <1D7DF2>
+  attackanimation
+  waitanimation
+  goto <1D694E>

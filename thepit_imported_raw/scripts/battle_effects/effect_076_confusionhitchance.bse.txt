@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 76 (ConfusionHitChance) @1D72C9
+section0: # 1D72C9
+  set.move.effect Confusion
+  goto <1D6900>

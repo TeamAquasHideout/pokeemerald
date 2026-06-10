@@ -1,0 +1,37 @@
+@ animation for MOVE_KUMOGAKURE (@1291210)
+section0: # 1291210
+  fadetobg bg_none
+  waitbgfadein
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  monbg anim_atk_partner
+  setalpha 12 8
+  createvisualtask <0A63B5> 2 
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 32
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 24
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 16
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  restorebg
+  waitbgfadein
+  end

@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 185 (DoubleDamageIfHitThisTurn) @1D81B3
+section0: # 1D81B3
+  doubledamagedealtifdamaged
+  goto <1D6900>

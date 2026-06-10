@@ -1,0 +1,6 @@
+@ animation for MOVE_DOUBLESLAP (@1C6F65)
+section0: # 1C6F65
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  choosetwoturnanim <1C6F90> <1C6FA4>

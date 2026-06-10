@@ -1,0 +1,18 @@
+@ battle script for gen3 move-effect 91 (PainSplit) @1D7465
+section0: # 1D7465
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0xFFFF
+  painsplitdmgcalc <1D7DF2>
+  attackanimation
+  waitanimation
+  orword 0x02023DD0 256
+  healthbarupdate attacker
+  datahpupdate attacker
+  copyarray 0x02023D50 0x02023FC4 4
+  healthbarupdate target
+  datahpupdate target
+  printstring 252
+  waitmessage 64
+  goto <1D694E>

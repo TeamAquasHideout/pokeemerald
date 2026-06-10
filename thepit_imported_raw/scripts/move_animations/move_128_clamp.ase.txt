@@ -1,0 +1,44 @@
+@ animation for MOVE_CLAMP (@1CE29E)
+section0: # 1CE29E
+  loadspritegfx 0x27A1
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_vicegrip sound_pan_target
+  createsprite <3E7948> 2 0xFFE0 0x0000 0x0002 0x0333 0x0000 0x000A
+{
+tileTag:     10145
+paletteTag:  10145
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  createsprite <3E7948> 2 0x0020 0x0000 0x0006 0xFCCD 0x0000 0x000A
+{
+tileTag:     10145
+paletteTag:  10145
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7910>
+callback:    <0B7BD5>
+}
+  delay 10
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x0005 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  end

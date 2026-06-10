@@ -1,0 +1,97 @@
+diff --git a/src/data/pokemon/species_info/gen_1_families.h b/src/data/pokemon/species_info/gen_1_families.h
+index 04d589d..cbaccd9 100644
+--- a/src/data/pokemon/species_info/gen_1_families.h
++++ b/src/data/pokemon/species_info/gen_1_families.h
+@@ -16138,7 +16138,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
+         .eggCycles = 25,
+         .friendship = 70,
+         .growthRate = GROWTH_MEDIUM_FAST,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+     #if P_UPDATED_ABILITIES >= GEN_4
+         .abilities = { ABILITY_SNOW_CLOAK, ABILITY_OBLIVIOUS, ABILITY_NONE },
+     #else
+@@ -16289,7 +16289,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
+         .eggCycles = 25,
+         .friendship = 70,
+         .growthRate = GROWTH_MEDIUM_FAST,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_STATIC, ABILITY_VITAL_SPIRIT, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_YELLOW,
+         .noFlip = TRUE,
+@@ -16515,7 +16515,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
+         .eggCycles = 25,
+         .friendship = 70,
+         .growthRate = GROWTH_MEDIUM_FAST,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_SUPER_LUCK, ABILITY_SNIPER, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_RED,
+         .noFlip = TRUE,
+diff --git a/src/data/pokemon/species_info/gen_2_families.h b/src/data/pokemon/species_info/gen_2_families.h
+index 9be2956..83e7d09 100644
+--- a/src/data/pokemon/species_info/gen_2_families.h
++++ b/src/data/pokemon/species_info/gen_2_families.h
+@@ -7515,7 +7515,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
+         .eggCycles = 80,
+         .friendship = 35,
+         .growthRate = GROWTH_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+     #if P_UPDATED_ABILITIES >= GEN_4
+         .abilities = { ABILITY_INTIMIDATE, ABILITY_SCRAPPY, ABILITY_NONE },
+     #else
+@@ -8513,7 +8513,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
+         .eggCycles = 120,
+         .friendship = 100,
+         .growthRate = GROWTH_MEDIUM_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_ARCANIST, ABILITY_NONE, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_GREEN,
+         .speciesName = _("Celebi"),
+diff --git a/src/data/pokemon/species_info/gen_3_families.h b/src/data/pokemon/species_info/gen_3_families.h
+index cc50c83..e1e6102 100644
+--- a/src/data/pokemon/species_info/gen_3_families.h
++++ b/src/data/pokemon/species_info/gen_3_families.h
+@@ -11920,7 +11920,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
+         .eggCycles = 80,
+         .friendship = 35,
+         .growthRate = GROWTH_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_SOLID_ROCK, ABILITY_CLEAR_BODY, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_BROWN,
+         .noFlip = TRUE,
+@@ -12000,7 +12000,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
+         .eggCycles = 80,
+         .friendship = 35,
+         .growthRate = GROWTH_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_CLEAR_BODY, ABILITY_SOLID_ROCK, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_BLUE,
+         .speciesName = _("Regice"),
+@@ -12080,7 +12080,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
+         .eggCycles = 80,
+         .friendship = 35,
+         .growthRate = GROWTH_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_CLEAR_BODY, ABILITY_SOLID_ROCK, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_GRAY,
+         .speciesName = _("Registeel"),
+diff --git a/src/data/pokemon/species_info/gen_4_families.h b/src/data/pokemon/species_info/gen_4_families.h
+index a927fa9..ee73c21 100644
+--- a/src/data/pokemon/species_info/gen_4_families.h
++++ b/src/data/pokemon/species_info/gen_4_families.h
+@@ -6758,7 +6758,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
+         .eggCycles = 15,
+         .friendship = 70,
+         .growthRate = GROWTH_SLOW,
+-        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_UNDISCOVERED, EGG_GROUP_UNDISCOVERED),
++        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED, EGG_GROUP_NO_EGGS_DISCOVERED),
+         .abilities = { ABILITY_CLEAR_BODY, ABILITY_FILTER, ABILITY_NONE },
+         .bodyColor = BODY_COLOR_BROWN,
+         .speciesName = _("Regigigas"),

@@ -1,0 +1,26 @@
+@ animation for MOVE_ROLLOUT (@1CB2FE)
+section0: # 1CB2FE
+  loadspritegfx 0x2797
+  loadspritegfx 0x275A
+  loadspritegfx 0x274A
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  createvisualtask <0B4BD1> 2 
+  waitforvisualfinish
+  createvisualtask <099BD5> 2 0x0000 0x0001 0x001E 0x0001 0x0000
+  createsprite <3E7C08> 4 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

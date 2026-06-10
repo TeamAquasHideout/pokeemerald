@@ -1,0 +1,7 @@
+@ animation for MOVE_BEAT_UP (@1C81CF)
+section0: # 1C81CF
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  monbg anim_target
+  setalpha 12 8
+  choosetwoturnanim <1C81E8> <1C8259>

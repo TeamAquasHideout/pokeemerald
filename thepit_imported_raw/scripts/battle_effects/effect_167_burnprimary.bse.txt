@@ -1,0 +1,29 @@
+@ battle script for gen3 move-effect 167 (BurnPrimary) @1D7F2B
+section0: # 1D7F2B
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  jumpifstatus target 16 <section2>
+  jumpiftype target Fire <1D7E04>
+  jumpifability target "Water Veil" <section1>
+  jumpifstatus target 255 <1D7DF2>
+  accuracycheck <1D7DF2> 0
+  jumpifsideaffecting target 32 <1D8B39>
+  attackanimation
+  waitanimation
+  set.move.effect Burn
+  seteffectprimary
+  goto <1D694E>
+
+section1: # 1D7F77
+  copyarray 0x02023D6E 0x02023D6C 1
+  setbyte 0x02023E87 0
+  call <1D9420>
+  goto <1D694E>
+
+section2: # 1D7F91
+  pause 32
+  printstring 348
+  waitmessage 64
+  goto <1D694E>

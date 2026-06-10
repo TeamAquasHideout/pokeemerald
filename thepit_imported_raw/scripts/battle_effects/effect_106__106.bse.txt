@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 106 (106) @771800
+section0: # 771800
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpiftype target Ghost <1D7E04>
+  goto <1D76D7>

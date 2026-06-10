@@ -1,0 +1,67 @@
+@ animation for MOVE_ABYSS_WRATH (@1AE0F20)
+section0: # 1AE0F20
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  loadspritegfx 0x2745
+  setalpha 8 8
+  createvisualtask <0DD149> 2 0x0000 0x0002
+  createvisualtask <0998B1> 5 0xFFFB 0xFFFB 0x000A 0x0000 0x0001
+  call <1CDB06>
+  delay 20
+  clearmonbg 13
+  waitforvisualfinish
+  loadspritegfx 0x27D6
+  loadspritegfx 0x27BF
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0xFFF0 0xFFF1 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0x0010 0xFFFB 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0xFFF4 0x0012 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  createsprite <3E3F94> 132 0x0000 0x0005 0x0001 0x0000
+{
+tileTag:     10198
+paletteTag:  10198
+oam:         <3AC9D8>
+anims:       <3E3F90>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  playsewithpan se_m_self_destruct sound_pan_target
+  delay 3
+  waitforvisualfinish
+  delay 22
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  end

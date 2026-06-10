@@ -1,0 +1,53 @@
+@ animation for MOVE_CONSTRICT (@1D17C1)
+section0: # 1D17C1
+  loadspritegfx 0x27CA
+  loopsewithpan se_m_scratch sound_pan_target 6 4
+  createsprite <3E2D0C> 132 0x0000 0x0010 0x0000 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 7
+  createsprite <3E2D0C> 131 0x0000 0x0000 0x0000 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  createsprite <3E2D0C> 130 0x0000 0x0008 0x0001 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 7
+  createsprite <3E2D0C> 131 0x0000 0xFFF8 0x0001 0x0002
+{
+tileTag:     10186
+paletteTag:  10186
+oam:         <3ACA60>
+anims:       <3E2CBC>
+images:      <null>
+affineAnims: <3E2D04>
+callback:    <0A2E29>
+}
+  delay 8
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  delay 20
+  playsewithpan se_m_bind sound_pan_target
+  setarg 7 0xFFFF
+  waitforvisualfinish
+  end

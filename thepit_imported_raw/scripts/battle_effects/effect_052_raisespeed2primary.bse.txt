@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 52 (RaiseSpeed2Primary) @1D710E
+section0: # 1D710E
+  set.stat.changer RaiseSpeed2
+  goto <1D6B9E>

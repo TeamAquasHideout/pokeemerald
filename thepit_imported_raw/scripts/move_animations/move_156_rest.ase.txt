@@ -1,0 +1,38 @@
+@ animation for MOVE_REST (@1CD3CB)
+section0: # 1CD3CB
+  playsewithpan se_m_snore sound_pan_attacker
+  loadspritegfx 0x27F4
+  createsprite <3E3500> 2 0x0004 0xFFF6 0x0010 0x0000 0x0000
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3E3494>
+images:      <null>
+affineAnims: <3E34F8>
+callback:    <0A4EF5>
+}
+  delay 20
+  createsprite <3E3500> 2 0x0004 0xFFF6 0x0010 0x0000 0x0000
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3E3494>
+images:      <null>
+affineAnims: <3E34F8>
+callback:    <0A4EF5>
+}
+  delay 20
+  createsprite <3E3500> 2 0x0004 0xFFF6 0x0010 0x0000 0x0000
+{
+tileTag:     10228
+paletteTag:  10228
+oam:         <3ACA38>
+anims:       <3E3494>
+images:      <null>
+affineAnims: <3E34F8>
+callback:    <0A4EF5>
+}
+  waitforvisualfinish
+  end

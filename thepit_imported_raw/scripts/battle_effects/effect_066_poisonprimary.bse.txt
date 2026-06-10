@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 66 (PoisonPrimary) @771500
+section0: # 771500
+  attackcanceler
+  attackstring
+  ppreduce
+  if.move.goto Poisonpowder <section1>
+  goto <1D7184>
+
+section1: # 771514
+  jumpiftype target Grass <1D7E04>
+  goto <1D7184>

@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 57 (57) @1D712F
+section0: # 1D712F
+  attackcanceler
+  attackstring
+  ppreduce
+  transformdataexecution
+  attackanimation
+  waitanimation
+  printfromtable <3FE5B4>
+  waitmessage 64
+  goto <1D694E>

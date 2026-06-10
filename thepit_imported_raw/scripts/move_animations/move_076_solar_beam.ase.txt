@@ -1,0 +1,4 @@
+@ animation for MOVE_SOLAR_BEAM (@1CE513)
+section0: # 1CE513
+  loadspritegfx 0x27A3
+  choosetwoturnanim <1CE521> <1CE61E>

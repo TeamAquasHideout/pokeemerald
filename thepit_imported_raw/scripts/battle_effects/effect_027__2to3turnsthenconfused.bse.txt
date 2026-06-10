@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 27 (2to3turnsThenConfused) @1D6C97
+section0: # 1D6C97
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  jumpifstatus2 attacker 4096 <section1>
+  ppreduce
+
+section1: # 1D6CAB
+  confuseifrepeatingattackends
+  goto <1D6930>

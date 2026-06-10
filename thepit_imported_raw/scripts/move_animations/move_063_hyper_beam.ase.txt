@@ -1,0 +1,63 @@
+@ animation for MOVE_HYPER_BEAM (@1D29A7)
+section0: # 1D29A7
+  loadspritegfx 0x27A3
+  createsprite <3E7B24> 2 0x0001 0x0004 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  delay 10
+  playsewithpan se_m_hyper_beam sound_pan_attacker
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0004 0x0001
+  waitforvisualfinish
+  delay 30
+  createsoundtask <0DCF39> 0x00F0 0xFFC0 0x003F 0x0001 0x000F 0x0000 0x0005
+  createvisualtask <0989F9> 2 0x0000 0x0000 0x0004 0x0032 0x0001
+  createvisualtask <0B9F6D> 2 0x27A3 0x0001 0x000C 0x001F 0x0010 0x0000 0x0000
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0032 0x0001
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x0000 0x000B 0x6739
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  call <1D2AD8>
+  createvisualtask <0BA7F9> 10 0x0004 0x0002 0x000B 0x0000 0x6739
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0004 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

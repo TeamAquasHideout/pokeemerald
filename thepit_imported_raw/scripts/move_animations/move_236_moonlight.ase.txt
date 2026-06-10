@@ -1,0 +1,90 @@
+@ animation for MOVE_MOONLIGHT (@1CB54E)
+section0: # 1CB54E
+  loadspritegfx 0x27D2
+  loadspritegfx 0x27D3
+  loadspritegfx 0x272F
+  setalpha 0 16
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <3E3734> 2 0x0078 0x0038
+{
+tileTag:     10194
+paletteTag:  10194
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5EE1>
+}
+  createvisualtask <076049> 3 0x0000 0x0010 0x0010 0x0000 0x0001
+  playsewithpan se_m_moonlight 0
+  delay 30
+  createsprite <3E3764> 40 0xFFF4 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 30
+  createsprite <3E3764> 40 0xFFE8 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 30
+  createsprite <3E3764> 40 0x0015 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 30
+  createsprite <3E3764> 40 0x0000 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 30
+  createsprite <3E3764> 40 0x000A 0x0000
+{
+tileTag:     10195
+paletteTag:  10195
+oam:         <3AC9D0>
+anims:       <3E3760>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5F41>
+}
+  delay 20
+  createvisualtask <0A5FC1> 2 
+  waitforvisualfinish
+  call <1D56C9>
+  waitforvisualfinish
+  end

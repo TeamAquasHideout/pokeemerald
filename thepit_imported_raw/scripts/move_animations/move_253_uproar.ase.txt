@@ -1,0 +1,106 @@
+@ animation for MOVE_UPROAR (@1CB69C)
+section0: # 1CB69C
+  loadspritegfx 0x27F1
+  loadspritegfx 0x27DB
+  monbg anim_def_partner
+  createvisualtask <0AA7C9> 2 0x0000
+  createsprite <3E4110> 3 0x0000 0x0000 0x0000 0x0000 0x001F 0x0008
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <0A8EE9>
+}
+  playsewithpan se_m_uproar sound_pan_attacker
+  createsprite <3E4430> 2 0x0000 0x001D 0xFFF4 0x0000
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  createsprite <3E4430> 2 0x0000 0xFFF4 0xFFE3 0x0001
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  delay 16
+  createvisualtask <0AA7C9> 2 0x0000
+  createsprite <3E4110> 3 0x0000 0x0000 0x0000 0x0000 0x001F 0x0008
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <0A8EE9>
+}
+  playsewithpan se_m_uproar sound_pan_attacker
+  createsprite <3E4430> 2 0x0000 0x000C 0xFFE3 0x0001
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  createsprite <3E4430> 2 0x0000 0xFFE3 0xFFF4 0x0000
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  delay 16
+  createvisualtask <0AA7C9> 2 0x0000
+  createsprite <3E4110> 3 0x0000 0x0000 0x0000 0x0000 0x001F 0x0008
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <0A8EE9>
+}
+  playsewithpan se_m_uproar sound_pan_attacker
+  createsprite <3E4430> 2 0x0000 0x0018 0xFFE8 0x0001
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  createsprite <3E4430> 2 0x0000 0xFFE8 0xFFE8 0x0000
+{
+tileTag:     10225
+paletteTag:  10225
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA839>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

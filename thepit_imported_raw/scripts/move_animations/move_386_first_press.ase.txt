@@ -1,0 +1,101 @@
+@ animation for MOVE_FIRST_PRESS (@1AEE8A0)
+section0: # 1AEE8A0
+  loadspritegfx 0x2821
+  loadspritegfx 0x2797
+  loadspritegfx 0x27B0
+  createsprite <3E6D94> 133 0x0000 0x0001
+{
+tileTag:     10273
+paletteTag:  10273
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2BD9>
+}
+  playsewithpan se_m_sketch sound_pan_target
+  createsprite <3E6D94> 133 0x0001 0x0001
+{
+tileTag:     10273
+paletteTag:  10273
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2BD9>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0005 0x0001
+  createvisualtask <0A9A21> 3 
+  waitforvisualfinish
+  delay 25
+  createsprite <3D4E54> 2 0x0004 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  waitforvisualfinish
+  monbg anim_target
+  delay 1
+  createsprite <auto> 4 0xFFF6 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10160
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  loopsewithpan se_m_mega_kick2 sound_pan_target 10 2
+  delay 1
+  createsprite <3D4E9C> 2 0x0001 0xFFE4 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0001 0x0004 0x0000 0x000C 0x0001
+  waitforvisualfinish
+  delay 10
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 5
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_target
+  end
+  loadspritegfx 0x2797
+.raw B0
+  panse_adjustall 0xCB58 58 8 240 28
+  clearmonbg_static 8
+  loadspritegfx 0x0000
+  loadspritegfx 0x7BF8
+.raw 3E
+  end

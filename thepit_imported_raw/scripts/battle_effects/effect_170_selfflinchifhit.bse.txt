@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 170 (SelfFlinchIfHit) @1D805C
+section0: # 1D805C
+  attackcanceler
+  jumpifnodamage <1D6927>
+  ppreduce
+  printstring 336
+  waitmessage 64
+  goto <1D694E>

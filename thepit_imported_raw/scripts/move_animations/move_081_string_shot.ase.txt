@@ -1,0 +1,85 @@
+@ animation for MOVE_STRING_SHOT (@1D1446)
+section0: # 1D1446
+  loadspritegfx 0x27C3
+  loadspritegfx 0x27C4
+  monbg anim_def_partner
+  delay 0
+  createsprite <3E7B24> 5 0x0001 0x0002 0x0000 0x0009 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loopsewithpan se_m_string_shot sound_pan_attacker 9 6
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  call <1D1504>
+  waitforvisualfinish
+  playsewithpan se_m_string_shot2 sound_pan_target
+  createsprite <3E72A8> 130 0x0000 0x000A
+{
+tileTag:     10179
+paletteTag:  10179
+oam:         <3ACA00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B41F9>
+}
+  delay 4
+  createsprite <3E72A8> 130 0x0000 0xFFFE
+{
+tileTag:     10179
+paletteTag:  10179
+oam:         <3ACA00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B41F9>
+}
+  delay 4
+  createsprite <3E72A8> 130 0x0000 0x0016
+{
+tileTag:     10179
+paletteTag:  10179
+oam:         <3ACA00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B41F9>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 1
+  waitforvisualfinish
+  createsprite <3E7B24> 5 0x0001 0x0002 0x0009 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

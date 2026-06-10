@@ -1,0 +1,68 @@
+@ animation for MOVE_FLATTER (@1D2AE9)
+section0: # 1D2AE9
+  loadspritegfx 0x27F3
+  loadspritegfx 0x2800
+  createvisualtask <0DD411> 5 0x00D8 0x003F
+  createvisualtask <0DEDD9> 2 
+  createvisualtask <0BAB39> 2 0x00F8 0x0003 0x0000 0x000A 0x0000
+  waitforvisualfinish
+  createsprite <3FF3A0> 130 0x0000 0xFFF8 0x0050
+{
+tileTag:     10227
+paletteTag:  10227
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3FF004>
+callback:    <0E0D75>
+}
+  delay 0
+  createsprite <3D4E6C> 2 0x0005 0x0002 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  delay 10
+  createsprite <3D4E6C> 2 0x0005 0x0002 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  delay 0
+  createvisualtask <0DD3DD> 5 0x00DE 0xFFC0
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  call <1D2BD2>
+  delay 5
+  createvisualtask <0DD3DD> 5 0x00DE 0x003F
+  waitforvisualfinish
+  createvisualtask <0BAB39> 2 0x00F8 0x0003 0x000A 0x0000 0x0001
+  waitforvisualfinish
+  createvisualtask <0DEE79> 2 
+  end

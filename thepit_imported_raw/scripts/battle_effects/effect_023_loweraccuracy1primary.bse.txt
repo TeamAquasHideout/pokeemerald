@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 23 (LowerAccuracy1Primary) @1D6C02
+section0: # 1D6C02
+  set.stat.changer LowerAcc1
+  goto <1D6C13>

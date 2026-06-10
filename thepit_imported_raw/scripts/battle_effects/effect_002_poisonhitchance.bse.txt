@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 2 (PoisonHitChance) @1D69DC
+section0: # 1D69DC
+  set.move.effect Poison
+  goto <1D6900>

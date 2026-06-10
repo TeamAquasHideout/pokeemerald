@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 213 (213) @1D865F
+section0: # 1D865F
+  attackcanceler
+  attackstring
+  ppreduce
+  settypetoterrain <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 73
+  waitmessage 64
+  goto <1D694E>

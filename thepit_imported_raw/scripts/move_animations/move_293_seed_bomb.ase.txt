@@ -1,0 +1,20 @@
+@ animation for MOVE_SEED_BOMB (@1CACD3)
+section0: # 1CACD3
+  loadspritegfx 0x280E
+  createvisualtask <0E2519> 3 
+  playsewithpan se_m_swagger sound_pan_attacker
+  delay 24
+  createsprite <3E7B88> 2 0x0008 0x0001 0x0028 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA27D>
+}
+  createvisualtask <0989F9> 3 0x0001 0x0000 0x0004 0x0014 0x0001
+  createvisualtask <0989F9> 3 0x0003 0x0000 0x0004 0x0014 0x0001
+  loopsewithpan se_m_strength sound_pan_target 8 2
+  end

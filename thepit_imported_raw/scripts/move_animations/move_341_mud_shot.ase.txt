@@ -1,0 +1,26 @@
+@ animation for MOVE_MUD_SHOT (@1D3239)
+section0: # 1D3239
+  loadspritegfx 0x2813
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  createvisualtask <0989F9> 5 0x0000 0x0000 0x0002 0x002E 0x0001
+  delay 6
+  createvisualtask <0AB101> 5 0x0064
+  panse se_m_whirlpool sound_pan_attacker sound_pan_target 1 0
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x002B 0x0001
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  call <1D32B3>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

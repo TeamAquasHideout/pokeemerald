@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 36 (ParalyzeBurnFreeze) @1D6E7D
+section0: # 1D6E7D
+  set.move.effect BurnFreezeParalyze
+  goto <1D6900>

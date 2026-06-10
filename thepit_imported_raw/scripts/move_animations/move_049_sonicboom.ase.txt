@@ -1,0 +1,16 @@
+@ animation for MOVE_SONICBOOM (@1C7EDB)
+section0: # 1C7EDB
+  loadspritegfx 0x2713
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  call <1C7F12>
+  call <1C7F12>
+  call <1C7F12>
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x000A 0x0001
+  call <1C7F2A>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

@@ -1,0 +1,55 @@
+@ animation for MOVE_DARKNESSFIST (@1B084C0)
+section0: # 1B084C0
+  fadetobg bg_none
+  waitbgfadein
+  loadspritegfx 0x27D8
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  monbg anim_atk_partner
+  waitbgfadein
+  delay 0
+  setalpha 9 8
+  createvisualtask <077031> 2 0x7128 0x000A
+  playsewithpan se_m_jump_kick sound_pan_attacker
+  delay 6
+  createsprite <3E7C08> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3E6710> 132 0x0000 0x0000 0x0008 0x0001 0x0000
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0955>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  playsewithpan se_m_nightmare sound_pan_target
+  createsprite <3E7698> 130 
+{
+tileTag:     10200
+paletteTag:  10200
+oam:         <3ACAF8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B67D5>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000E 0x0001
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

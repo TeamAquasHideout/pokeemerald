@@ -1,0 +1,9 @@
+@ battle script for gen3 move-effect 22 (22) @11A3C40
+section0: # 11A3C40
+  attackcanceler
+  attackstring
+  ppreduce
+  attackanimation
+  waitanimation
+  jumpifstat target != speed positive_6 <1AE6071>
+  end

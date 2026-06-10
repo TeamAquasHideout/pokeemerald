@@ -1,0 +1,20 @@
+@ battle script for gen3 move-effect 92 (WhileSleepingAndFlinch) @1D749C
+section0: # 1D749C
+  attackcanceler
+  jumpifstatus attacker 7 <section1>
+  attackstring
+  ppreduce
+  goto <1D7DF2>
+
+section1: # 1D74AE
+  jumpifhalfword = 0x02023D4C 214 <section2>
+  printstring 107
+  waitmessage 64
+  statusanimation attacker
+
+section2: # 1D74C2
+  attackstring
+  ppreduce
+  accuracycheck <1D6960> 0
+  set.move.effect Flinch
+  goto <1D6930>

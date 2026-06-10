@@ -1,0 +1,15 @@
+@ animation for MOVE_ROCK_POLISH (@1CAEEE)
+section0: # 1CAEEE
+  loadspritegfx 0x27C9
+  createsprite <3E365C> 2 
+{
+tileTag:     10185
+paletteTag:  10185
+oam:         <3AC9D8>
+anims:       <3E3658>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5B7D>
+}
+  waitforvisualfinish
+  end

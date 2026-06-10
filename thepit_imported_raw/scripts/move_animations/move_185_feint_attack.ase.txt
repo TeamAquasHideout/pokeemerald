@@ -1,0 +1,45 @@
+@ animation for MOVE_FEINT_ATTACK (@1CDE9B)
+section0: # 1CDE9B
+  loadspritegfx 0x2797
+  monbg anim_attacker
+  fadetobg bg_dark
+  waitbgfadein
+  delay 0
+  playsewithpan se_m_faint_attack sound_pan_attacker
+  createvisualtask <09907D> 2 0x0000 0x0012 0x0006 0x0001 0x0003
+  createvisualtask <0B78E1> 2 0x0001
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  invisible anim_attacker
+  delay 1
+  createvisualtask <0BC12D> 2 
+  monbg anim_target
+  setalpha 12 8
+  delay 1
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0009 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  delay 1
+  setarg 7 4096
+  delay 32
+  createvisualtask <0B7A81> 2 
+  monbg anim_attacker
+  createvisualtask <0B79DD> 2 0x0001
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  delay 1
+  restorebg
+  waitbgfadein
+  end

@@ -1,0 +1,69 @@
+@ animation for MOVE_WATER_GUN (@1CF87A)
+section0: # 1CF87A
+  loadspritegfx 0x27AB
+  loadspritegfx 0x27A4
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  createsprite <3E5A80> 2 0x0014 0x0000 0x0000 0x0000 0x0028 0xFFE7
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACAF0>
+anims:       <3E5A78>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075E81>
+}
+  playsewithpan se_m_bubble sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098B1D> 5 0x0001 0x0001 0x0000 0x0008 0x0001
+  createsprite <3E7C38> 4 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10148
+paletteTag:  10148
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3E5A98> 2 0x0000 0xFFF1 0x0000 0x000F 0x0037
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACBB0>
+anims:       <3E5A7C>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0AB2CD>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  delay 10
+  createsprite <3E5A98> 2 0x000F 0xFFEC 0x0000 0x000F 0x0032
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACBB0>
+anims:       <3E5A7C>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0AB2CD>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  delay 10
+  createsprite <3E5A98> 2 0xFFF1 0xFFF6 0x0000 0x000A 0x002D
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACBB0>
+anims:       <3E5A7C>
+images:      <null>
+affineAnims: <3E6A80>
+callback:    <0AB2CD>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

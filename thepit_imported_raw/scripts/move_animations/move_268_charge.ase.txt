@@ -1,0 +1,80 @@
+@ animation for MOVE_CHARGE (@1CB970)
+section0: # 1CB970
+  loadspritegfx 0x27E3
+  loadspritegfx 0x27E4
+  loadspritegfx 0x27E5
+  monbg anim_attacker
+  setalpha 12 8
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0004 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createvisualtask <0AE541> 2 0x0000 0x003C 0x0002 0x000C
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 30
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 30
+  playsewithpan se_m_charge sound_pan_attacker
+  createsprite <3E61D4> 2 0x0000
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E61C8>
+callback:    <0AE71D>
+}
+  delay 25
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 20
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 15
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 10
+  delay 6
+  loopsewithpan se_m_charge sound_pan_attacker 6 5
+  waitforvisualfinish
+  createsprite <3E6204> 2 0x0000 0x0010 0x0010
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  delay 2
+  createsprite <3E6204> 2 0x0000 0xFFF0 0xFFF0
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  playsewithpan se_m_thunderbolt2 sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0004 0x0004 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  clearmonbg anim_attacker
+  blendoff
+  end

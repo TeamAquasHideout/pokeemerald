@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 193 (HealSelfStatus) @1D82E0
+section0: # 1D82E0
+  attackcanceler
+  attackstring
+  ppreduce
+  cureifburnedparalysedorpoisoned <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 167
+  waitmessage 64
+  updatestatusicon attacker
+  goto <1D694E>

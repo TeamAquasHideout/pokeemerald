@@ -1,0 +1,22 @@
+@ animation for MOVE_POISON_FANG (@1D33F4)
+section0: # 1D33F4
+  loadspritegfx 0x27D0
+  loadspritegfx 0x27A6
+  playsewithpan se_m_bite sound_pan_target
+  createsprite <3FEFBC> 130 
+{
+tileTag:     10192
+paletteTag:  10192
+oam:         <3ACA98>
+anims:       <3FEF9C>
+images:      <null>
+affineAnims: <3FEFB8>
+callback:    <0DEA99>
+}
+  delay 10
+  createvisualtask <0989F9> 3 0x0001 0x0003 0x0000 0x000A 0x0001
+  waitforvisualfinish
+  createvisualtask <0B9BDD> 2 0x0004 0x0000 0x0004 0x0000 0x000C 0x681A
+  call <1D575B>
+  waitforvisualfinish
+  end

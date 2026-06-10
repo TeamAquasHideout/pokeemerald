@@ -1,0 +1,69 @@
+@ animation for MOVE_ZEN_HEADBUTT (@1C7886)
+section0: # 1C7886
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <09949D> 5 0x0000 0xFFE8 0x0008 0x0017 0x000A 0x0028 0x000A
+  delay 35
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x0000 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createsprite <3E7C08> 4 0xFFF6 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  delay 1
+  createsprite <3D4E9C> 2 0x0001 0xFFF0 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0001 0x0004 0x0000 0x000C 0x0001
+  waitforvisualfinish
+  delay 2
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 3
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0007
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

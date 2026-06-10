@@ -1,0 +1,65 @@
+@ animation for MOVE_ENCORE (@1D23FE)
+section0: # 1D23FE
+  loadspritegfx 0x27F3
+  loadspritegfx 0x2807
+  createvisualtask <0DEDD9> 2 
+  createvisualtask <0BAB39> 2 0x00F8 0x0003 0x0000 0x000A 0x0000
+  waitforvisualfinish
+  createsprite <3FF00C> 130 0x0000 0xFFF8
+{
+tileTag:     10227
+paletteTag:  10227
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3FF004>
+callback:    <0DEB21>
+}
+  createsprite <3FF024> 2 0xFFFE 0x0000 0x0000 0x0000 0x0009
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DEC91>
+}
+  createsprite <3FF024> 2 0x0002 0x0000 0x0001 0x0000 0x0009
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DEC91>
+}
+  createsprite <3FF03C> 3 0xFFFE 0x0000 0x0000 0x0000 0x0009
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DEDBD>
+}
+  createsprite <3FF03C> 3 0x0002 0x0000 0x0001 0x0000 0x0009
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DEDBD>
+}
+  delay 16
+  createvisualtask <0DD411> 5 0x00D8 0x003F
+  createvisualtask <099705> 5 0x0001 0x0008 0x0600 0x0005 0x0001
+  waitforvisualfinish
+  createvisualtask <0BAB39> 2 0x00F8 0x0003 0x000A 0x0000 0x0001
+  waitforvisualfinish
+  createvisualtask <0DEE79> 2 
+  end

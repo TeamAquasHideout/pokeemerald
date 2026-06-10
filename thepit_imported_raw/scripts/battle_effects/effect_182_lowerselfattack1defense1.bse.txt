@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 182 (LowerSelfAttack1Defense1) @1D817E
+section0: # 1D817E
+  set.move.effect SelfLowerAtk1Def1Certain
+  goto <1D6900>

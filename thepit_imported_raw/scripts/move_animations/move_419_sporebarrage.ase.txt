@@ -1,0 +1,78 @@
+@ animation for MOVE_SPOREBARRAGE (@1B04A30)
+section0: # 1B04A30
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x000C 0x7C15
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  splitbgprio anim_target
+  setalpha 12 8
+  createvisualtask <099981> 5 0x0008 0x0005 0x0000 0x0000
+  delay 6
+  createsprite <3D4E54> 2 0x0004 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  playsewithpan se_m_swagger sound_pan_target
+  createsprite <3E68AC> 130 0x000A 0xFFF8 0x000E 0x0003
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B13F9>
+}
+  waitforvisualfinish
+  createvisualtask <099981> 5 0x0008 0x0005 0x0000 0x0001
+  playsewithpan se_m_double_slap sound_pan_target
+  createsprite <3E7C08> 130 0x0008 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0004 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  blendoff
+  loadspritegfx 0x27AE
+  monbg anim_def_partner
+  splitbgprio anim_target
+  loopsewithpan se_m_poison_powder sound_pan_target 20 5
+  call <1B04AF0>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  createsprite <3E7B24> 2 0x0001 0x0001 0x000C 0x0000 0x7C15
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

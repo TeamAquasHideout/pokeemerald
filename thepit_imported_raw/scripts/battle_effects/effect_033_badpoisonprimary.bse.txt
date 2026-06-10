@@ -1,0 +1,18 @@
+@ battle script for gen3 move-effect 33 (BadPoisonPrimary) @771700
+section0: # 771700
+  jumpiftype attacker Poison <section1>
+  goto <1D6DE0>
+
+section1: # 77170C
+  attackcanceler
+  if.status3.goto target 0x000400C0 <1D695E>
+  attackstring
+  ppreduce
+  jumpifability target Immunity <1D6E4F>
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  jumpifstatus target 8 <1D6E41>
+  jumpifstatus target 128 <1D6E41>
+  jumpifstatus target 255 <1D7DF2>
+  jumpiftype target Poison <1D7E04>
+  jumpiftype target Steel <1D7E04>
+  goto <1D6E27>

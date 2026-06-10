@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 183 (183) @1D8189
+section0: # 1D8189
+  attackcanceler
+  trysetmagiccoat <1D7DF0>
+  attackstring
+  ppreduce
+  attackanimation
+  waitanimation
+  printstring 189
+  waitmessage 64
+  goto <1D694E>

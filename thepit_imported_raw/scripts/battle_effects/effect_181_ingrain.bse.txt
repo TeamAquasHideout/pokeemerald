@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 181 (Ingrain) @1D8169
+section0: # 1D8169
+  attackcanceler
+  attackstring
+  ppreduce
+  trysetroots <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 179
+  waitmessage 64
+  goto <1D694E>

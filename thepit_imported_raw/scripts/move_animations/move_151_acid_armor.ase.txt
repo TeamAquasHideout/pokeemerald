@@ -1,0 +1,11 @@
+@ animation for MOVE_ACID_ARMOR (@1CAED5)
+section0: # 1CAED5
+  monbg anim_attacker
+  setalpha 15 0
+  createvisualtask <0E12F9> 2 0x0000
+  playsewithpan se_m_acid_armor sound_pan_attacker
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_attacker
+  delay 1
+  end

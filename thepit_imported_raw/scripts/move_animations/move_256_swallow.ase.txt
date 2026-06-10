@@ -1,0 +1,18 @@
+@ animation for MOVE_SWALLOW (@1D2765)
+section0: # 1D2765
+  loadspritegfx 0x27FC
+  loadspritegfx 0x272F
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <0DF965> 5 
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0008 0x0002
+  delay 38
+  playsewithpan se_m_spit_up sound_pan_attacker
+  createvisualtask <098B1D> 2 0x0000 0x0002 0x0000 0x000C 0x0001
+  call <1D27B6>
+  jumpifmoveturn 2 <1D27F8>
+  jumpifmoveturn 3 <1D2802>
+
+section1: # 1D27AF
+  waitforvisualfinish
+  call <1D56C9>
+  end

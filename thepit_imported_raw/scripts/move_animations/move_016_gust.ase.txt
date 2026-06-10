@@ -1,0 +1,36 @@
+@ animation for MOVE_GUST (@1CF648)
+section0: # 1CF648
+  loadspritegfx 0x2719
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_gust sound_pan_target
+  createsprite <3E6AE8> 2 0x0000 0xFFF0
+{
+tileTag:     10009
+paletteTag:  10009
+oam:         <3ACA20>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B18E5>
+}
+  createvisualtask <0B194D> 5 0x0001 0x0046
+  waitforvisualfinish
+  createvisualtask <098B1D> 5 0x0001 0x0001 0x0000 0x0007 0x0001
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_gust2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

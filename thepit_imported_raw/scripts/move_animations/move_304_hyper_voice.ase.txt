@@ -1,0 +1,9 @@
+@ animation for MOVE_HYPER_VOICE (@1D2D0D)
+section0: # 1D2D0D
+  loadspritegfx 0x27DB
+  call <1D2D1F>
+  waitforvisualfinish
+  delay 8
+  call <1D2D1F>
+  waitforvisualfinish
+  end

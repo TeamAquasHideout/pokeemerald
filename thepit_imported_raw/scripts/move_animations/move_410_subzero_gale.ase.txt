@@ -1,0 +1,24 @@
+@ animation for MOVE_SUBZERO_GALE (@128F0C0)
+section0: # 128F0C0
+  fadetobg bg_ice
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0x0500 0x0000 0x0000 0xFFFF
+  waitbgfadein
+  loadspritegfx 0x279D
+  monbg anim_def_partner
+  waitbgfadein
+  waitforvisualfinish
+  panse se_m_blizzard sound_pan_attacker sound_pan_target 2 0
+  call <1CE7B8>
+  call <1CE7B8>
+  playsewithpan se_m_blizzard2 sound_pan_target
+  waitforvisualfinish
+  call <1D548E>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 20
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

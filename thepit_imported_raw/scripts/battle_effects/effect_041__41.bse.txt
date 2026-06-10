@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 41 (41) @1D6F99
+section0: # 1D6F99
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc
+  bicbyte 0x02023DCC 6
+  setbyte 0x02023D50 40
+  setbyte 0x02023D51 0
+  setbyte 0x02023D52 0
+  setbyte 0x02023D53 0
+  adjustsetdamage
+  goto <1D6934>

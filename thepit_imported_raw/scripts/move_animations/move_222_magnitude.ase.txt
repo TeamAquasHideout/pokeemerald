@@ -1,0 +1,43 @@
+@ animation for MOVE_MAGNITUDE (@1CB450)
+section0: # 1CB450
+  createvisualtask <0B97D9> 2 
+  waitforvisualfinish
+  jumpargeq 15 0 <section2>
+  jumpargeq 15 1 <section3>
+
+section1: # 1CB468
+  end
+
+section2: # 1CB469
+  createvisualtask <0B94B5> 5 0x0005 0x0000 0x0032
+  createvisualtask <0B94B5> 5 0x0004 0x0000 0x0032
+  loopsewithpan se_m_strength sound_pan_target 8 10
+  goto <section1>
+
+section3: # 1CB48E
+  createvisualtask <0B94B5> 5 0x0005 0x0000 0x0032
+  createvisualtask <0B94B5> 5 0x0004 0x0000 0x0032
+  loopsewithpan se_m_strength sound_pan_target 8 10
+  delay 10
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 16
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  goto <section1>

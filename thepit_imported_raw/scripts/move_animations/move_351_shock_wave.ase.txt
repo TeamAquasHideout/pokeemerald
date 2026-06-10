@@ -1,0 +1,48 @@
+@ animation for MOVE_SHOCK_WAVE (@1CD009)
+section0: # 1CD009
+  loadspritegfx 0x27E3
+  loadspritegfx 0x27E4
+  loadspritegfx 0x2711
+  loadspritegfx 0x2735
+  monbg anim_attacker
+  setalpha 12 8
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0004 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createvisualtask <0AE541> 2 0x0000 0x0014 0x0000 0x0002
+  playsewithpan se_m_charge sound_pan_attacker
+  delay 12
+  createsprite <3E6290> 2 
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E61C8>
+callback:    <0AEC81>
+}
+  delay 30
+  createvisualtask <0AECE1> 5 
+  delay 12
+  waitforvisualfinish
+  createvisualtask <0AEFA1> 5 
+  playsewithpan se_m_tri_attack2 sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0006 0x0012 0x0001
+  createvisualtask <0BA7F9> 5 0x0001 0x0003 0x0010 0x0000 0x7FFF
+  createvisualtask <0BA7F9> 5 0x0004 0x0000 0x0010 0x0010 0x0000
+  delay 4
+  createvisualtask <0BA7F9> 5 0x0004 0x0000 0x0000 0x0000 0x0000
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  end

@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 85 (Splash) @1D73D5
+section0: # 1D73D5
+  attackcanceler
+  attackstring
+  ppreduce
+  attackanimation
+  waitanimation
+  incrementgamestat 26
+  printstring 228
+  waitmessage 64
+  goto <1D694E>

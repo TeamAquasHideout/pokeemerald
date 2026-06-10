@@ -1,0 +1,65 @@
+@ animation for MOVE_RAPID_FIRE (@1AEF2F0)
+section0: # 1AEF2F0
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0004 0x001F
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loadspritegfx 0x272D
+  loadspritegfx 0x27B1
+  loadspritegfx 0x2797
+  loadspritegfx 0x27A6
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E72F4> 130 0x0014 0x0000 0xFFF8 0x0000 0x0014
+{
+tileTag:     10161
+paletteTag:  10161
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4365>
+}
+  waitforvisualfinish
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0005 0x0001
+  playsewithpan se_m_horn_attack sound_pan_target
+  waitforvisualfinish
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  playsewithpan se_m_flame_wheel2 sound_pan_target
+  call <1D0950>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0004 0x0000 0x001F
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

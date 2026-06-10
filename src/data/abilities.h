@@ -2788,4 +2788,98 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .cantBeSwapped = TRUE,
         .cantBeTraced = TRUE,
     },
+
+    // The Pit FireRed custom ability entries. Behavior still requires C battle-engine hooks where noted by the extractor.
+    [ABILITY_ABYSS_BOOST] =
+    {
+        .name = _("Abyss Boost"),
+        .description = COMPOUND_STRING("KOing a foe ups highest stat."),
+        .description_short = COMPOUND_STRING("KOing a foe ups highest stat."),
+        .aiRating = 5,
+    },
+    [ABILITY_ABYSS_GRACE] =
+    {
+        .name = _("Abyss Grace"),
+        .description = COMPOUND_STRING("Boosts team accuracy by 10%."),
+        .description_short = COMPOUND_STRING("Boosts team accuracy by 10%."),
+        .aiRating = 4,
+    },
+    [ABILITY_ARCANIST] =
+    {
+        .name = _("Arcanist"),
+        .description = COMPOUND_STRING("Boosts Psychic-type moves by 20%."),
+        .description_short = COMPOUND_STRING("Boosts Psychic-type moves by 20%."),
+        .aiRating = 4,
+    },
+    [ABILITY_BOTANIST] =
+    {
+        .name = _("Botanist"),
+        .description = COMPOUND_STRING("Herb & Potion moves gain priority."),
+        .description_short = COMPOUND_STRING("Herb & Potion moves gain priority."),
+        .aiRating = 3,
+    },
+    [ABILITY_EERIE_AURA] =
+    {
+        .name = _("Eerie Aura"),
+        .description = COMPOUND_STRING("Boosts Ghost-type moves by 20%."),
+        .description_short = COMPOUND_STRING("Boosts Ghost-type moves by 20%."),
+        .aiRating = 4,
+    },
+    [ABILITY_FAFNIR] =
+    {
+        .name = _("Fafnir"),
+        .description = COMPOUND_STRING("Boosts Electr and Dragon by 20%."),
+        .description_short = COMPOUND_STRING("Boosts Electr and Dragon by 20%."),
+        .aiRating = 4,
+    },
+    [ABILITY_INTENSE_CARE] =
+    {
+        .name = _("Intense Care"),
+        .description = COMPOUND_STRING("Healing moves have priority."),
+        .description_short = COMPOUND_STRING("Healing moves have priority."),
+        .aiRating = 3,
+    },
+    [ABILITY_OMNIHUNTER] =
+    {
+        .name = _("Omnihunter"),
+        .description = COMPOUND_STRING("Boosts Flying-type moves by 50%."),
+        .description_short = COMPOUND_STRING("Boosts Flying-type moves by 50%."),
+        .aiRating = 5,
+    },
+    [ABILITY_OMNI_CHASE] =
+    {
+        .name = _("Omni-Chase"),
+        .description = COMPOUND_STRING("50% Speed up during weather."),
+        .description_short = COMPOUND_STRING("50% Speed up during weather."),
+        .aiRating = 4,
+    },
+    [ABILITY_RADIANCE] =
+    {
+        .name = _("Radiance"),
+        .description = COMPOUND_STRING("Normal moves become Aether."),
+        .description_short = COMPOUND_STRING("Normal moves become Aether."),
+        .aiRating = 4,
+    },
+    [ABILITY_SINGULARITY] =
+    {
+        .name = _("Singularity"),
+        .description = COMPOUND_STRING("Boosts Fire & Ice-type moves by 25%."),
+        .description_short = COMPOUND_STRING("Boosts Fire & Ice-type moves by 25%."),
+        .aiRating = 5,
+    },
+    [ABILITY_SOVEREIGNTY] =
+    {
+        .name = _("Sovereignty"),
+        .description = COMPOUND_STRING("Order moves have priority."),
+        .description_short = COMPOUND_STRING("Order moves have priority."),
+        .aiRating = 3,
+    },
+    [ABILITY_VENOM_BLOOD] =
+    {
+        .name = _("Venom Blood"),
+        .description = COMPOUND_STRING("Boosts Poison-type moves by 50%."),
+        .description_short = COMPOUND_STRING("Boosts Poison-type moves by 50%."),
+        .aiRating = 5,
+    },
+
 };

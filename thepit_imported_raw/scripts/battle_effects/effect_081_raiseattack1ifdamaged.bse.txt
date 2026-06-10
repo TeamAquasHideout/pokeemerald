@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 81 (RaiseAttack1IfDamaged) @1D734D
+section0: # 1D734D
+  attackcanceler
+  accuracycheck <section1> 0
+  set.move.effect RaiseAtk1IfDamaged
+  seteffectprimary
+  set.move.effect 0
+  goto <1D692E>
+
+section1: # 1D7367
+  set.move.effect RaiseAtk1IfDamaged
+  clearstatusfromeffect attacker
+  goto <1D695E>

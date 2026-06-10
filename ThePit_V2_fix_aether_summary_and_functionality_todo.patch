@@ -1,0 +1,278 @@
+diff --git a/THEPIT_FUNCTIONALITY_TODO.md b/THEPIT_FUNCTIONALITY_TODO.md
+new file mode 100644
+index 00000000..02f1bca9
+--- /dev/null
++++ b/THEPIT_FUNCTIONALITY_TODO.md
+@@ -0,0 +1,138 @@
++# The Pit Import: Functionality TODO
++
++Generated from the imported FireRed data in this decomp after the Aether type icon/summary fixes.
++
++## Moves needing battle-effect functionality
++
++80 imported moves still use `EFFECT_PLACEHOLDER`. They compile, but their real FireRed battle-script behavior has not been ported into pokeemerald-expansion yet.
++
++| # | Constant | Move | Type | Category | Imported effect note |
++|---:|---|---|---|---|---|
++| 848 | `MOVE_ABYSS_MIASMA` | Abyss Miasma | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 72 "LowerSpDefense1HitChance" |
++| 849 | `MOVE_ABYSS_WRATH` | Abyss Wrath | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 89 "DoubleBackPhysicalDamage" |
++| 850 | `MOVE_AD_NIHILO` | Ad Nihilo | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 12 "Unused0C" |
++| 851 | `MOVE_AKASHIC_NOVA` | Akashic Nova | `TYPE_DRAGON` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 198 "33Recoil" |
++| 852 | `MOVE_ARCANE_BLAST` | Arcane Blast | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 198 "33Recoil" |
++| 854 | `MOVE_ATROPHIC_EYE` | Atrophic Eye | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 227 "227" |
++| 855 | `MOVE_AZURE_FLOOD` | Azure Flood | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 55 "Unused37" |
++| 856 | `MOVE_BAFFLINGSTEP` | BafflingStep | `TYPE_NORMAL` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 76 "ConfusionHitChance" |
++| 857 | `MOVE_BRIGHT_SONG` | Bright Song | `TYPE_ELECTRIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 858 | `MOVE_CALL_ALLIES` | Call: Allies | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 154 "DamageBasedOnPartySize" |
++| 859 | `MOVE_CALL_LION` | Call: Lion | `TYPE_FIRE` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 860 | `MOVE_CALL_OWL` | Call: Owl | `TYPE_FLYING` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 218 "218" |
++| 861 | `MOVE_CALL_SNAKE` | Call: Snake | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 202 "BadPoisonHitChance" |
++| 862 | `MOVE_CELL_SHIELD` | Cell Shield | `TYPE_WATER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 232 "232" |
++| 863 | `MOVE_CHAINWEATHER` | ChainWeather | `TYPE_NORMAL` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 203 "WeatherBall" |
++| 864 | `MOVE_CHAIN_KILLER` | Chain Killer | `TYPE_FLYING` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 220 "220" |
++| 865 | `MOVE_CORKSCREW` | Corkscrew | `TYPE_FIGHTING` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 867 | `MOVE_CRAZED_SHOUT` | Crazed Shout | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 76 "ConfusionHitChance" |
++| 868 | `MOVE_DARKNESSFIST` | DarknessFist | `TYPE_DARK` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 198 "33Recoil" |
++| 869 | `MOVE_DEMONIC_RUSH` | Demonic Rush | `TYPE_GHOST` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 870 | `MOVE_DIVINE_STORM` | Divine Storm | `TYPE_ELECTRIC` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 871 | `MOVE_DOUBLEHAMMER` | DoubleHammer | `TYPE_STEEL` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 872 | `MOVE_ELECTROSHOCK` | Electroshock | `TYPE_ELECTRIC` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 873 | `MOVE_ENERGY_EDGE` | Energy Edge | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 69 "LowerDefense1HitChance" |
++| 874 | `MOVE_ETHERIC_BOON` | Etheric Boon | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 14 "Unused0E" |
++| 875 | `MOVE_FIRST_PRESS` | First Press | `TYPE_BUG` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 216 "216" |
++| 876 | `MOVE_FLARE_MASK` | Flare Mask | `TYPE_FIRE` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 230 "230" |
++| 877 | `MOVE_FREEZERIPPLE` | FreezeRipple | `TYPE_ICE` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 878 | `MOVE_FREEZE_MASK` | Freeze Mask | `TYPE_ICE` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 230 "230" |
++| 879 | `MOVE_FROST_CURSE` | Frost Curse | `TYPE_ICE` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 215 "215" |
++| 880 | `MOVE_FUKUBARI` | Fukubari | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 218 "218" |
++| 881 | `MOVE_HARVESTPARTY` | HarvestParty | `TYPE_GROUND` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 220 "220" |
++| 882 | `MOVE_HEAL` | Heal | `TYPE_NORMAL` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 157 "RestoreHPOrAllyInField" |
++| 883 | `MOVE_ICY_ARIA` | Icy Aria | `TYPE_ICE` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 885 | `MOVE_IZUNA` | Izuna | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 886 | `MOVE_KUMOGAKURE` | Kumogakure | `TYPE_DARK` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 219 "219" |
++| 887 | `MOVE_LEADING_BLOW` | Leading Blow | `TYPE_FIGHTING` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 222 "222" |
++| 888 | `MOVE_LIFE_BALLAD` | Life Ballad | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 889 | `MOVE_LIFE_CONTROL` | Life Control | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 63 "Unused3F" |
++| 891 | `MOVE_LIMIT_BREAK` | Limit Break | `TYPE_DRAGON` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 212 "RaiseAttack1Speed1Primary" |
++| 892 | `MOVE_LULLABY` | Lullaby | `TYPE_NORMAL` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 893 | `MOVE_MEGALODIVE` | Megalodive | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 894 | `MOVE_MESMERIZE` | Mesmerize | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 218 "218" |
++| 895 | `MOVE_METEOR` | Meteor | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 204 "LowerSpAttack2Self" |
++| 897 | `MOVE_NOBLE_ORDER` | Noble Order | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 224 "224" |
++| 898 | `MOVE_OCEAN_RAVE` | Ocean Rave | `TYPE_WATER` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 899 | `MOVE_ONE_TWOPUNCH` | One-TwoPunch | `TYPE_FIGHTING` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 900 | `MOVE_ORIGIN_CRUSH` | Origin Crush | `TYPE_DARK` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 902 | `MOVE_PHALANXGUARD` | PhalanxGuard | `TYPE_FIGHTING` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 903 | `MOVE_POTION_BOMB` | Potion Bomb | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 235 "235" |
++| 905 | `MOVE_RADIANT_STAR` | Radiant Star | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 70 "LowerSpeed1HitChance" |
++| 907 | `MOVE_ROCK_HAMMER` | Rock Hammer | `TYPE_ROCK` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 69 "LowerDefense1HitChance" |
++| 908 | `MOVE_ROTTEN_EGG` | Rotten Egg | `TYPE_NORMAL` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 225 "225" |
++| 909 | `MOVE_ROYAL_ORDER` | Royal Order | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 229 "229" |
++| 911 | `MOVE_SEALINGLIGHT` | SealingLight | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 913 | `MOVE_SHOGUN_DECOY` | Shogun Decoy | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 21 "Unused15" |
++| 914 | `MOVE_SLASHRAMPAGE` | SlashRampage | `TYPE_FLYING` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 915 | `MOVE_SOLAR_FLAME` | Solar Flame | `TYPE_FIRE` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 198 "33Recoil" |
++| 919 | `MOVE_SPRING_TANGO` | Spring Tango | `TYPE_GRASS` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 920 | `MOVE_STAR_DROP` | Star Drop | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 64 "Unused40" |
++| 922 | `MOVE_STRANGESEEDS` | StrangeSeeds | `TYPE_GRASS` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 226 "226" |
++| 923 | `MOVE_SUBZERO_GALE` | Subzero Gale | `TYPE_ICE` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 924 | `MOVE_SUMMER_TANGO` | Summer Tango | `TYPE_FIRE` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 925 | `MOVE_TAGEN_BATTOU` | Tagen Battou | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 217 "217" |
++| 926 | `MOVE_TIME_CIRCLE` | Time Circle | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 110 "Unused6E" |
++| 927 | `MOVE_TITAN_KILLER` | Titan Killer | `TYPE_FIGHTING` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 221 "221" |
++| 928 | `MOVE_TOXIC_HERB` | Toxic Herb | `TYPE_GRASS` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 236 "236" |
++| 929 | `MOVE_TOXIC_REAP` | Toxic Reap | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 202 "BadPoisonHitChance" |
++| 930 | `MOVE_VEIL_ORDER` | Veil Order | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 224 "224" |
++| 931 | `MOVE_VENOM_GUST` | Venom Gust | `TYPE_POISON` | `DAMAGE_CATEGORY_PHYSICAL` | gen3 effect 202 "BadPoisonHitChance" |
++| 932 | `MOVE_VOLT_MASK` | Volt Mask | `TYPE_ELECTRIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 230 "230" |
++| 933 | `MOVE_VOLT_WINGS` | Volt Wings | `TYPE_ELECTRIC` | `DAMAGE_CATEGORY_SPECIAL` | FireRed-only imported effect |
++| 934 | `MOVE_WAKINGCHAKRA` | WakingChakra | `TYPE_PSYCHIC` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 223 "223" |
++| 935 | `MOVE_WARDING_MIST` | Warding Mist | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 228 "228" |
++| 936 | `MOVE_WATER_BOMB` | Water Bomb | `TYPE_WATER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 214 "214" |
++| 938 | `MOVE_WEIRD_POTION` | Weird Potion | `TYPE_GRASS` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 234 "234" |
++| 939 | `MOVE_WHIP_RIPPER` | Whip Ripper | `TYPE_GROUND` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 940 | `MOVE_WILT_MIASMA` | Wilt. Miasma | `TYPE_DARK` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 131 "Unused83" |
++| 941 | `MOVE_WING_TALON` | Wing Talon | `TYPE_FLYING` | `DAMAGE_CATEGORY_PHYSICAL` | FireRed-only imported effect |
++| 943 | `MOVE_YGGDRASLASH` | Yggdraslash | `TYPE_AETHER` | `DAMAGE_CATEGORY_SPECIAL` | gen3 effect 103 "NormalPlusPriority" |
++
++## Imported moves with basic function already mapped
++
++17 imported moves have a non-placeholder `effect` constant. These may still need custom animations, but their basic battle function is not currently marked as missing.
++
++| # | Constant | Move | Mapped effect |
++|---:|---|---|---|
++| 853 | `MOVE_ASTRAL_GLEAM` | Astral Gleam | `EFFECT_HIT` |
++| 866 | `MOVE_COSMIC_SLASH` | Cosmic Slash | `EFFECT_HIT` |
++| 884 | `MOVE_IRON_DRILL` | Iron Drill | `EFFECT_HIT` |
++| 890 | `MOVE_LIGHT_SHOT` | Light Shot | `EFFECT_HIT` |
++| 896 | `MOVE_MIND_BASH` | Mind Bash | `EFFECT_HIT` |
++| 901 | `MOVE_PANIC_SPORES` | Panic Spores | `EFFECT_CONFUSE` |
++| 904 | `MOVE_PRIMAL_DRUMS` | Primal Drums | `EFFECT_DEFENSE_DOWN_2` |
++| 906 | `MOVE_RAPID_FIRE` | Rapid Fire | `EFFECT_MULTI_HIT` |
++| 910 | `MOVE_SCYTHE_DANCE` | Scythe Dance | `EFFECT_MULTI_HIT` |
++| 912 | `MOVE_SHATTER_SHOT` | Shatter Shot | `EFFECT_RECOIL` |
++| 916 | `MOVE_SONIC_RAID` | Sonic Raid | `EFFECT_HIT` |
++| 917 | `MOVE_SOUL_TRADE` | Soul Trade | `EFFECT_ABSORB` |
++| 918 | `MOVE_SPOREBARRAGE` | SporeBarrage | `EFFECT_MULTI_HIT` |
++| 921 | `MOVE_STOMP_CRUSH` | Stomp Crush | `EFFECT_HIT` |
++| 937 | `MOVE_WATER_TACKLE` | Water Tackle | `EFFECT_HIT` |
++| 942 | `MOVE_YGGDRAIN` | Yggdrain | `EFFECT_ABSORB` |
++| 944 | `MOVE__5_RING_SWORD` | 5-Ring Sword | `EFFECT_MULTI_HIT` |
++
++## Abilities needing battle-engine functionality
++
++All 13 imported custom abilities currently only have data entries and descriptions. They need battle-engine hooks/AI ratings to implement their described behavior.
++
++| # | Constant | Ability | Intended behavior from import |
++|---:|---|---|---|
++| 311 | `ABILITY_ABYSS_BOOST` | Abyss Boost | KOing a foe ups highest stat. |
++| 312 | `ABILITY_ABYSS_GRACE` | Abyss Grace | Boosts team accuracy by 10%. |
++| 313 | `ABILITY_ARCANIST` | Arcanist | Boosts Psychic-type moves by 20%. |
++| 314 | `ABILITY_BOTANIST` | Botanist | Herb & Potion moves gain priority. |
++| 315 | `ABILITY_EERIE_AURA` | Eerie Aura | Boosts Ghost-type moves by 20%. |
++| 316 | `ABILITY_FAFNIR` | Fafnir | Boosts Electr and Dragon by 20%. |
++| 317 | `ABILITY_INTENSE_CARE` | Intense Care | Healing moves have priority. |
++| 318 | `ABILITY_OMNIHUNTER` | Omnihunter | Boosts Flying-type moves by 50%. |
++| 319 | `ABILITY_OMNI_CHASE` | Omni-Chase | 50% Speed up during weather. |
++| 320 | `ABILITY_RADIANCE` | Radiance | Normal moves become Aether. |
++| 321 | `ABILITY_SINGULARITY` | Singularity | Boosts Fire & Ice-type moves by 25%. |
++| 322 | `ABILITY_SOVEREIGNTY` | Sovereignty | Order moves have priority. |
++| 323 | `ABILITY_VENOM_BLOOD` | Venom Blood | Boosts Poison-type moves by 50%. |
++
++## Animation note
++
++The FireRed `.ase` and `.bse` bytecode is preserved under `thepit_imported_raw/`, but it is not directly compatible with pokeemerald-expansion animation/battle-script formats. Custom imported moves still use placeholder Emerald animations unless manually ported.
+diff --git a/graphics/types/aether.png b/graphics/types/aether.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..525cbab2167f6c7976903d3463a02dc94e113371
+GIT binary patch
+literal 235
+zcmeAS@N?(olHy`uVBq!ia0vp^3P3Et!VDx^^%AmxltF+`h%1mj`ah}qY*19QW3lCb
+zFUu)=m;7I|SK;0>!|EvlSxcrApWUL6l>}7QTwVPC|9^8=`D;K<nWu|mNX4Akenq~+
+z4m>Q!r}1y?e-Zqtp+Wg?iZ`D-V`WfdbIeIr_Dj~y6Vslua$i2VmbdQIH%a-Dl1mRH
+zRlOWKKe4rL`SL97WuznHjh{@`Y+OxO{4)1CRi&>BZ{5%3u{YyF0;iM?yTba+ZacN<
+gzYSUJ)<0(tKd#!t_2v6CpbHp0UHx3vIVCg!0JWW2UjP6A
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/types_bw/aether.png b/graphics/types_bw/aether.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..b3e1d6cb6625db1d56c864611e2256dfee4356e2
+GIT binary patch
+literal 220
+zcmeAS@N?(olHy`uVBq!ia0vp^3P3Et!VDx^^%AmxltF+`h%1mj`ah}qY*19QW3lCb
+zFUu)=m;7I|SK;0>!|EvlSxcrApWUL6l>}7QTwVPC|9^8=`D;K<x~Gd{NX49`=Qi>(
+z8H%u6On<$5y>`O`p;an{jN$<dt^qB^%611?+XaLeg?%<$@;Lo}%I)I<=YLmjyQ!AD
+ztvl-EiHq(oeK9K&J|9q9A(DDG)@tgM<nnoaN1~k~`Pt{DzS6m#f4uH9Q^HL}jhBtv
+RzX7de@O1TaS?83{1OT$5Riyv`
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics/types_bw/tera/aether.png b/graphics/types_bw/tera/aether.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..85fd455cb86e002539d7c98f3e0ff3a926b0ef5e
+GIT binary patch
+literal 223
+zcmeAS@N?(olHy`uVBq!ia0vp^0wB!73?$#)eFPFP2=EDU1=2_VCsm&fifVQ&w*2p9
+zIc4vX|7-Rt+<RtNJw+gE$&})=TNJXAfXbSyi~s-sZ|*984amvzba4!+n4^2vkn50x
+z2*btg^FzF6HLweuUr^h(tJLEmXA1uV#ip$j)aFjwYH-!Zm`8)-$)D*lK1*U6I-2j6
+z?W=t^r|FvP*?YH4xF?mWOi5djb-?PKQu2y>E7x!Axj)_Ie}rE61^fQr+a9ua>&Qr2
+T9?QE8w3Wfr)z4*}Q$iB}lGa+)
+
+literal 0
+HcmV?d00001
+
+diff --git a/graphics_file_rules.mk b/graphics_file_rules.mk
+index 255088db..6a7d3708 100644
+--- a/graphics_file_rules.mk
++++ b/graphics_file_rules.mk
+@@ -25,7 +25,7 @@ NAMINGGFXDIR := graphics/naming_screen
+ SPINDAGFXDIR := graphics/pokemon/spinda/spots
+ TITLESCREENGFXDIR := graphics/title_screen
+ 
+-types := none normal fight flying poison ground rock bug ghost steel mystery fire water grass electric psychic ice dragon dark fairy stellar
++types := none normal fight flying poison ground rock bug ghost steel mystery fire water grass electric psychic ice dragon dark fairy stellar aether
+ contest_types := cool beauty cute smart tough
+ 
+ ### Tilesets ###
+diff --git a/src/bw_summary_screen.c b/src/bw_summary_screen.c
+index b8e87d04..cb47e8ca 100644
+--- a/src/bw_summary_screen.c
++++ b/src/bw_summary_screen.c
+@@ -1156,6 +1156,10 @@ static const union AnimCmd sSpriteAnim_TypeStellar[] = {
+     ANIMCMD_FRAME(TYPE_STELLAR * 8, 0, FALSE, FALSE),
+     ANIMCMD_END
+ };
++static const union AnimCmd sSpriteAnim_TypeAether[] = {
++    ANIMCMD_FRAME(TYPE_AETHER * 8, 0, FALSE, FALSE),
++    ANIMCMD_END
++};
+ static const union AnimCmd sSpriteAnim_CategoryCool[] = {
+     ANIMCMD_FRAME((CONTEST_CATEGORY_COOL + NUMBER_OF_MON_TYPES) * 8, 0, FALSE, FALSE),
+     ANIMCMD_END
+@@ -1199,6 +1203,7 @@ static const union AnimCmd *const sSpriteAnimTable_MoveTypes[NUMBER_OF_MON_TYPES
+     [TYPE_DARK] = sSpriteAnim_TypeDark,
+     [TYPE_FAIRY] = sSpriteAnim_TypeFairy,
+     [TYPE_STELLAR] = sSpriteAnim_TypeStellar,
++    [TYPE_AETHER] = sSpriteAnim_TypeAether,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_COOL] = sSpriteAnim_CategoryCool,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_BEAUTY] = sSpriteAnim_CategoryBeauty,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_CUTE] = sSpriteAnim_CategoryCute,
+@@ -1321,6 +1326,10 @@ static const union AnimCmd sSpriteAnim_TeraTypeStellar[] = {
+     ANIMCMD_FRAME(TYPE_STELLAR * 4, 0, FALSE, FALSE),
+     ANIMCMD_END
+ };
++static const union AnimCmd sSpriteAnim_TeraTypeAether[] = {
++    ANIMCMD_FRAME(TYPE_AETHER * 4, 0, FALSE, FALSE),
++    ANIMCMD_END
++};
+ 
+ static const union AnimCmd *const sSpriteAnimTable_TeraType[NUMBER_OF_MON_TYPES] = {
+     [TYPE_NONE] = sSpriteAnim_TeraTypeNone,
+@@ -1343,7 +1352,8 @@ static const union AnimCmd *const sSpriteAnimTable_TeraType[NUMBER_OF_MON_TYPES]
+     [TYPE_DRAGON] = sSpriteAnim_TeraTypeDragon,
+     [TYPE_DARK] = sSpriteAnim_TeraTypeDark,
+     [TYPE_FAIRY] = sSpriteAnim_TeraTypeFairy,
+-    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar
++    [TYPE_STELLAR] = sSpriteAnim_TeraTypeStellar,
++    [TYPE_AETHER] = sSpriteAnim_TeraTypeAether
+ };
+ 
+ static const struct OamData sOamData_TeraType =
+diff --git a/src/pokemon_summary_screen.c b/src/pokemon_summary_screen.c
+index 26b84381..e53bcbe9 100644
+--- a/src/pokemon_summary_screen.c
++++ b/src/pokemon_summary_screen.c
+@@ -922,6 +922,10 @@ static const union AnimCmd sSpriteAnim_TypeStellar[] = {
+     ANIMCMD_FRAME(TYPE_STELLAR * 8, 0, FALSE, FALSE),
+     ANIMCMD_END
+ };
++static const union AnimCmd sSpriteAnim_TypeAether[] = {
++    ANIMCMD_FRAME(TYPE_AETHER * 8, 0, FALSE, FALSE),
++    ANIMCMD_END
++};
+ static const union AnimCmd sSpriteAnim_CategoryCool[] = {
+     ANIMCMD_FRAME((CONTEST_CATEGORY_COOL + NUMBER_OF_MON_TYPES) * 8, 0, FALSE, FALSE),
+     ANIMCMD_END
+@@ -964,6 +968,7 @@ static const union AnimCmd *const sSpriteAnimTable_MoveTypes[NUMBER_OF_MON_TYPES
+     [TYPE_DARK] = sSpriteAnim_TypeDark,
+     [TYPE_FAIRY] = sSpriteAnim_TypeFairy,
+     [TYPE_STELLAR] = sSpriteAnim_TypeStellar,
++    [TYPE_AETHER] = sSpriteAnim_TypeAether,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_COOL] = sSpriteAnim_CategoryCool,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_BEAUTY] = sSpriteAnim_CategoryBeauty,
+     [NUMBER_OF_MON_TYPES + CONTEST_CATEGORY_CUTE] = sSpriteAnim_CategoryCute,
+diff --git a/src/type_icons.c b/src/type_icons.c
+index bd465d69..ff7ddaee 100644
+--- a/src/type_icons.c
++++ b/src/type_icons.c
+@@ -177,6 +177,7 @@ const union AnimCmd *const sSpriteAnimTable_TypeIcons[] =
+     [TYPE_DARK] =       sSpriteAnim_TypeIcon_Dark,
+     [TYPE_FAIRY] =      sSpriteAnim_TypeIcon_Fairy,
+     [TYPE_STELLAR] =    sSpriteAnim_TypeIcon_Mystery,
++    [TYPE_AETHER] =     sSpriteAnim_TypeIcon_Mystery,
+ };
+ 
+ const struct SpritePalette sTypeIconPal1 =

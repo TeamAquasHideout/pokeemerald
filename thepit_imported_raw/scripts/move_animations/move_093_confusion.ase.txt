@@ -1,0 +1,17 @@
+@ animation for MOVE_CONFUSION (@1CD40B)
+section0: # 1CD40B
+  monbg anim_def_partner
+  call <1D59BB>
+  setalpha 8 8
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x000A 0x0001
+  createvisualtask <0B9BDD> 2 0x0002 0x0000 0x0002 0x0000 0x0008 0x7FFF
+  waitforvisualfinish
+  playsewithpan se_m_supersonic sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x000F 0x0001
+  createvisualtask <0998B1> 5 0xFFFC 0xFFFC 0x000F 0x0001 0x0001
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  delay 1
+  call <1D59C7>
+  end

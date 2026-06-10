@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 188 (KnockOff) @1D8263
+section0: # 1D8263
+  set.move.effect KnockOff
+  goto <1D6900>

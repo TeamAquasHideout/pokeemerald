@@ -1,0 +1,37 @@
+@ animation for MOVE_DOOM_DESIRE (@1D4A9F)
+section0: # 1D4A9F
+  createvisualtask <0B8B39> 2 
+  delay 1
+  monbg anim_atk_partner
+  createvisualtask <0B8A75> 5 0x0001 0x0000
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0004 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  setalpha 8 8
+  playsewithpan se_m_psybeam sound_pan_attacker
+  createvisualtask <0998B1> 5 0xFFFC 0xFFFC 0x000F 0x0000 0x0001
+  waitforvisualfinish
+  delay 20
+  createvisualtask <0B8A75> 5 0x0001 0x0001
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0004 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

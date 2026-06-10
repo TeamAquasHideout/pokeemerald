@@ -1,0 +1,16 @@
+@ animation for MOVE_IRON_DEFENSE (@1CCCA3)
+section0: # 1CCCA3
+  loopsewithpan se_shiny sound_pan_attacker 28 2
+  createvisualtask <0B86ED> 5 0x0000 0x0000 0x0000
+  createsprite <3E7B3C> 2 0x0001 0x0008 0x0002 0xFFFF 0x000E 0xFFFF 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  waitforvisualfinish
+  end

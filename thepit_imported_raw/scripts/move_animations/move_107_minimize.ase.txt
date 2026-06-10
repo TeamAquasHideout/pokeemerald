@@ -1,0 +1,8 @@
+@ animation for MOVE_MINIMIZE (@1CAAF2)
+section0: # 1CAAF2
+  setalpha 10 8
+  createvisualtask <0A8075> 2 
+  loopsewithpan se_m_minimize sound_pan_attacker 34 3
+  waitforvisualfinish
+  blendoff
+  end

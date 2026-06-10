@@ -1,0 +1,30 @@
+@ animation for MOVE_AIR_CUTTER (@1CC93D)
+section0: # 1CC93D
+  loadspritegfx 0x2713
+  loadspritegfx 0x279A
+  loadspritegfx 0x2797
+  delay 0
+  monbg anim_def_partner
+  setalpha 12 8
+  delay 0
+  createvisualtask <0A76F1> 2 0x0020 0xFFE8 0x0600 0x0002 0x0080
+  waitforvisualfinish
+  playsewithpan se_m_cut sound_pan_target
+  createsprite <3E32AC> 2 0x0028 0xFFE0 0x0000 0x0002
+{
+tileTag:     10138
+paletteTag:  10138
+oam:         <3ACAF8>
+anims:       <3E3290>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A4589>
+}
+  delay 5
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  createvisualtask <098B1D> 2 0x0003 0x0002 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_def_partner
+  delay 0
+  end

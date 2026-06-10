@@ -27,6 +27,7 @@
 #define SPECIES_PIDGEOT                                 18
 #define SPECIES_RATTATA                                 19
 #define SPECIES_RATICATE                                20
+#define SPECIES_RATREECATE                              SPECIES_RATICATE // ThePit FireRed import alias
 #define SPECIES_SPEAROW                                 21
 #define SPECIES_FEAROW                                  22
 #define SPECIES_EKANS                                   23
@@ -1639,7 +1640,17 @@
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 #define SPECIES_SUBSTITUTE_DOLL                         1524 //only used as avatar
 
-#define SPECIES_EGG                                     (SPECIES_SUBSTITUTE_DOLL + 1)
+// The Pit FireRed imported custom species/forms
+#define SPECIES_GOROCHU                                      1525
+#define SPECIES_REEFSOLA                                     1526
+#define SPECIES_YGGDREON                                     1527
+#define SPECIES_PLUSLE_BATTLE_BOND                           1528
+#define SPECIES_MINUN_BATTLE_BOND                            1529
+#define SPECIES_KECLEON_BATTLE_BOND                          1530
+#define SPECIES_MAWILE_BATTLE_BOND                           1531
+#define SPECIES_BLAZIKEN_BATTLE_BOND                         1532
+
+#define SPECIES_EGG                                     (SPECIES_BLAZIKEN_BATTLE_BOND + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

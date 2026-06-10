@@ -1,0 +1,45 @@
+@ animation for MOVE_BONE_CLUB (@1CF456)
+section0: # 1CF456
+  loadspritegfx 0x2710
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_bonemerang sound_pan_target
+  createsprite <3E7A40> 2 0xFFD6 0xFFE7 0x0000 0x0000 0x000F
+{
+tileTag:     10000
+paletteTag:  10000
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7A24>
+callback:    <0B8C55>
+}
+  delay 12
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0005 0x0005 0x0001
+  createsprite <3E7B3C> 2 0x0007 0x0005 0x0001 0x0000 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

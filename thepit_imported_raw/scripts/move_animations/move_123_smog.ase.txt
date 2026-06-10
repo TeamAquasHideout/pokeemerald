@@ -1,0 +1,23 @@
+@ animation for MOVE_SMOG (@1CDE20)
+section0: # 1CDE20
+  loadspritegfx 0x27BC
+  monbg anim_def_partner
+  splitbgprio_all
+  setalpha 12 8
+  loopsewithpan se_m_mist sound_pan_target 17 10
+  call <1CDE85>
+  call <1CDE85>
+  call <1CDE85>
+  call <1CDE85>
+  call <1CDE85>
+  call <1CDE85>
+  call <1CDE85>
+  delay 120
+  loopsewithpan se_m_toxic sound_pan_target 18 2
+  createvisualtask <0B9BDD> 2 0x0004 0x0002 0x0002 0x0000 0x000C 0x681A
+  delay 10
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000F 0x0001
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

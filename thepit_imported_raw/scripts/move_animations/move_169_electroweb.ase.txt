@@ -1,0 +1,59 @@
+@ animation for MOVE_ELECTROWEB (@1D1518)
+section0: # 1D1518
+  loadspritegfx 0x27C5
+  loadspritegfx 0x27C4
+  monbg anim_def_partner
+  delay 0
+  createsprite <3E7B24> 5 0x0001 0x0002 0x0000 0x0009 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  splitbgprio anim_target
+  loopsewithpan se_m_string_shot sound_pan_attacker 9 6
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  call <1D15A5>
+  waitforvisualfinish
+  playsewithpan se_m_string_shot2 sound_pan_target
+  createsprite <3E72DC> 2 
+{
+tileTag:     10181
+paletteTag:  10181
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E72D8>
+callback:    <0B42C1>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 1
+  createsprite <3E7B24> 5 0x0001 0x0002 0x0009 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

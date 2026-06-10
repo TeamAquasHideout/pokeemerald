@@ -1,0 +1,9 @@
+@ animation for MOVE_SLACK_OFF (@1CC6C3)
+section0: # 1CC6C3
+  loadspritegfx 0x272F
+  createvisualtask <0E4541> 2 0x0000
+  playsewithpan se_m_yawn sound_pan_attacker
+  waitforvisualfinish
+  call <1D56C9>
+  waitforvisualfinish
+  end

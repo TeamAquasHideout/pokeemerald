@@ -1,0 +1,11 @@
+@ animation for MOVE_CRAZED_SHOUT (@1AFE9C0)
+section0: # 1AFE9C0
+  call <1D59BB>
+  loadspritegfx 0x27DB
+  call <1D2D1F>
+  waitforvisualfinish
+  delay 8
+  call <1D2D1F>
+  waitforvisualfinish
+  call <1D59C7>
+  end

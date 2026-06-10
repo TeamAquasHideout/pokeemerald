@@ -1,0 +1,17 @@
+@ battle script for gen3 move-effect 38 (38) @1D6ED0
+section0: # 1D6ED0
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0xFFFF
+  typecalc
+  if.move.noeffect.goto <1D6934>
+  tryKO <section1>
+  trysetdestinybondtohappen
+  goto <1D6934>
+
+section1: # 1D6EF1
+  pause 64
+  printfromtable <3FE5D4>
+  waitmessage 64
+  goto <1D694E>

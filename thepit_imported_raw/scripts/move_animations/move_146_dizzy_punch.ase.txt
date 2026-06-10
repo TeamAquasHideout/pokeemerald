@@ -1,0 +1,176 @@
+@ animation for MOVE_DIZZY_PUNCH (@1C86FC)
+section0: # 1C86FC
+  loadspritegfx 0x2759
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  call <1C8817>
+  createsprite <3E6710> 133 0x0010 0x0008 0x0014 0x0001 0x0000
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0955>
+}
+  createsprite <3E7C08> 132 0x0010 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3E67F0> 131 0x0010 0x0008 0x00A0 0xFFE0
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0x0010 0x0008 0xFF00 0xFFD8
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0x0010 0x0008 0x0080 0xFFF0
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0x0010 0x0008 0x01A0 0xFFDA
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0x0010 0x0008 0xFF80 0xFFEA
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0x0010 0x0008 0xFE80 0xFFE1
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  delay 10
+  call <1C8817>
+  createsprite <3E6710> 133 0xFFF0 0xFFF8 0x0014 0x0001 0x0000
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0955>
+}
+  createsprite <3E7C08> 132 0xFFF0 0xFFF0 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0x00A0 0xFFE0
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0xFF00 0xFFD8
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0x0080 0xFFF0
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0x01A0 0xFFDA
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0xFF80 0xFFEA
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  createsprite <3E67F0> 131 0xFFF0 0xFFF8 0xFE80 0xFFE1
+{
+tileTag:     10073
+paletteTag:  10073
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0DF1>
+}
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

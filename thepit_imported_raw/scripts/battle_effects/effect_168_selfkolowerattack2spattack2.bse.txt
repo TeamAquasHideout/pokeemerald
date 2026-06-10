@@ -1,0 +1,50 @@
+@ battle script for gen3 move-effect 168 (SelfKOLowerAttack2SpAttack2) @1D7F9F
+section0: # 1D7F9F
+  attackcanceler
+  jumpifbyte = 0x02023E88 1 <section4>
+  attackstring
+  ppreduce
+  trymemento <1D7DF2>
+  setatkhptozero
+  attackanimation
+  waitanimation
+  jumpifstatus2 target 0x01000000 <section3>
+  setbyte 0x02023FDF 0
+  playstatchangeanimation target Atk|SpAtk 7
+  playstatchangeanimation target Atk 3
+  set.stat.changer LowerAtk1
+  statbuffchange 1 <section1>
+  jumpifbyte > 0x02023E87 1 <section1>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section1: # 1D7FEC
+  playstatchangeanimation target SpAtk 3
+  set.stat.changer LowerSpAtk1
+  statbuffchange 1 <section2>
+  jumpifbyte > 0x02023E87 1 <section2>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section2: # 1D800F
+  tryfaintmon attacker 0 <null>
+  goto <1D694E>
+
+section3: # 1D801B
+  printstring 361
+  waitmessage 64
+  goto <section2>
+
+section4: # 1D8026
+  attackstring
+  ppreduce
+  trymemento <section5>
+
+section5: # 1D802D
+  setatkhptozero
+  pause 64
+  effectivenesssound
+  resultmessage
+  waitmessage 64
+  tryfaintmon attacker 0 <null>
+  goto <1D694E>

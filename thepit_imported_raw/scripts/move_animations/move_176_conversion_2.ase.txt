@@ -1,0 +1,189 @@
+@ animation for MOVE_CONVERSION_2 (@1CA0BE)
+section0: # 1CA0BE
+  loadspritegfx 0x2722
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  setalpha 0 16
+  delay 0
+  playsewithpan se_m_barrier sound_pan_target
+  createsprite <3E371C> 2 0xFFE8 0xFFE8 0x003C
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFF8 0xFFE8 0x0041
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0008 0xFFE8 0x0046
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0018 0xFFE8 0x004B
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFE8 0xFFF8 0x0050
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFF8 0xFFF8 0x0055
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0008 0xFFF8 0x005A
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0018 0xFFF8 0x005F
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFE8 0x0008 0x0064
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFF8 0x0008 0x0069
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0008 0x0008 0x006E
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0018 0x0008 0x0073
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFE8 0x0018 0x0078
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0xFFF8 0x0018 0x007D
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0008 0x0018 0x0082
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createsprite <3E371C> 2 0x0018 0x0018 0x0087
+{
+tileTag:     10018
+paletteTag:  10018
+oam:         <3ACBA8>
+anims:       <3E3718>
+images:      <null>
+affineAnims: <3E36E8>
+callback:    <0A5D4D>
+}
+  createvisualtask <0A5DE1> 5 
+  delay 60
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  delay 10
+  playsewithpan se_m_swift sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

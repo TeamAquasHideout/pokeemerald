@@ -1,0 +1,44 @@
+@ animation for MOVE_COVET (@1CCD1C)
+section0: # 1CCD1C
+  loadspritegfx 0x27E2
+  loadspritegfx 0x27F0
+  createvisualtask <0E0559> 5 0x0000 0x0002 0x0000
+  createsprite <3E41E8> 3 0x0000 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  delay 15
+  createsprite <3E41E8> 3 0xFFEC 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  delay 15
+  createsprite <3E41E8> 3 0x0014 0x0014
+{
+tileTag:     10210
+paletteTag:  10210
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A9861>
+}
+  playsewithpan se_m_charm sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  loopsewithpan se_m_dizzy_punch sound_pan_target 4 3
+  end

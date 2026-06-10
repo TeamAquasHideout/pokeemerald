@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 29 (2to5hits) @1AD1FC0
+section0: # 1AD1FC0
+  jumpifability attacker "Skill Link" <1AD1F90>
+  goto <1D6CD9>

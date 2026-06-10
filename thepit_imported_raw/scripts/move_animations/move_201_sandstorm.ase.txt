@@ -1,0 +1,83 @@
+@ animation for MOVE_SANDSTORM (@1CFAB2)
+section0: # 1CFAB2
+  loadspritegfx 0x2815
+  playsewithpan se_m_sandstorm 0
+  createvisualtask <0B4811> 5 0x0000
+  delay 16
+  createsprite <3E7450> 40 0x000A 0x0900 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x005A 0x0800 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x0032 0x0A00 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x0014 0x0900 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x0046 0x07C0 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x0000 0x0B00 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  delay 10
+  createsprite <3E7450> 40 0x003C 0x0A00 0x0060 0x0000
+{
+tileTag:     10261
+paletteTag:  10261
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4AA9>
+}
+  end

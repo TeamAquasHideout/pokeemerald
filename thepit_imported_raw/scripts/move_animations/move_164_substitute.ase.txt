@@ -1,0 +1,5 @@
+@ animation for MOVE_SUBSTITUTE (@1D3433)
+section0: # 1D3433
+  playsewithpan se_m_attract sound_pan_attacker
+  createvisualtask <0E3295> 2 
+  end

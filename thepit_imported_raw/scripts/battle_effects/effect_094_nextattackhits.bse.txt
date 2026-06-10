@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 94 (NextAttackHits) @1D74EB
+section0: # 1D74EB
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <1D7DF2> 0
+  setalwayshitflag
+  attackanimation
+  waitanimation
+  printstring 137
+  waitmessage 64
+  goto <1D694E>

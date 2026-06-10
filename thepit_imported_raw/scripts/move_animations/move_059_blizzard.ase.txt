@@ -1,0 +1,27 @@
+@ animation for MOVE_BLIZZARD (@1CE768)
+section0: # 1CE768
+  loadspritegfx 0x279D
+  monbg anim_def_partner
+  createvisualtask <0BB921> 2 
+  jumpargeq 7 1 <1CE8ED>
+  fadetobg bg_highspeed_opponent
+
+section1: # 1CE77E
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0xF700 0x0000 0x0001 0xFFFF
+  waitbgfadein
+  waitforvisualfinish
+  panse se_m_blizzard sound_pan_attacker sound_pan_target 2 0
+  call <1CE7B8>
+  call <1CE7B8>
+  playsewithpan se_m_blizzard2 sound_pan_target
+  waitforvisualfinish
+  call <1D548E>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 20
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

@@ -1,0 +1,109 @@
+@ animation for MOVE_MEGAHORN (@1CF55A)
+section0: # 1CF55A
+  loadspritegfx 0x27A9
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  jumpifcontest <section2>
+  fadetobg bg_drill
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0xF700 0x0300 0x0001 0xFFFF
+
+section1: # 1CF57D
+  waitbgfadein
+  setalpha 12 8
+  createvisualtask <0989F9> 5 0x0000 0x0002 0x0000 0x000F 0x0001
+  waitforvisualfinish
+  delay 10
+  createsprite <3D4E9C> 2 0x0000 0x0018 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 3
+  createsprite <3E7224> 3 0xFFD6 0x0019 0x0000 0x0000 0x0006
+{
+tileTag:     10153
+paletteTag:  10153
+oam:         <3ACAB8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7218>
+callback:    <0B3FAD>
+}
+  delay 4
+  playsewithpan se_m_vicegrip sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3D4E9C> 2 0x0001 0xFFF0 0x0004 0x0001 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0001 0xFFFC 0x0001 0x000C 0x0001
+  createsprite <3E7B3C> 2 0x0007 0x0005 0x0001 0x7FFF 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 10
+  createsprite <3D4E84> 2 0x0000 0x0000 0x000B
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 3
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0007
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end
+
+section2: # 1CF631
+  fadetobg bg_drill_contests
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0x0900 0x0300 0x0000 0xFFFF
+  goto <section1>

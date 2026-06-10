@@ -1,0 +1,84 @@
+@ animation for MOVE_KNOCK_OFF (@1D4A0F)
+section0: # 1D4A0F
+  loadspritegfx 0x2825
+  loadspritegfx 0x2797
+  createsprite <3D4E54> 2 0x0004 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  playsewithpan se_m_vital_throw sound_pan_target
+  createsprite <3FF764> 130 0xFFF0 0xFFF0
+{
+tileTag:     10277
+paletteTag:  10277
+oam:         <3ACA40>
+anims:       <3FF728>
+images:      <null>
+affineAnims: <3FF75C>
+callback:    <0E4335>
+}
+  delay 8
+  createsprite <3E7B3C> 2 0x001F 0x0005 0x0001 0x7FFF 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createsprite <3E7C08> 131 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  createsprite <3D4E9C> 2 0x0001 0xFFF4 0x000A 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 3
+  createvisualtask <098CD1> 2 0x0001 0x0000 0x0003 0x0006 0x0001
+  delay 5
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 10
+  waitforvisualfinish
+  end

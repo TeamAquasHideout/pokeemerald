@@ -1,0 +1,39 @@
+@ animation for MOVE_ROYAL_ORDER (@1B0B460)
+section0: # 1B0B460
+  call <1D59BB>
+  createvisualtask <099705> 3 0x0000 0x0006 0x0500 0x0003 0x0000
+  loadspritegfx 0x27E4
+  monbg anim_atk_partner
+  delay 6
+  createvisualtask <0B9BDD> 2 0x0001 0x0002 0x0008 0x0000 0x000A 0x0000
+  delay 0
+  splitbgprio anim_attacker
+  setalpha 8 8
+  delay 10
+  createvisualtask <0989F9> 2 0x0000 0x0003 0x0000 0x00F0 0x0000
+  loopsewithpan se_m_psybeam2 sound_pan_attacker 14 10
+  createsprite <3E71D0> 2 
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E71C8>
+callback:    <0B3E85>
+}
+  delay 110
+  loopsewithpan se_m_psybeam2 sound_pan_attacker 7 10
+  waitforvisualfinish
+  createvisualtask <098B1D> 2 0x0001 0xFFF8 0x0001 0x0018 0x0001
+  playsewithpan se_m_leer sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  setalpha 8 8
+  playsewithpan se_m_supersonic sound_pan_attacker
+  createvisualtask <0B9BDD> 2 0x0002 0x0000 0x0002 0x0000 0x0008 0x7FFF
+  createvisualtask <0998B1> 5 0xFFFC 0xFFFC 0x000F 0x0000 0x0001
+  waitforvisualfinish
+  call <1D59C7>
+  end

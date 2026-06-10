@@ -1,0 +1,15 @@
+@ battle script for gen3 move-effect 122 (122) @1D7962
+section0: # 1D7962
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc
+  presentdamagecalculation
+
+section1: # 1D796E
+  attackcanceler
+  attackstring
+  ppreduce
+  setsafeguard
+  goto <1D7172>

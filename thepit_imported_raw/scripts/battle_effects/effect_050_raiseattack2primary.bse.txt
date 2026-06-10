@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 50 (RaiseAttack2Primary) @1D70F8
+section0: # 1D70F8
+  set.stat.changer RaiseAtk2
+  goto <1D6B9E>

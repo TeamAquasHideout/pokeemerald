@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 35 (RaiseSpDefense2Wall) @1D6E74
+section0: # 1D6E74
+  attackcanceler
+  attackstring
+  ppreduce
+  setlightscreen
+  goto <1D7172>

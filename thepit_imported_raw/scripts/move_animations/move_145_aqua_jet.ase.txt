@@ -1,0 +1,61 @@
+@ animation for MOVE_AQUA_JET (@1AD2DE0)
+section0: # 1AD2DE0
+  loadspritegfx 0x2820
+  loadspritegfx 0x27AC
+  playsewithpan se_m_headbutt sound_pan_attacker
+  createsprite <3E6D40> 2 0x0000 0x0000 0x000D 0x0150
+{
+tileTag:     10156
+paletteTag:  10156
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6D3C>
+callback:    <0B2A09>
+}
+  waitforvisualfinish
+  playsewithpan se_m_dive sound_pan_attacker
+  createsprite <3E6D7C> 3 0x0000
+{
+tileTag:     10272
+paletteTag:  10272
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2AF5>
+}
+  call <1D41B6>
+  call <1D41B6>
+  call <1D41B6>
+  call <1D41B6>
+  call <1D41B6>
+  waitforvisualfinish
+  loadspritegfx 0x27A4
+  loadspritegfx 0x27AB
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_explosion sound_pan_target
+  createsprite <3E6D7C> 131 0x0001
+{
+tileTag:     10272
+paletteTag:  10272
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2AF5>
+}
+  call <1D420C>
+  call <1D420C>
+  call <1D420C>
+  call <1D420C>
+  call <1D420C>
+  delay 12
+  call <1C8CA2>
+  waitforvisualfinish
+  visible anim_attacker
+  clearmonbg anim_def_partner
+  blendoff
+  waitforvisualfinish
+  end

@@ -1,0 +1,24 @@
+@ battle script for gen3 move-effect 166 (ConfuseAndRaiseSpAttack2) @1D7ECD
+section0: # 1D7ECD
+  attackcanceler
+  jumpifstatus2 target 0x01000000 <1D6958>
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  jumpifconfusedandstatmaxed spAttack <1D7DF2>
+  attackanimation
+  waitanimation
+  set.stat.changer RaiseSpAtk1
+  statbuffchange 1 <section1>
+  jumpifbyte = 0x02023E87 2 <section1>
+  setgraphicalstatchangevalues
+  playanimation target StatChange 0x02023FD4
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section1: # 1D7F10
+  jumpifability target "Own Tempo" <1D9460>
+  jumpifsideaffecting target 32 <1D8B39>
+  set.move.effect Confusion
+  seteffectprimary
+  goto <1D694E>

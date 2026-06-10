@@ -1,0 +1,21 @@
+@ battle script for gen3 move-effect 180 (180) @1D8152
+section0: # 1D8152
+  attackcanceler
+  attackstring
+  assistattackselect <1D7DF1>
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDC 0
+  setbyte 0x02023FDD 0
+  jumptocalledmove 1
+
+section1: # 1D8169
+  attackcanceler
+  attackstring
+  ppreduce
+  trysetroots <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 179
+  waitmessage 64
+  goto <1D694E>

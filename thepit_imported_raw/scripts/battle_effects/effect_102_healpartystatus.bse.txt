@@ -1,0 +1,25 @@
+@ battle script for gen3 move-effect 102 (HealPartyStatus) @1D75A1
+section0: # 1D75A1
+  attackcanceler
+  attackstring
+  ppreduce
+  healpartystatus
+  waitstate
+  attackanimation
+  waitanimation
+  printfromtable <3FE5E4>
+  waitmessage 64
+  if.not.move.goto "Heal Bell" <section2>
+  jumpifbyte &~ 0x02023E87 1 <section1>
+  printstring 306
+  waitmessage 64
+
+section1: # 1D75CD
+  jumpifbyte &~ 0x02023E87 2 <section2>
+  printstring 350
+  waitmessage 64
+
+section2: # 1D75DE
+  updatestatusicon attacker_with_partner
+  waitstate
+  goto <1D694E>

@@ -23,7 +23,8 @@
 #define TYPE_DARK             18
 #define TYPE_FAIRY            19
 #define TYPE_STELLAR          20
-#define NUMBER_OF_MON_TYPES   21
+#define TYPE_AETHER           21
+#define NUMBER_OF_MON_TYPES   22
 
 #if (GEN_LATEST >= GEN_6)
 #define RANDOM_MON_TYPES   20

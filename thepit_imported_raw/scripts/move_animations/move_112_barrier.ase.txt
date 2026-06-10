@@ -1,0 +1,19 @@
+@ animation for MOVE_BARRIER (@1CDD2D)
+section0: # 1CDD2D
+  loadspritegfx 0x27B9
+  setalpha 0 16
+  waitplaysewithpan se_m_barrier sound_pan_attacker 15
+  createsprite <3E6E58> 3 0x0028 0x0000 0x27B9
+{
+tileTag:     10169
+paletteTag:  10169
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  waitforvisualfinish
+  delay 1
+  blendoff
+  end

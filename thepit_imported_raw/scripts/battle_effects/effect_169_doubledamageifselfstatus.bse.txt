@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 169 (DoubleDamageIfSelfStatus) @1D8042
+section0: # 1D8042
+  jumpifstatus attacker 216 <section1>
+  goto <1D6900>
+
+section1: # 1D8051
+  setbyte 0x02023FD2 2
+  goto <1D6900>

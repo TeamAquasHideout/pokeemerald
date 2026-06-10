@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 69 (LowerDefense1HitChance) @1D726A
+section0: # 1D726A
+  set.move.effect LowerDef1
+  goto <1D6900>

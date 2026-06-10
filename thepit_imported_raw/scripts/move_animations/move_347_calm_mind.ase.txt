@@ -1,0 +1,51 @@
+@ animation for MOVE_CALM_MIND (@1CCE97)
+section0: # 1CCE97
+  loadspritegfx 0x27DB
+  monbg anim_atk_partner
+  createvisualtask <0BA83D> 5 0x0000 0x0000 0x0000 0x0010 0x0000
+  waitforvisualfinish
+  createvisualtask <0BB9B1> 5 0x0001
+  waitforvisualfinish
+  createsprite <3E40C8> 40 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E40C4>
+callback:    <075D9D>
+}
+  playsewithpan se_m_supersonic sound_pan_attacker
+  delay 14
+  createsprite <3E40C8> 40 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E40C4>
+callback:    <075D9D>
+}
+  playsewithpan se_m_supersonic sound_pan_attacker
+  delay 14
+  createsprite <3E40C8> 40 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E40C4>
+callback:    <075D9D>
+}
+  playsewithpan se_m_supersonic sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <0BB9B1> 5 0x0000
+  visible anim_attacker
+  waitforvisualfinish
+  createvisualtask <0BA83D> 5 0x0000 0x0000 0x0010 0x0000 0x0000
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  end

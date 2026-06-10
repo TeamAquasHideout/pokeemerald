@@ -1,0 +1,25 @@
+@ animation for MOVE_ICY_WIND (@1C9DF0)
+section0: # 1C9DF0
+  loadspritegfx 0x279D
+  loadspritegfx 0x279E
+  monbg anim_def_partner
+  createvisualtask <0BA7F9> 10 0x000B 0x0004 0x0000 0x0004 0x0000
+  fadetobg bg_ice
+  waitbgfadeout
+  playsewithpan se_m_icy_wind 0
+  waitbgfadein
+  waitforvisualfinish
+  panse se_m_gust sound_pan_attacker sound_pan_target 2 0
+  call <1C9E48>
+  delay 5
+  call <1C9E48>
+  playsewithpan se_m_gust2 sound_pan_target
+  delay 55
+  call <1D55E2>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  restorebg
+  waitbgfadeout
+  createvisualtask <0BA7F9> 10 0x000B 0x0004 0x0004 0x0000 0x0000
+  waitbgfadein
+  end

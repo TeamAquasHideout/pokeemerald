@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 32 (HealHalfSelf) @1D6DBD
+section0: # 1D6DBD
+  attackcanceler
+  attackstring
+  ppreduce
+  tryhealhalfhealth <1D7DD1> attacker
+  attackanimation
+  waitanimation
+  orword 0x02023DD0 256
+  healthbarupdate attacker
+  datahpupdate attacker
+  printstring 75
+  waitmessage 64
+  goto <1D694E>

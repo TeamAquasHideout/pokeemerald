@@ -1,0 +1,15 @@
+@ battle script for gen3 move-effect 153 (Escape) @1D7C4D
+section0: # 1D7C4D
+  attackcanceler
+  attackstring
+  ppreduce
+  if.battletype.goto 8 <1D7DF2>
+  get.cant.run
+  jumpifbyte = 0x02023E82 1 <1D7DF2>
+  jumpifbyte = 0x02023E82 2 <1D8255>
+  attackanimation
+  waitanimation
+  printstring 160
+  waitmessage 64
+  setbyte 0x02023E8A 5
+  goto <1D694E>

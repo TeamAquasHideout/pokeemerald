@@ -1,0 +1,19 @@
+@ animation for MOVE_NIGHT_SHADE (@1D11BB)
+section0: # 1D11BB
+  monbg anim_attacker
+  splitbgprio anim_attacker
+  playsewithpan se_m_psybeam sound_pan_attacker
+  fadetobg bg_ghost
+  waitbgfadein
+  delay 10
+  playsewithpan se_m_leer sound_pan_attacker
+  createvisualtask <0B54E9> 5 0x0055
+  delay 70
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000C 0x0001
+  createvisualtask <0B9BDD> 2 0x0004 0x0000 0x0002 0x0000 0x000D 0x0000
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  delay 1
+  restorebg
+  waitbgfadein
+  end

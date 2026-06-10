@@ -1,0 +1,27 @@
+@ animation for MOVE_DOUBLE_TEAM (@1CAAAB)
+section0: # 1CAAAB
+  monbg anim_atk_partner
+  setalpha 12 8
+  createvisualtask <0A63B5> 2 
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 32
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 24
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 16
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 8
+  playsewithpan se_m_double_team sound_pan_attacker
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  end

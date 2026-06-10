@@ -1,0 +1,13 @@
+@ animation for MOVE_FOCUS_ENERGY (@1D1307)
+section0: # 1D1307
+  loadspritegfx 0x27C8
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  call <1CB267>
+  delay 8
+  createvisualtask <0B9BDD> 2 0x0002 0x0002 0x0002 0x0000 0x000B 0x7FFF
+  createvisualtask <098B1D> 2 0x0000 0x0001 0x0000 0x0020 0x0001
+  call <1CB267>
+  delay 8
+  call <1CB267>
+  waitforvisualfinish
+  end

@@ -1,0 +1,130 @@
+@ animation for MOVE_THUNDERBOLT (@1C7FAA)
+section0: # 1C7FAA
+  loadspritegfx 0x2711
+  loadspritegfx 0x282A
+  loadspritegfx 0x271B
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0000 0x0006 0x0000
+  waitforvisualfinish
+  delay 10
+  createvisualtask <0AE221> 5 0x0018 0xFFCC 0x0000
+  playsewithpan se_m_thunderbolt sound_pan_target
+  delay 7
+  createvisualtask <0AE221> 5 0xFFE8 0xFFCC 0x0000
+  playsewithpan se_m_thunderbolt sound_pan_target
+  delay 7
+  createvisualtask <0AE221> 5 0x0000 0xFFC4 0x0001
+  playsewithpan se_m_thunderbolt sound_pan_target
+  delay 9
+  createvisualtask <0BA7F9> 10 0x0004 0x0000 0x0000 0x000D 0x0000
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0004 0x0000 0x000D 0x0000 0x0000
+  waitforvisualfinish
+  delay 20
+  createsprite <3E6058> 131 0x002C 0x0000 0x0000 0x0003
+{
+tileTag:     10282
+paletteTag:  10282
+oam:         <3ACA38>
+anims:       <3E6030>
+images:      <null>
+affineAnims: <3E6054>
+callback:    <0AE001>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0020 0x002C 0x0000 0x0028 0x0000 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0020 0x002C 0x0040 0x0028 0x0001 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0020 0x002C 0x0080 0x0028 0x0000 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0020 0x002C 0x00C0 0x0028 0x0002 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0010 0x002C 0x0020 0x0028 0x0000 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0010 0x002C 0x0060 0x0028 0x0001 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0010 0x002C 0x00A0 0x0028 0x0000 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  createsprite <3E6070> 132 0x0000 0x0000 0x0010 0x002C 0x00E0 0x0028 0x0002 0x8003
+{
+tileTag:     10011
+paletteTag:  10011
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6004>
+callback:    <0AE06D>
+}
+  playsewithpan se_m_hyper_beam sound_pan_target
+  delay 0
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0002 0x0002 0x0000
+  delay 6
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0006 0x0006 0x0000
+  delay 6
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0002 0x0002 0x0000
+  delay 6
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0006 0x0006 0x0000
+  waitforvisualfinish
+  delay 20
+  waitplaysewithpan se_m_thunderbolt2 sound_pan_target 19
+  call <1D58D4>
+  waitforvisualfinish
+  delay 20
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0006 0x0000 0x0000
+  waitforvisualfinish
+  end

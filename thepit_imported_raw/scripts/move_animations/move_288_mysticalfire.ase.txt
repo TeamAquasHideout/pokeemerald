@@ -1,0 +1,95 @@
+@ animation for MOVE_MYSTICALFIRE (@1AD2800)
+section0: # 1AD2800
+  call <1D59BB>
+  loadspritegfx 0x2731
+  playsewithpan se_m_flame_wheel2 sound_pan_target
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0x0000
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0000 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0xFFFF
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0002 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0001 0xFFFF
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0xFFFF 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0001 0xFFFE
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  delay 1
+  createsprite <3E5C88> 130 0x0000 0x0000 0x001E 0x001E 0x0003 0x0001
+{
+tileTag:     10033
+paletteTag:  10033
+oam:         <3AC9D8>
+anims:       <3E5C34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ACA01>
+}
+  waitforvisualfinish
+  call <1D59C7>
+  end

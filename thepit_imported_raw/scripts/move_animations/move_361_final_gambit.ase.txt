@@ -1,0 +1,55 @@
+@ animation for MOVE_FINAL_GAMBIT (@1AE5BC0)
+section0: # 1AE5BC0
+  loadspritegfx 0x2797
+  createsprite <3E3550> 2 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  playsewithpan se_m_headbutt sound_pan_attacker
+  waitforvisualfinish
+  delay 2
+  createsprite <3E3550> 2 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0002 0x0000 0x0004 0x0001
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x0006 0x0001
+  createsprite <3E3550> 2 0x0002
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  createsprite <3E7C98> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA781>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  call <1C7D89>
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

@@ -1,0 +1,36 @@
+@ animation for MOVE_WHIRLPOOL (@1CFB3A)
+section0: # 1CFB3A
+  loadspritegfx 0x27A5
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  delay 0
+  createsprite <3E7B24> 0 0x0004 0x0002 0x0000 0x0007 0x5DA0
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  playsewithpan se_m_whirlpool sound_pan_target
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0002 0x0032 0x0001
+  call <1CFB92>
+  call <1CFB92>
+  call <1CFB92>
+  delay 12
+  createsprite <3E7B24> 0 0x0004 0x0002 0x0007 0x0000 0x5DA0
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 189 (TargetHPEqualUser) @1D826E
+section0: # 1D826E
+  attackcanceler
+  attackstring
+  ppreduce
+  setdamagetohealthdifference <1D7DF2>
+  copyarray 0x02023D54 0x02023D50 4
+  accuracycheck <1D6960> 0
+  typecalc
+  if.move.noeffect.goto <1D6934>
+  bicbyte 0x02023DCC 6
+  copyarray 0x02023D50 0x02023D54 4
+  adjustsetdamage
+  goto <1D6934>

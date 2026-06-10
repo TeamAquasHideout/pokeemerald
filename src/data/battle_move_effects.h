@@ -2248,4 +2248,149 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
         .battleScript = BattleScript_EffectHit,
         .battleTvScore = 0, // TODO: Assign points
     },
+    [EFFECT_THEPIT_ABYSS_WRATH] =
+    {
+        .battleScript = BattleScript_EffectThePitAbyssWrath,
+        .battleTvScore = 4,
+    },
+
+    [EFFECT_THEPIT_ATROPHIC_EYE] =
+    {
+        .battleScript = BattleScript_EffectThePitAtrophicEye,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_BRIGHT_SONG] =
+    {
+        .battleScript = BattleScript_EffectThePitBrightSong,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_CELL_SHIELD] =
+    {
+        .battleScript = BattleScript_EffectThePitCellShield,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_KUMOGAKURE] =
+    {
+        .battleScript = BattleScript_EffectThePitKumogakure,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_LIFE_BALLAD] =
+    {
+        .battleScript = BattleScript_EffectThePitLifeBallad,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_LIFE_CONTROL] =
+    {
+        .battleScript = BattleScript_EffectThePitLifeControl,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_LIMIT_BREAK] =
+    {
+        .battleScript = BattleScript_EffectThePitLimitBreak,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_NOBLE_ORDER] =
+    {
+        .battleScript = BattleScript_EffectThePitNobleOrder,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_PHALANX_GUARD] =
+    {
+        .battleScript = BattleScript_EffectThePitPhalanxGuard,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_ROTTEN_EGG] =
+    {
+        .battleScript = BattleScript_EffectThePitRottenEgg,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_SHOGUN_DECOY] =
+    {
+        .battleScript = BattleScript_EffectThePitShogunDecoy,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_SPRING_TANGO] =
+    {
+        .battleScript = BattleScript_EffectThePitSpringTango,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_STRANGE_SEEDS] =
+    {
+        .battleScript = BattleScript_EffectThePitStrangeSeeds,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_SUMMER_TANGO] =
+    {
+        .battleScript = BattleScript_EffectThePitSummerTango,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_TIME_CIRCLE] =
+    {
+        .battleScript = BattleScript_EffectThePitTimeCircle,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_VEIL_ORDER] =
+    {
+        .battleScript = BattleScript_EffectThePitVeilOrder,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_VOLT_MASK] =
+    {
+        .battleScript = BattleScript_EffectThePitVoltMask,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_WAKING_CHAKRA] =
+    {
+        .battleScript = BattleScript_EffectThePitWakingChakra,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_WARDING_MIST] =
+    {
+        .battleScript = BattleScript_EffectThePitWardingMist,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
+
+    [EFFECT_THEPIT_WILT_MIASMA] =
+    {
+        .battleScript = BattleScript_EffectThePitWiltMiasma,
+        .battleTvScore = 1,
+        .encourageEncore = TRUE,
+    },
 };

@@ -1,0 +1,32 @@
+@ animation for MOVE_REFRESH (@1D2C42)
+section0: # 1D2C42
+  loadspritegfx 0x27DB
+  loadspritegfx 0x2741
+  playsewithpan se_m_stat_increase sound_pan_attacker
+  createvisualtask <0E2085> 2 0x0000
+  waitforvisualfinish
+  playsewithpan se_m_morning_sun sound_pan_attacker
+  call <1D569E>
+  waitforvisualfinish
+  playsewithpan se_shiny sound_pan_attacker
+  createsprite <3E7B24> 2 0x001F 0x0003 0x000A 0x0000 0x7B0C
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  createsprite <3E4094> 3 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <075D9D>
+}
+  end

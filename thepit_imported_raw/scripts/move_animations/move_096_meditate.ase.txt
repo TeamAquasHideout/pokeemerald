@@ -1,0 +1,10 @@
+@ animation for MOVE_MEDITATE (@1CA95D)
+section0: # 1CA95D
+  call <1D59BB>
+  createvisualtask <0B3419> 2 
+  playsewithpan se_m_headbutt sound_pan_attacker
+  delay 16
+  playsewithpan se_m_take_down sound_pan_attacker
+  waitforvisualfinish
+  call <1D59C7>
+  end

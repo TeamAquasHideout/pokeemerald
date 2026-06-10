@@ -1,0 +1,88 @@
+@ animation for MOVE_POISON_GAS (@1D0C22)
+section0: # 1D0C22
+  loadspritegfx 0x27BC
+  loadspritegfx 0x27A6
+  delay 0
+  monbg anim_def_partner
+  splitbgprio_all
+  setalpha 12 8
+  delay 0
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 4
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 4
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 4
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 4
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 4
+  playsewithpan se_m_mist sound_pan_attacker
+  createsprite <3E6514> 128 0x0040 0x0000 0x0000 0xFFE0 0xFFFA 0x1060 0x0430 0x0000
+{
+tileTag:     10172
+paletteTag:  10172
+oam:         <3ACB18>
+anims:       <3E64A0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AFFD5>
+}
+  delay 40
+  loopsewithpan se_m_mist sound_pan_target 28 6
+  createvisualtask <0B9BDD> 2 0x0004 0x0006 0x0002 0x0000 0x000C 0x681A
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_def_partner
+  delay 0
+  end

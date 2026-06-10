@@ -1,0 +1,38 @@
+@ animation for MOVE_POISON_STING (@1C7A2D)
+section0: # 1C7A2D
+  loadspritegfx 0x27B1
+  loadspritegfx 0x2797
+  loadspritegfx 0x27A6
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_razor_wind2 sound_pan_attacker
+  createsprite <3E72F4> 130 0x0014 0x0000 0xFFF8 0x0000 0x0014
+{
+tileTag:     10161
+paletteTag:  10161
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4365>
+}
+  waitforvisualfinish
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0005 0x0001
+  playsewithpan se_m_horn_attack sound_pan_target
+  waitforvisualfinish
+  call <1D575B>
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

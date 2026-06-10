@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 82 (Mimic) @1D7374
+section0: # 1D7374
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <1D7DF2> 0xFFFF
+  mimicattackcopy <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 22
+  waitmessage 64
+  goto <1D694E>

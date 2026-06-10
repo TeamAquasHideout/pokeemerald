@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 113 (113) @1D783E
+section0: # 1D783E
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  setforesight
+  attackanimation
+  waitanimation
+  printstring 150
+  waitmessage 64
+  goto <1D694E>

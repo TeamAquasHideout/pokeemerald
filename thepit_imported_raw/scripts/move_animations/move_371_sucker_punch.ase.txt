@@ -1,0 +1,49 @@
+@ animation for MOVE_SUCKER_PUNCH (@1AE67C0)
+section0: # 1AE67C0
+  loadspritegfx 0x2833
+  loadspritegfx 0x2797
+  createsprite <3D4E9C> 2 0x0000 0x0014 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  createsprite <1AE6870> 130 0xFFE8 0x0005 0x0028 0x0008 0x00A0 0x0000
+{
+tileTag:     10291
+paletteTag:  10291
+oam:         <3ACA30>
+anims:       <3E2C4C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0C29>
+}
+  delay 4
+  createsprite <3E7C08> 130 0xFFF8 0x0008 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <099981> 2 0x0006 0x0180 0x0001 0x0002
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  createsprite <3D4E84> 2 0x0000 0x0001 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  end

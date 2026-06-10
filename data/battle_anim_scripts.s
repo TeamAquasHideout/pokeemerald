@@ -38000,3 +38000,3620 @@ gBattleAnimGeneral_DynamaxGrowth:: @ PORTED FROM CFRU
 	createvisualtask AnimTask_DynamaxGrowth, 0x5, 0x1, 0x0
 	waitforvisualfinish
 	end
+@ -----------------------------------------------------------------------------
+@ The Pit FireRed .ase animation ports.
+@ Generated from thepit_import/scripts/move_animations/*.ase.txt and symbol-mapped
+@ through the supplied pokefirered decompilation. Unknown CFRU-only visual tasks are
+@ routed to AnimTask_ThePitAseNoOp so no raw FireRed pointers remain.
+@ -----------------------------------------------------------------------------
+
+@ Export The Pit .ase scripts so C move data can link against them.
+	.global gBattleAnimMove_ThePit_AbyssMiasma
+	.global gBattleAnimMove_ThePit_AbyssWrath
+	.global gBattleAnimMove_ThePit_AdNihilo
+	.global gBattleAnimMove_ThePit_AdNihilo_Sub_1D3F7E
+	.global gBattleAnimMove_ThePit_AdNihilo_Sub_1D4138
+	.global gBattleAnimMove_ThePit_AkashicNova
+	.global gBattleAnimMove_ThePit_ArcaneBlast
+	.global gBattleAnimMove_ThePit_AstralGleam
+	.global gBattleAnimMove_ThePit_AtrophicEye
+	.global gBattleAnimMove_ThePit_AzureFlood
+	.global gBattleAnimMove_ThePit_Bafflingstep
+	.global gBattleAnimMove_ThePit_BrightSong
+	.global gBattleAnimMove_ThePit_CallAllies
+	.global gBattleAnimMove_ThePit_CallLion
+	.global gBattleAnimMove_ThePit_CallOwl
+	.global gBattleAnimMove_ThePit_CallSnake
+	.global gBattleAnimMove_ThePit_CellShield
+	.global gBattleAnimMove_ThePit_Chainweather
+	.global gBattleAnimMove_ThePit_ChainKiller
+	.global gBattleAnimMove_ThePit_Corkscrew
+	.global gBattleAnimMove_ThePit_CosmicSlash
+	.global gBattleAnimMove_ThePit_CrazedShout
+	.global gBattleAnimMove_ThePit_Darknessfist
+	.global gBattleAnimMove_ThePit_DemonicRush
+	.global gBattleAnimMove_ThePit_DivineStorm
+	.global gBattleAnimMove_ThePit_Doublehammer
+	.global gBattleAnimMove_ThePit_Electroshock
+	.global gBattleAnimMove_ThePit_EnergyEdge
+	.global gBattleAnimMove_ThePit_EthericBoon
+	.global gBattleAnimMove_ThePit_FirstPress
+	.global gBattleAnimMove_ThePit_FlareMask
+	.global gBattleAnimMove_ThePit_Freezeripple
+	.global gBattleAnimMove_ThePit_FreezeMask
+	.global gBattleAnimMove_ThePit_FrostCurse
+	.global gBattleAnimMove_ThePit_Fukubari
+	.global gBattleAnimMove_ThePit_Harvestparty
+	.global gBattleAnimMove_ThePit_Heal
+	.global gBattleAnimMove_ThePit_IcyAria
+	.global gBattleAnimMove_ThePit_IronDrill
+	.global gBattleAnimMove_ThePit_Izuna
+	.global gBattleAnimMove_ThePit_Kumogakure
+	.global gBattleAnimMove_ThePit_LeadingBlow
+	.global gBattleAnimMove_ThePit_LifeBallad
+	.global gBattleAnimMove_ThePit_LifeControl
+	.global gBattleAnimMove_ThePit_LightShot
+	.global gBattleAnimMove_ThePit_LimitBreak
+	.global gBattleAnimMove_ThePit_Lullaby
+	.global gBattleAnimMove_ThePit_Megalodive
+	.global gBattleAnimMove_ThePit_Mesmerize
+	.global gBattleAnimMove_ThePit_Meteor
+	.global gBattleAnimMove_ThePit_MindBash
+	.global gBattleAnimMove_ThePit_NobleOrder
+	.global gBattleAnimMove_ThePit_OceanRave
+	.global gBattleAnimMove_ThePit_OneTwopunch
+	.global gBattleAnimMove_ThePit_OriginCrush
+	.global gBattleAnimMove_ThePit_PanicSpores
+	.global gBattleAnimMove_ThePit_Phalanxguard
+	.global gBattleAnimMove_ThePit_PotionBomb
+	.global gBattleAnimMove_ThePit_PrimalDrums
+	.global gBattleAnimMove_ThePit_RadiantStar
+	.global gBattleAnimMove_ThePit_RapidFire
+	.global gBattleAnimMove_ThePit_RockHammer
+	.global gBattleAnimMove_ThePit_RottenEgg
+	.global gBattleAnimMove_ThePit_RoyalOrder
+	.global gBattleAnimMove_ThePit_ScytheDance
+	.global gBattleAnimMove_ThePit_Sealinglight
+	.global gBattleAnimMove_ThePit_ShatterShot
+	.global gBattleAnimMove_ThePit_ShogunDecoy
+	.global gBattleAnimMove_ThePit_Slashrampage
+	.global gBattleAnimMove_ThePit_SolarFlame
+	.global gBattleAnimMove_ThePit_SonicRaid
+	.global gBattleAnimMove_ThePit_SoulTrade
+	.global gBattleAnimMove_ThePit_Sporebarrage
+	.global gBattleAnimMove_ThePit_SpringTango
+	.global gBattleAnimMove_ThePit_StarDrop
+	.global gBattleAnimMove_ThePit_StompCrush
+	.global gBattleAnimMove_ThePit_Strangeseeds
+	.global gBattleAnimMove_ThePit_SubzeroGale
+	.global gBattleAnimMove_ThePit_SummerTango
+	.global gBattleAnimMove_ThePit_TagenBattou
+	.global gBattleAnimMove_ThePit_TimeCircle
+	.global gBattleAnimMove_ThePit_TitanKiller
+	.global gBattleAnimMove_ThePit_ToxicHerb
+	.global gBattleAnimMove_ThePit_ToxicReap
+	.global gBattleAnimMove_ThePit_VeilOrder
+	.global gBattleAnimMove_ThePit_VenomGust
+	.global gBattleAnimMove_ThePit_VoltMask
+	.global gBattleAnimMove_ThePit_VoltWings
+	.global gBattleAnimMove_ThePit_Wakingchakra
+	.global gBattleAnimMove_ThePit_WardingMist
+	.global gBattleAnimMove_ThePit_WaterBomb
+	.global gBattleAnimMove_ThePit_WaterTackle
+	.global gBattleAnimMove_ThePit_WeirdPotion
+	.global gBattleAnimMove_ThePit_WhipRipper
+	.global gBattleAnimMove_ThePit_WiltMiasma
+	.global gBattleAnimMove_ThePit_WingTalon
+	.global gBattleAnimMove_ThePit_Yggdrain
+	.global gBattleAnimMove_ThePit_Yggdraslash
+	.global gBattleAnimMove_ThePit_5RingSword
+	.global ThePitAseReturn
+
+	.align 2
+gBattleAnimMove_ThePit_AbyssMiasma:
+	@ Ported from FireRed The Pit export move_144_abyss_miasma.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0000, 0x000E, 0x2C28
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_FLYING_DIRT
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_FLYING_DIRT, 0x0000, 0x0006, 0x0006, 0x001F
+	createvisualtask AnimTask_LoadSandstormBackground, 5, 0x0001
+	createvisualtask AnimTask_BlendBackground, 6, 0x0006, 0x001F
+	panse SE_M_HEAT_WAVE, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	delay 4
+	createvisualtask AnimTask_MoveHeatWaveTargets, 5
+	delay 12
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x000A, 0x0900, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x005A, 0x0800, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0032, 0x0A00, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0014, 0x0900, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0046, 0x07C0, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0B00, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x003C, 0x0A00, 0x0060, 0x0001
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x000E, 0x0000, 0x2C28
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_AbyssWrath:
+	@ Ported from FireRed The Pit export move_166_abyss_wrath.ase.txt.
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	loadspritegfx ANIM_TAG_NOISE_LINE
+	setalpha 8, 8
+	createvisualtask SoundTask_PlayDoubleCry, 2, 0x0000, 0x0002
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFB, 0xFFFB, 0x000A, 0x0000, 0x0001
+	call RoarEffect
+	delay 20
+	clearmonbg 13
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_EXPLOSION
+	loadspritegfx ANIM_TAG_LARGE_FRESH_EGG
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF0, 0xFFF1, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0010, 0xFFFB, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF4, 0x0012, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0005, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	waitforvisualfinish
+	delay 22
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_AdNihilo:
+	@ Ported from FireRed The Pit export move_360_ad_nihilo.ase.txt.
+	loadspritegfx ANIM_TAG_SPARKLE_6
+	panse SE_M_GUST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	playsewithpan SE_M_MORNING_SUN, 0
+	delay 0
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_all
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, 0x0001, 0x0000, 0x0000, 0x0004, 0x0000
+	createvisualtask AnimTask_GetTargetSide, 2
+	jumpargeq 7, 1, gBattleAnimMove_ThePit_AdNihilo_Sub_1D4138
+	fadetobg BG_BUG_OPPONENT
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0600, 0x0000, 0x0000, 0xFFFF
+gBattleAnimMove_ThePit_AdNihilo_Sub_1D3F7E:
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0001, 0x0000, 0x0004, 0x0004, 0x0000
+	waitbgfadein
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 0
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 0
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 6
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	delay 0
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	delay 0
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	waitforvisualfinish
+	playsewithpan SE_M_GUST2, SOUND_PAN_TARGET
+	clearmonbg ANIM_DEF_PARTNER
+	delay 0
+	restorebg
+	waitbgfadeout
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, 0x0001, 0x0000, 0x0004, 0x0000, 0x0000
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+gBattleAnimMove_ThePit_AdNihilo_Sub_1D4138:
+	fadetobg BG_BUG_PLAYER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0xFA00, 0x0000, 0x0000, 0xFFFF
+	goto gBattleAnimMove_ThePit_AdNihilo_Sub_1D3F7E
+
+	.align 2
+gBattleAnimMove_ThePit_AkashicNova:
+	@ Ported from FireRed The Pit export move_447_akashic_nova.ase.txt.
+	fadetobg BG_HIGHSPEED_PLAYER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_WISP_FIRE
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFF8, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0008, 0x0000
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0012, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x000D, 0x0001
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x0000
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x002A
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x0054
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x007E
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x00A8
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x00D2
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LIGHTNING
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	call IceCrystalEffectShort
+	waitforvisualfinish
+	createvisualtask AnimTask_ShockWaveLightning, 5
+	playsewithpan SE_M_TRI_ATTACK2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0006, 0x0012, 0x0001
+	createvisualtask AnimTask_BlendBattleAnimPal, 5, 0x0001, 0x0003, 0x0010, 0x0000, 0x7FFF
+	createvisualtask AnimTask_BlendBattleAnimPal, 5, 0x0004, 0x0000, 0x0010, 0x0010, 0x0000
+	delay 4
+	createvisualtask AnimTask_BlendBattleAnimPal, 5, 0x0004, 0x0000, 0x0000, 0x0000, 0x0000
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ArcaneBlast:
+	@ Ported from FireRed The Pit export move_442_arcane_blast.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ORBS
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0002, 0x0001, 0x0004, 0x0000, 0x000B, 0x2FFF
+	playsewithpan SE_M_MEGA_KICK, SOUND_PAN_ATTACKER
+	@ skipped unresolved FireRed call <1CE54B>
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_ORBS
+	delay 10
+	playsewithpan SE_M_HYPER_BEAM, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0000, 0x0001, 0x0000, 0x0004, 0x0001
+	waitforvisualfinish
+	delay 30
+	createsoundtask AnimTask_ThePitAseNoOp, 0x00F0, 0xFFC0, 0x003F, 0x0001, 0x000F, 0x0000, 0x0005
+	createvisualtask AnimTask_ShakeMon, 2, 0x0000, 0x0000, 0x0004, 0x0032, 0x0001
+	createvisualtask AnimTask_FlashAnimTagWithColor, 2, ANIM_TAG_ORBS, 0x0001, 0x000C, 0x001F, 0x0010, 0x0000, 0x0000
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0032, 0x0001
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0004, 0x0002, 0x0000, 0x000B, 0x6739
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	call HyperBeamOrbs
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0004, 0x0002, 0x000B, 0x0000, 0x6739
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_AstralGleam:
+	@ Ported from FireRed The Pit export move_356_astral_gleam.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	loadspritegfx ANIM_TAG_WHITE_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	playsewithpan SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER
+	createsprite gLusterPurgeCircleSpriteTemplate, ANIM_ATTACKER, 41, 0x0000, 0x0000, 0x0000, 0x0000
+	delay 20
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0000, 0x0010, 0xFFFF
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_WHITE_CIRCLE_OF_LIGHT, 0x0002, 0x0000, 0x0010, 0xFFFF
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_IMPACT, 0x0000, 0x000C, 0x000C, 0x5C00
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0010, 0x0000, 0xFFFF
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_AtrophicEye:
+	@ Ported from FireRed The Pit export move_439_atrophic_eye.ase.txt.
+	call SetPsychicBackground
+	loadspritegfx ANIM_TAG_TEAL_ALERT
+	loadspritegfx ANIM_TAG_OPENING_EYE
+	loadspritegfx ANIM_TAG_ROUND_WHITE_HALO
+	monbg 4
+	playsewithpan SE_M_CONFUSE_RAY, SOUND_PAN_TARGET
+	createsprite gOpeningEyeSpriteTemplate, ANIM_ATTACKER, 5, 0x0000, 0x0000, 0x0001, 0x0000
+	createsprite gWhiteHaloSpriteTemplate, ANIM_ATTACKER, 5
+	delay 40
+	playsewithpan SE_M_LEER, SOUND_PAN_TARGET
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0001, 0x0001, 0x0002, 0x0000, 0x000A, 0x0000
+	call MindReaderEyeSpikeEffect
+	waitforvisualfinish
+	clearmonbg 4
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_AzureFlood:
+	@ Ported from FireRed The Pit export move_370_azure_flood.ase.txt.
+	fadetobg BG_ICE
+	waitbgfadein
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0300, 0x0000, 0x0000, 0xFFFF
+	loadspritegfx ANIM_TAG_ICE_CHUNK
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	loadspritegfx ANIM_TAG_FIRE_PLUME
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMon, 5, 0x0000, 0x0000, 0x0002, 0x0028, 0x0001
+	waitforvisualfinish
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x000F, 0x0000, 0x0000, 0x0004
+	waitforvisualfinish
+	createsprite gFrostBreathBlueBreathTemplate, ANIM_TARGET, 2, 0x001E, 0x000F, 0x0000, 0x000A, 0x000A
+	waitforvisualfinish
+	loopsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET, 11, 3
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x0000, 0x0003, 0x0019, 0x0001
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x0001, 0x0005, 0x0000
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x0001, 0xFFF6, 0xFFF1
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 2, 0x0001, 0x0000, 0x0019
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x0001, 0x000F, 0x0005
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x0001, 0xFFE7, 0x0000
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 2, 0x0001, 0x001E, 0x001E
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 2, 0x0001, 0xFFE5, 0x0019
+	delay 1
+	createsprite gFrostBreathBlueRageTemplate, ANIM_TARGET, 66, 0x0001, 0x0000, 0x0008
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_TARGET, 66, 0x0000, 0x0000, 0x0004
+	waitforvisualfinish
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Bafflingstep:
+	@ Ported from FireRed The Pit export move_470_bafflingstep.ase.txt.
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_TARGET
+	createsprite gStompFootSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0xFFE0, 0x000F
+	delay 19
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF8, 0x0001, 0x0001
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0004, 0x0009, 0x0001
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	loadspritegfx ANIM_TAG_DUCK
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DIZZY_PUNCH, SOUND_PAN_TARGET
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0x00A0, 0xFFE0
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0xFF00, 0xFFD8
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0x0080, 0xFFF0
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0x01A0, 0xFFDA
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0xFF80, 0xFFEA
+	createsprite gDizzyPunchDuckSpriteTemplate, ANIM_TARGET, 3, 0x0008, 0x0008, 0xFE80, 0xFFE1
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_BrightSong:
+	@ Ported from FireRed The Pit export move_391_bright_song.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x7BE0
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_DUCK
+	createvisualtask AnimTask_TeeterDanceMovement, 5
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF0, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF8, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0008, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	call ElectricityEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x7BE0
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CallAllies:
+	@ Ported from FireRed The Pit export move_431_call_allies.ase.txt.
+	fadetobg BG_HIGHSPEED_OPPONENT
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	setalpha 12, 8
+	createvisualtask AnimTask_TransparentCloneGrowAndShrink, 5, 0x0000
+	createvisualtask AnimTask_ExtrasensoryDistortion, 5, 0x0002
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_VITAL_THROW, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x000C, 0x0004, 0x0001, 0x0002
+	waitforvisualfinish
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0000, 0x0000, 0x0004
+	delay 2
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	delay 1
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE8, 0x0000, 0x0000, 0x0004
+	waitforvisualfinish
+	delay 3
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0007
+	delay 11
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x000A
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CallLion:
+	@ Ported from FireRed The Pit export move_430_call_lion.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x001F
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_NOISE_LINE
+	createvisualtask AnimTask_DeepInhale, 2, 0x0000
+	delay 12
+	call RoarEffect
+	createvisualtask SoundTask_PlayCryHighPitch, 2, 0x0000, 0x0003
+	waitforvisualfinish
+	delay 30
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_foes ANIM_TARGET
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0000
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0004
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0008
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x000C
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0010
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0014
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	delay 2
+	createsprite gFireSpiralOutwardSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0038, 0x0018
+	playsewithpan SE_M_FLAME_WHEEL, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0018, 0x0000, 0x0000, 0x0006
+	delay 4
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x0008, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 3, 0x0001, 0x001F, 0x000C, 0x0001, 0x0001
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	call FireSpreadEffect
+	delay 7
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0009
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x001F
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CallOwl:
+	@ Ported from FireRed The Pit export move_429_call_owl.ase.txt.
+	loadspritegfx ANIM_TAG_WHITE_FEATHER
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_all
+	playsewithpan SE_M_PETAL_DANCE, SOUND_PAN_TARGET
+	delay 0
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x0040, 0x0002, 0x0068, 0x2C28, 0x0020, 0x0001
+	delay 6
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x0020, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x0000, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	delay 6
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x00E0, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x0080, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	delay 6
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x00C0, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x00A0, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	delay 6
+	createsprite gFallingFeatherSpriteTemplate, ANIM_TARGET, 0, 0x0000, 0xFFF0, 0x0060, 0x0002, 0x0068, 0x2C28, 0x0005, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	loadspritegfx ANIM_TAG_CUT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0001, 0x0005
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x0003
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	delay 5
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x000A, 0x0001
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x001F, 0x0003, 0x0001, 0x0000, 0x000A, 0x0000, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	createvisualtask AnimTask_DeepInhale, 2, 0x0001
+	playsewithpan SE_M_YAWN, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CallSnake:
+	@ Ported from FireRed The Pit export move_428_call_snake.ase.txt.
+	loadspritegfx ANIM_TAG_EYE_SPARKLE
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0003, 0x0000, 0x0010, 0x0000
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	delay 10
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ScaryFace, 5
+	delay 13
+	createsprite gEyeSparkleSpriteTemplate, ANIM_ATTACKER, 0, 0xFFF0, 0xFFF8
+	createsprite gEyeSparkleSpriteTemplate, ANIM_ATTACKER, 0, 0x0010, 0xFFF8
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeTargetInPattern, 3, 0x0014, 0x0001, 0x0000
+	playsewithpan SE_M_STRING_SHOT2, SOUND_PAN_TARGET
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0003, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	loadspritegfx ANIM_TAG_FANG_ATTACK
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	playsewithpan SE_M_BITE, SOUND_PAN_TARGET
+	createsprite gFangSpriteTemplate, ANIM_TARGET, 2
+	delay 10
+	createvisualtask AnimTask_ShakeMon, 3, 0x0001, 0x0003, 0x0000, 0x000A, 0x0001
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0004, 0x0000, 0x0004, 0x0000, 0x000C, 0x681A
+	call PoisonBubblesEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CellShield:
+	@ Ported from FireRed The Pit export move_460_cell_shield.ase.txt.
+	monbg ANIM_ATTACKER
+	setalpha 15, 0
+	createvisualtask AnimTask_AcidArmor, 2, 0x0000
+	playsewithpan SE_M_ACID_ARMOR, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	blendoff
+	clearmonbg ANIM_ATTACKER
+	delay 1
+	loadspritegfx ANIM_TAG_SPARKLE_4
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0000, 0x0009, 0x0000
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0002, 0x0001, 0x0000, 0x0009, 0x7FFF
+	delay 18
+	playsewithpan SE_M_DETECT, SOUND_PAN_ATTACKER
+	createsprite gSpinningSparkleSpriteTemplate, ANIM_ATTACKER, 13, 0x0014, 0xFFEC
+	waitforvisualfinish
+	delay 10
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0009, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0002, 0x0002, 0x0009, 0x0000, 0x7FFF
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Chainweather:
+	@ Ported from FireRed The Pit export move_420_chainweather.ase.txt.
+	loadspritegfx ANIM_TAG_SWORD
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	playsewithpan SE_M_SWORDS_DANCE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0010, 0x0006, 0x0001, 0x0004
+	createsprite gSwordsDanceBladeSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000
+	delay 22
+	createvisualtask AnimTask_FlashAnimTagWithColor, 2, ANIM_TAG_SWORD, 0x0002, 0x0002, 0x7FF2, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	loadspritegfx ANIM_TAG_TRI_ATTACK_TRIANGLE
+	createsprite gTriAttackTriangleSpriteTemplate, ANIM_TARGET, 2, 0x0010, 0x0000
+	playsewithpan SE_M_TRI_ATTACK, SOUND_PAN_ATTACKER
+	delay 20
+	playsewithpan SE_M_TRI_ATTACK, SOUND_PAN_ATTACKER
+	delay 20
+	createsoundtask AnimTask_ThePitAseNoOp, 0x00D5, 0xFFC0, 0x003F, 0x0005, 0x0006, 0x0000, 0x0007
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0000, 0x0010, 0x0000
+	delay 16
+	loadspritegfx ANIM_TAG_FIRE
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0xFFFF, 0x0000
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0x0000, 0x0001
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0xFFFF, 0xFFFF
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0x0002, 0x0001
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0x0001, 0xFFFF
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0xFFFF, 0x0001
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0x0001, 0xFFFE
+	delay 1
+	createsprite gLargeFlameScatterSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x001E, 0x0003, 0x0001
+	delay 2
+	createvisualtask AnimTask_ShakeTargetInPattern, 2, 0x0014, 0x0003, 0x0001, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LIGHTNING
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	playsewithpan SE_M_TRI_ATTACK2, SOUND_PAN_TARGET
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0xFFD0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0xFFF0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0010
+	delay 20
+	createvisualtask AnimTask_ShakeTargetInPattern, 2, 0x0014, 0x0003, 0x0001, 0x0000
+	delay 2
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	call IceCrystalEffectShort
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ChainKiller:
+	@ Ported from FireRed The Pit export move_421_chain_killer.ase.txt.
+	loadspritegfx ANIM_TAG_CROSS_IMPACT
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_SpitUpDeformMon, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_GUST
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	loopsewithpan SE_M_WING_ATTACK, SOUND_PAN_ATTACKER, 20, 2
+	createvisualtask AnimTask_TranslateMonElliptical, 2, 0x0000, 0x000C, 0x0004, 0x0001, 0x0004
+	createvisualtask AnimTask_AnimateGustTornadoPalette, 5, 0x0001, 0x0046
+	createsprite gGustToTargetSpriteTemplate, ANIM_ATTACKER, 2, 0xFFE7, 0x0000, 0x0000, 0x0000, 0x0014
+	createsprite gGustToTargetSpriteTemplate, ANIM_ATTACKER, 2, 0x0019, 0x0000, 0x0000, 0x0000, 0x0014
+	delay 24
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0018, 0x0000, 0x0000, 0x0009
+	delay 17
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0x0010, 0x0000, 0x0001, 0x0001
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF0, 0x0000, 0x0001, 0x0001
+	loopsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET, 5, 2
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x000B
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	setalpha 12, 8
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0008, 0x0000, 0x0012, 0x0001
+	createsprite gCrossImpactSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x0001, 0x0024
+	playsewithpan SE_M_LEER, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Corkscrew:
+	@ Ported from FireRed The Pit export move_422_corkscrew.ase.txt.
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5, 0x0000, 0x0002, 0x0000, 0x0060, 0x001E
+	waitforvisualfinish
+	delay 10
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0004
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0001, 0x0012, 0x0006, 0x0002, 0x0004
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0010, 0x000C, 0x0001, 0x0001
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0xFFF0, 0xFFF4, 0x0001, 0x0001
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0003, 0x0004, 0x0001, 0x0001
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0008, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CosmicSlash:
+	@ Ported from FireRed The Pit export move_363_cosmic_slash.ase.txt.
+	call SetPsychicBackground
+	loadspritegfx ANIM_TAG_AIR_WAVE
+	loadspritegfx ANIM_TAG_CUT
+	loadspritegfx ANIM_TAG_IMPACT
+	delay 0
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	delay 0
+	createvisualtask AnimTask_AirCutterProjectile, 2, 0x0020, 0xFFE8, 0x0600, 0x0002, 0x0080
+	waitforvisualfinish
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gAirCutterSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000, 0x0002
+	delay 5
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0008, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0002, 0x0000, 0x0008, 0x0001
+	waitforvisualfinish
+	blendoff
+	clearmonbg ANIM_DEF_PARTNER
+	delay 0
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_CrazedShout:
+	@ Ported from FireRed The Pit export move_401_crazed_shout.ase.txt.
+	call SetPsychicBackground
+	loadspritegfx ANIM_TAG_THIN_RING
+	call HyperVoiceEffect
+	waitforvisualfinish
+	delay 8
+	call HyperVoiceEffect
+	waitforvisualfinish
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Darknessfist:
+	@ Ported from FireRed The Pit export move_426_darknessfist.ase.txt.
+	fadetobg BG_NONE
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GHOSTLY_SPIRIT
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	monbg ANIM_ATK_PARTNER
+	waitbgfadein
+	delay 0
+	setalpha 9, 8
+	createvisualtask AnimTask_AttackerPunchWithTrace, 2, 0x7128, 0x000A
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	delay 6
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gFistFootSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0000, 0x0008, 0x0001, 0x0000
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0003, 0x0000, 0x0006, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
+	createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 2
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x000E, 0x0001
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_DemonicRush:
+	@ Ported from FireRed The Pit export move_461_demonic_rush.ase.txt.
+	fadetobg BG_GHOST
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GHOSTLY_SPIRIT
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5, 0x0000, 0x0002, 0x0000, 0x0060, 0x001E
+	waitforvisualfinish
+	delay 10
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0004
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0001, 0x0012, 0x0006, 0x0002, 0x0004
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0010, 0x000C, 0x0001, 0x0001
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0xFFF0, 0xFFF4, 0x0001, 0x0001
+	delay 4
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0003, 0x0004, 0x0001, 0x0001
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0008, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
+	createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 2
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x000E, 0x0001
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_DivineStorm:
+	@ Ported from FireRed The Pit export move_412_divine_storm.ase.txt.
+	fadetobg BG_THUNDER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_SPARK_2
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LIGHTNING
+	waitbgfadein
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0000, 0x0010, 0x0000
+	delay 16
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	playsewithpan SE_M_THUNDER_WAVE, SOUND_PAN_TARGET
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0010, 0xFFDC
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0010, 0xFFEC
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0010, 0x000C
+	delay 20
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 6, 0xFFF0, 0xFFE0
+	playsewithpan SE_M_THUNDER_WAVE, SOUND_PAN_TARGET
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 6, 0xFFF0, 0xFFF0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 6, 0xFFF0, 0x0010
+	playsewithpan SE_M_THUNDER_WAVE, SOUND_PAN_TARGET
+	delay 5
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0018, 0xFFE0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0018, 0xFFF0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0018, 0x0010
+	delay 30
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 5
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0xFFE0
+	playsewithpan SE_M_TRI_ATTACK2, SOUND_PAN_TARGET
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0xFFF0
+	delay 1
+	createsprite gLightningSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0010
+	delay 10
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 1
+	createvisualtask AnimTask_ShakeTargetInPattern, 2, 0x001E, 0x0003, 0x0001, 0x0000
+	delay 2
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 1
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0002, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	call ElectricityEffect
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Doublehammer:
+	@ Ported from FireRed The Pit export move_404_doublehammer.ase.txt.
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_TARGET
+	createsprite gKarateChopSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF0, 0x0000, 0x0000, 0x0000, 0x000A, 0x0001, 0x0003, 0x0000
+	waitforvisualfinish
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0002
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x0004, 0x0000, 0x0006, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	waitforvisualfinish
+	@ skipped unresolved FireRed call <1CA6D1>
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Electroshock:
+	@ Ported from FireRed The Pit export move_131_electroshock.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x01DF
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_WHITE_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	playsewithpan SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER
+	createsprite gLusterPurgeCircleSpriteTemplate, ANIM_ATTACKER, 41, 0x0000, 0x0000, 0x0000, 0x0000
+	delay 20
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0000, 0x0010, 0xFFFF
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_WHITE_CIRCLE_OF_LIGHT, 0x0002, 0x0000, 0x0010, 0xFFFF
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_IMPACT, 0x0000, 0x000C, 0x000C, 0x5C00
+	waitforvisualfinish
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0010, 0x0000, 0xFFFF
+	createvisualtask AnimTask_HorizontalShake, 5, 0x0001, 0x0005, 0x000E
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	call ElectricityEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x01DF
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_EnergyEdge:
+	@ Ported from FireRed The Pit export move_364_energy_edge.ase.txt.
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	createsprite gVerticalDipSpriteTemplate, ANIM_ATTACKER, 2, 0x0006, 0x0001, 0x0000
+	waitforvisualfinish
+	delay 11
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001A, 0x0000, 0x0000, 0x0005
+	delay 6
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 4, 0xFFF6, 0x0000, 0x0001, 0x0000
+	loopsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET, 10, 2
+	call SetImpactBackground
+	delay 1
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE4, 0x0000, 0x0000, 0x0003
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0004, 0x0000, 0x000C, 0x0001
+	waitforvisualfinish
+	delay 10
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0006
+	delay 5
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_EthericBoon:
+	@ Ported from FireRed The Pit export move_359_etheric_boon.ase.txt.
+	loadspritegfx ANIM_TAG_MOON
+	loadspritegfx ANIM_TAG_GREEN_SPARKLE
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	setalpha 0, 16
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0010, 0x0000
+	waitforvisualfinish
+	createsprite gMoonSpriteTemplate, ANIM_ATTACKER, 2, 0x0078, 0x0038
+	createvisualtask AnimTask_AlphaFadeIn, 3, 0x0000, 0x0010, 0x0010, 0x0000, 0x0001
+	playsewithpan SE_M_MOONLIGHT, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0xFFF4, 0x0000
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0xFFE8, 0x0000
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0x0015, 0x0000
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0x000A, 0x0000
+	delay 20
+	createvisualtask AnimTask_MoonlightEndFade, 2
+	waitforvisualfinish
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0004, 0x0004
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x000A
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	delay 1
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_FirstPress:
+	@ Ported from FireRed The Pit export move_386_first_press.ase.txt.
+	loadspritegfx ANIM_TAG_SWEAT_BEAD
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_RAZOR_LEAF
+	createsprite gSprayWaterDropletSpriteTemplate, ANIM_TARGET, 5, 0x0000, 0x0001
+	playsewithpan SE_M_SKETCH, SOUND_PAN_TARGET
+	createsprite gSprayWaterDropletSpriteTemplate, ANIM_TARGET, 5, 0x0001, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0005, 0x0001
+	createvisualtask AnimTask_StretchTargetUp, 3
+	waitforvisualfinish
+	delay 25
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0004, 0x0006
+	waitforvisualfinish
+	monbg ANIM_TARGET
+	delay 1
+	createsprite gFirstImpressionPoundTemplate, ANIM_ATTACKER, 4, 0xFFF6, 0x0000, 0x0001, 0x0000
+	loopsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET, 10, 2
+	delay 1
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE4, 0x0000, 0x0000, 0x0003
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0004, 0x0000, 0x000C, 0x0001
+	waitforvisualfinish
+	delay 10
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0006
+	delay 5
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	end
+	loadspritegfx ANIM_TAG_IMPACT
+	panse_adjustall 0xCB58, 58, 8, 240, 28
+	clearmonbg_static 8
+	loadspritegfx 0x0000
+	loadspritegfx 0x7BF8
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_FlareMask:
+	@ Ported from FireRed The Pit export move_454_flare_mask.ase.txt.
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LEER
+	monbg ANIM_ATTACKER
+	splitbgprio ANIM_ATTACKER
+	setalpha 8, 8
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	createsprite gLeerSpriteTemplate, ANIM_ATTACKER, 2, 0x0018, 0xFFF4
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFB, 0xFFFB, 0x000A, 0x0000, 0x0001
+	waitforvisualfinish
+	delay 10
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0001, 0x0000, 0x0009, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0001, 0x0000, 0x0009, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	waitforvisualfinish
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	call FireSpreadEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Freezeripple:
+	@ Ported from FireRed The Pit export move_450_freezeripple.ase.txt.
+	fadetobg BG_AURORA
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_THIN_RING
+	call HyperVoiceEffect
+	waitforvisualfinish
+	delay 8
+	call HyperVoiceEffect
+	waitforvisualfinish
+	call IceCrystalEffectShort
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_FreezeMask:
+	@ Ported from FireRed The Pit export move_455_freeze_mask.ase.txt.
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LEER
+	monbg ANIM_ATTACKER
+	splitbgprio ANIM_ATTACKER
+	setalpha 8, 8
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	createsprite gLeerSpriteTemplate, ANIM_ATTACKER, 2, 0x0018, 0xFFF4
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFB, 0xFFFB, 0x000A, 0x0000, 0x0001
+	waitforvisualfinish
+	delay 10
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0001, 0x0000, 0x0009, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0001, 0x0000, 0x0009, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	waitforvisualfinish
+	call IceCrystalEffectShort
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_FrostCurse:
+	@ Ported from FireRed The Pit export move_411_frost_curse.ase.txt.
+	fadetobg BG_AURORA
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	loadspritegfx ANIM_TAG_PURPLE_FLAME
+	monbg ANIM_ATTACKER
+	splitbgprio_all
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 3
+	loopsewithpan SE_M_EMBER, SOUND_PAN_ATTACKER, 16, 4
+	delay 10
+	delay 80
+	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	call IceCrystalEffectShort
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Fukubari:
+	@ Ported from FireRed The Pit export move_414_fukubari.ase.txt.
+	createvisualtask AnimTask_SwayMon, 3, 0x0000, 0x0006, 0x0500, 0x0003, 0x0000
+	loadspritegfx ANIM_TAG_AIR_WAVE_2
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	createsprite gAirWaveCrescentSpriteTemplate, ANIM_ATTACKER, 2, 0x000E, 0x0008, 0x0000, 0x0000, 0x0016, 0x0002, 0x0001
+	delay 2
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	createsprite gAirWaveCrescentSpriteTemplate, ANIM_ATTACKER, 2, 0x000E, 0xFFF8, 0x0010, 0x000E, 0x0016, 0x0001, 0x0001
+	delay 2
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	createsprite gAirWaveCrescentSpriteTemplate, ANIM_ATTACKER, 2, 0x000E, 0x000C, 0xFFF0, 0xFFF2, 0x0016, 0x0000, 0x0001
+	delay 17
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x000A, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0002, 0x0000, 0x000A, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	waitforvisualfinish
+	createvisualtask AnimTask_DeepInhale, 2, 0x0001
+	playsewithpan SE_M_YAWN, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Harvestparty:
+	@ Ported from FireRed The Pit export move_435_harvestparty.ase.txt.
+	@ skipped unresolved FireRed call <1D5A07>
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_DUCK
+	createvisualtask AnimTask_TeeterDanceMovement, 5
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF0, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF8, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0008, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SLAM_HIT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_ATTACKER
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0003, 0x0000, 0x0004
+	delay 1
+	createsprite gSlamHitSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000
+	delay 3
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF4, 0x000A, 0x0000, 0x0003
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0005
+	delay 3
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0000, 0x0003, 0x0006, 0x0001
+	waitforvisualfinish
+	delay 5
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Heal:
+	@ Ported from FireRed The Pit export move_160_heal.ase.txt.
+	loadspritegfx ANIM_TAG_GUARD_RING
+	monbg ANIM_ATK_PARTNER
+	setalpha 8, 8
+	playsewithpan SE_M_MILK_DRINK, SOUND_PAN_ATTACKER
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	waitforvisualfinish
+	playsewithpan SE_SHINY, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x000A, 0x0000, 0x0002, 0x0000, 0x000A, 0x7FFF
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_IcyAria:
+	@ Ported from FireRed The Pit export move_406_icy_aria.ase.txt.
+	fadetobg BG_AURORA
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ICE_SPIKES
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	monbg ANIM_DEF_PARTNER
+	waitbgfadein
+	waitforvisualfinish
+	panse SE_M_BLIZZARD, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	@ skipped unresolved FireRed call <1CE7B8>
+	@ skipped unresolved FireRed call <1CE7B8>
+	playsewithpan SE_M_BLIZZARD2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	call IceCrystalEffectLong
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	delay 20
+	call IceSpikesEffectLong
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_IronDrill:
+	@ Ported from FireRed The Pit export move_457_iron_drill.ase.txt.
+	loopsewithpan SE_M_HARDEN, SOUND_PAN_ATTACKER, 28, 2
+	createvisualtask AnimTask_MetallicShine, 5, 0x0000, 0x0000, 0x0000
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_RAPID_SPIN
+	monbg ANIM_ATTACKER
+	createsprite gRapidSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0020, 0xFFE0, 0x0028, 0xFFFE
+	createvisualtask AnimTask_RapinSpinMonElevation, 2, 0x0000, 0x0002, 0x0000
+	loopsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER, 8, 4
+	waitforvisualfinish
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x0001, 0x0002
+	createvisualtask AnimTask_ShakeTargetBasedOnMovePowerOrDmg, 2, 0x0000, 0x0001, 0x000A, 0x0001, 0x0000
+	playsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET
+	waitforvisualfinish
+	delay 8
+	createvisualtask AnimTask_RapinSpinMonElevation, 2, 0x0000, 0x0002, 0x0001
+	loopsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER, 8, 4
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Izuna:
+	@ Ported from FireRed The Pit export move_413_izuna.ase.txt.
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_CUT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x000A, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	waitforvisualfinish
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Kumogakure:
+	@ Ported from FireRed The Pit export move_415_kumogakure.ase.txt.
+	fadetobg BG_NONE
+	waitbgfadein
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_DoubleTeam, 2
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 32
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 24
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 16
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	delay 1
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_LeadingBlow:
+	@ Ported from FireRed The Pit export move_425_leading_blow.ase.txt.
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	monbg ANIM_ATK_PARTNER
+	fadetobg BG_HIGHSPEED_OPPONENT
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0xF700, 0x0000, 0x0001, 0xFFFF
+	waitbgfadein
+	delay 0
+	setalpha 9, 8
+	createvisualtask AnimTask_AttackerPunchWithTrace, 2, 0x7128, 0x000A
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	delay 6
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gFistFootSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0000, 0x0008, 0x0001, 0x0000
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0003, 0x0000, 0x0006, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_PURPLE_SCRATCH
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	unloadspritegfx ANIM_TAG_PURPLE_SWIPE
+	loadspritegfx ANIM_TAG_IMPACT
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0003, 0x0000, 0x000A, 0x0001
+	createsprite gPersistHitSplatSpriteTemplate, ANIM_TARGET, 3, 0xFFF6, 0xFFF8, 0x0001, 0x0001, 0x0008
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	delay 8
+	createsprite gPersistHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x000A, 0x0008, 0x0001, 0x0001, 0x0008
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_LifeBallad:
+	@ Ported from FireRed The Pit export move_392_life_ballad.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x781F
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_DUCK
+	createvisualtask AnimTask_TeeterDanceMovement, 5
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF0, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF8, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0008, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	call HealingEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x781F
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_LifeControl:
+	@ Ported from FireRed The Pit export move_381_life_control.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0008, 0x6E7D
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_FLOWER
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_PETAL_DANCE, SOUND_PAN_ATTACKER
+	createsprite gPetalDanceBigFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFE8, 0x0008, 0x008C
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0010, 0xFFE8, 0x0008, 0x0064
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF0, 0xFFE8, 0x0008, 0x0064
+	delay 15
+	createsprite gPetalDanceBigFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFE8, 0x0008, 0x008C
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0020, 0xFFE8, 0x0008, 0x0064
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0xFFE0, 0xFFE8, 0x0008, 0x0064
+	delay 15
+	createsprite gPetalDanceBigFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFE8, 0x0008, 0x008C
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0018, 0xFFE8, 0x0008, 0x0064
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0xFFE8, 0xFFE8, 0x0008, 0x0064
+	delay 30
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0010, 0xFFE8, 0x0000, 0x0064
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF0, 0xFFE8, 0x0000, 0x0064
+	delay 30
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0x0014, 0xFFF0, 0x000E, 0x0050
+	createsprite gPetalDanceSmallFlowerSpriteTemplate, ANIM_ATTACKER, 2, 0xFFEC, 0xFFF2, 0x0010, 0x0050
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0008, 0x0000, 0x6E7D
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_LightShot:
+	@ Ported from FireRed The Pit export move_355_light_shot.ase.txt.
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_SPARK_2
+	delay 0
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0005, 0x0005, 0x5BFF
+	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x0020, 0x0018, 0x00BE, 0x000C, 0x0000, 0x0001, 0x0000
+	delay 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x0050, 0x0018, 0x0016, 0x000C, 0x0000, 0x0001, 0x0000
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x009C, 0x0018, 0x0079, 0x000D, 0x0000, 0x0001, 0x0001
+	delay 0
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0000, 0x0000, 0x5BFF
+	delay 10
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0005, 0x0005, 0x5BFF
+	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x0064, 0x0018, 0x003C, 0x000A, 0x0000, 0x0001, 0x0000
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x00AA, 0x0018, 0x002A, 0x000B, 0x0000, 0x0001, 0x0001
+	delay 0
+	createsprite gSparkElectricitySpriteTemplate, ANIM_ATTACKER, 0, 0x00EE, 0x0018, 0x00A5, 0x000A, 0x0000, 0x0001, 0x0001
+	delay 0
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0000, 0x0000, 0x5BFF
+	delay 20
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0007, 0x0007, 0x5BFF
+	playsewithpan SE_M_THUNDERBOLT2, SOUND_PAN_ATTACKER
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0020, 0x000C, 0x0000, 0x0014, 0x0000, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0020, 0x000C, 0x0040, 0x0014, 0x0001, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0020, 0x000C, 0x0080, 0x0014, 0x0000, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0020, 0x000C, 0x00C0, 0x0014, 0x0002, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0010, 0x000C, 0x0020, 0x0014, 0x0000, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0010, 0x000C, 0x0060, 0x0014, 0x0001, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0010, 0x000C, 0x00A0, 0x0014, 0x0000, 0x0000
+	createsprite gSparkElectricityFlashingSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0000, 0x0010, 0x000C, 0x00E0, 0x0014, 0x0002, 0x0000
+	delay 4
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0003, 0xFFE1, 0x0001, 0x0000, 0x0000, 0x5BFF
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_BLACK_BALL_2
+	loadspritegfx ANIM_TAG_SPARK_2
+	playsewithpan SE_M_THUNDER_WAVE, SOUND_PAN_ATTACKER
+	createsprite gZapCannonBallSpriteTemplate, ANIM_TARGET, 3, 0x000A, 0x0000, 0x0000, 0x0000, 0x001E, 0x0000
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0010, 0x001E, 0x0000, 0x0028, 0x0000
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0010, 0x001E, 0x0040, 0x0028, 0x0001
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0010, 0x001E, 0x0080, 0x0028, 0x0000
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0010, 0x001E, 0x00C0, 0x0028, 0x0002
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0008, 0x001E, 0x0020, 0x0028, 0x0000
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0008, 0x001E, 0x0060, 0x0028, 0x0001
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0008, 0x001E, 0x00A0, 0x0028, 0x0000
+	createsprite gZapCannonSparkSpriteTemplate, ANIM_TARGET, 4, 0x000A, 0x0000, 0x0008, 0x001E, 0x00E0, 0x0028, 0x0002
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0005, 0x0001
+	delay 15
+	waitplaysewithpan SE_M_THUNDERBOLT2, SOUND_PAN_TARGET, 19
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_LimitBreak:
+	@ Ported from FireRed The Pit export move_448_limit_break.ase.txt.
+	loadspritegfx ANIM_TAG_WISP_FIRE
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	loadspritegfx ANIM_TAG_CLAW_SLASH
+	playsewithpan SE_M_SACRED_FIRE2, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0002, 0x0004, 0x0000, 0x0008, 0x027F
+	createvisualtask AnimTask_ShakeMon, 5, 0x0000, 0x0000, 0x0002, 0x000F, 0x0001
+	call DragonClawFireSpiral
+	call DragonClawFireSpiral
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0006, 0x0004
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001C, 0x0210, 0x001E, 0x000D, 0x0032, 0x0000
+	delay 2
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x0081, 0x003F
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0xFFF6, 0xFFF6, 0x0000
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0xFFF6, 0x000A, 0x0000
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFFC, 0x0001, 0x000A, 0x0003, 0x0001
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0020, 0x01E0, 0x0014, 0x0010, 0xFFD2, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0021, 0x0240, 0x0014, 0x0008, 0x002A, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001F, 0x0190, 0x0019, 0x000B, 0xFFD6, 0x0000
+	delay 2
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0006, 0x0004
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001C, 0x0200, 0x0019, 0x0010, 0x002E, 0x0000
+	delay 2
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x0081, 0x003F
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0x000A, 0xFFF6, 0x0001
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0x000A, 0x000A, 0x0001
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFFC, 0x0001, 0x000A, 0x0003, 0x0001
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0021, 0x01D0, 0x001E, 0x000F, 0xFFCE, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001C, 0x0210, 0x001E, 0x000D, 0x0032, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0020, 0x01E0, 0x0014, 0x0010, 0xFFD2, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0021, 0x0240, 0x0014, 0x0008, 0x002A, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001F, 0x0190, 0x0019, 0x000B, 0xFFD6, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001C, 0x0200, 0x0019, 0x0010, 0x002E, 0x0000
+	delay 2
+	createsprite gFireSpinSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0021, 0x01D0, 0x001E, 0x000F, 0xFFCE, 0x0000
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0002, 0x0004, 0x0008, 0x0000, 0x027F
+	waitforvisualfinish
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x000D, 0x0001
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x0000
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x002A
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x0054
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x007E
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x00A8
+	createsprite gWillOWispFireSpriteTemplate, ANIM_ATTACKER, 2, 0x00D2
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SPARK_2
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Lullaby:
+	@ Ported from FireRed The Pit export move_436_lullaby.ase.txt.
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	monbg ANIM_DEF_PARTNER
+	createvisualtask AnimTask_MusicNotesRainbowBlend, 2
+	waitforvisualfinish
+	panse SE_M_SING, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0007, 0x0000, 0x000C
+	delay 5
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0006, 0x0001, 0x000C
+	delay 5
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0002, 0x000C
+	delay 5
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0002, 0x0003, 0x000C
+	delay 5
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0003, 0x0000, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0002, 0x0001, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0005, 0x0002, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0006, 0x0003, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0002, 0x0000, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0002, 0x0001, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0002, 0x000C
+	delay 4
+	createsprite gWavyMusicNotesSpriteTemplate, ANIM_TARGET, 2, 0x0005, 0x0003, 0x000C
+	delay 4
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	createvisualtask AnimTask_MusicNotesClearRainbowBlend, 2
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Megalodive:
+	@ Ported from FireRed The Pit export move_369_megalodive.ase.txt.
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	loopsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER, 8, 3
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0007, 0x0002, 0x0005, 0x0003, 0x0008, 0x01AE
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x000C, 0x0006, 0x0005, 0x0004
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0500, 0x0000, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0xFB00, 0x0000, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0000, 0x0500, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0000, 0xFB00, 0x0003
+	delay 0
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0028, 0x0001
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0500, 0x0300, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0xFB00, 0x0300, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0500, 0xFD00, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0xFB00, 0xFD00, 0x0003
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000, 0x001E, 0x0500, 0x0000, 0x0003
+	call OutrageFlames
+	call OutrageFlames
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SLAM_HIT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_ATTACKER
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0003, 0x0000, 0x0004
+	delay 1
+	createsprite gSlamHitSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000
+	delay 3
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF4, 0x000A, 0x0000, 0x0003
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0005
+	delay 3
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0000, 0x0003, 0x0006, 0x0001
+	waitforvisualfinish
+	delay 5
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Mesmerize:
+	@ Ported from FireRed The Pit export move_433_mesmerize.ase.txt.
+	loadspritegfx ANIM_TAG_SPIRAL
+	monbg ANIM_ATK_PARTNER
+	createvisualtask AnimTask_BlendColorCycleExclude, 2, 0x0001, 0x0002, 0x0006, 0x0001, 0x000B, 0x0000
+	setalpha 12, 8
+	loopsewithpan SE_M_PSYBEAM2, SOUND_PAN_ATTACKER, 5, 10
+	createsprite gPsychUpSpiralSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0000, 0x0000
+	createvisualtask AnimTask_SwayMon, 5, 0x0000, 0x0005, 0x0A00, 0x0008, 0x0000
+	delay 127
+	delay 4
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFB, 0xFFFB, 0x000A, 0x0000, 0x0001
+	createvisualtask AnimTask_BlendBattleAnimPal, 9, 0x0002, 0x0002, 0x000A, 0x0000, 0x03FF
+	delay 30
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	waitforvisualfinish
+	call SetPsychicBackground
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_BlendMonInAndOut, 5, 0x0000, 0x037B, 0x000C, 0x0001, 0x0001
+	createvisualtask AnimTask_ExtrasensoryDistortion, 5, 0x0000
+	playsewithpan SE_M_BIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendMonInAndOut, 5, 0x0000, 0x037B, 0x000C, 0x0001, 0x0001
+	createvisualtask AnimTask_ExtrasensoryDistortion, 5, 0x0001
+	playsewithpan SE_M_BIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createvisualtask AnimTask_TransparentCloneGrowAndShrink, 5, 0x0000
+	createvisualtask AnimTask_ExtrasensoryDistortion, 5, 0x0002
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	blendoff
+	clearmonbg ANIM_DEF_PARTNER
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Meteor:
+	@ Ported from FireRed The Pit export move_358_meteor.ase.txt.
+	loadspritegfx ANIM_TAG_WARM_ROCK
+	loadspritegfx ANIM_TAG_GOLD_STARS
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	playsewithpan SE_M_EARTHQUAKE, SOUND_PAN_TARGET
+	fadetobg BG_COSMIC
+	waitbgfadein
+	waitforvisualfinish
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_TARGET, 3, 0xFFD0, 0xFFC0, 0x0048, 0x0020, 0x001E
+	delay 10
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_TARGET, 3, 0xFF90, 0xFFC0, 0x0008, 0x0020, 0x001E
+	delay 40
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0000, 0x001E
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_TARGET, 3, 0xFFB0, 0xFFC0, 0x0028, 0x0020, 0x001E
+	delay 20
+	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
+	delay 10
+	restorebg
+	waitbgfadein
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_MindBash:
+	@ Ported from FireRed The Pit export move_362_mind_bash.ase.txt.
+	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_WATER_IMPACT
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0000, 0x0004, 0x0000
+	waitforvisualfinish
+	createsprite gWaterHitSplatSpriteTemplate, ANIM_ATTACKER, 66, 0x0000
+	delay 18
+	loopsewithpan SE_M_MORNING_SUN, SOUND_PAN_ATTACKER, 16, 6
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0004, 0x0000, 0x0000
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	loadspritegfx ANIM_TAG_IMPACT
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0000
+	playsewithpan SE_M_HEADBUTT, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	delay 2
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0001
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0002, 0x0000, 0x0004, 0x0001
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x0006, 0x0001
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0002
+	createsprite gFlashingHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_NobleOrder:
+	@ Ported from FireRed The Pit export move_417_noble_order.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_THIN_RING
+	monbg ANIM_ATK_PARTNER
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0000, 0x0000, 0x0000, 0x0010, 0x0000
+	waitforvisualfinish
+	createvisualtask AnimTask_SetAllNonAttackersInvisiblity, 5, 0x0001
+	waitforvisualfinish
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	delay 14
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	delay 14
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_SetAllNonAttackersInvisiblity, 5, 0x0000
+	visible ANIM_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0000, 0x0000, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_OceanRave:
+	@ Ported from FireRed The Pit export move_451_ocean_rave.ase.txt.
+	fadetobg BG_THUNDER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GLOWY_BLUE_ORB
+	loadspritegfx ANIM_TAG_WATER_IMPACT
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	createvisualtask AnimTask_CreateSurfWave, 2, 0x0000
+	delay 24
+	panse SE_M_SURF, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	waitforvisualfinish
+	createvisualtask AnimTask_WaterSpoutRain, 5
+	playsewithpan SE_M_SURF, SOUND_PAN_TARGET
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_OneTwopunch:
+	@ Ported from FireRed The Pit export move_424_one_twopunch.ase.txt.
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	monbg ANIM_ATK_PARTNER
+	waitbgfadein
+	delay 0
+	setalpha 9, 8
+	createvisualtask AnimTask_AttackerPunchWithTrace, 2, 0x7128, 0x000A
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	delay 6
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gFistFootSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0000, 0x0008, 0x0001, 0x0000
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0003, 0x0000, 0x0006, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	delay 5
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x001C, 0x0000, 0x0000, 0x0005
+	delay 4
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0006, 0x0001
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0xFFE4, 0x001C, 0x0001, 0x0001
+	delay 1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0xFFF1, 0x0008, 0x0001, 0x0001
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	delay 1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0xFFFB, 0xFFF4, 0x0001, 0x0001
+	delay 1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0xFFE0, 0x0001, 0x0001
+	delay 1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0005, 0xFFCC, 0x0001, 0x0001
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE6, 0x0010, 0x0001, 0x0004
+	delay 4
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0000, 0x0003, 0x0006, 0x0001
+	delay 30
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0006
+	delay 4
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_OriginCrush:
+	@ Ported from FireRed The Pit export move_469_origin_crush.ase.txt.
+	fadetobg BG_NONE
+	waitbgfadein
+	loadspritegfx ANIM_TAG_EXPLOSION
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_TARGET
+	createsprite gStompFootSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0xFFE0, 0x000F
+	delay 19
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF8, 0x0001, 0x0001
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0004, 0x0009, 0x0001
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF0, 0xFFF1, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0010, 0xFFFB, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF4, 0x0012, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0005, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_PanicSpores:
+	@ Ported from FireRed The Pit export move_438_panic_spores.ase.txt.
+	fadetobg BG_GHOST
+	waitbgfadein
+	loadspritegfx ANIM_TAG_SPORE
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_SporeDoubleBattle, 2
+	loopsewithpan SE_M_POISON_POWDER, SOUND_PAN_TARGET, 16, 11
+	call CreateSpore
+	call CreateSpore
+	call CreateSpore
+	waitforvisualfinish
+	delay 1
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Phalanxguard:
+	@ Ported from FireRed The Pit export move_403_phalanxguard.ase.txt.
+	loadspritegfx ANIM_TAG_PROTECT
+	loadspritegfx ANIM_TAG_GREEN_SPIKE
+	monbg ANIM_ATK_PARTNER
+	splitbgprio ANIM_ATTACKER
+	waitplaysewithpan SE_M_REFLECT, SOUND_PAN_ATTACKER, 16
+	createsprite gProtectSpriteTemplate, ANIM_ATTACKER, 2, 0x0018, 0x0000, 0x005A
+	delay 15
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0000, 0xFFE0, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0016, 0xFFEA, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x001E, 0x0000, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0014, 0x0014, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0000, 0x001C, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0xFFED, 0x0013, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0xFFE5, 0x0000, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0xFFEE, 0xFFEE, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0000, 0xFFE7, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0011, 0xFFEF, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0017, 0x0000, 0x0010
+	delay 2
+	createsprite gNeedleArmSpikeSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0001, 0x0010, 0x0010, 0x0010
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_PotionBomb:
+	@ Ported from FireRed The Pit export move_473_potion_bomb.ase.txt.
+	loadspritegfx ANIM_TAG_EXPLOSION
+	loadspritegfx ANIM_TAG_MILK_BOTTLE
+	loadspritegfx ANIM_TAG_THIN_RING
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	monbg ANIM_TARGET
+	createsprite gMilkBottleSpriteTemplate, ANIM_ATTACKER, 2
+	delay 40
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	delay 20
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createsprite gThinRingExpandingSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0000
+	playsewithpan SE_M_MILK_DRINK, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	call HealingEffect2
+	waitforvisualfinish
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF0, 0xFFF1, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0010, 0xFFFB, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF4, 0x0012, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0005, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_PrimalDrums:
+	@ Ported from FireRed The Pit export move_432_primal_drums.ase.txt.
+	fadetobgfromset BG_GUILLOTINE_OPPONENT, BG_GUILLOTINE_PLAYER, BG_GUILLOTINE_CONTESTS
+	waitbgfadein
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_PURPLE_HAND_OUTLINE
+	createvisualtask AnimTask_MusicNotesRainbowBlend, 2
+	waitforvisualfinish
+	call BellyDrumRight
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	delay 15
+	call BellyDrumLeft
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0001, 0x0000
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	delay 15
+	call BellyDrumRight
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0003, 0x0003, 0x0080
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	delay 7
+	call BellyDrumLeft
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0000, 0x0080
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	delay 7
+	call BellyDrumRight
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0001, 0x0001, 0x0000
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	delay 7
+	call BellyDrumLeft
+	createsprite gSlowFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0003, 0x0000
+	playsewithpan SE_M_BELLY_DRUM, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_MusicNotesClearRainbowBlend, 2
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0016, 0x0001
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0004, 0x0002, 0x0000, 0x0000, 0x7FFF
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x001F, 0x0003, 0x0001, 0x0000, 0x0008, 0x0000, 0x0000
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	delay 2
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_RadiantStar:
+	@ Ported from FireRed The Pit export move_357_radiant_star.ase.txt.
+	loadspritegfx ANIM_TAG_MOON
+	loadspritegfx ANIM_TAG_GREEN_SPARKLE
+	setalpha 0, 16
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0010, 0x0000
+	waitforvisualfinish
+	createsprite gMoonSpriteTemplate, ANIM_ATTACKER, 2, 0x0078, 0x0020
+	createvisualtask AnimTask_AlphaFadeIn, 3, 0x0000, 0x0010, 0x0010, 0x0000, 0x0001
+	playsewithpan SE_M_MOONLIGHT, 0
+	delay 30
+	createsprite gMoonlightSparkleSpriteTemplate, ANIM_ATTACKER, 40, 0x00F4, 0x0000
+	delay 20
+	createvisualtask AnimTask_MoonlightEndFade, 2
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_GOLD_RING
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	createsoundtask AnimTask_ThePitAseNoOp, 0x00C1, 0xFFC0, 0x003F, 0x0003, 0x0004, 0x0000, 0x000F
+	call PsybeamRings
+	call PsybeamRings
+	createvisualtask AnimTask_SwayMon, 5, 0x0000, 0x0006, 0x0800, 0x0004, 0x0001
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0004, 0x0002, 0x0002, 0x0000, 0x000C, 0x7E5F
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	call PsybeamRings
+	waitforvisualfinish
+	delay 1
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_RapidFire:
+	@ Ported from FireRed The Pit export move_393_rapid_fire.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x001F
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	loadspritegfx ANIM_TAG_NEEDLE
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	monbg ANIM_TARGET
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	createsprite gLinearStingerSpriteTemplate, ANIM_TARGET, 2, 0x0014, 0x0000, 0xFFF8, 0x0000, 0x0014
+	waitforvisualfinish
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0002
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0005, 0x0001
+	playsewithpan SE_M_HORN_ATTACK, SOUND_PAN_TARGET
+	waitforvisualfinish
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_TARGET
+	call FireSpreadEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x001F
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_RockHammer:
+	@ Ported from FireRed The Pit export move_475_rock_hammer.ase.txt.
+	loadspritegfx ANIM_TAG_ROCKS
+	loadspritegfx ANIM_TAG_SLAM_HIT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_COMET_PUNCH, SOUND_PAN_ATTACKER
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0003, 0x0000, 0x0004
+	delay 1
+	createsprite gSlamHitSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000
+	delay 3
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0001
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF4, 0x000A, 0x0000, 0x0003
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0005
+	delay 3
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0000, 0x0003, 0x0006, 0x0001
+	waitforvisualfinish
+	delay 5
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0006
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0014, 0x0018, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0005, 0x0000, 0xFFEC, 0x0018, 0x000E, 0x0001
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0005, 0x0014, 0xFFE8, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0xFFFB, 0x0000, 0xFFEC, 0xFFE8, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFFB, 0x001E, 0x0012, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x001E, 0xFFEE, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFE2, 0x0012, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFE2, 0xFFEE, 0x0008, 0x0002
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x0007, 0x0001
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_RottenEgg:
+	@ Ported from FireRed The Pit export move_434_rotten_egg.ase.txt.
+	loadspritegfx ANIM_TAG_BREAKING_EGG
+	loadspritegfx ANIM_TAG_THIN_RING
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	monbg ANIM_ATK_PARTNER
+	playsewithpan SE_M_TAIL_WHIP, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ShakeMon, 2, 0x0000, 0x0000, 0x0002, 0x0006, 0x0001
+	createsprite gSoftBoiledEggSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0010, 0x0000
+	createsprite gSoftBoiledEggSpriteTemplate, ANIM_ATTACKER, 4, 0x0000, 0x0010, 0x0001
+	delay 120
+	delay 7
+	playsewithpan SE_M_HORN_ATTACK, SOUND_PAN_ATTACKER
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x001F, 0x0003, 0x000A, 0x0000, 0x7B0C
+	createsprite gThinRingExpandingSpriteTemplate, ANIM_ATTACKER, 3, 0x001F, 0x0010, 0x0000, 0x0001
+	delay 8
+	createsprite gThinRingExpandingSpriteTemplate, ANIM_ATTACKER, 3, 0x001F, 0x0010, 0x0000, 0x0001
+	delay 60
+	setarg 7, 0xFFFF
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	playsewithpan SE_M_SAND_ATTACK, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x000A, 0x0000
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 0x0001, 0x0001, 0x0001, 0x7E17, 0x0010, 0x7FFF, 0x0010
+	delay 0
+	playsewithpan SE_M_HAZE, 0
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0004, 0x0003, 0x0000, 0x0010, 0x7FFF
+	delay 8
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0004, 0x0000, 0x0046, 0x0000
+	delay 70
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0004, 0x0002, 0x0010, 0x0000, 0x7FFF
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_RoyalOrder:
+	@ Ported from FireRed The Pit export move_452_royal_order.ase.txt.
+	call SetPsychicBackground
+	createvisualtask AnimTask_SwayMon, 3, 0x0000, 0x0006, 0x0500, 0x0003, 0x0000
+	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
+	monbg ANIM_ATK_PARTNER
+	delay 6
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0001, 0x0002, 0x0008, 0x0000, 0x000A, 0x0000
+	delay 0
+	splitbgprio ANIM_ATTACKER
+	setalpha 8, 8
+	delay 10
+	createvisualtask AnimTask_ShakeMon, 2, 0x0000, 0x0003, 0x0000, 0x00F0, 0x0000
+	loopsewithpan SE_M_PSYBEAM2, SOUND_PAN_ATTACKER, 14, 10
+	createsprite gGrowingChargeOrbSpriteTemplate, ANIM_ATTACKER, 2
+	delay 110
+	loopsewithpan SE_M_PSYBEAM2, SOUND_PAN_ATTACKER, 7, 10
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0xFFF8, 0x0001, 0x0018, 0x0001
+	playsewithpan SE_M_LEER, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	setalpha 8, 8
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0002, 0x0000, 0x0002, 0x0000, 0x0008, 0x7FFF
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFC, 0xFFFC, 0x000F, 0x0000, 0x0001
+	waitforvisualfinish
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ScytheDance:
+	@ Ported from FireRed The Pit export move_444_scythe_dance.ase.txt.
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0004, 0x0008
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x0008
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	delay 1
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFF8, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0008, 0x0000
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0012, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Sealinglight:
+	@ Ported from FireRed The Pit export move_372_sealinglight.ase.txt.
+	@ skipped unresolved FireRed call <1D5A07>
+	loadspritegfx ANIM_TAG_X_SIGN
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_WHITE_CIRCLE_OF_LIGHT
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	playsewithpan SE_M_SOLAR_BEAM, SOUND_PAN_ATTACKER
+	createsprite gLusterPurgeCircleSpriteTemplate, ANIM_ATTACKER, 41, 0x0000, 0x0000, 0x0000, 0x0000
+	delay 20
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0000, 0x0010, 0xFFFF
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_WHITE_CIRCLE_OF_LIGHT, 0x0002, 0x0000, 0x0010, 0xFFFF
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_IMPACT, 0x0000, 0x000C, 0x000C, 0x5C00
+	waitforvisualfinish
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	delay 3
+	createsprite gRandomPosHitSplatSpriteTemplate, ANIM_TARGET, 3, 0x0001, 0x0002
+	createvisualtask SoundTask_PlaySE1WithPanning, 5, 0x00D0, 0x003F
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0005, 0x0002, 0x0010, 0x0000, 0xFFFF
+	createvisualtask AnimTask_HorizontalShake, 5, 0x0001, 0x0005, 0x000E
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	playsewithpan SE_M_HYPER_BEAM, SOUND_PAN_TARGET
+	createsprite gRedXSpriteTemplate, ANIM_TARGET, 5, 0x0001, 0x0032
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x0003, 0x0000, 0x0014, 0x0001
+	createvisualtask AnimTask_ThePitAseNoOp, 2, 0x0002, 0x0000, 0x000A, 0x0001
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ShatterShot:
+	@ Ported from FireRed The Pit export move_476_shatter_shot.ase.txt.
+	fadetobg BG_DRILL
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ROCKS
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_RED_BALL
+	createvisualtask AnimTask_ThePitAseNoOp, 3
+	playsewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0008, 0x0001, 0x0028, 0x0001
+	createvisualtask AnimTask_ShakeMon, 3, 0x0001, 0x0000, 0x0004, 0x0014, 0x0001
+	createvisualtask AnimTask_ShakeMon, 3, 0x0003, 0x0000, 0x0004, 0x0014, 0x0001
+	loopsewithpan SE_M_STRENGTH, SOUND_PAN_TARGET, 8, 2
+	waitforvisualfinish
+	playsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0014, 0x0018, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0005, 0x0000, 0xFFEC, 0x0018, 0x000E, 0x0001
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0005, 0x0014, 0xFFE8, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0xFFFB, 0x0000, 0xFFEC, 0xFFE8, 0x000E, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFFB, 0x001E, 0x0012, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x001E, 0xFFEE, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFE2, 0x0012, 0x0008, 0x0002
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFE2, 0xFFEE, 0x0008, 0x0002
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x0007, 0x0001
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ShogunDecoy:
+	@ Ported from FireRed The Pit export move_366_shogun_decoy.ase.txt.
+	loadspritegfx ANIM_TAG_FINGER_2
+	loadspritegfx ANIM_TAG_THOUGHT_BUBBLE
+	loadspritegfx ANIM_TAG_ANGER
+	createsprite gThoughtBubbleSpriteTemplate, ANIM_ATTACKER, 11, 0x0000, 0x002D
+	playsewithpan SE_M_METRONOME, SOUND_PAN_ATTACKER
+	delay 6
+	createsprite gTauntFingerSpriteTemplate, ANIM_ATTACKER, 12, 0x0000
+	delay 4
+	loopsewithpan SE_M_TAIL_WHIP, SOUND_PAN_ATTACKER, 16, 2
+	waitforvisualfinish
+	delay 8
+	createsprite gAngerMarkSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFEC, 0xFFE4
+	playsewithpan SE_M_SWAGGER2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	delay 12
+	createsprite gAngerMarkSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0014, 0xFFE4
+	playsewithpan SE_M_SWAGGER2, SOUND_PAN_TARGET
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Slashrampage:
+	@ Ported from FireRed The Pit export move_449_slashrampage.ase.txt.
+	loadspritegfx ANIM_TAG_GUST
+	playsewithpan SE_M_GUST, SOUND_PAN_ATTACKER
+	createsprite gRazorWindTornadoSpriteTemplate, ANIM_ATTACKER, 2, 0x0020, 0x0000, 0x0010, 0x0010, 0x0000, 0x0007, 0x0028
+	createsprite gRazorWindTornadoSpriteTemplate, ANIM_ATTACKER, 2, 0x0020, 0x0000, 0x0010, 0x0010, 0x0055, 0x0007, 0x0028
+	createsprite gRazorWindTornadoSpriteTemplate, ANIM_ATTACKER, 2, 0x0020, 0x0000, 0x0010, 0x0010, 0x00AA, 0x0007, 0x0028
+	waitforvisualfinish
+	playsewithpan SE_M_GUST2, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_BLUE_LIGHT_WALL
+	loadspritegfx ANIM_TAG_CLAW_SLASH
+	loadspritegfx ANIM_TAG_TORN_METAL
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0006, 0x0004
+	delay 4
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0012, 0x0001
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0xFFF6, 0xFFF6, 0x0000
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0xFFF6, 0x000A, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 12
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0x000A, 0xFFF6, 0x0001
+	createsprite gClawSlashSpriteTemplate, ANIM_TARGET, 2, 0x000A, 0x000A, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	blendoff
+	clearmonbg ANIM_TARGET
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SolarFlame:
+	@ Ported from FireRed The Pit export move_462_solar_flame.ase.txt.
+	@ skipped unresolved FireRed call <1D5A07>
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_FIRE_PLUME
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	playsewithpan SE_M_SACRED_FIRE, SOUND_PAN_ATTACKER
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFE0, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFEC, 0xFFF6, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0000, 0xFFF0, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0014, 0xFFF6, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0020, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0014, 0x000A, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFEC, 0x000A, 0x0018, 0x0000, 0x0000, 0x0000
+	delay 25
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_ATTACKER
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFC0, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 6, 0xFFD8, 0xFFEC, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 70, 0x0000, 0xFFE0, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 70, 0x0028, 0xFFEC, 0x0018, 0x0000, 0x0000, 0x0000
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x0006, 0x0000, 0x0008, 0x0001
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0040, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0028, 0x0014, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0020, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFD8, 0x0014, 0x0018, 0x0000, 0x0000, 0x0000
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 25
+	playsewithpan SE_M_FLAME_WHEEL2, SOUND_PAN_ATTACKER
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFA0, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 6, 0xFFC4, 0xFFE2, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 70, 0x0000, 0xFFD0, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 70, 0x003C, 0xFFE2, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 2, 0xFFFC, 0x0003, 0x0001, 0x0000
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x000C, 0x0000, 0x0014, 0x0001
+	createvisualtask AnimTask_ThePitAseNoOp, 2, 0x0002, 0x0000, 0x000A, 0x0001
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x0060, 0x0000, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 66, 0x003C, 0x001E, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0030, 0x0018, 0x0000, 0x0000, 0x0000
+	createsprite gFirePlumeSpriteTemplate, ANIM_ATTACKER, 2, 0xFFC4, 0x001E, 0x0018, 0x0000, 0x0000, 0x0000
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SonicRaid:
+	@ Ported from FireRed The Pit export move_446_sonic_raid.ase.txt.
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0001, 0x0005
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x0003
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	delay 4
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x0006, 0x0001
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0000, 0x0001, 0x0001
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	waitforvisualfinish
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SoulTrade:
+	@ Ported from FireRed The Pit export move_368_soul_trade.ase.txt.
+	fadetobg BG_GHOST
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GHOSTLY_SPIRIT
+	loadspritegfx ANIM_TAG_WHITE_SHADOW
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5, 0x0000, 0x0030
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_ORBS
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_foes ANIM_TARGET
+	playsewithpan SE_M_PSYBEAM, SOUND_PAN_ATTACKER
+	setalpha 8, 8
+	playsewithpan SE_M_MINIMIZE, SOUND_PAN_TARGET
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x000F, 0x0001
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFA, 0xFFFA, 0x000F, 0x0001, 0x0001
+	waitforvisualfinish
+	setalpha 12, 8
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0002, 0x0019, 0x0001
+	call DreamEaterAbsorb
+	waitforvisualfinish
+	delay 15
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	delay 1
+	playsewithpan SE_M_NIGHTMARE, SOUND_PAN_TARGET
+	createsprite gCurseGhostSpriteTemplate, ANIM_TARGET, 2
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x000E, 0x0001
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Sporebarrage:
+	@ Ported from FireRed The Pit export move_419_sporebarrage.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x000C, 0x7C15
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	createvisualtask AnimTask_RotateMonSpriteToSide, 5, 0x0008, 0x0005, 0x0000, 0x0000
+	delay 6
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0004, 0x0003
+	delay 4
+	playsewithpan SE_M_SWAGGER, SOUND_PAN_TARGET
+	createsprite gArmThrustHandSpriteTemplate, ANIM_TARGET, 2, 0x000A, 0xFFF8, 0x000E, 0x0003
+	waitforvisualfinish
+	createvisualtask AnimTask_RotateMonSpriteToSide, 5, 0x0008, 0x0005, 0x0000, 0x0001
+	playsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 2, 0x0008, 0x0000, 0x0001, 0x0002
+	createvisualtask AnimTask_ShakeMon, 5, 0x0001, 0x0004, 0x0000, 0x0006, 0x0001
+	waitforvisualfinish
+	blendoff
+	loadspritegfx ANIM_TAG_SPORE
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	loopsewithpan SE_M_POISON_POWDER, SOUND_PAN_TARGET, 20, 5
+	@ skipped unresolved FireRed call <1B04AF0>
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x000C, 0x0000, 0x7C15
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SpringTango:
+	@ Ported from FireRed The Pit export move_390_spring_tango.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x000C, 0x33ED
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_DUCK
+	createvisualtask AnimTask_TeeterDanceMovement, 5
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF0, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF8, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0008, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	call GrowthEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x000C, 0x0000, 0x33ED
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_StarDrop:
+	@ Ported from FireRed The Pit export move_382_star_drop.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GOLD_STARS
+	loadspritegfx ANIM_TAG_SPARKLE_2
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0003, 0x0000, 0x000A, 0x0000
+	waitforvisualfinish
+	panse_adjustall SE_M_REFLECT, SOUND_PAN_TARGET, SOUND_PAN_ATTACKER, 253, 0
+	createsprite gWishStarSpriteTemplate, ANIM_ATTACKER, 40
+	waitforvisualfinish
+	delay 60
+	loopsewithpan SE_M_HEAL_BELL, SOUND_PAN_ATTACKER, 16, 3
+	call GrantingStarsEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0003, 0x000A, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	loadspritegfx ANIM_TAG_IMPACT
+	playsewithpan SE_M_SWIFT, SOUND_PAN_ATTACKER
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0004, 0x0002, 0x7FFF, 0x000A, 0x0000, 0x0000
+	waitforvisualfinish
+	delay 10
+	playsewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER
+	waitplaysewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0012, 0x0006, 0x0002, 0x0004
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0010, 0x0010, 0x7FFF
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0000, 0x0000, 0x0004
+	delay 3
+	waitforvisualfinish
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0xFFF6, 0x0000, 0x0001, 0x0000
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE0, 0x0000, 0x0000, 0x0003
+	waitforvisualfinish
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0000, 0x0000
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0001, 0x0000
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0004, 0x0000, 0x000C, 0x0001
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0004, 0x0000, 0x000C, 0x0001
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0010, 0x0000, 0x7FFF
+	waitforvisualfinish
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0000, 0x0001
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0001, 0x0001
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0005
+	delay 3
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0007
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_StompCrush:
+	@ Ported from FireRed The Pit export move_405_stomp_crush.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0004, 0x01DF
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_WARM_ROCK
+	loadspritegfx ANIM_TAG_HANDS_AND_FEET
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_TARGET
+	createsprite gStompFootSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0xFFE0, 0x000F
+	delay 19
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF8, 0x0001, 0x0001
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0004, 0x0009, 0x0001
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x00C8, 0xFFE0, 0x0000, 0x0064, 0x0000
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x001E, 0xFFE0, 0x0010, 0x005A, 0x0001
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x0096, 0xFFE0, 0x0020, 0x003C, 0x0002
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x005A, 0xFFE0, 0x0030, 0x0050, 0x0003
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x006E, 0xFFE0, 0x0040, 0x0032, 0x0000
+	createsprite gEruptionFallingRockSpriteTemplate, ANIM_ATTACKER, 40, 0x003C, 0xFFE0, 0x0050, 0x0046, 0x0001
+	delay 22
+	createvisualtask AnimTask_HorizontalShake, 5, 0x0005, 0x0008, 0x003C
+	createvisualtask AnimTask_HorizontalShake, 5, 0x0004, 0x0008, 0x003C
+	loopsewithpan SE_M_ROCK_THROW, SOUND_PAN_TARGET, 16, 12
+	delay 80
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0004, 0x0000, 0x01DF
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Strangeseeds:
+	@ Ported from FireRed The Pit export move_437_strangeseeds.ase.txt.
+	loadspritegfx ANIM_TAG_SEED
+	playsewithpan SE_M_POISON_POWDER, SOUND_PAN_ATTACKER
+	createsprite gLeechSeedSpriteTemplate, ANIM_TARGET, 2, 0x000F, 0x0000, 0x0000, 0x0018, 0x0023, 0xFFE0
+	delay 8
+	playsewithpan SE_M_POISON_POWDER, SOUND_PAN_ATTACKER
+	createsprite gLeechSeedSpriteTemplate, ANIM_TARGET, 2, 0x000F, 0x0000, 0xFFF0, 0x0018, 0x0023, 0xFFD8
+	delay 8
+	playsewithpan SE_M_POISON_POWDER, SOUND_PAN_ATTACKER
+	createsprite gLeechSeedSpriteTemplate, ANIM_TARGET, 2, 0x000F, 0x0000, 0x0010, 0x0018, 0x0023, 0xFFDB
+	delay 12
+	loopsewithpan SE_M_TAIL_WHIP, SOUND_PAN_TARGET, 10, 8
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_TENDRILS
+	loopsewithpan SE_M_SCRATCH, SOUND_PAN_TARGET, 6, 4
+	createsprite gConstrictBindingSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0010, 0x0000, 0x0002
+	delay 7
+	createsprite gConstrictBindingSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0x0000, 0x0000, 0x0002
+	createsprite gConstrictBindingSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0008, 0x0001, 0x0002
+	delay 7
+	createsprite gConstrictBindingSpriteTemplate, ANIM_TARGET, 3, 0x0000, 0xFFF8, 0x0001, 0x0002
+	delay 8
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0003, 0x0000, 0x0006, 0x0001
+	delay 20
+	playsewithpan SE_M_BIND, SOUND_PAN_TARGET
+	setarg 7, 0xFFFF
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SubzeroGale:
+	@ Ported from FireRed The Pit export move_410_subzero_gale.ase.txt.
+	fadetobg BG_ICE
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	monbg ANIM_DEF_PARTNER
+	waitbgfadein
+	waitforvisualfinish
+	panse SE_M_BLIZZARD, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	@ skipped unresolved FireRed call <1CE7B8>
+	@ skipped unresolved FireRed call <1CE7B8>
+	playsewithpan SE_M_BLIZZARD2, SOUND_PAN_TARGET
+	waitforvisualfinish
+	call IceCrystalEffectLong
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	delay 20
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_SummerTango:
+	@ Ported from FireRed The Pit export move_389_summer_tango.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x000C, 0x01DF
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SPARKLE_3
+	loadspritegfx ANIM_TAG_MUSIC_NOTES
+	loadspritegfx ANIM_TAG_DUCK
+	createvisualtask AnimTask_TeeterDanceMovement, 5
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0010, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF0, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFF8, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	delay 24
+	createsprite gFastFlyingMusicNotesSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0008, 0xFFFE
+	playsewithpan SE_M_TEETER_DANCE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	playsewithpan SE_M_REFLECT, SOUND_PAN_ATTACKER
+	call SpecialScreenSparkle
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x000C, 0x0000, 0x01DF
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_TagenBattou:
+	@ Ported from FireRed The Pit export move_416_tagen_battou.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0000, 0x0010, 0x0000
+	waitforvisualfinish
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_DoubleTeam, 2
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 32
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 24
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 16
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 8
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	delay 1
+	loadspritegfx ANIM_TAG_CUT
+	loadspritegfx ANIM_TAG_SPARKLE_2
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0001
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0001
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0001
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0001
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	delay 5
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0001
+	delay 5
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_TimeCircle:
+	@ Ported from FireRed The Pit export move_441_time_circle.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	loadspritegfx ANIM_TAG_GUARD_RING
+	monbg ANIM_ATK_PARTNER
+	setalpha 8, 8
+	playsewithpan SE_M_MILK_DRINK, SOUND_PAN_ATTACKER
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	waitforvisualfinish
+	playsewithpan SE_SHINY, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x000A, 0x0000, 0x0002, 0x0000, 0x000A, 0x7FFF
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	delay 8
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0004, 0x0004
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x000A
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_DOUBLE_TEAM, SOUND_PAN_ATTACKER
+	delay 12
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	delay 1
+	waitforvisualfinish
+	createvisualtask AnimTask_InvertScreenColor, 2, 0x0101, 0x0101, 0x0101
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_TitanKiller:
+	@ Ported from FireRed The Pit export move_423_titan_killer.ase.txt.
+	fadetobgfromset BG_GUILLOTINE_OPPONENT, BG_GUILLOTINE_PLAYER, BG_GUILLOTINE_CONTESTS
+	waitbgfadein
+	loadspritegfx ANIM_TAG_EXPLOSION
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0001, 0x0000, 0x0014, 0x0001
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0003, 0x0000, 0x0030, 0x0001
+	createvisualtask AnimTask_BlendMonInAndOut, 2, 0x0000, 0x04DF, 0x000C, 0x0004, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_IMPACT
+	playsewithpan SE_M_SWIFT, SOUND_PAN_ATTACKER
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0002, 0x0004, 0x0002, 0x7FFF, 0x000A, 0x0000, 0x0000
+	waitforvisualfinish
+	delay 10
+	playsewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER
+	waitplaysewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0012, 0x0006, 0x0002, 0x0004
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0010, 0x0010, 0x7FFF
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0014, 0x0000, 0x0000, 0x0004
+	delay 3
+	waitforvisualfinish
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0xFFF6, 0x0000, 0x0001, 0x0000
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0xFFE0, 0x0000, 0x0000, 0x0003
+	waitforvisualfinish
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0000, 0x0000
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0001, 0x0000
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0004, 0x0000, 0x000C, 0x0001
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0001, 0x0004, 0x0000, 0x000C, 0x0001
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0002, 0x0010, 0x0000, 0x7FFF
+	waitforvisualfinish
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0000, 0x0001
+	createvisualtask AnimTask_RotateMonSpriteToSide, 2, 0x0008, 0xFF00, 0x0001, 0x0001
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x0005
+	delay 3
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0000, 0x0007
+	waitforvisualfinish
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF0, 0xFFF1, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0010, 0xFFFB, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0xFFF4, 0x0012, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0005, 0x0001, 0x0000
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ToxicHerb:
+	@ Ported from FireRed The Pit export move_471_toxic_herb.ase.txt.
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	loadspritegfx ANIM_TAG_PINK_PETAL
+	playsewithpan SE_M_SWEET_SCENT, SOUND_PAN_ATTACKER
+	createsprite gSweetScentPetalSpriteTemplate, ANIM_ATTACKER, 2, 0x0064, 0x0000, 0x0064
+	delay 25
+	setpan 0
+	call SweetScentEffect
+	createsprite gSweetScentPetalSpriteTemplate, ANIM_ATTACKER, 2, 0x0037, 0x0000
+	setpan SOUND_PAN_TARGET
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x0014, 0x0001, 0x0005, 0x0005, 0x000D, 0x56BF
+	call SweetScentEffect
+	waitforvisualfinish
+	call PoisonBubblesEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_ToxicReap:
+	@ Ported from FireRed The Pit export move_394_toxic_reap.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x000C, 0x7C15
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFF8, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0008, 0x0000
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0012, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createsprite gAcidPoisonDropletSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0xFFEA, 0x0000, 0x000F, 0x0037
+	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
+	delay 10
+	createsprite gAcidPoisonDropletSpriteTemplate, ANIM_TARGET, 2, 0xFFE6, 0xFFE8, 0x0000, 0x000F, 0x0037
+	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
+	delay 10
+	createsprite gAcidPoisonDropletSpriteTemplate, ANIM_TARGET, 2, 0x000F, 0xFFE5, 0x0000, 0x000F, 0x0032
+	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
+	delay 10
+	createsprite gAcidPoisonDropletSpriteTemplate, ANIM_TARGET, 2, 0xFFF1, 0xFFEF, 0x0000, 0x000A, 0x002D
+	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
+	delay 10
+	createsprite gAcidPoisonDropletSpriteTemplate, ANIM_TARGET, 2, 0x001B, 0xFFEA, 0x0000, 0x000F, 0x0032
+	playsewithpan SE_M_BUBBLE, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x000C, 0x0000, 0x7C15
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_VeilOrder:
+	@ Ported from FireRed The Pit export move_418_veil_order.ase.txt.
+	fadetobg BG_COSMIC
+	waitbgfadein
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_GRAY_LIGHT_WALL
+	setalpha 0, 16
+	waitplaysewithpan SE_M_BARRIER, SOUND_PAN_ATTACKER, 15
+	createsprite gBarrierWallSpriteTemplate, ANIM_ATTACKER, 3, 0x0028, 0x0000, ANIM_TAG_GRAY_LIGHT_WALL
+	waitforvisualfinish
+	delay 1
+	blendoff
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_VenomGust:
+	@ Ported from FireRed The Pit export move_407_venom_gust.ase.txt.
+	fadetobg BG_NONE
+	waitbgfadein
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	loadspritegfx ANIM_TAG_SPARKLE_6
+	panse SE_M_GUST, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	playsewithpan SE_M_MORNING_SUN, 0
+	delay 0
+	monbg ANIM_DEF_PARTNER
+	splitbgprio_all
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, 0x0001, 0x0000, 0x0000, 0x0004, 0x0000
+	createvisualtask AnimTask_GetTargetSide, 2
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPal, 10, 0x0001, 0x0000, 0x0004, 0x0004, 0x0000
+	waitbgfadein
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 0
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 0
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFE0, 0x0010, 0x0000, 0x0006, 0x0002, 0x0003, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF8, 0x0012, 0x0040, 0x0003, 0x0002, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFE8, 0x0012, 0x005A, 0x0005, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_ATTACKER, 120, 0xFFD8, 0x000E, 0x0080, 0x0004, 0x0001, 0x0002, 0x0001
+	delay 6
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindBigSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	delay 0
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindMediumSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	delay 0
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFFC, 0x0010, 0x0000, 0x0006, 0x0001, 0x0002, 0x0001
+	createsprite gSilverWindSmallSparkSpriteTemplate, ANIM_TARGET, 66, 0xFFF0, 0x000C, 0x00C0, 0x0005, 0x0002, 0x0003, 0x0001
+	waitforvisualfinish
+	playsewithpan SE_M_GUST2, SOUND_PAN_TARGET
+	clearmonbg ANIM_DEF_PARTNER
+	delay 0
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 10, 0x0001, 0x0000, 0x0004, 0x0000, 0x0000
+	setarg 7, 0xFFFF
+	waitbgfadein
+	call PoisonBubblesEffect
+	waitforvisualfinish
+	restorebg
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_VoltMask:
+	@ Ported from FireRed The Pit export move_453_volt_mask.ase.txt.
+	loadspritegfx ANIM_TAG_SPARK_2
+	playsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_ThePitAseNoOp, 5
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_LEER
+	monbg ANIM_ATTACKER
+	splitbgprio ANIM_ATTACKER
+	setalpha 8, 8
+	playsewithpan SE_M_LEER, SOUND_PAN_ATTACKER
+	createsprite gLeerSpriteTemplate, ANIM_ATTACKER, 2, 0x0018, 0xFFF4
+	createvisualtask AnimTask_ScaleMonAndRestore, 5, 0xFFFB, 0xFFFB, 0x000A, 0x0000, 0x0001
+	waitforvisualfinish
+	delay 10
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0001, 0x0000, 0x0009, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0001, 0x0000, 0x0009, 0x0001
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	waitforvisualfinish
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_VoltWings:
+	@ Ported from FireRed The Pit export move_399_volt_wings.ase.txt.
+	loadspritegfx ANIM_TAG_SPARK_2
+	loadspritegfx ANIM_TAG_GUST
+	loadspritegfx ANIM_TAG_IMPACT
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_TARGET
+	setalpha 12, 8
+	loopsewithpan SE_M_WING_ATTACK, SOUND_PAN_ATTACKER, 20, 2
+	createvisualtask AnimTask_TranslateMonElliptical, 2, 0x0000, 0x000C, 0x0004, 0x0001, 0x0004
+	createvisualtask AnimTask_AnimateGustTornadoPalette, 5, 0x0001, 0x0046
+	createsprite gGustToTargetSpriteTemplate, ANIM_ATTACKER, 2, 0xFFE7, 0x0000, 0x0000, 0x0000, 0x0014
+	createsprite gGustToTargetSpriteTemplate, ANIM_ATTACKER, 2, 0x0019, 0x0000, 0x0000, 0x0000, 0x0014
+	delay 24
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0018, 0x0000, 0x0000, 0x0009
+	delay 17
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0x0010, 0x0000, 0x0001, 0x0001
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF0, 0x0000, 0x0001, 0x0001
+	loopsewithpan SE_M_DOUBLE_SLAP, SOUND_PAN_TARGET, 5, 2
+	waitforvisualfinish
+	createsprite gSlideMonToOriginalPosSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000, 0x000B
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	call ElectricityEffect
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Wakingchakra:
+	@ Ported from FireRed The Pit export move_427_wakingchakra.ase.txt.
+	loadspritegfx ANIM_TAG_SPARKLE_3
+	loadspritegfx ANIM_TAG_THIN_RING
+	monbg ANIM_ATK_PARTNER
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0000, 0x0000, 0x0000, 0x0010, 0x0000
+	waitforvisualfinish
+	createvisualtask AnimTask_SetAllNonAttackersInvisiblity, 5, 0x0001
+	waitforvisualfinish
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	delay 14
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	delay 14
+	createsprite gThinRingShrinkingSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0000, 0x0000, 0x0000
+	playsewithpan SE_M_SUPERSONIC, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_SetAllNonAttackersInvisiblity, 5, 0x0000
+	visible ANIM_ATTACKER
+	waitforvisualfinish
+	createvisualtask AnimTask_BlendBattleAnimPalExclude, 5, 0x0000, 0x0000, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	playsewithpan SE_M_REFLECT, SOUND_PAN_ATTACKER
+	call SpecialScreenSparkle
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WardingMist:
+	@ Ported from FireRed The Pit export move_440_warding_mist.ase.txt.
+	loadspritegfx ANIM_TAG_GUARD_RING
+	monbg ANIM_ATK_PARTNER
+	setalpha 8, 8
+	playsewithpan SE_M_MILK_DRINK, SOUND_PAN_ATTACKER
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	delay 4
+	createsprite gGuardRingSpriteTemplate, ANIM_ATTACKER, 2
+	waitforvisualfinish
+	playsewithpan SE_SHINY, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x000A, 0x0000, 0x0002, 0x0000, 0x000A, 0x7FFF
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	loadspritegfx ANIM_TAG_MIST_CLOUD
+	monbg ANIM_ATK_PARTNER
+	setalpha 12, 8
+	loopsewithpan SE_M_MIST, SOUND_PAN_ATTACKER, 15, 10
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	@ skipped unresolved FireRed call <1B0AB30>
+	delay 16
+	createvisualtask AnimTask_BlendColorCycle, 2, 0x000A, 0x0008, 0x0002, 0x0000, 0x000E, 0x7FFF
+	waitforvisualfinish
+	clearmonbg ANIM_ATK_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WaterBomb:
+	@ Ported from FireRed The Pit export move_409_water_bomb.ase.txt.
+	fadetobg BG_THUNDER
+	waitbgfadeout
+	createvisualtask AnimTask_StartSlidingBg, 5, 0x0500, 0x0000, 0x0000, 0xFFFF
+	waitbgfadein
+	loadspritegfx ANIM_TAG_WEATHER_BALL
+	createsprite gVerticalDipSpriteTemplate, ANIM_ATTACKER, 2, 0x0008, 0x0001, 0x0000
+	delay 8
+	playsewithpan SE_M_SWAGGER, SOUND_PAN_ATTACKER
+	createsprite gWeatherBallUpSpriteTemplate, ANIM_ATTACKER, 2
+	waitforvisualfinish
+	delay 15
+	playsewithpan SE_M_DETECT, 0
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x001F, 0x0005, 0x0001, 0x7FFF, 0x000A, 0x0000, 0x0000
+	waitforvisualfinish
+	createvisualtask AnimTask_GetWeather, 2
+	delay 1
+	loadspritegfx ANIM_TAG_IMPACT
+	createsprite gWeatherBallNormalDownSpriteTemplate, ANIM_TARGET, 2, 0xFFE2, 0xFF9C, 0x0019, 0x0001, 0x0000, 0x0000
+	waitforvisualfinish
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 4, 0xFFF6, 0x0000, 0x0001, 0x0002
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x0008, 0x0001
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_SMALL_BUBBLES
+	createsprite gWeatherBallWaterDownSpriteTemplate, ANIM_TARGET, 2, 0xFFE2, 0xFF9C, 0x0019, 0x0001, 0x0032, 0x000A
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_TARGET
+	delay 8
+	createsprite gWeatherBallWaterDownSpriteTemplate, ANIM_TARGET, 2, 0xFFE2, 0xFF9C, 0x0019, 0x0001, 0xFFEC, 0x0014
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_TARGET
+	delay 13
+	createsprite gWeatherBallWaterDownSpriteTemplate, ANIM_TARGET, 2, 0xFFE2, 0xFF9C, 0x0019, 0x0001, 0x0000, 0x0000
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x0008, 0x0001
+	playsewithpan SE_M_GIGA_DRAIN, SOUND_PAN_TARGET
+	waitforvisualfinish
+	restorebg
+	waitbgfadeout
+	setarg 7, 0xFFFF
+	waitbgfadein
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WaterTackle:
+	@ Ported from FireRed The Pit export move_237_water_tackle.ase.txt.
+	loadspritegfx ANIM_TAG_WATER_IMPACT
+	loadspritegfx ANIM_TAG_SMALL_BUBBLES
+	loadspritegfx ANIM_TAG_ICE_CRYSTALS
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	createvisualtask AnimTask_ShakeMon, 5, 0x0000, 0x0000, 0x0002, 0x0017, 0x0001
+	delay 5
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0x000A, 0x000A, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF1, 0x0000, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0x0014, 0x000A, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0xFFF6, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0xFFF6, 0x000F, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0x0019, 0x0014, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0xFFEC, 0x0014, 0x0019, 0x0000
+	delay 4
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	createsprite gSmallBubblePairSpriteTemplate, ANIM_ATTACKER, 2, 0x000C, 0x0000, 0x0019, 0x0000
+	waitforvisualfinish
+	delay 10
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0006, 0x0005
+	delay 6
+	call RisingWaterHitEffect
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WeirdPotion:
+	@ Ported from FireRed The Pit export move_472_weird_potion.ase.txt.
+	loadspritegfx ANIM_TAG_MILK_BOTTLE
+	loadspritegfx ANIM_TAG_THIN_RING
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	monbg ANIM_TARGET
+	createsprite gMilkBottleSpriteTemplate, ANIM_ATTACKER, 2
+	delay 40
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	delay 12
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	delay 20
+	playsewithpan SE_M_CRABHAMMER, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	createsprite gThinRingExpandingSpriteTemplate, ANIM_ATTACKER, 3, 0x0000, 0x0000, 0x0001, 0x0000
+	playsewithpan SE_M_MILK_DRINK, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	call HealingEffect2
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WhipRipper:
+	@ Ported from FireRed The Pit export move_402_whip_ripper.ase.txt.
+	loadspritegfx ANIM_TAG_WHIP_HIT
+	call SetImpactBackground
+	playsewithpan SE_M_JUMP_KICK, SOUND_PAN_ATTACKER
+	createsprite gHorizontalLungeSpriteTemplate, ANIM_ATTACKER, 2, 0x0004, 0x0006
+	delay 6
+	playsewithpan SE_M_SCRATCH, SOUND_PAN_TARGET
+	createsprite gVineWhipSpriteTemplate, ANIM_TARGET, 2, 0x0000, 0x0000
+	delay 6
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0006, 0x0001
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WiltMiasma:
+	@ Ported from FireRed The Pit export move_395_wilt_miasma.ase.txt.
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0000, 0x0010, 0x7C15
+	waitforvisualfinish
+	loadspritegfx ANIM_TAG_FLYING_DIRT
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_FLYING_DIRT, 0x0000, 0x0006, 0x0006, 0x001F
+	createvisualtask AnimTask_LoadSandstormBackground, 5, 0x0001
+	createvisualtask AnimTask_BlendBackground, 6, 0x0006, 0x001F
+	panse SE_M_HEAT_WAVE, SOUND_PAN_ATTACKER, SOUND_PAN_TARGET, 2, 0
+	delay 4
+	createvisualtask AnimTask_MoveHeatWaveTargets, 5
+	delay 12
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x000A, 0x0900, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x005A, 0x0800, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0032, 0x0A00, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0014, 0x0900, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0046, 0x07C0, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x0000, 0x0B00, 0x0060, 0x0001
+	delay 10
+	createsprite gFlyingSandCrescentSpriteTemplate, ANIM_ATTACKER, 40, 0x003C, 0x0A00, 0x0060, 0x0001
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0004, 0x0010, 0x0000, 0x7C15
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_WingTalon:
+	@ Ported from FireRed The Pit export move_474_wing_talon.ase.txt.
+	loadspritegfx ANIM_TAG_CUT
+	monbg ANIM_TARGET
+	setalpha 12, 8
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0018, 0x0006, 0x0001, 0x0005
+	createvisualtask AnimTask_TraceMonBlended, 2, 0x0000, 0x0004, 0x0007, 0x0003
+	createsprite gCuttingSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000
+	playsewithpan SE_M_RAZOR_WIND2, SOUND_PAN_ATTACKER
+	delay 5
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0000, 0x0003, 0x000A, 0x0001
+	createsprite gComplexPaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x001F, 0x0003, 0x0001, 0x0000, 0x000A, 0x0000, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	clearmonbg ANIM_TARGET
+	blendoff
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFF8, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0008, 0x0000
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0012, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Yggdrain:
+	@ Ported from FireRed The Pit export move_340_yggdrain.ase.txt.
+	loadspritegfx ANIM_TAG_ORBS
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HORN_HIT
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0000
+	playsewithpan SE_M_HEADBUTT, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	delay 2
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0001
+	createsprite gHornHitSpriteTemplate, ANIM_TARGET, 4, 0x0000, 0x0000, 0x000A
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, 0x0000, 0x0002, 0x0000, 0x0004, 0x0001
+	createvisualtask AnimTask_ShakeMon, 2, 0x0001, 0x0005, 0x0000, 0x0006, 0x0001
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0x0002
+	createsprite gFlashingHitSplatSpriteTemplate, ANIM_ATTACKER, 5, 0x0001, 0x0000, 0x0005, 0x0005, 0x0001
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0000, 0x0007, 0x0000
+	waitforvisualfinish
+	call AbsorbEffect
+	waitforvisualfinish
+	delay 15
+	call HealingEffect
+	waitforvisualfinish
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 2, 0x0001, 0x0001, 0x0007, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_Yggdraslash:
+	@ Ported from FireRed The Pit export move_408_yggdraslash.ase.txt.
+	call SetPsychicBackground
+	loadspritegfx ANIM_TAG_AIR_WAVE
+	loadspritegfx ANIM_TAG_CUT
+	loadspritegfx ANIM_TAG_IMPACT
+	delay 0
+	monbg ANIM_DEF_PARTNER
+	setalpha 12, 8
+	delay 0
+	createvisualtask AnimTask_AirCutterProjectile, 2, 0x0020, 0xFFE8, 0x0600, 0x0002, 0x0080
+	waitforvisualfinish
+	playsewithpan SE_M_CUT, SOUND_PAN_TARGET
+	createsprite gAirCutterSliceSpriteTemplate, ANIM_ATTACKER, 2, 0x0028, 0xFFE0, 0x0000, 0x0002
+	delay 5
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0002, 0x0000, 0x0008, 0x0001
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0003, 0x0002, 0x0000, 0x0008, 0x0001
+	waitforvisualfinish
+	blendoff
+	clearmonbg ANIM_DEF_PARTNER
+	delay 0
+	call UnsetPsychicBg
+	end
+
+	.align 2
+gBattleAnimMove_ThePit_5RingSword:
+	@ Ported from FireRed The Pit export move_365__5_ring_sword.ase.txt.
+	loadspritegfx ANIM_TAG_SWORD
+	monbg ANIM_ATTACKER
+	setalpha 12, 8
+	playsewithpan SE_M_SWORDS_DANCE, SOUND_PAN_ATTACKER
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, 0x0000, 0x0010, 0x0006, 0x0001, 0x0004
+	createsprite gSwordsDanceBladeSpriteTemplate, ANIM_ATTACKER, 2, 0x0000, 0x0000
+	delay 22
+	createvisualtask AnimTask_FlashAnimTagWithColor, 2, ANIM_TAG_SWORD, 0x0002, 0x0002, 0x7FF2, 0x0010, 0x0000, 0x0000
+	waitforvisualfinish
+	clearmonbg ANIM_ATTACKER
+	blendoff
+	delay 1
+	loadspritegfx ANIM_TAG_SLASH
+	createsprite gSlashSliceSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0xFFF8, 0x0000
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	delay 4
+	createsprite gSwordsDanceBladeSpriteTemplate, ANIM_TARGET, 2, 0x0001, 0x0008, 0x0000
+	createvisualtask AnimTask_ShakeMon2, 2, 0x0001, 0x0004, 0x0000, 0x0012, 0x0001
+	playsewithpan SE_M_RAZOR_WIND, SOUND_PAN_TARGET
+	waitforvisualfinish
+	end
+
+	.align 2
+ThePitAseReturn:
+	return

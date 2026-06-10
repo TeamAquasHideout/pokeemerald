@@ -1,0 +1,28 @@
+@ battle script for gen3 move-effect 79 (Substitute) @1D72EC
+section0: # 1D72EC
+  attackcanceler
+  ppreduce
+  attackstring
+  waitstate
+  jumpifstatus2 attacker 0x01000000 <section3>
+  setsubstitute
+  jumpifbyte != 0x02023E87 1 <section1>
+  pause 32
+  goto <section2>
+
+section1: # 1D730E
+  attackanimation
+  waitanimation
+  healthbarupdate attacker
+  datahpupdate attacker
+
+section2: # 1D7314
+  printfromtable <3FE5B8>
+  waitmessage 64
+  goto <1D694E>
+
+section3: # 1D7321
+  pause 32
+  printstring 127
+  waitmessage 64
+  goto <1D694E>

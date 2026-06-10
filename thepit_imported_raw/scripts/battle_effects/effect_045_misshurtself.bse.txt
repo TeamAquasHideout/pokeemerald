@@ -1,0 +1,26 @@
+@ battle script for gen3 move-effect 45 (MissHurtSelf) @1D7011
+section0: # 1D7011
+  attackcanceler
+  accuracycheck <section1> 0
+  goto <1D692E>
+
+section1: # 1D701E
+  attackstring
+  ppreduce
+  pause 64
+  resultmessage
+  waitmessage 64
+  jumpifbyte & 0x02023DCC 8 <1D694E>
+  printstring 96
+  waitmessage 64
+  damagecalc
+  typecalc
+  adjustnormaldamage
+  manipulatedamage 1
+  bicbyte 0x02023DCC 1
+  orword 0x02023DD0 256
+  healthbarupdate attacker
+  datahpupdate attacker
+  tryfaintmon attacker 0 <null>
+  orbyte 0x02023DCC 1
+  goto <1D694E>

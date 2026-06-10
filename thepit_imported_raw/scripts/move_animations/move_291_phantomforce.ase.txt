@@ -1,0 +1,7 @@
+@ animation for MOVE_PHANTOMFORCE (@1B03970)
+section0: # 1B03970
+  loadspritegfx 0x2797
+  loadspritegfx 0x2797
+  fadetobg bg_ghost
+  waitbgfadein
+  choosetwoturnanim <1B03870> <1B038E0>

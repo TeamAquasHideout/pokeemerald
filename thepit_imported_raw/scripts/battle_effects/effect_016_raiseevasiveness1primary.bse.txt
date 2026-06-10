@@ -1,0 +1,29 @@
+@ battle script for gen3 move-effect 16 (RaiseEvasiveness1Primary) @1D6B98
+section0: # 1D6B98
+  set.stat.changer RaiseEvasion1
+
+section1: # 1D6B9E
+  attackcanceler
+
+section2: # 1D6B9F
+  attackstring
+  ppreduce
+  statbuffchange 65 <section6>
+  jumpifbyte != 0x02023E87 2 <section3>
+  pause 32
+  goto <section5>
+
+section3: # 1D6BBA
+  attackanimation
+  waitanimation
+
+section4: # 1D6BBC
+  setgraphicalstatchangevalues
+  playanimation attacker StatChange 0x02023FD4
+
+section5: # 1D6BC4
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section6: # 1D6BCC
+  goto <1D694E>

@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 53 (RaiseSpAttack2Primary) @1D7119
+section0: # 1D7119
+  set.stat.changer RaiseSpAtk2
+  goto <1D6B9E>

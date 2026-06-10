@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 159 (2to5turnsAndAllNoSleep) @1D7E16
+section0: # 1D7E16
+  attackcanceler
+  accuracycheck <1D695E> 0
+  set.move.effect Self2to5turnsAndAllNoSleep
+  attackstring
+  jumpifstatus2 attacker 4096 <section1>
+  ppreduce
+
+section1: # 1D7E30
+  nop
+  goto <1D6930>

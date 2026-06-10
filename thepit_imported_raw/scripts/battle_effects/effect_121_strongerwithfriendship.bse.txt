@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 121 (StrongerWithFriendship) @1D7954
+section0: # 1D7954
+  attackcanceler
+  accuracycheck <1D695E> 0
+  happinesstodamagecalculation
+  goto <1D692E>

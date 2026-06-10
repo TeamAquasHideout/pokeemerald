@@ -1,0 +1,12 @@
+@ animation for MOVE_GROWL (@1CDB57)
+section0: # 1CDB57
+  loadspritegfx 0x2745
+  createvisualtask <0DD149> 2 0x0000 0x00FF
+  call <1CDB06>
+  delay 10
+  createvisualtask <098B1D> 2 0x0001 0x0001 0x0000 0x0009 0x0001
+  createvisualtask <098B1D> 2 0x0003 0x0001 0x0000 0x0009 0x0001
+  waitforvisualfinish
+  createvisualtask <0DD2F5> 5 
+  waitforvisualfinish
+  end

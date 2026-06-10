@@ -1,0 +1,44 @@
+@ animation for MOVE_SCYTHE_DANCE (@1B1FDB0)
+section0: # 1B1FDB0
+  monbg anim_atk_partner
+  setalpha 12 8
+  createvisualtask <09907D> 2 0x0000 0x0018 0x0006 0x0004 0x0008
+  createvisualtask <0BAB99> 2 0x0000 0x0004 0x0007 0x0008
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  playsewithpan se_m_double_team sound_pan_attacker
+  delay 12
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  waitforvisualfinish
+  loadspritegfx 0x27C7
+  createsprite <3E35A4> 130 0x0001 0xFFF8 0x0000
+{
+tileTag:     10183
+paletteTag:  10183
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  delay 4
+  createsprite <3E35A4> 130 0x0001 0x0008 0x0000
+{
+tileTag:     10183
+paletteTag:  10183
+oam:         <3AC9D8>
+anims:       <3E359C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5941>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0012 0x0001
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  end

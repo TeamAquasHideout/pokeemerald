@@ -1,0 +1,34 @@
+@ animation for MOVE_ENDEAVOR (@1CBE7A)
+section0: # 1CBE7A
+  loadspritegfx 0x2803
+  loadspritegfx 0x2797
+  createvisualtask <0E1D5D> 2 0x0000 0x0002
+  loopsewithpan se_m_tail_whip sound_pan_attacker 24 2
+  createvisualtask <07616D> 5 0x0000 0x02BF 0x000C 0x0001 0x0002
+  delay 6
+  createvisualtask <099BD5> 5 0x0000 0x0001 0x0008 0x0001 0x0000
+  createsprite <3E7C08> 130 0x000C 0xFFF4 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_double_slap sound_pan_target
+  delay 24
+  createvisualtask <099BD5> 5 0x0000 0x0001 0x0008 0x0001 0x0000
+  createsprite <3E7C08> 130 0xFFF4 0x000C 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_comet_punch sound_pan_target
+  end

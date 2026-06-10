@@ -1,0 +1,45 @@
+@ animation for MOVE_SIGNAL_BEAM (@1CEAED)
+section0: # 1CEAED
+  loadspritegfx 0x2818
+  loadspritegfx 0x2819
+  loadspritegfx 0x2759
+  createvisualtask <0989F9> 5 0x0000 0x0000 0x0002 0x0019 0x0001
+  delay 6
+  panse se_m_bubble_beam sound_pan_attacker sound_pan_target 1 0
+  createvisualtask <0AB101> 5 0x0064
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x0019 0x0001
+  createsprite <3E7B3C> 2 0x0004 0x0008 0x0005 0x001F 0x0008 0x03C1 0x0008
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  call <1CEBB4>
+  waitforvisualfinish
+  end

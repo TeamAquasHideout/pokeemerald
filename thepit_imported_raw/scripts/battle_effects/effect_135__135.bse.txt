@@ -1,0 +1,5 @@
+@ battle script for gen3 move-effect 135 (135) @1D7A09
+section0: # 1D7A09
+  attackcanceler
+  hiddenpowercalc
+  goto <1D6927>

@@ -1,0 +1,30 @@
+@ animation for MOVE_METRONOME (@1CAB05)
+section0: # 1CAB05
+  loadspritegfx 0x2750
+  loadspritegfx 0x27E1
+  createsprite <3E398C> 11 0x0000 0x0064
+{
+tileTag:     10209
+paletteTag:  10209
+oam:         <3AC9D8>
+anims:       <3E397C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A6B65>
+}
+  playsewithpan se_m_metronome sound_pan_attacker
+  delay 6
+  createsprite <3E3A34> 12 0x0000
+{
+tileTag:     10064
+paletteTag:  10064
+oam:         <3ACA98>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3A2C>
+callback:    <0A6C09>
+}
+  delay 24
+  loopsewithpan se_m_tail_whip sound_pan_attacker 22 3
+  waitforvisualfinish
+  end

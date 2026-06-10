@@ -1,0 +1,32 @@
+@ animation for MOVE_AEROBLAST (@1CF75D)
+section0: # 1CF75D
+  loadspritegfx 0x27AA
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  call <1D59CF>
+  splitbgprio anim_target
+  setalpha 12 8
+  call <1CF7B9>
+  createvisualtask <0989F9> 5 0x0001 0x0005 0x0000 0x0032 0x0001
+  call <1CF7B9>
+  call <1CF7B9>
+  call <1CF7B9>
+  call <1CF7B9>
+  waitforvisualfinish
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  delay 0
+  call <1D59FF>
+  end

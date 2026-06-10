@@ -1,0 +1,38 @@
+@ animation for MOVE_THIEF (@1C9CCC)
+section0: # 1C9CCC
+  loadspritegfx 0x2797
+  monbg anim_target
+  delay 1
+  fadetobg bg_dark
+  waitbgfadein
+  setalpha 12 8
+  createsprite <3D4E54> 2 0x0006 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 6
+  playsewithpan se_m_vital_throw sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0001 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  delay 20
+  clearmonbg anim_target
+  blendoff
+  restorebg
+  waitbgfadein
+  end

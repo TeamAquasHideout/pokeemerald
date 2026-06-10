@@ -1,0 +1,9 @@
+@ animation for MOVE_PURSUIT (@1C8520)
+section0: # 1C8520
+  loadspritegfx 0x2797
+  monbg anim_target
+  fadetobg bg_dark
+  waitbgfadein
+  delay 0
+  setalpha 12 8
+  choosetwoturnanim <1C853F> <1C8568>

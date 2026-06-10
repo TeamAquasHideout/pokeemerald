@@ -1,0 +1,11 @@
+@ animation for MOVE_TOXIC (@1CF131)
+section0: # 1CF131
+  loadspritegfx 0x27A7
+  loadspritegfx 0x27A6
+  call <1CF14B>
+  call <1CF14B>
+  waitforvisualfinish
+  delay 15
+  call <1D575B>
+  waitforvisualfinish
+  end

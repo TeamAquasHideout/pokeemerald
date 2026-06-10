@@ -1,0 +1,22 @@
+@ battle script for gen3 move-effect 55 (Unused37) @11A91C0
+section0: # 11A91C0
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  calculatedamage
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  set.move.effect Freeze
+  seteffectwithchance
+  tryfaintmon target 0 <null>
+  goto <1D694E>

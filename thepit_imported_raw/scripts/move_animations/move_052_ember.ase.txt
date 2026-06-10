@@ -1,0 +1,42 @@
+@ animation for MOVE_EMBER (@1C7C79)
+section0: # 1C7C79
+  loadspritegfx 0x272D
+  loopsewithpan se_m_ember sound_pan_attacker 5 2
+  createsprite <3E5D4C> 130 0x0014 0x0000 0xFFF0 0x0018 0x0014 0x0001
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075DF5>
+}
+  delay 4
+  createsprite <3E5D4C> 130 0x0014 0x0000 0x0000 0x0018 0x0014 0x0001
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075DF5>
+}
+  delay 4
+  createsprite <3E5D4C> 130 0x0014 0x0000 0x0010 0x0018 0x0014 0x0001
+{
+tileTag:     10029
+paletteTag:  10029
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075DF5>
+}
+  delay 16
+  playsewithpan se_m_flame_wheel sound_pan_target
+  call <1C7CD5>
+  call <1C7CD5>
+  call <1C7CD5>
+  end

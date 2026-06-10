@@ -1,0 +1,28 @@
+@ battle script for gen3 move-effect 24 (LowerEvasion1Primary) @1D6C0D
+section0: # 1D6C0D
+  set.stat.changer LowerEvasion1
+
+section1: # 1D6C13
+  attackcanceler
+  jumpifstatus2 target 0x01000000 <1D7DF0>
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  statbuffchange 1 <section4>
+  jumpifbyte < 0x02023E87 2 <section2>
+  jumpifbyte = 0x02023E87 3 <section4>
+  pause 32
+  goto <section3>
+
+section2: # 1D6C4B
+  attackanimation
+  waitanimation
+  setgraphicalstatchangevalues
+  playanimation target StatChange 0x02023FD4
+
+section3: # 1D6C55
+  printfromtable <3FE588>
+  waitmessage 64
+
+section4: # 1D6C5D
+  goto <1D694E>

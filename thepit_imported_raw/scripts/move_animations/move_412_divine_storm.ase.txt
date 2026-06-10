@@ -1,0 +1,194 @@
+@ animation for MOVE_DIVINE_STORM (@1B04390)
+section0: # 1B04390
+  fadetobg bg_thunder
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0x0500 0x0000 0x0000 0xFFFF
+  waitbgfadein
+  loadspritegfx 0x271B
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  loadspritegfx 0x2735
+  waitbgfadein
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  delay 16
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  playsewithpan se_m_thunder_wave sound_pan_target
+  delay 1
+  createsprite <3E5F38> 130 0x0010 0xFFDC
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0010 0xFFEC
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0010 0x000C
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 20
+  createsprite <3E5F38> 134 0xFFF0 0xFFE0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  playsewithpan se_m_thunder_wave sound_pan_target
+  delay 1
+  createsprite <3E5F38> 134 0xFFF0 0xFFF0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 134 0xFFF0 0x0010
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  playsewithpan se_m_thunder_wave sound_pan_target
+  delay 5
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  delay 1
+  createsprite <3E5F38> 130 0x0018 0xFFE0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0018 0xFFF0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0018 0x0010
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 30
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  delay 5
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  delay 1
+  createsprite <3E5F38> 130 0x0000 0xFFE0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  playsewithpan se_m_tri_attack2 sound_pan_target
+  delay 1
+  createsprite <3E5F38> 130 0x0000 0xFFF0
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 1
+  createsprite <3E5F38> 130 0x0000 0x0010
+{
+tileTag:     10037
+paletteTag:  10037
+oam:         <3AC9D8>
+anims:       <3E5F34>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0ADBED>
+}
+  delay 10
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  delay 1
+  createvisualtask <0ADAD9> 2 0x001E 0x0003 0x0001 0x0000
+  delay 2
+  createvisualtask <0BA0E9> 2 0x0101 0x0101 0x0101
+  delay 1
+  createsprite <3E7B24> 130 0x0001 0x0002 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  call <1D58D4>
+  waitforvisualfinish
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

@@ -1,0 +1,8 @@
+@ battle script for gen3 move-effect 72 (LowerSpDefense1HitChance) @1AE11E0
+section0: # 1AE11E0
+  if.move.goto "Abyss Miasma" <section1>
+  goto <1D728B>
+
+section1: # 1AE11F1
+  set.move.effect LowerSpDef2
+  goto <1D6900>

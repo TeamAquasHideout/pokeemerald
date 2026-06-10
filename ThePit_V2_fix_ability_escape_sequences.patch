@@ -1,0 +1,25 @@
+diff --git a/src/data/abilities.h b/src/data/abilities.h
+--- a/src/data/abilities.h
++++ b/src/data/abilities.h
+@@ -2814,8 +2814,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
+     [ABILITY_BOTANIST] =
+     {
+         .name = _("Botanist"),
+-        .description = COMPOUND_STRING("\\qoHerb\\qc & \\qoPotion\\qc moves gain priority."),
+-        .description_short = COMPOUND_STRING("\\qoHerb\\qc & \\qoPotion\\qc moves gain priority."),
++        .description = COMPOUND_STRING("Herb & Potion moves gain priority."),
++        .description_short = COMPOUND_STRING("Herb & Potion moves gain priority."),
+         .aiRating = 0, // TODO
+     },
+     [ABILITY_EERIE_AURA] =
+@@ -2870,8 +2870,8 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
+     [ABILITY_SOVEREIGNTY] =
+     {
+         .name = _("Sovereignty"),
+-        .description = COMPOUND_STRING("\\qoOrder\\qc moves have priority."),
+-        .description_short = COMPOUND_STRING("\\qoOrder\\qc moves have priority."),
++        .description = COMPOUND_STRING("Order moves have priority."),
++        .description_short = COMPOUND_STRING("Order moves have priority."),
+         .aiRating = 0, // TODO
+     },
+     [ABILITY_VENOM_BLOOD] =

@@ -1,0 +1,20 @@
+@ animation for MOVE_FAKE_OUT (@1D1B65)
+section0: # 1D1B65
+  playsewithpan se_m_flatter 0
+  createvisualtask <0A98B1> 5 
+  waitforvisualfinish
+  playsewithpan se_m_sketch sound_pan_target
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0005 0x0001
+  createvisualtask <0A9A21> 3 
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0003 0x0010 0x0000 0x7FFF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

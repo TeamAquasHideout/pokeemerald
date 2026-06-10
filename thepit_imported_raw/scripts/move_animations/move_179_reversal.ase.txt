@@ -1,0 +1,127 @@
+@ animation for MOVE_REVERSAL (@1C8445)
+section0: # 1C8445
+  loadspritegfx 0x27FC
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  playsewithpan se_m_detect sound_pan_attacker
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0003 0x7FFF 0x0008 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  waitforvisualfinish
+  delay 30
+  createvisualtask <0B9BDD> 2 0x001F 0x0003 0x0002 0x0000 0x000A 0x7FFF
+  delay 10
+  playsewithpan se_m_reversal sound_pan_attacker
+  createsprite <3FF3B8> 2 0x001A 0x0000
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  createsprite <3FF3B8> 2 0x001A 0x002A
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  createsprite <3FF3B8> 2 0x001A 0x0054
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  createsprite <3FF3B8> 2 0x001A 0x007E
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  createsprite <3FF3B8> 2 0x001A 0x00A8
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  createsprite <3FF3B8> 2 0x001A 0x00D2
+{
+tileTag:     10236
+paletteTag:  10236
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0E95>
+}
+  waitforvisualfinish
+  delay 20
+  createsprite <3D4E54> 2 0x0006 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 8
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x7FFF 0x0008 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createsprite <3E6710> 132 0x0000 0x0000 0x000A 0x0001 0x0000
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0955>
+}
+  createsprite <3E7C08> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <099BD5> 5 0x0000 0x0001 0x0008 0x0001 0x0000
+  end

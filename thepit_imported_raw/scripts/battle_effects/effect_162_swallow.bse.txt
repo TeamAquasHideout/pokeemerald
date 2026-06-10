@@ -1,0 +1,13 @@
+@ battle script for gen3 move-effect 162 (Swallow) @1D7E8B
+section0: # 1D7E8B
+  attackcanceler
+  attackstring
+  ppreduce
+  stockpiletohpheal <section1>
+  goto <1D7DB7>
+
+section1: # 1D7E98
+  pause 32
+  printfromtable <3FE572>
+  waitmessage 64
+  goto <1D694E>

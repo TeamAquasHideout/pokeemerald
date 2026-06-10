@@ -1,0 +1,125 @@
+@ animation for MOVE_SKY_UPPERCUT (@1D4BC1)
+section0: # 1D4BC1
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  fadetobg bg_in_air
+  waitbgfadeout
+  playsewithpan se_m_sky_uppercut sound_pan_attacker
+  createvisualtask <0B1531> 5 0x0037
+  waitbgfadein
+  setalpha 12 8
+  delay 38
+  createsprite <3D4E9C> 2 0x0000 0x001C 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 4
+  createvisualtask <098B1D> 2 0x0001 0x0004 0x0000 0x0006 0x0001
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0xFFE4 0x001C 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 1
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0xFFF1 0x0008 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  delay 1
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0xFFFB 0xFFF4 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 1
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0x0000 0xFFE0 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 1
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0x0005 0xFFCC 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3D4E9C> 2 0x0001 0xFFE6 0x0010 0x0001 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 4
+  createvisualtask <098CD1> 2 0x0001 0x0000 0x0003 0x0006 0x0001
+  delay 30
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 4
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  clearmonbg anim_def_partner
+  blendoff
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

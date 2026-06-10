@@ -1,0 +1,94 @@
+@ animation for MOVE_ROOST (@1CC2A1)
+section0: # 1CC2A1
+  loadspritegfx 0x281E
+  monbg anim_def_partner
+  splitbgprio_all
+  playsewithpan se_m_petal_dance sound_pan_target
+  delay 0
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0040 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0020 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0000 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00E0 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0080 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00C0 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x00A0 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  delay 6
+  createsprite <3E6C00> 128 0x0000 0xFFF0 0x0060 0x0002 0x0068 0x2C28 0x0020 0x0001
+{
+tileTag:     10270
+paletteTag:  10270
+oam:         <3ACA38>
+anims:       <3E6BF8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B1D89>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

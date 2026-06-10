@@ -1,0 +1,24 @@
+@ animation for MOVE_FLAIL (@1CB099)
+section0: # 1CB099
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  createvisualtask <0E0851> 2 0x0000
+  loopsewithpan se_m_headbutt sound_pan_attacker 8 2
+  waitforvisualfinish
+  createsprite <3E7C50> 131 0x0001 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <099BD5> 2 0x0000 0x0001 0x001E 0x0001 0x0000
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

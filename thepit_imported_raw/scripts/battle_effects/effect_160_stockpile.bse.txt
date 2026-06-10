@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 160 (Stockpile) @770E00
+section0: # 770E00
+  attackcanceler
+  attackstring
+  ppreduce
+  stockpile
+  attackanimation
+  waitanimation
+  printfromtable <3FE56A>
+  waitmessage 64
+  jumpifbyte = 0x02023E87 1 <1D694E>
+  jumpifstat attacker < defense positive_6 <1D84C4>
+  jumpifstat attacker = spDefense positive_6 <1D694E>
+  goto <1D84C4>

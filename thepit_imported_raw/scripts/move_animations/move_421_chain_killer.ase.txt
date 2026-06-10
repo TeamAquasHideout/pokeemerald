@@ -1,0 +1,99 @@
+@ animation for MOVE_CHAIN_KILLER (@1B04940)
+section0: # 1B04940
+  loadspritegfx 0x282D
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <0DF8A1> 5 
+  waitforvisualfinish
+  loadspritegfx 0x2719
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  loopsewithpan se_m_wing_attack sound_pan_attacker 20 2
+  createvisualtask <098F85> 2 0x0000 0x000C 0x0004 0x0001 0x0004
+  createvisualtask <0B194D> 5 0x0001 0x0046
+  createsprite <3E6B1C> 2 0xFFE7 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10009
+paletteTag:  10009
+oam:         <3ACA80>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6B18>
+callback:    <0B1A1D>
+}
+  createsprite <3E6B1C> 2 0x0019 0x0000 0x0000 0x0000 0x0014
+{
+tileTag:     10009
+paletteTag:  10009
+oam:         <3ACA80>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6B18>
+callback:    <0B1A1D>
+}
+  delay 24
+  createsprite <3D4E9C> 2 0x0000 0x0018 0x0000 0x0000 0x0009
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 17
+  createsprite <3E7C08> 2 0x0010 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3E7C08> 2 0xFFF0 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  loopsewithpan se_m_double_slap sound_pan_target 5 2
+  waitforvisualfinish
+  createsprite <3D4E84> 2 0x0000 0x0000 0x000B
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  setalpha 12 8
+  createvisualtask <098B1D> 2 0x0001 0x0008 0x0000 0x0012 0x0001
+  createsprite <3E7C80> 130 0x0000 0x0000 0x0001 0x0024
+{
+tileTag:     10285
+paletteTag:  10285
+oam:         <3ACAF8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA739>
+}
+  playsewithpan se_m_leer sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  end

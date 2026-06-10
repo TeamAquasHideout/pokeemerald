@@ -1,0 +1,26 @@
+@ battle script for gen3 move-effect 37 (Rest) @1D6E88
+section0: # 1D6E88
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus attacker 7 <section2>
+  jumpifcantmakeasleep <section1>
+  trysetrest <1D7DD1>
+  pause 32
+  printfromtable <3FE562>
+  waitmessage 64
+  updatestatusicon attacker
+  waitstate
+  goto <1D7DB7>
+
+section1: # 1D6EB2
+  pause 64
+  printfromtable <3FE576>
+  waitmessage 64
+  goto <1D694E>
+
+section2: # 1D6EC2
+  pause 32
+  printstring 38
+  waitmessage 64
+  goto <1D694E>

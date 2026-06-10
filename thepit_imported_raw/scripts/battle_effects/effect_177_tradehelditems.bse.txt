@@ -1,0 +1,15 @@
+@ battle script for gen3 move-effect 177 (TradeHeldItems) @1D80F8
+section0: # 1D80F8
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <1D7DF2> 0
+  tryswapitems <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 175
+  waitmessage 64
+  printfromtable <3FE64A>
+  waitmessage 64
+  goto <1D694E>

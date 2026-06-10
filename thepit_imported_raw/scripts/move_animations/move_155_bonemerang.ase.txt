@@ -1,0 +1,47 @@
+@ animation for MOVE_BONEMERANG (@1CF402)
+section0: # 1CF402
+  loadspritegfx 0x2710
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_bonemerang sound_pan_attacker
+  createsprite <3E7A28> 2 
+{
+tileTag:     10000
+paletteTag:  10000
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7A20>
+callback:    <0B8B6D>
+}
+  delay 20
+  playsewithpan se_m_horn_attack sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0005 0x0000 0x0005 0x0001
+  delay 17
+  playsewithpan se_m_vital_throw sound_pan_attacker
+  createsprite <3D4E54> 2 0x0006 0xFFFC
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

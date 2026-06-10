@@ -1,0 +1,88 @@
+@ animation for MOVE_ICICLE_CRASH (@1AD2BC0)
+section0: # 1AD2BC0
+  fadetobg bg_ice
+  waitbgfadein
+  loadspritegfx 0x2816
+  loadspritegfx 0x2797
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 12 8
+  playsewithpan se_m_icy_wind sound_pan_attacker
+  createsprite <3E7324> 2 0x0014 0xFFF8 0xFFF8 0xFFF8 0x0014 0xFFE0
+{
+tileTag:     10262
+paletteTag:  10262
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4495>
+}
+  delay 15
+  createsprite <3E7324> 2 0x0014 0xFFF8 0x0008 0x0008 0x0014 0xFFD8
+{
+tileTag:     10262
+paletteTag:  10262
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4495>
+}
+  delay 4
+  playsewithpan se_m_horn_attack sound_pan_target
+  createsprite <3E7C08> 3 0xFFF8 0xFFF8 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0002 0x0001
+  delay 9
+  createsprite <3E7324> 2 0x0014 0xFFF8 0x0000 0x0000 0x0014 0xFFE0
+{
+tileTag:     10262
+paletteTag:  10262
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4495>
+}
+  delay 4
+  playsewithpan se_m_horn_attack sound_pan_target
+  createsprite <3E7C08> 3 0x0008 0x0008 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0002 0x0001
+  delay 14
+  playsewithpan se_m_horn_attack sound_pan_target
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0003 0x0000 0x0002 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

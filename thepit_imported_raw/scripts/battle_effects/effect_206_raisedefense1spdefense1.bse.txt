@@ -1,0 +1,30 @@
+@ battle script for gen3 move-effect 206 (RaiseDefense1SpDefense1) @1D84AD
+section0: # 1D84AD
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat attacker < defense positive_6 <section1>
+  jumpifstat attacker = spDefense positive_6 <1D85E7>
+
+section1: # 1D84C2
+  attackanimation
+  waitanimation
+
+section2: # 1D84C4
+  setbyte 0x02023FDF 0
+  playstatchangeanimation attacker Def|SpDef 0
+  set.stat.changer RaiseDef1
+  statbuffchange 65 <section3>
+  jumpifbyte = 0x02023E87 2 <section3>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section3: # 1D84ED
+  set.stat.changer RaiseSpDef1
+  statbuffchange 65 <section4>
+  jumpifbyte = 0x02023E87 2 <section4>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section4: # 1D850C
+  goto <1D694E>

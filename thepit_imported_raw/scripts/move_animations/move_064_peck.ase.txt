@@ -1,0 +1,17 @@
+@ animation for MOVE_PECK (@1CF736)
+section0: # 1CF736
+  loadspritegfx 0x2797
+  playsewithpan se_m_horn_attack sound_pan_target
+  createvisualtask <099A79> 2 0x0003 0xFD00 0x0001 0x0002
+  createsprite <3E7C98> 131 0xFFF4 0x0000 0x0001 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA781>
+}
+  waitforvisualfinish
+  end

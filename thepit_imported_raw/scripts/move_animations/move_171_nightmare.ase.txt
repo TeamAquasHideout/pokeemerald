@@ -1,0 +1,23 @@
+@ animation for MOVE_NIGHTMARE (@1CB043)
+section0: # 1CB043
+  fadetobg bg_ghost
+  waitbgfadein
+  jumpifcontest <section1>
+  monbg anim_def_partner
+  createvisualtask <0B58AD> 2 
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0028 0x0001
+  playsewithpan se_m_nightmare sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  restorebg
+  waitbgfadein
+  end
+
+section1: # 1CB06F
+  createvisualtask <07616D> 2 0x0000 0x7FFF 0x000A 0x0002 0x0001
+  createvisualtask <0989F9> 2 0x0000 0x0003 0x0000 0x0020 0x0001
+  playsewithpan se_m_nightmare sound_pan_target
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

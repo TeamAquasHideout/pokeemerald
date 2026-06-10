@@ -1,0 +1,36 @@
+@ animation for MOVE_X_SCISSOR (@1AD2B50)
+section0: # 1AD2B50
+  fadetobg bg_bug_player
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0xFA00 0x0000 0x0100 0xFFFF
+  loadspritegfx 0x279F
+  loadspritegfx 0x282D
+  monbg anim_def_partner
+  delay 40
+  playsewithpan se_m_razor_wind sound_pan_target
+  createsprite <3E7B3C> 2 0x001F 0x0003 0x0001 0x7FFF 0x000A 0x0000 0x000A
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  createsprite <3E7C80> 3 0x0000 0x0000 0x0001 0x0014
+{
+tileTag:     10285
+paletteTag:  10285
+oam:         <3ACAF8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA739>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0007 0x0000 0x0009 0x0001
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  call <1D59C7>
+  end

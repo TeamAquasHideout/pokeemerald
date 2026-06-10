@@ -1,0 +1,14 @@
+@ battle script for gen3 move-effect 142 (HalfHealthToRaiseAttackMax) @1D7A52
+section0: # 1D7A52
+  attackcanceler
+  attackstring
+  ppreduce
+  maxattackhalvehp <1D7DF2>
+  orword 0x02023DD0 256
+  attackanimation
+  waitanimation
+  healthbarupdate attacker
+  datahpupdate attacker
+  printstring 155
+  waitmessage 64
+  goto <1D694E>

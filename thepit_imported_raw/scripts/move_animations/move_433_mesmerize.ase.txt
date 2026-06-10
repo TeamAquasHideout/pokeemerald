@@ -1,0 +1,46 @@
+@ animation for MOVE_MESMERIZE (@1B08A90)
+section0: # 1B08A90
+  loadspritegfx 0x27D4
+  monbg anim_atk_partner
+  createvisualtask <0B9CE5> 2 0x0001 0x0002 0x0006 0x0001 0x000B 0x0000
+  setalpha 12 8
+  loopsewithpan se_m_psybeam2 sound_pan_attacker 5 10
+  createsprite <3E6DF8> 2 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10196
+paletteTag:  10196
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E6DF4>
+callback:    <075D9D>
+}
+  createvisualtask <099705> 5 0x0000 0x0005 0x0A00 0x0008 0x0000
+  delay 127
+  delay 4
+  playsewithpan se_m_psybeam sound_pan_attacker
+  createvisualtask <0998B1> 5 0xFFFB 0xFFFB 0x000A 0x0000 0x0001
+  createvisualtask <0BA7F9> 9 0x0002 0x0002 0x000A 0x0000 0x03FF
+  delay 30
+  clearmonbg anim_atk_partner
+  blendoff
+  waitforvisualfinish
+  call <1D59BB>
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <07616D> 5 0x0000 0x037B 0x000C 0x0001 0x0001
+  createvisualtask <0B3A59> 5 0x0000
+  playsewithpan se_m_bind sound_pan_target
+  waitforvisualfinish
+  createvisualtask <07616D> 5 0x0000 0x037B 0x000C 0x0001 0x0001
+  createvisualtask <0B3A59> 5 0x0001
+  playsewithpan se_m_bind sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0B3C79> 5 0x0000
+  createvisualtask <0B3A59> 5 0x0002
+  playsewithpan se_m_leer sound_pan_attacker
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_def_partner
+  call <1D59C7>
+  end

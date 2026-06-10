@@ -1,0 +1,35 @@
+@ animation for MOVE_HELPING_HAND (@1CBA5F)
+section0: # 1CBA5F
+  loadspritegfx 0x2807
+  createvisualtask <0E2CE5> 5 
+  createsprite <3FF68C> 40 0x0000
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E2AB1>
+}
+  createsprite <3FF68C> 40 0x0001
+{
+tileTag:     10247
+paletteTag:  10247
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E2AB1>
+}
+  delay 19
+  playsewithpan se_m_encore 0
+  createvisualtask <098B1D> 2 0x0002 0x0002 0x0000 0x0005 0x0001
+  delay 14
+  playsewithpan se_m_encore 0
+  createvisualtask <098B1D> 2 0x0002 0x0002 0x0000 0x0005 0x0001
+  delay 20
+  playsewithpan se_m_encore 0
+  createvisualtask <098B1D> 2 0x0002 0x0003 0x0000 0x000A 0x0001
+  createvisualtask <07616D> 2 0x0002 0x03FF 0x000C 0x0001 0x0001
+  end

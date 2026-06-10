@@ -1,0 +1,67 @@
+@ animation for MOVE_RISING_CLAW (@1CC6DB)
+section0: # 1CC6DB
+  loadspritegfx 0x27B7
+  loadspritegfx 0x2737
+  loadspritegfx 0x27E0
+  monbg anim_target
+  setalpha 12 8
+  createsprite <3D4E54> 2 0x0006 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0012 0x0001
+  createsprite <3E79E8> 130 0xFFF6 0xFFF6 0x0000
+{
+tileTag:     10039
+paletteTag:  10039
+oam:         <3AC9D8>
+anims:       <3E79E0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B86B1>
+}
+  createsprite <3E79E8> 130 0xFFF6 0x000A 0x0000
+{
+tileTag:     10039
+paletteTag:  10039
+oam:         <3AC9D8>
+anims:       <3E79E0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B86B1>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  delay 12
+  createsprite <3E79E8> 130 0x000A 0xFFF6 0x0001
+{
+tileTag:     10039
+paletteTag:  10039
+oam:         <3AC9D8>
+anims:       <3E79E0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B86B1>
+}
+  createsprite <3E79E8> 130 0x000A 0x000A 0x0001
+{
+tileTag:     10039
+paletteTag:  10039
+oam:         <3AC9D8>
+anims:       <3E79E0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B86B1>
+}
+  playsewithpan se_m_razor_wind sound_pan_target
+  waitforvisualfinish
+  waitforvisualfinish
+  blendoff
+  clearmonbg anim_target
+  end

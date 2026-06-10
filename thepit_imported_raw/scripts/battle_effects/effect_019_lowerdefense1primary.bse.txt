@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 19 (LowerDefense1Primary) @1D6BEC
+section0: # 1D6BEC
+  set.stat.changer LowerDef1
+  goto <1D6C13>

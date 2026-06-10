@@ -1,0 +1,46 @@
+@ battle script for gen3 move-effect 208 (RaiseAttack1Defense1Primary) @1AFE580
+section0: # 1AFE580
+  if.move.goto Coil <section1>
+  goto <section5>
+
+section1: # 1AFE591
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat attacker < attack positive_6 <section2>
+  jumpifstat attacker < defense positive_6 <section2>
+  jumpifstat attacker = accuracy positive_6 <1D85E7>
+
+section2: # 1AFE5AF
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDF 0
+  playstatchangeanimation attacker Atk|Def|Acc 8
+  set.stat.changer RaiseAtk1
+  statbuffchange 193 <section3>
+  jumpifbyte = 0x02023E87 2 <section3>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section3: # 1AFE5DA
+  set.stat.changer RaiseDef1
+  statbuffchange 193 <section4>
+  jumpifbyte = 0x02023E87 2 <section4>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section4: # 1AFE5F9
+  set.stat.changer RaiseAcc1
+  statbuffchange 193 <1D694E>
+  jumpifbyte = 0x02023E87 2 <1D694E>
+  printfromtable <3FE57C>
+  waitmessage 64
+  goto <1D694E>
+
+section5: # 1AFE61D
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat attacker < attack positive_6 <1D8534>
+  jumpifstat attacker = defense positive_6 <1D85E7>
+  end

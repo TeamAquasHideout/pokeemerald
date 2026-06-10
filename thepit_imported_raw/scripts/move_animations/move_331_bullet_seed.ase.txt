@@ -1,0 +1,115 @@
+@ animation for MOVE_BULLET_SEED (@1D2F3A)
+section0: # 1D2F3A
+  loadspritegfx 0x2716
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x001E 0x0001
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  delay 5
+  createsprite <3E3D94> 130 0x0014 0x0000
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3D90>
+callback:    <0A7BC5>
+}
+  waitforvisualfinish
+  end

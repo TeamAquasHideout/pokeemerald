@@ -1,0 +1,28 @@
+@ animation for MOVE_EARTHQUAKE (@1CA6D1)
+section0: # 1CA6D1
+  createvisualtask <0B94B5> 5 0x0005 0x000A 0x0032
+  createvisualtask <0B94B5> 5 0x0004 0x000A 0x0032
+  playsewithpan se_m_earthquake 0
+  delay 10
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  delay 16
+  createsprite <3E7B3C> 2 0x0001 0x0003 0x0001 0x0000 0x000E 0x7FFF 0x000E
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  end

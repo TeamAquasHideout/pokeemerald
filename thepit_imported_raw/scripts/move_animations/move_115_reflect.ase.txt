@@ -1,0 +1,53 @@
+@ animation for MOVE_REFLECT (@1CDCDA)
+section0: # 1CDCDA
+  loadspritegfx 0x2757
+  loadspritegfx 0x27B7
+  setalpha 0 16
+  waitplaysewithpan se_m_reflect sound_pan_attacker 15
+  createsprite <3E6E28> 1 0x0028 0x0000 0x27B7
+{
+tileTag:     10167
+paletteTag:  10167
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  delay 20
+  createsprite <3E6EA4> 2 0x001E 0x0000 0x0000 0x0001
+{
+tileTag:     10071
+paletteTag:  10071
+oam:         <3AC9D8>
+anims:       <3E6EA0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B31D1>
+}
+  delay 7
+  createsprite <3E6EA4> 2 0x0013 0xFFF4 0x0000 0x0001
+{
+tileTag:     10071
+paletteTag:  10071
+oam:         <3AC9D8>
+anims:       <3E6EA0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B31D1>
+}
+  delay 7
+  createsprite <3E6EA4> 2 0x000A 0x0014 0x0000 0x0001
+{
+tileTag:     10071
+paletteTag:  10071
+oam:         <3AC9D8>
+anims:       <3E6EA0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B31D1>
+}
+  waitforvisualfinish
+  delay 1
+  blendoff
+  end

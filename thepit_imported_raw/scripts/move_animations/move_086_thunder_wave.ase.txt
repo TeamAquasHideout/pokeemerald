@@ -1,0 +1,48 @@
+@ animation for MOVE_THUNDER_WAVE (@1C8160)
+section0: # 1C8160
+  loadspritegfx 0x2711
+  loadspritegfx 0x271B
+  loadspritegfx 0x27BD
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0000 0x0006 0x0000
+  waitforvisualfinish
+  delay 10
+  createvisualtask <0AE221> 5 0x0000 0xFFD0 0x0000
+  playsewithpan se_m_thunder_wave sound_pan_target
+  delay 20
+  loopsewithpan se_m_thunderbolt2 sound_pan_target 10 4
+  createsprite <3E60B8> 130 0xFFF0 0xFFF0
+{
+tileTag:     10173
+paletteTag:  10173
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE471>
+}
+  delay 4
+  createsprite <3E60B8> 130 0xFFF0 0x0000
+{
+tileTag:     10173
+paletteTag:  10173
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE471>
+}
+  delay 4
+  createsprite <3E60B8> 130 0xFFF0 0x0010
+{
+tileTag:     10173
+paletteTag:  10173
+oam:         <3AC9F8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE471>
+}
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0006 0x0000 0x0000
+  waitforvisualfinish
+  end

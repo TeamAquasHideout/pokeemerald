@@ -1,0 +1,34 @@
+@ battle script for gen3 move-effect 97 (SleepTalk) @1D752C
+section0: # 1D752C
+  attackcanceler
+  jumpifstatus attacker 7 <section1>
+  attackstring
+  ppreduce
+  goto <1D7DF2>
+
+section1: # 1D753E
+  printstring 107
+  waitmessage 64
+  statusanimation attacker
+  attackstring
+  ppreduce
+  orword 0x02023DD0 2048
+  trychoosesleeptalkmove <section2>
+  pause 64
+  goto <1D7DF2>
+
+section2: # 1D755E
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDC 0
+  setbyte 0x02023FDD 0
+  jumptocalledmove 1
+  attackcanceler
+  attackstring
+  ppreduce
+  setdestinybond
+  attackanimation
+  waitanimation
+  printstring 139
+  waitmessage 64
+  goto <1D694E>

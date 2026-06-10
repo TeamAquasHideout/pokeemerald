@@ -1,0 +1,312 @@
+@ animation for MOVE_GIGA_DRAIN (@1CEE7D)
+section0: # 1CEE7D
+  loadspritegfx 0x27A3
+  loadspritegfx 0x272F
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  setalpha 12 8
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x000C 0x33ED
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  playsewithpan se_m_absorb sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 2
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0005 0x0005 0x0001
+  waitforvisualfinish
+  delay 3
+  call <section1>
+  waitforvisualfinish
+  delay 15
+  call <1D56C9>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x000C 0x0000 0x33ED
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end
+
+section1: # 1CEEEC
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0005 0xFFEE 0xFFD8 0x0023
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0xFFF6 0x0014 0x0014 0x0027
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x001C 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFF8 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0xFFF6 0x0014 0x0028 0x0027
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFF8 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0xFFFB 0x000F 0x0010 0x0021
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFE0 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x0000 0xFFF1 0xFFF0 0x0024
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFF8 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0xFFFB 0x000F 0x0010 0x0021
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0000 0xFFF1 0xFFF0 0x0024
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0xFFFB 0x000F 0x0010 0x0021
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFD8 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0xFFFB 0x000F 0x0024 0x0021
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x000A 0xFFFB 0xFFF8 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0xFFF6 0x0014 0x0014 0x0027
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  playsewithpan se_m_giga_drain sound_pan_target
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0000 0x0005 0x0008 0x001A
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  createsprite <3E2AE8> 3 0x0005 0xFFEE 0xFFEC 0x0023
+{
+tileTag:     10147
+paletteTag:  10147
+oam:         <3ACB50>
+anims:       <3E2A40>
+images:      <null>
+affineAnims: <3E2AE4>
+callback:    <0A2581>
+}
+  delay 4
+  return

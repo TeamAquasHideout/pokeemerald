@@ -1,0 +1,53 @@
+@ animation for MOVE_SOLAR_BLADE (@1AEE790)
+section0: # 1AEE790
+  loadspritegfx 0x27A3
+  choosetwoturnanim <1CE521> <section1>
+
+section1: # 1AEE79C
+  loadspritegfx 0x2715
+  loadspritegfx 0x2737
+  loadspritegfx 0x271B
+  loadspritegfx 0x27AD
+  monbg anim_attacker
+  setalpha 13 3
+  createvisualtask <0BA7F9> 10 0x0781 0x0001 0x0000 0x0006 0x7FFF
+  waitforvisualfinish
+  playsewithpan se_m_swords_dance sound_pan_attacker
+  createvisualtask <09907D> 2 0x0000 0x0010 0x0006 0x0001 0x0004
+  createsprite <3E3BF8> 2 0x0000 0x0000
+{
+tileTag:     10005
+paletteTag:  10005
+oam:         <3ACBA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3BF4>
+callback:    <0A727D>
+}
+  call <1AEE860>
+  call <1AEE860>
+  call <1AEE860>
+  call <1AEE860>
+  createvisualtask <0B9F6D> 2 0x2715 0x0002 0x0002 0x7FF2 0x0010 0x0000 0x0000
+  waitforvisualfinish
+  call <1D5A07>
+  playsewithpan se_m_razor_wind sound_pan_target
+  createsprite <1AEE870> 130 0x0000 0x0000 0x0001
+{
+tileTag:     10039
+paletteTag:  10011
+oam:         <3AC9D8>
+anims:       <3E79E0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B86B1>
+}
+  delay 2
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x000C 0x0001
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0781 0x0001 0x0006 0x0000 0x7FFF
+  waitforvisualfinish
+  call <1D59C7>
+  clearmonbg anim_attacker
+  blendoff
+  end

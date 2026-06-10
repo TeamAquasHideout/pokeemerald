@@ -1,0 +1,26 @@
+@ battle script for gen3 move-effect 14 (Unused0E) @1AE5A50
+section0: # 1AE5A50
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat attacker < attack positive_6 <section1>
+  jumpifstat attacker = spAttack positive_6 <1D85E7>
+
+section1: # 1AE5A65
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDF 0
+  playstatchangeanimation target Atk 0
+  set.stat.changer RaiseAtk1
+  statbuffchange 65 <section2>
+  jumpifbyte = 0x02023E87 2 <section2>
+  printfromtable <3FE57C>
+  waitmessage 64
+
+section2: # 1AE5A90
+  set.stat.changer RaiseSpAtk1
+  statbuffchange 65 <1D85E2>
+  jumpifbyte = 0x02023E87 2 <1D85E2>
+  printfromtable <3FE57C>
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,57 @@
+@ animation for MOVE_RAGE_FIST (@1CAA1C)
+section0: # 1CAA1C
+  loadspritegfx 0x2797
+  loadspritegfx 0x2767
+  monbg anim_target
+  setalpha 12 8
+  createvisualtask <07616D> 3 0x0000 0x001F 0x000A 0x0000 0x0002
+  createsprite <3E3F04> 2 0x0000 0xFFEC 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_attacker
+  delay 20
+  createsprite <3E3F04> 2 0x0000 0x0014 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3D4E54> 2 0x0004 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 4
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <099BD5> 2 0x0001 0x0001 0x000A 0x0001 0x0000
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  end

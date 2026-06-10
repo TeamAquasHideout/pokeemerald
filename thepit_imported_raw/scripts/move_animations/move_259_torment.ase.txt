@@ -1,0 +1,31 @@
+@ animation for MOVE_TORMENT (@1CB84E)
+section0: # 1CB84E
+  loadspritegfx 0x2767
+  loadspritegfx 0x27E1
+  createvisualtask <0DF1DD> 2 
+  waitforvisualfinish
+  createvisualtask <07616D> 2 0x0001 0x001F 0x000A 0x0001 0x0001
+  createsprite <3E3F04> 130 0x0001 0xFFEC 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_target
+  delay 20
+  createsprite <3E3F04> 130 0x0001 0x0014 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_target
+  end

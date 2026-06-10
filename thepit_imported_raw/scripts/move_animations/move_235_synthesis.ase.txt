@@ -1,0 +1,11 @@
+@ animation for MOVE_SYNTHESIS (@1CF107)
+section0: # 1CF107
+  loadspritegfx 0x272F
+  loadspritegfx 0x2741
+  createvisualtask <0B9BDD> 2 0x0002 0x0002 0x0002 0x0000 0x0010 0x4BFB
+  playsewithpan se_m_mega_kick sound_pan_attacker
+  call <1D569E>
+  waitforvisualfinish
+  call <1D56C9>
+  waitforvisualfinish
+  end

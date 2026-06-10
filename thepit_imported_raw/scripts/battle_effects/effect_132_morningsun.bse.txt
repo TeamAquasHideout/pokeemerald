@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 132 (MorningSun) @1D79FC
+section0: # 1D79FC
+  attackcanceler
+  attackstring
+  ppreduce
+  recoverbasedonsunlight <1D7DD1>
+  goto <1D7DB7>

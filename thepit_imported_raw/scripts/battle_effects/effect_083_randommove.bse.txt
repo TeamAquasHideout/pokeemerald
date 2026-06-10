@@ -1,0 +1,26 @@
+@ battle script for gen3 move-effect 83 (RandomMove) @1D739A
+section0: # 1D739A
+  attackcanceler
+  attackstring
+  pause 32
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDC 0
+  setbyte 0x02023FDD 0
+  metronome
+
+section1: # 1D73AE
+  attackcanceler
+  attackstring
+  pause 32
+  ppreduce
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  accuracycheck <section2> 0
+
+section2: # 1D73C5
+  setseeded
+  attackanimation
+  waitanimation
+  printfromtable <3FE558>
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,5 @@
+@ animation for MOVE_SNATCH (@1D414F)
+section0: # 1D414F
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <09949D> 5 0x0000 0xFFF4 0x0004 0x000A 0x000A 0x000C 0x0006
+  end

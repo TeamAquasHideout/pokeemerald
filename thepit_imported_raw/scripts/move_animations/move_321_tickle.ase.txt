@@ -1,0 +1,54 @@
+@ animation for MOVE_TICKLE (@1CCADC)
+section0: # 1CCADC
+  loadspritegfx 0x27EA
+  createsprite <3E7B24> 2 0x0002 0x0000 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <3E42FC> 0 0xFFF0 0xFFF8
+{
+tileTag:     10218
+paletteTag:  10218
+oam:         <3AC9D0>
+anims:       <3E42F8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA3F1>
+}
+  createsprite <3E42FC> 0 0x0010 0xFFF8
+{
+tileTag:     10218
+paletteTag:  10218
+oam:         <3AC9D0>
+anims:       <3E42F8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA3F1>
+}
+  playsewithpan se_m_detect sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0002 0x0000 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  delay 20
+  createvisualtask <099705> 3 0x0000 0x0006 0x0500 0x0003 0x0000
+  delay 12
+  createvisualtask <0E0559> 3 0x0001 0x0006 0x0002
+  loopsewithpan se_m_tail_whip sound_pan_target 8 8
+  waitforvisualfinish
+  end

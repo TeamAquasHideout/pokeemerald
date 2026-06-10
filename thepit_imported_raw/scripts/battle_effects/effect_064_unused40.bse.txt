@@ -1,0 +1,29 @@
+@ battle script for gen3 move-effect 64 (Unused40) @1AEDF20
+section0: # 1AEDF20
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc
+  bicbyte 0x02023DCC 6
+  dmgtolevel
+  adjustsetdamage
+  goto <section1>
+
+section1: # 1AEDF38
+  set.move.effect LowerDef1
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  seteffectwithchance
+  tryfaintmon target 0 <null>
+  moveend.all
+  end

@@ -1,0 +1,69 @@
+@ animation for MOVE_ROCK_SLIDE (@1C9B8B)
+section0: # 1C9B8B
+  loadspritegfx 0x274A
+  monbg anim_def_partner
+  createsprite <3E7B88> 2 0x0007 0x0001 0x000B 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA27D>
+}
+  createsprite <3E73B4> 130 0xFFFB 0x0001 0xFFFB 0x0001
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E73A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4635>
+}
+  playsewithpan se_m_rock_throw sound_pan_target
+  delay 2
+  createsprite <3E73B4> 130 0x0005 0x0000 0x0006 0x0001
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E73A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4635>
+}
+  playsewithpan se_m_rock_throw sound_pan_target
+  delay 2
+  createsprite <3E73B4> 130 0x0013 0x0001 0x000A 0x0001
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E73A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4635>
+}
+  playsewithpan se_m_rock_throw sound_pan_target
+  delay 2
+  createsprite <3E73B4> 130 0xFFE9 0x0002 0xFFF6 0x0001
+{
+tileTag:     10058
+paletteTag:  10058
+oam:         <3AC9D8>
+anims:       <3E73A8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4635>
+}
+  playsewithpan se_m_rock_throw sound_pan_target
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0005 0x0032 0x0001
+  createvisualtask <0989F9> 2 0x0003 0x0000 0x0005 0x0032 0x0001
+  delay 2
+  call <1C9C23>
+  call <1C9C23>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

@@ -1,0 +1,42 @@
+@ animation for MOVE_LEECH_SEED (@1C7C23)
+section0: # 1C7C23
+  loadspritegfx 0x2716
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0x0000 0x0018 0x0023 0xFFE0
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 8
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0xFFF0 0x0018 0x0023 0xFFD8
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 8
+  playsewithpan se_m_poison_powder sound_pan_attacker
+  createsprite <3E2B34> 130 0x000F 0x0000 0x0010 0x0018 0x0023 0xFFDB
+{
+tileTag:     10006
+paletteTag:  10006
+oam:         <3AC9D0>
+anims:       <3E2B2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A26F1>
+}
+  delay 12
+  loopsewithpan se_m_tail_whip sound_pan_target 10 8
+  waitforvisualfinish
+  end

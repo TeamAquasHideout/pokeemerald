@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 120 (Attract) @1D7938
+section0: # 1D7938
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0
+  tryinfatuating <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 69
+  waitmessage 64
+  goto <1D694E>

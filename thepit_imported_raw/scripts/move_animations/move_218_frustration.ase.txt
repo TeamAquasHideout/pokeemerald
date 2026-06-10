@@ -1,0 +1,11 @@
+@ animation for MOVE_FRUSTRATION (@1C8FD0)
+section0: # 1C8FD0
+  loadspritegfx 0x2797
+  loadspritegfx 0x2767
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <0766B9> 1 
+  jumpargeq 7 0 <1C9004>
+  jumpargeq 7 1 <1C910A>
+  jumpargeq 7 2 <1C91D7>
+  goto <1C9253>

@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 51 (RaiseDefense2Primary) @1D7103
+section0: # 1D7103
+  set.stat.changer RaiseDef2
+  goto <1D6B9E>

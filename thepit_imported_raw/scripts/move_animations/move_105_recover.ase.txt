@@ -1,0 +1,18 @@
+@ animation for MOVE_RECOVER (@1D16CD)
+section0: # 1D16CD
+  loadspritegfx 0x27A3
+  loadspritegfx 0x272F
+  monbg anim_atk_partner
+  setalpha 12 8
+  loopsewithpan se_m_mega_kick sound_pan_attacker 13 3
+  createvisualtask <0B9BDD> 2 0x0002 0x0000 0x0006 0x0000 0x000B 0x2FFF
+  call <1D170D>
+  call <1D170D>
+  call <1D170D>
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  delay 1
+  call <1D56C9>
+  waitforvisualfinish
+  end

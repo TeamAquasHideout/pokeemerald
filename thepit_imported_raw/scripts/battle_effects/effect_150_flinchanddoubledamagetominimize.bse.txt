@@ -1,0 +1,5 @@
+@ battle script for gen3 move-effect 150 (FlinchAndDoubleDamageToMinimize) @1D7BCD
+section0: # 1D7BCD
+  if.not.status3.goto target 256 <1D7B08>
+  setbyte 0x02023FD2 2
+  goto <1D7B08>

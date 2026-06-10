@@ -1,0 +1,39 @@
+@ animation for MOVE_MOVE_478 (@1B1FD60)
+section0: # 1B1FD60
+  loadspritegfx 0x2773
+  loadspritegfx 0x27DB
+  loadspritegfx 0x272F
+  monbg anim_target
+  createsprite <3E33B4> 2 
+{
+tileTag:     10099
+paletteTag:  10099
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E33AC>
+callback:    <0A4ACD>
+}
+  delay 40
+  playsewithpan se_m_crabhammer sound_pan_attacker
+  delay 12
+  playsewithpan se_m_crabhammer sound_pan_attacker
+  delay 20
+  playsewithpan se_m_crabhammer sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3E4094> 3 0x0000 0x0000 0x0001 0x0000
+{
+tileTag:     10203
+paletteTag:  10203
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E4088>
+callback:    <075D9D>
+}
+  playsewithpan se_m_milk_drink sound_pan_attacker
+  waitforvisualfinish
+  clearmonbg anim_target
+  call <1D5712>
+  waitforvisualfinish
+  end

@@ -1,0 +1,93 @@
+@ animation for MOVE_HORN_LEECH (@1AE1390)
+section0: # 1AE1390
+  loadspritegfx 0x27A3
+  loadspritegfx 0x272F
+  loadspritegfx 0x2797
+  loadspritegfx 0x2724
+  createsprite <3E3550> 2 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  playsewithpan se_m_headbutt sound_pan_attacker
+  waitforvisualfinish
+  delay 2
+  createsprite <3E3550> 2 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  createsprite <3E37BC> 132 0x0000 0x0000 0x000A
+{
+tileTag:     10020
+paletteTag:  10020
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A6245>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0002 0x0000 0x0004 0x0001
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x0006 0x0001
+  createsprite <3E3550> 2 0x0002
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  createsprite <3E7C98> 5 0x0001 0x0000 0x0005 0x0005 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA781>
+}
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0007 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  call <1CEC44>
+  waitforvisualfinish
+  delay 15
+  call <1D56C9>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0007 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

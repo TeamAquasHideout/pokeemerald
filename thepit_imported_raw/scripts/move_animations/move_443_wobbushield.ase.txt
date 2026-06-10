@@ -1,0 +1,29 @@
+@ animation for MOVE_WOBBUSHIELD (@1B0AD40)
+section0: # 1B0AD40
+  loadspritegfx 0x2745
+  createvisualtask <0E1705> 2 0x0000
+  delay 12
+  call <1CDB06>
+  createvisualtask <0DD06D> 2 0x0000 0x0003
+  waitforvisualfinish
+  delay 30
+  loadspritegfx 0x2756
+  loadspritegfx 0x27B8
+  setalpha 0 16
+  createsprite <3E6E40> 1 0x0028 0x0000 0x27B8
+{
+tileTag:     10168
+paletteTag:  10168
+oam:         <3ACB00>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2ECD>
+}
+  delay 10
+  playsewithpan se_m_reflect sound_pan_attacker
+  call <1CDC4F>
+  waitforvisualfinish
+  delay 1
+  blendoff
+  end

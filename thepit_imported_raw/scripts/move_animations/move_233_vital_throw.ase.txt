@@ -1,0 +1,68 @@
+@ animation for MOVE_VITAL_THROW (@1D0129)
+section0: # 1D0129
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_vital_throw sound_pan_attacker
+  createvisualtask <09907D> 2 0x0000 0x000C 0x0004 0x0001 0x0002
+  waitforvisualfinish
+  createsprite <3D4E9C> 2 0x0000 0x0014 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 2
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  delay 1
+  createsprite <3D4E9C> 2 0x0001 0xFFE8 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  delay 3
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0007
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 11
+  createsprite <3D4E84> 2 0x0001 0x0000 0x000A
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

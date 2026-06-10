@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 13 (RaiseSpAttack1Primary) @770B00
+section0: # 770B00
+  jumpifabilitypresent "Cloud Nine" <770B1D>
+  jumpifabilitypresent "Air Lock" <770B1D>
+  jumpifhalfword & 0x02023F1C 96 <770B8B>
+  goto <770B1D>

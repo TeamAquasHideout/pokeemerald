@@ -1,0 +1,10 @@
+@ battle script for gen3 move-effect 89 (DoubleBackPhysicalDamage) @1AE0EC0
+section0: # 1AE0EC0
+  if.move.goto Counter <1D7433>
+  attackcanceler
+  counterdamagecalculator <1AE0EE7>
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  typecalc2
+  adjustsetdamage

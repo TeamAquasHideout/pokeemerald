@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 105 (StealItem) @1D76C9
+section0: # 1D76C9
+  set.move.effect StealItem
+  goto <1D6900>

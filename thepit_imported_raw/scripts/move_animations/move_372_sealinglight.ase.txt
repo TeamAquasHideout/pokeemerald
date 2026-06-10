@@ -1,0 +1,125 @@
+@ animation for MOVE_SEALINGLIGHT (@1AFEDC0)
+section0: # 1AFEDC0
+  call <1D5A07>
+  loadspritegfx 0x280A
+  createvisualtask <098CD1> 2 0x0000 0x0001 0x0000 0x0014 0x0001
+  playsewithpan se_m_dragon_rage sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0003 0x0000 0x0030 0x0001
+  createvisualtask <07616D> 2 0x0000 0x04DF 0x000C 0x0004 0x0001
+  waitforvisualfinish
+  loadspritegfx 0x281B
+  loadspritegfx 0x2797
+  monbg anim_attacker
+  setalpha 12 8
+  playsewithpan se_m_solar_beam sound_pan_attacker
+  createsprite <3E7148> 41 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10267
+paletteTag:  10267
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7144>
+callback:    <075D9D>
+}
+  delay 20
+  createvisualtask <0BA83D> 5 0x0005 0x0002 0x0000 0x0010 0xFFFF
+  createvisualtask <0BAA21> 5 0x281B 0x0002 0x0000 0x0010 0xFFFF
+  waitforvisualfinish
+  createvisualtask <0BAA21> 5 0x2797 0x0000 0x000C 0x000C 0x5C00
+  waitforvisualfinish
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  delay 3
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  delay 3
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  delay 3
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  delay 3
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  delay 3
+  createsprite <3E7C50> 131 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA631>
+}
+  createvisualtask <0DD3DD> 5 0x00D0 0x003F
+  waitforvisualfinish
+  createvisualtask <0BA83D> 5 0x0005 0x0002 0x0010 0x0000 0xFFFF
+  createvisualtask <0B94B5> 5 0x0001 0x0005 0x000E
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  playsewithpan se_m_hyper_beam sound_pan_target
+  createsprite <3E705C> 133 0x0001 0x0032
+{
+tileTag:     10250
+paletteTag:  10250
+oam:         <3AC9E0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B37ED>
+}
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x0014 0x0001
+  createvisualtask <0BA47D> 2 0x0002 0x0000 0x000A 0x0001
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  end

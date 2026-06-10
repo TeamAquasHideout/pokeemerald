@@ -1,0 +1,144 @@
+@ animation for MOVE_HARVESTPARTY (@1B0A7B0)
+section0: # 1B0A7B0
+  call <1D5A07>
+  loadspritegfx 0x2758
+  loadspritegfx 0x2759
+  createvisualtask <0E4161> 5 
+  createsprite <3E38C8> 2 0x0000 0x0010 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0x0000 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0000 0xFFF0 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0001 0xFFF8 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  delay 24
+  createsprite <3E38C8> 2 0x0002 0x0008 0xFFFE
+{
+tileTag:     10072
+paletteTag:  10072
+oam:         <3ACA90>
+anims:       <3E3844>
+images:      <null>
+affineAnims: <3E387C>
+callback:    <0A68B1>
+}
+  playsewithpan se_m_teeter_dance sound_pan_attacker
+  waitforvisualfinish
+  loadspritegfx 0x2748
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_comet_punch sound_pan_attacker
+  createsprite <3D4E9C> 2 0x0000 0x0014 0x0003 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  delay 1
+  createsprite <3E3148> 2 0x0000 0x0000
+{
+tileTag:     10056
+paletteTag:  10056
+oam:         <3AC9D8>
+anims:       <3E3140>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A4451>
+}
+  delay 3
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 3 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createsprite <3D4E9C> 2 0x0001 0xFFF4 0x000A 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0005
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  delay 3
+  createvisualtask <098CD1> 2 0x0001 0x0000 0x0003 0x0006 0x0001
+  waitforvisualfinish
+  delay 5
+  createsprite <3D4E84> 2 0x0001 0x0000 0x0006
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  restorebg
+  waitbgfadein
+  end

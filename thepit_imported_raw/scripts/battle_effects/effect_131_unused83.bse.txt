@@ -1,0 +1,38 @@
+@ battle script for gen3 move-effect 131 (Unused83) @1AFE3E0
+section0: # 1AFE3E0
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifstat target > accuracy negative_6 <section1>
+  jumpifstat target = evasion negative_6 <section4>
+
+section1: # 1AFE3F5
+  accuracycheck <1D7DF2> 0
+  attackanimation
+  waitanimation
+  setbyte 0x02023FDF 0
+  playstatchangeanimation target Atk|Def 5
+  playstatchangeanimation target Acc 1
+  set.stat.changer LowerAcc1
+  statbuffchange 1 <section2>
+  jumpifbyte = 0x02023E87 2 <section2>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section2: # 1AFE42B
+  playstatchangeanimation target Acc 1
+  set.stat.changer LowerEvasion1
+  statbuffchange 1 <section3>
+  jumpifbyte = 0x02023E87 2 <section3>
+  printfromtable <3FE588>
+  waitmessage 64
+
+section3: # 1AFE44E
+  goto <1D694E>
+
+section4: # 1AFE453
+  pause 32
+  orbyte 0x02023DCC 32
+  printstring 349
+  waitmessage 64
+  goto <1D694E>

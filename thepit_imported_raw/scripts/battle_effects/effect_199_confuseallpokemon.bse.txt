@@ -1,0 +1,56 @@
+@ battle script for gen3 move-effect 199 (ConfuseAllPokemon) @1D8345
+section0: # 1D8345
+  attackcanceler
+  attackstring
+  ppreduce
+  setbyte 0x02023D6C 0
+
+section1: # 1D834E
+  movevaluescleanup
+  set.move.effect Confusion
+  jumpifarrayequal 0x02023D6B 0x02023D6C 1 <section2>
+  jumpifability target "Own Tempo" <section3>
+  jumpifstatus2 target 0x01000000 <section5>
+  jumpifstatus2 target 7 <section6>
+  accuracycheck <section7> 0
+  jumpifsideaffecting target 32 <section4>
+  attackanimation
+  waitanimation
+  seteffectprimary
+  resultmessage
+  waitmessage 64
+
+section2: # 1D8394
+  moveend.to 17
+  addbyte 0x02023D6C 1
+  jumpifarraynotequal 0x02023D6C 0x02023BCC 1 <section1>
+  end
+
+section3: # 1D83B2
+  pause 32
+  printstring 202
+  waitmessage 64
+  goto <section2>
+
+section4: # 1D83C0
+  pause 32
+  printstring 80
+  waitmessage 64
+  goto <section2>
+
+section5: # 1D83CE
+  pause 32
+  printstring 229
+  waitmessage 64
+  goto <section2>
+
+section6: # 1D83DC
+  pause 32
+  printstring 68
+  waitmessage 64
+  goto <section2>
+
+section7: # 1D83EA
+  resultmessage
+  waitmessage 64
+  goto <section2>

@@ -1,0 +1,43 @@
+@ animation for MOVE_YAWN (@1CBE37)
+section0: # 1CBE37
+  loadspritegfx 0x2802
+  createvisualtask <0E1705> 2 0x0000
+  playsewithpan se_m_yawn sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3FF46C> 133 0x0002
+{
+tileTag:     10242
+paletteTag:  10242
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3FF460>
+callback:    <0E186D>
+}
+  playsewithpan se_m_spit_up sound_pan_attacker
+  delay 4
+  createsprite <3FF46C> 133 0x0001
+{
+tileTag:     10242
+paletteTag:  10242
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3FF460>
+callback:    <0E186D>
+}
+  delay 4
+  createsprite <3FF46C> 133 0x0000
+{
+tileTag:     10242
+paletteTag:  10242
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3FF460>
+callback:    <0E186D>
+}
+  waitforvisualfinish
+  createvisualtask <0E1705> 2 0x0001
+  playsewithpan se_m_yawn sound_pan_target
+  end

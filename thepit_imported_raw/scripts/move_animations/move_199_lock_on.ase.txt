@@ -1,0 +1,57 @@
+@ animation for MOVE_LOCK_ON (@1C9A84)
+section0: # 1C9A84
+  loadspritegfx 0x271E
+  createsprite <3E3518> 40 
+{
+tileTag:     10014
+paletteTag:  10014
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A4FAD>
+}
+  createsprite <3E3530> 40 0x0001
+{
+tileTag:     10014
+paletteTag:  10014
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5299>
+}
+  createsprite <3E3530> 40 0x0002
+{
+tileTag:     10014
+paletteTag:  10014
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5299>
+}
+  createsprite <3E3530> 40 0x0003
+{
+tileTag:     10014
+paletteTag:  10014
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5299>
+}
+  createsprite <3E3530> 40 0x0004
+{
+tileTag:     10014
+paletteTag:  10014
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5299>
+}
+  delay 120
+  setarg 7 0xFFFF
+  waitforvisualfinish
+  end

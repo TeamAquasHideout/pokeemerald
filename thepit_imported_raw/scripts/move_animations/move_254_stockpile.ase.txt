@@ -1,0 +1,20 @@
+@ animation for MOVE_STOCKPILE (@1D256B)
+section0: # 1D256B
+  loadspritegfx 0x27FB
+  playsewithpan se_m_mega_kick sound_pan_attacker
+  createvisualtask <0B9BDD> 2 0x0002 0x0008 0x0001 0x0000 0x000C 0x7FFF
+  createvisualtask <0DF849> 5 
+  call <1D25A9>
+  call <1D25A9>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0002 0x0000 0x000C 0x0000 0x7FFF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

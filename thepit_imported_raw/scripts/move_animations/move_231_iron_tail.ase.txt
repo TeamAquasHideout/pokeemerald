@@ -1,0 +1,37 @@
+@ animation for MOVE_IRON_TAIL (@1D1064)
+section0: # 1D1064
+  loadspritegfx 0x2797
+  loopsewithpan se_m_harden sound_pan_attacker 28 2
+  createvisualtask <0B86ED> 5 0x0001 0x0000 0x0000
+  waitforvisualfinish
+  monbg anim_target
+  setalpha 12 8
+  createsprite <3D4E54> 2 0x0004 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0990AD>
+}
+  delay 6
+  createsprite <3E7C08> 130 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0B8A75> 5 0x0000 0x0001
+  clearmonbg anim_target
+  blendoff
+  waitforvisualfinish
+  end

@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 34 (Money) @1D6E69
+section0: # 1D6E69
+  set.move.effect Money
+  goto <1D6900>

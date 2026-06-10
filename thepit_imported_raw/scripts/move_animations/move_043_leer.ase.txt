@@ -1,0 +1,28 @@
+@ animation for MOVE_LEER (@1D09C8)
+section0: # 1D09C8
+  loadspritegfx 0x272B
+  monbg anim_attacker
+  splitbgprio anim_attacker
+  setalpha 8 8
+  playsewithpan se_m_leer sound_pan_attacker
+  createsprite <3FEF30> 2 0x0018 0xFFF4
+{
+tileTag:     10027
+paletteTag:  10027
+oam:         <3AC9D8>
+anims:       <3FEF2C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DE99D>
+}
+  createvisualtask <0998B1> 5 0xFFFB 0xFFFB 0x000A 0x0000 0x0001
+  waitforvisualfinish
+  delay 10
+  createvisualtask <098B1D> 2 0x0001 0x0001 0x0000 0x0009 0x0001
+  createvisualtask <098B1D> 2 0x0003 0x0001 0x0000 0x0009 0x0001
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  delay 1
+  waitforvisualfinish
+  end

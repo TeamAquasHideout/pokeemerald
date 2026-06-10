@@ -1,0 +1,78 @@
+@ animation for MOVE_PAIN_SPLIT (@1C92D9)
+section0: # 1C92D9
+  loadspritegfx 0x27FF
+  createsprite <3FF370> 2 0xFFF8 0xFFD6 0x0000
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  createsprite <3FF370> 130 0xFFF8 0xFFD6 0x0001
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  delay 10
+  playsewithpan se_m_swagger2 0
+  createvisualtask <0E0B01> 2 0x0000 0x0000
+  createvisualtask <0E0B01> 2 0x0001 0x0000
+  waitforvisualfinish
+  createsprite <3FF370> 2 0xFFE8 0xFFD6 0x0000
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  createsprite <3FF370> 130 0xFFE8 0xFFD6 0x0001
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  delay 10
+  playsewithpan se_m_swagger2 0
+  createvisualtask <0E0B01> 2 0x0000 0x0001
+  createvisualtask <0E0B01> 2 0x0001 0x0001
+  waitforvisualfinish
+  createsprite <3FF370> 2 0x0008 0xFFD6 0x0000
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  createsprite <3FF370> 130 0x0008 0xFFD6 0x0001
+{
+tileTag:     10239
+paletteTag:  10239
+oam:         <3AC9D0>
+anims:       <3FF36C>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E0A3D>
+}
+  delay 10
+  playsewithpan se_m_swagger2 0
+  createvisualtask <0E0B01> 2 0x0000 0x0002
+  createvisualtask <0E0B01> 2 0x0001 0x0002
+  end

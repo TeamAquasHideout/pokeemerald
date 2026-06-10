@@ -1114,3 +1114,7 @@ void AnimTask_SetAnimTargetToAttackerOpposite(u8 taskId)
     gBattleAnimTarget = BATTLE_OPPOSITE(gBattleAnimAttacker);
     DestroyAnimVisualTask(taskId);
 }
+void AnimTask_ThePitAseNoOp(u8 taskId)
+{
+    DestroyAnimVisualTask(taskId);
+}

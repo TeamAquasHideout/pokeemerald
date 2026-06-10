@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 9 (RepeatTargetMove) @1D6B5F
+section0: # 1D6B5F
+  attackcanceler
+  attackstring
+  pause 64
+  trymirrormove
+  ppreduce
+  orbyte 0x02023DCC 32
+  printstring 231
+  waitmessage 64
+  goto <1D694E>

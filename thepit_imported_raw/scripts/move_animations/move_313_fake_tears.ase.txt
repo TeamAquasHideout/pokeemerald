@@ -1,0 +1,95 @@
+@ animation for MOVE_FAKE_TEARS (@1CC8AD)
+section0: # 1CC8AD
+  loadspritegfx 0x27AB
+  loadspritegfx 0x27E1
+  loadspritegfx 0x2758
+  createvisualtask <0BAA21> 5 0x27AB 0x0000 0x0004 0x0004 0x7D6C
+  waitforvisualfinish
+  createvisualtask <0E0559> 5 0x0000 0x0002 0x0001
+  loopsewithpan se_m_tail_whip sound_pan_attacker 12 4
+  delay 8
+  createsprite <3E7998> 2 0x0000 0x0000
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  createsprite <3E7998> 2 0x0000 0x0001
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  delay 8
+  createsprite <3E7998> 2 0x0000 0x0002
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  createsprite <3E7998> 2 0x0000 0x0003
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  delay 8
+  createsprite <3E7998> 2 0x0000 0x0000
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  createsprite <3E7998> 2 0x0000 0x0001
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  delay 8
+  createsprite <3E7998> 2 0x0000 0x0002
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  createsprite <3E7998> 2 0x0000 0x0003
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7990>
+callback:    <0B7C89>
+}
+  waitforvisualfinish
+  end

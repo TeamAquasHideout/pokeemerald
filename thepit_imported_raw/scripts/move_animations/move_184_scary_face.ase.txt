@@ -1,0 +1,54 @@
+@ animation for MOVE_SCARY_FACE (@1D1BA0)
+section0: # 1D1BA0
+  loadspritegfx 0x27EA
+  createsprite <3E7B24> 2 0x001B 0x0003 0x0000 0x0010 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  playsewithpan se_m_psybeam sound_pan_attacker
+  waitforvisualfinish
+  delay 10
+  playsewithpan se_m_leer sound_pan_attacker
+  createvisualtask <0A9F11> 5 
+  delay 13
+  createsprite <3E42FC> 0 0xFFF0 0xFFF8
+{
+tileTag:     10218
+paletteTag:  10218
+oam:         <3AC9D0>
+anims:       <3E42F8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA3F1>
+}
+  createsprite <3E42FC> 0 0x0010 0xFFF8
+{
+tileTag:     10218
+paletteTag:  10218
+oam:         <3AC9D0>
+anims:       <3E42F8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AA3F1>
+}
+  waitforvisualfinish
+  createvisualtask <0ADAD9> 3 0x0014 0x0001 0x0000
+  playsewithpan se_m_string_shot2 sound_pan_target
+  createsprite <3E7B24> 2 0x001B 0x0003 0x0010 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  end

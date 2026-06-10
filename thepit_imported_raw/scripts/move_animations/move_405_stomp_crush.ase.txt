@@ -1,0 +1,125 @@
+@ animation for MOVE_STOMP_CRUSH (@1AFEC80)
+section0: # 1AFEC80
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0004 0x01DF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  loadspritegfx 0x27D9
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_double_team sound_pan_target
+  createsprite <3E67D8> 3 0x0000 0xFFE0 0x000F
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3AC9D8>
+anims:       <3E66D0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B0D59>
+}
+  delay 19
+  createsprite <3E7C08> 2 0x0000 0xFFF8 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0004 0x0009 0x0001
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  createsprite <3E5E60> 40 0x00C8 0xFFE0 0x0000 0x0064 0x0000
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  createsprite <3E5E60> 40 0x001E 0xFFE0 0x0010 0x005A 0x0001
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  createsprite <3E5E60> 40 0x0096 0xFFE0 0x0020 0x003C 0x0002
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  createsprite <3E5E60> 40 0x005A 0xFFE0 0x0030 0x0050 0x0003
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  createsprite <3E5E60> 40 0x006E 0xFFE0 0x0040 0x0032 0x0000
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  createsprite <3E5E60> 40 0x003C 0xFFE0 0x0050 0x0046 0x0001
+{
+tileTag:     10201
+paletteTag:  10201
+oam:         <3AC9D8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AD455>
+}
+  delay 22
+  createvisualtask <0B94B5> 5 0x0005 0x0008 0x003C
+  createvisualtask <0B94B5> 5 0x0004 0x0008 0x003C
+  loopsewithpan se_m_rock_throw sound_pan_target 16 12
+  delay 80
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0004 0x0000 0x01DF
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

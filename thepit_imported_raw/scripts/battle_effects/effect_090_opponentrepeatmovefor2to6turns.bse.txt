@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 90 (OpponentRepeatMoveFor2to6turns) @1D7449
+section0: # 1D7449
+  attackcanceler
+  accuracycheck <1D695E> 0
+  attackstring
+  ppreduce
+  trysetencore <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 135
+  waitmessage 64
+  goto <1D694E>

@@ -1,0 +1,21 @@
+@ animation for MOVE_NASTY_PLOT (@1CABF5)
+section0: # 1CABF5
+  loadspritegfx 0x276D
+  call <1D59BB>
+  delay 8
+  createsprite <3E6FF4> 20 
+{
+tileTag:     10093
+paletteTag:  10093
+oam:         <3AC9D8>
+anims:       <3E6FC4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B32F5>
+}
+  playsewithpan se_m_metronome sound_pan_attacker
+  delay 54
+  loopsewithpan se_m_metronome sound_pan_attacker 16 3
+  waitforvisualfinish
+  call <1D59C7>
+  end

@@ -1,0 +1,4 @@
+@ battle script for gen3 move-effect 99 (StrengthDependsOnHealth) @1D757F
+section0: # 1D757F
+  remaininghptopower
+  goto <1D6900>

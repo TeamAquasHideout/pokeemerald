@@ -1,0 +1,26 @@
+@ battle script for gen3 move-effect 5 (FreezeHitChance) @770900
+section0: # 770900
+  set.move.effect Freeze
+  jumpifhalfword = 0x02023F1C 128 <section1>
+  goto <1D6900>
+
+section1: # 770917
+  attackcanceler
+  attackstring
+  ppreduce
+  calculatedamage
+  attackanimation
+  waitanimation
+  effectivenesssound
+  hitanimation target
+  waitstate
+  healthbarupdate target
+  datahpupdate target
+  critmessage
+  waitmessage 64
+  resultmessage
+  waitmessage 64
+  seteffectwithchance
+  tryfaintmon target 0 <000000>
+  moveend.all
+  end

@@ -1,0 +1,45 @@
+@ animation for MOVE_SWAGGER (@1CB3C6)
+section0: # 1CB3C6
+  loadspritegfx 0x2766
+  loadspritegfx 0x2767
+  createvisualtask <0A84B5> 2 
+  playsewithpan se_m_swagger sound_pan_attacker
+  waitforvisualfinish
+  createsprite <3E3ED0> 2 
+{
+tileTag:     10086
+paletteTag:  10086
+oam:         <3AC9D0>
+anims:       <3E3EC8>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A851D>
+}
+  loopsewithpan se_m_swagger sound_pan_attacker 4 2
+  waitforvisualfinish
+  delay 24
+  createsprite <3E3F04> 130 0x0001 0xFFEC 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_target
+  delay 12
+  createsprite <3E3F04> 130 0x0001 0x0014 0xFFE4
+{
+tileTag:     10087
+paletteTag:  10087
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3F00>
+callback:    <0A85AD>
+}
+  playsewithpan se_m_swagger2 sound_pan_target
+  waitforvisualfinish
+  end

@@ -1,0 +1,17 @@
+@ animation for MOVE_SUPERSONIC (@1C755D)
+section0: # 1C755D
+  loadspritegfx 0x27B3
+  monbg anim_atk_partner
+  splitbgprio_foes anim_attacker
+  setalpha 12 8
+  createvisualtask <098B1D> 2 0x0000 0x0002 0x0000 0x0008 0x0001
+  call <1C759B>
+  call <1C759B>
+  call <1C759B>
+  call <1C759B>
+  call <1C759B>
+  call <1C759B>
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

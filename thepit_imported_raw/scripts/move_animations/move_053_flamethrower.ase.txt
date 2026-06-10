@@ -1,0 +1,26 @@
+@ animation for MOVE_FLAMETHROWER (@1CFA15)
+section0: # 1CFA15
+  loadspritegfx 0x272D
+  monbg anim_def_partner
+  splitbgprio anim_target
+  setalpha 12 8
+  createvisualtask <0989F9> 5 0x0000 0x0000 0x0002 0x002E 0x0001
+  delay 6
+  createvisualtask <0AB101> 5 0x0064
+  panse se_m_flamethrower sound_pan_attacker sound_pan_target 2 0
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  createvisualtask <0989F9> 5 0x0001 0x0003 0x0000 0x002B 0x0001
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  call <1CFA8F>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

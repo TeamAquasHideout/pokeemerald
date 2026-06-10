@@ -1,0 +1,14 @@
+@ animation for MOVE_HEX (@1CB0D6)
+section0: # 1CB0D6
+  fadetobg bg_ghost
+  playsewithpan se_m_psybeam sound_pan_attacker
+  waitbgfadein
+  monbg anim_def_partner
+  createvisualtask <0B9BDD> 2 0x0002 0x0002 0x0006 0x0000 0x0008 0x7FFF
+  createvisualtask <0B5AAD> 2 
+  loopsewithpan se_m_psybeam sound_pan_target 20 3
+  waitforvisualfinish
+  restorebg
+  waitbgfadein
+  clearmonbg anim_target
+  end

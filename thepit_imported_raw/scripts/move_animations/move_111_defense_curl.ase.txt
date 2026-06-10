@@ -1,0 +1,21 @@
+@ animation for MOVE_DEFENSE_CURL (@1C8F1C)
+section0: # 1C8F1C
+  loadspritegfx 0x27FA
+  loopsewithpan se_m_tri_attack sound_pan_attacker 18 3
+  createvisualtask <0B8A75> 5 0x0000 0x0000
+  createvisualtask <0DF525> 5 
+  waitforvisualfinish
+  createsprite <3FF118> 2 0x0000 0x0006 0x0000 0x0001
+{
+tileTag:     10234
+paletteTag:  10234
+oam:         <3AC9D8>
+anims:       <3FF114>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  waitforvisualfinish
+  createvisualtask <0B8A75> 5 0x0000 0x0001
+  waitforvisualfinish
+  end

@@ -1,0 +1,21 @@
+@ animation for MOVE_THUNDERSHOCK (@1C7F3C)
+section0: # 1C7F3C
+  loadspritegfx 0x2711
+  loadspritegfx 0x271B
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0000 0x0006 0x0000
+  waitforvisualfinish
+  delay 10
+  createvisualtask <0AE221> 5 0x0000 0xFFD4 0x0000
+  playsewithpan se_m_thunderbolt sound_pan_target
+  delay 9
+  createvisualtask <0BA7F9> 10 0x0004 0x0000 0x0000 0x000D 0x0000
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0004 0x0000 0x000D 0x0000 0x0000
+  waitforvisualfinish
+  delay 20
+  call <1D58D4>
+  waitforvisualfinish
+  delay 20
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0006 0x0000 0x0000
+  waitforvisualfinish
+  end

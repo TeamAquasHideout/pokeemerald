@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 86 (Disable) @1D73E7
+section0: # 1D73E7
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0
+  disablelastusedattack <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 132
+  waitmessage 64
+  goto <1D694E>

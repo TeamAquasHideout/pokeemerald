@@ -1,0 +1,33 @@
+@ animation for MOVE_MUD_SLAP (@1CDFCA)
+section0: # 1CDFCA
+  loadspritegfx 0x275A
+  playsewithpan se_m_sand_attack sound_pan_attacker
+  createsprite <3D4E9C> 2 0x0000 0xFFF6 0x0000 0x0000 0x0003
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0992E1>
+}
+  waitforvisualfinish
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0002
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  call <1CE010>
+  call <1CE010>
+  call <1CE010>
+  call <1CE010>
+  call <1CE010>
+  call <1CE010>
+  waitforvisualfinish
+  end

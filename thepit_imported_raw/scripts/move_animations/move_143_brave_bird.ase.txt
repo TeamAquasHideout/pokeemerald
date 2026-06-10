@@ -1,0 +1,32 @@
+@ animation for MOVE_BRAVE_BIRD (@1CAE2E)
+section0: # 1CAE2E
+  loadspritegfx 0x2797
+  loadspritegfx 0x282C
+  call <1D59CF>
+  monbg anim_attacker
+  createvisualtask <0BA7F9> 10 0x0002 0x0000 0x0000 0x0010 0x7FFF
+  delay 4
+  createvisualtask <0B78E1> 5 0x0000
+  waitforvisualfinish
+  createvisualtask <0DD411> 5 0x00E7 0xFFC0
+  createsprite <3E6DC4> 130 
+{
+tileTag:     10284
+paletteTag:  10284
+oam:         <3ACAA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B2D65>
+}
+  delay 14
+  createvisualtask <098B1D> 2 0x0001 0x000A 0x0000 0x0012 0x0001
+  createvisualtask <0DD3DD> 5 0x0086 0x003F
+  delay 20
+  createvisualtask <0B79DD> 5 0x0001
+  delay 2
+  createvisualtask <0BA7F9> 10 0x0002 0x0000 0x000F 0x0000 0x7FFF
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  call <1D59FF>
+  goto <1CAD24>

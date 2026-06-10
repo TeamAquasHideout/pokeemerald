@@ -1,0 +1,7 @@
+@ animation for MOVE_FACADE (@1CB8D6)
+section0: # 1CB8D6
+  loadspritegfx 0x2803
+  createvisualtask <0E1D5D> 2 0x0000 0x0003
+  createvisualtask <0E1FC5> 2 0x0000 0x0048
+  loopsewithpan se_m_swagger sound_pan_attacker 24 3
+  end

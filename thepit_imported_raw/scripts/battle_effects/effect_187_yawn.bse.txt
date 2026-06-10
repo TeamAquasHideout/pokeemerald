@@ -1,0 +1,17 @@
+@ battle script for gen3 move-effect 187 (Yawn) @1D820A
+section0: # 1D820A
+  attackcanceler
+  attackstring
+  ppreduce
+  jumpifability target "Vital Spirit" <1D824B>
+  jumpifability target Insomnia <1D824B>
+  jumpifstatus2 target 0x01000000 <1D7DF2>
+  jumpifsideaffecting target 32 <1D8B39>
+  accuracycheck <1D7DF2> 0xFFFF
+  jumpifcantmakeasleep <1D7DF2>
+  setyawn <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 182
+  waitmessage 64
+  goto <1D694E>

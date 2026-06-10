@@ -1,0 +1,36 @@
+@ animation for MOVE_POWDER_SNOW (@1CE8F4)
+section0: # 1CE8F4
+  loadspritegfx 0x279D
+  monbg anim_def_partner
+  createsprite <3E7B24> 2 0x001F 0x0001 0x0000 0x0003 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  panse se_m_gust sound_pan_attacker sound_pan_target 2 0
+  call <1CE93E>
+  call <1CE93E>
+  playsewithpan se_m_gust2 sound_pan_target
+  waitforvisualfinish
+  waitsound
+  call <1D548E>
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  delay 20
+  createsprite <3E7B24> 2 0x001F 0x0001 0x0003 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  end

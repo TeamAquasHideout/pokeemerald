@@ -1,0 +1,34 @@
+@ animation for MOVE_LEAF_BLADE (@1CCF17)
+section0: # 1CCF17
+  loadspritegfx 0x274F
+  loadspritegfx 0x282D
+  createvisualtask <0A39C1> 5 
+  delay 2
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  playsewithpan se_m_cut sound_pan_target
+  delay 50
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  playsewithpan se_m_cut sound_pan_target
+  delay 50
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  playsewithpan se_m_cut sound_pan_target
+  waitforvisualfinish
+  monbg anim_target
+  setalpha 12 8
+  delay 12
+  createvisualtask <098B1D> 2 0x0001 0x0008 0x0000 0x0012 0x0001
+  createsprite <3E7C80> 130 0x0000 0x0000 0x0001 0x0024
+{
+tileTag:     10285
+paletteTag:  10285
+oam:         <3ACAF8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0BA739>
+}
+  playsewithpan se_m_leer sound_pan_target
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

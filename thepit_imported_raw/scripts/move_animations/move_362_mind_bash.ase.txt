@@ -1,0 +1,93 @@
+@ animation for MOVE_MIND_BASH (@1AE5F70)
+section0: # 1AE5F70
+  loadspritegfx 0x27E4
+  loadspritegfx 0x27A4
+  monbg anim_attacker
+  setalpha 12 8
+  createsprite <3E7B24> 2 0x0001 0x0002 0x0000 0x0004 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  createsprite <1AE6030> 66 0x0000
+{
+tileTag:     10212
+paletteTag:  10148
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7374>
+callback:    <0B45D9>
+}
+  delay 18
+  loopsewithpan se_m_morning_sun sound_pan_attacker 16 6
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0004 0x0004 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  clearmonbg anim_attacker
+  blendoff
+  delay 1
+  loadspritegfx 0x2797
+  createsprite <3E3550> 2 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  playsewithpan se_m_headbutt sound_pan_attacker
+  waitforvisualfinish
+  delay 2
+  createsprite <3E3550> 2 0x0001
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  waitforvisualfinish
+  createvisualtask <098CD1> 2 0x0000 0x0002 0x0000 0x0004 0x0001
+  createvisualtask <0989F9> 2 0x0001 0x0005 0x0000 0x0006 0x0001
+  createsprite <3E3550> 2 0x0002
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0A5341>
+}
+  createsprite <3E7C98> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACA38>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA781>
+}
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  waitforvisualfinish
+  end

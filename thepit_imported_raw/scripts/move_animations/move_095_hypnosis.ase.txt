@@ -1,0 +1,12 @@
+@ animation for MOVE_HYPNOSIS (@1D0DEA)
+section0: # 1D0DEA
+  loadspritegfx 0x27B3
+  call <1D59BB>
+  call <1D0E1D>
+  call <1D0E1D>
+  call <1D0E1D>
+  createvisualtask <0B9BDD> 2 0x0004 0x0002 0x0002 0x0000 0x000C 0x7E5F
+  waitforvisualfinish
+  delay 1
+  call <1D59C7>
+  end

@@ -1,0 +1,10 @@
+@ animation for MOVE_TRIPLE_AXEL (@1AE9DF0)
+section0: # 1AE9DF0
+  loadspritegfx 0x279F
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  jumpifmoveturn 0 <1AE9E15>
+  jumpifmoveturn 1 <1CFF26>
+  goto <1CFF5C>

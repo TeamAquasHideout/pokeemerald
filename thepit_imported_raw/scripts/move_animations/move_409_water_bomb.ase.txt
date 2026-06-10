@@ -1,0 +1,115 @@
+@ animation for MOVE_WATER_BOMB (@128EE20)
+section0: # 128EE20
+  fadetobg bg_thunder
+  waitbgfadeout
+  createvisualtask <0BB82D> 5 0x0500 0x0000 0x0000 0xFFFF
+  waitbgfadein
+  loadspritegfx 0x282B
+  createsprite <3D4E6C> 2 0x0008 0x0001 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <099145>
+}
+  delay 8
+  playsewithpan se_m_swagger sound_pan_attacker
+  createsprite <3BF434> 2 
+{
+tileTag:     10283
+paletteTag:  10283
+oam:         <3AC9D8>
+anims:       <3BF430>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <07729D>
+}
+  waitforvisualfinish
+  delay 15
+  playsewithpan se_m_detect 0
+  createsprite <3E7B3C> 2 0x001F 0x0005 0x0001 0x7FFF 0x000A 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B9A7D>
+}
+  waitforvisualfinish
+  createvisualtask <0E44ED> 2 
+  delay 1
+  loadspritegfx 0x2797
+  createsprite <3BF44C> 130 0xFFE2 0xFF9C 0x0019 0x0001 0x0000 0x0000
+{
+tileTag:     10283
+paletteTag:  10283
+oam:         <3AC9D8>
+anims:       <3BF430>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <077351>
+}
+  waitforvisualfinish
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 132 0xFFF6 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0003 0x0008 0x0001
+  waitforvisualfinish
+  loadspritegfx 0x27AB
+  createsprite <3E5BA0> 130 0xFFE2 0xFF9C 0x0019 0x0001 0x0032 0x000A
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <3E5B18>
+images:      <null>
+affineAnims: <3E5B6C>
+callback:    <077351>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  delay 8
+  createsprite <3E5BA0> 130 0xFFE2 0xFF9C 0x0019 0x0001 0xFFEC 0x0014
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <3E5B18>
+images:      <null>
+affineAnims: <3E5B6C>
+callback:    <077351>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  delay 13
+  createsprite <3E5BA0> 130 0xFFE2 0xFF9C 0x0019 0x0001 0x0000 0x0000
+{
+tileTag:     10155
+paletteTag:  10155
+oam:         <3ACA30>
+anims:       <3E5B18>
+images:      <null>
+affineAnims: <3E5B6C>
+callback:    <077351>
+}
+  playsewithpan se_m_crabhammer sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0989F9> 2 0x0001 0x0000 0x0003 0x0008 0x0001
+  playsewithpan se_m_giga_drain sound_pan_target
+  waitforvisualfinish
+  restorebg
+  waitbgfadeout
+  setarg 7 0xFFFF
+  waitbgfadein
+  end

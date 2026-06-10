@@ -1,0 +1,19 @@
+@ animation for MOVE_MIST (@1D0821)
+section0: # 1D0821
+  loadspritegfx 0x27A0
+  monbg anim_atk_partner
+  setalpha 12 8
+  loopsewithpan se_m_mist sound_pan_attacker 20 15
+  call <1D086C>
+  call <1D086C>
+  call <1D086C>
+  call <1D086C>
+  call <1D086C>
+  call <1D086C>
+  call <1D086C>
+  delay 32
+  createvisualtask <0B9BDD> 2 0x000A 0x0008 0x0002 0x0000 0x000E 0x7FFF
+  waitforvisualfinish
+  clearmonbg anim_atk_partner
+  blendoff
+  end

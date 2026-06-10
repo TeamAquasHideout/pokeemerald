@@ -1378,6 +1378,11 @@
 	.4byte \failInstr
 	.endm
 
+	.macro thepitabysswrathdamagecalculator failInstr:req
+	callnative BS_CalcThePitAbyssWrathDmg
+	.4byte \failInstr
+	.endm
+
 	.macro jumpifcantfling battler:req, jumpInstr:req
 	callnative BS_JumpIfCantFling
 	.byte \battler

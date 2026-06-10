@@ -1,0 +1,6 @@
+@ battle script for gen3 move-effect 152 (ParalyzeAndIncreaseAccuracyInRain) @771300
+section0: # 771300
+  if.move.goto Hurricane <section1>
+  jumpiftype target Electr <1D6926>
+  set.move.effect Paralyze
+  goto <1D6926>

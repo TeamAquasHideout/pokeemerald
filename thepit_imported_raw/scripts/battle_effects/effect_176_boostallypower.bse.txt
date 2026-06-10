@@ -1,0 +1,11 @@
+@ battle script for gen3 move-effect 176 (BoostAllyPower) @1D80E3
+section0: # 1D80E3
+  attackcanceler
+  attackstring
+  ppreduce
+  trysethelpinghand <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 174
+  waitmessage 64
+  goto <1D694E>

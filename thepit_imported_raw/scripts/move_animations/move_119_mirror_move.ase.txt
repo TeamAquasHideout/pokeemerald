@@ -1,0 +1,21 @@
+@ animation for MOVE_MIRROR_MOVE (@1C6F34)
+section0: # 1C6F34
+  loadspritegfx 0x2797
+  monbg anim_target
+  setalpha 12 8
+  playsewithpan se_m_double_slap sound_pan_target
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <0989F9> 2 0x0001 0x0003 0x0000 0x0006 0x0001
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

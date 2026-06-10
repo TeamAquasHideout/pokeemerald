@@ -1,0 +1,62 @@
+@ animation for MOVE_OCTAZOOKA (@1D07BB)
+section0: # 1D07BB
+  loadspritegfx 0x272E
+  loadspritegfx 0x2721
+  playsewithpan se_m_mega_kick2 sound_pan_attacker
+  createsprite <3E3674> 130 0x0014 0x0000 0x0000 0x0000 0x0014 0x0000
+{
+tileTag:     10017
+paletteTag:  10017
+oam:         <3AC9C8>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075DF5>
+}
+  waitforvisualfinish
+  playsewithpan se_m_self_destruct sound_pan_target
+  createsprite <3E36A8> 130 0x0008 0x0008 0x0001 0x0000
+{
+tileTag:     10030
+paletteTag:  10030
+oam:         <3AC9D8>
+anims:       <3E36A4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  delay 2
+  createsprite <3E36A8> 130 0xFFF8 0xFFF8 0x0001 0x0000
+{
+tileTag:     10030
+paletteTag:  10030
+oam:         <3AC9D8>
+anims:       <3E36A4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  delay 2
+  createsprite <3E36A8> 130 0x0008 0xFFF8 0x0001 0x0000
+{
+tileTag:     10030
+paletteTag:  10030
+oam:         <3AC9D8>
+anims:       <3E36A4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  delay 2
+  createsprite <3E36A8> 130 0xFFF8 0x0008 0x0001 0x0000
+{
+tileTag:     10030
+paletteTag:  10030
+oam:         <3AC9D8>
+anims:       <3E36A4>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <075D9D>
+}
+  waitforvisualfinish
+  end

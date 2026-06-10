@@ -1,0 +1,10 @@
+@ battle script for gen3 move-effect 26 (Bide) @1D6C83
+section0: # 1D6C83
+  attackcanceler
+  attackstring
+  ppreduce
+  attackanimation
+  waitanimation
+  orword 0x02023DD0 0x08000000
+  setbide
+  goto <1D694E>

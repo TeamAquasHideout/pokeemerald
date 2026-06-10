@@ -1,0 +1,31 @@
+@ animation for MOVE_ASTRAL_GLEAM (@1B04B40)
+section0: # 1B04B40
+  fadetobg bg_cosmic
+  waitbgfadein
+  loadspritegfx 0x281B
+  loadspritegfx 0x2797
+  monbg anim_attacker
+  setalpha 12 8
+  playsewithpan se_m_solar_beam sound_pan_attacker
+  createsprite <3E7148> 41 0x0000 0x0000 0x0000 0x0000
+{
+tileTag:     10267
+paletteTag:  10267
+oam:         <3ACBC0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7144>
+callback:    <075D9D>
+}
+  delay 20
+  createvisualtask <0BA83D> 5 0x0005 0x0002 0x0000 0x0010 0xFFFF
+  createvisualtask <0BAA21> 5 0x281B 0x0002 0x0000 0x0010 0xFFFF
+  waitforvisualfinish
+  createvisualtask <0BAA21> 5 0x2797 0x0000 0x000C 0x000C 0x5C00
+  waitforvisualfinish
+  createvisualtask <0BA83D> 5 0x0005 0x0002 0x0010 0x0000 0xFFFF
+  clearmonbg anim_attacker
+  blendoff
+  restorebg
+  waitbgfadein
+  end

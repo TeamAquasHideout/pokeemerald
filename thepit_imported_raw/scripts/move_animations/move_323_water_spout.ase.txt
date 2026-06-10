@@ -1,0 +1,17 @@
+@ animation for MOVE_WATER_SPOUT (@1CCB48)
+section0: # 1CCB48
+  loadspritegfx 0x281C
+  loadspritegfx 0x27A4
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <0ABB29> 5 
+  playsewithpan se_m_headbutt sound_pan_attacker
+  delay 44
+  playsewithpan se_m_dive sound_pan_attacker
+  waitforvisualfinish
+  delay 16
+  createvisualtask <0AC00D> 5 
+  playsewithpan se_m_surf sound_pan_target
+  clearmonbg anim_def_partner
+  blendoff
+  end

@@ -1,0 +1,65 @@
+@ animation for MOVE_CORKSCREW (@1B07EE0)
+section0: # 1B07EE0
+  loadspritegfx 0x271B
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  setalpha 12 8
+  playsewithpan se_m_take_down sound_pan_attacker
+  createvisualtask <098E91> 5 0x0000 0x0002 0x0000 0x0060 0x001E
+  waitforvisualfinish
+  delay 10
+  createsprite <3D4E84> 2 0x0000 0x0000 0x0004
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0991B5>
+}
+  createvisualtask <09907D> 2 0x0001 0x0012 0x0006 0x0002 0x0004
+  delay 4
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 3 0x0010 0x000C 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 4
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 3 0xFFF0 0xFFF4 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  delay 4
+  playsewithpan se_m_mega_kick2 sound_pan_target
+  createsprite <3E7C08> 3 0x0003 0x0004 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  waitforvisualfinish
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0008 0x0001
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  call <1D58D4>
+  waitforvisualfinish
+  end

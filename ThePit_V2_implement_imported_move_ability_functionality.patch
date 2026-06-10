@@ -1,0 +1,2439 @@
+diff --git a/THEPIT_FUNCTIONALITY_IMPLEMENTED.md b/THEPIT_FUNCTIONALITY_IMPLEMENTED.md
+new file mode 100644
+index 00000000..17044843
+--- /dev/null
++++ b/THEPIT_FUNCTIONALITY_IMPLEMENTED.md
+@@ -0,0 +1,61 @@
++# The Pit Imported Move and Ability Functionality
++
++This patch ports the battle behavior for the imported FireRed custom moves and abilities into the Emerald decomp battle engine.
++
++## Ability hooks implemented
++
++| Ability | Implemented behavior |
++|---|---|
++| Abyss Boost | Uses the Beast Boost-style faint hook: after the user KOs a target, raises the user's highest stat by 1 stage. |
++| Abyss Grace | Gives the user and its active ally a 1.1x accuracy modifier, matching the exported team accuracy description. |
++| Arcanist | Boosts Psychic-type move damage by 20%. |
++| Botanist | Gives +1 priority to Toxic Herb, Potion Bomb, and Weird Potion. |
++| Eerie Aura | Boosts Ghost-type move damage by 20%. |
++| Fafnir | Boosts Electric- and Dragon-type move damage by 20%. |
++| Intense Care | Gives +1 priority to moves flagged as healing moves. |
++| Omnihunter | Boosts Flying-type move damage by 50%. |
++| Omni-Chase | Boosts Speed by 50% while effective weather is active. |
++| Radiance | Converts Normal-type moves to Aether-type through the existing -ate type-conversion path. |
++| Singularity | Boosts Fire- and Ice-type move damage by 25%. |
++| Sovereignty | Gives +1 priority to Noble Order, Royal Order, and Veil Order. |
++| Venom Blood | Boosts Poison-type move damage by 50%. |
++
++AI ratings for these imported abilities were also filled in instead of leaving them at TODO/0.
++
++## New custom move effect handlers
++
++The following FireRed-only effects were implemented as native Emerald battle scripts and helpers:
++
++| Move/effect | Implemented behavior |
++|---|---|
++| Abyss Wrath | Custom counter-any-hit calculator: counters the last physical or special hit from a foe for 2x damage. |
++| Atrophic Eye | Lowers both opponents' Defense and Sp. Def by 1 stage. |
++| Bright Song | Raises the user's side Accuracy by 2 stages and the partner's Speed by 1 stage. |
++| Cell Shield | Raises the user's Attack, Defense, and Sp. Def by 1 stage. |
++| Kumogakure | Halves the user's HP, then raises Evasion by 2 stages. |
++| Life Ballad | Raises the user's side Speed by 1 stage and cures party status via Aromatherapy behavior. |
++| Life Control | Restores 50% of the user's max HP and raises Speed by 1 stage. |
++| Limit Break | Raises Attack and Sp. Atk by 1 stage, then lowers Defense and Sp. Def by 1 stage. |
++| Noble Order | Raises the user's side Sp. Atk by 1 stage. |
++| PhalanxGuard | Raises the user's side Defense by 1 stage. |
++| Rotten Egg | Lowers both opponents' Attack and Sp. Atk by 1 stage. |
++| Shogun Decoy | Applies Follow Me/center-of-attention behavior and raises Attack and Defense by 1 stage. |
++| Spring Tango | Raises the user's Speed by 1 stage, and the partner's Defense and Sp. Def by 1 stage. |
++| StrangeSeeds | Lowers both opponents' Speed and Evasion by 1 stage. |
++| Summer Tango | Raises the user's Evasion by 1 stage, and the partner's Attack and Sp. Atk by 1 stage. |
++| Time Circle | Raises the user's side Speed by 1 stage. |
++| Veil Order | Raises the user's side Sp. Def by 1 stage. |
++| Volt Mask | Raises the user's Speed and Accuracy by 1 stage. |
++| WakingChakra | Applies Aqua Ring-style per-turn healing and raises Speed by 1 stage. |
++| Warding Mist | Sets Safeguard and cures party status via Aromatherapy behavior. |
++| Wilt. Miasma | Lowers both opponents' Accuracy and Evasion by 1 stage. |
++
++## Existing Emerald effects reused for imported moves
++
++Where the FireRed export described a behavior already supported by pokeemerald-expansion, the imported move was mapped to that native effect instead of adding a duplicate handler. Examples include recoil, Weather Ball, Beat Up/party-size damage, high critical-hit ratio, two-hit attacks, Punishment, level damage, fixed 50% HP damage, Heal Pulse, first-turn-only attacks, Cosmic Power, Attack + Sp. Atk boosts, Frostbite status, bad poison, burn/paralysis/confusion/sleep secondaries, flinching, and self stat drops.
++
++## Remaining notes
++
++- This patch implements battle functionality, not the original FireRed animation bytecode. Imported moves still use the safe placeholder animation assigned during import unless separately ported.
++- Leading Blow is approximated with the existing double-power-on-any-status effect. Its export says it hits a second time if the target is burned, paralyzed, poisoned, or asleep; the damage output is close, but it will not trigger separate second-hit side effects.
++- Call: Allies uses the expansion Beat Up/party-size damage effect as the closest native equivalent to the export's party-size damage behavior.
+diff --git a/asm/macros/battle_script.inc b/asm/macros/battle_script.inc
+index a75dafeb..371bccfe 100644
+--- a/asm/macros/battle_script.inc
++++ b/asm/macros/battle_script.inc
+@@ -1378,6 +1378,11 @@
+ 	.4byte \failInstr
+ 	.endm
+ 
++	.macro thepitabysswrathdamagecalculator failInstr:req
++	callnative BS_CalcThePitAbyssWrathDmg
++	.4byte \failInstr
++	.endm
++
+ 	.macro jumpifcantfling battler:req, jumpInstr:req
+ 	callnative BS_JumpIfCantFling
+ 	.byte \battler
+diff --git a/data/battle_scripts_1.s b/data/battle_scripts_1.s
+index 9d75ac30..74bfe0b9 100644
+--- a/data/battle_scripts_1.s
++++ b/data/battle_scripts_1.s
+@@ -9702,6 +9702,413 @@ BattleScript_SleepClausePreventsEnd2::
+ 	waitmessage B_WAIT_TIME_LONG
+ 	end2
+ 
++
++@ The Pit FireRed custom move effects.
++@ These scripts translate the export's composite effects into expansion-native battle commands.
++BattleScript_ThePitRaiseAttack::
++	setstatchanger STAT_ATK, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++BattleScript_ThePitRaiseStatRet:
++	return
++
++BattleScript_ThePitRaiseDefense::
++	setstatchanger STAT_DEF, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseSpeed::
++	setstatchanger STAT_SPEED, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseSpAtk::
++	setstatchanger STAT_SPATK, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseSpDef::
++	setstatchanger STAT_SPDEF, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseAccuracy::
++	setstatchanger STAT_ACC, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseAccuracy2::
++	setstatchanger STAT_ACC, 2, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseEvasion::
++	setstatchanger STAT_EVASION, 1, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaiseEvasion2::
++	setstatchanger STAT_EVASION, 2, FALSE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRaiseStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRaiseStatRet
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitLowerDefense::
++	setstatchanger STAT_DEF, 1, TRUE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitLowerStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_ThePitLowerStatRet
++	printfromtable gStatDownStringIds
++	waitmessage B_WAIT_TIME_LONG
++BattleScript_ThePitLowerStatRet:
++	return
++
++BattleScript_ThePitLowerSpDef::
++	setstatchanger STAT_SPDEF, 1, TRUE
++	statbuffchange BS_ATTACKER, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitLowerStatRet
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_ThePitLowerStatRet
++	printfromtable gStatDownStringIds
++	waitmessage B_WAIT_TIME_LONG
++	return
++
++BattleScript_ThePitRaisePartnerSpeed:
++	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
++	savetarget
++	setallytonexttarget BattleScript_ThePitRaisePartnerSpeedDo
++	goto BattleScript_ThePitRestorePartnerTarget
++BattleScript_ThePitRaisePartnerSpeedDo:
++	setstatchanger STAT_SPEED, 1, FALSE
++	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++BattleScript_ThePitRestorePartnerTarget:
++	restoretarget
++BattleScript_ThePitPartnerStatRet:
++	return
++
++BattleScript_ThePitRaisePartnerDefense:
++	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
++	savetarget
++	setallytonexttarget BattleScript_ThePitRaisePartnerDefenseDo
++	goto BattleScript_ThePitRestorePartnerTarget
++BattleScript_ThePitRaisePartnerDefenseDo:
++	setstatchanger STAT_DEF, 1, FALSE
++	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	goto BattleScript_ThePitRestorePartnerTarget
++
++BattleScript_ThePitRaisePartnerSpDef:
++	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
++	savetarget
++	setallytonexttarget BattleScript_ThePitRaisePartnerSpDefDo
++	goto BattleScript_ThePitRestorePartnerTarget
++BattleScript_ThePitRaisePartnerSpDefDo:
++	setstatchanger STAT_SPDEF, 1, FALSE
++	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	goto BattleScript_ThePitRestorePartnerTarget
++
++BattleScript_ThePitRaisePartnerAttack:
++	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
++	savetarget
++	setallytonexttarget BattleScript_ThePitRaisePartnerAttackDo
++	goto BattleScript_ThePitRestorePartnerTarget
++BattleScript_ThePitRaisePartnerAttackDo:
++	setstatchanger STAT_ATK, 1, FALSE
++	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	goto BattleScript_ThePitRestorePartnerTarget
++
++BattleScript_ThePitRaisePartnerSpAtk:
++	jumpifnoally BS_ATTACKER, BattleScript_ThePitPartnerStatRet
++	savetarget
++	setallytonexttarget BattleScript_ThePitRaisePartnerSpAtkDo
++	goto BattleScript_ThePitRestorePartnerTarget
++BattleScript_ThePitRaisePartnerSpAtkDo:
++	setstatchanger STAT_SPATK, 1, FALSE
++	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_ThePitRestorePartnerTarget
++	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_ThePitRestorePartnerTarget
++	printfromtable gStatUpStringIds
++	waitmessage B_WAIT_TIME_LONG
++	goto BattleScript_ThePitRestorePartnerTarget
++
++BattleScript_EffectThePitAbyssWrath::
++	attackcanceler
++	thepitabysswrathdamagecalculator BattleScript_FailedFromAtkString
++	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
++	attackstring
++	ppreduce
++	typecalc
++	clearmoveresultflags MOVE_RESULT_NOT_VERY_EFFECTIVE | MOVE_RESULT_SUPER_EFFECTIVE
++	adjustdamage
++	goto BattleScript_HitFromAtkAnimation
++
++BattleScript_EffectThePitAtrophicEye::
++	attackcanceler
++	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_DEF, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	setstatchanger STAT_SPDEF, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitBrightSong::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_ACC, 2, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	call BattleScript_ThePitRaisePartnerSpeed
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitCellShield::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	call BattleScript_ThePitRaiseAttack
++	call BattleScript_ThePitRaiseDefense
++	call BattleScript_ThePitRaiseSpDef
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitKumogakure::
++	attackcanceler
++	attackstring
++	ppreduce
++	halvehp BattleScript_ButItFailed
++	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
++	attackanimation
++	waitanimation
++	healthbarupdate BS_ATTACKER
++	datahpupdate BS_ATTACKER
++	call BattleScript_ThePitRaiseEvasion2
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitLifeBallad::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_SPEED, 1, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	call BattleScript_MoveEffectAromatherapy
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitLifeControl::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	tryhealhalfhealth BattleScript_ThePitLifeControlSpeed, BS_ATTACKER
++	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
++	healthbarupdate BS_ATTACKER
++	datahpupdate BS_ATTACKER
++	printstring STRINGID_PKMNREGAINEDHEALTH
++	waitmessage B_WAIT_TIME_LONG
++BattleScript_ThePitLifeControlSpeed:
++	call BattleScript_ThePitRaiseSpeed
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitLimitBreak::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	call BattleScript_ThePitRaiseAttack
++	call BattleScript_ThePitRaiseSpAtk
++	call BattleScript_ThePitLowerDefense
++	call BattleScript_ThePitLowerSpDef
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitNobleOrder::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_SPATK, 1, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitPhalanxGuard::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_DEF, 1, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitRottenEgg::
++	attackcanceler
++	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_ATK, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	setstatchanger STAT_SPATK, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitShogunDecoy::
++	attackcanceler
++	attackstring
++	ppreduce
++	setforcedtarget
++	attackanimation
++	waitanimation
++	printstring STRINGID_PKMNCENTERATTENTION
++	waitmessage B_WAIT_TIME_LONG
++	call BattleScript_ThePitRaiseAttack
++	call BattleScript_ThePitRaiseDefense
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitSpringTango::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	call BattleScript_ThePitRaiseSpeed
++	call BattleScript_ThePitRaisePartnerDefense
++	call BattleScript_ThePitRaisePartnerSpDef
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitStrangeSeeds::
++	attackcanceler
++	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_SPEED, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	setstatchanger STAT_EVASION, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitSummerTango::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	call BattleScript_ThePitRaiseEvasion
++	call BattleScript_ThePitRaisePartnerAttack
++	call BattleScript_ThePitRaisePartnerSpAtk
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitTimeCircle::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_SPEED, 1, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitVeilOrder::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_SPDEF, 1, FALSE
++	call BattleScript_EffectRaiseStatAllies
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitVoltMask::
++	attackcanceler
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	call BattleScript_ThePitRaiseSpeed
++	call BattleScript_ThePitRaiseAccuracy
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitWakingChakra::
++	attackcanceler
++	attackstring
++	ppreduce
++	setvolatile BS_ATTACKER, VOLATILE_AQUA_RING
++	attackanimation
++	waitanimation
++	printstring STRINGID_PKMNSURROUNDEDWITHVEILOFWATER
++	waitmessage B_WAIT_TIME_LONG
++	call BattleScript_ThePitRaiseSpeed
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitWardingMist::
++	attackcanceler
++	attackstring
++	ppreduce
++	setsafeguard
++	attackanimation
++	waitanimation
++	printfromtable gReflectLightScreenSafeguardStringIds
++	waitmessage B_WAIT_TIME_LONG
++	call BattleScript_MoveEffectAromatherapy
++	goto BattleScript_MoveEnd
++
++BattleScript_EffectThePitWiltMiasma::
++	attackcanceler
++	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
++	attackstring
++	ppreduce
++	attackanimation
++	waitanimation
++	setstatchanger STAT_ACC, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	setstatchanger STAT_EVASION, 1, TRUE
++	call BattleScript_EffectLowerStatFoes
++	goto BattleScript_MoveEnd
++
+ BattleScript_QuestionForfeitBattle::
+ 	printselectionstring STRINGID_QUESTIONFORFEITBATTLE
+ 	forfeityesnobox
+diff --git a/include/battle_scripts.h b/include/battle_scripts.h
+index 16a07e97..a43054ef 100644
+--- a/include/battle_scripts.h
++++ b/include/battle_scripts.h
+@@ -864,6 +864,27 @@ extern const u8 BattleScript_EffectTidyUp[];
+ extern const u8 BattleScript_EffectSpicyExtract[];
+ extern const u8 BattleScript_EffectFickleBeam[];
+ extern const u8 BattleScript_FickleBeamDoubled[];
++extern const u8 BattleScript_EffectThePitAbyssWrath[];
++extern const u8 BattleScript_EffectThePitAtrophicEye[];
++extern const u8 BattleScript_EffectThePitBrightSong[];
++extern const u8 BattleScript_EffectThePitCellShield[];
++extern const u8 BattleScript_EffectThePitKumogakure[];
++extern const u8 BattleScript_EffectThePitLifeBallad[];
++extern const u8 BattleScript_EffectThePitLifeControl[];
++extern const u8 BattleScript_EffectThePitLimitBreak[];
++extern const u8 BattleScript_EffectThePitNobleOrder[];
++extern const u8 BattleScript_EffectThePitPhalanxGuard[];
++extern const u8 BattleScript_EffectThePitRottenEgg[];
++extern const u8 BattleScript_EffectThePitShogunDecoy[];
++extern const u8 BattleScript_EffectThePitSpringTango[];
++extern const u8 BattleScript_EffectThePitStrangeSeeds[];
++extern const u8 BattleScript_EffectThePitSummerTango[];
++extern const u8 BattleScript_EffectThePitTimeCircle[];
++extern const u8 BattleScript_EffectThePitVeilOrder[];
++extern const u8 BattleScript_EffectThePitVoltMask[];
++extern const u8 BattleScript_EffectThePitWakingChakra[];
++extern const u8 BattleScript_EffectThePitWardingMist[];
++extern const u8 BattleScript_EffectThePitWiltMiasma[];
+ extern const u8 BattleScript_QuestionForfeitBattle[];
+ extern const u8 BattleScript_ForfeitBattleGaveMoney[];
+ extern const u8 BattleScript_AbilityPopUp[];
+diff --git a/include/constants/battle_move_effects.h b/include/constants/battle_move_effects.h
+index 2ddb75ad..9337e855 100644
+--- a/include/constants/battle_move_effects.h
++++ b/include/constants/battle_move_effects.h
+@@ -354,6 +354,28 @@ enum __attribute__((packed)) BattleMoveEffects
+     EFFECT_STEEL_ROLLER, // Will fail if there is no terrain up but removes it regardless if attacker is removed from field or not
+     EFFECT_STONE_AXE, // Not to be confused with MOVE_EFFECT_STEALTH_ROCK. They have two different activation timings.
+     EFFECT_CEASELESS_EDGE, // Same applies to spikes
++    // The Pit FireRed custom move effect ports.
++    EFFECT_THEPIT_ABYSS_WRATH,
++    EFFECT_THEPIT_ATROPHIC_EYE,
++    EFFECT_THEPIT_BRIGHT_SONG,
++    EFFECT_THEPIT_CELL_SHIELD,
++    EFFECT_THEPIT_KUMOGAKURE,
++    EFFECT_THEPIT_LIFE_BALLAD,
++    EFFECT_THEPIT_LIFE_CONTROL,
++    EFFECT_THEPIT_LIMIT_BREAK,
++    EFFECT_THEPIT_NOBLE_ORDER,
++    EFFECT_THEPIT_PHALANX_GUARD,
++    EFFECT_THEPIT_ROTTEN_EGG,
++    EFFECT_THEPIT_SHOGUN_DECOY,
++    EFFECT_THEPIT_SPRING_TANGO,
++    EFFECT_THEPIT_STRANGE_SEEDS,
++    EFFECT_THEPIT_SUMMER_TANGO,
++    EFFECT_THEPIT_TIME_CIRCLE,
++    EFFECT_THEPIT_VEIL_ORDER,
++    EFFECT_THEPIT_VOLT_MASK,
++    EFFECT_THEPIT_WAKING_CHAKRA,
++    EFFECT_THEPIT_WARDING_MIST,
++    EFFECT_THEPIT_WILT_MIASMA,
+     NUM_BATTLE_MOVE_EFFECTS,
+ };
+ 
+diff --git a/src/battle_main.c b/src/battle_main.c
+index d609a961..4de01c04 100644
+--- a/src/battle_main.c
++++ b/src/battle_main.c
+@@ -5096,6 +5096,8 @@ u32 GetBattlerTotalSpeedStatArgs(u32 battler, u32 ability, enum ItemHoldEffect h
+             speed *= 2;
+         else if (ability == ABILITY_SLUSH_RUSH  && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+             speed *= 2;
++        else if (ability == ABILITY_OMNI_CHASE)
++            speed = (speed * 150) / 100;
+     }
+ 
+     // other abilities
+@@ -5164,6 +5166,32 @@ s32 GetChosenMovePriority(u32 battler, u32 ability)
+     return GetBattleMovePriority(battler, ability, move);
+ }
+ 
++static bool32 IsThePitBotanistPriorityMove(u32 move)
++{
++    switch (move)
++    {
++    case MOVE_TOXIC_HERB:
++    case MOVE_POTION_BOMB:
++    case MOVE_WEIRD_POTION:
++        return TRUE;
++    default:
++        return FALSE;
++    }
++}
++
++static bool32 IsThePitOrderPriorityMove(u32 move)
++{
++    switch (move)
++    {
++    case MOVE_NOBLE_ORDER:
++    case MOVE_ROYAL_ORDER:
++    case MOVE_VEIL_ORDER:
++        return TRUE;
++    default:
++        return FALSE;
++    }
++}
++
+ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
+ {
+     s32 priority = 0;
+@@ -5196,6 +5224,18 @@ s32 GetBattleMovePriority(u32 battler, u32 ability, u32 move)
+     {
+         priority++;
+     }
++    else if (ability == ABILITY_BOTANIST && IsThePitBotanistPriorityMove(move))
++    {
++        priority++;
++    }
++    else if (ability == ABILITY_INTENSE_CARE && IsHealingMove(move))
++    {
++        priority++;
++    }
++    else if (ability == ABILITY_SOVEREIGNTY && IsThePitOrderPriorityMove(move))
++    {
++        priority++;
++    }
+     else if (ability == ABILITY_TRIAGE && IsHealingMove(move))
+     {
+         priority += 3;
+@@ -6238,6 +6278,9 @@ u32 TrySetAteType(u32 move, u32 battlerAtk, u32 attackerAbility)
+     case ABILITY_GALVANIZE:
+         ateType = TYPE_ELECTRIC;
+         break;
++    case ABILITY_RADIANCE:
++        ateType = TYPE_AETHER;
++        break;
+     default:
+         ateType = TYPE_NONE;
+         break;
+diff --git a/src/battle_script_commands.c b/src/battle_script_commands.c
+index 5dac9b05..91617fb3 100644
+--- a/src/battle_script_commands.c
++++ b/src/battle_script_commands.c
+@@ -5601,6 +5601,7 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
+     case ABILITY_GRIM_NEIGH:
+     case ABILITY_AS_ONE_SHADOW_RIDER:
+     case ABILITY_BEAST_BOOST:
++    case ABILITY_ABYSS_BOOST:
+         {
+             if (!IsBattlerAlive(battlerAtk) || NoAliveMonsForEitherParty())
+                 break;
+@@ -5608,7 +5609,7 @@ static bool32 HandleMoveEndAbilityBlock(u32 battlerAtk, u32 battlerDef, u32 move
+             u32 stat = STAT_ATK;
+             u32 numMonsFainted = NumFaintedBattlersByAttacker(battlerAtk);
+ 
+-            if (abilityAtk == ABILITY_BEAST_BOOST)
++            if (abilityAtk == ABILITY_BEAST_BOOST || abilityAtk == ABILITY_ABYSS_BOOST)
+                 stat = GetHighestStatId(battlerAtk);
+             else if (abilityAtk == ABILITY_GRIM_NEIGH || abilityAtk == ABILITY_AS_ONE_SHADOW_RIDER)
+                 stat = STAT_SPATK;
+@@ -14737,6 +14738,43 @@ void BS_CalcMetalBurstDmg(void)
+     }
+ }
+ 
++void BS_CalcThePitAbyssWrathDmg(void)
++{
++    NATIVE_ARGS(const u8 *failInstr);
++
++    u8 sideAttacker = GetBattlerSide(gBattlerAttacker);
++    u8 sideTarget = 0;
++
++    if (gProtectStructs[gBattlerAttacker].physicalDmg
++        && sideAttacker != (sideTarget = GetBattlerSide(gProtectStructs[gBattlerAttacker].physicalBattlerId))
++        && gBattleMons[gProtectStructs[gBattlerAttacker].physicalBattlerId].hp)
++    {
++        if (IsAffectedByFollowMe(gBattlerAttacker, sideTarget, gCurrentMove))
++            gBattlerTarget = gSideTimers[sideTarget].followmeTarget;
++        else
++            gBattlerTarget = gProtectStructs[gBattlerAttacker].physicalBattlerId;
++
++        gBattleStruct->moveDamage[gBattlerTarget] = gProtectStructs[gBattlerAttacker].physicalDmg * 2;
++        gBattlescriptCurrInstr = cmd->nextInstr;
++    }
++    else if (gProtectStructs[gBattlerAttacker].specialDmg
++             && sideAttacker != (sideTarget = GetBattlerSide(gProtectStructs[gBattlerAttacker].specialBattlerId))
++             && gBattleMons[gProtectStructs[gBattlerAttacker].specialBattlerId].hp)
++    {
++        if (IsAffectedByFollowMe(gBattlerAttacker, sideTarget, gCurrentMove))
++            gBattlerTarget = gSideTimers[sideTarget].followmeTarget;
++        else
++            gBattlerTarget = gProtectStructs[gBattlerAttacker].specialBattlerId;
++
++        gBattleStruct->moveDamage[gBattlerTarget] = gProtectStructs[gBattlerAttacker].specialDmg * 2;
++        gBattlescriptCurrInstr = cmd->nextInstr;
++    }
++    else
++    {
++        gBattlescriptCurrInstr = cmd->failInstr;
++    }
++}
++
+ void BS_JumpIfCantFling(void)
+ {
+     NATIVE_ARGS(u8 battler, const u8 *jumpInstr);
+diff --git a/src/battle_util.c b/src/battle_util.c
+index 5030d0e4..14e4c46c 100644
+--- a/src/battle_util.c
++++ b/src/battle_util.c
+@@ -8285,6 +8285,30 @@ static inline u32 CalcMoveBasePowerAfterModifiers(struct DamageContext *ctx)
+         if (moveType == TYPE_NORMAL && gBattleStruct->battlerState[battlerAtk].ateBoost && GetGenConfig(GEN_CONFIG_ATE_MULTIPLIER) >= GEN_7)
+             modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
+         break;
++    case ABILITY_ARCANIST:
++        if (moveType == TYPE_PSYCHIC)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
++        break;
++    case ABILITY_EERIE_AURA:
++        if (moveType == TYPE_GHOST)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
++        break;
++    case ABILITY_FAFNIR:
++        if (moveType == TYPE_ELECTRIC || moveType == TYPE_DRAGON)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.2));
++        break;
++    case ABILITY_OMNIHUNTER:
++        if (moveType == TYPE_FLYING)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
++        break;
++    case ABILITY_SINGULARITY:
++        if (moveType == TYPE_FIRE || moveType == TYPE_ICE)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
++        break;
++    case ABILITY_VENOM_BLOOD:
++        if (moveType == TYPE_POISON)
++            modifier = uq4_12_multiply(modifier, UQ_4_12(1.5));
++        break;
+     case ABILITY_PUNK_ROCK:
+         if (IsSoundMove(move))
+             modifier = uq4_12_multiply(modifier, UQ_4_12(1.3));
+@@ -11936,6 +11960,9 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
+     case ABILITY_VICTORY_STAR:
+         calc = (calc * 110) / 100; // 1.1 victory star boost
+         break;
++    case ABILITY_ABYSS_GRACE:
++        calc = (calc * 110) / 100; // The Pit: 1.1 team accuracy boost
++        break;
+     case ABILITY_HUSTLE:
+         if (IsBattleMovePhysical(move))
+             calc = (calc * 80) / 100; // 1.2 hustle loss
+@@ -11967,6 +11994,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
+         if (IsBattlerAlive(atkAlly))
+             calc = (calc * 110) / 100; // 1.1 ally's victory star boost
+         break;
++    case ABILITY_ABYSS_GRACE:
++        if (IsBattlerAlive(atkAlly))
++            calc = (calc * 110) / 100; // The Pit: ally's 1.1 team accuracy boost
++        break;
+     }
+ 
+     // Attacker's hold effect
+diff --git a/src/data/abilities.h b/src/data/abilities.h
+index ec3217cf..00babc75 100644
+--- a/src/data/abilities.h
++++ b/src/data/abilities.h
+@@ -2795,91 +2795,91 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
+         .name = _("Abyss Boost"),
+         .description = COMPOUND_STRING("KOing a foe ups highest stat."),
+         .description_short = COMPOUND_STRING("KOing a foe ups highest stat."),
+-        .aiRating = 0, // TODO
++        .aiRating = 5,
+     },
+     [ABILITY_ABYSS_GRACE] =
+     {
+         .name = _("Abyss Grace"),
+         .description = COMPOUND_STRING("Boosts team accuracy by 10%."),
+         .description_short = COMPOUND_STRING("Boosts team accuracy by 10%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_ARCANIST] =
+     {
+         .name = _("Arcanist"),
+         .description = COMPOUND_STRING("Boosts Psychic-type moves by 20%."),
+         .description_short = COMPOUND_STRING("Boosts Psychic-type moves by 20%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_BOTANIST] =
+     {
+         .name = _("Botanist"),
+         .description = COMPOUND_STRING("Herb & Potion moves gain priority."),
+         .description_short = COMPOUND_STRING("Herb & Potion moves gain priority."),
+-        .aiRating = 0, // TODO
++        .aiRating = 3,
+     },
+     [ABILITY_EERIE_AURA] =
+     {
+         .name = _("Eerie Aura"),
+         .description = COMPOUND_STRING("Boosts Ghost-type moves by 20%."),
+         .description_short = COMPOUND_STRING("Boosts Ghost-type moves by 20%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_FAFNIR] =
+     {
+         .name = _("Fafnir"),
+         .description = COMPOUND_STRING("Boosts Electr and Dragon by 20%."),
+         .description_short = COMPOUND_STRING("Boosts Electr and Dragon by 20%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_INTENSE_CARE] =
+     {
+         .name = _("Intense Care"),
+         .description = COMPOUND_STRING("Healing moves have priority."),
+         .description_short = COMPOUND_STRING("Healing moves have priority."),
+-        .aiRating = 0, // TODO
++        .aiRating = 3,
+     },
+     [ABILITY_OMNIHUNTER] =
+     {
+         .name = _("Omnihunter"),
+         .description = COMPOUND_STRING("Boosts Flying-type moves by 50%."),
+         .description_short = COMPOUND_STRING("Boosts Flying-type moves by 50%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 5,
+     },
+     [ABILITY_OMNI_CHASE] =
+     {
+         .name = _("Omni-Chase"),
+         .description = COMPOUND_STRING("50% Speed up during weather."),
+         .description_short = COMPOUND_STRING("50% Speed up during weather."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_RADIANCE] =
+     {
+         .name = _("Radiance"),
+         .description = COMPOUND_STRING("Normal moves become Aether."),
+         .description_short = COMPOUND_STRING("Normal moves become Aether."),
+-        .aiRating = 0, // TODO
++        .aiRating = 4,
+     },
+     [ABILITY_SINGULARITY] =
+     {
+         .name = _("Singularity"),
+         .description = COMPOUND_STRING("Boosts Fire & Ice-type moves by 25%."),
+         .description_short = COMPOUND_STRING("Boosts Fire & Ice-type moves by 25%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 5,
+     },
+     [ABILITY_SOVEREIGNTY] =
+     {
+         .name = _("Sovereignty"),
+         .description = COMPOUND_STRING("Order moves have priority."),
+         .description_short = COMPOUND_STRING("Order moves have priority."),
+-        .aiRating = 0, // TODO
++        .aiRating = 3,
+     },
+     [ABILITY_VENOM_BLOOD] =
+     {
+         .name = _("Venom Blood"),
+         .description = COMPOUND_STRING("Boosts Poison-type moves by 50%."),
+         .description_short = COMPOUND_STRING("Boosts Poison-type moves by 50%."),
+-        .aiRating = 0, // TODO
++        .aiRating = 5,
+     },
+ 
+ };
+diff --git a/src/data/battle_move_effects.h b/src/data/battle_move_effects.h
+index 51bbdba0..1caddff1 100644
+--- a/src/data/battle_move_effects.h
++++ b/src/data/battle_move_effects.h
+@@ -2248,4 +2248,149 @@ const struct BattleMoveEffect gBattleMoveEffects[NUM_BATTLE_MOVE_EFFECTS] =
+         .battleScript = BattleScript_EffectHit,
+         .battleTvScore = 0, // TODO: Assign points
+     },
++    [EFFECT_THEPIT_ABYSS_WRATH] =
++    {
++        .battleScript = BattleScript_EffectThePitAbyssWrath,
++        .battleTvScore = 4,
++    },
++
++    [EFFECT_THEPIT_ATROPHIC_EYE] =
++    {
++        .battleScript = BattleScript_EffectThePitAtrophicEye,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_BRIGHT_SONG] =
++    {
++        .battleScript = BattleScript_EffectThePitBrightSong,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_CELL_SHIELD] =
++    {
++        .battleScript = BattleScript_EffectThePitCellShield,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_KUMOGAKURE] =
++    {
++        .battleScript = BattleScript_EffectThePitKumogakure,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_LIFE_BALLAD] =
++    {
++        .battleScript = BattleScript_EffectThePitLifeBallad,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_LIFE_CONTROL] =
++    {
++        .battleScript = BattleScript_EffectThePitLifeControl,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_LIMIT_BREAK] =
++    {
++        .battleScript = BattleScript_EffectThePitLimitBreak,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_NOBLE_ORDER] =
++    {
++        .battleScript = BattleScript_EffectThePitNobleOrder,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_PHALANX_GUARD] =
++    {
++        .battleScript = BattleScript_EffectThePitPhalanxGuard,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_ROTTEN_EGG] =
++    {
++        .battleScript = BattleScript_EffectThePitRottenEgg,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_SHOGUN_DECOY] =
++    {
++        .battleScript = BattleScript_EffectThePitShogunDecoy,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_SPRING_TANGO] =
++    {
++        .battleScript = BattleScript_EffectThePitSpringTango,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_STRANGE_SEEDS] =
++    {
++        .battleScript = BattleScript_EffectThePitStrangeSeeds,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_SUMMER_TANGO] =
++    {
++        .battleScript = BattleScript_EffectThePitSummerTango,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_TIME_CIRCLE] =
++    {
++        .battleScript = BattleScript_EffectThePitTimeCircle,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_VEIL_ORDER] =
++    {
++        .battleScript = BattleScript_EffectThePitVeilOrder,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_VOLT_MASK] =
++    {
++        .battleScript = BattleScript_EffectThePitVoltMask,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_WAKING_CHAKRA] =
++    {
++        .battleScript = BattleScript_EffectThePitWakingChakra,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_WARDING_MIST] =
++    {
++        .battleScript = BattleScript_EffectThePitWardingMist,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
++
++    [EFFECT_THEPIT_WILT_MIASMA] =
++    {
++        .battleScript = BattleScript_EffectThePitWiltMiasma,
++        .battleTvScore = 1,
++        .encourageEncore = TRUE,
++    },
+ };
+diff --git a/src/data/moves_info.h b/src/data/moves_info.h
+index 0e9fb53f..d7f3fd04 100644
+--- a/src/data/moves_info.h
++++ b/src/data/moves_info.h
+@@ -22746,7 +22746,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Abyss Miasma"),
+         .description = COMPOUND_STRING("A wave of miasma\nhits the opponent.\nMay also lower\nthe target Sp. Def."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 72 "LowerSpDefense1HitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 95,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -22756,6 +22756,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 50%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SP_DEF_MINUS_1,
++            .chance = 50,
++        }),
+         // animation + sounds: scripts/move_animations/move_144_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22763,7 +22767,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Abyss Wrath"),
+         .description = COMPOUND_STRING("A retaliation move\nthat counters any\nhit with double\nthe damage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 89 "DoubleBackPhysicalDamage" - port battle script */,
++        .effect = EFFECT_THEPIT_ABYSS_WRATH,
+         .power = 1,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -22779,7 +22783,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Ad Nihilo"),
+         .description = COMPOUND_STRING("An etheric wind that\nresets stat changes\nto zero."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 12 "Unused0C" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -22788,6 +22792,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_HAZE,
++        }),
+         // animation + sounds: scripts/move_animations/move_360_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22795,7 +22802,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Akashic Nova"),
+         .description = COMPOUND_STRING("The user unleashes\nFafnir's power.\nHits both enemies\nbut causes recoil."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 198 "33Recoil" - port battle script */,
++        .effect = EFFECT_RECOIL,
+         .power = 100,
+         .type = TYPE_DRAGON,
+         .accuracy = 90,
+@@ -22805,6 +22812,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .recoilPercentage = 33 },
+         // animation + sounds: scripts/move_animations/move_447_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22812,7 +22820,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Arcane Blast"),
+         .description = COMPOUND_STRING("The foe is hit\nby a blast of arcane\nenergy that also\nhurts the user."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 198 "33Recoil" - port battle script */,
++        .effect = EFFECT_RECOIL,
+         .power = 110,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+@@ -22821,6 +22829,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .ignoresKingsRock = TRUE,
++        .argument = { .recoilPercentage = 33 },
+         // animation + sounds: scripts/move_animations/move_442_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22843,15 +22852,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Atrophic Eye"),
+         .description = COMPOUND_STRING("A mystic eye\nthat lowers Def\nand Sp. Def of\nthe opponents."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 227 "227" - port battle script */,
++        .effect = EFFECT_THEPIT_ATROPHIC_EYE,
+         .power = 0,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+         .pp = 20,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
+-        // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_439_*
+@@ -22861,7 +22869,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Azure Flood"),
+         .description = COMPOUND_STRING("Aether-charged ice\nparticles that may\ninflict frostbite."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 55 "Unused37" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -22870,6 +22878,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_370_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22877,7 +22889,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("BafflingStep"),
+         .description = COMPOUND_STRING("The foe is stomped\non its head.\nIt may also confuse\nthe target."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 76 "ConfusionHitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_NORMAL,
+         .accuracy = 100,
+@@ -22887,6 +22899,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_CONFUSION,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_470_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22894,14 +22910,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Bright Song"),
+         .description = COMPOUND_STRING("A song that sharply\nraises the team's\nAccuracy and the\npartner's Speed."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_BRIGHT_SONG,
+         .power = 0,
+         .type = TYPE_ELECTRIC,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -22913,7 +22929,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Call: Allies"),
+         .description = COMPOUND_STRING("Summons the allies\nfor an all-out hit.\nThe more allies,\nthe more damage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 154 "DamageBasedOnPartySize" - port battle script */,
++        .effect = EFFECT_BEAT_UP,
+         .power = 50,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -22930,7 +22946,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Call: Lion"),
+         .description = COMPOUND_STRING("Summons a Pyroar's\nspirit that may\nburn the opponent."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_FIRE,
+         .accuracy = 100,
+@@ -22940,6 +22956,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_BURN,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_430_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22947,7 +22967,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Call: Owl"),
+         .description = COMPOUND_STRING("Summons a Noctowl's\nspirit that may put\nthe enemy to sleep."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 218 "218" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 60,
+         .type = TYPE_FLYING,
+         .accuracy = 100,
+@@ -22957,6 +22977,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SLEEP,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_429_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22964,7 +22988,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Call: Snake"),
+         .description = COMPOUND_STRING("Summons an Ekans's\nspirit that may\nbadly poison\nthe opponent."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 202 "BadPoisonHitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 50,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -22974,6 +22998,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_TOXIC,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_428_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -22981,14 +23009,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Cell Shield"),
+         .description = COMPOUND_STRING("The user hardens\nits body to boost\nits Atk, Def and\nSp.Def by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 232 "232" - port battle script */,
++        .effect = EFFECT_THEPIT_CELL_SHIELD,
+         .power = 0,
+         .type = TYPE_WATER,
+         .accuracy = 0,
+         .pp = 10,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
+@@ -22999,7 +23027,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("ChainWeather"),
+         .description = COMPOUND_STRING("A violent slash that\nchanges its type\naccording to the\nweather."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 203 "WeatherBall" - port battle script */,
++        .effect = EFFECT_WEATHER_BALL,
+         .power = 70,
+         .type = TYPE_NORMAL,
+         .accuracy = 100,
+@@ -23016,7 +23044,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Chain Killer"),
+         .description = COMPOUND_STRING("An attack that does\ndouble damage to a\ntarget affected by\na status problem."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 220 "220" - port battle script */,
++        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+         .power = 60,
+         .type = TYPE_FLYING,
+         .accuracy = 100,
+@@ -23026,6 +23054,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .status = STATUS1_ANY },
+         // animation + sounds: scripts/move_animations/move_421_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23033,7 +23062,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Corkscrew"),
+         .description = COMPOUND_STRING("A melee bash\nattack that may\nparalyze the foe."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 60,
+         .type = TYPE_FIGHTING,
+         .accuracy = 100,
+@@ -23044,6 +23073,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_422_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23067,7 +23100,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Crazed Shout"),
+         .description = COMPOUND_STRING("The user emits a very\nloud cry that may\nconfuse the foes."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 76 "ConfusionHitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+@@ -23078,6 +23111,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_CONFUSION,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_401_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23085,7 +23122,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("DarknessFist"),
+         .description = COMPOUND_STRING("A cursed punch\nthat hits both\nopponents and\ndamages the user."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 198 "33Recoil" - port battle script */,
++        .effect = EFFECT_RECOIL,
+         .power = 100,
+         .type = TYPE_DARK,
+         .accuracy = 100,
+@@ -23096,6 +23133,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .recoilPercentage = 33 },
+         // animation + sounds: scripts/move_animations/move_426_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23103,7 +23141,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Demonic Rush"),
+         .description = COMPOUND_STRING("Slashes imbued\nwith miasma that\nmay paralyze\nthe target."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 100,
+         .type = TYPE_GHOST,
+         .accuracy = 90,
+@@ -23112,6 +23150,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_461_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23119,7 +23161,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Divine Storm"),
+         .description = COMPOUND_STRING("The opponents are hit\nby a violent storm\nthat breaks the sky.\nMay paralyze the foes."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 85,
+         .type = TYPE_ELECTRIC,
+         .accuracy = 100,
+@@ -23129,6 +23171,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_412_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23136,10 +23182,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("DoubleHammer"),
+         .description = COMPOUND_STRING("A sequence of 2\nearth-shattering\npunches is thrown\nat the enemy."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_STEEL,
+         .accuracy = 100,
++        .strikeCount = 2,
+         .pp = 15,
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+@@ -23153,7 +23200,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Electroshock"),
+         .description = COMPOUND_STRING("A flare of\nelectricity\nthat may burn\nthe opponent."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 75,
+         .type = TYPE_ELECTRIC,
+         .accuracy = 100,
+@@ -23162,6 +23209,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_BURN,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_131_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23169,7 +23220,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Energy Edge"),
+         .description = COMPOUND_STRING("A reckless, etheric\ntackle that may\nlower the opponent's\nDef stat."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 69 "LowerDefense1HitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -23179,6 +23230,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_364_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23186,14 +23241,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Etheric Boon"),
+         .description = COMPOUND_STRING("The user charges up\nwith etheric energy.\nRaises its Atk\nand Sp. Atk stat."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 14 "Unused0E" - port battle script */,
++        .effect = EFFECT_ATTACK_SPATK_UP,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 0,
+         .pp = 20,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23205,7 +23260,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("First Press"),
+         .description = COMPOUND_STRING("Powerful move, but it\nonly works the first\nturn the user is in\nbattle."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 216 "216" - port battle script */,
++        .effect = EFFECT_FIRST_TURN_ONLY,
+         .power = 90,
+         .type = TYPE_BUG,
+         .accuracy = 100,
+@@ -23221,14 +23276,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Flare Mask"),
+         .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Atk and\nSp. Atk by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 230 "230" - port battle script */,
++        .effect = EFFECT_ATTACK_SPATK_UP,
+         .power = 0,
+         .type = TYPE_FIRE,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_454_*
+@@ -23238,7 +23293,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("FreezeRipple"),
+         .description = COMPOUND_STRING("The foes are hit\nby a freezing howl\nthat may inflict\nfrostbite."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 95,
+         .type = TYPE_ICE,
+         .accuracy = 100,
+@@ -23248,6 +23303,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_450_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23255,14 +23314,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Freeze Mask"),
+         .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Def and\nSp. Def by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 230 "230" - port battle script */,
++        .effect = EFFECT_COSMIC_POWER,
+         .power = 0,
+         .type = TYPE_ICE,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_455_*
+@@ -23272,16 +23331,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Frost Curse"),
+         .description = COMPOUND_STRING("The user curses\nthe opponent in order\nto inflict frostbite."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 215 "215" - port battle script */,
++        .effect = EFFECT_NON_VOLATILE_STATUS,
+         .power = 0,
+         .type = TYPE_ICE,
+         .accuracy = 85,
+         .pp = 15,
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .magicCoatAffected = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .nonVolatileStatus = MOVE_EFFECT_FROSTBITE },
+         // animation + sounds: scripts/move_animations/move_411_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23289,7 +23349,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Fukubari"),
+         .description = COMPOUND_STRING("A piercing attack\nmade with ninja tools\nthat may put the\nopponent to sleep."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 218 "218" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 65,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -23300,6 +23360,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SLEEP,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_414_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23307,7 +23371,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("HarvestParty"),
+         .description = COMPOUND_STRING("An attack that does\ndouble damage to a\ntarget affected by\na status problem."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 220 "220" - port battle script */,
++        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+         .power = 80,
+         .type = TYPE_GROUND,
+         .accuracy = 100,
+@@ -23317,6 +23381,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .status = STATUS1_ANY },
+         // animation + sounds: scripts/move_animations/move_435_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23324,18 +23389,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Heal"),
+         .description = COMPOUND_STRING("The user\nrestores 50%\nof its target's\nMax health."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 157 "RestoreHPOrAllyInField" - port battle script */,
++        .effect = EFFECT_HEAL_PULSE,
+         .power = 0,
+         .type = TYPE_NORMAL,
+         .accuracy = 0,
+         .pp = 10,
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_PHYSICAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .healingMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_160_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23343,7 +23409,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Icy Aria"),
+         .description = COMPOUND_STRING("A strong hailstorm\nhits the opponents.\nIt may inflict\nfrostbite."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_ICE,
+         .accuracy = 100,
+@@ -23354,6 +23420,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_406_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23378,7 +23448,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Izuna"),
+         .description = COMPOUND_STRING("A ninja-style\nslash attack that\nmay paralyze\nthe opponent."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 50,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -23389,6 +23459,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_413_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23396,14 +23470,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Kumogakure"),
+         .description = COMPOUND_STRING("A ninja art that\nhalves the user's HP\nto sharply increase\nits Evasion."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 219 "219" - port battle script */,
++        .effect = EFFECT_THEPIT_KUMOGAKURE,
+         .power = 0,
+         .type = TYPE_DARK,
+         .accuracy = 0,
+         .pp = 10,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .ignoresProtect = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23415,7 +23489,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Leading Blow"),
+         .description = COMPOUND_STRING("An attack that hits\nanother time if the\ntarget is BRN, PAR,\nPSN or SLP."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 222 "222" - port battle script */,
++        .effect = EFFECT_DOUBLE_POWER_ON_ARG_STATUS,
+         .power = 70,
+         .type = TYPE_FIGHTING,
+         .accuracy = 100,
+@@ -23425,6 +23499,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .status = STATUS1_ANY },
+         // animation + sounds: scripts/move_animations/move_425_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23432,14 +23507,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Life Ballad"),
+         .description = COMPOUND_STRING("A song that raises\nthe team's Speed\nand heals their\nstatus condition."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_LIFE_BALLAD,
+         .power = 0,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23451,18 +23526,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Life Control"),
+         .description = COMPOUND_STRING("Restores half of the\nuser's maximum HP\nand raises\nthe user's Speed."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 63 "Unused3F" - port battle script */,
++        .effect = EFFECT_THEPIT_LIFE_CONTROL,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 0,
+         .pp = 5,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .healingMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_381_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23485,14 +23561,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Limit Break"),
+         .description = COMPOUND_STRING("Raises the user's\noffensive stats,\nat the cost of its\ndefensive stats."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 212 "RaiseAttack1Speed1Primary" - port battle script */,
++        .effect = EFFECT_THEPIT_LIMIT_BREAK,
+         .power = 0,
+         .type = TYPE_DRAGON,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23504,16 +23580,18 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Lullaby"),
+         .description = COMPOUND_STRING("A soothing song\nthat may put the\nopponents to sleep."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_NON_VOLATILE_STATUS,
+         .power = 0,
+         .type = TYPE_NORMAL,
+         .accuracy = 50,
+         .pp = 20,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_PHYSICAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
++        .soundMove = TRUE,
++        .argument = { .nonVolatileStatus = MOVE_EFFECT_SLEEP },
+         // animation + sounds: scripts/move_animations/move_436_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23521,7 +23599,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Megalodive"),
+         .description = COMPOUND_STRING("Earth-shattering\ntail slap.\nIt may make the\nfoe flinch."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -23531,6 +23609,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FLINCH,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_369_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23538,7 +23620,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Mesmerize"),
+         .description = COMPOUND_STRING("The foe is hit by\na psychic attack\nthat may put it\nto sleep."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 218 "218" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 75,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+@@ -23548,6 +23630,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 30%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SLEEP,
++            .chance = 30,
++        }),
+         // animation + sounds: scripts/move_animations/move_433_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23555,7 +23641,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Meteor"),
+         .description = COMPOUND_STRING("A mana meteor\nthat also sharply\nreduces the user's\nSp. Atk stat."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 204 "LowerSpAttack2Self" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 140,
+         .type = TYPE_AETHER,
+         .accuracy = 90,
+@@ -23564,6 +23650,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SP_ATK_MINUS_2,
++            .self = TRUE,
++        }),
+         // animation + sounds: scripts/move_animations/move_358_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23587,14 +23677,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Noble Order"),
+         .description = COMPOUND_STRING("The user inspires\nits underlings to\nboost the team's\nSp. Atk by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 224 "224" - port battle script */,
++        .effect = EFFECT_THEPIT_NOBLE_ORDER,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23606,10 +23696,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Ocean Rave"),
+         .description = COMPOUND_STRING("The foes are hit by\na violent tsunami.\nIt has a high\ncritical-hit ratio."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 120,
+         .type = TYPE_WATER,
+         .accuracy = 80,
++        .criticalHitStage = 1,
+         .pp = 5,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+@@ -23622,10 +23713,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("One-TwoPunch"),
+         .description = COMPOUND_STRING("A left hand jab\nfollowed by a right\ncross. Hits 2 times."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 40,
+         .type = TYPE_FIGHTING,
+         .accuracy = 100,
++        .strikeCount = 2,
+         .pp = 20,
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+@@ -23639,7 +23731,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Origin Crush"),
+         .description = COMPOUND_STRING("A primordial blow\nthat may make\nthe foes flinch."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 100,
+         .type = TYPE_DARK,
+         .accuracy = 100,
+@@ -23649,6 +23741,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FLINCH,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_469_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23673,14 +23769,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("PhalanxGuard"),
+         .description = COMPOUND_STRING("A defensive formation\nthat boosts the team's\nDefense stat.\nAlways strikes first."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_PHALANX_GUARD,
+         .power = 0,
+         .type = TYPE_FIGHTING,
+         .accuracy = 0,
+         .pp = 20,
+         .target = MOVE_TARGET_USER,
+         .priority = 1,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23692,7 +23788,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Potion Bomb"),
+         .description = COMPOUND_STRING("The user throws\nan explosive potion\nthat may make\nthe foe flinch."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 235 "235" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+@@ -23701,6 +23797,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FLINCH,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_473_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23728,7 +23828,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Radiant Star"),
+         .description = COMPOUND_STRING("A huge sphere of\nmana that may lower\nthe target's Speed."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 70 "LowerSpeed1HitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -23737,6 +23837,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_SPD_MINUS_1,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_357_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23760,7 +23864,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Rock Hammer"),
+         .description = COMPOUND_STRING("The foe is hit by\na hammer blow that\nmay lower its Def\nstat by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 69 "LowerDefense1HitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_ROCK,
+         .accuracy = 100,
+@@ -23770,6 +23874,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_475_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23777,14 +23885,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Rotten Egg"),
+         .description = COMPOUND_STRING("The user throws a\nrotten egg that\nlowers Atk and Sp.Atk\nof the opponents."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 225 "225" - port battle script */,
++        .effect = EFFECT_THEPIT_ROTTEN_EGG,
+         .power = 0,
+         .type = TYPE_NORMAL,
+         .accuracy = 100,
+         .pp = 20,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_PHYSICAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_434_*
+@@ -23794,7 +23902,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Royal Order"),
+         .description = COMPOUND_STRING("The more the target's\nstats have been\nraised, the stronger\nthe move is."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 229 "229" - port battle script */,
++        .effect = EFFECT_PUNISHMENT,
+         .power = 65,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+@@ -23828,7 +23936,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("SealingLight"),
+         .description = COMPOUND_STRING("The user emits an\nimmense amount of\netheric energy that\nhalves the foe's HP."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_FIXED_PERCENT_DAMAGE,
+         .power = 1,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -23838,6 +23946,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .argument = { .damagePercentage = 50 },
+         // animation + sounds: scripts/move_animations/move_372_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23861,14 +23970,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Shogun Decoy"),
+         .description = COMPOUND_STRING("The user draws\nattention to itself\nand boosts its\nAttack and Defense."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 21 "Unused15" - port battle script */,
++        .effect = EFFECT_THEPIT_SHOGUN_DECOY,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+         .pp = 5,
+         .target = MOVE_TARGET_USER,
+         .priority = 2,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -23880,10 +23989,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("SlashRampage"),
+         .description = COMPOUND_STRING("The foe is hit by\nviolent slashes.\nIt has a high\ncritical-hit ratio."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 75,
+         .type = TYPE_FLYING,
+         .accuracy = 100,
++        .criticalHitStage = 1,
+         .pp = 15,
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+@@ -23897,7 +24007,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Solar Flame"),
+         .description = COMPOUND_STRING("A reckless move\nthat blasts foes\nwith a solar\ntempest."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 198 "33Recoil" - port battle script */,
++        .effect = EFFECT_RECOIL,
+         .power = 130,
+         .type = TYPE_FIRE,
+         .accuracy = 100,
+@@ -23905,6 +24015,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
++        .argument = { .recoilPercentage = 33 },
+         // animation + sounds: scripts/move_animations/move_462_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23961,18 +24072,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Spring Tango"),
+         .description = COMPOUND_STRING("A dance that raises\nthe user's Speed\nand the partner's\nDef and Sp. Def."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_SPRING_TANGO,
+         .power = 0,
+         .type = TYPE_GRASS,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .danceMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_390_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -23980,7 +24092,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Star Drop"),
+         .description = COMPOUND_STRING("Causes damage equal\nto the user's level\nand decreases\nthe target's Defense."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 64 "Unused40" - port battle script */,
++        .effect = EFFECT_LEVEL_DAMAGE,
+         .power = 1,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+@@ -23990,6 +24102,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_DEF_MINUS_1,
++        }),
+         // animation + sounds: scripts/move_animations/move_382_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24014,14 +24129,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("StrangeSeeds"),
+         .description = COMPOUND_STRING("The user plants\nseeds at the enemies'\nfeet that lower their\nSpeed and Evasion."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 226 "226" - port battle script */,
++        .effect = EFFECT_THEPIT_STRANGE_SEEDS,
+         .power = 0,
+         .type = TYPE_GRASS,
+         .accuracy = 100,
+         .pp = 15,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_437_*
+@@ -24031,7 +24146,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Subzero Gale"),
+         .description = COMPOUND_STRING("An icy wind hits\nboth opponents.\nIt may also\ninflict frostbite."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_ICE,
+         .accuracy = 100,
+@@ -24042,6 +24157,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_FREEZE_OR_FROSTBITE,
++            .chance = 40,
++        }),
+         // animation + sounds: scripts/move_animations/move_410_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24049,18 +24168,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Summer Tango"),
+         .description = COMPOUND_STRING("A dance that raises\nthe user's Evasion\nand the partner's\nAtk and Sp. Atk."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_SUMMER_TANGO,
+         .power = 0,
+         .type = TYPE_FIRE,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .danceMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_389_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24068,7 +24188,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Tagen Battou"),
+         .description = COMPOUND_STRING("The foe is hit by\nviolent slashes.\nIt sharply reduces\nthe user's Evasion."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 217 "217" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 100,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -24079,6 +24199,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_EVS_MINUS_2,
++            .self = TRUE,
++        }),
+         // animation + sounds: scripts/move_animations/move_416_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24086,14 +24210,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Time Circle"),
+         .description = COMPOUND_STRING("Accelerates time\nto boost the team's\nSpeed by 1. Always\nstrikes first."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 110 "Unused6E" - port battle script */,
++        .effect = EFFECT_THEPIT_TIME_CIRCLE,
+         .power = 0,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 1,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+@@ -24104,7 +24228,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Titan Killer"),
+         .description = COMPOUND_STRING("The more HP the\ntarget has, the\ngreater the power."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 221 "221" - port battle script */,
++        .effect = EFFECT_POWER_BASED_ON_TARGET_HP,
+         .power = 1,
+         .type = TYPE_FIGHTING,
+         .accuracy = 100,
+@@ -24121,7 +24245,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Toxic Herb"),
+         .description = COMPOUND_STRING("Venom-imbued petals\nthat may badly\npoison are thrown\nat the foes."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 236 "236" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 70,
+         .type = TYPE_GRASS,
+         .accuracy = 100,
+@@ -24130,6 +24254,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
+         // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_TOXIC,
++            .chance = 40,
++        }),
+         // animation + sounds: scripts/move_animations/move_471_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24137,7 +24265,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Toxic Reap"),
+         .description = COMPOUND_STRING("A poison-imbued\nscythe slash that\nmay badly poison\nthe foe."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 202 "BadPoisonHitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 75,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -24148,6 +24276,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 50%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .mirrorMoveBanned = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_TOXIC,
++            .chance = 50,
++        }),
+         // animation + sounds: scripts/move_animations/move_394_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24155,14 +24287,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Veil Order"),
+         .description = COMPOUND_STRING("The user inspires\nits underlings to\nboost the team's\nSp. Def by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 224 "224" - port battle script */,
++        .effect = EFFECT_THEPIT_VEIL_ORDER,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -24174,7 +24306,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Venom Gust"),
+         .description = COMPOUND_STRING("A poisonous wind hits\nboth opponents.\nIt may also badly\npoison the foes."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 202 "BadPoisonHitChance" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_POISON,
+         .accuracy = 100,
+@@ -24184,6 +24316,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 40%  -> port to .additionalEffects
+         .ignoresKingsRock = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_TOXIC,
++            .chance = 40,
++        }),
+         // animation + sounds: scripts/move_animations/move_407_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24191,14 +24327,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Volt Mask"),
+         .description = COMPOUND_STRING("The user wears a\nmask that boosts\nits Speed and\nAccuracy by 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 230 "230" - port battle script */,
++        .effect = EFFECT_THEPIT_VOLT_MASK,
+         .power = 0,
+         .type = TYPE_ELECTRIC,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+         // animation + sounds: scripts/move_animations/move_453_*
+@@ -24208,7 +24344,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Volt Wings"),
+         .description = COMPOUND_STRING("The foe is struck\nwith large, electric\nwings that may also\ninflict paralysis."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 75,
+         .type = TYPE_ELECTRIC,
+         .accuracy = 100,
+@@ -24219,6 +24355,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 20%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .mirrorMoveBanned = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 20,
++        }),
+         // animation + sounds: scripts/move_animations/move_399_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24226,18 +24366,19 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("WakingChakra"),
+         .description = COMPOUND_STRING("The user recovers\nHP every turn and\nraises its speed\nby 1 stage."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 223 "223" - port battle script */,
++        .effect = EFFECT_THEPIT_WAKING_CHAKRA,
+         .power = 0,
+         .type = TYPE_PSYCHIC,
+         .accuracy = 100,
+         .pp = 10,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+         .ignoresKingsRock = TRUE,
++        .healingMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_427_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24245,14 +24386,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Warding Mist"),
+         .description = COMPOUND_STRING("An etheric mist\nthat protects and\nheals the party\nfrom status problems."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 228 "228" - port battle script */,
++        .effect = EFFECT_THEPIT_WARDING_MIST,
+         .power = 0,
+         .type = TYPE_AETHER,
+         .accuracy = 100,
+         .pp = 10,
+         .target = MOVE_TARGET_USER,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         // secondaryEffectChance (gen3) = 100%  -> port to .additionalEffects
+         .snatchAffected = TRUE,
+         .ignoresKingsRock = TRUE,
+@@ -24263,7 +24404,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Water Bomb"),
+         .description = COMPOUND_STRING("The user summons a\ntempest to hit\nthe enemy with\na water bomb."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 214 "214" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 70,
+         .type = TYPE_WATER,
+         .accuracy = 100,
+@@ -24296,7 +24437,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Weird Potion"),
+         .description = COMPOUND_STRING("A potion that causes\ndamage to the foe.\nIf it targets an ally,\nit heals instead."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 234 "234" - port battle script */,
++        .effect = EFFECT_HIT_ENEMY_HEAL_ALLY,
+         .power = 80,
+         .type = TYPE_GRASS,
+         .accuracy = 100,
+@@ -24304,6 +24445,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .target = MOVE_TARGET_SELECTED,
+         .priority = 0,
+         .category = DAMAGE_CATEGORY_SPECIAL,
++        .healingMove = TRUE,
+         // animation + sounds: scripts/move_animations/move_472_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24311,7 +24453,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Whip Ripper"),
+         .description = COMPOUND_STRING("The user violently\nwhirls its vines to\nlash the foe. May\ninflict paralysis."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 80,
+         .type = TYPE_GROUND,
+         .accuracy = 100,
+@@ -24322,6 +24464,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         // secondaryEffectChance (gen3) = 25%  -> port to .additionalEffects
+         .makesContact = TRUE,
+         .mirrorMoveBanned = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 25,
++        }),
+         // animation + sounds: scripts/move_animations/move_402_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24329,14 +24475,14 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Wilt. Miasma"),
+         .description = COMPOUND_STRING("A wave of miasma\nhits both opponents\nand reduces their\nAccuracy and Evasion."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 131 "Unused83" - port battle script */,
++        .effect = EFFECT_THEPIT_WILT_MIASMA,
+         .power = 0,
+         .type = TYPE_DARK,
+         .accuracy = 0,
+         .pp = 15,
+         .target = MOVE_TARGET_BOTH,
+         .priority = 0,
+-        .category = DAMAGE_CATEGORY_SPECIAL,
++        .category = DAMAGE_CATEGORY_STATUS,
+         .ignoresProtect = TRUE,
+         .snatchAffected = TRUE,
+         .mirrorMoveBanned = TRUE,
+@@ -24348,7 +24494,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Wing Talon"),
+         .description = COMPOUND_STRING("Strikes the foe with\nsharp wing claws\nthat may paralyze\nthe target."),
+-        .effect = EFFECT_PLACEHOLDER /* FireRed-only imported effect */,
++        .effect = EFFECT_HIT,
+         .power = 85,
+         .type = TYPE_FLYING,
+         .accuracy = 100,
+@@ -24358,6 +24504,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+         .category = DAMAGE_CATEGORY_PHYSICAL,
+         // secondaryEffectChance (gen3) = 15%  -> port to .additionalEffects
+         .makesContact = TRUE,
++        .additionalEffects = ADDITIONAL_EFFECTS({
++            .moveEffect = MOVE_EFFECT_PARALYSIS,
++            .chance = 15,
++        }),
+         // animation + sounds: scripts/move_animations/move_474_*
+         .battleAnimScript = gBattleAnimMove_Tackle,
+     },
+@@ -24381,7 +24531,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
+     {
+         .name = COMPOUND_STRING("Yggdraslash"),
+         .description = COMPOUND_STRING("An attack imbued\nwith sacred power.\nAlways strikes first."),
+-        .effect = EFFECT_PLACEHOLDER /* gen3 effect 103 "NormalPlusPriority" - port battle script */,
++        .effect = EFFECT_HIT,
+         .power = 90,
+         .type = TYPE_AETHER,
+         .accuracy = 100,

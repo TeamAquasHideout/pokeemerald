@@ -1,0 +1,92 @@
+@ animation for MOVE_WILD_CHARGE (@1CCD79)
+section0: # 1CCD79
+  loadspritegfx 0x2711
+  loadspritegfx 0x27E4
+  loadspritegfx 0x27E5
+  monbg anim_attacker
+  setalpha 12 8
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0000 0x0008 0x0000
+  waitforvisualfinish
+  createsprite <3E621C> 1 
+{
+tileTag:     10212
+paletteTag:  10212
+oam:         <3ACB60>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E61C8>
+callback:    <0AE7DD>
+}
+  playsewithpan se_m_charge sound_pan_attacker
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  delay 8
+  createvisualtask <0AEA11> 5 0x0000
+  playsewithpan se_m_thunderbolt sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <0AEA11> 5 0x0001
+  playsewithpan se_m_thunderbolt sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0AEA11> 5 0x0002
+  playsewithpan se_m_thunderbolt sound_pan_attacker
+  waitforvisualfinish
+  createvisualtask <0AEA11> 5 0x0003
+  playsewithpan se_m_thunderbolt sound_pan_target
+  waitforvisualfinish
+  createvisualtask <0AEA11> 5 0x0004
+  playsewithpan se_m_thunderbolt sound_pan_attacker
+  delay 8
+  createvisualtask <098B1D> 2 0x0001 0x000A 0x0000 0x0012 0x0001
+  playsewithpan se_m_self_destruct sound_pan_target
+  createsprite <3E6204> 2 0x0001 0x0010 0x0010
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  delay 2
+  createsprite <3E6204> 2 0x0001 0xFFF0 0xFFF0
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  delay 8
+  createvisualtask <0AE8A1> 5 
+  waitforvisualfinish
+  createvisualtask <098B1D> 2 0x0000 0x0003 0x0000 0x0009 0x0001
+  playsewithpan se_m_thunderbolt2 sound_pan_attacker
+  createsprite <3E6204> 2 0x0000 0x0010 0x0010
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  delay 2
+  createsprite <3E6204> 2 0x0000 0xFFF0 0xFFF0
+{
+tileTag:     10213
+paletteTag:  10213
+oam:         <3AC9D8>
+anims:       <3E6200>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0AE775>
+}
+  waitforvisualfinish
+  createvisualtask <0BA7F9> 10 0x0001 0x0000 0x0008 0x0000 0x0000
+  waitforvisualfinish
+  end

@@ -1,0 +1,12 @@
+@ battle script for gen3 move-effect 165 (Torment) @1D7EB1
+section0: # 1D7EB1
+  attackcanceler
+  attackstring
+  ppreduce
+  accuracycheck <1D7DF2> 0
+  settorment <1D7DF2>
+  attackanimation
+  waitanimation
+  printstring 169
+  waitmessage 64
+  goto <1D694E>

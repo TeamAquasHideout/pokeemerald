@@ -339,6 +339,29 @@
 
 #define ABILITIES_COUNT_GEN9 311
 
-#define ABILITIES_COUNT ABILITIES_COUNT_GEN9
+// Aliases for FireRed-import ability spellings.
+#define ABILITY_COMPOUNDEYES ABILITY_COMPOUND_EYES // ThePit FireRed import alias
+#define ABILITY_LIGHTNINGROD ABILITY_LIGHTNING_ROD // ThePit FireRed import alias
+#define ABILITY_MEGA_LAUNCHR ABILITY_MEGA_LAUNCHER // ThePit FireRed import alias
+#define ABILITY_RUNAWAY ABILITY_RUN_AWAY // ThePit FireRed import alias
+
+// Custom abilities imported from the FireRed The Pit ROM hack.
+#define ABILITY_THEPIT_IMPORT_FIRST 311
+#define ABILITY_ABYSS_BOOST                    311
+#define ABILITY_ABYSS_GRACE                    312
+#define ABILITY_ARCANIST                       313
+#define ABILITY_BOTANIST                       314
+#define ABILITY_EERIE_AURA                     315
+#define ABILITY_FAFNIR                         316
+#define ABILITY_INTENSE_CARE                   317
+#define ABILITY_OMNIHUNTER                     318
+#define ABILITY_OMNI_CHASE                     319
+#define ABILITY_RADIANCE                       320
+#define ABILITY_SINGULARITY                    321
+#define ABILITY_SOVEREIGNTY                    322
+#define ABILITY_VENOM_BLOOD                    323
+#define ABILITIES_COUNT_THEPIT_IMPORT 324
+
+#define ABILITIES_COUNT ABILITIES_COUNT_THEPIT_IMPORT
 
 #endif  // GUARD_CONSTANTS_ABILITIES_H

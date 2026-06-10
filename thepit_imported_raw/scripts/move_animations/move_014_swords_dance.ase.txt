@@ -1,0 +1,24 @@
+@ animation for MOVE_SWORDS_DANCE (@1C8644)
+section0: # 1C8644
+  loadspritegfx 0x2715
+  monbg anim_attacker
+  setalpha 12 8
+  playsewithpan se_m_swords_dance sound_pan_attacker
+  createvisualtask <09907D> 2 0x0000 0x0010 0x0006 0x0001 0x0004
+  createsprite <3E3BF8> 2 0x0000 0x0000
+{
+tileTag:     10005
+paletteTag:  10005
+oam:         <3ACBA0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E3BF4>
+callback:    <0A727D>
+}
+  delay 22
+  createvisualtask <0B9F6D> 2 0x2715 0x0002 0x0002 0x7FF2 0x0010 0x0000 0x0000
+  waitforvisualfinish
+  clearmonbg anim_attacker
+  blendoff
+  delay 1
+  end

@@ -1,0 +1,56 @@
+@ animation for MOVE_TWINEEDLE (@1C7A82)
+section0: # 1C7A82
+  loadspritegfx 0x27B1
+  loadspritegfx 0x2797
+  monbg anim_target
+  splitbgprio anim_target
+  setalpha 12 8
+  loopsewithpan se_m_razor_wind2 sound_pan_attacker 6 2
+  createsprite <3E72F4> 130 0x000A 0xFFFC 0x0000 0xFFFC 0x0014
+{
+tileTag:     10161
+paletteTag:  10161
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4365>
+}
+  createsprite <3E72F4> 130 0x0014 0x000C 0x000A 0x000C 0x0014
+{
+tileTag:     10161
+paletteTag:  10161
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B4365>
+}
+  delay 20
+  createvisualtask <098B1D> 2 0x0001 0x0002 0x0000 0x0005 0x0001
+  createsprite <3E7C20> 3 0x0000 0xFFFC 0x0001 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA5F9>
+}
+  loopsewithpan se_m_horn_attack sound_pan_target 5 2
+  delay 1
+  createsprite <3E7C20> 3 0x000A 0x000C 0x0001 0x0003
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA5F9>
+}
+  waitforvisualfinish
+  clearmonbg anim_target
+  blendoff
+  end

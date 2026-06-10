@@ -1,0 +1,19 @@
+@ animation for MOVE_PANIC_SPORES (@1B0A970)
+section0: # 1B0A970
+  fadetobg bg_ghost
+  waitbgfadein
+  loadspritegfx 0x27AE
+  monbg anim_def_partner
+  setalpha 12 8
+  createvisualtask <0A28C5> 2 
+  loopsewithpan se_m_poison_powder sound_pan_target 16 11
+  call <1D041A>
+  call <1D041A>
+  call <1D041A>
+  waitforvisualfinish
+  delay 1
+  clearmonbg anim_def_partner
+  blendoff
+  restorebg
+  waitbgfadein
+  end

@@ -1,0 +1,66 @@
+@ animation for MOVE_LEECH_LIFE (@1CF085)
+section0: # 1CF085
+  loadspritegfx 0x27B1
+  loadspritegfx 0x27A3
+  delay 1
+  loadspritegfx 0x272F
+  loadspritegfx 0x2797
+  monbg anim_def_partner
+  splitbgprio_foes anim_target
+  setalpha 12 8
+  delay 1
+  createsprite <3E7278> 2 0xFFEC 0x000F 0x000C
+{
+tileTag:     10161
+paletteTag:  10161
+oam:         <3ACA30>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E726C>
+callback:    <0B407D>
+}
+  waitforvisualfinish
+  createsprite <3E7C08> 2 0x0000 0x0000 0x0001 0x0002
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  playsewithpan se_m_absorb sound_pan_target
+  delay 2
+  createvisualtask <0989F9> 5 0x0001 0x0000 0x0005 0x0005 0x0001
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0000 0x0007 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  call <1CEC44>
+  waitforvisualfinish
+  delay 15
+  call <1D56C9>
+  waitforvisualfinish
+  createsprite <3E7B24> 2 0x0001 0x0001 0x0007 0x0000 0x0000
+{
+tileTag:     0
+paletteTag:  0
+oam:         <231CE4>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0B99D5>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  blendoff
+  end

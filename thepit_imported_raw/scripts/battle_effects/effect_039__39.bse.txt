@@ -1,0 +1,7 @@
+@ battle script for gen3 move-effect 39 (39) @1D6F01
+section0: # 1D6F01
+  jumpifstatus2 attacker 4096 <1D6F29>
+  jumpifword & 0x02023DD0 512 <1D6F29>
+  setbyte 0x02023FD3 0
+  call <1D6F58>
+  goto <1D694E>

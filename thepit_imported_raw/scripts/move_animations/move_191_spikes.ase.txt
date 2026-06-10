@@ -1,0 +1,44 @@
+@ animation for MOVE_SPIKES (@1CF503)
+section0: # 1CF503
+  loadspritegfx 0x27A8
+  monbg anim_def_partner
+  playsewithpan se_m_jump_kick sound_pan_attacker
+  waitplaysewithpan se_m_horn_attack sound_pan_target 28
+  createsprite <3FEEFC> 130 0x0014 0x0000 0x0000 0x0018 0x001E
+{
+tileTag:     10152
+paletteTag:  10152
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DE8B1>
+}
+  delay 10
+  playsewithpan se_m_jump_kick sound_pan_attacker
+  waitplaysewithpan se_m_horn_attack sound_pan_target 28
+  createsprite <3FEEFC> 130 0x0014 0x0000 0xFFE8 0x0018 0x001E
+{
+tileTag:     10152
+paletteTag:  10152
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DE8B1>
+}
+  delay 10
+  waitplaysewithpan se_m_horn_attack sound_pan_target 28
+  createsprite <3FEEFC> 130 0x0014 0x0000 0x0018 0x0018 0x001E
+{
+tileTag:     10152
+paletteTag:  10152
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0DE8B1>
+}
+  waitforvisualfinish
+  clearmonbg anim_def_partner
+  end

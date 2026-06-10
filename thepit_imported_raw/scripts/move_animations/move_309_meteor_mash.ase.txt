@@ -1,0 +1,70 @@
+@ animation for MOVE_METEOR_MASH (@1D32D6)
+section0: # 1D32D6
+  loadspritegfx 0x27F9
+  loadspritegfx 0x2797
+  loadspritegfx 0x279F
+  panse se_m_barrier sound_pan_attacker sound_pan_target 3 0
+  fadetobg bg_cosmic
+  waitbgfadein
+  waitforvisualfinish
+  createsprite <3FF6BC> 131 0xFFD0 0xFFC0 0x0048 0x0020 0x001E
+{
+tileTag:     10233
+paletteTag:  10233
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 10
+  createsprite <3FF6BC> 131 0xFF90 0xFFC0 0x0008 0x0020 0x001E
+{
+tileTag:     10233
+paletteTag:  10233
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 40
+  createsprite <3E678C> 131 0x0000 0x0000 0x0000 0x001E
+{
+tileTag:     10143
+paletteTag:  10143
+oam:         <3ACA98>
+anims:       <3E66CC>
+images:      <null>
+affineAnims: <3E6788>
+callback:    <0B0CED>
+}
+  createsprite <3FF6BC> 131 0xFFB0 0xFFC0 0x0028 0x0020 0x001E
+{
+tileTag:     10233
+paletteTag:  10233
+oam:         <3AC9D0>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <231CFC>
+callback:    <0E321D>
+}
+  delay 20
+  playsewithpan se_m_vital_throw2 sound_pan_target
+  createsprite <3E7C08> 131 0x0000 0x0000 0x0001 0x0001
+{
+tileTag:     10135
+paletteTag:  10135
+oam:         <3ACB58>
+anims:       <231CF0>
+images:      <null>
+affineAnims: <3E7BF8>
+callback:    <0BA561>
+}
+  createvisualtask <098B1D> 2 0x0001 0x0005 0x0000 0x0014 0x0001
+  waitforvisualfinish
+  delay 10
+  restorebg
+  waitbgfadein
+  waitforvisualfinish
+  end
