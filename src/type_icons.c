@@ -39,21 +39,21 @@ const struct Coords16 sTypeIconPositions[][2] =
 {
     [B_POSITION_PLAYER_LEFT] =
     {
-        [FALSE] = {221, 86},
-        [TRUE] = {144, 71},
+        [FALSE] = {218, 85},
+        [TRUE] = {141, 70},
     },
     [B_POSITION_OPPONENT_LEFT] =
     {
-        [FALSE] = {20, 26},
-        [TRUE] = {97, 14},
+        [FALSE] = {18, 25},
+        [TRUE] = {102, 13},
     },
     [B_POSITION_PLAYER_RIGHT] =
     {
-        [TRUE] = {156, 96},
+        [TRUE] = {150, 96},
     },
     [B_POSITION_OPPONENT_RIGHT] =
     {
-        [TRUE] = {85, 39},
+        [TRUE] = {90, 39},
     },
 };
 
