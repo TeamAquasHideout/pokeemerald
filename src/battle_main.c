@@ -4867,7 +4867,11 @@ static void HandleTurnActionSelectionState(void)
 
                             // Check to see if any gimmicks need to be prepared.
                             if (gBattleResources->bufferB[battler][2] & RET_GIMMICK)
+                            {
+                                if (gBattleStruct->gimmick.chosenGimmick[battler] == GIMMICK_NONE)
+                                    gBattleStruct->gimmick.chosenGimmick[battler] = GetFirstValidGimmick(battler);
                                 gBattleStruct->gimmick.toActivate |= 1u << battler;
+                            }
 
                             // Max Move check
                             if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX || IsGimmickSelected(battler, GIMMICK_DYNAMAX))
@@ -4880,7 +4884,7 @@ static void HandleTurnActionSelectionState(void)
                             {
                                 UNUSED enum Gimmick gimmick = GIMMICK_NONE;
                                 if (gBattleResources->bufferB[battler][2] & RET_GIMMICK)
-                                    gimmick = gBattleStruct->gimmick.usableGimmick[battler];
+                                    gimmick = gBattleStruct->gimmick.chosenGimmick[battler];
                                 TestRunner_Battle_CheckChosenMove(battler, gChosenMoveByBattler[battler], gBattleStruct->moveTarget[battler], gimmick);
                             }
                         }
