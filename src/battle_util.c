@@ -38,6 +38,7 @@
 #include "berry.h"
 #include "pokedex.h"
 #include "mail.h"
+#include "pit.h"
 #include "field_weather.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
@@ -3833,7 +3834,8 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
     case FIELD_EFFECT_OVERWORLD_TERRAIN:   // terrain starting from overworld weather
         if (B_THUNDERSTORM_TERRAIN == TRUE
          && !(gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN)
-         && GetCurrentWeather() == WEATHER_RAIN_THUNDERSTORM)
+         && GetCurrentWeather() == WEATHER_RAIN_THUNDERSTORM 
+         && (gSaveBlock2Ptr->randomBattleWeather == OW_B_WEATHER))
         {
             // overworld weather started rain, so just do electric terrain anim
             gFieldStatuses = STATUS_FIELD_ELECTRIC_TERRAIN;
@@ -3844,7 +3846,8 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
         }
         else if (B_OVERWORLD_FOG >= GEN_8
               && (GetCurrentWeather() == WEATHER_FOG_HORIZONTAL || GetCurrentWeather() == WEATHER_FOG_DIAGONAL)
-              && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN))
+              && !(gFieldStatuses & STATUS_FIELD_MISTY_TERRAIN)
+              && (gSaveBlock2Ptr->randomBattleWeather == OW_B_WEATHER))
         {
             gFieldStatuses = STATUS_FIELD_MISTY_TERRAIN;
             gFieldTimers.terrainTimer = 0;
@@ -3854,9 +3857,25 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
         }
         break;
     case FIELD_EFFECT_OVERWORLD_WEATHER:
+    {
+        //get weather value based on current randomizer settings
+        u16 weather = GetCurrentWeather();
+        switch (gSaveBlock2Ptr->randomBattleWeather)
+        {
+            case ALL_RANDOM:
+                weather = GetRandomBattleWeather();
+                break;
+            case OW_BASED:
+                weather = gWeatherPtr->currWeather;
+                break;
+            default:
+                weather = WEATHER_NONE;
+                break;
+        }
+
         if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
         {
-            switch (GetCurrentWeather())
+            switch (weather)
             {
             case WEATHER_RAIN:
             case WEATHER_RAIN_THUNDERSTORM:
@@ -3917,6 +3936,7 @@ bool32 TryFieldEffects(enum FieldEffectCases caseId)
             BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
         }
         break;
+    }
     }
 
     return effect;
