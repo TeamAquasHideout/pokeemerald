@@ -138,6 +138,7 @@ struct OptionsMenu
     u8 sel_van[MENUITEM_VANILLA_COUNT];
     s8 menuCursor[MENU_COUNT + 1];
     s8 visibleCursor[MENU_COUNT + 1];
+    u16 scrollOffset[MENU_COUNT + 1];
     u8 arrowTaskId;
     u8 gfxLoadState;
 };
@@ -173,6 +174,8 @@ static const u8 *const OptionTextRight(u8 menuItem);
 static bool8 CheckConditions(int selection);
 static u8 MenuItemCount(void);
 static u8 MenuItemCancel(void);
+static void UpdateScrollOffset(void);
+static void RecreateScrollIndicatorArrows(void);
 static void DrawDescriptionText(void);
 static void DrawOptionsMenuChoice(const u8 *text, u8 x, u8 y, u8 style, bool8 active);
 static void ReDrawAll(void);
@@ -360,7 +363,7 @@ static const u8 sText_Desc_BattleScene_On[]     = _("Show the POKéMON battle an
 static const u8 sText_Desc_BattleScene_Off[]    = _("Skip the POKéMON battle animations.");
 static const u8 sText_Desc_BattleStyle_Shift[]  = _("Get the option to switch your\nPOKéMON after the enemies faints.");
 static const u8 sText_Desc_BattleStyle_Set[]    = _("No free switch after fainting the\nenemies POKéMON.");
-static const u8 sText_Desc_BattleStyle_Default[] = _("Battle style is SET by default.\nYou can change it in a CUSTOM run.");
+static const u8 sText_Desc_BattleStyle_Default[] = _("Battle style can only be changed from\nthe CUSTOM mode menu before a run.");
 static const u8 sText_Desc_SoundMono[]          = _("Sound is the same in all speakers.\nRecommended for original hardware.");
 static const u8 sText_Desc_SoundStereo[]        = _("Play the left and right audio channel\nseperatly. Great with headphones.");
 static const u8 sText_Desc_ButtonMode[]         = _("All buttons work as normal.");
@@ -447,6 +450,39 @@ static u8 MenuItemCancel(void)
     }
 }
 
+static void UpdateScrollOffset(void)
+{
+    sOptions->scrollOffset[sOptions->submenu] = sOptions->menuCursor[sOptions->submenu];
+    sOptions->scrollOffset[sOptions->submenu] -= sOptions->visibleCursor[sOptions->submenu];
+}
+
+static void RecreateScrollIndicatorArrows(void)
+{
+    u8 optionsToDraw = min(OPTIONS_ON_SCREEN, MenuItemCount());
+    u8 fullyDownThreshold = MenuItemCount() - optionsToDraw;
+
+    if (sOptions->arrowTaskId != TASK_NONE)
+    {
+        RemoveScrollIndicatorArrowPair(sOptions->arrowTaskId);
+        sOptions->arrowTaskId = TASK_NONE;
+    }
+
+    if (MenuItemCount() <= OPTIONS_ON_SCREEN)
+        return;
+
+    UpdateScrollOffset();
+    sOptions->arrowTaskId = AddScrollIndicatorArrowPairParameterized(
+        SCROLL_ARROW_UP,
+        240 / 2,
+        20,
+        110,
+        fullyDownThreshold,
+        110,
+        110,
+        &sOptions->scrollOffset[sOptions->submenu]
+    );
+}
+
 // Main code
 static void MainCB2(void)
 {
@@ -475,17 +511,16 @@ static void DrawTopBarText(void)
 {
     int i;
     const u8 color[3] = { 0, TEXT_COLOR_WHITE, TEXT_COLOR_OPTIONS_GRAY_FG };
-    u8 pageDots[2*MENU_COUNT] = _("");
+    u8 pageDots[(2 * MENU_COUNT) + 1] = _("");
 
     //create navigation dots
     for (i = 0; i < MENU_COUNT; i++)
     {
-        DebugPrintf("i = %d", i); //the menu won't load without this line!!!
         if (i == sOptions->submenu)
             StringAppend(pageDots, gText_LargeDot);
         else
             StringAppend(pageDots, gText_SmallDot);
-        if (i < MENU_COUNT)
+        if (i < MENU_COUNT - 1)
             StringAppend(pageDots, gText_Space);
     }
 
@@ -598,6 +633,7 @@ static void HighlightOptionsMenuItem(void)
 {
     int cursor = sOptions->visibleCursor[sOptions->submenu];
 
+    UpdateScrollOffset();
     SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(8, 232));
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(cursor * Y_DIFF + 24, cursor * Y_DIFF + 40));
 }
@@ -692,6 +728,7 @@ void CB2_InitOptionsMenu(void)
         memset(sBg3TilemapBuffer, 0, 0x800);
         SetBgTilemapBuffer(3, sBg3TilemapBuffer);
         ScheduleBgCopyTilemapToVram(3);
+        sOptions->arrowTaskId = TASK_NONE;
         gMain.state++;
         break;
     case 2:
@@ -750,8 +787,7 @@ void CB2_InitOptionsMenu(void)
         break;
     case 10:
         taskId = CreateTask(Task_OptionsMenuFadeIn, 0);
-        
-        sOptions->arrowTaskId = AddScrollIndicatorArrowPairParameterized(SCROLL_ARROW_UP, 240 / 2, 20, 110, MENUITEM_PIT_COUNT - 1, 110, 110, 0);
+        RecreateScrollIndicatorArrows();
 
         for (i = 0; i < min(OPTIONS_ON_SCREEN, MenuItemCount()); i++)
             DrawChoices(i, i * Y_DIFF);
@@ -915,6 +951,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
             sOptions->submenu++;
 
         DrawTopBarText();
+        RecreateScrollIndicatorArrows();
         ReDrawAll();
         HighlightOptionsMenuItem();
         DrawDescriptionText();
@@ -928,6 +965,7 @@ static void Task_OptionsMenuProcessInput(u8 taskId)
             sOptions->submenu--;
         
         DrawTopBarText();
+        RecreateScrollIndicatorArrows();
         ReDrawAll();
         HighlightOptionsMenuItem();
         DrawDescriptionText();
@@ -983,6 +1021,11 @@ static void Task_OptionsMenuFadeOut(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        if (sOptions->arrowTaskId != TASK_NONE)
+        {
+            RemoveScrollIndicatorArrowPair(sOptions->arrowTaskId);
+            sOptions->arrowTaskId = TASK_NONE;
+        }
         DestroyTask(taskId);
         FreeAllWindowBuffers();
         FREE_AND_SET_NULL(sOptions);
@@ -1152,6 +1195,7 @@ static void ReDrawAll(void)
     u8 i;
     u8 optionsToDraw = min(OPTIONS_ON_SCREEN, MenuItemCount());
 
+    UpdateScrollOffset();
     if (MenuItemCount() <= OPTIONS_ON_SCREEN) // Draw or delete the scrolling arrows based on options in the menu
     {
         if (sOptions->arrowTaskId != TASK_NONE)
@@ -1163,7 +1207,18 @@ static void ReDrawAll(void)
     else
     {
         if (sOptions->arrowTaskId == TASK_NONE)
-            sOptions->arrowTaskId = AddScrollIndicatorArrowPairParameterized(SCROLL_ARROW_UP, 240 / 2, 20, 110, MENUITEM_VANILLA_COUNT - 1, 110, 110, 0);
+        {
+            sOptions->arrowTaskId = AddScrollIndicatorArrowPairParameterized(
+                SCROLL_ARROW_UP,
+                240 / 2,
+                20,
+                110,
+                MenuItemCount() - optionsToDraw,
+                110,
+                110,
+                &sOptions->scrollOffset[sOptions->submenu]
+            );
+        }
     }
 
     FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(0));
