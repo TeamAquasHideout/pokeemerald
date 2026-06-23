@@ -407,12 +407,20 @@ static void CreatePartyMonIcons()
 
 static void DestroyMonIcons()
 {
-    u8 i = 0;
-    for(i = 0; i < 6; i++)
+    u8 i;
+
+    if (sShopData == NULL)
+        return;
+
+    for (i = 0; i < ARRAY_COUNT(sShopData->iconMonSpriteIds); i++)
     {
-        DestroySprite(&gSprites[sShopData->iconMonSpriteIds[i]]);
-        sShopData->iconMonSpriteIds[i] = SPRITE_NONE;
+        if (sShopData->iconMonSpriteIds[i] != SPRITE_NONE)
+        {
+            DestroySprite(&gSprites[sShopData->iconMonSpriteIds[i]]);
+            sShopData->iconMonSpriteIds[i] = SPRITE_NONE;
+        }
     }
+
     TMShopDestroyCategoryIcon();
 }
 
@@ -540,12 +548,24 @@ static void SortItemsByName(u16 *buffer, u16 count)
     }
 }
 
-static bool8 ShouldAddItem(const u8 *name)
+static bool8 ShouldAddItem(u16 itemId, const u8 *name)
 {
+    u16 tmRange;
+
     if (GEN_LATEST != GEN_9)
         return FALSE;
 
-    switch (VarGet(VAR_SHOP_TM_RANGE))
+    tmRange = VarGet(VAR_SHOP_TM_RANGE);
+
+    if (itemId >= ITEM_HM01 && itemId <= ITEM_HM08)
+    {
+        if (tmRange == S_Z)
+            return TRUE;
+
+        return FALSE;
+    }
+
+    switch (tmRange)
     {
         case A_F: return (name[0] >= CHAR_A && name[0] <= CHAR_F);
         case G_R: return (name[0] >= CHAR_G && name[0] <= CHAR_R);
@@ -570,7 +590,7 @@ static void CleanUpShopItemsForSale()
         }
 
         // Allocate new buffer
-        sUniqueItemBuffer = Alloc(sizeof(u16) * sMartInfo.itemCount);
+        sUniqueItemBuffer = Alloc(sizeof(u16) * (sMartInfo.itemCount + 1));
 
         // Handle memory allocation failure
         if (sUniqueItemBuffer == NULL)
@@ -590,7 +610,7 @@ static void CleanUpShopItemsForSale()
             // Handle the multiple TM brackets in Gen 9 mode by not adding invalid members to the buffer
             if (gItemsInfo[sMartInfo.itemSource[0]].pocket == POCKET_TM_HM && GEN_LATEST == GEN_9)
             {
-                if (!ShouldAddItem(currentName))
+                if (!ShouldAddItem(current, currentName))
                 {
                     i++;
                     continue;
@@ -615,6 +635,7 @@ static void CleanUpShopItemsForSale()
 
         // Sort the items
         SortItemsByName(sUniqueItemBuffer, uniqueCount);
+        sUniqueItemBuffer[uniqueCount] = ITEM_NONE;
 
         sMartInfo.itemSource = sUniqueItemBuffer;
         sMartInfo.itemCount = uniqueCount;
@@ -624,6 +645,8 @@ static void CleanUpShopItemsForSale()
         {
             sMartInfo.itemList[i] = sUniqueItemBuffer[i];
         }
+
+        sMartInfo.itemList[uniqueCount] = ITEM_NONE;
     }
 }
 
@@ -695,6 +718,7 @@ static void Task_HandleShopMenuQuit(u8 taskId)
         sMartInfo.callback();
 
     try_free(sUniqueItemBuffer);
+    sUniqueItemBuffer = NULL;
 
     DestroyTask(taskId);    
 }
@@ -716,7 +740,7 @@ static void MapPostLoadHook_ReturnToShopMenu(void)
     gFieldCallback = NULL;
 }
 
-static void UNUSED Task_ReturnToShopMenu(u8 taskId)
+static void Task_ReturnToShopMenu(u8 taskId)
 {
     if (IsWeatherNotFadingIn() == TRUE)
     {
@@ -850,12 +874,16 @@ static void CB2_InitBuyMenu(void)
 
 static void BuyMenuFreeMemory(void)
 {
-    Free(sShopData);
-    Free(sListMenuItems);
-    Free(sItemNames);
-    try_free(sMartInfo.itemList);
-    FreeAllWindowBuffers();
     DestroyMonIcons();
+    Free(sShopData);
+    sShopData = NULL;
+    Free(sListMenuItems);
+    sListMenuItems = NULL;
+    Free(sItemNames);
+    sItemNames = NULL;
+    try_free(sMartInfo.itemList);
+    sMartInfo.itemList = NULL;
+    FreeAllWindowBuffers();
 }
 
 static void BuyMenuBuildListMenuTemplate(void)
@@ -962,6 +990,9 @@ void TmShopShowHideCategoryIcon(s32 moveId)
 
 void TMShopDestroyCategoryIcon(void)
 {
+    if (sShopData == NULL)
+        return;
+
     if (sShopData->categoryIconSpriteId != SPRITE_NONE)
         DestroySprite(&gSprites[sShopData->categoryIconSpriteId]);
     sShopData->categoryIconSpriteId = SPRITE_NONE;
@@ -1708,7 +1739,15 @@ static void BuyMenuPrintItemQuantityAndPrice(u8 taskId)
 
 static void ExitBuyMenu(u8 taskId)
 {
-    gFieldCallback = MapPostLoadHook_ReturnToShopMenu;
+    FlagClear(FLAG_SORT_SHOP_ITEMS);
+
+    ClearStdWindowAndFrameToTransparent(sMartInfo.windowId, 3); // Incorrect use, making it not copy it to vram.
+    RemoveWindow(sMartInfo.windowId);
+
+    try_free(sUniqueItemBuffer);
+    sUniqueItemBuffer = NULL;
+
+    gFieldCallback = FieldCB_ContinueScript;
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_ExitBuyMenu;
 }
