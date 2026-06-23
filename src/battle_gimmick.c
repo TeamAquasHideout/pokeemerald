@@ -98,16 +98,31 @@ bool32 ShouldTrainerBattlerUseGimmick(u32 battler, enum Gimmick gimmick)
     // Check the trainer party data to see if a gimmick is intended.
     else
     {
-        bool32 isSecondTrainer = (GetBattlerPosition(battler) == B_POSITION_OPPONENT_RIGHT) && (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) && !BATTLE_TWO_VS_ONE_OPPONENT;
-        u16 trainerId = isSecondTrainer ? TRAINER_BATTLE_PARAM.opponentB : TRAINER_BATTLE_PARAM.opponentA;
-        const struct TrainerMon *mon = &GetTrainerPartyFromId(trainerId)[isSecondTrainer ? gBattlerPartyIndexes[battler] - MULTI_PARTY_SIZE : gBattlerPartyIndexes[battler]];
+        const struct AiPartyMon *aiMon = &gAiPartyData->mons[B_SIDE_OPPONENT][gBattlerPartyIndexes[battler]];
 
-        if ((gimmick == GIMMICK_TERA) && (GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE) && gBattleStruct->opponentMonCanTera & 1 << gBattlerPartyIndexes[battler]
-          && FlagGet(FLAG_TERA_ACTIVE))
-            return TRUE;
-        if (gimmick == GIMMICK_DYNAMAX && gBattleStruct->opponentMonCanDynamax & 1 << gBattlerPartyIndexes[battler]
-          && FlagGet(FLAG_DYNAMAX))
-            return TRUE;
+        if (gimmick == GIMMICK_TERA)
+        {
+            if (aiMon->gimmick == GIMMICK_PIT_TERA
+              && GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE
+              && FlagGet(FLAG_TERA_ACTIVE))
+                return TRUE;
+
+            if ((GetMonData(&gEnemyParty[gBattlerPartyIndexes[battler]], MON_DATA_TERA_TYPE) != TYPE_NONE)
+              && (gBattleStruct->opponentMonCanTera & (1 << gBattlerPartyIndexes[battler]))
+              && FlagGet(FLAG_TERA_ACTIVE))
+                return TRUE;
+        }
+
+        if (gimmick == GIMMICK_DYNAMAX)
+        {
+            if (aiMon->gimmick == GIMMICK_PIT_DYNA
+              && FlagGet(FLAG_DYNAMAX))
+                return TRUE;
+
+            if ((gBattleStruct->opponentMonCanDynamax & (1 << gBattlerPartyIndexes[battler]))
+              && FlagGet(FLAG_DYNAMAX))
+                return TRUE;
+        }
     }
 
     return FALSE;
