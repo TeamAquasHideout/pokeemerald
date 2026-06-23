@@ -3424,7 +3424,7 @@ void AnimHyperBeamOrb(struct Sprite *sprite)
     u16 speed;
     u16 animNum = Random2();
 
-    StartSpriteAnim(sprite, animNum % 8);
+    StartSpriteAnim(sprite, animNum % ARRAY_COUNT(gSolarBeamBigOrbAnimTable));
     sprite->x = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_X_2);
     sprite->y = GetBattlerSpriteCoord(gBattleAnimAttacker, BATTLER_COORD_Y_PIC_OFFSET);
     if (!IsOnPlayerSide(gBattleAnimAttacker))
@@ -6536,9 +6536,15 @@ void AnimTask_MoonlightEndFade(u8 taskId)
     b = GetBattleMonSpritePalettesMask(1, 1, 1, 1);
     c = a | b;
     StorePointerInVars(&gTasks[taskId].data[14], &gTasks[taskId].data[15], (void *)c);
-    b = b | (0x10000 << IndexOfSpritePaletteTag(ANIM_TAG_MOON));
+    d = IndexOfSpritePaletteTag(ANIM_TAG_MOON);
+    if (d != 0xFF)
+        b |= (0x10000 << d);
+
     d = IndexOfSpritePaletteTag(ANIM_TAG_GREEN_SPARKLE);
-    BeginNormalPaletteFade((0x10000 << d) | b, 0, 0, 16, RGB(27, 29, 31));
+    if (d != 0xFF)
+        b |= (0x10000 << d);
+
+    BeginNormalPaletteFade(b, 0, 0, 16, RGB(27, 29, 31));
     gTasks[taskId].func = AnimTask_MoonlightEndFade_Step;
     gTasks[taskId].func(taskId);
 }
