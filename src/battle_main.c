@@ -2026,6 +2026,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             u16 item = 0;
             u8 j = i;
             u8 isAcePokemon = FALSE;
+            u16 odds = 0;
 
             if (((gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS) || (gSpecialVar_TrainerNumber == TRAINER_RANDOM_PIT_BOSS_DOUBLES)) && (j == (monsCount - 1)) && !(isPlayer)) 
             {
@@ -2164,50 +2165,48 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 
 #ifdef PIT_GEN_9_MODE
                 //overwrite item with Mega Stones
-                if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
+                if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                    odds = 0;
+                
+                if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                    odds = 35;
+                
+                if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
                 {
-                    u16 odds = 0;
-
-                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_NONE)
+                    if(VarGet(VAR_PIT_FLOOR) <= 25)
                         odds = 0;
-                    
-                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_RANDOM)
+                    else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                        odds = 10;
+                    else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                        odds = 20;
+                    else
                         odds = 35;
-                    
-                    if(gSaveBlock2Ptr->trainerGimmicks == TRAINER_GIMMICKS_PROGRESSIVE)
+                
+                    if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
                     {
-                        if(VarGet(VAR_PIT_FLOOR) <= 25)
+                        if (VarGet(VAR_PIT_FLOOR) <= 15)
                             odds = 0;
-                        else if (VarGet(VAR_PIT_FLOOR) <= 50)
+                        else if (VarGet(VAR_PIT_FLOOR) <= 25)
                             odds = 10;
-                        else if (VarGet(VAR_PIT_FLOOR) <= 75)
+                        else
+                            odds = 25;
+                    }
+                
+                    if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
+                    {
+                        if (VarGet(VAR_PIT_FLOOR) <= 20)
+                            odds = 0;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 35)
+                            odds = 10;
+                        else if (VarGet(VAR_PIT_FLOOR) <= 55)
                             odds = 20;
                         else
-                            odds = 35;
-                    
-                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_50)
-                        {
-                            if (VarGet(VAR_PIT_FLOOR) <= 15)
-                                odds = 0;
-                            else if (VarGet(VAR_PIT_FLOOR) <= 25)
-                                odds = 10;
-                            else
-                                odds = 25;
-                        }
-                    
-                        if(gSaveBlock2Ptr->mode50Floors == FLOORS_75)
-                        {
-                            if (VarGet(VAR_PIT_FLOOR) <= 20)
-                                odds = 0;
-                            else if (VarGet(VAR_PIT_FLOOR) <= 35)
-                                odds = 10;
-                            else if (VarGet(VAR_PIT_FLOOR) <= 55)
-                                odds = 20;
-                            else
-                                odds = 30;
-                        }
+                            odds = 30;
                     }
-                    
+                }
+
+                if (gSaveBlock2Ptr->modeMegas == OPTIONS_ON)
+                {
                     if ((Random() % 100) < odds && !megaStoneAssigned
                       && VarGet(VAR_PIT_FLOOR) % 25 != 0) //no additional megas for bosses
                     {
@@ -2314,37 +2313,48 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 bool32 data = TRUE;
                 SetMonData(&party[i], MON_DATA_IS_SHINY, &data);
             }
-            if (partyData[j].dynamaxLevel > 0)
+
+            if (FlagGet(FLAG_DYNAMAX) && partyData[j].dynamaxLevel > 0)
             {
                 u32 data = partyData[j].dynamaxLevel;
+                if (partyData[j].shouldUseDynamax)
+                    gBattleStruct->opponentMonCanDynamax |= 1 << i;
                 SetMonData(&party[i], MON_DATA_DYNAMAX_LEVEL, &data);
             }
-            if (partyData[j].gigantamaxFactor)
+
+            if (FlagGet(FLAG_DYNAMAX) && partyData[j].gigantamaxFactor)
             {
                 u32 data = partyData[j].gigantamaxFactor;
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
 
-            if (FlagGet(FLAG_DYNAMAX) && !isPlayer)
+            if (FlagGet(FLAG_DYNAMAX) && !isPlayer && !partyData[j].shouldUseDynamax && !partyData[j].gigantamaxFactor && ((gBattleStruct->opponentMonCanTera == 0) && (gBattleStruct->opponentMonCanDynamax == 0)))
             {
                 u32 data = FALSE;
-                u8 coinflip = Random() % 2;
-                if (coinflip)
-                {
+                if ((Random() % 100) < odds)
+                {    
                     data = TRUE;
                     gBattleStruct->opponentMonCanDynamax |= 1 << i;
                 }
                 SetMonData(&party[i], MON_DATA_GIGANTAMAX_FACTOR, &data);
             }
 
-            if (FlagGet(FLAG_TERA_ACTIVE) && !isPlayer)
+            if (FlagGet(FLAG_TERA_ACTIVE) && partyData[j].teraType > 0)
+            {
+                u32 data = partyData[j].teraType;
+                gBattleStruct->opponentMonCanTera |= 1 << i;
+                SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
+            }
+
+            if (FlagGet(FLAG_TERA_ACTIVE) && !isPlayer && partyData[j].teraType == TYPE_NONE && ((gBattleStruct->opponentMonCanTera == 0) && (gBattleStruct->opponentMonCanDynamax == 0)))
             {
                 u32 data = GetRandomTeraType();
                 u8 coinflip = Random() % 2;
-                if (coinflip)
-                    data = TYPE_NONE; //use default in 50% of cases
-    
-                gBattleStruct->opponentMonCanTera |= 1 << i;
+                if ((Random() % 100) < odds)
+                    gBattleStruct->opponentMonCanTera |= 1 << i;
+                else
+                    data = TYPE_NONE; //use default in 50% of case
+
                 SetMonData(&party[i], MON_DATA_TERA_TYPE, &data);
             }
 
