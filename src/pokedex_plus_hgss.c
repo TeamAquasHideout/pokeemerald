@@ -4742,8 +4742,6 @@ static u16 CreateSizeScreenTrainerPic(u16 species, s16 x, s16 y, s8 paletteSlot)
     return CreateTrainerPicSprite(species, TRUE, x, y, paletteSlot, TAG_NONE);
 }
 
-#undef TYPE_INFO_PALETTE_NUM_OFFSET
-
 //************************************
 //*                                  *
 //*        Helper functions          *
@@ -5027,15 +5025,20 @@ static void Task_LoadStatsScreen(u8 taskId)
         gMain.state++;
         break;
     case 3:
+    {
         sPokedexView->typeIconSpriteIds[0] = 0xFF;
         sPokedexView->typeIconSpriteIds[1] = 0xFF;
         CreateTypeIconSprites();
         sPokedexView->categoryIconSpriteId = 0xFF;
-        LoadPalette(gMoveTypes_Pal, 0x1D0, 0x60);
+
+        u32 paletteNum = gTypesInfo[TYPE_NORMAL].palette + TYPE_INFO_PALETTE_NUM_OFFSET;
+        LoadPalette(gMoveTypes_Pal, OBJ_PLTT_ID(paletteNum), 3 * PLTT_SIZE_4BPP);
+
         LoadCompressedSpriteSheet(&gSpriteSheet_CategoryIcons);
         LoadSpritePalette(&gSpritePal_CategoryIcons);
         gMain.state++;
         break;
+    }
     case 4:
         SaveMonDataInStruct();
         sPokedexView->moveSelected = 0;
@@ -5113,6 +5116,8 @@ static void Task_LoadStatsScreen(u8 taskId)
         break;
     }
 }
+
+#undef TYPE_INFO_PALETTE_NUM_OFFSET
 
 static void UNUSED FreeStatsScreenWindowAndBgBuffers(void)
 {
