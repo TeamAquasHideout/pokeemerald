@@ -1784,6 +1784,7 @@ static void (*const sDrawTextEntryBoxFuncs[])(void) =
     [NAMING_SCREEN_NICKNAME]   = DrawMonTextEntryBox,
     [NAMING_SCREEN_WALDA]      = DrawNormalTextEntryBox,
     [NAMING_SCREEN_CODE]       = DrawNormalTextEntryBox,
+    [NAMING_SCREEN_PLAYER_IS_POKEMON] = DrawNormalTextEntryBox,
 };
 
 static void DrawTextEntryBox(void)
