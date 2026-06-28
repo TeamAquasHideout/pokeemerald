@@ -6927,7 +6927,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Heatran to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -6945,7 +6945,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Darkrai to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -6963,7 +6963,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Zeraora to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -6978,7 +6978,7 @@ const struct Item gItemsInfo[] =
         .price = 15000, // MEGA
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
         .description = sRaichuniteDesc,
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -6993,7 +6993,7 @@ const struct Item gItemsInfo[] =
         .price = 15000, // MEGA
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
         .description = sRaichuniteDesc,
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7011,7 +7011,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Chimecho to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7026,7 +7026,7 @@ const struct Item gItemsInfo[] =
         .price = 15000, // MEGA
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
         .description = sAbsoliteDesc,
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7044,7 +7044,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Staraptor to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7059,7 +7059,7 @@ const struct Item gItemsInfo[] =
         .price = 15000, // MEGA
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
         .description = sGarchompiteDesc,
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7074,7 +7074,7 @@ const struct Item gItemsInfo[] =
         .price = 15000, // MEGA
         .holdEffect = HOLD_EFFECT_MEGA_STONE,
         .description = sLucarioniteDesc,
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7092,7 +7092,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Golurk to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7110,7 +7110,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Meowstic to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7128,7 +7128,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Crabominable to\n"
             "Mega in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7146,7 +7146,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Golisopod to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7164,7 +7164,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Magearna to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7182,7 +7182,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Scovillain to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7200,7 +7200,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Baxcalibur to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7218,7 +7218,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Tatsugiri to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
@@ -7236,7 +7236,7 @@ const struct Item gItemsInfo[] =
             "This stone enables\n"
             "Glimmora to Mega\n"
             "Evolve in battle."),
-        .pocket = POCKET_ITEMS,
+        .pocket = POCKET_MEGA_STONES,
         .sortType = ITEM_TYPE_MEGA_STONE,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
