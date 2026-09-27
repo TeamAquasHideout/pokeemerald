@@ -2219,7 +2219,7 @@ static void Cmd_waitanimation(void)
 {
     CMD_ARGS();
 
-    if (gBattleControllerExecFlags == 0 && gBattleStruct->battlerKOAnimsRunning == 0)
+    if (gBattleControllerExecFlags == 0 && gBattlerKOAnimActive == 0)
     {
 #if T_SHOULD_RUN_MOVE_ANIM
         gCountAllocs = FALSE;

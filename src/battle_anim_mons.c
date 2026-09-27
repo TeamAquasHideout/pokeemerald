@@ -1864,7 +1864,6 @@ void SetBattlerSpriteYOffsetFromOtherYScale(u8 spriteId, u8 otherSpriteId)
 static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
 {
     struct BattleSpriteInfo *spriteInfo;
-    u8 battler = gSprites[spriteId].data[0];
     u16 species;
     u16 i;
 
@@ -1880,10 +1879,10 @@ static u16 GetBattlerYDeltaFromSpriteId(u8 spriteId)
             else
             {
                 spriteInfo = gBattleSpritesDataPtr->battlerData;
-                if (!spriteInfo[battler].transformSpecies)
+                if (!spriteInfo[i].transformSpecies)
                     species = GetMonData(GetBattlerMon(i), MON_DATA_SPECIES);
                 else
-                    species = spriteInfo[battler].transformSpecies;
+                    species = spriteInfo[i].transformSpecies;
 
                 if (IsOnPlayerSide(i))
                     return gSpeciesInfo[species].backPicYOffset;
