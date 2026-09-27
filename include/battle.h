@@ -705,7 +705,7 @@ struct BattleStruct
         struct BattleVideo battleVideo;
     } multiBuffer;
     u8 startingStatus; // status to apply at battle start. defined in constants/battle.h
-    u8 battlerKOAnimsRunning:3;
+    u8 unusedBattlerKOAnimsRunning:3;
     u8 friskedAbility:1; // If identifies two mons, show the ability pop-up only once.
     u8 fickleBeamBoosted:1;
     u8 poisonPuppeteerConfusion:1;
@@ -1054,6 +1054,7 @@ extern u8 gBattleEnvironment;
 extern u8 *gBattleAnimBgTileBuffer;
 extern u8 *gBattleAnimBgTilemapBuffer;
 extern u32 gBattleControllerExecFlags;
+extern u8 gBattlerKOAnimActive;
 extern u8 gBattlersCount;
 extern u16 gBattlerPartyIndexes[MAX_BATTLERS_COUNT];
 extern u8 gBattlerPositions[MAX_BATTLERS_COUNT];

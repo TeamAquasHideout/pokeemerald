@@ -85,6 +85,7 @@ void SetUpBattleVarsAndBirchZigzagoon(void)
 
     HandleLinkBattleSetup();
     gBattleControllerExecFlags = 0;
+    gBattlerKOAnimActive = 0;
     ClearBattleAnimationVars();
     BattleAI_SetupItems();
     BattleAI_SetupFlags();
@@ -2466,13 +2467,14 @@ void BtlController_HandleFaintAnimation(u32 battler)
             {
                 PlaySE12WithPanning(SE_FAINT, SOUND_PAN_TARGET);
                 gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_FaintOpponentMon;
+                gSprites[gBattlerSpriteIds[battler]].data[0] = battler;
                 gBattlerControllerFuncs[battler] = Controller_FaintOpponentMon;
             }
             // The player's sprite callback just slides the mon, the opponent's removes the sprite.
             // The player's sprite is removed in Controller_FaintPlayerMon. Controller_FaintOpponentMon only removes the healthbox once the sprite is removed by SpriteCB_FaintOpponentMon.
+            AnimateMonAfterKnockout(battler);
         }
     }
-    AnimateMonAfterKnockout(battler);
 }
 
 #undef sSpeedX
@@ -2940,22 +2942,28 @@ static void LaunchKOAnimation(u32 battlerId, u16 animId, bool32 isFront)
 {
     u32 species = GetBattlerVisualSpecies(battlerId);
     u32 spriteId = gBattlerSpriteIds[battlerId];
+    bool32 launched;
 
-    gBattleStruct->battlerKOAnimsRunning++;
+    if (gBattlerKOAnimActive & (1u << battlerId))
+        return;
 
     if (isFront)
     {
-        LaunchAnimationTaskForFrontSprite(&gSprites[spriteId], animId);
+        launched = LaunchKOAnimationTaskForFrontSprite(&gSprites[spriteId], animId, battlerId);
 
-        if (HasTwoFramesAnimation(species))
+        if (launched && HasTwoFramesAnimation(species))
             StartSpriteAnim(&gSprites[spriteId], 1);
     }
     else
     {
-        LaunchAnimationTaskForBackSprite(&gSprites[spriteId], animId);
+        launched = LaunchKOAnimationTaskForBackSprite(&gSprites[spriteId], animId, battlerId);
     }
 
-    PlayCry_Normal(species, CRY_PRIORITY_NORMAL);
+    if (launched)
+    {
+        gBattlerKOAnimActive |= 1u << battlerId;
+        PlayCry_Normal(species, CRY_PRIORITY_NORMAL);
+    }
 }
 
 static u32 ReturnAnimIdForBattler(bool32 wasPlayerSideKnockedOut, u32 specificBattler)

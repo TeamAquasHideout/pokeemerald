@@ -482,6 +482,7 @@ enum BackAnim GetSpeciesBackAnimSet(u16 species)
 #define tAnimId data[3]
 #define tBattlerId data[4]
 #define tSpeciesId data[5]
+#define tIsKOAnimation data[6]
 
 // BUG: In vanilla, tPtrLo is read as an s16, so if bit 15 of the
 // address were to be set it would cause the pointer to be read
@@ -501,7 +502,8 @@ static void Task_HandleMonAnimation(u8 taskId)
 
     if (gTasks[taskId].tState == 0)
     {
-        gTasks[taskId].tBattlerId = sprite->data[0];
+        if (!gTasks[taskId].tIsKOAnimation)
+            gTasks[taskId].tBattlerId = sprite->oam.paletteNum;
         gTasks[taskId].tSpeciesId = sprite->data[2];
         sprite->sDontFlip = TRUE;
         sprite->data[0] = 0;
@@ -523,21 +525,46 @@ static void Task_HandleMonAnimation(u8 taskId)
         sprite->data[2] = gTasks[taskId].tSpeciesId;
         sprite->data[1] = 0;
 
-        // Task_HandleMonAnimation handles more than just KO animations,
-        // but if the counter is non-zero then only KO animations are running.
-        // This assumption is not checked.
-        if (gBattleStruct->battlerKOAnimsRunning > 0)
-            gBattleStruct->battlerKOAnimsRunning--;
+        if (gTasks[taskId].tIsKOAnimation)
+            gBattlerKOAnimActive &= ~(1u << gTasks[taskId].tBattlerId);
         DestroyTask(taskId);
     }
 }
 
-void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
+static u8 CreateMonAnimationTask(struct Sprite *sprite)
 {
-    u8 taskId = CreateTask(Task_HandleMonAnimation, 128);
+    u8 taskId;
+
+    if (GetTaskCount() >= NUM_TASKS)
+        return TASK_NONE;
+
+    taskId = CreateTask(Task_HandleMonAnimation, 128);
     gTasks[taskId].tPtrHi = (u32)(sprite) >> 16;
     gTasks[taskId].tPtrLo = (u32)(sprite);
+    return taskId;
+}
+
+void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
+{
+    u8 taskId = CreateMonAnimationTask(sprite);
+
+    if (taskId == TASK_NONE)
+        return;
+
     gTasks[taskId].tAnimId = frontAnimId;
+}
+
+bool32 LaunchKOAnimationTaskForFrontSprite(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId, u32 battler)
+{
+    u8 taskId = CreateMonAnimationTask(sprite);
+
+    if (taskId == TASK_NONE)
+        return FALSE;
+
+    gTasks[taskId].tAnimId = frontAnimId;
+    gTasks[taskId].tBattlerId = battler;
+    gTasks[taskId].tIsKOAnimation = TRUE;
+    return TRUE;
 }
 
 void StartMonSummaryAnimation(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
@@ -552,9 +579,9 @@ void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, enum BackAnim backA
     u8 nature, taskId, battler;
     enum AnimFunctionIDs animId;
 
-    taskId = CreateTask(Task_HandleMonAnimation, 128);
-    gTasks[taskId].tPtrHi = (u32)(sprite) >> 16;
-    gTasks[taskId].tPtrLo = (u32)(sprite);
+    taskId = CreateMonAnimationTask(sprite);
+    if (taskId == TASK_NONE)
+        return;
 
     battler = sprite->data[0];
     nature = GetNature(GetBattlerMon(battler));
@@ -564,12 +591,30 @@ void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, enum BackAnim backA
     gTasks[taskId].tAnimId = sBackAnimationIds[animId];
 }
 
+bool32 LaunchKOAnimationTaskForBackSprite(struct Sprite *sprite, enum BackAnim backAnimSet, u32 battler)
+{
+    u8 nature, taskId;
+    enum AnimFunctionIDs animId;
+
+    taskId = CreateMonAnimationTask(sprite);
+    if (taskId == TASK_NONE)
+        return FALSE;
+
+    nature = GetNature(GetBattlerMon(battler));
+    animId = 3 * backAnimSet + gNaturesInfo[nature].backAnim;
+    gTasks[taskId].tAnimId = sBackAnimationIds[animId];
+    gTasks[taskId].tBattlerId = battler;
+    gTasks[taskId].tIsKOAnimation = TRUE;
+    return TRUE;
+}
+
 #undef tState
 #undef tPtrHi
 #undef tPtrLo
 #undef tAnimId
 #undef tBattlerId
 #undef tSpeciesId
+#undef tIsKOAnimation
 
 void SetSpriteCB_MonAnimDummy(struct Sprite *sprite)
 {
