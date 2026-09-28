@@ -4190,7 +4190,8 @@ static void Cmd_seteffectprimary(void)
 
     u32 battler = GetBattlerForBattleScript(cmd->battler);
     u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
-    SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, cmd->nextInstr, EFFECT_PRIMARY);
+    gBattlescriptCurrInstr = cmd->nextInstr;
+    SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, gBattlescriptCurrInstr, EFFECT_PRIMARY);
 }
 
 static void Cmd_seteffectsecondary(void)
@@ -4199,7 +4200,8 @@ static void Cmd_seteffectsecondary(void)
 
     u32 battler = GetBattlerForBattleScript(cmd->battler);
     u32 effectBattler = GetBattlerForBattleScript(cmd->effectBattler);
-    SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, cmd->nextInstr, EFFECT_PRIMARY);
+    gBattlescriptCurrInstr = cmd->nextInstr;
+    SetMoveEffect(battler, effectBattler, gBattleScripting.moveEffect, gBattlescriptCurrInstr, NO_FLAGS);
 }
 
 static void Cmd_clearvolatile(void)
@@ -11282,10 +11284,10 @@ static void Cmd_mimicattackcopy(void)
 {
     CMD_ARGS(const u8 *failInstr);
 
-    if ((IsMoveMimicBanned(gLastMoves[gBattlerTarget]))
-        || (gBattleMons[gBattlerAttacker].volatiles.transformed)
-        || gLastMoves[gBattlerTarget] == MOVE_NONE
-        || gLastMoves[gBattlerTarget] == MOVE_UNAVAILABLE)
+    if (gLastMoves[gBattlerTarget] == MOVE_NONE
+        || gLastMoves[gBattlerTarget] == MOVE_UNAVAILABLE
+        || IsMoveMimicBanned(gLastMoves[gBattlerTarget])
+        || gBattleMons[gBattlerAttacker].volatiles.transformed)
     {
         gBattlescriptCurrInstr = cmd->failInstr;
     }

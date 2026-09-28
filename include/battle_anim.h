@@ -445,6 +445,7 @@ extern const struct OamData gOamData_AffineDouble_ObjBlend_32x8;
 
 extern const struct CompressedSpriteSheet gBattleAnimPicTable[];
 extern const struct SpritePalette gBattleAnimPaletteTable[];
+bool32 TryLoadBattleAnimPalette(u16 tag);
 
 extern const struct SpriteTemplate gWaterHitSplatSpriteTemplate;
 
