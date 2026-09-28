@@ -3209,6 +3209,8 @@ static void Anim_RapidHorizontalHops(struct Sprite *sprite)
     TryFlipX(sprite);
     if (sprite->data[2] > 2048)
     {
+        sprite->x2 = 0;
+        sprite->y2 = 0;
         sprite->callback = WaitAnimEnd;
         sprite->data[6] = 0;
     }

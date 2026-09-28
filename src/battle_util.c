@@ -9558,7 +9558,7 @@ static enum DamageCategory SwapMoveDamageCategory(u32 move)
 */
 enum DamageCategory GetBattleMoveCategory(u32 move)
 {
-    if (gMain.inBattle)
+    if (gBattleStruct != NULL)
     {
         if (gBattleStruct->swapDamageCategory) // Photon Geyser, Shell Side Arm, Light That Burns the Sky, Tera Blast
             return SwapMoveDamageCategory(move);

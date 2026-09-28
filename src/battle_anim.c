@@ -502,6 +502,14 @@ static void RunAnimScriptCommand(void)
     } while (sAnimFramesToWait == 0 && gAnimScriptActive);
 }
 
+bool32 TryLoadBattleAnimPalette(u16 tag)
+{
+    if (IndexOfSpritePaletteTag(tag) != 0xFF)
+        return TRUE;
+
+    return LoadSpritePalette(&gBattleAnimPaletteTable[GET_TRUE_SPRITE_INDEX(tag)]) != 0xFF;
+}
+
 static void Cmd_loadspritegfx(void)
 {
     u16 index;
