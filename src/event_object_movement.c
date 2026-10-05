@@ -3007,6 +3007,8 @@ static void ResetObjectEventFldEffData(struct ObjectEvent *objectEvent)
     objectEvent->inSandPile = FALSE;
     objectEvent->inHotSprings = FALSE;
     ObjectEventClearHeldMovement(objectEvent);
+    // update coordinates to handle ghost collisions
+    objectEvent->previousCoords = objectEvent->currentCoords;
 }
 
 static void SetPlayerAvatarObjectEventIdAndObjectId(u8 objectEventId, u8 spriteId)
