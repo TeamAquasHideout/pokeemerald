@@ -117,41 +117,49 @@ PitArenaWarp_AskForItems_Text::
 PitArena_TrainerBattle::
 	trainerbattle_single TRAINER_RANDOM_BATTLE_0, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_0
+	release
 	end
 
 PitArena_TrainerBattle1::
 	trainerbattle_single TRAINER_RANDOM_BATTLE_1, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_1
+	release
 	end
 
 PitArena_TrainerBattle2::
 	trainerbattle_single TRAINER_RANDOM_BATTLE_2, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_2
+	release
 	end
 
 PitArena_TrainerBattle3::
 	trainerbattle_single TRAINER_RANDOM_BATTLE_3, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_3
+	release
 	end
 
 PitArena_TrainerBattle4::
 	trainerbattle_double TRAINER_RANDOM_BATTLE_4, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_Text_NotEnoughMons, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_4
+	release
 	end
 
 PitArena_TrainerBattle5::
 	trainerbattle_double TRAINER_RANDOM_BATTLE_5, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_Text_NotEnoughMons, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_5
+	release
 	end
 
 PitArena_TrainerBattle6::
 	trainerbattle_double TRAINER_RANDOM_BATTLE_6, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_Text_NotEnoughMons, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_6
+	release
 	end
 
 PitArena_TrainerBattle7::
 	trainerbattle_double TRAINER_RANDOM_BATTLE_7, PitArena_Text_Intro, PitArena_Text_Defeat, PitArena_Text_NotEnoughMons, PitArena_TrainerBattleFinished
 	showpitdefeattext TRAINER_RANDOM_BATTLE_7
+	release
 	end
 
 PitArena_Text_Intro:
@@ -164,6 +172,7 @@ PitArena_Text_NotEnoughMons:
 	.string "Not enough mons.$"
 
 PitArena_TrainerBattleFinished::
+	release
 	end
 
 PitArena_WalkBackwardsTrigger::
