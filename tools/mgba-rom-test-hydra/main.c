@@ -40,6 +40,7 @@
 #define MAX_PROCESSES               32 // See also test/test.h
 #define MAX_SUMMARY_TESTS_TO_LIST   50
 #define MAX_TEST_LIST_BUFFER_LENGTH 256
+#define MAX_ILLEGAL_OPCODES         3
 
 #define ARRAY_COUNT(arr) (sizeof((arr)) / sizeof((arr)[0]))
 
@@ -63,6 +64,8 @@ struct Runner
     int assumptionFails;
     int fails;
     int results;
+    unsigned illegalOpcodes;
+    bool crashed;
     char failed_TestNames[MAX_SUMMARY_TESTS_TO_LIST][MAX_TEST_LIST_BUFFER_LENGTH];
     char failed_TestFilenameLine[MAX_SUMMARY_TESTS_TO_LIST][MAX_TEST_LIST_BUFFER_LENGTH];
     char knownFailingPassed_TestNames[MAX_SUMMARY_TESTS_TO_LIST][MAX_TEST_LIST_BUFFER_LENGTH];
@@ -192,6 +195,30 @@ static void fprint_buffer(FILE *f, const char *buffer, size_t size)
     }
 }
 
+static void report_crash(int i, struct Runner *runner)
+{
+    if (runner->crashed)
+        return;
+
+    if (runner->fails < MAX_SUMMARY_TESTS_TO_LIST)
+    {
+        strcpy(runner->failed_TestNames[runner->fails], runner->test_name);
+        strcpy(runner->failed_TestFilenameLine[runner->fails], runner->filename_line);
+    }
+    runner->fails++;
+    runner->results++;
+    runner->crashed = true;
+
+    fprintf(stdout, "[%0*d] %s: \e[31mCRASH\e[0m\n", runners_digits, i, runner->test_name);
+    fprint_buffer(stdout, runner->output_buffer, runner->output_buffer_size);
+    runner->output_buffer_size = 0;
+    strcpy(runner->test_name, "WAITING...");
+
+    // Some corruptions leave the emulated CPU executing an illegal opcode
+    // with interrupts disabled, so the ROM's own timeout cannot recover.
+    kill(runner->pid, SIGTERM);
+}
+
 static void handle_read(int i, struct Runner *runner)
 {
     char *sol = runner->input_buffer;
@@ -200,13 +227,26 @@ static void handle_read(int i, struct Runner *runner)
     size_t remaining = runner->input_buffer_size;
     while ((eol = memchr(sol, '\n', remaining)))
     {
+        bool illegalOpcode = false;
         eol++;
         size_t n = eol - sol;
         char *soc;
+        if (runner->crashed)
+        {
+            sol += n;
+            consumed += n;
+            remaining -= n;
+            continue;
+        }
         if (runner->input_buffer_size >= strlen("GBA: ")
          && !strncmp(sol, "GBA: ", strlen("GBA: ")))
         {
             soc = sol + strlen("GBA: ");
+            if (!strncmp(soc, "Illegal opcode:", strlen("Illegal opcode:")))
+            {
+                illegalOpcode = true;
+                runner->illegalOpcodes++;
+            }
             goto buffer_output;
         }
         else if (runner->input_buffer_size >= strlen("GBA Debug: ")
@@ -218,6 +258,7 @@ static void handle_read(int i, struct Runner *runner)
                 switch (soc[1])
                 {
                 case 'N':
+                    runner->illegalOpcodes = 0;
                     soc += 2;
                     if (sizeof(runner->test_name) <= eol - soc - 1)
                     {
@@ -301,6 +342,8 @@ buffer_output:
                 }
                 memcpy(runner->output_buffer + runner->output_buffer_size, soc, eol - soc);
                 runner->output_buffer_size += eol - soc;
+                if (illegalOpcode && runner->illegalOpcodes >= MAX_ILLEGAL_OPCODES)
+                    report_crash(i, runner);
             }
         }
         else
@@ -765,6 +808,8 @@ int main(int argc, char *argv[])
             fwrite(runners[i].output_buffer, 1, runners[i].output_buffer_size, stdout);
         if (WIFEXITED(wstatus) && WEXITSTATUS(wstatus) > exit_code)
             exit_code = WEXITSTATUS(wstatus);
+        if (runners[i].crashed && exit_code == 0)
+            exit_code = 1;
         passes += runners[i].passes;
         knownFails += runners[i].knownFails;
         for (int j = 0; j < runners[i].knownFailsPassing; j++)

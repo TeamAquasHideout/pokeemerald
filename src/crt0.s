@@ -31,8 +31,14 @@ Init::
 	b Init
 
 	.align 2, 0
+#if TESTING
+@ Keep the test runner's reset-persistent state above both stacks.
+sp_sys: .word IWRAM_END - 0x3a0
+sp_irq: .word IWRAM_END - 0x240
+#else
 sp_sys: .word IWRAM_END - 0x1c0
 sp_irq: .word IWRAM_END - 0x60
+#endif
 
 	.pool
 

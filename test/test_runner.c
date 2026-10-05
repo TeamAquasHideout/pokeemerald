@@ -282,7 +282,7 @@ top:
         }
 
         Test_MgbaPrintf(":N%s", gTestRunnerState.test->name);
-        Test_MgbaPrintf(":L%s:%d", gTestRunnerState.test->filename);
+        Test_MgbaPrintf(":L%s:%d", gTestRunnerState.test->filename, SourceLine(0));
         gTestRunnerState.result = TEST_RESULT_PASS;
         gTestRunnerState.expectedResult = TEST_RESULT_PASS;
         gTestRunnerState.expectLeaks = FALSE;
@@ -873,6 +873,11 @@ void DACSEntry(void)
 
 void DACSHandle(void)
 {
+    uintptr_t persistentAddress = gPersistentTestRunnerState.address;
+    if (persistentAddress >= (uintptr_t)__start_tests
+     && persistentAddress < (uintptr_t)__stop_tests
+     && (persistentAddress - (uintptr_t)__start_tests) % sizeof(struct Test) == 0)
+        gTestRunnerState.test = (const struct Test *)persistentAddress;
     if (gTestRunnerState.state == STATE_RUN_TEST)
         gTestRunnerState.state = STATE_REPORT_RESULT;
     gTestRunnerState.result = TEST_RESULT_CRASH;
