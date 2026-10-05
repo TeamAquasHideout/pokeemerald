@@ -4256,11 +4256,11 @@ static void Cmd_tryfaintmon(void)
         if (cmd->battler == BS_ATTACKER)
             TryUpdateEvolutionTracker(IF_DEFEAT_X_WITH_ITEMS, 1, MOVE_NONE);
 
-        gBattlerFainted = battler;
         faintScript = BattleScript_FaintBattler;
         if (!(gAbsentBattlerFlags & (1u << battler))
          && !IsBattlerAlive(battler))
         {
+            gBattlerFainted = battler;
             gHitMarker |= HITMARKER_FAINTED(battler);
             BattleScriptPush(cmd->nextInstr);
             gBattlescriptCurrInstr = faintScript;
