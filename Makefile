@@ -214,8 +214,10 @@ RAMSCRGEN    := $(TOOLS_DIR)/ramscrgen/ramscrgen$(EXE)
 FIX          := $(TOOLS_DIR)/gbafix/gbafix$(EXE)
 MAPJSON      := $(TOOLS_DIR)/mapjson/mapjson$(EXE)
 JSONPROC     := $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)
-#TRAINERPROC  := $(TOOLS_DIR)/trainerproc/trainerproc$(EXE)
 PATCHELF     := $(TOOLS_DIR)/patchelf/patchelf$(EXE)
+ifeq ($(TEST),1)
+  TRAINERPROC := $(TOOLS_DIR)/trainerproc/trainerproc$(EXE)
+endif
 ifeq ($(shell uname),Darwin)
     ROMTEST ?= $(shell command -v mgba-rom-test-mac 2>/dev/null || echo $(TOOLS_DIR)/mgba/mgba-rom-test-mac)
     ROMTESTHYDRA := $(shell command -v mgba-rom-test-hydra 2>/dev/null || echo $(TOOLS_DIR)/mgba-rom-test-hydra/mgba-rom-test-hydra)
@@ -404,7 +406,18 @@ include map_data_rules.mk
 include spritesheet_rules.mk
 include json_data_rules.mk
 include audio_rules.mk
-#include trainer_rules.mk
+
+# The roguelite keeps its trainer data in a hand-maintained header.  Only the
+# test ROM needs trainerproc, for the isolated trainer-control fixture.
+ifeq ($(TEST),1)
+$(TRAINERPROC): $(TOOLS_DIR)/trainerproc/main.c $(TOOLS_DIR)/trainerproc/Makefile
+	@$(MAKE) -C $(TOOLS_DIR)/trainerproc
+
+$(TEST_SUBDIR)/battle/trainer_control.h: $(TEST_SUBDIR)/battle/trainer_control.party $(TRAINERPROC)
+	$(CPP) $(CPPFLAGS) -traditional-cpp - < $< | $(TRAINERPROC) -o $@ -i $< -
+
+$(TEST_BUILDDIR)/battle/trainer_control.o: $(TEST_SUBDIR)/battle/trainer_control.h
+endif
 
 # NOTE: Tools must have been built prior (FIXME)
 # so you can't really call this rule directly
@@ -430,6 +443,7 @@ generated: $(AUTO_GEN_TARGETS)
 
 clean-generated:
 	@rm -f $(AUTO_GEN_TARGETS)
+	@rm -f $(TEST_SUBDIR)/battle/trainer_control.h
 	@echo "rm -f <AUTO_GEN_TARGETS>"
 
 $(C_BUILDDIR)/librfu_intr.o: CFLAGS := -mthumb-interwork -O2 -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -Wno-pointer-to-int-cast

@@ -7,8 +7,8 @@ gInitialMainCB2 = CB2_TestRunner;
 MEMORY
 {
     EWRAM            (rwx) : ORIGIN = 0x2000000, LENGTH = 256K
-    IWRAM            (rwx) : ORIGIN = 0x3000000, LENGTH = 0x7F00
-    IWRAM_PERSISTENT (rwx) : ORIGIN = 0x3007F00, LENGTH = 0x100
+    IWRAM            (rwx) : ORIGIN = 0x3000000, LENGTH = 0x7E00
+    IWRAM_PERSISTENT (rwx) : ORIGIN = 0x3007E00, LENGTH = 0x100
     ROM               (rx) : ORIGIN = 0x8000000, LENGTH = 32M
 }
 
@@ -59,9 +59,8 @@ SECTIONS {
         *libc.a:sbrkr.o(COMMON);
     } > IWRAM
 
-    /* .persistent starts at 0x3007F00 */
-    /* WARNING: This is the end of the IRQ stack, if there's too
-     * much data it WILL be overwritten. */
+    /* The GBA BIOS preserves the final 0x200 bytes of IWRAM during a
+     * soft reset. Test stacks are kept below this persistent state. */
     .iwram.persistent (NOLOAD) :
     ALIGN(4)
     {
