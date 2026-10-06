@@ -5,6 +5,7 @@
 #include "load_save.h"
 #include "main.h"
 #include "malloc.h"
+#include "pit.h"
 #include "random.h"
 #include "task.h"
 #include "constants/characters.h"
@@ -191,6 +192,12 @@ static void ClearSaveBlocks(void)
     ClearSav1();
     ClearSav2();
     ClearSav3();
+    gSaveBlock2Ptr->randomMoves = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomAbilities = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomBST = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomType = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomEvos = OPTIONS_OFF;
+    gSaveBlock2Ptr->randomBattleWeather = NO_B_WEATHER;
 }
 
 void CB2_TestRunner(void)
