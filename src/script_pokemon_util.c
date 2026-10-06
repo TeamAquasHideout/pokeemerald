@@ -292,12 +292,28 @@ void HasGigantamaxFactor(struct ScriptContext *ctx)
 void ToggleGigantamaxFactor(struct ScriptContext *ctx)
 {
     u32 partyIndex = VarGet(ScriptReadHalfword(ctx));
+#if !TESTING
     u32 species = SanitizeSpeciesId(GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES));
+#endif
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
 
     gSpecialVar_Result = FALSE;
 
+#if TESTING
+    if (partyIndex < PARTY_SIZE)
+    {
+        bool32 gigantamaxFactor;
+
+        if (gSpeciesInfo[SanitizeSpeciesId(GetMonData(&gPlayerParty[partyIndex], MON_DATA_SPECIES))].isMythical)
+            return;
+
+        gigantamaxFactor = GetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR);
+        gigantamaxFactor = !gigantamaxFactor;
+        SetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR, &gigantamaxFactor);
+        gSpecialVar_Result = TRUE;
+    }
+#else
     if (species == SPECIES_NONE)
         return;
 
@@ -312,6 +328,7 @@ void ToggleGigantamaxFactor(struct ScriptContext *ctx)
         SetMonData(&gPlayerParty[partyIndex], MON_DATA_GIGANTAMAX_FACTOR, &gigantamaxFactor);
         gSpecialVar_Result = 1;
     }
+#endif
 }
 
 void CheckTeraType(struct ScriptContext *ctx)
@@ -336,6 +353,133 @@ void SetTeraType(struct ScriptContext *ctx)
     if (type < NUMBER_OF_MON_TYPES && partyIndex < PARTY_SIZE)
         SetMonData(&gPlayerParty[partyIndex], MON_DATA_TERA_TYPE, &type);
 }
+
+#if TESTING
+// The roguelite intentionally replaces scripted Pokemon, items, and balls with
+// randomized rewards. Tests use createmon/givemon as exact fixture builders,
+// so retain the expansion command semantics in the test ROM.
+static u32 ScriptGiveMonParameterizedForTesting(u8 side, u8 slot, u16 species, u8 level, u16 item, enum PokeBall ball, u8 nature, u8 abilityNum, u8 gender, u8 *evs, u8 *ivs, u16 *moves, enum ShinyMode shinyMode, bool8 gmaxFactor, enum Type teraType, u8 dmaxLevel)
+{
+    enum NationalDexOrder nationalDexNum;
+    int sentToPc;
+    struct Pokemon mon;
+    u32 i;
+    u8 genderRatio = gSpeciesInfo[species].genderRatio;
+    u16 targetSpecies;
+    bool32 isShiny;
+
+    if (nature >= NUM_NATURES)
+    {
+        if (OW_SYNCHRONIZE_NATURE >= GEN_6
+         && (gSpeciesInfo[species].eggGroups[0] == EGG_GROUP_NO_EGGS_DISCOVERED || OW_SYNCHRONIZE_NATURE == GEN_7))
+            nature = PickWildMonNature();
+        else
+            nature = Random() % NUM_NATURES;
+    }
+
+    if ((gender == MON_MALE && genderRatio != MON_FEMALE && genderRatio != MON_GENDERLESS)
+     || (gender == MON_FEMALE && genderRatio != MON_MALE && genderRatio != MON_GENDERLESS)
+     || (gender == MON_GENDERLESS && genderRatio == MON_GENDERLESS))
+        CreateMonWithGenderNatureLetter(&mon, species, level, 32, gender, nature, 0);
+    else
+        CreateMonWithNature(&mon, species, level, 32, nature);
+
+    if (shinyMode == SHINY_MODE_ALWAYS || (P_FLAG_FORCE_SHINY != 0 && FlagGet(P_FLAG_FORCE_SHINY)))
+        isShiny = TRUE;
+    else if (shinyMode == SHINY_MODE_NEVER || (P_FLAG_FORCE_NO_SHINY != 0 && FlagGet(P_FLAG_FORCE_NO_SHINY)))
+        isShiny = FALSE;
+    else
+        isShiny = GetMonData(&mon, MON_DATA_IS_SHINY);
+    SetMonData(&mon, MON_DATA_IS_SHINY, &isShiny);
+    SetMonData(&mon, MON_DATA_GIGANTAMAX_FACTOR, &gmaxFactor);
+    SetMonData(&mon, MON_DATA_DYNAMAX_LEVEL, &dmaxLevel);
+
+    if (teraType == TYPE_NONE || teraType == TYPE_MYSTERY || teraType >= NUMBER_OF_MON_TYPES)
+        teraType = GetTeraTypeFromPersonality(&mon);
+    SetMonData(&mon, MON_DATA_TERA_TYPE, &teraType);
+
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        if (evs[i] <= MAX_PER_STAT_EVS)
+            SetMonData(&mon, MON_DATA_HP_EV + i, &evs[i]);
+        if (ivs[i] <= MAX_PER_STAT_IVS)
+            SetMonData(&mon, MON_DATA_HP_IV + i, &ivs[i]);
+    }
+    CalculateMonStats(&mon);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[0] == MOVE_NONE)
+            break;
+        if (moves[i] >= MOVES_COUNT)
+            continue;
+        SetMonMoveSlot(&mon, moves[i], i);
+    }
+
+    if (abilityNum == NUM_ABILITY_PERSONALITY)
+    {
+        abilityNum = GetMonData(&mon, MON_DATA_PERSONALITY) & 1;
+    }
+    else if (abilityNum > NUM_NORMAL_ABILITY_SLOTS || GetAbilityBySpecies(species, abilityNum) == ABILITY_NONE)
+    {
+        do {
+            abilityNum = Random() % NUM_ABILITY_SLOTS;
+        } while (GetAbilityBySpecies(species, abilityNum) == ABILITY_NONE);
+    }
+    SetMonData(&mon, MON_DATA_ABILITY_NUM, &abilityNum);
+
+    if (ball > POKEBALL_COUNT)
+        ball = BALL_POKE;
+    SetMonData(&mon, MON_DATA_POKEBALL, &ball);
+    SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
+
+    targetSpecies = GetFormChangeTargetSpecies(&mon, FORM_CHANGE_ITEM_HOLD, 0);
+    if (targetSpecies != SPECIES_NONE)
+        SetMonData(&mon, MON_DATA_SPECIES, &targetSpecies);
+
+    SetMonData(&mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+    SetMonData(&mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+
+    if (slot < PARTY_SIZE)
+    {
+        if (side == 0)
+            CopyMon(&gPlayerParty[slot], &mon, sizeof(struct Pokemon));
+        else
+            CopyMon(&gEnemyParty[slot], &mon, sizeof(struct Pokemon));
+        sentToPc = MON_GIVEN_TO_PARTY;
+    }
+    else
+    {
+        for (i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+                break;
+        }
+        if (i >= PARTY_SIZE)
+        {
+            sentToPc = CopyMonToPC(&mon);
+        }
+        else
+        {
+            sentToPc = MON_GIVEN_TO_PARTY;
+            CopyMon(&gPlayerParty[i], &mon, sizeof(mon));
+            gPlayerPartyCount = i + 1;
+        }
+    }
+
+    if (side == 0)
+    {
+        nationalDexNum = SpeciesToNationalPokedexNum(species);
+        if (sentToPc != MON_CANT_GIVE)
+        {
+            GetSetPokedexFlag(nationalDexNum, FLAG_SET_SEEN);
+            GetSetPokedexFlag(nationalDexNum, FLAG_SET_CAUGHT);
+        }
+    }
+
+    return sentToPc;
+}
+#endif
 
 u32 ScriptGiveMonParameterized(u16 species, u8 level, u16 item, u8 ball, u8 nature, u8 abilityNum, u8 gender, u8 *evs, u8 *ivs, u16 *moves, bool8 ggMaxFactor, u8 teraType, bool8 isShiny)
 {
@@ -473,9 +617,13 @@ u32 ScriptGiveMon(u16 species, u8 level, u16 item)
                                 MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1, MAX_PER_STAT_IVS + 1};  // ScriptGiveMonParameterized won't touch the stats' IV.
     u16 moves[MAX_MON_MOVES] = {MOVE_NONE, MOVE_NONE, MOVE_NONE, MOVE_NONE};
 
+#if TESTING
+    return ScriptGiveMonParameterizedForTesting(0, PARTY_SIZE, species, level, item, ITEM_POKE_BALL, NUM_NATURES, NUM_ABILITY_PERSONALITY, MON_GENDERLESS, evs, ivs, moves, SHINY_MODE_RANDOM, FALSE, NUMBER_OF_MON_TYPES, 0);
+#else
     species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
 
     return ScriptGiveMonParameterized(species, level, item, ITEM_POKE_BALL, NUM_NATURES, NUM_ABILITY_PERSONALITY, MON_GENDERLESS, evs, ivs, moves, FALSE, NUMBER_OF_MON_TYPES, FALSE);
+#endif
 }
 
 #define PARSE_FLAG(n, default_) (flags & (1 << (n))) ? VarGet(ScriptReadHalfword(ctx)) : (default_)
@@ -489,10 +637,12 @@ void ScrCmd_createmon(struct ScriptContext *ctx)
     u16 species       = VarGet(ScriptReadHalfword(ctx));
     u8 level          = VarGet(ScriptReadHalfword(ctx));
 
+#if !TESTING
     if (VarGet(VAR_PIT_FLOOR) > 5)
     {
         level = VarGet(VAR_PIT_FLOOR) > 100 ? 100 : VarGet(VAR_PIT_FLOOR);
     }
+#endif
 
     u32 flags         = ScriptReadWord(ctx);
     u16 item          = PARSE_FLAG(0, ITEM_NONE);
@@ -506,28 +656,86 @@ void ScrCmd_createmon(struct ScriptContext *ctx)
     u8 speedEv        = PARSE_FLAG(8, 0);
     u8 spAtkEv        = PARSE_FLAG(9, 0);
     u8 spDefEv        = PARSE_FLAG(10, 0);
+#if TESTING
+    u8 hpIv           = Random() % (MAX_PER_STAT_IVS + 1);
+    u8 atkIv          = Random() % (MAX_PER_STAT_IVS + 1);
+    u8 defIv          = Random() % (MAX_PER_STAT_IVS + 1);
+    u8 speedIv        = Random() % (MAX_PER_STAT_IVS + 1);
+    u8 spAtkIv        = Random() % (MAX_PER_STAT_IVS + 1);
+    u8 spDefIv        = Random() % (MAX_PER_STAT_IVS + 1);
+    u32 i;
+    enum Stat availableIVs[NUM_STATS];
+    enum Stat selectedIvs[NUM_STATS];
+    if (gSpeciesInfo[species].perfectIVCount != 0)
+    {
+        for (i = 0; i < NUM_STATS; i++)
+            availableIVs[i] = i;
+        for (i = 0; i < NUM_STATS && i < gSpeciesInfo[species].perfectIVCount; i++)
+        {
+            u8 index = Random() % (NUM_STATS - i);
+            selectedIvs[i] = availableIVs[index];
+            RemoveIVIndexFromList(availableIVs, index);
+        }
+        for (i = 0; i < NUM_STATS && i < gSpeciesInfo[species].perfectIVCount; i++)
+        {
+            switch (selectedIvs[i])
+            {
+            case STAT_HP:    hpIv    = MAX_PER_STAT_IVS; break;
+            case STAT_ATK:   atkIv   = MAX_PER_STAT_IVS; break;
+            case STAT_DEF:   defIv   = MAX_PER_STAT_IVS; break;
+            case STAT_SPEED: speedIv = MAX_PER_STAT_IVS; break;
+            case STAT_SPATK: spAtkIv = MAX_PER_STAT_IVS; break;
+            case STAT_SPDEF: spDefIv = MAX_PER_STAT_IVS; break;
+            default: break;
+            }
+        }
+    }
+    hpIv                     = PARSE_FLAG(11, hpIv);
+    atkIv                    = PARSE_FLAG(12, atkIv);
+    defIv                    = PARSE_FLAG(13, defIv);
+    speedIv                  = PARSE_FLAG(14, speedIv);
+    spAtkIv                  = PARSE_FLAG(15, spAtkIv);
+    spDefIv                  = PARSE_FLAG(16, spDefIv);
+#else
     u8 hpIv           = PARSE_FLAG(11, Random() % (MAX_PER_STAT_IVS + 1));
     u8 atkIv          = PARSE_FLAG(12, Random() % (MAX_PER_STAT_IVS + 1));
     u8 defIv          = PARSE_FLAG(13, Random() % (MAX_PER_STAT_IVS + 1));
     u8 speedIv        = PARSE_FLAG(14, Random() % (MAX_PER_STAT_IVS + 1));
     u8 spAtkIv        = PARSE_FLAG(15, Random() % (MAX_PER_STAT_IVS + 1));
     u8 spDefIv        = PARSE_FLAG(16, Random() % (MAX_PER_STAT_IVS + 1));
+#endif
     u16 move1         = PARSE_FLAG(17, MOVE_NONE);
     u16 move2         = PARSE_FLAG(18, MOVE_NONE);
     u16 move3         = PARSE_FLAG(19, MOVE_NONE);
     u16 move4         = PARSE_FLAG(20, MOVE_NONE);
+#if TESTING
+    enum ShinyMode shinyMode = PARSE_FLAG(21, SHINY_MODE_RANDOM);
+    bool8 ggMaxFactor = PARSE_FLAG(22, FALSE);
+    enum Type teraType = PARSE_FLAG(23, NUMBER_OF_MON_TYPES);
+    u8 dmaxLevel      = PARSE_FLAG(24, 0);
+#else
     bool8 isShiny     = PARSE_FLAG(21, FALSE);
     bool8 ggMaxFactor = PARSE_FLAG(22, FALSE);
     u8 teraType       = PARSE_FLAG(23, NUMBER_OF_MON_TYPES);
+#endif
 
     u8 evs[NUM_STATS]        = {hpEv, atkEv, defEv, speedEv, spAtkEv, spDefEv};
     u8 ivs[NUM_STATS]        = {hpIv, atkIv, defIv, speedIv, spAtkIv, spDefIv};
     u16 moves[MAX_MON_MOVES] = {move1, move2, move3, move4};
 
-    if(!FlagGet(FLAG_DONT_RANDOMIZE_NEXT_MON))
+#if TESTING
+    if (side == 0)
+        Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    else
+        Script_RequestEffects(SCREFF_V1);
+
+    gSpecialVar_Result = ScriptGiveMonParameterizedForTesting(side, slot, species, level, item, ball, nature, abilityNum, gender, evs, ivs, moves, shinyMode, ggMaxFactor, teraType, dmaxLevel);
+#else
+    if (!FlagGet(FLAG_DONT_RANDOMIZE_NEXT_MON))
         species = GetRandomSpeciesFlattenedCurve(PLAYER_MONS);
 
     gSpecialVar_Result = ScriptGiveMonParameterized(species, level, item, ball, nature, abilityNum, gender, evs, ivs, moves, ggMaxFactor, teraType, isShiny);
+#endif
 }
 
 
